@@ -9,38 +9,38 @@ namespace mako\tests\unit\chrono;
 
 use DateTime;
 use DateTimeZone;
-use mako\chrono\Time;
+use mako\chrono\TimeImmutable;
 use mako\tests\TestCase;
 
 /**
  * @group unit
  */
-class TimeTest extends TestCase
+class TimeImmutableTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testConstructor(): void
 	{
-		$time = new Time;
+		$time = new TimeImmutable;
 
 		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime)->format('Y-m-d H:i'));
 
 		//
 
-		$time = new Time('yesterday');
+		$time = new TimeImmutable('yesterday');
 
 		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime('yesterday'))->format('Y-m-d H:i'));
 
 		//
 
-		$time = new Time('now', 'Asia/Tokyo');
+		$time = new TimeImmutable('now', 'Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
-		$time = new Time('now', new DateTimeZone('Asia/Tokyo'));
+		$time = new TimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
@@ -50,19 +50,19 @@ class TimeTest extends TestCase
 	 */
 	public function testNow(): void
 	{
-		$time = Time::now();
+		$time = TimeImmutable::now();
 
 		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime)->format('Y-m-d H:i'));
 
 		//
 
-		$time = Time::now('Asia/Tokyo');
+		$time = TimeImmutable::now('Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
-		$time = Time::now(new DateTimeZone('Asia/Tokyo'));
+		$time = TimeImmutable::now(new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
@@ -72,7 +72,7 @@ class TimeTest extends TestCase
 	 */
 	public function testCreateFromDate(): void
 	{
-		$time = Time::createFromDate(1983);
+		$time = TimeImmutable::createFromDate(1983);
 
 		$this->assertSame('1983', $time->format('Y'));
 
@@ -80,7 +80,7 @@ class TimeTest extends TestCase
 
 		//
 
-		$time = Time::createFromDate(1983, 8);
+		$time = TimeImmutable::createFromDate(1983, 8);
 
 		$this->assertSame('1983-08', $time->format('Y-m'));
 
@@ -88,7 +88,7 @@ class TimeTest extends TestCase
 
 		//
 
-		$time = Time::createFromDate(1983, 8, 30);
+		$time = TimeImmutable::createFromDate(1983, 8, 30);
 
 		$this->assertSame('1983-08-30', $time->format('Y-m-d'));
 
@@ -96,13 +96,13 @@ class TimeTest extends TestCase
 
 		//
 
-		$time = Time::createFromDate(1983, 8, 30, 'Asia/Tokyo');
+		$time = TimeImmutable::createFromDate(1983, 8, 30, 'Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
-		$time = Time::createFromDate(1983, 8, 30, new DateTimeZone('Asia/Tokyo'));
+		$time = TimeImmutable::createFromDate(1983, 8, 30, new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
@@ -112,19 +112,19 @@ class TimeTest extends TestCase
 	 */
 	public function testCreateFromTimestamp(): void
 	{
-		$time = Time::createFromTimestamp(431093532);
+		$time = TimeImmutable::createFromTimestamp(431093532);
 
 		$this->assertSame(431093532, $time->getTimestamp());
 
 		//
 
-		$time = Time::createFromTimestamp(431093532, 'Asia/Tokyo');
+		$time = TimeImmutable::createFromTimestamp(431093532, 'Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
-		$time = Time::createFromTimestamp(431093532, new DateTimeZone('Asia/Tokyo'));
+		$time = TimeImmutable::createFromTimestamp(431093532, new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
@@ -134,7 +134,7 @@ class TimeTest extends TestCase
 	 */
 	public function testCreateFromDOSTimestamp(): void
 	{
-		$time = Time::createFromDOSTimestamp(119431558);
+		$time = TimeImmutable::createFromDOSTimestamp(119431558);
 
 		$this->assertSame('1983-08-30', $time->format('Y-m-d'));
 	}
@@ -144,19 +144,19 @@ class TimeTest extends TestCase
 	 */
 	public function testCreateFromFormat(): void
 	{
-		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
+		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
 
 		$this->assertSame('1983-08-30 13:37:33', $time->format('Y-m-d H:i:s'));
 
 		//
 
-		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
+		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
-		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', new DateTimeZone('Asia/Tokyo'));
+		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
@@ -166,7 +166,7 @@ class TimeTest extends TestCase
 	 */
 	public function testSetTimeZone(): void
 	{
-		$time = new Time;
+		$time = new TimeImmutable;
 
 		$this->assertSame('Asia/Tokyo', $time->setTimeZone('Asia/Tokyo')->getTimeZone()->getName());
 	}
@@ -176,7 +176,7 @@ class TimeTest extends TestCase
 	 */
 	public function testForward(): void
 	{
-		$time = Time::createFromTimestamp(431093532);
+		$time = TimeImmutable::createFromTimestamp(431093532);
 
 		$this->assertSame(431093562, $time->forward(30)->getTimestamp());
 	}
@@ -186,7 +186,7 @@ class TimeTest extends TestCase
 	 */
 	public function testRewind(): void
 	{
-		$time = Time::createFromTimestamp(431093532);
+		$time = TimeImmutable::createFromTimestamp(431093532);
 
 		$this->assertSame(431093502, $time->rewind(30)->getTimestamp());
 	}
@@ -196,7 +196,7 @@ class TimeTest extends TestCase
 	 */
 	public function testGetDOSTimestamp(): void
 	{
-		$time = Time::createFromTimestamp(431093532);
+		$time = TimeImmutable::createFromTimestamp(431093532);
 
 		$this->assertSame(119431558, $time->getDOSTimestamp());
 	}
@@ -206,13 +206,13 @@ class TimeTest extends TestCase
 	 */
 	public function testIsLeapYear(): void
 	{
-		$time = Time::createFromDate(1983);
+		$time = TimeImmutable::createFromDate(1983);
 
 		$this->assertFalse($time->isLeapYear());
 
 		//
 
-		$time = Time::createFromDate(1984);
+		$time = TimeImmutable::createFromDate(1984);
 
 		$this->assertTrue($time->isLeapYear());
 	}
@@ -222,79 +222,79 @@ class TimeTest extends TestCase
 	 */
 	public function testDaysInMonth(): void
 	{
-		$time = Time::createFromDate(1983, 1);
+		$time = TimeImmutable::createFromDate(1983, 1);
 
 		$this->assertSame(31, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 2);
+		$time = TimeImmutable::createFromDate(1983, 2);
 
 		$this->assertSame(28, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1984, 2);
+		$time = TimeImmutable::createFromDate(1984, 2);
 
 		$this->assertSame(29, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 3);
+		$time = TimeImmutable::createFromDate(1983, 3);
 
 		$this->assertSame(31, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 4);
+		$time = TimeImmutable::createFromDate(1983, 4);
 
 		$this->assertSame(30, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 5);
+		$time = TimeImmutable::createFromDate(1983, 5);
 
 		$this->assertSame(31, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 6);
+		$time = TimeImmutable::createFromDate(1983, 6);
 
 		$this->assertSame(30, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 7);
+		$time = TimeImmutable::createFromDate(1983, 7);
 
 		$this->assertSame(31, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 8);
+		$time = TimeImmutable::createFromDate(1983, 8);
 
 		$this->assertSame(31, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 9);
+		$time = TimeImmutable::createFromDate(1983, 9);
 
 		$this->assertSame(30, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 10);
+		$time = TimeImmutable::createFromDate(1983, 10);
 
 		$this->assertSame(31, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 11);
+		$time = TimeImmutable::createFromDate(1983, 11);
 
 		$this->assertSame(30, $time->daysInMonth());
 
 		//
 
-		$time = Time::createFromDate(1983, 12);
+		$time = TimeImmutable::createFromDate(1983, 12);
 
 		$this->assertSame(31, $time->daysInMonth());
 	}
@@ -304,7 +304,7 @@ class TimeTest extends TestCase
 	 */
 	public function testFormatLocalized(): void
 	{
-		$time = Time::createFromDate(1983, 8, 30);
+		$time = TimeImmutable::createFromDate(1983, 8, 30);
 
 		$locale = setlocale(LC_TIME, null);
 

@@ -7,15 +7,15 @@
 
 namespace mako\chrono;
 
-use DateTime;
+use DateTimeImmutable;
 use mako\chrono\traits\TimeTrait;
 
 /**
- * Extension of the PHP DateTime class.
+ * Extension of the PHP DateTimeImmutable class.
  *
  * @author Frederic G. Østby
  */
-class Time extends DateTime implements TimeInterface
+class TimeImmutable extends DateTimeImmutable implements TimeInterface
 {
 	use TimeTrait;
 }
