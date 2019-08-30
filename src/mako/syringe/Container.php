@@ -277,14 +277,7 @@ class Container
 
 		foreach($providedParameters as $key => $value)
 		{
-			if(is_int($key))
-			{
-				$associativeProvidedParameters[$reflectionParameters[$key]->getName()] = $value;
-			}
-			else
-			{
-				$associativeProvidedParameters[$key] = $value;
-			}
+			$associativeProvidedParameters[is_int($key) ? $reflectionParameters[$key]->getName() : $key] = $value;
 		}
 
 		// Return merged parameters
