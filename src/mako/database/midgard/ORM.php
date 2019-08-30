@@ -1054,14 +1054,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function protect($column)
 	{
-		if($column === false)
-		{
-			$this->protected = [];
-		}
-		else
-		{
-			$this->protected = array_unique(array_merge($this->protected, (array) $column));
-		}
+		$this->protected = $column === false ? [] : array_unique(array_merge($this->protected, (array) $column));
 
 		return $this;
 	}
@@ -1075,14 +1068,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function expose($column)
 	{
-		if($column === true)
-		{
-			$this->protected = [];
-		}
-		else
-		{
-			$this->protected = array_diff($this->protected, (array) $column);
-		}
+		$this->protected = $column === true ? [] : array_diff($this->protected, (array) $column);
 
 		return $this;
 	}
