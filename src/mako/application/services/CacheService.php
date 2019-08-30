@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use mako\cache\CacheManager;
+use mako\cache\stores\StoreInterface;
 
 /**
  * Cache service.
@@ -21,6 +22,8 @@ class CacheService extends Service
 	 */
 	public function register(): void
 	{
+		// Register the cache manager
+
 		$this->container->registerSingleton([CacheManager::class, 'cache'], function($container)
 		{
 			// Get configuration
@@ -32,6 +35,13 @@ class CacheService extends Service
 			// Create and return cache manager
 
 			return new CacheManager($config['default'], $config['configurations'], $container, $classWhitelist);
+		});
+
+		// Register the default cache store
+
+		$this->container->registerSingleton(StoreInterface::class, static function($container)
+		{
+			return $container->get(CacheManager::class)->instance();
 		});
 	}
 }

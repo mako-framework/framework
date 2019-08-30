@@ -31,7 +31,7 @@ class HTTPService extends Service
 
 		// Request
 
-		$this->container->registerSingleton([Request::class, 'request'], function($container) use ($config)
+		$this->container->registerSingleton([Request::class, 'request'], static function($container) use ($config)
 		{
 			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class));
 
@@ -97,7 +97,7 @@ class HTTPService extends Service
 
 		// URLBuilder
 
-		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], function($container) use ($config)
+		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static function($container) use ($config)
 		{
 			return new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']);
 		});
