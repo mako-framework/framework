@@ -147,9 +147,9 @@ class ArgvParser
 	/**
 	 * Clears the parsed argument cache.
 	 *
-	 * @return $this
+	 * @return \mako\cli\input\arguments\ArgvParser
 	 */
-	public function clearCache()
+	public function clearCache(): ArgvParser
 	{
 		$this->parsed = [];
 
