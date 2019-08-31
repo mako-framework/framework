@@ -25,9 +25,9 @@ use function vsprintf;
 /**
  * Redis client.
  *
- * Based on the protocol specification at http://redis.io/topics/protocol.
- *
  * @author Frederic G. Østby
+ *
+ * @see http://redis.io/topics/protocol Redis protocol specification.
  *
  * @method mixed append()
  * @method mixed auth()
