@@ -5,6 +5,8 @@
 * Added `TimeImmutable` class.
 * Added `Time::copy()` method.
 * Added `Time::getImmutable()` method.
+* Added `Redis::subscribeTo()` method.
+* Added `Redis::subscribeToPattern()` method.
 
 --------------------------------------------------------
 

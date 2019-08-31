@@ -573,6 +573,59 @@ class Redis
 	}
 
 	/**
+	 * Subscribes to the chosen channels.
+	 *
+	 * @param array    $channels    Channels
+	 * @param \Closure $subscriber  Subscriber
+	 * @param array    $accept      Message types to accept
+	 * @param string   $subscribe   Subscribe command
+	 * @param string   $unsubscribe Unsubscribe command
+	 */
+	protected function subscribe(array $channels, Closure $subscriber, array $accept, string $subscribe, string $unsubscribe): void
+	{
+		$this->sendCommand($this->buildCommand($subscribe, $channels));
+
+		while(true)
+		{
+			$message = new Message($this->getResponse());
+
+			if(in_array($message->getType(), $accept) && $subscriber($message) === false)
+			{
+				break;
+			}
+		}
+
+		foreach($channels as $channel)
+		{
+			$this->sendCommandAndGetResponse($this->buildCommand($unsubscribe, [$channel]));
+		}
+	}
+
+	/**
+	 * Subscribes to the chosen channels.
+	 *
+	 * @param array    $channels   Channels
+	 * @param \Closure $subscriber Subscriber
+	 * @param array    $accept     Message types to accept
+	 */
+	public function subscribeTo(array $channels, Closure $subscriber, array $accept = ['message']): void
+	{
+		$this->subscribe($channels, $subscriber, $accept, 'subscribe', 'unsubscribe');
+	}
+
+	/**
+	 * Subscribes to the chosen channels.
+	 *
+	 * @param array    $channels   Channels
+	 * @param \Closure $subscriber Subscriber
+	 * @param array    $accept     Message types to accept
+	 */
+	public function subscribeToPattern(array $channels, Closure $subscriber, array $accept = ['pmessage']): void
+	{
+		$this->subscribe($channels, $subscriber, $accept, 'psubscribe', 'punsubscribe');
+	}
+
+	/**
 	 * Pipeline commands.
 	 *
 	 * @param  \Closure $pipeline Pipelined commands
