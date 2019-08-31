@@ -511,15 +511,65 @@ class Redis
 	}
 
 	/**
+	 * Builds command.
+	 *
+	 * @param  string $name      Camel cased or snake cased command name
+	 * @param  array  $arguments Command arguments
+	 * @return array
+	 */
+	protected function buildCommand(string $name, array $arguments = []): string
+	{
+		$command = strtoupper(str_replace('_', ' ', Str::camel2underscored($name)));
+
+		if(strpos($command, ' ') === false)
+		{
+			$command = [$command];
+		}
+		else
+		{
+			$command = explode(' ', $command, 2);
+
+			if(strpos($command[1], ' ') !== false)
+			{
+				$command[1] = str_replace(' ', '-', $command[1]);
+			}
+		}
+
+		$pieces = array_merge($command, $arguments);
+
+		$command = '*' . count($pieces) . static::CRLF;
+
+		foreach($pieces as $piece)
+		{
+			$command .= '$' . strlen($piece) . static::CRLF . $piece . static::CRLF;
+		}
+
+		return $command;
+	}
+
+	/**
 	 * Sends command to server.
 	 *
 	 * @param string $command Command
 	 */
-	protected function sendCommandToServer(string $command): void
+	protected function sendCommand(string $command): void
 	{
 		$this->lastCommand = $command;
 
 		$this->connection->write($command);
+	}
+
+	/**
+	 * Executes raw Redis commands and returns the response.
+	 *
+	 * @param  string $command Command
+	 * @return mixed
+	 */
+	protected function sendCommandAndGetResponse(string $command)
+	{
+		$this->sendCommand($command);
+
+		return $this->getResponse();
 	}
 
 	/**
@@ -544,7 +594,7 @@ class Redis
 
 		$commands = count($this->commands);
 
-		$this->sendCommandToServer(implode('', $this->commands));
+		$this->sendCommand(implode('', $this->commands));
 
 		for($i = 0; $i < $commands; $i++)
 		{
@@ -563,62 +613,16 @@ class Redis
 	}
 
 	/**
-	 * Executes raw Redis commands and returns the response.
+	 * Sends command to Redis server and returns response
+	 * or appends command to the pipeline and returns the client.
 	 *
-	 * @param  string $command Command
-	 * @return mixed
-	 */
-	protected function sendCommandAndGetResponse(string $command)
-	{
-		$this->sendCommandToServer($command);
-
-		return $this->getResponse();
-	}
-
-	/**
-	 * Builds command from method name.
-	 *
-	 * @param  string $name Method name
-	 * @return array
-	 */
-	protected function buildCommand(string $name): array
-	{
-		$command = strtoupper(str_replace('_', ' ', Str::camel2underscored($name)));
-
-		if(strpos($command, ' ') === false)
-		{
-			return [$command];
-		}
-
-		$command = explode(' ', $command, 2);
-
-		if(strpos($command[1], ' ') !== false)
-		{
-			$command[1] = str_replace(' ', '-', $command[1]);
-		}
-
-		return $command;
-	}
-
-	/**
-	 * Sends command to Redis server and returns response.
-	 *
-	 * @param  string $name      Command name
-	 * @param  array  $arguments Command arguments
+	 * @param  string $name      Method name
+	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments)
 	{
-		// Build command
-
-		$arguments = array_merge($this->buildCommand($name), $arguments);
-
-		$command = '*' . count($arguments) . static::CRLF;
-
-		foreach($arguments as $argument)
-		{
-			$command .= '$' . strlen($argument) . static::CRLF . $argument . static::CRLF;
-		}
+		$command = $this->buildCommand($name, $arguments);
 
 		if($this->pipelined)
 		{
@@ -628,11 +632,9 @@ class Redis
 
 			return $this;
 		}
-		else
-		{
-			// Send command to server and return response
 
-			return $this->sendCommandAndGetResponse($command);
-		}
+		// Send command to server and return response
+
+		return $this->sendCommandAndGetResponse($command);
 	}
 }
