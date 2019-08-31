@@ -9,6 +9,7 @@ namespace mako\tests\unit\chrono;
 
 use DateTime;
 use DateTimeZone;
+use mako\chrono\Time;
 use mako\chrono\TimeImmutable;
 use mako\tests\TestCase;
 
@@ -32,6 +33,20 @@ class TimeImmutableTest extends TestCase
 	/**
 	 *
 	 */
+	public function testCopy(): void
+	{
+		$time1 = new TimeImmutable;
+
+		$time2 = $time1->copy();
+
+		$time1 = $time1->forward(10);
+
+		$this->assertNotSame($time1->getTimestamp(), $time2->getTimestamp());
+	}
+
+	/**
+	 *
+	 */
 	public function testGetImmutable(): void
 	{
 		$time1 = new TimeImmutable('now', 'Europe/Oslo');
@@ -39,6 +54,8 @@ class TimeImmutableTest extends TestCase
 		$time1->setTimestamp(0);
 
 		$time2 = $time1->getMutable();
+
+		$this->assertInstanceOf(Time::class, $time2);
 
 		$this->assertSame($time1->getTimestamp(), $time2->getTimestamp());
 

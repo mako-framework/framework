@@ -24,6 +24,14 @@ class TimeImmutable extends DateTimeImmutable implements TimeInterface
 	use TimeTrait;
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function copy()
+	{
+		return $this; // No need to clone the object as it's immutable
+	}
+
+	/**
 	 * Returns a mutable instance of the current instance.
 	 *
 	 * @return \mako\chrono\Time
