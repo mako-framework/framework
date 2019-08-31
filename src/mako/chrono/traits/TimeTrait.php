@@ -3,7 +3,6 @@
 namespace mako\chrono\traits;
 
 use DateTimeZone;
-use mako\chrono\TimeInterface;
 
 use function getdate;
 use function min;
@@ -31,10 +30,10 @@ trait TimeTrait
 	/**
 	 * Returns a new instance set to the current time.
 	 *
-	 * @param  string|\DateTimeZone|null  $timeZone A valid time zone or a DateTimeZone object
-	 * @return \mako\chrono\TimeInterface
+	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
+	 * @return static
 	 */
-	public static function now($timeZone = null): TimeInterface
+	public static function now($timeZone = null)
 	{
 		return new static('now', $timeZone);
 	}
@@ -42,13 +41,13 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified date.
 	 *
-	 * @param  int                        $year     Year
-	 * @param  int|null                   $month    Month (1 to 12)
-	 * @param  int|null                   $day      Day of month (1 to 31)
-	 * @param  string|\DateTimeZone|null  $timeZone A valid time zone or a DateTimeZone object
-	 * @return \mako\chrono\TimeInterface
+	 * @param  int                       $year     Year
+	 * @param  int|null                  $month    Month (1 to 12)
+	 * @param  int|null                  $day      Day of month (1 to 31)
+	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
+	 * @return static|false
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, $timeZone = null): TimeInterface
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, $timeZone = null)
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
@@ -62,11 +61,11 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 *
-	 * @param  int                        $timestamp UNIX timestamp
-	 * @param  string|\DateTimeZone|null  $timeZone  A valid time zone or a DateTimeZone object
-	 * @return \mako\chrono\TimeInterface
+	 * @param  int                       $timestamp UNIX timestamp
+	 * @param  string|\DateTimeZone|null $timeZone  A valid time zone or a DateTimeZone object
+	 * @return static|false
 	 */
-	public static function createFromTimestamp(int $timestamp, $timeZone = null): TimeInterface
+	public static function createFromTimestamp(int $timestamp, $timeZone = null)
 	{
 		return (new static('now', $timeZone))->setTimestamp($timestamp);
 	}
@@ -74,11 +73,11 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
 	 *
-	 * @param  int                        $timestamp DOS timestamp
-	 * @param  string|\DateTimeZone|null  $timeZone  A valid time zone or a DateTimeZone object
-	 * @return \mako\chrono\TimeInterface
+	 * @param  int                       $timestamp DOS timestamp
+	 * @param  string|\DateTimeZone|null $timeZone  A valid time zone or a DateTimeZone object
+	 * @return static|false
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null): TimeInterface
+	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -95,12 +94,12 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified time string.
 	 *
-	 * @param  string                     $format   The format that the passed in string should be in
-	 * @param  string                     $time     String representing the time
-	 * @param  string|\DateTimeZone|null  $timeZone A valid time zone or a DateTimeZone object
-	 * @return \mako\chrono\TimeInterface
+	 * @param  string                    $format   The format that the passed in string should be in
+	 * @param  string                    $time     String representing the time
+	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
+	 * @return static|false
 	 */
-	public static function createFromFormat($format, $time, $timeZone = null): TimeInterface
+	public static function createFromFormat($format, $time, $timeZone = null)
 	{
 		if($timeZone !== null)
 		{
@@ -122,10 +121,10 @@ trait TimeTrait
 	/**
 	 * Sets the time zone.
 	 *
-	 * @param  string|\DateTimeZone       $timeZone A valid time zone or a DateTimeZone object
-	 * @return \mako\chrono\TimeInterface
+	 * @param  string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
+	 * @return $this|static|false
 	 */
-	public function setTimezone($timeZone): TimeInterface
+	public function setTimezone($timeZone)
 	{
 		if(($timeZone instanceof DateTimeZone) === false)
 		{
@@ -138,10 +137,10 @@ trait TimeTrait
 	/**
 	 * Move forward in time by x seconds.
 	 *
-	 * @param  int                        $seconds Number of seconds
-	 * @return \mako\chrono\TimeInterface
+	 * @param  int                $seconds Number of seconds
+	 * @return $this|static|false
 	 */
-	public function forward(int $seconds): TimeInterface
+	public function forward(int $seconds)
 	{
 		return $this->setTimestamp($this->getTimestamp() + $seconds);
 	}
@@ -149,10 +148,10 @@ trait TimeTrait
 	/**
 	 * Move backward in time by x seconds.
 	 *
-	 * @param  int                        $seconds Number of seconds
-	 * @return \mako\chrono\TimeInterface
+	 * @param  int                $seconds Number of seconds
+	 * @return $this|static|false
 	 */
-	public function rewind(int $seconds): TimeInterface
+	public function rewind(int $seconds)
 	{
 		return $this->setTimestamp($this->getTimestamp() - $seconds);
 	}
