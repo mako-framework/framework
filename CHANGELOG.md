@@ -3,6 +3,7 @@
 #### New
 
 * Added `TimeImmutable` class.
+* Added `Time::getImmutable()` method.
 
 --------------------------------------------------------
 

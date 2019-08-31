@@ -32,6 +32,24 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetImmutable(): void
+	{
+		$time1 = new Time('now', 'Europe/Oslo');
+
+		$time1->setTimestamp(0);
+
+		$time2 = $time1->getImmutable();
+
+		$this->assertSame($time1->getTimestamp(), $time2->getTimestamp());
+
+		$this->assertSame($time1->getTimezone()->getName(), $time2->getTimezone()->getName());
+
+		$this->assertNotSame($time2, $time2->setTimestamp(1));
+	}
+
+	/**
+	 *
+	 */
 	public function testConstructor(): void
 	{
 		$time = new Time;

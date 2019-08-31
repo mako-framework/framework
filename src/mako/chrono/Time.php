@@ -22,4 +22,14 @@ use mako\chrono\traits\TimeTrait;
 class Time extends DateTime implements TimeInterface
 {
 	use TimeTrait;
+
+	/**
+	 * Returns an immutable instance of the current instance.
+	 *
+	 * @return \mako\chrono\TimeImmutable
+	 */
+	public function getImmutable(): TimeImmutable
+	{
+		return new TimeImmutable($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+	}
 }
