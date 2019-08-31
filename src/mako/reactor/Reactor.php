@@ -136,8 +136,6 @@ class Reactor
 
 	/**
 	 * Setup the reactor.
-	 *
-	 * @return void
 	 */
 	protected function setup(): void
 	{
@@ -186,9 +184,8 @@ class Reactor
 	/**
 	 * Draws an argument table.
 	 *
-	 * @param  string $heading   Table heading
-	 * @param  array  $arguments Arguments
-	 * @return void
+	 * @param string $heading   Table heading
+	 * @param array  $arguments Arguments
 	 */
 	protected function drawArgumentTable(string $heading, array $arguments): void
 	{

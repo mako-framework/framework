@@ -105,8 +105,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Register and handle global arguments.
-	 *
-	 * @return void
 	 */
 	protected function registerAndhandleGlobalArguments(): void
 	{

@@ -17,8 +17,7 @@ interface AuthorizableInterface
 	/**
 	 * Sets the authorizer.
 	 *
-	 * @param  \mako\gatekeeper\authorization\AuthorizerInterface $authorizer Authorizer
-	 * @return void
+	 * @param \mako\gatekeeper\authorization\AuthorizerInterface $authorizer Authorizer
 	 */
 	public function setAuthorizer(AuthorizerInterface $authorizer): void;
 

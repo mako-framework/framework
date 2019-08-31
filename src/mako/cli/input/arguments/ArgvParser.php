@@ -159,8 +159,7 @@ class ArgvParser
 	/**
 	 * Add argument.
 	 *
-	 * @param  \mako\cli\input\arguments\Argument $argument Argument
-	 * @return void
+	 * @param \mako\cli\input\arguments\Argument $argument Argument
 	 */
 	public function addArgument(Argument $argument): void
 	{
@@ -208,8 +207,7 @@ class ArgvParser
 	/**
 	 * Add arguments.
 	 *
-	 * @param  array $arguments Array of arguments
-	 * @return void
+	 * @param array $arguments Array of arguments
 	 */
 	public function addArguments(array $arguments): void
 	{
@@ -254,10 +252,9 @@ class ArgvParser
 	/**
 	 * Store the value.
 	 *
-	 * @param  \mako\cli\input\arguments\Argument $argument Argument
-	 * @param  string|null                        $token    Token
-	 * @param  string|bool                        $value    Value
-	 * @return void
+	 * @param \mako\cli\input\arguments\Argument $argument Argument
+	 * @param string|null                        $token    Token
+	 * @param string|bool                        $value    Value
 	 */
 	protected function storeValue(Argument $argument, ?string $token, $value): void
 	{
@@ -281,11 +278,10 @@ class ArgvParser
 	/**
 	 * Stores option values.
 	 *
-	 * @param  \mako\cli\input\arguments\Argument $argument Argument
-	 * @param  string                             $token    Token
-	 * @param  string|null                        $value    Value
-	 * @param  array                              &$tokens  Remaining tokens
-	 * @return void
+	 * @param \mako\cli\input\arguments\Argument $argument Argument
+	 * @param string                             $token    Token
+	 * @param string|null                        $value    Value
+	 * @param array                              &$tokens  Remaining tokens
 	 */
 	protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens): void
 	{
@@ -312,9 +308,8 @@ class ArgvParser
 	/**
 	 * Parses an option.
 	 *
-	 * @param  string $token   Token
-	 * @param  array  &$tokens Remaining tokens
-	 * @return void
+	 * @param string $token   Token
+	 * @param array  &$tokens Remaining tokens
 	 */
 	protected function parseOption(string $token, array &$tokens): void
 	{
@@ -336,9 +331,8 @@ class ArgvParser
 	/**
 	 * Parses an alias.
 	 *
-	 * @param  string $token   Token
-	 * @param  array  &$tokens Remaining tokens
-	 * @return void
+	 * @param string $token   Token
+	 * @param array  &$tokens Remaining tokens
 	 */
 	protected function parseAlias(string $token, array &$tokens): void
 	{
@@ -372,11 +366,10 @@ class ArgvParser
 	/**
 	 * Parses a positional argument.
 	 *
-	 * @param  string $token        Token
-	 * @param  array  &$positionals Remaining positional arguments
-	 * @param  array  &$tokens      Remaining tokens
-	 * @param  bool   $parseOptions Are we still parsing options?
-	 * @return void
+	 * @param string $token        Token
+	 * @param array  &$positionals Remaining positional arguments
+	 * @param array  &$tokens      Remaining tokens
+	 * @param bool   $parseOptions Are we still parsing options?
 	 */
 	protected function parsePositional(string $token, array &$positionals, array &$tokens, bool $parseOptions): void
 	{

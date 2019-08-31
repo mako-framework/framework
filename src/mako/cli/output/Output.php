@@ -217,9 +217,8 @@ class Output
 	/**
 	 * Dumps a value to the output.
 	 *
-	 * @param  mixed $value  Value
-	 * @param  int   $writer Output type
-	 * @return void
+	 * @param mixed $value  Value
+	 * @param int   $writer Output type
 	 */
 	public function dump($value, int $writer = Output::STANDARD): void
 	{
