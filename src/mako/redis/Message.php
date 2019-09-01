@@ -64,10 +64,14 @@ class Message
 			case 'message':
 			case 'subscribe':
 			case 'unsubscribe':
+				$this->type    = $response[0];
+				$this->channel = $response[1];
+				$this->body    = $response[2];
+				break;
 			case 'psubscribe':
 			case 'punsubscribe':
 				$this->type    = $response[0];
-				$this->channel = $response[1];
+				$this->pattern = $response[1];
 				$this->body    = $response[2];
 				break;
 			case 'pmessage':

@@ -293,7 +293,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSubscribeTo()
+	public function testSubscribeTo(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -331,7 +331,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
 
-		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+		$connection->shouldReceive('readLine')->once()->andReturn(":0\r\n");
 
 		//
 
@@ -346,7 +346,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSubscribeToPattern()
+	public function testSubscribeToPattern(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -384,7 +384,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
 
-		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+		$connection->shouldReceive('readLine')->once()->andReturn(":0\r\n");
 
 		//
 

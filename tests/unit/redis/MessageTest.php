@@ -49,12 +49,12 @@ class MessageTest extends TestCase
 	 */
 	public function testSubscribe(): void
 	{
-		$message = new Message(['subscribe', 'foo', 'bar']);
+		$message = new Message(['subscribe', 'foo', 1]);
 
 		$this->assertSame('subscribe', $message->getType());
 		$this->assertSame('foo', $message->getChannel());
-		$this->assertSame('bar', $message->getBody());
-		$this->assertSame('bar', (string) $message);
+		$this->assertSame('1', $message->getBody());
+		$this->assertSame('1', (string) $message);
 		$this->assertNull($message->getPattern());
 	}
 
@@ -63,12 +63,12 @@ class MessageTest extends TestCase
 	 */
 	public function testUnsubscribe(): void
 	{
-		$message = new Message(['unsubscribe', 'foo', 'bar']);
+		$message = new Message(['unsubscribe', 'foo', 0]);
 
 		$this->assertSame('unsubscribe', $message->getType());
 		$this->assertSame('foo', $message->getChannel());
-		$this->assertSame('bar', $message->getBody());
-		$this->assertSame('bar', (string) $message);
+		$this->assertSame('0', $message->getBody());
+		$this->assertSame('0', (string) $message);
 		$this->assertNull($message->getPattern());
 	}
 
@@ -77,13 +77,13 @@ class MessageTest extends TestCase
 	 */
 	public function testPsubscribe(): void
 	{
-		$message = new Message(['psubscribe', 'foo', 'bar']);
+		$message = new Message(['psubscribe', 'f?o', 1]);
 
 		$this->assertSame('psubscribe', $message->getType());
-		$this->assertSame('foo', $message->getChannel());
-		$this->assertSame('bar', $message->getBody());
-		$this->assertSame('bar', (string) $message);
-		$this->assertNull($message->getPattern());
+		$this->assertNull($message->getChannel());
+		$this->assertSame('1', $message->getBody());
+		$this->assertSame('1', (string) $message);
+		$this->assertSame('f?o', $message->getPattern());
 	}
 
 	/**
@@ -91,13 +91,13 @@ class MessageTest extends TestCase
 	 */
 	public function testPunsubscribe(): void
 	{
-		$message = new Message(['punsubscribe', 'foo', 'bar']);
+		$message = new Message(['psubscribe', 'f?o', 0]);
 
-		$this->assertSame('punsubscribe', $message->getType());
-		$this->assertSame('foo', $message->getChannel());
-		$this->assertSame('bar', $message->getBody());
-		$this->assertSame('bar', (string) $message);
-		$this->assertNull($message->getPattern());
+		$this->assertSame('psubscribe', $message->getType());
+		$this->assertNull($message->getChannel());
+		$this->assertSame('0', $message->getBody());
+		$this->assertSame('0', (string) $message);
+		$this->assertSame('f?o', $message->getPattern());
 	}
 
 	/**
