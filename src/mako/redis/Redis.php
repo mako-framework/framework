@@ -593,6 +593,8 @@ class Redis
 			{
 				break;
 			}
+
+			unset($message);
 		}
 
 		foreach($channels as $channel)
