@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\redis;
 
+use mako\redis\Connection;
 use mako\redis\Redis;
 use mako\redis\RedisException;
 use mako\tests\TestCase;
@@ -22,13 +23,13 @@ class RedisTest extends TestCase
 	 */
 	public function testAuth(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
 
-		$redis = new Redis($connection, ['password' => 'foobar']);
+		new Redis($connection, ['password' => 'foobar']);
 	}
 
 	/**
@@ -36,13 +37,13 @@ class RedisTest extends TestCase
 	 */
 	public function testZeroDatabase(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->never()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n");
 
 		$connection->shouldReceive('readLine')->never()->andReturn("+OK\r\n");
 
-		$redis = new Redis($connection, ['database' => 0]);
+		new Redis($connection, ['database' => 0]);
 	}
 
 	/**
@@ -50,13 +51,13 @@ class RedisTest extends TestCase
 	 */
 	public function testNonZeroDatabase(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n1\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
 
-		$redis = new Redis($connection, ['database' => 1]);
+		new Redis($connection, ['database' => 1]);
 	}
 
 	/**
@@ -64,7 +65,7 @@ class RedisTest extends TestCase
 	 */
 	public function testMethodCall(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*3\r\n$3\r\nSET\r\n$1\r\nx\r\n$1\r\n0\r\n");
 
@@ -80,7 +81,7 @@ class RedisTest extends TestCase
 	 */
 	public function testMultiWordMethodCall(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nCONFIG\r\n$7\r\nREWRITE\r\n");
 
@@ -96,7 +97,7 @@ class RedisTest extends TestCase
 	 */
 	public function testDashSeparatedCommand(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$7\r\nCLUSTER\r\n$16\r\nSET-CONFIG-EPOCH\r\n");
 
@@ -114,7 +115,7 @@ class RedisTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -130,7 +131,7 @@ class RedisTest extends TestCase
 	 */
 	public function testStatusReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -146,7 +147,7 @@ class RedisTest extends TestCase
 	 */
 	public function testIntegerReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -162,7 +163,7 @@ class RedisTest extends TestCase
 	 */
 	public function testBulkReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -180,7 +181,7 @@ class RedisTest extends TestCase
 	 */
 	public function testBulkNullReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -196,7 +197,7 @@ class RedisTest extends TestCase
 	 */
 	public function testMultiBulkReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -220,7 +221,7 @@ class RedisTest extends TestCase
 	 */
 	public function testMultiBulkMixedReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -242,7 +243,7 @@ class RedisTest extends TestCase
 	 */
 	public function testMultiBulkEmptyReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -258,7 +259,7 @@ class RedisTest extends TestCase
 	 */
 	public function testMultiBulkNullReply(): void
 	{
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -278,7 +279,7 @@ class RedisTest extends TestCase
 
 		$this->expectExceptionMessage('Unable to handle server response [ foobar ].');
 
-		$connection = Mockery::mock('mako\redis\Connection');
+		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
@@ -287,5 +288,111 @@ class RedisTest extends TestCase
 		$redis = new Redis($connection);
 
 		$redis->foobar();
+	}
+
+	/**
+	 *
+	 */
+	public function testSubscribeTo()
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$redis = new Redis($connection);
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$9\r\nSUBSCRIBE\r\n$3\r\nfoo\r\n");
+
+		//
+
+		$connection->shouldReceive('readLine')->once()->andReturn("*3\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$9\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("subscribe\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		//
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$11\r\nUNSUBSCRIBE\r\n$3\r\nfoo\r\n");
+
+		//
+
+		$connection->shouldReceive('readLine')->once()->andReturn("*3\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$11\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("unsubscribe\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		//
+
+		$redis->subscribeTo(['foo'], function($message)
+		{
+			$this->assertSame('subscribe', $message->getType());
+
+			return false;
+		}, ['message', 'subscribe']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSubscribeToPattern()
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$redis = new Redis($connection);
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$10\r\nPSUBSCRIBE\r\n$3\r\nf?o\r\n");
+
+		//
+
+		$connection->shouldReceive('readLine')->once()->andReturn("*3\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$10\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("psubscribe\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		//
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$12\r\nPUNSUBSCRIBE\r\n$3\r\nf?o\r\n");
+
+		//
+
+		$connection->shouldReceive('readLine')->once()->andReturn("*3\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$12\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("punsubscribe\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		//
+
+		$redis->subscribeToPattern(['f?o'], function($message)
+		{
+			$this->assertSame('psubscribe', $message->getType());
+
+			return false;
+		}, ['pmessage', 'psubscribe']);
 	}
 }
