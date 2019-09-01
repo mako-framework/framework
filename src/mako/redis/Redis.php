@@ -14,6 +14,7 @@ use function array_merge;
 use function count;
 use function explode;
 use function implode;
+use function in_array;
 use function str_replace;
 use function strlen;
 use function strpos;

@@ -7,6 +7,8 @@
 
 namespace mako\redis;
 
+use function vsprintf;
+
 /**
  * Redis pub/sub message.
  *
