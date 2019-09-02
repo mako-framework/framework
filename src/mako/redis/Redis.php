@@ -371,11 +371,13 @@ class Redis
 
 		$isPersistent = $this->connection->isPersistent();
 
-		$timeout = $this->connection->getTimeout();
+		$readWriteTimout = $this->connection->getReadWriteTimeout();
+
+		$connectionTimeout = $this->connection->getConnectionTimeout();
 
 		$name = $this->connection->getName();
 
-		$connection = new Connection($server, $port, $isPersistent, $timeout, $name);
+		$connection = new Connection($server, $port, $isPersistent, $readWriteTimout, $connectionTimeout, $name);
 
 		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
 	}

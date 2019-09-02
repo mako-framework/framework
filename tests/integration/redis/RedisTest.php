@@ -25,7 +25,7 @@ use mako\tests\TestCase;
 class RedisTest extends TestCase
 {
 	/**
-	 *
+	 * @var \mako\redis\Redis
 	 */
 	protected $redis;
 
@@ -36,7 +36,7 @@ class RedisTest extends TestCase
 	{
 		try
 		{
-			$this->redis = new Redis(new Connection('localhost', 6379, false, 60, 'test'));
+			$this->redis = new Redis(new Connection('localhost', 6379));
 		}
 		catch(RedisException $e)
 		{
@@ -65,8 +65,6 @@ class RedisTest extends TestCase
 		$connection = $this->redis->getConnection();
 
 		$this->assertInstanceOf(Connection::class, $connection);
-
-		$this->assertSame('test', $connection->getName());
 	}
 
 	/**
