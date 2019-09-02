@@ -631,6 +631,26 @@ class Redis
 	}
 
 	/**
+	 * Monitors the redis server.
+	 *
+	 * @param \Closure $monitor Monitor closure
+	 */
+	public function monitor(Closure $monitor): void
+	{
+		$this->sendCommandAndGetResponse($this->buildCommand('monitor'));
+
+		while(true)
+		{
+			if($monitor($this->getResponse()) === false)
+			{
+				break;
+			}
+		}
+
+		$this->sendCommandAndGetResponse($this->buildCommand('quit'));
+	}
+
+	/**
 	 * Pipeline commands.
 	 *
 	 * @param  \Closure $pipeline Pipelined commands

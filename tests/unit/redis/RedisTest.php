@@ -395,4 +395,39 @@ class RedisTest extends TestCase
 			return false;
 		}, ['pmessage', 'psubscribe']);
 	}
+
+	/**
+	 *
+	 */
+	public function testMonitor(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$redis = new Redis($connection);
+
+		$connection->shouldReceive('write')->once()->with("*1\r\n$7\r\nMONITOR\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
+
+		//
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$6\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foobar\r\n");
+
+		//
+
+		$connection->shouldReceive('write')->once()->with("*1\r\n$4\r\nQUIT\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
+
+		//
+
+		$redis->monitor(function($line)
+		{
+			$this->assertSame('foobar', $line);
+
+			return false;
+		});
+	}
 }

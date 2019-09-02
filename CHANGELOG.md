@@ -7,6 +7,7 @@
 * Added `Time::getImmutable()` method.
 * Added `Redis::subscribeTo()` method.
 * Added `Redis::subscribeToPattern()` method.
+* Added `Redis::monitor()` method.
 
 --------------------------------------------------------
 
