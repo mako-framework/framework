@@ -23,7 +23,7 @@ class ConnectionTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$this->expectExceptionMessageRegExp('/^Failed to connect\./');
+		$this->expectExceptionMessageRegExp('/^Failed to connect to \[ foobar.nope \]\./');
 
 		new Connection('foobar.nope', 7777);
 	}
