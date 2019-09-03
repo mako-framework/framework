@@ -16,8 +16,7 @@ use function fread;
 use function fwrite;
 use function is_resource;
 use function min;
-use function socket_import_stream;
-use function socket_set_option;
+use function stream_context_create;
 use function stream_get_meta_data;
 use function stream_set_timeout;
 use function stream_socket_client;
@@ -149,31 +148,21 @@ class Connection
 			$host = "[{$host}]";
 		}
 
-		$flags = STREAM_CLIENT_CONNECT;
-
-		if($this->isPersistent)
-		{
-			$flags |= STREAM_CLIENT_PERSISTENT;
-		}
-
 		try
 		{
-			$connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags);
+			$flags = $this->isPersistent ? STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT : STREAM_CLIENT_CONNECT;
+
+			$context = stream_context_create(['socket' => ['tcp_nodelay' => $this->nodelay]]);
+
+			$connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags, $context);
+
+			stream_set_timeout($connection, $this->readWriteTimeout);
 		}
 		catch(Throwable $e)
 		{
 			$message = $this->name === null ? 'Failed to connect' : vsprintf('Failed to connect to [ %s ]', [$this->name]);
 
 			throw new RedisException(vsprintf('%s. %s', [$message, $errstr]), (int) $errno);
-		}
-
-		stream_set_timeout($connection, $this->readWriteTimeout);
-
-		if($this->nodelay)
-		{
-			$socket = socket_import_stream($connection);
-
-			socket_set_option($socket, SOL_TCP, TCP_NODELAY, 1);
 		}
 
 		return $connection;
