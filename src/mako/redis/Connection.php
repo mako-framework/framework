@@ -101,7 +101,7 @@ class Connection
 	/**
 	 * Configures the connection.
 	 *
-	 * @param  array $options Configuration options
+	 * @param  array $options Connection options
 	 * @return void
 	 */
 	protected function configure(array $options): void
