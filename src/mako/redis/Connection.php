@@ -160,7 +160,7 @@ class Connection
 		}
 		catch(Throwable $e)
 		{
-			throw new RedisException(vsprintf('Failed to connect to [ %s ]. %s', [$this->name ?? $host, $errstr]), (int) $errno);
+			throw new RedisException(vsprintf('Failed to connect to [ %s ]. %s', [$this->name ?? "{$host}:{$port}", $errstr]), (int) $errno);
 		}
 
 		return $connection;
