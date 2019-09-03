@@ -82,7 +82,19 @@ class Connection
 	 */
 	public function __construct(string $host, int $port = 6379, array $options = [])
 	{
-		$this->configure($options);
+		// Configure
+
+		$this->name = $options['name'] ?? null;
+
+		$this->isPersistent = $options['persistent'] ?? false;
+
+		$this->connectionTimeout = $options['connection_timeout'] ?? 5;
+
+		$this->readWriteTimeout = $options['read_write_timeout'] ?? 60;
+
+		$this->tcpNodelay = $options['tcp_nodelay'] ?? true;
+
+		// Create connection
 
 		$this->connection = $this->createConnection($host, $port);
 	}
@@ -96,25 +108,6 @@ class Connection
 		{
 			fclose($this->connection);
 		}
-	}
-
-	/**
-	 * Configures the connection.
-	 *
-	 * @param  array $options Connection options
-	 * @return void
-	 */
-	protected function configure(array $options): void
-	{
-		$this->name = $options['name'] ?? null;
-
-		$this->isPersistent = $options['persistent'] ?? false;
-
-		$this->connectionTimeout = $options['connection_timeout'] ?? 5;
-
-		$this->readWriteTimeout = $options['read_write_timeout'] ?? 60;
-
-		$this->tcpNodelay = $options['tcp_nodelay'] ?? true;
 	}
 
 	/**
