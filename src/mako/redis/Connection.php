@@ -67,11 +67,11 @@ class Connection
 	protected $readWriteTimeout;
 
 	/**
-	 * Nodelay.
+	 * TCP nodelay.
 	 *
 	 * @var bool
 	 */
-	protected $nodelay;
+	protected $tcpNodelay;
 
 	/**
 	 * Constructor.
@@ -114,7 +114,7 @@ class Connection
 
 		$this->readWriteTimeout = $options['read_write_timeout'] ?? 60;
 
-		$this->nodelay = $options['nodelay'] ?? true;
+		$this->tcpNodelay = $options['tcp_nodelay'] ?? true;
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Connection
 			'persistent'         => $this->isPersistent,
 			'connection_timeout' => $this->connectionTimeout,
 			'read_write_timeout' => $this->readWriteTimeout,
-			'nodelay'            => $this->nodelay,
+			'tcp_nodelay'        => $this->tcpNodelay,
 		];
 	}
 
@@ -152,7 +152,7 @@ class Connection
 		{
 			$flags = $this->isPersistent ? STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT : STREAM_CLIENT_CONNECT;
 
-			$context = stream_context_create(['socket' => ['tcp_nodelay' => $this->nodelay]]);
+			$context = stream_context_create(['socket' => ['tcp_nodelay' => $this->tcpNodelay]]);
 
 			$connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags, $context);
 

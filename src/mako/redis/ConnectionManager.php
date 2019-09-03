@@ -42,7 +42,7 @@ class ConnectionManager extends BaseConnectionManager
 			'persistent'         => $config['persistent'] ?? false,
 			'connection_timeout' => $config['connection_timeout'] ?? 5,
 			'read_write_timeout' => $config['timeout'] ?? 60,
-			'nodelay'            => $config['nodelay'] ?? true,
+			'tcp_nodelay'        => $config['tcp_nodelay'] ?? true,
 		];
 
 		return new Redis(new Connection($config['host'], $config['port'], $options), $config);

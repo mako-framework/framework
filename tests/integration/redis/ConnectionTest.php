@@ -35,7 +35,7 @@ class ConnectionTest extends TestCase
 				'persistent'         => false,
 				'connection_timeout' => 4,
 				'read_write_timeout' => 59,
-				'nodelay'            => false,
+				'tcp_nodelay'        => false,
 			]);
 		}
 		catch(RedisException $e)
@@ -70,6 +70,6 @@ class ConnectionTest extends TestCase
 
 		$this->assertSame(59, $options['read_write_timeout']);
 
-		$this->assertFalse($options['nodelay']);
+		$this->assertFalse($options['tcp_nodelay']);
 	}
 }
