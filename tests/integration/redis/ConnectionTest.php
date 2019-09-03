@@ -29,7 +29,14 @@ class ConnectionTest extends TestCase
 	{
 		try
 		{
-			$this->connection = new Connection('localhost', 6379, false, 60, 5, 'test');
+			$this->connection = new Connection('localhost', 6379,
+			[
+				'name'               => 'test',
+				'persistent'         => false,
+				'connection_timeout' => 4,
+				'read_write_timeout' => 59,
+				'nodelay'            => false,
+			]);
 		}
 		catch(RedisException $e)
 		{
@@ -51,32 +58,18 @@ class ConnectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetReadWriteTimeout(): void
+	public function testGeOptions(): void
 	{
-		$this->assertSame(60, $this->connection->getReadWriteTimeout());
-	}
+		$options = $this->connection->getOptions();
 
-	/**
-	 *
-	 */
-	public function testGetConnectionTimeout(): void
-	{
-		$this->assertSame(5, $this->connection->getConnectionTimeout());
-	}
+		$this->assertSame('test', $options['name']);
 
-	/**
-	 *
-	 */
-	public function testIsPersistent(): void
-	{
-		$this->assertFalse($this->connection->isPersistent());
-	}
+		$this->assertFalse($options['persistent']);
 
-	/**
-	 *
-	 */
-	public function testGetName(): void
-	{
-		$this->assertSame('test', $this->connection->getName());
+		$this->assertSame(4, $options['connection_timeout']);
+
+		$this->assertSame(59, $options['read_write_timeout']);
+
+		$this->assertFalse($options['nodelay']);
 	}
 }

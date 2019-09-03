@@ -37,6 +37,6 @@ class ConnectionTest extends TestCase
 
 		$this->expectExceptionMessageRegExp('/^Failed to connect to \[ test \]\./');
 
-		new Connection('foobar.nope', 7777, false, 60, 5, 'test');
+		new Connection('foobar.nope', 7777, ['name' => 'test']);
 	}
 }

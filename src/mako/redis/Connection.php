@@ -13,13 +13,14 @@ use function fclose;
 use function fgets;
 use function filter_var;
 use function fread;
-use function fsockopen;
 use function fwrite;
 use function is_resource;
 use function min;
-use function pfsockopen;
+use function socket_import_stream;
+use function socket_set_option;
 use function stream_get_meta_data;
 use function stream_set_timeout;
+use function stream_socket_client;
 use function strlen;
 use function substr;
 use function vsprintf;
@@ -32,32 +33,11 @@ use function vsprintf;
 class Connection
 {
 	/**
-	 * Socket connection.
+	 * Connection.
 	 *
 	 * @var resource
 	 */
 	protected $connection;
-
-	/**
-	 * Is the socket persistent?
-	 *
-	 * @var bool
-	 */
-	protected $isPersistent;
-
-	/**
-	 * Read/write timeout.
-	 *
-	 * @var int
-	 */
-	protected $readWriteTimeout;
-
-	/**
-	 * Connection timeout.
-	 *
-	 * @var int
-	 */
-	protected $connectionTimeout;
 
 	/**
 	 * Connection name.
@@ -67,31 +47,45 @@ class Connection
 	protected $name;
 
 	/**
+	 * Is the connection persistent?
+	 *
+	 * @var bool
+	 */
+	protected $isPersistent;
+
+	/**
+	 * Connection timeout.
+	 *
+	 * @var int
+	 */
+	protected $connectionTimeout;
+
+	/**
+	 * Read/write timeout.
+	 *
+	 * @var int
+	 */
+	protected $readWriteTimeout;
+
+	/**
+	 * Nodelay.
+	 *
+	 * @var bool
+	 */
+	protected $nodelay;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param string      $host              Redis host
-	 * @param int         $port              Redis port
-	 * @param bool        $persistent        Should the connection be persistent?
-	 * @param int         $readWriteTimeout  Read/write timeout in seconds
-	 * @param int         $connectionTimeout Connection timeout in seconds
-	 * @param string|null $name              Connection name
+	 * @param string $host    Redis host
+	 * @param int    $port    Redis port
+	 * @param array  $options Connection options
 	 */
-	public function __construct(string $host, int $port = 6379, bool $persistent = false, int $readWriteTimeout = 60, int $connectionTimeout = 5, ?string $name = null)
+	public function __construct(string $host, int $port = 6379, array $options = [])
 	{
-		$this->name = $name;
+		$this->configure($options);
 
-		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
-		{
-			$host = "[{$host}]";
-		}
-
-		// Connect to the server
-
-		$this->connection = $this->createConnection($host, $port, $this->isPersistent = $persistent, $this->connectionTimeout = $connectionTimeout);
-
-		// Set timeout for read/write operations
-
-		stream_set_timeout($this->connection, $this->readWriteTimeout = $readWriteTimeout);
+		$this->connection = $this->createConnection($host, $port);
 	}
 
 	/**
@@ -106,71 +100,83 @@ class Connection
 	}
 
 	/**
-	 * Creates a socket connection to the server.
+	 * Configures the connection.
 	 *
-	 * @param  string   $host              Redis host
-	 * @param  int      $port              Redis port
-	 * @param  bool     $persistent        Should the connection be persistent?
-	 * @param  int      $connectionTimeout Connection timeout
+	 * @param  array $options Configuration options
+	 * @return void
+	 */
+	protected function configure(array $options): void
+	{
+		$this->name = $options['name'] ?? null;
+
+		$this->isPersistent = $options['persistent'] ?? false;
+
+		$this->connectionTimeout = $options['connection_timeout'] ?? 5;
+
+		$this->readWriteTimeout = $options['read_write_timeout'] ?? 60;
+
+		$this->nodelay = $options['nodelay'] ?? true;
+	}
+
+	/**
+	 * Returns the connection options.
+	 *
+	 * @return array
+	 */
+	public function getOptions(): array
+	{
+		return
+		[
+			'name'               => $this->name,
+			'persistent'         => $this->isPersistent,
+			'connection_timeout' => $this->connectionTimeout,
+			'read_write_timeout' => $this->readWriteTimeout,
+			'nodelay'            => $this->nodelay,
+		];
+	}
+
+	/**
+	 * Creates a connection to the server.
+	 *
+	 * @param  string   $host Redis host
+	 * @param  int      $port Redis port
 	 * @return resource
 	 */
-	protected function createConnection(string $host, int $port, bool $persistent, int $connectionTimeout)
+	protected function createConnection(string $host, int $port)
 	{
+		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
+		{
+			$host = "[{$host}]";
+		}
+
+		$flags = STREAM_CLIENT_CONNECT;
+
+		if($this->isPersistent)
+		{
+			$flags |= STREAM_CLIENT_PERSISTENT;
+		}
+
 		try
 		{
-			if($persistent)
-			{
-				return pfsockopen("tcp://{$host}", $port, $errNo, $errStr, $connectionTimeout);
-			}
-
-			return fsockopen("tcp://{$host}", $port, $errNo, $errStr, $connectionTimeout);
+			$connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags);
 		}
 		catch(Throwable $e)
 		{
 			$message = $this->name === null ? 'Failed to connect' : vsprintf('Failed to connect to [ %s ]', [$this->name]);
 
-			throw new RedisException(vsprintf('%s. %s', [$message, $e->getMessage()]), (int) $errNo);
+			throw new RedisException(vsprintf('%s. %s', [$message, $errstr]), (int) $errno);
 		}
-	}
 
-	/**
-	 * Is the connection persistent?
-	 *
-	 * @return bool
-	 */
-	public function isPersistent(): bool
-	{
-		return $this->isPersistent;
-	}
+		stream_set_timeout($connection, $this->readWriteTimeout);
 
-	/**
-	 * Returns the read/write timeout value of the connection.
-	 *
-	 * @return int
-	 */
-	public function getReadWriteTimeout(): int
-	{
-		return $this->readWriteTimeout;
-	}
+		if($this->nodelay)
+		{
+			$socket = socket_import_stream($connection);
 
-	/**
-	 * Returns the connection timeout value of the connection.
-	 *
-	 * @return int
-	 */
-	public function getConnectionTimeout(): int
-	{
-		return $this->connectionTimeout;
-	}
+			socket_set_option($socket, SOL_TCP, TCP_NODELAY, 1);
+		}
 
-	/**
-	 * Returns the connection name.
-	 *
-	 * @return string|null
-	 */
-	public function getName(): ?string
-	{
-		return $this->name;
+		return $connection;
 	}
 
 	/**

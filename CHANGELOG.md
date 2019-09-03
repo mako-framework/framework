@@ -9,6 +9,10 @@
 * Added `Redis::subscribeToPattern()` method.
 * Added `Redis::monitor()` method.
 
+#### Improvements
+
+* Massive speed improvements when sending large values to Redis.
+
 --------------------------------------------------------
 
 ### 6.2.1 <small> (2019-08-27)</small>
