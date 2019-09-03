@@ -157,13 +157,13 @@ class Connection
 			$connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags, $context);
 
 			stream_set_timeout($connection, $this->readWriteTimeout);
+
+			return $connection;
 		}
 		catch(Throwable $e)
 		{
 			throw new RedisException(vsprintf('Failed to connect to [ %s ]. %s', [$this->name ?? "{$host}:{$port}", $errstr]), (int) $errno);
 		}
-
-		return $connection;
 	}
 
 	/**
