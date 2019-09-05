@@ -57,7 +57,7 @@ class LoggerService extends Service
 
 		if(($user = $this->getUser()) !== null)
 		{
-			$context['user_id'] = $user->getId();
+			$context['user'] = ['id' => $user->getId(), 'username' => $user->getUsername()];
 		}
 
 		return $context;
