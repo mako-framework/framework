@@ -138,7 +138,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 			}
 		}
 
-		return $this->view->render("mako-error::{$view}");
+		return $this->view->clearAutoAssignVariables()->render("mako-error::{$view}");
 	}
 
 	/**
