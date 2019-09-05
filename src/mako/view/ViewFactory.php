@@ -178,6 +178,18 @@ class ViewFactory
 	}
 
 	/**
+	 * Clears the autoassign variables.
+	 *
+	 * @return \mako\view\ViewFactory
+	 */
+	public function clearAutoAssignVariables(): ViewFactory
+	{
+		$this->autoAssignVariables = [];
+
+		return $this;
+	}
+
+	/**
 	 * Returns an array containing the view path and the renderer we should use.
 	 *
 	 * @param  string                   $view           View

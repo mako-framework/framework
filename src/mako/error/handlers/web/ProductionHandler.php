@@ -140,7 +140,7 @@ class ProductionHandler implements HandlerInterface
 			}
 		}
 
-		return $this->view->render("mako-error::{$view}");
+		return $this->view->clearAutoAssignVariables()->render("mako-error::{$view}");
 	}
 
 	/**

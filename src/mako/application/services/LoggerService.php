@@ -7,12 +7,14 @@
 
 namespace mako\application\services;
 
+use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\gatekeeper\Gatekeeper;
 use mako\logger\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 use function date;
 
@@ -24,20 +26,41 @@ use function date;
 class LoggerService extends Service
 {
 	/**
+	 * Get the current user.
+	 *
+	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|null
+	 */
+	protected function getUser(): ?UserEntityInterface
+	{
+		if($this->app->isCommandLine() === false && $this->container->has(Gatekeeper::class))
+		{
+			try
+			{
+				return $this->container->get(Gatekeeper::class)->getUser();
+			}
+			catch(Throwable $e)
+			{
+				return null;
+			}
+		}
+
+		return null;
+	}
+	/**
 	 * Get global logger context.
 	 *
 	 * @return array
 	 */
 	protected function getContext(): array
 	{
-		if($this->app->isCommandLine() === false && $this->container->has(Gatekeeper::class))
-		{
-			$user = $this->container->get(Gatekeeper::class)->getUser();
+		$context = [];
 
-			return ['user_id' => $user !== null ? $user->getId() : null];
+		if(($user = $this->getUser()) !== null)
+		{
+			$context['user_id'] = $user->getId();
 		}
 
-		return [];
+		return $context;
 	}
 
 	/**

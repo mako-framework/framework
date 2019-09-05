@@ -1,3 +1,11 @@
+### 5.7.6, 6.0.5, 6.1.4 <small> (2019-09-05)</small>
+
+#### Bugfixes
+
+* Fixed bug that could cause the production error handler to fail when using the view auto assign feature.
+
+--------------------------------------------------------
+
 ### 5.7.5, 6.0.4, 6.1.3 <small> (2019-08-10)</small>
 
 #### Bugfixes
