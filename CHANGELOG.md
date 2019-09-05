@@ -1,3 +1,13 @@
+### 5.7.6 <small> (2019-09-05)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Fixed bug that could cause the production error handler to fail when using the view auto assign feature.
+
+--------------------------------------------------------
+
 ### 5.7.5 <small> (2019-08-10)</small>
 
 Update using ```composer update```.
