@@ -78,7 +78,7 @@ class ErrorHandler
 
 		// Add a basic exception handler to the stack
 
-		$this->fallbackHandler();
+		$this->handle(Throwable::class, $this->getFallbackHandler());
 
 		// Registers the exception handler
 
@@ -86,18 +86,18 @@ class ErrorHandler
 	}
 
 	/**
-	 * Adds basic fallback handler to the stack.
+	 * Returns the fallback handler.
+	 *
+	 * @return \Closure
 	 */
-	protected function fallbackHandler(): void
+	protected function getFallbackHandler(): Closure
 	{
-		$this->handle(Throwable::class, function($e): void
+		return function(Throwable $e): void
 		{
-			echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]";
+			echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
 
-			echo PHP_EOL;
-
-			echo $e->getTraceAsString();
-		});
+			echo $e->getTraceAsString() . PHP_EOL;
+		};
 	}
 
 	/**
@@ -303,30 +303,39 @@ class ErrorHandler
 					}
 				}
 			}
-
-			// Log exception
-
-			if($this->shouldExceptionBeLogged($exception))
-			{
-				$this->getLogger()->error($exception->getMessage(), ['exception' => $exception]);
-			}
 		}
 		catch(Throwable $e)
 		{
-			if((PHP_SAPI !== 'cli' && headers_sent()) || filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN) === false)
+			if((PHP_SAPI === 'cli' || headers_sent() === false) && filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN) === true)
 			{
-				exit(1);
+				// Empty output buffers
+
+				$this->clearOutputBuffers();
+
+				// One of the exception handlers failed so we'll just show the user a generic error screen
+
+				$this->getFallbackHandler()($exception);
+
+				// We'll also show some information about how the exception handler failed
+
+				echo "Additionally the error handler failed with the following error:" . PHP_EOL;
+
+				$this->getFallbackHandler()($e);
 			}
-
-			// Empty output buffers
-
-			$this->clearOutputBuffers();
-
-			// One of the exception handlers failed so we'll just show the user a generic error screen
-
-			echo "{$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
-
-			echo $e->getTraceAsString() . PHP_EOL;
+		}
+		finally
+		{
+			try
+			{
+				if($this->shouldExceptionBeLogged($exception))
+				{
+					$this->getLogger()->error($exception->getMessage(), ['exception' => $exception]);
+				}
+			}
+			catch(Throwable $e)
+			{
+				// We failed to log the exception
+			}
 		}
 
 		exit(1);
