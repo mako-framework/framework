@@ -27,13 +27,23 @@ class UploadedFileTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @deprecated 7.0
 	 */
 	public function testGetName(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
 		$this->assertEquals('foo.bar', $file->getName());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetReportedFilename(): void
+	{
+		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
+
+		$this->assertEquals('foo.bar', $file->getReportedFilename());
 	}
 
 	/**
@@ -47,13 +57,23 @@ class UploadedFileTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @deprecated 7.0
 	 */
 	public function testGetReportedType(): void
 	{
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
 		$this->assertEquals('foo/bar', $file->getReportedType());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetReportedMimeType(): void
+	{
+		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
+
+		$this->assertEquals('foo/bar', $file->getReportedMimeType());
 	}
 
 	/**

@@ -59,11 +59,11 @@ class File implements ResponseSenderInterface
 	protected $fileSize;
 
 	/**
-	 * File name.
+	 * Filename.
 	 *
 	 * @var string
 	 */
-	protected $fileName;
+	protected $filename;
 
 	/**
 	 * Content disposition.
@@ -107,14 +107,14 @@ class File implements ResponseSenderInterface
 	}
 
 	/**
-	 * Sets the file name.
+	 * Sets the filename.
 	 *
-	 * @param  string                           $name File name
+	 * @param  string                           $name Filename
 	 * @return \mako\http\response\senders\File
 	 */
 	public function setName(string $name): File
 	{
-		$this->fileName = $name;
+		$this->filename = $name;
 
 		return $this;
 	}
@@ -159,13 +159,13 @@ class File implements ResponseSenderInterface
 	}
 
 	/**
-	 * Returns the file name.
+	 * Returns the filename.
 	 *
 	 * @return string
 	 */
 	protected function getName(): string
 	{
-		return $this->fileName ?? basename($this->filePath);
+		return $this->filename ?? basename($this->filePath);
 	}
 
 	/**

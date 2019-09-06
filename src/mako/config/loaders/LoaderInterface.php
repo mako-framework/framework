@@ -17,7 +17,7 @@ interface LoaderInterface
 	/**
 	 * Loads the configuration file.
 	 *
-	 * @param  string      $file        File name
+	 * @param  string      $file        Filename
 	 * @param  string|null $environment Environment
 	 * @return array
 	 */

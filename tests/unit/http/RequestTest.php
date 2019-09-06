@@ -885,11 +885,11 @@ class RequestTest extends TestCase
 
 		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
-		$this->assertEquals('foo', $file->getName());
+		$this->assertEquals('foo', $file->getReportedFilename());
 
 		$this->assertEquals(123, $file->getReportedSize());
 
-		$this->assertEquals('foo/bar', $file->getReportedType());
+		$this->assertEquals('foo/bar', $file->getReportedMimeType());
 
 		$this->assertEquals(0, $file->getErrorCode());
 	}
@@ -922,11 +922,11 @@ class RequestTest extends TestCase
 
 		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
-		$this->assertEquals('foo', $file->getName());
+		$this->assertEquals('foo', $file->getReportedFilename());
 
 		$this->assertEquals(123, $file->getReportedSize());
 
-		$this->assertEquals('foo/bar', $file->getReportedType());
+		$this->assertEquals('foo/bar', $file->getReportedMimeType());
 
 		$this->assertEquals(0, $file->getErrorCode());
 
@@ -936,11 +936,11 @@ class RequestTest extends TestCase
 
 		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
 
-		$this->assertEquals('bar', $file->getName());
+		$this->assertEquals('bar', $file->getReportedFilename());
 
 		$this->assertEquals(456, $file->getReportedSize());
 
-		$this->assertEquals('foo/bar', $file->getReportedType());
+		$this->assertEquals('foo/bar', $file->getReportedMimeType());
 
 		$this->assertEquals(0, $file->getErrorCode());
 	}

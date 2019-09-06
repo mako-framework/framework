@@ -98,7 +98,7 @@ class Config
 	/**
 	 * Loads the configuration file.
 	 *
-	 * @param string $file File name
+	 * @param string $file Filename
 	 */
 	protected function load(string $file): void
 	{

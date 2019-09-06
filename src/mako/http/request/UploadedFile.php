@@ -22,11 +22,11 @@ use function vsprintf;
 class UploadedFile extends FileInfo
 {
 	/**
-	 * File name.
+	 * Filename.
 	 *
 	 * @var string
 	 */
-	protected $name;
+	protected $filename;
 
 	/**
 	 * File size.
@@ -53,7 +53,7 @@ class UploadedFile extends FileInfo
 	 * Constuctor.
 	 *
 	 * @param string $path      File path
-	 * @param string $name      File name
+	 * @param string $name      Filename
 	 * @param int    $size      File size
 	 * @param string $type      File mime type
 	 * @param int    $errorCode File error code
@@ -62,7 +62,7 @@ class UploadedFile extends FileInfo
 	{
 		parent::__construct($path);
 
-		$this->name = $name;
+		$this->filename = $name;
 
 		$this->size = $size;
 
@@ -72,13 +72,24 @@ class UploadedFile extends FileInfo
 	}
 
 	/**
-	 * Returns the file name.
+	 * Returns the filename.
 	 *
+	 * @deprecated 7.0
 	 * @return string
 	 */
 	public function getName(): string
 	{
-		return $this->name;
+		return $this->filename;
+	}
+
+	/**
+	 * Returns the filename reported by the client.
+	 *
+	 * @return string
+	 */
+	public function getReportedFilename(): string
+	{
+		return $this->filename;
 	}
 
 	/**
@@ -94,9 +105,20 @@ class UploadedFile extends FileInfo
 	/**
 	 * Returns the mime type reported by the client.
 	 *
+	 * @deprecated 7.0
 	 * @return string
 	 */
 	public function getReportedType(): string
+	{
+		return $this->type;
+	}
+
+	/**
+	 * Returns the mime type reported by the client.
+	 *
+	 * @return string
+	 */
+	public function getReportedMimeType(): string
 	{
 		return $this->type;
 	}

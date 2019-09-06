@@ -8,6 +8,14 @@
 * Added `Redis::subscribeTo()` method.
 * Added `Redis::subscribeToPattern()` method.
 * Added `Redis::monitor()` method.
+* Added `UploadedFile::getReportedFilename()` method.
+* Added `UploadedFile::getReportedMimeType()` method.
+
+#### Deprecations
+
+* The following methods have been deprecated:
+	- `UploadedFile::getName()`
+	- `UploadedFile::getReportedType()`
 
 #### Improvements
 

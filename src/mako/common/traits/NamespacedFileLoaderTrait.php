@@ -77,7 +77,7 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Returns the path to the file.
 	 *
-	 * @param  string      $file      File name
+	 * @param  string      $file      Filename
 	 * @param  string|null $extension File extension
 	 * @param  string|null $suffix    Path suffix
 	 * @return string
@@ -119,7 +119,7 @@ trait NamespacedFileLoaderTrait
 	/**
 	 * Returns an array of cascading file paths.
 	 *
-	 * @param  string      $file      File name
+	 * @param  string      $file      Filename
 	 * @param  string|null $extension File extension
 	 * @param  string|null $suffix    Path suffix
 	 * @return array
