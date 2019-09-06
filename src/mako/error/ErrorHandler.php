@@ -322,7 +322,7 @@ class ErrorHandler
 
 				// We'll also show some information about how the exception handler failed
 
-				echo 'Additionally the error handler failed with the following error:' . PHP_EOL;
+				echo 'Additionally, the error handler failed with the following error:' . PHP_EOL;
 
 				$this->getFallbackHandler()($e);
 			}
