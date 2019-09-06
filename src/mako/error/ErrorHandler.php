@@ -313,6 +313,11 @@ class ErrorHandler
 		}
 		catch(Throwable $e)
 		{
+			if((PHP_SAPI !== 'cli' && headers_sent()) || filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN) === false)
+			{
+				exit(1);
+			}
+
 			// Empty output buffers
 
 			$this->clearOutputBuffers();
@@ -320,6 +325,8 @@ class ErrorHandler
 			// One of the exception handlers failed so we'll just show the user a generic error screen
 
 			echo "{$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
+
+			echo $e->getTraceAsString() . PHP_EOL;
 		}
 
 		exit(1);
