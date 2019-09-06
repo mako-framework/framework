@@ -13,7 +13,7 @@
 
 #### Deprecations
 
-* The following methods have been deprecated:
+* The following methods have been deprecated and will be removed in `7.0`:
 	- `UploadedFile::getName()`
 	- `UploadedFile::getReportedType()`
 
