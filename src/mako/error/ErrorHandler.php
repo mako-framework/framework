@@ -97,9 +97,12 @@ class ErrorHandler
 	{
 		return function(Throwable $e): void
 		{
-			echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
+			if(filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN) === true)
+			{
+				echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
 
-			echo $e->getTraceAsString() . PHP_EOL;
+				echo $e->getTraceAsString() . PHP_EOL;
+			}
 		};
 	}
 
@@ -117,8 +120,6 @@ class ErrorHandler
 			if($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler)
 			{
 				$this->handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
-
-				exit(1);
 			}
 		});
 
@@ -339,8 +340,10 @@ class ErrorHandler
 			{
 				// We failed to log the exception
 			}
+			finally
+			{
+				exit(1);
+			}
 		}
-
-		exit(1);
 	}
 }
