@@ -19,7 +19,10 @@ use function array_unique;
 use function array_unshift;
 use function error_get_last;
 use function error_reporting;
+use function filter_var;
 use function get_class;
+use function headers_sent;
+use function ini_get;
 use function ob_end_clean;
 use function ob_get_level;
 use function register_shutdown_function;
@@ -318,7 +321,7 @@ class ErrorHandler
 
 				// We'll also show some information about how the exception handler failed
 
-				echo "Additionally the error handler failed with the following error:" . PHP_EOL;
+				echo 'Additionally the error handler failed with the following error:' . PHP_EOL;
 
 				$this->getFallbackHandler()($e);
 			}
