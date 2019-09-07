@@ -20,8 +20,10 @@ use function array_unshift;
 use function error_get_last;
 use function error_reporting;
 use function filter_var;
+use function fwrite;
 use function get_class;
 use function headers_sent;
+use function in_array;
 use function ini_get;
 use function ob_end_clean;
 use function ob_get_level;
@@ -89,6 +91,40 @@ class ErrorHandler
 	}
 
 	/**
+	 * Should errors be displayed?
+	 *
+	 * @return bool
+	 */
+	protected function displayErrors(): bool
+	{
+		$displayErrors = ini_get('display_errors');
+
+		if(in_array($displayErrors, ['stderr', 'stdout']) || filter_var($displayErrors, FILTER_VALIDATE_BOOLEAN))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Write to output.
+	 *
+	 * @param string $output String to write to output
+	 */
+	protected function write(string $output): void
+	{
+		if(PHP_SAPI === 'cli' && ini_get('display_errors') === 'stderr')
+		{
+			fwrite(STDERR, $output);
+
+			return;
+		}
+
+		echo $output;
+	}
+
+	/**
 	 * Returns the fallback handler.
 	 *
 	 * @return \Closure
@@ -97,11 +133,11 @@ class ErrorHandler
 	{
 		return function(Throwable $e): void
 		{
-			if(filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN) === true)
+			if($this->displayErrors())
 			{
-				echo '[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL;
+				$this->write('[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL);
 
-				echo $e->getTraceAsString() . PHP_EOL;
+				$this->write($e->getTraceAsString() . PHP_EOL);
 			}
 		};
 	}
@@ -310,7 +346,7 @@ class ErrorHandler
 		}
 		catch(Throwable $e)
 		{
-			if((PHP_SAPI === 'cli' || headers_sent() === false) && filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN) === true)
+			if((PHP_SAPI === 'cli' || headers_sent() === false) && $this->displayErrors())
 			{
 				// Empty output buffers
 
@@ -322,7 +358,7 @@ class ErrorHandler
 
 				// We'll also show some information about how the exception handler failed
 
-				echo 'Additionally, the error handler failed with the following error:' . PHP_EOL;
+				$this->write('Additionally, the error handler failed with the following error:' . PHP_EOL);
 
 				$this->getFallbackHandler()($e);
 			}
