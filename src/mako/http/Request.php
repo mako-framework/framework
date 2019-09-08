@@ -19,8 +19,9 @@ use mako\utility\Arr;
 use mako\utility\ip\IP;
 
 use function array_map;
+use function array_reverse;
 use function basename;
-use function end;
+use function current;
 use function explode;
 use function file_get_contents;
 use function filter_var;
@@ -179,6 +180,13 @@ class Request
 	 * @var string
 	 */
 	protected $realMethod;
+
+	/**
+	 * Was this request made using HTTPS?
+	 *
+	 * @var bool
+	 */
+	protected $isSecure;
 
 	/**
 	 * The route that matched the request.
@@ -527,6 +535,25 @@ class Request
 	}
 
 	/**
+	 * Is this IP a trusted proxy?
+	 *
+	 * @param  string $ip IP address
+	 * @return bool
+	 */
+	protected function isTrustedProxy(string $ip): bool
+	{
+		foreach($this->trustedProxies as $trustedProxy)
+		{
+			if(IP::inRange($ip, $trustedProxy))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Returns the ip of the client that made the request.
 	 *
 	 * @return string
@@ -537,28 +564,25 @@ class Request
 		{
 			$ip = $this->server->get('REMOTE_ADDR');
 
-			if(!empty($this->trustedProxies))
+			if($this->isTrustedProxy($ip))
 			{
 				$ips = $this->server->get('HTTP_X_FORWARDED_FOR');
 
 				if(!empty($ips))
 				{
-					$ips = array_map('trim', explode(',', $ips));
+					$ips = array_reverse(array_map('trim', explode(',', $ips)));
 
 					foreach($ips as $key => $value)
 					{
-						foreach($this->trustedProxies as $trustedProxy)
+						if($this->isTrustedProxy($value) === false)
 						{
-							if(IP::inRange($value, $trustedProxy))
-							{
-								unset($ips[$key]);
-
-								break;
-							}
+							break;
 						}
+
+						unset($ips[$key]);
 					}
 
-					$ip = end($ips);
+					$ip = current($ips);
 				}
 			}
 
@@ -585,8 +609,17 @@ class Request
 	 */
 	public function isSecure(): bool
 	{
-		return filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN)
-			|| $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https';
+		if($this->isSecure === null)
+		{
+			if($this->isTrustedProxy($this->server->get('REMOTE_ADDR')) && $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https')
+			{
+				return $this->isSecure = true;
+			}
+
+			return $this->isSecure = filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN);
+		}
+
+		return $this->isSecure;
 	}
 
 	/**

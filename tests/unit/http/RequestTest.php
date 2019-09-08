@@ -149,19 +149,27 @@ class RequestTest extends TestCase
 
 		// Should ignore the X-Forwarded-For header if no list of trusted proxies is specified
 
-		$server['REMOTE_ADDR'] = '127.0.0.1';
+		$server['REMOTE_ADDR'] = '10.17.12.214';
 
 		$server['HTTP_X_FORWARDED_FOR'] = '10.17.13.0, 10.17.13.1, 10.17.12.212, 10.17.12.213';
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('127.0.0.1', $request->getIp());
+		$this->assertEquals('10.17.12.214', $request->getIp());
+
+		// Should return the last IP in the chain since it doesn't match our trusted proxy
+
+		$request = new Request(['server' => $server]);
+
+		$request->setTrustedProxies(['10.17.12.214']);
+
+		$this->assertEquals('10.17.12.213', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
 		$request = new Request(['server' => $server]);
 
-		$request->setTrustedProxies(['10.17.12.213']);
+		$request->setTrustedProxies(['10.17.12.213', '10.17.12.214']);
 
 		$this->assertEquals('10.17.12.212', $request->getIp());
 
@@ -169,7 +177,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213']);
+		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213', '10.17.12.214']);
 
 		$this->assertEquals('10.17.13.1', $request->getIp());
 
@@ -265,8 +273,11 @@ class RequestTest extends TestCase
 
 		$server['HTTPS'] = 'false';
 		$server['HTTP_X_FORWARDED_PROTO'] = 'https';
+		$server['REMOTE_ADDR'] = '127.0.0.1';
 
 		$request = new Request(['server' => $server]);
+
+		$request->setTrustedProxies(['127.0.0.1']);
 
 		$this->assertTrue($request->isSecure());
 	}
@@ -368,8 +379,11 @@ class RequestTest extends TestCase
 
 		$server['HTTPS'] = 'off';
 		$server['HTTP_X_FORWARDED_PROTO'] = 'https';
+		$server['REMOTE_ADDR'] = '127.0.0.1';
 
 		$request = new Request(['server' => $server]);
+
+		$request->setTrustedProxies(['127.0.0.1']);
 
 		$this->assertEquals('https://example.local', $request->getBaseURL());
 	}
