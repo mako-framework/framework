@@ -585,7 +585,8 @@ class Request
 	 */
 	public function isSecure(): bool
 	{
-		return filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN);
+		return filter_var($this->server->get('HTTPS', false), FILTER_VALIDATE_BOOLEAN)
+			|| $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https';
 	}
 
 	/**
