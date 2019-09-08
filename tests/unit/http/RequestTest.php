@@ -269,16 +269,6 @@ class RequestTest extends TestCase
 		$request = new Request(['server' => $server]);
 
 		$this->assertTrue($request->isSecure());
-
-		//
-
-		$server['HTTPS'] = 'false';
-		$server['HTTP_X_FORWARDED_PROTO'] = null;
-		$server['HTTP_X_FORWARDED_PORT'] = '443';
-
-		$request = new Request(['server' => $server]);
-
-		$this->assertTrue($request->isSecure());
 	}
 
 	/**
@@ -378,18 +368,6 @@ class RequestTest extends TestCase
 
 		$server['HTTPS'] = 'off';
 		$server['HTTP_X_FORWARDED_PROTO'] = 'https';
-
-		$request = new Request(['server' => $server]);
-
-		$this->assertEquals('https://example.local', $request->getBaseURL());
-
-		//
-
-		$server = $this->getServerData();
-
-		$server['HTTPS'] = 'off';
-		$server['HTTP_X_FORWARDED_PROTO'] = null;
-		$server['HTTP_X_FORWARDED_PORT'] = '443';
 
 		$request = new Request(['server' => $server]);
 
