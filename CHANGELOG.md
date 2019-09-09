@@ -1,3 +1,13 @@
+### 5.7.7, 6.0.6, 6.1.5, 6.2.3 <small> (2019-09-09)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Fixed breaking change introduced in `5.7.6`, `6.0.5`, `6.1.4` and `6.2.2`.
+
+--------------------------------------------------------
+
 ### 5.7.6, 6.0.5, 6.1.4, 6.2.2 <small> (2019-09-05)</small>
 
 #### Bugfixes

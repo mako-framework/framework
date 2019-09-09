@@ -17,6 +17,7 @@ use mako\http\response\Headers as ResponseHeaders;
 use mako\tests\TestCase;
 use mako\view\ViewFactory;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -64,9 +65,61 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
 
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andReturn('rendered');
+
+		//
+
+		$handler = new ProductionHandler($request, $response, $viewFactory);
+
+		$this->assertFalse($handler->handle(new ErrorException));
+	}
+
+	/**
+	 *
+	 */
+	public function testRegularErrorWithRenderException(): void
+	{
+		$viewFactory = Mockery::mock(ViewFactory::class);
+
+		$viewFactory->shouldReceive('registerNamespace')->once();
+
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andThrow(RuntimeException::class);
+
 		$viewFactory->shouldReceive('clearAutoAssignVariables')->once()->andReturn($viewFactory);
 
 		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andReturn('rendered');
+
+		//
+
+		$responseHeaders = Mockery::mock(RequestHeaders::class);
+
+		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
+
+		//
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('clear')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCaching')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCompression')->once()->andReturn($response);
+
+		$response->shouldReceive('getType')->twice()->andReturn('text/html');
+
+		$response->shouldReceive('setType')->once()->with('text/html');
+
+		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
+
+		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
+
+		$response->shouldReceive('send')->once();
 
 		//
 
@@ -125,8 +178,6 @@ class ProductionHandlerTest extends TestCase
 		$viewFactory->shouldReceive('registerNamespace')->once();
 
 		$viewFactory->shouldReceive('exists')->once()->with('mako-error::405')->andReturn(true);
-
-		$viewFactory->shouldReceive('clearAutoAssignVariables')->once()->andReturn($viewFactory);
 
 		$viewFactory->shouldReceive('render')->once()->with('mako-error::405')->andReturn('rendered');
 
