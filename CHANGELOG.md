@@ -20,6 +20,7 @@
 #### Improvements
 
 * Massive speed improvements when sending large values to Redis.
+* Reduced number of method calls when hydrating models.
 
 --------------------------------------------------------
 
