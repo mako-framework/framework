@@ -16,6 +16,9 @@
 * The following methods have been deprecated and will be removed in `7.0`:
 	- `UploadedFile::getName()`
 	- `UploadedFile::getReportedType()`
+* The following validation rules have been deprecated and will be removed in `7.0`:
+	- `max_filesize` (replaced by `max_file_size`)
+	- `mimetype` (replaced by `mime_type`)
 
 #### Improvements
 

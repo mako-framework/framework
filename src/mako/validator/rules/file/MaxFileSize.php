@@ -17,11 +17,11 @@ use function substr;
 use function vsprintf;
 
 /**
- * Max filesize rule.
+ * Max file size rule.
  *
  * @author Frederic G. Østby
  */
-class MaxFilesize extends Rule implements RuleInterface
+class MaxFileSize extends Rule implements RuleInterface
 {
 	/**
 	 * Max size.

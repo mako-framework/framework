@@ -8,21 +8,21 @@
 namespace mako\tests\unit\validator\rules\file;
 
 use mako\tests\TestCase;
-use mako\validator\rules\file\MaxFilesize;
+use mako\validator\rules\file\MaxFileSize;
 use RuntimeException;
 use SplFileInfo;
 
 /**
  * @group unit
  */
-class MaxFilesizeTest extends TestCase
+class MaxFileSizeTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new MaxFilesize(0);
+		$rule = new MaxFileSize(0);
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -32,7 +32,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testConvertToBytes(): void
 	{
-		$rule = new class(0) extends MaxFilesize
+		$rule = new class(0) extends MaxFileSize
 		{
 			public function convert($size)
 			{
@@ -60,7 +60,7 @@ class MaxFilesizeTest extends TestCase
 
 		$this->expectExceptionMessage('Invalid unit type [ Foo ].');
 
-		$rule = new class(0) extends MaxFilesize
+		$rule = new class(0) extends MaxFileSize
 		{
 			public function convert($size)
 			{
@@ -76,7 +76,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new MaxFilesize('1MiB');
+		$rule = new MaxFileSize('1MiB');
 
 		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
 	}
@@ -86,7 +86,7 @@ class MaxFilesizeTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new MaxFilesize('0.5KiB');
+		$rule = new MaxFileSize('0.5KiB');
 
 		$this->assertFalse($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
 

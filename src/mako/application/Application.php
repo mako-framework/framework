@@ -292,7 +292,7 @@ abstract class Application
 
 		mb_internal_encoding($this->charset);
 
-		// Set default timezone
+		// Set default time zone
 
 		date_default_timezone_set($config['timezone']);
 
