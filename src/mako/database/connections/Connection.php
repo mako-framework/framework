@@ -28,7 +28,6 @@ use function is_float;
 use function is_int;
 use function is_null;
 use function is_object;
-use function is_resource;
 use function is_string;
 use function microtime;
 use function preg_replace;
@@ -365,17 +364,13 @@ class Connection
 			{
 				return $param ? 'TRUE' : 'FALSE';
 			}
-			elseif(is_object($param))
-			{
-				return get_class($param);
-			}
 			elseif(is_null($param))
 			{
 				return 'NULL';
 			}
-			elseif(is_resource($param))
+			elseif(is_object($param))
 			{
-				return 'resource';
+				return get_class($param);
 			}
 			else
 			{
@@ -491,10 +486,6 @@ class Connection
 			$value = $value->getValue();
 
 			$type = $value->getType();
-		}
-		elseif(is_resource($value))
-		{
-			$type = PDO::PARAM_LOB;
 		}
 		else
 		{
