@@ -1,55 +1,55 @@
 {
-	"name": "mako/framework",
-	"description": "Mako Framework",
-	"keywords": ["mako", "framework"],
-	"homepage": "http://makoframework.com",
-	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "Frederic G. Østby",
-			"email": "frederic.g.ostby@gmail.com"
-		},
-		{
-			"name": "Contributors",
-			"homepage": "https://makoframework.com/contributors"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/mako-framework/framework/issues",
-		"source": "https://github.com/mako-framework/framework"
-	},
-	"autoload": {
-		"psr-4": {
-			"mako\\": "src/mako"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"mako\\tests\\": "tests"
-		}
-	},
-	"require": {
-		"php": ">=7.2.0",
-		"ext-json": "*",
-		"ext-mbstring": "*",
-		"monolog/monolog": "^1.24.0",
-		"filp/whoops": "^2.4",
-		"symfony/var-dumper": "^4.3"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "^8.2",
-		"mockery/mockery": "^1.2"
-	},
-	"prefer-stable": true,
-	"minimum-stability": "dev",
-	"extra": {
-		"branch-alias": {
-			 "dev-master": "6.3-dev"
-		}
-	},
-	"suggest": {
-		"ext-openssl": "Required to use the crypto library",
-		"ext-pdo": "Required to use the database library",
-		"ext-simplexml": "Required if you want the error handlers to be able to serve XML"
-	}
+    "name": "mako/framework",
+    "description": "Mako Framework",
+    "keywords": ["mako", "framework"],
+    "homepage": "http://makoframework.com",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Frederic G. Østby",
+            "email": "frederic.g.ostby@gmail.com"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://makoframework.com/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/mako-framework/framework/issues",
+        "source": "https://github.com/mako-framework/framework"
+    },
+    "autoload": {
+        "psr-4": {
+            "mako\\": "src/mako"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "mako\\tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=7.2.0",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "monolog/monolog": "^1.24.0",
+        "filp/whoops": "^2.4",
+        "symfony/var-dumper": "^4.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.2",
+        "mockery/mockery": "^1.2"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+             "dev-master": "6.3-dev"
+        }
+    },
+    "suggest": {
+        "ext-openssl": "Required to use the crypto library",
+        "ext-pdo": "Required to use the database library",
+        "ext-simplexml": "Required if you want the error handlers to be able to serve XML"
+    }
 }
