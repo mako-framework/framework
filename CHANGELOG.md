@@ -11,6 +11,7 @@
 * Added `UploadedFile::getReportedFilename()` method.
 * Added `UploadedFile::getReportedMimeType()` method.
 * Added `max_filename_length` validation rule.
+* Added `SecurityHeaders` middleware.
 
 #### Deprecations
 
