@@ -24,7 +24,7 @@ class SecurityHeadersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithDefaultConfig()
+	public function testWithDefaultConfig(): void
 	{
 		$container = Mockery::mock(Container::class);
 
@@ -61,7 +61,7 @@ class SecurityHeadersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithReportOnly()
+	public function testWithReportOnly(): void
 	{
 		$container = Mockery::mock(Container::class);
 
@@ -101,7 +101,7 @@ class SecurityHeadersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithCustomHeadersAndNoCsp()
+	public function testWithCustomHeadersAndNoCsp(): void
 	{
 		$container = Mockery::mock(Container::class);
 
@@ -140,7 +140,7 @@ class SecurityHeadersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithCustomCspAndNoHeaders()
+	public function testWithCustomCspAndNoHeaders(): void
 	{
 		$container = Mockery::mock(Container::class);
 
@@ -181,7 +181,7 @@ class SecurityHeadersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithCustomCspWithNonceAndNoHeaders()
+	public function testWithCustomCspWithNonceAndNoHeaders(): void
 	{
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
@@ -231,7 +231,7 @@ class SecurityHeadersTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithCustomCspWithNonceAndCustomNonceVariableNameAndNoHeaders()
+	public function testWithCustomCspWithNonceAndCustomNonceVariableNameAndNoHeaders(): void
 	{
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
@@ -275,6 +275,60 @@ class SecurityHeadersTest extends TestCase
 			{
 				return 'foobar';
 			}
+		};
+
+		$securityHeaders->execute($request, $response, $next);
+	}
+
+	/**
+	 *
+	 */
+	public function testWithCustomCspWithReportToAndNoHeaders(): void
+	{
+		$container = Mockery::mock(Container::class);
+
+		$request = Mockery::mock(Request::class);
+
+		$response = Mockery::mock(Response::class);
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('add')->once()->with('Report-To', '{"group":"csp-endpoint","max-age":10886400,"endpoints":[{"url":"https:\/\/example.com\/csp-reports"}]}');
+
+		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', 'report-to csp-endpoint');
+
+		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$next = function($request, $response)
+		{
+			$this->assertInstanceOf(Request::class, $request);
+
+			$this->assertInstanceOf(Response::class, $response);
+
+			return $response;
+		};
+
+		$securityHeaders = new class ($container) extends SecurityHeaders
+		{
+			protected $headers = null;
+
+			protected $reportTo =
+			[
+				[
+					'group'     => 'csp-endpoint',
+					'max-age'   => 10886400,
+					'endpoints' =>
+					[
+						['url' => 'https://example.com/csp-reports'],
+					],
+				],
+			];
+
+			protected $cspDirectives =
+			[
+
+				'report-to' => ['csp-endpoint'],
+			];
 		};
 
 		$securityHeaders->execute($request, $response, $next);

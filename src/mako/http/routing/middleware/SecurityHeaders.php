@@ -95,6 +95,23 @@ class SecurityHeaders implements MiddlewareInterface
 	}
 
 	/**
+	 * Builds the "Report-To" header value.
+	 *
+	 * @return string
+	 */
+	protected function buildReportToValue(): string
+	{
+		$endpoints = [];
+
+		foreach($this->reportTo as $endpoint)
+		{
+			$endpoints[] = json_encode($endpoint);
+		}
+
+		return implode(', ', $endpoints);
+	}
+
+	/**
 	 * Generates a random content security policy nonce.
 	 *
 	 * @return string
@@ -128,11 +145,11 @@ class SecurityHeaders implements MiddlewareInterface
 	}
 
 	/**
-	 * Builds content security policy directives string.
+	 * Builds the "Content-Security-Policy" header value.
 	 *
 	 * @return string
 	 */
-	protected function buildCspDirectivesString(): string
+	protected function buildCspValue(): string
 	{
 		$directives = [];
 
@@ -180,7 +197,7 @@ class SecurityHeaders implements MiddlewareInterface
 
 		if($this->reportTo !== null)
 		{
-			$headers->add('Report-To', json_encode($this->reportTo));
+			$headers->add('Report-To', $this->buildReportToValue());
 		}
 
 		if($this->headers !== null)
@@ -193,7 +210,7 @@ class SecurityHeaders implements MiddlewareInterface
 
 		if($this->cspDirectives !== null)
 		{
-			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildCspDirectivesString());
+			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildCspValue());
 
 			if($this->cspNonce !== null)
 			{
