@@ -10,14 +10,16 @@
 * Added `Redis::monitor()` method.
 * Added `UploadedFile::getReportedFilename()` method.
 * Added `UploadedFile::getReportedMimeType()` method.
+* Added `max_file_size` validation rule.
+* Added `mime_type` validation rule.
 * Added `max_filename_length` validation rule.
 * Added `SecurityHeaders` middleware.
 
 #### Deprecations
 
 * The following methods have been deprecated and will be removed in `7.0`:
-	- `UploadedFile::getName()`
-	- `UploadedFile::getReportedType()`
+	- `UploadedFile::getName()` (replaced by `UploadedFile::getReportedFilename()`)
+	- `UploadedFile::getReportedType()` (replaced by `UploadedFile::getReportedMimeType()`)
 * The following validation rules have been deprecated and will be removed in `7.0`:
 	- `max_filesize` (replaced by `max_file_size`)
 	- `mimetype` (replaced by `mime_type`)
