@@ -204,5 +204,7 @@ class URLBuilderTest extends TestCase
 		$this->assertEquals('http://example.org/foo/bar?foo=bar', $urlBuilder->current());
 
 		$this->assertEquals('http://example.org/foo/bar?bar=foo', $urlBuilder->current(['bar' => 'foo']));
+
+		$this->assertEquals('http://example.org/foo/bar', $urlBuilder->current(null));
 	}
 }

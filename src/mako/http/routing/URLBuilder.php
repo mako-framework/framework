@@ -166,14 +166,14 @@ class URLBuilder
 	/**
 	 * Returns the current URL of the request.
 	 *
-	 * @param  array  $queryParams Associative array used to build URL-encoded query string
-	 * @param  string $separator   Argument separator
-	 * @param  mixed  $language    Request language
+	 * @param  array|null $queryParams Associative array used to build URL-encoded query string
+	 * @param  string     $separator   Argument separator
+	 * @param  mixed      $language    Request language
 	 * @return string
 	 */
-	public function current(array $queryParams = [], string $separator = '&', $language = true): string
+	public function current(?array $queryParams = [], string $separator = '&', $language = true): string
 	{
-		$queryParams = $queryParams ?: $this->request->getQuery()->all();
+		$queryParams = $queryParams === null ? [] : ($queryParams ?: $this->request->getQuery()->all());
 
 		return $this->to($this->request->getPath(), $queryParams, $separator, $language);
 	}
@@ -210,12 +210,12 @@ class URLBuilder
 	/**
 	 * Returns the current URL of the request.
 	 *
-	 * @param  string $language    Request language
-	 * @param  array  $queryParams Query parameters
-	 * @param  string $separator   Argument separator
+	 * @param  string     $language    Request language
+	 * @param  array|null $queryParams Query parameters
+	 * @param  string     $separator   Argument separator
 	 * @return string
 	 */
-	public function currentLanguage(string $language, array $queryParams = [], string $separator = '&'): string
+	public function currentLanguage(string $language, ?array $queryParams = [], string $separator = '&'): string
 	{
 		return $this->current($queryParams, $separator, $language);
 	}
