@@ -31,6 +31,16 @@
 
 --------------------------------------------------------
 
+### 5.7.8, 6.0.7, 6.1.6, 6.2.4 <small> (2019-09-27)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* The correct field name will now be displayed when using wildcard validation rules.
+
+--------------------------------------------------------
+
 ### 5.7.7, 6.0.6, 6.1.5, 6.2.3 <small> (2019-09-09)</small>
 
 Update using ```composer update```.
