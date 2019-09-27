@@ -295,6 +295,31 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
+	public function testThatErrorMessagesUseTheOriginalNameWhenAWildcardRuleIsPresent()
+	{
+		$input =
+		[
+			'username' => 'foo',
+		];
+
+		$ruleSets =
+		[
+			'*'        => ['required'],
+			'username' => ['min_length(4)'],
+		];
+
+		$validator = new Validator($input, $ruleSets);
+
+		$this->assertFalse($validator->isValid());
+
+		$this->assertTrue($validator->isInvalid());
+
+		$this->assertSame(['username' => 'The value of the username field must be at least 4 characters long.'], $validator->getErrors());
+	}
+
+	/**
+	 *
+	 */
 	public function testThatParametersGetPassedToRule()
 	{
 		$input =

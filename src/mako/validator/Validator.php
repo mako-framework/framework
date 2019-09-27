@@ -298,7 +298,10 @@ class Validator
 
 			if(!empty($fields = Arr::expandKey($this->input, $field)))
 			{
-				$this->saveOriginalFieldNames($fields, $field);
+				if($field !== '*')
+				{
+					$this->saveOriginalFieldNames($fields, $field);
+				}
 
 				$fields = array_fill_keys($fields, $ruleSet);
 			}
