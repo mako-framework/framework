@@ -271,6 +271,28 @@ class FileSystem
 	}
 
 	/**
+	 * Returns the total size of a filesystem or disk partition in bytes.
+	 *
+	 * @param  string|null $directory A directory of the filesystem or disk partition.
+	 * @return float
+	 */
+	public function getDiskSize(?string $directory = null): float
+	{
+		return disk_total_space($directory ?? (getcwd() ?: dirname(__FILE__)));
+	}
+
+	/**
+	 * Returns the total number of available bytes on the filesystem or disk partition.
+	 *
+	 * @param  string|null $directory A directory of the filesystem or disk partition.
+	 * @return float
+	 */
+	public function getFreeSpaceOnDisk(?string $directory = null): float
+	{
+		return disk_free_space($directory ?? (getcwd() ?: dirname(__FILE__)));
+	}
+
+	/**
 	 * Includes a file.
 	 *
 	 * @param  string $file Path to file

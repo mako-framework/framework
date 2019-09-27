@@ -14,6 +14,8 @@
 * Added `mime_type` validation rule.
 * Added `max_filename_length` validation rule.
 * Added `SecurityHeaders` middleware.
+* Added `FileSystem::getDiskSize()` method.
+* Added `FileSystem::getFreeSpaceOnDisk()` method.
 
 #### Deprecations
 
