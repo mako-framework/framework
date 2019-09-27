@@ -77,7 +77,7 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testRegularErrorWithRenderException()
+	public function testRegularErrorWithRenderException(): void
 	{
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
