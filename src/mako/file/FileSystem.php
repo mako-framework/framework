@@ -10,11 +10,15 @@ namespace mako\file;
 use FilesystemIterator;
 use SplFileObject;
 
+use function dirname;
+use function disk_free_space;
+use function disk_total_space;
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function filemtime;
 use function filesize;
+use function getcwd;
 use function glob;
 use function is_dir;
 use function is_file;
