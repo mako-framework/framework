@@ -51,7 +51,13 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ==================== 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new ProgressBar($output, 10);
+		$progressBar = new class ($output, 10) extends ProgressBar
+		{
+			protected function shouldRedraw(): bool
+			{
+				return ($this->progress % 1) === 0;
+			}
+		};
 
 		$progressBar->draw();
 
@@ -81,7 +87,13 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ======================================== 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new ProgressBar($output, 10);
+		$progressBar = new class ($output, 10) extends ProgressBar
+		{
+			protected function shouldRedraw(): bool
+			{
+				return ($this->progress % 1) === 0;
+			}
+		};
 
 		$progressBar->setWidth(40);
 
@@ -113,7 +125,13 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ++++++++++++++++++++ 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new ProgressBar($output, 10);
+		$progressBar = new class ($output, 10) extends ProgressBar
+		{
+			protected function shouldRedraw(): bool
+			{
+				return ($this->progress % 1) === 0;
+			}
+		};
 
 		$progressBar->setEmptyTemplate('_');
 
@@ -147,7 +165,13 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 10/10 ==================== 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new ProgressBar($output, 10);
+		$progressBar = new class ($output, 10) extends ProgressBar
+		{
+			protected function shouldRedraw(): bool
+			{
+				return ($this->progress % 1) === 0;
+			}
+		};
 
 		$progressBar->setPrefix('Processing files:');
 
@@ -162,13 +186,21 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWith100ItemsAndDefaultRedrawRate(): void
+	public function testProgressWith100ItemsAndDefaultMinTimeBetweenRedraw(): void
 	{
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(102);
 
-		$progressBar = new ProgressBar($output, 100);
+		$progressBar = new class ($output, 100) extends ProgressBar
+		{
+			protected function getMicrotime(): float
+			{
+				static $time = 0;
+
+				return $time += 1.0; // More than the default minTimeBetweenRedraw value of 0.1 secuonds
+			}
+		};
 
 		$progressBar->draw();
 
@@ -181,39 +213,39 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
-	public function testProgressWith1000ItemsAndDefaultRedrawRate(): void
+	public function testProgressWith100ItemsAndCustomMinTimeBetweenRedraw(): void
 	{
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->times(102);
+		$output->shouldReceive('write');
 
-		$progressBar = new ProgressBar($output, 1000);
+		$progressBar = new class ($output, 100, 1) extends ProgressBar
+		{
+			public $drawn = 0;
+
+			protected function getMicrotime(): float
+			{
+				static $time = 0;
+
+				return $time += 0.5; // Half of the default minTimeBetweenRedraw value
+			}
+
+			public function draw(): void
+			{
+				$this->drawn++;
+
+				parent::draw();
+			}
+		};
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 1000; $i++)
+		for($i = 0; $i < 100; $i++)
 		{
 			$progressBar->advance();
 		}
-	}
 
-	/**
-	 *
-	 */
-	public function testProgressWith1000ItemsAndCustomtRedrawRate(): void
-	{
-		$output = Mockery::mock(Output::class);
-
-		$output->shouldReceive('write')->times(1002);
-
-		$progressBar = new ProgressBar($output, 1000, 1);
-
-		$progressBar->draw();
-
-		for($i = 0; $i < 1000; $i++)
-		{
-			$progressBar->advance();
-		}
+		$this->assertThat($progressBar->drawn, $this->logicalAnd($this->greaterThan(50), $this->lessThan(55)));
 	}
 
 	/**
@@ -256,7 +288,13 @@ class ProgressBarTest extends TestCase
 
 		$output->shouldReceive('clearLines')->once()->with(2);
 
-		$progressBar = new ProgressBar($output, 10);
+		$progressBar = new class ($output, 10) extends ProgressBar
+		{
+			protected function shouldRedraw(): bool
+			{
+				return ($this->progress % 1) === 0;
+			}
+		};
 
 		$progressBar->draw();
 

@@ -9,9 +9,9 @@ namespace mako\cli\output\helpers;
 
 use mako\cli\output\Output;
 
-use function ceil;
 use function floor;
 use function max;
+use function microtime;
 use function min;
 use function str_pad;
 use function str_repeat;
@@ -53,11 +53,18 @@ class ProgressBar
 	protected $items;
 
 	/**
-	 * Redraw rate.
+	 * Minimum time between redraw in seconds.
 	 *
-	 * @var int
+	 * @var float
 	 */
-	protected $redrawRate;
+	protected $minTimeBetweenRedraw;
+
+	/**
+	 * Time of last redraw.
+	 *
+	 * @var float
+	 */
+	protected $lastRedraw;
 
 	/**
 	 * Progress status.
@@ -83,17 +90,17 @@ class ProgressBar
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\cli\output\Output $output     Output instance
-	 * @param int                     $items      Total number of items
-	 * @param int|null                $redrawRate Redraw rate
+	 * @param \mako\cli\output\Output $output               Output instance
+	 * @param int                     $items                Total number of items
+	 * @param float                   $minTimeBetweenRedraw Minimum time between redraw in seconds
 	 */
-	public function __construct(Output $output, int $items, ?int $redrawRate = null)
+	public function __construct(Output $output, int $items, float $minTimeBetweenRedraw = 0.1)
 	{
 		$this->output = $output;
 
 		$this->items = $items;
 
-		$this->redrawRate = max($redrawRate ?? ceil(0.01 * $items), 1);
+		$this->minTimeBetweenRedraw = max(min($minTimeBetweenRedraw, 1), 0.1);
 	}
 
 	/**
@@ -186,13 +193,42 @@ class ProgressBar
 	}
 
 	/**
+	 * Return current unix timestamp with microseconds.
+	 *
+	 * @return float
+	 */
+	protected function getMicrotime(): float
+	{
+		return microtime(true);
+	}
+
+	/**
+	 * Should the progress bar be redrawn?
+	 *
+	 * @return bool
+	 */
+	protected function shouldRedraw(): bool
+	{
+		$time = $this->getMicrotime();
+
+		if($this->lastRedraw === null || $time - $this->lastRedraw >= $this->minTimeBetweenRedraw)
+		{
+			$this->lastRedraw = $time;
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Move progress forward and redraws the progressbar.
 	 */
 	public function advance(): void
 	{
 		$this->progress++;
 
-		if($this->progress === $this->items || ($this->progress % $this->redrawRate) === 0)
+		if($this->progress === $this->items || $this->shouldRedraw())
 		{
 			$this->draw();
 		}

@@ -107,14 +107,14 @@ trait CommandHelperTrait
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
 	 *
-	 * @param  int                                  $items      Total number of items
-	 * @param  int|null                             $redrawRate Redraw rate
-	 * @param  string|null                          $prefix     Progress bar prefix
+	 * @param  int                                  $items                Total number of items
+	 * @param  float                                $minTimeBetweenRedraw Minimum time between redraw in seconds
+	 * @param  string|null                          $prefix               Progress bar prefix
 	 * @return \mako\cli\output\helpers\ProgressBar
 	 */
-	protected function progressBar(int $items, ?int $redrawRate = null, ?string $prefix = null): ProgressBar
+	protected function progressBar(int $items, float $minTimeBetweenRedraw = 0.1, ?string $prefix = null): ProgressBar
 	{
-		$progressBar = new ProgressBar($this->output, $items, $redrawRate);
+		$progressBar = new ProgressBar($this->output, $items, $minTimeBetweenRedraw);
 
 		$progressBar->setWidth(50);
 
