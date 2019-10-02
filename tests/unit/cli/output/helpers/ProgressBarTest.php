@@ -213,6 +213,28 @@ class ProgressBarTest extends TestCase
 	/**
 	 *
 	 */
+	public function testProgressTimeBetweenRedraw(): void
+	{
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('write')->times(3);
+
+		$progressBar = new ProgressBar($output, 100, 0.5);
+
+		$progressBar->draw();
+
+		$progressBar->advance(); // Should redraw
+
+		$progressBar->advance(); // Should not redraw
+
+		usleep(500000);
+
+		$progressBar->advance(); // Should redraw
+	}
+
+	/**
+	 *
+	 */
 	public function testProgressWith100ItemsAndCustomMinTimeBetweenRedraw(): void
 	{
 		$output = Mockery::mock(Output::class);
