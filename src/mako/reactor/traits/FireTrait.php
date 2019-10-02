@@ -70,18 +70,23 @@ trait FireTrait
 	/**
 	 * Runs command as a separate process and feeds output to handler.
 	 *
-	 * @param  string   $command         Command
-	 * @param  \Closure $handler         Output handler
-	 * @param  bool     $sameEnvironment Run command using the same environment?
+	 * @param  string        $command         Command
+	 * @param  \Closure|null $handler         Output handler
+	 * @param  bool          $sameEnvironment Run command using the same environment?
 	 * @return int
 	 */
-	protected function fire(string $command, Closure $handler, bool $sameEnvironment = true): int
+	protected function fire(string $command, ?Closure $handler = null, bool $sameEnvironment = true): int
 	{
 		$process = popen($this->buildCommand($command, false, $sameEnvironment), 'r');
 
 		while(!feof($process))
 		{
-			$handler(fread($process, 4096));
+			$read = fread($process, 4096);
+
+			if($handler !== null)
+			{
+				$handler($read);
+			}
 		}
 
 		return pclose($process);
