@@ -135,7 +135,7 @@ class UUID
 	 */
 	public static function v3(string $namespace, string $name): string
 	{
-		$hash = md5(self::toBinary($namespace) . $name);
+		$hash = md5(static::toBinary($namespace) . $name);
 
 		return sprintf
 		(
