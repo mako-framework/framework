@@ -208,7 +208,7 @@ class SecurityHeaders implements MiddlewareInterface
 			}
 		}
 
-		if($this->cspDirectives !== null)
+		if($this->cspDirectives !== null && $response->getType() === 'text/html')
 		{
 			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildCspValue());
 

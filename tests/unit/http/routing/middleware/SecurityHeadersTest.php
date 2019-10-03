@@ -44,6 +44,45 @@ class SecurityHeadersTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		$response->shouldReceive('getType')->once()->andReturn('text/html');
+
+		$next = function($request, $response)
+		{
+			$this->assertInstanceOf(Request::class, $request);
+
+			$this->assertInstanceOf(Response::class, $response);
+
+			return $response;
+		};
+
+		$securityHeaders = new SecurityHeaders($container);
+
+		$securityHeaders->execute($request, $response, $next);
+	}
+
+	/**
+	 *
+	 */
+	public function testWithDefaultConfigAndJsonResponse(): void
+	{
+		$container = Mockery::mock(Container::class);
+
+		$request = Mockery::mock(Request::class);
+
+		$response = Mockery::mock(Response::class);
+
+		$headers = Mockery::mock(Headers::class);
+
+		$headers->shouldReceive('add')->once()->with('X-Content-Type-Options', 'nosniff');
+
+		$headers->shouldReceive('add')->once()->with('X-Frame-Options', 'sameorigin');
+
+		$headers->shouldReceive('add')->once()->with('X-XSS-Protection', '1; mode=block');
+
+		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response->shouldReceive('getType')->once()->andReturn('application/json');
+
 		$next = function($request, $response)
 		{
 			$this->assertInstanceOf(Request::class, $request);
@@ -80,6 +119,8 @@ class SecurityHeadersTest extends TestCase
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy-Report-Only', "base-uri 'self'; default-src 'self'; object-src 'none'");
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response->shouldReceive('getType')->once()->andReturn('text/html');
 
 		$next = function($request, $response)
 		{
@@ -154,6 +195,10 @@ class SecurityHeadersTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		$response->shouldReceive('getType')->once()->andReturn('text/html');
+
+		$response->shouldReceive('getType')->never();
+
 		$next = function($request, $response)
 		{
 			$this->assertInstanceOf(Request::class, $request);
@@ -200,6 +245,8 @@ class SecurityHeadersTest extends TestCase
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "default-src 'nonce-foobar'");
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response->shouldReceive('getType')->once()->andReturn('text/html');
 
 		$next = function($request, $response)
 		{
@@ -251,6 +298,8 @@ class SecurityHeadersTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		$response->shouldReceive('getType')->once()->andReturn('text/html');
+
 		$next = function($request, $response)
 		{
 			$this->assertInstanceOf(Request::class, $request);
@@ -298,6 +347,8 @@ class SecurityHeadersTest extends TestCase
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', 'report-to csp-endpoint');
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+
+		$response->shouldReceive('getType')->once()->andReturn('text/html');
 
 		$next = function($request, $response)
 		{
