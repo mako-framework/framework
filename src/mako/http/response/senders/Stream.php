@@ -69,9 +69,9 @@ class Stream implements ResponseSenderInterface
 	}
 
 	/**
-	 * Set the content type.
+	 * Sets the response content type.
 	 *
-	 * @param  string                             $contentType [description]
+	 * @param  string                             $contentType Content type
 	 * @return \mako\http\response\senders\Stream
 	 */
 	public function setType(string $contentType): Stream
@@ -82,7 +82,7 @@ class Stream implements ResponseSenderInterface
 	}
 
 	/**
-	 * Sets the status code.
+	 * Sets the response character set.
 	 *
 	 * @param  string                             $charset Character set
 	 * @return \mako\http\response\senders\Stream
@@ -92,6 +92,16 @@ class Stream implements ResponseSenderInterface
 		$this->charset = $charset;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the response character set.
+	 *
+	 * @return string|null
+	 */
+	public function getCharset(): ?string
+	{
+		return $this->charset;
 	}
 
 	/**

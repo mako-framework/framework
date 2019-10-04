@@ -40,6 +40,8 @@ class RedirectTest extends TestCase
 
 		$redirect = new Redirect('http://example.org');
 
+		$this->assertSame(302, $redirect->getStatus());
+
 		$redirect->send($request, $response);
 	}
 
@@ -65,6 +67,8 @@ class RedirectTest extends TestCase
 		//
 
 		$redirect = new Redirect('http://example.org', 304);
+
+		$this->assertSame(304, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -94,6 +98,8 @@ class RedirectTest extends TestCase
 
 		$redirect->setStatus(304);
 
+		$this->assertSame(304, $redirect->getStatus());
+
 		$redirect->send($request, $response);
 	}
 
@@ -121,6 +127,8 @@ class RedirectTest extends TestCase
 		$redirect = new Redirect('http://example.org');
 
 		$redirect->multipleChoices();
+
+		$this->assertSame(300, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -150,6 +158,8 @@ class RedirectTest extends TestCase
 
 		$redirect->movedPermanently();
 
+		$this->assertSame(301, $redirect->getStatus());
+
 		$redirect->send($request, $response);
 	}
 
@@ -178,6 +188,8 @@ class RedirectTest extends TestCase
 
 		$redirect->found();
 
+		$this->assertSame(302, $redirect->getStatus());
+
 		$redirect->send($request, $response);
 	}
 
@@ -205,6 +217,8 @@ class RedirectTest extends TestCase
 		$redirect = new Redirect('http://example.org');
 
 		$redirect->seeOther();
+
+		$this->assertSame(303, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -262,6 +276,8 @@ class RedirectTest extends TestCase
 
 		$redirect->useProxy();
 
+		$this->assertSame(305, $redirect->getStatus());
+
 		$redirect->send($request, $response);
 	}
 
@@ -290,6 +306,8 @@ class RedirectTest extends TestCase
 
 		$redirect->temporaryRedirect();
 
+		$this->assertSame(307, $redirect->getStatus());
+
 		$redirect->send($request, $response);
 	}
 
@@ -317,6 +335,8 @@ class RedirectTest extends TestCase
 		$redirect = new Redirect('http://example.org');
 
 		$redirect->permanentRedirect();
+
+		$this->assertSame(308, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}

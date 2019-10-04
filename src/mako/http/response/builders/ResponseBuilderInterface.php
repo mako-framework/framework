@@ -23,5 +23,5 @@ interface ResponseBuilderInterface
 	 * @param \mako\http\Request  $request  Request instance
 	 * @param \mako\http\Response $response Response instance
 	 */
-	public function build(Request $request, Response $response);
+	public function build(Request $request, Response $response): void;
 }

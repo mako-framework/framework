@@ -16,6 +16,10 @@
 * Added `SecurityHeaders` middleware.
 * Added `FileSystem::getDiskSize()` method.
 * Added `FileSystem::getFreeSpaceOnDisk()` method.
+* Added `JSON::getStatus()` method.
+* Added `JSON::getCharset()` method.
+* Added `Redirect::getStatus()` method.
+* Added `Stream::getCharset()` method.
 
 #### Deprecations
 

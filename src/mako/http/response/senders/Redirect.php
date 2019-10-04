@@ -29,128 +29,138 @@ class Redirect implements ResponseSenderInterface
 	 *
 	 * @var int
 	 */
-	protected $status;
+	protected $statusCode;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param string $location Location
-	 * @param int    $status   Status code
+	 * @param int    $statusCode   Status code
 	 */
-	public function __construct(string $location, int $status = 302)
+	public function __construct(string $location, int $statusCode = 302)
 	{
 		$this->location = $location;
 
-		$this->status = $status;
+		$this->statusCode = $statusCode;
 	}
 
 	/**
-	 * Sets the status code.
+	 * Sets the HTTP status code.
 	 *
-	 * @param  int                                  $status Status code
+	 * @param  int                                  $statusCode Status code
 	 * @return \mako\http\response\senders\Redirect
 	 */
-	public function setStatus(int $status): Redirect
+	public function setStatus(int $statusCode): Redirect
 	{
-		$this->status = $status;
+		$this->statusCode = $statusCode;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 300.
+	 * Sets the HTTP status code to 300.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function multipleChoices(): Redirect
 	{
-		$this->status = 300;
+		$this->statusCode = 300;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 301.
+	 * Sets the HTTP status code to 301.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function movedPermanently(): Redirect
 	{
-		$this->status = 301;
+		$this->statusCode = 301;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 302.
+	 * Sets the HTTP status code to 302.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function found(): Redirect
 	{
-		$this->status = 302;
+		$this->statusCode = 302;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 303.
+	 * Sets the HTTP status code to 303.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function seeOther(): Redirect
 	{
-		$this->status = 303;
+		$this->statusCode = 303;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 304.
+	 * Sets the HTTP status code to 304.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function notModified(): Redirect
 	{
-		$this->status = 304;
+		$this->statusCode = 304;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 305.
+	 * Sets the HTTP status code to 305.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function useProxy(): Redirect
 	{
-		$this->status = 305;
+		$this->statusCode = 305;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 307.
+	 * Sets the HTTP status code to 307.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function temporaryRedirect(): Redirect
 	{
-		$this->status = 307;
+		$this->statusCode = 307;
 
 		return $this;
 	}
 
 	/**
-	 * Sets the status code to 308.
+	 * Sets the HTTP status code to 308.
 	 *
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function permanentRedirect(): Redirect
 	{
-		$this->status = 308;
+		$this->statusCode = 308;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the HTTP status code.
+	 *
+	 * @return int
+	 */
+	public function getStatus(): int
+	{
+		return $this->statusCode;
 	}
 
 	/**
@@ -160,7 +170,7 @@ class Redirect implements ResponseSenderInterface
 	{
 		// Set status and location header
 
-		$response->setStatus($this->status);
+		$response->setStatus($this->statusCode);
 
 		$response->getHeaders()->add('Location', $this->location);
 

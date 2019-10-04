@@ -64,7 +64,7 @@ trait ControllerHelperTrait
 	 */
 	protected function streamResponse(Closure $stream, ?string $contentType = null, ?string $charset = null): Stream
 	{
-		return new Stream($stream, $contentType, $charset);
+		return new Stream($stream, $contentType, $charset ?? $this->response->getCharset());
 	}
 
 	/**
@@ -78,6 +78,6 @@ trait ControllerHelperTrait
 	 */
 	protected function jsonResponse($data, int $options = 0, ?int $status = null, ?string $charset = null): JSON
 	{
-		return new JSON($data, $options, $status, $charset);
+		return new JSON($data, $options, $status ?? $this->response->getStatus(), $charset ?? $this->response->getCharset());
 	}
 }

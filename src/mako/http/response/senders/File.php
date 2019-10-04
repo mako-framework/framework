@@ -133,7 +133,7 @@ class File implements ResponseSenderInterface
 	}
 
 	/**
-	 * Sets the content type.
+	 * Sets the response content type.
 	 *
 	 * @param  string                           $type Mime type
 	 * @return \mako\http\response\senders\File

@@ -46,7 +46,7 @@ class JSON implements ResponseBuilderInterface
 	 *
 	 * @var int|null
 	 */
-	protected $status;
+	protected $statusCode;
 
 	/**
 	 * Character set.
@@ -58,18 +58,18 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param mixed       $data    Data
-	 * @param int         $options JSON encode options
-	 * @param int|null    $status  Status code
-	 * @param string|null $charset Character set
+	 * @param mixed       $data       Data
+	 * @param int         $options    JSON encode options
+	 * @param int|null    $statusCode Status code
+	 * @param string|null $charset    Character set
 	 */
-	public function __construct($data, int $options = 0, ?int $status = null, ?string $charset = null)
+	public function __construct($data, int $options = 0, ?int $statusCode = null, ?string $charset = null)
 	{
 		$this->data = $data;
 
 		$this->options = $options;
 
-		$this->status = $status;
+		$this->statusCode = $statusCode;
 
 		$this->charset = $charset;
 	}
@@ -88,20 +88,7 @@ class JSON implements ResponseBuilderInterface
 	}
 
 	/**
-	 * Sets the status code.
-	 *
-	 * @param  int                               $status Status code
-	 * @return \mako\http\response\builders\JSON
-	 */
-	public function setStatus(int $status): JSON
-	{
-		$this->status = $status;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the status code.
+	 * Sets the response character set.
 	 *
 	 * @param  string                            $charset Character set
 	 * @return \mako\http\response\builders\JSON
@@ -111,6 +98,39 @@ class JSON implements ResponseBuilderInterface
 		$this->charset = $charset;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the response character set.
+	 *
+	 * @return string|null
+	 */
+	public function getCharset(): ?string
+	{
+		return $this->charset;
+	}
+
+	/**
+	 * Sets the HTTP status code.
+	 *
+	 * @param  int                               $statusCode Status code
+	 * @return \mako\http\response\builders\JSON
+	 */
+	public function setStatus(int $statusCode): JSON
+	{
+		$this->statusCode = $statusCode;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the HTTP status code.
+	 *
+	 * @return int|null
+	 */
+	public function getStatus(): ?int
+	{
+		return $this->statusCode;
 	}
 
 	/**
@@ -147,9 +167,9 @@ class JSON implements ResponseBuilderInterface
 			$response->setType('application/json');
 		}
 
-		if(!empty($this->status))
+		if(!empty($this->statusCode))
 		{
-			$response->setStatus($this->status);
+			$response->setStatus($this->statusCode);
 		}
 
 		if(!empty($this->charset))

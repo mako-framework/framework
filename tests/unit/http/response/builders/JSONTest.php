@@ -36,6 +36,10 @@ class JSONTest extends TestCase
 
 		$json = new JSON([1, 2, 3]);
 
+		$this->assertNull($json->getCharset());
+
+		$this->assertNull($json->getStatus());
+
 		$json->build($request, $response);
 	}
 
@@ -59,6 +63,8 @@ class JSONTest extends TestCase
 		$json = new JSON([1, 2, 3]);
 
 		$json->setStatus(400);
+
+		$this->assertSame(400, $json->getStatus());
 
 		$json->build($request, $response);
 	}
@@ -84,6 +90,8 @@ class JSONTest extends TestCase
 
 		$json->setCharset('UTF-8');
 
+		$this->assertSame('UTF-8', $json->getCharset());
+
 		$json->build($request, $response);
 	}
 
@@ -107,6 +115,10 @@ class JSONTest extends TestCase
 		//
 
 		$json = new JSON([1, 2, 3], 0, 200, 'UTF-8');
+
+		$this->assertSame(200, $json->getStatus());
+
+		$this->assertSame('UTF-8', $json->getCharset());
 
 		$json->build($request, $response);
 	}
