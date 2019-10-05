@@ -44,6 +44,18 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetRequest(): void
+	{
+		$request = $this->getRequest();
+
+		$response = new Response($request);
+
+		$this->assertSame($request, $response->getRequest());
+	}
+
+	/**
+	 *
+	 */
 	public function testBody(): void
 	{
 		$response = new Response($this->getRequest());

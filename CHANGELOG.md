@@ -20,6 +20,7 @@
 * Added `JSON::getCharset()` method.
 * Added `Redirect::getStatus()` method.
 * Added `Stream::getCharset()` method.
+* Added `Response::getRequest()` method.
 
 #### Deprecations
 

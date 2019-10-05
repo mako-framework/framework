@@ -34,8 +34,8 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param string $location Location
-	 * @param int    $statusCode   Status code
+	 * @param string $location   Location
+	 * @param int    $statusCode Status code
 	 */
 	public function __construct(string $location, int $statusCode = 302)
 	{

@@ -212,6 +212,16 @@ class Response
 	}
 
 	/**
+	 * Returns the request instance.
+	 *
+	 * @return \mako\http\Request
+	 */
+	public function getRequest(): Request
+	{
+		return $this->request;
+	}
+
+	/**
 	 * Sets the response body.
 	 *
 	 * @param  mixed               $body Response body
