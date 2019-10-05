@@ -9,6 +9,10 @@ namespace mako\http\response\senders;
 
 use mako\http\Request;
 use mako\http\Response;
+use RuntimeException;
+
+use function in_array;
+use function vsprintf;
 
 /**
  * Redirect response.
@@ -17,6 +21,82 @@ use mako\http\Response;
  */
 class Redirect implements ResponseSenderInterface
 {
+	/**
+	 * Multiple choices status code.
+	 *
+	 * @deprecated 7.0
+	 * @var int
+	 */
+	const MULTIPLE_CHOICES = 300;
+
+	/**
+	 * Moved permanently status code.
+	 *
+	 * @var int
+	 */
+	const MOVED_PERMANENTLY = 301;
+
+	/**
+	 * Found status code.
+	 *
+	 * @var int
+	 */
+	const FOUND = 302;
+
+	/**
+	 * See other status code.
+	 *
+	 * @var int
+	 */
+	const SEE_OTHER = 303;
+
+	/**
+	 * Not modified status code.
+	 *
+	 * @deprecated 7.0
+	 * @var int
+	 */
+	const NOT_MODIFIED = 304;
+
+	/**
+	 * Use proxy status code.
+	 *
+	 * @deprecated 7.0
+	 * @var int
+	 */
+	const USE_PROXY = 305;
+
+	/**
+	 * Temporary redirect status code.
+	 *
+	 * @var int
+	 */
+	const TEMPORARY_REDIRECT = 307;
+
+	/**
+	 * Permanent redirect status code.
+	 *
+	 * @var int
+	 */
+	const PERMANENT_REDIRECT = 308;
+
+	/**
+	 * Supported redirect types.
+	 *
+	 * @var array
+	 */
+	const SUPPORTED_STATUS_CODES =
+	[
+		self::MULTIPLE_CHOICES,
+		self::MOVED_PERMANENTLY,
+		self::FOUND,
+		self::SEE_OTHER,
+		self::NOT_MODIFIED,
+		self::USE_PROXY,
+		self::TEMPORARY_REDIRECT,
+		self::PERMANENT_REDIRECT,
+	];
+
 	/**
 	 * Location.
 	 *
@@ -37,11 +117,11 @@ class Redirect implements ResponseSenderInterface
 	 * @param string $location   Location
 	 * @param int    $statusCode Status code
 	 */
-	public function __construct(string $location, int $statusCode = 302)
+	public function __construct(string $location, int $statusCode = self::FOUND)
 	{
 		$this->location = $location;
 
-		$this->statusCode = $statusCode;
+		$this->setStatus($statusCode);
 	}
 
 	/**
@@ -52,6 +132,11 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function setStatus(int $statusCode): Redirect
 	{
+		if(!in_array($statusCode, self::SUPPORTED_STATUS_CODES))
+		{
+			throw new RuntimeException(vsprintf('Unsupported redirect status code [ %s ].', [$statusCode]));
+		}
+
 		$this->statusCode = $statusCode;
 
 		return $this;
@@ -60,11 +145,12 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the HTTP status code to 300.
 	 *
+	 * @deprecated 7.0
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function multipleChoices(): Redirect
 	{
-		$this->statusCode = 300;
+		$this->statusCode = self::MULTIPLE_CHOICES;
 
 		return $this;
 	}
@@ -76,7 +162,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function movedPermanently(): Redirect
 	{
-		$this->statusCode = 301;
+		$this->statusCode = self::MOVED_PERMANENTLY;
 
 		return $this;
 	}
@@ -88,7 +174,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function found(): Redirect
 	{
-		$this->statusCode = 302;
+		$this->statusCode = self::FOUND;
 
 		return $this;
 	}
@@ -100,7 +186,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function seeOther(): Redirect
 	{
-		$this->statusCode = 303;
+		$this->statusCode = self::SEE_OTHER;
 
 		return $this;
 	}
@@ -108,11 +194,12 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the HTTP status code to 304.
 	 *
+	 * @deprecated 7.0
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function notModified(): Redirect
 	{
-		$this->statusCode = 304;
+		$this->statusCode = self::NOT_MODIFIED;
 
 		return $this;
 	}
@@ -120,11 +207,12 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Sets the HTTP status code to 305.
 	 *
+	 * @deprecated 7.0
 	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function useProxy(): Redirect
 	{
-		$this->statusCode = 305;
+		$this->statusCode = self::USE_PROXY;
 
 		return $this;
 	}
@@ -136,7 +224,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function temporaryRedirect(): Redirect
 	{
-		$this->statusCode = 307;
+		$this->statusCode = self::TEMPORARY_REDIRECT;
 
 		return $this;
 	}
@@ -148,7 +236,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function permanentRedirect(): Redirect
 	{
-		$this->statusCode = 308;
+		$this->statusCode = self::PERMANENT_REDIRECT;
 
 		return $this;
 	}

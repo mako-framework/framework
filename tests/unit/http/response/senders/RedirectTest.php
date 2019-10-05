@@ -11,6 +11,7 @@ use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\tests\TestCase;
 use Mockery;
+use RuntimeException;
 
 /**
  * @group unit
@@ -339,5 +340,17 @@ class RedirectTest extends TestCase
 		$this->assertSame(308, $redirect->getStatus());
 
 		$redirect->send($request, $response);
+	}
+
+	/**
+	 *
+	 */
+	public function testInvalidStatusCode(): void
+	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('Unsupported redirect status code [ 306 ].');
+
+		new Redirect('http://example.org', 306);
 	}
 }

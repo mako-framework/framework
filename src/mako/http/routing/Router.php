@@ -192,7 +192,7 @@ class Router
 				$url .= '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986);
 			}
 
-			return (new Redirect($url))->setStatus(301);
+			return new Redirect($url, Redirect::MOVED_PERMANENTLY);
 		});
 	}
 
