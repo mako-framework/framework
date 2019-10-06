@@ -137,14 +137,6 @@ class SecurityHeaders implements MiddlewareInterface
 	}
 
 	/**
-	 * Assigns a global view variable containing the content security policy nonce.
-	 */
-	protected function assignCspNonceViewVariable(): void
-	{
-		$this->container->get(ViewFactory::class)->assign($this->cspNonceVariableName, $this->getCspNonce());
-	}
-
-	/**
 	 * Builds the "Content-Security-Policy" header value.
 	 *
 	 * @return string
@@ -189,6 +181,25 @@ class SecurityHeaders implements MiddlewareInterface
 	}
 
 	/**
+	 * Assigns a global view variable containing the content security policy nonce.
+	 */
+	protected function assignCspNonceViewVariable(): void
+	{
+		$this->container->get(ViewFactory::class)->assign($this->cspNonceVariableName, $this->getCspNonce());
+	}
+
+	/**
+	 * Should the CSP header be added to response?
+	 *
+	 * @param  \mako\http\Response $response Response
+	 * @return bool
+	 */
+	protected function shouldAddCspHeader(Response $response): bool
+	{
+		return $response->getType() === 'text/html';
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
@@ -208,9 +219,9 @@ class SecurityHeaders implements MiddlewareInterface
 			}
 		}
 
-		if($this->cspDirectives !== null && $response->getType() === 'text/html')
+		if($this->cspDirectives !== null)
 		{
-			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildCspValue());
+			$cspHeader = $this->buildCspValue();
 
 			if($this->cspNonce !== null)
 			{
@@ -218,6 +229,13 @@ class SecurityHeaders implements MiddlewareInterface
 			}
 		}
 
-		return $next($request, $response);
+		$response = $next($request, $response);
+
+		if(isset($cspHeader) && $this->shouldAddCspHeader($response))
+		{
+			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $cspHeader);
+		}
+
+		return $response;
 	}
 }
