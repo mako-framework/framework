@@ -94,7 +94,7 @@ class SecurityHeaders implements MiddlewareInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param bool                    $disableCsp should the CSP headers be disabled?
+	 * @param bool                    $disableCsp Should the content security policy header be disabled?
 	 * @param \mako\syringe\Container $container  Container
 	 */
 	public function __construct(bool $disableCsp = false, Container $container)
