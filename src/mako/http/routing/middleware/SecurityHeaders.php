@@ -26,13 +26,6 @@ use function random_bytes;
 class SecurityHeaders implements MiddlewareInterface
 {
 	/**
-	 * Disable content security policy header?
-	 *
-	 * @var bool
-	 */
-	protected $disableCsp;
-
-	/**
 	 * Container.
 	 *
 	 * @var \mako\syringe\Container;
@@ -94,13 +87,10 @@ class SecurityHeaders implements MiddlewareInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param bool                    $disableCsp Should the content security policy header be disabled?
-	 * @param \mako\syringe\Container $container  Container
+	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(bool $disableCsp = false, Container $container)
+	public function __construct(Container $container)
 	{
-		$this->disableCsp = $disableCsp;
-
 		$this->container = $container;
 	}
 
@@ -232,7 +222,7 @@ class SecurityHeaders implements MiddlewareInterface
 			}
 		}
 
-		if($this->disableCsp === false && $this->cspDirectives !== null)
+		if($this->cspDirectives !== null)
 		{
 			$cspHeader = $this->buildCspValue();
 
@@ -244,7 +234,7 @@ class SecurityHeaders implements MiddlewareInterface
 
 		$response = $next($request, $response);
 
-		if($this->disableCsp === false && $this->cspDirectives !== null && $this->shouldAddCspHeader($response))
+		if($this->cspDirectives !== null && $this->shouldAddCspHeader($response))
 		{
 			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $cspHeader);
 		}

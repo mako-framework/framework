@@ -55,42 +55,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new SecurityHeaders(false, $container);
-
-		$securityHeaders->execute($request, $response, $next);
-	}
-
-	/**
-	 *
-	 */
-	public function testWithDefaultConfigAndDisabledCsp(): void
-	{
-		$container = Mockery::mock(Container::class);
-
-		$request = Mockery::mock(Request::class);
-
-		$response = Mockery::mock(Response::class);
-
-		$headers = Mockery::mock(Headers::class);
-
-		$headers->shouldReceive('add')->once()->with('X-Content-Type-Options', 'nosniff');
-
-		$headers->shouldReceive('add')->once()->with('X-Frame-Options', 'sameorigin');
-
-		$headers->shouldReceive('add')->once()->with('X-XSS-Protection', '1; mode=block');
-
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
-
-		$next = function($request, $response)
-		{
-			$this->assertInstanceOf(Request::class, $request);
-
-			$this->assertInstanceOf(Response::class, $response);
-
-			return $response;
-		};
-
-		$securityHeaders = new SecurityHeaders(true, $container);
+		$securityHeaders = new SecurityHeaders($container);
 
 		$securityHeaders->execute($request, $response, $next);
 	}
@@ -127,7 +92,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new SecurityHeaders(false, $container);
+		$securityHeaders = new SecurityHeaders($container);
 
 		$securityHeaders->execute($request, $response, $next);
 	}
@@ -166,7 +131,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new class (false, $container) extends SecurityHeaders
+		$securityHeaders = new class ($container) extends SecurityHeaders
 		{
 			protected $cspReportOnly = true;
 		};
@@ -200,7 +165,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new class (false, $container) extends SecurityHeaders
+		$securityHeaders = new class ($container) extends SecurityHeaders
 		{
 			protected $headers =
 			[
@@ -243,7 +208,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new class (false, $container) extends SecurityHeaders
+		$securityHeaders = new class ($container) extends SecurityHeaders
 		{
 			protected $headers = null;
 
@@ -294,7 +259,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new class (false, $container) extends SecurityHeaders
+		$securityHeaders = new class ($container) extends SecurityHeaders
 		{
 			protected $headers = null;
 
@@ -348,7 +313,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new class (false, $container) extends SecurityHeaders
+		$securityHeaders = new class ($container) extends SecurityHeaders
 		{
 			protected $headers = null;
 
@@ -398,7 +363,7 @@ class SecurityHeadersTest extends TestCase
 			return $response;
 		};
 
-		$securityHeaders = new class (false, $container) extends SecurityHeaders
+		$securityHeaders = new class ($container) extends SecurityHeaders
 		{
 			protected $headers = null;
 
