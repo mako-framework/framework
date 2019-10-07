@@ -40,6 +40,13 @@ class SecurityHeaders implements MiddlewareInterface
 	protected $container;
 
 	/**
+	 * Report to.
+	 *
+	 * @var array|null
+	 */
+	protected $reportTo;
+
+	/**
 	 * Security headers.
 	 *
 	 * @var array|null
@@ -50,13 +57,6 @@ class SecurityHeaders implements MiddlewareInterface
 		'X-Frame-Options'        => 'sameorigin',
 		'X-XSS-Protection'       => '1; mode=block',
 	];
-
-	/**
-	 * Report to.
-	 *
-	 * @var array|null
-	 */
-	protected $reportTo;
 
 	/**
 	 * Should we only report content security policy violations?
@@ -195,7 +195,10 @@ class SecurityHeaders implements MiddlewareInterface
 	 */
 	protected function assignCspNonceViewVariable(): void
 	{
-		$this->container->get(ViewFactory::class)->assign($this->cspNonceVariableName, $this->getCspNonce());
+		if($this->container->has(ViewFactory::class))
+		{
+			$this->container->get(ViewFactory::class)->assign($this->cspNonceVariableName, $this->getCspNonce());
+		}
 	}
 
 	/**
@@ -241,7 +244,7 @@ class SecurityHeaders implements MiddlewareInterface
 
 		$response = $next($request, $response);
 
-		if(isset($cspHeader) && $this->shouldAddCspHeader($response))
+		if($this->disableCsp === false && $this->cspDirectives !== null && $this->shouldAddCspHeader($response))
 		{
 			$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $cspHeader);
 		}

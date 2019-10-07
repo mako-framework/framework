@@ -269,6 +269,8 @@ class SecurityHeadersTest extends TestCase
 
 		$container = Mockery::mock(Container::class);
 
+		$container->shouldReceive('has')->once()->with(ViewFactory::class)->andReturn(true);
+
 		$container->shouldReceive('get')->once()->with(ViewFactory::class)->andReturn($viewFactory);
 
 		$request = Mockery::mock(Request::class);
@@ -320,6 +322,8 @@ class SecurityHeadersTest extends TestCase
 		$viewFactory->shouldReceive('assign')->once()->with('cspNonce', 'foobar');
 
 		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('has')->once()->with(ViewFactory::class)->andReturn(true);
 
 		$container->shouldReceive('get')->once()->with(ViewFactory::class)->andReturn($viewFactory);
 
