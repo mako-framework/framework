@@ -25,7 +25,7 @@ interface GroupRepositoryInterface
 	/**
 	 * Gets a group by its identifier.
 	 *
-	 * @param  mixed                                                $identifier Group identifier
+	 * @param  string|int                                           $identifier Group identifier
 	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface
 	 */
 	public function getByIdentifier($identifier);

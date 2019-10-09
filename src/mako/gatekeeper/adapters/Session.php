@@ -168,12 +168,12 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  string   $identifier User email or username
-	 * @param  string   $password   User password
-	 * @param  bool     $force      Skip the password check?
+	 * @param  string|int  $identifier User email or username
+	 * @param  string|null $password   User password
+	 * @param  bool        $force      Skip the password check?
 	 * @return bool|int
 	 */
-	protected function authenticate($identifier, $password, $force = false)
+	protected function authenticate($identifier, ?string $password, bool $force = false)
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
@@ -235,13 +235,13 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  string   $identifier User identifier
-	 * @param  string   $password   User password
-	 * @param  bool     $remember   Set a remember me cookie?
-	 * @param  bool     $force      Login the user without checking the password?
+	 * @param  string|int  $identifier User identifier
+	 * @param  string|null $password   User password
+	 * @param  bool        $remember   Set a remember me cookie?
+	 * @param  bool        $force      Login the user without checking the password?
 	 * @return bool|int
 	 */
-	public function login($identifier, $password, $remember = false, $force = false)
+	public function login($identifier, ?string $password, bool $remember = false, bool $force = false)
 	{
 		if(empty($identifier))
 		{
@@ -274,11 +274,11 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier exists and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  mixed    $identifier User identifier
-	 * @param  bool     $remember   Set a remember me cookie?
+	 * @param  string|int $identifier User identifier
+	 * @param  bool       $remember   Set a remember me cookie?
 	 * @return bool|int
 	 */
-	public function forceLogin($identifier, $remember = false)
+	public function forceLogin($identifier, bool $remember = false)
 	{
 		return $this->login($identifier, null, $remember, true);
 	}
