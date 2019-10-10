@@ -44,14 +44,14 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 *
 	 * @var bool
 	 */
-	protected $cspReportOnly = false;
+	protected $reportOnly = false;
 
 	/**
 	 * Content security policy directives.
 	 *
 	 * @var array
 	 */
-	protected $cspDirectives =
+	protected $directives =
 	[
 		'base-uri'    => ['self'],
 		'default-src' => ['self'],
@@ -63,14 +63,14 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 *
 	 * @var string|null
 	 */
-	protected $cspNonce;
+	protected $nonce;
 
 	/**
 	 * Content security policy nonce view variable name.
 	 *
 	 * @var string
 	 */
-	protected $cspNonceVariableName = '_csp_nonce_';
+	protected $nonceVariableName = '_csp_nonce_';
 
 	/**
 	 * Constructor.
@@ -104,7 +104,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 *
 	 * @return string
 	 */
-	protected function generateCspNonce(): string
+	protected function generateNonce(): string
 	{
 		return base64_encode(random_bytes(16));
 	}
@@ -114,14 +114,14 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 *
 	 * @return string
 	 */
-	protected function getCspNonce(): string
+	protected function getNonce(): string
 	{
-		if($this->cspNonce === null)
+		if($this->nonce === null)
 		{
-			$this->cspNonce = $this->generateCspNonce();
+			$this->nonce = $this->generateNonce();
 		}
 
-		return $this->cspNonce;
+		return $this->nonce;
 	}
 
 	/**
@@ -129,11 +129,11 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 *
 	 * @return string
 	 */
-	protected function buildCspValue(): string
+	protected function buildValue(): string
 	{
 		$directives = [];
 
-		foreach($this->cspDirectives as $name => $directive)
+		foreach($this->directives as $name => $directive)
 		{
 			if($directive === true)
 			{
@@ -155,7 +155,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 						$value = "'{$value}'";
 						break;
 					case 'nonce':
-						$value = "'nonce-{$this->getCspNonce()}'";
+						$value = "'nonce-{$this->getNonce()}'";
 						break;
 				}
 
@@ -171,11 +171,11 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	/**
 	 * Assigns a global view variable containing the content security policy nonce.
 	 */
-	protected function assignCspNonceViewVariable(): void
+	protected function assignNonceViewVariable(): void
 	{
 		if($this->container->has(ViewFactory::class))
 		{
-			$this->container->get(ViewFactory::class)->assign($this->cspNonceVariableName, $this->getCspNonce());
+			$this->container->get(ViewFactory::class)->assign($this->nonceVariableName, $this->getNonce());
 		}
 	}
 
@@ -191,11 +191,11 @@ class ContentSecurityPolicy implements MiddlewareInterface
 			$headers->add('Report-To', $this->buildReportToValue());
 		}
 
-		$headers->add($this->cspReportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildCspValue());
+		$headers->add($this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildValue());
 
-		if($this->cspNonce !== null)
+		if($this->nonce !== null)
 		{
-			$this->assignCspNonceViewVariable();
+			$this->assignNonceViewVariable();
 		}
 
 		return $next($request, $response);

@@ -80,7 +80,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $cspReportOnly = true;
+			protected $reportOnly = true;
 		};
 
 		$contentSecurityPolicy->execute($request, $response, $next);
@@ -114,7 +114,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $cspDirectives =
+			protected $directives =
 			[
 				'block-all-mixed-content' => true,
 				'default-src'             => ['self'],
@@ -161,12 +161,12 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $cspDirectives =
+			protected $directives =
 			[
 				'default-src' => ['nonce'],
 			];
 
-			protected function generateCspNonce(): string
+			protected function generateNonce(): string
 			{
 				return 'foobar';
 			}
@@ -211,14 +211,14 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $cspNonceVariableName = 'cspNonce';
+			protected $nonceVariableName = 'cspNonce';
 
-			protected $cspDirectives =
+			protected $directives =
 			[
 				'default-src' => ['nonce'],
 			];
 
-			protected function generateCspNonce(): string
+			protected function generateNonce(): string
 			{
 				return 'foobar';
 			}
@@ -269,7 +269,7 @@ class ContentSecurityPolicyTest extends TestCase
 				],
 			];
 
-			protected $cspDirectives =
+			protected $directives =
 			[
 
 				'report-to' => ['csp-endpoint'],
