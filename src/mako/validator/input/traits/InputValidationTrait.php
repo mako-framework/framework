@@ -23,10 +23,10 @@ trait InputValidationTrait
 	 * Validates the input and returns an array containing the validated data.
 	 *
 	 * @param  string|array $input Input class name or input array
-	 * @param  array|null   $rules Validation rules
+	 * @param  array        $rules Validation rules
 	 * @return array
 	 */
-	protected function validate($input, ?array $rules = null): array
+	protected function validate($input, array $rules = []): array
 	{
 		if(is_string($input))
 		{
@@ -35,7 +35,7 @@ trait InputValidationTrait
 				return $this->container->get($input);
 			})($input);
 
-			$validator = $this->validator->create($input->getInput(), $input->getRules());
+			$validator = $this->validator->create($input->getInput(), $input->getRules() + $rules);
 
 			foreach($input->getExtensions() as $rule => $ruleClass)
 			{
