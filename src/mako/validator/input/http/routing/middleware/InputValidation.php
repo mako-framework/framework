@@ -119,7 +119,7 @@ class InputValidation implements MiddlewareInterface
 	 * @param \mako\session\Session|null    $session     Session
 	 * @param \mako\view\ViewFactory|null   $viewFactory View factory
 	 */
-	public function __construct(Request $request, Response $response, URLBuilder $urlBuilder, ?Session $session = null, ?ViewFactory $viewFactory)
+	public function __construct(Request $request, Response $response, URLBuilder $urlBuilder, ?Session $session = null, ?ViewFactory $viewFactory = null)
 	{
 		$this->request = $request;
 
