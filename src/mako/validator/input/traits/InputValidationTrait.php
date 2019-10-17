@@ -35,7 +35,7 @@ trait InputValidationTrait
 				return $this->container->get($input);
 			})($input);
 
-			$validator = $this->validator->create($input->getInput(), $input->getRules() + $rules);
+			$validator = $this->validator->create($input->getInput(), $rules + $input->getRules());
 
 			foreach($input->getExtensions() as $rule => $ruleClass)
 			{
