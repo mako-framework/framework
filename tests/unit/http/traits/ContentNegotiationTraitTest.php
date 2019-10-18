@@ -20,8 +20,6 @@ use Mockery;
 class ContentNegotiationTraitTest extends TestCase
 {
 	/**
-	 * Undocumented function.
-	 *
 	 * @param  \mako\http\Request  $request  Request
 	 * @param  \mako\http\Response $response Response
 	 * @return object
