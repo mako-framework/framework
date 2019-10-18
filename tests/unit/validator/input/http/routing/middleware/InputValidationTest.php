@@ -541,7 +541,7 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function($request, $response): void
 		{
 			throw new ValidationException([]);
 		});
@@ -597,7 +597,7 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$this->assertSame($response, $middleware->execute($request, $response, function($request, $response)
+		$this->assertSame($response, $middleware->execute($request, $response, function($request, $response): void
 		{
 			throw new ValidationException([]);
 		}));
