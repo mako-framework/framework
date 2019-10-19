@@ -82,6 +82,16 @@ class Stream implements ResponseSenderInterface
 	}
 
 	/**
+	 * Returns the response content type.
+	 *
+	 * @return string|null
+	 */
+	public function getType(): ?string
+	{
+		return $this->contentType;
+	}
+
+	/**
 	 * Sets the response character set.
 	 *
 	 * @param  string                             $charset Character set
