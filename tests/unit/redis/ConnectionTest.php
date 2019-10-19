@@ -23,7 +23,7 @@ class ConnectionTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$this->expectExceptionMessageRegExp('/^Failed to connect to \[ foobar.nope:7777 \]\./');
+		$this->expectExceptionMessageMatches('/^Failed to connect to \[ foobar.nope:7777 \]\./');
 
 		new Connection('foobar.nope', 7777);
 	}
@@ -35,7 +35,7 @@ class ConnectionTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$this->expectExceptionMessageRegExp('/^Failed to connect to \[ test \]\./');
+		$this->expectExceptionMessageMatches('/^Failed to connect to \[ test \]\./');
 
 		new Connection('foobar.nope', 7777, ['name' => 'test']);
 	}
