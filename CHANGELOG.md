@@ -1,4 +1,4 @@
-### 6.3.0 <small> (2019-??-??)</small>
+### 6.3.0 <small> (2019-10-20)</small>
 
 #### New
 
@@ -15,6 +15,8 @@
 * Added `max_filename_length` validation rule.
 * Added `SecurityHeaders` middleware.
 * Added `ContentSecurityPolicy` middleware.
+* Added `InputValidation` middleware.
+* Added `InputValidationTrait` trait that reduces the need for validation boilerplate.
 * Added `FileSystem::getDiskSize()` method.
 * Added `FileSystem::getFreeSpaceOnDisk()` method.
 * Added `JSON::getStatus()` method.
