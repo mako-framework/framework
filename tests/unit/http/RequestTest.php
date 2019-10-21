@@ -145,7 +145,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertEquals('127.0.0.1', $request->getIp());
+		$this->assertEquals(Request::REMOTE_ADDRESS_FALLBACK, $request->getIp());
 
 		// Should ignore the X-Forwarded-For header if no list of trusted proxies is specified
 
@@ -201,7 +201,7 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server]);
 
-		$this->assertSame('127.0.0.1', $request->getIp());
+		$this->assertSame(Request::REMOTE_ADDRESS_FALLBACK, $request->getIp());
 	}
 
 	/**
@@ -297,7 +297,21 @@ class RequestTest extends TestCase
 	}
 
 	/**
-	 * [testBasePath description].
+	 *
+	 */
+	public function testIsSecureWithoutRemoteAddress(): void
+	{
+		$server = $this->getServerData();
+
+		unset($server['REMOTE_ADDR']);
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertFalse($request->isSecure());
+	}
+
+	/**
+	 *
 	 */
 	public function testBasePath(): void
 	{

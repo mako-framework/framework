@@ -49,6 +49,13 @@ use function strtoupper;
 class Request
 {
 	/**
+	 * Remote address fallback.
+	 *
+	 * @var string
+	 */
+	const REMOTE_ADDRESS_FALLBACK = '127.0.0.1';
+
+	/**
 	 * Script name.
 	 *
 	 * @var string
@@ -586,7 +593,7 @@ class Request
 				}
 			}
 
-			$this->ip = (filter_var($ip, FILTER_VALIDATE_IP) !== false) ? $ip : '127.0.0.1';
+			$this->ip = (filter_var($ip, FILTER_VALIDATE_IP) !== false) ? $ip : static::REMOTE_ADDRESS_FALLBACK;
 		}
 
 		return $this->ip;
@@ -611,7 +618,7 @@ class Request
 	{
 		if($this->isSecure === null)
 		{
-			if($this->isTrustedProxy($this->server->get('REMOTE_ADDR')) && $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https')
+			if($this->isTrustedProxy($this->server->get('REMOTE_ADDR', static::REMOTE_ADDRESS_FALLBACK)) && $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https')
 			{
 				return $this->isSecure = true;
 			}

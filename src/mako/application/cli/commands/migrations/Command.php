@@ -302,7 +302,7 @@ abstract class Command extends BaseCommand
 	}
 
 	/**
-	 * [buildMigrationWrapper description].
+	 * Builds the migration wrapper closure.
 	 *
 	 * @param  object                              $migration         Migration meta
 	 * @param  \mako\database\migrations\Migration $migrationInstance Migration instance
