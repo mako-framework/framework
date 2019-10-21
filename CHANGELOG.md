@@ -1,3 +1,13 @@
+### 6.3.2 <small> (2019-10-21)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* `Request::isSecure()` will no longer fail if `REMOTE_ADDR` isn't set.
+
+--------------------------------------------------------
+
 ### 6.3.1 <small> (2019-10-21)</small>
 
 Update using ```composer update```.
