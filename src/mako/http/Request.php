@@ -564,7 +564,7 @@ class Request
 		{
 			$ip = $this->server->get('REMOTE_ADDR');
 
-			if($this->isTrustedProxy($ip))
+			if($ip !== null && $this->isTrustedProxy($ip))
 			{
 				$ips = $this->server->get('HTTP_X_FORWARDED_FOR');
 
