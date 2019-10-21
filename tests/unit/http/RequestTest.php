@@ -193,6 +193,20 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetIpWithoutRemoteAddress(): void
+	{
+		$server = $this->getServerData();
+
+		unset($server['REMOTE_ADDR']);
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertSame('127.0.0.1', $request->getIp());
+	}
+
+	/**
+	 *
+	 */
 	public function testIsAjax(): void
 	{
 		$server = $this->getServerData();
