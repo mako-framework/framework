@@ -146,7 +146,7 @@ class InputValidation implements MiddlewareInterface
 			return false;
 		}
 
-		return  $exception->getMeta('should_redirect') !== false && $this->respondWithJson() === false && $this->respondWithXml() === false;
+		return $exception->getMeta('should_redirect') !== false && $this->respondWithJson() === false && $this->respondWithXml() === false;
 	}
 
 	/**
