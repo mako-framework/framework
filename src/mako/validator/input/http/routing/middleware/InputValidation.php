@@ -17,6 +17,7 @@ use mako\http\routing\middleware\MiddlewareInterface;
 use mako\http\routing\URLBuilder;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\session\Session;
+use mako\validator\input\HttpInputInterface;
 use mako\validator\ValidationException;
 use mako\view\ViewFactory;
 
@@ -73,7 +74,14 @@ class InputValidation implements MiddlewareInterface
 	 *
 	 * @var string
 	 */
-	protected $defaultMessage = 'Invalid input.';
+	protected $defaultErrorMessage = 'Invalid input.';
+
+	/**
+	 * Keys that will be removed from the old input.
+	 *
+	 * @var array
+	 */
+	protected $dontInclude = ['password', 'password_confirmation'];
 
 	/**
 	 * Request.
@@ -111,6 +119,13 @@ class InputValidation implements MiddlewareInterface
 	protected $viewFactory;
 
 	/**
+	 * Input.
+	 *
+	 * @var \mako\validator\input\HttpInputInterface|null
+	 */
+	protected $input;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\http\Request            $request     Request
@@ -133,31 +148,77 @@ class InputValidation implements MiddlewareInterface
 	}
 
 	/**
-	 * Should we redirect the client?
+	 * Set the input.
 	 *
-	 * @param  \mako\http\Request                  $request   Request
-	 * @param  \mako\validator\ValidationException $exception Validation exception
+	 * @param \mako\validator\input\HttpInputInterface|null $input Input
+	 */
+	protected function setInput(?HttpInputInterface $input): void
+	{
+		$this->input = $input;
+	}
+
+	/**
+	 * Should we redirect the client if possible?
+	 *
 	 * @return bool
 	 */
-	protected function shouldRedirect(Request $request, ValidationException $exception): bool
+	protected function shouldRedirect(): bool
 	{
-		if($this->session === null || in_array($request->getMethod(), ['GET', 'HEAD']))
+		if($this->session === null || in_array($this->request->getMethod(), ['GET', 'HEAD']))
 		{
 			return false;
 		}
 
-		return $exception->getMeta('should_redirect') !== false && $this->respondWithJson() === false && $this->respondWithXml() === false;
+		return ($this->input !== null && $this->input->shouldRedirect()) && $this->respondWithJson() === false && $this->respondWithXml() === false;
 	}
 
 	/**
-	 * Get the redirect URL.
+	 * Should the old input be included?
 	 *
-	 * @param  \mako\validator\ValidationException $exception Validation exception
+	 * @return bool
+	 */
+	protected function shouldIncludeOldInput(): bool
+	{
+		if($this->input === null)
+		{
+			return true;
+		}
+
+		return $this->input->shouldIncludeOldInput();
+	}
+
+	/**
+	 * Returns the old input.
+	 *
+	 * @return array
+	 */
+	protected function getOldInput(): array
+	{
+		if($this->input === null)
+		{
+			$oldInput = $this->request->getData()->all();
+		}
+		else
+		{
+			$oldInput = $this->input->getOldInput();
+		}
+
+		return array_diff_key($oldInput, array_flip($this->dontInclude));
+	}
+
+	/**
+	 * Returns the redirect URL.
+	 *
 	 * @return string
 	 */
-	protected function getRedirectUrl(ValidationException $exception): string
+	protected function getRedirectUrl(): string
 	{
-		return $exception->getMeta('redirect_url', $this->urlBuilder->current());
+		if($this->input === null)
+		{
+			return $this->urlBuilder->current();
+		}
+
+		return $this->input->getRedirectUrl();
 	}
 
 	/**
@@ -171,11 +232,29 @@ class InputValidation implements MiddlewareInterface
 	{
 		$this->session->putFlash($this->errorsFlashKey, $exception->getErrors());
 
-		$this->session->putFlash($this->oldInputFlashKey, $exception->getMeta('old_input'));
+		if($this->shouldIncludeOldInput())
+		{
+			$this->session->putFlash($this->oldInputFlashKey, $this->getOldInput());
+		}
 
-		$response->setBody(new Redirect($this->getRedirectUrl($exception), Redirect::SEE_OTHER));
+		$response->setBody(new Redirect($this->getRedirectUrl(), Redirect::SEE_OTHER));
 
 		return $response;
+	}
+
+	/**
+	 * Returns the error message.
+	 *
+	 * @return string
+	 */
+	protected function getErrorMessage(): string
+	{
+		if($this->input !== null)
+		{
+			$errorMessage = $this->input->getErrorMessage();
+		}
+
+		return $errorMessage ?? $this->defaultErrorMessage;
 	}
 
 	/**
@@ -189,7 +268,7 @@ class InputValidation implements MiddlewareInterface
 	{
 		$xml = simplexml_load_string("<?xml version='1.0' encoding='{$charset}'?><error />");
 
-		$xml->addChild('message', $exception->getMeta('message', $this->defaultMessage));
+		$xml->addChild('message', $this->getErrorMessage());
 
 		$errors = $xml->addChild('errors');
 
@@ -216,7 +295,7 @@ class InputValidation implements MiddlewareInterface
 		{
 			$response->setBody(new JSON
 			([
-				'message' => $exception->getMeta('message', $this->defaultMessage),
+				'message' => $this->getErrorMessage(),
 				'errors'  => $exception->getErrors(),
 			]));
 
@@ -253,9 +332,11 @@ class InputValidation implements MiddlewareInterface
 		}
 		catch(ValidationException $e)
 		{
+			$this->setInput($e->getInput());
+
 			$response->clear();
 
-			if($this->shouldRedirect($request, $e))
+			if($this->shouldRedirect())
 			{
 				return $this->handleRedirect($response, $e);
 			}

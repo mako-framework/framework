@@ -50,10 +50,7 @@ trait InputValidationTrait
 			}
 			catch(ValidationException $e)
 			{
-				foreach($input->getMeta() as $key => $value)
-				{
-					$e->addMeta($key, $value);
-				}
+				$e->setInput($input);
 
 				throw $e;
 			}
