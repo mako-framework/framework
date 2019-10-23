@@ -12,6 +12,7 @@ use mako\http\Request;
 use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
+use mako\http\response\senders\Redirect;
 use mako\http\routing\URLBuilder;
 use mako\session\Session;
 use mako\tests\TestCase;
@@ -432,6 +433,139 @@ class InputValidationTest extends TestCase
 
 			return $this->getErrorMessage();
 		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testHandleRedirectWithoutOldInput(): void
+	{
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
+
+		//
+
+		$session = Mockery::mock(Session::class);
+
+		$session->shouldReceive('putFlash')->once()->with('mako.errors', ['foo' => 'bar']);
+
+		//
+
+		$exception = Mockery::mock(ValidationException::class);
+
+		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->makePartial();
+
+		//
+
+		$middleware = new class ($urlBuilder, $session) extends InputValidation
+		{
+			protected function shouldIncludeOldInput(): bool
+			{
+				return false;
+			}
+		};
+
+		//-------------
+
+		$response = (function() use ($exception, $response)
+		{
+			$this->response = $response;
+
+			return $this->handleRedirect($exception);
+		})->bindTo($middleware, InputValidation::class)();
+
+		$this->assertInstanceOf(Response::class, $response);
+
+		$redirect = $response->getBody();
+
+		$this->assertInstanceOf(Redirect::class, $redirect);
+
+		$this->assertSame('https://example.org', (function()
+		{
+			return $this->location;
+		})->bindTo($redirect, Redirect::class)());
+
+		$this->assertSame(Redirect::SEE_OTHER, (function()
+		{
+			return $this->statusCode;
+		})->bindTo($redirect, Redirect::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testHandleRedirectWithOldInput(): void
+	{
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
+
+		//
+
+		$session = Mockery::mock(Session::class);
+
+		$session->shouldReceive('putFlash')->once()->with('mako.errors', ['foo' => 'bar']);
+
+		$session->shouldReceive('putFlash')->once()->with('mako.old', ['bar' => 'foo']);
+
+		//
+
+		$exception = Mockery::mock(ValidationException::class);
+
+		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->makePartial();
+
+		//
+
+		$middleware = new class ($urlBuilder, $session) extends InputValidation
+		{
+			protected function shouldIncludeOldInput(): bool
+			{
+				return true;
+			}
+
+			protected function getOldInput(): array
+			{
+				return ['bar' => 'foo'];
+			}
+		};
+
+		//-------------
+
+		$response = (function() use ($exception, $response)
+		{
+			$this->response = $response;
+
+			return $this->handleRedirect($exception);
+		})->bindTo($middleware, InputValidation::class)();
+
+		$this->assertInstanceOf(Response::class, $response);
+
+		$redirect = $response->getBody();
+
+		$this->assertInstanceOf(Redirect::class, $redirect);
+
+		$this->assertSame('https://example.org', (function()
+		{
+			return $this->location;
+		})->bindTo($redirect, Redirect::class)());
+
+		$this->assertSame(Redirect::SEE_OTHER, (function()
+		{
+			return $this->statusCode;
+		})->bindTo($redirect, Redirect::class)());
 	}
 
 	/**
