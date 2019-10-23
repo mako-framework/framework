@@ -12,7 +12,6 @@ use mako\http\request\Parameters;
 use mako\http\routing\URLBuilder;
 use mako\tests\TestCase;
 use mako\validator\input\HttpInput;
-use mako\validator\Validator;
 use Mockery;
 
 /**
@@ -20,26 +19,6 @@ use Mockery;
  */
 class HttpInputTest extends TestCase
 {
-	/**
-	 * @param  \mako\http\Request              $request    Request
-	 * @param  \mako\http\routing\URLBuilder   $urlBuilder URL builder
-	 * @return \mako\validator\input\HttpInput
-	 */
-	protected function getInput(Request $request, URLBuilder $urlBuilder): HttpInput
-	{
-		return new class ($request, $urlBuilder) extends HttpInput
-		{
-			protected $rules = ['foo' => 'bar'];
-
-			protected $extensions = ['bar' => 'foo'];
-
-			protected function getMessage(): ?string
-			{
-				return 'Nope';
-			}
-		};
-	}
-
 	/**
 	 *
 	 */
@@ -55,7 +34,10 @@ class HttpInputTest extends TestCase
 
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$input = $this->getInput($request, $urlBuilder);
+		$input = new class ($request, $urlBuilder) extends HttpInput
+		{
+
+		};
 
 		$this->assertSame(['input' => 'value'], $input->getInput());
 	}
@@ -63,98 +45,90 @@ class HttpInputTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetRules(): void
+	public function testShouldRedirect(): void
 	{
 		$request = Mockery::mock(Request::class);
 
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$input = $this->getInput($request, $urlBuilder);
+		$input = new class ($request, $urlBuilder) extends HttpInput
+		{
 
-		$this->assertSame(['foo' => 'bar'], $input->getRules());
-	}
+		};
 
-	/**
-	 *
-	 */
-	public function testGetExtensions(): void
-	{
-		$request = Mockery::mock(Request::class);
-
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		$input = $this->getInput($request, $urlBuilder);
-
-		$this->assertSame(['bar' => 'foo'], $input->getExtensions());
-	}
-
-	/**
-	 *
-	 */
-	public function testAddConditionalRules(): void
-	{
-		$request = Mockery::mock(Request::class);
-
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		$input = $this->getInput($request, $urlBuilder);
-
-		$validator = Mockery::mock(Validator::class);
-
-		$validator->shouldReceive('addRule')->never();
-
-		$input->addConditionalRules($validator);
-	}
-
-	/**
-	 *
-	 */
-	public function testGetMeta(): void
-	{
-		$request = Mockery::mock(Request::class);
-
-		$data = Mockery::mock(Parameters::class);
-
-		$data->shouldReceive('all')->once()->andReturn(['input' => 'value']);
-
-		$request->shouldReceive('getData')->once()->andReturn($data);
-
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		$urlBuilder->shouldReceive('current')->once()->andReturn('htts://example.org');
-
-		$input = $this->getInput($request, $urlBuilder);
-
-		$this->assertSame
-		([
-			'message'         => 'Nope',
-			'should_redirect' => true,
-			'redirect_url'    => 'htts://example.org',
-			'old_input'       => ['input' => 'value'],
-		], $input->getMeta());
-	}
-
-	/**
-	 *
-	 */
-	public function testGetMetaWithoutRedirect(): void
-	{
-		$request = Mockery::mock(Request::class);
-
-		$request->shouldReceive('getData')->never();
-
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		$urlBuilder->shouldReceive('current')->never();
+		$this->assertTrue($input->shouldRedirect());
 
 		$input = new class ($request, $urlBuilder) extends HttpInput
 		{
 			protected $shouldRedirect = false;
 		};
 
-		$this->assertSame
-		([
-			'should_redirect' => false,
-		], $input->getMeta());
+		$this->assertFalse($input->shouldRedirect());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetRedirectUrl(): void
+	{
+		$request = Mockery::mock(Request::class);
+
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
+
+		$input = new class ($request, $urlBuilder) extends HttpInput
+		{
+
+		};
+
+		$this->assertSame('https://example.org', $input->getRedirectUrl());
+	}
+
+	/**
+	 *
+	 */
+	public function testShouldIncludeOldInput(): void
+	{
+		$request = Mockery::mock(Request::class);
+
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$input = new class ($request, $urlBuilder) extends HttpInput
+		{
+
+		};
+
+		$this->assertTrue($input->shouldIncludeOldInput());
+
+		$input = new class ($request, $urlBuilder) extends HttpInput
+		{
+			protected $shouldIncludeOldInput = false;
+		};
+
+		$this->assertFalse($input->shouldIncludeOldInput());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetOldInput(): void
+	{
+		$data = Mockery::mock(Parameters::class);
+
+		$data->shouldReceive('all')->once()->andReturn(['field' => 'value']);
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getData')->once()->andReturn($data);
+
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$input = new class ($request, $urlBuilder) extends HttpInput
+		{
+
+		};
+
+		$this->assertSame(['field' => 'value'], $input->getOldInput());
 	}
 }

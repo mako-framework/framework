@@ -243,8 +243,6 @@ class InputValidatorTraitTest extends TestCase
 
 		$fooInput->shouldReceive('addConditionalRules')->once()->with($validator);
 
-		$fooInput->shouldReceive('getMeta')->andReturn([]);
-
 		//
 
 		$container = Mockery::mock(Container::class);
@@ -265,72 +263,7 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		$this->assertSame($input, $class->validateInput('FooInput'));
-	}
-
-	/**
-	 *
-	 */
-	public function testWithInputClassThrowingExceptionWithMeta(): void
-	{
-		$this->expectException(ValidationException::class);
-
-		$class = new class
-		{
-			use InputValidationTrait;
-
-			public function validateInput($input, array $rules = []): array
-			{
-				return $this->validate($input, $rules);
-			}
-		};
-
-		$input = ['username' => 'foobar'];
-		$rules = ['username' => ['required']];
-
-		//
-
-		$exception = Mockery::mock(ValidationException::class);
-
-		$exception->shouldReceive('addMeta')->once()->with('key', 'value');
-
-		//
-
-		$validator = Mockery::mock(Validator::class);
-
-		$validator->shouldReceive('validate')->once()->andThrow($exception);
-
-		//
-
-		$fooInput = Mockery::mock(HttpInput::class);
-
-		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
-
-		$fooInput->shouldReceive('getRules')->once()->andReturn($rules);
-
-		$fooInput->shouldReceive('getExtensions')->once()->andReturn([]);
-
-		$fooInput->shouldReceive('addConditionalRules')->once()->with($validator);
-
-		$fooInput->shouldReceive('getMeta')->andReturn(['key' => 'value']);
-
-		//
-
-		$container = Mockery::mock(Container::class);
-
-		$container->shouldReceive('get')->once()->with('FooInput')->andReturn($fooInput);
-
-		//
-
-		$validatorFactory = Mockery::mock(ValidatorFactory::class);
-
-		$validatorFactory->shouldReceive('create')->once()->with($input, $rules)->andReturn($validator);
-
-		//
-
-		$class->container = $container;
-
-		$class->validator = $validatorFactory;
+		$exception->shouldReceive('setInput')->once()->with($fooInput);
 
 		//
 

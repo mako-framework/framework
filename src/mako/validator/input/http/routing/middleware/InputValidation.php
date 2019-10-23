@@ -17,9 +17,12 @@ use mako\http\routing\middleware\MiddlewareInterface;
 use mako\http\routing\URLBuilder;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\session\Session;
+use mako\validator\input\HttpInputInterface;
 use mako\validator\ValidationException;
 use mako\view\ViewFactory;
 
+use function array_diff_key;
+use function array_flip;
 use function function_exists;
 use function in_array;
 use function simplexml_load_string;
@@ -73,21 +76,14 @@ class InputValidation implements MiddlewareInterface
 	 *
 	 * @var string
 	 */
-	protected $defaultMessage = 'Invalid input.';
+	protected $defaultErrorMessage = 'Invalid input.';
 
 	/**
-	 * Request.
+	 * Keys that will be removed from the old input.
 	 *
-	 * @var \mako\http\Request
+	 * @var array
 	 */
-	protected $request;
-
-	/**
-	 * Response.
-	 *
-	 * @var \mako\http\Response
-	 */
-	protected $response;
+	protected $dontInclude = ['password', 'password_confirmation'];
 
 	/**
 	 * URL builder.
@@ -111,20 +107,35 @@ class InputValidation implements MiddlewareInterface
 	protected $viewFactory;
 
 	/**
+	 * Request.
+	 *
+	 * @var \mako\http\Request
+	 */
+	protected $request;
+
+	/**
+	 * Response.
+	 *
+	 * @var \mako\http\Response
+	 */
+	protected $response;
+
+	/**
+	 * Input.
+	 *
+	 * @var \mako\validator\input\HttpInputInterface|null
+	 */
+	protected $input;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \mako\http\Request            $request     Request
-	 * @param \mako\http\Response           $response    Response
 	 * @param \mako\http\routing\URLBuilder $urlBuilder  URL builder
 	 * @param \mako\session\Session|null    $session     Session
 	 * @param \mako\view\ViewFactory|null   $viewFactory View factory
 	 */
-	public function __construct(Request $request, Response $response, URLBuilder $urlBuilder, ?Session $session = null, ?ViewFactory $viewFactory = null)
+	public function __construct(URLBuilder $urlBuilder, ?Session $session = null, ?ViewFactory $viewFactory = null)
 	{
-		$this->request = $request;
-
-		$this->response = $response;
-
 		$this->urlBuilder = $urlBuilder;
 
 		$this->session = $session;
@@ -133,49 +144,112 @@ class InputValidation implements MiddlewareInterface
 	}
 
 	/**
-	 * Should we redirect the client?
+	 * Set the input.
 	 *
-	 * @param  \mako\http\Request                  $request   Request
-	 * @param  \mako\validator\ValidationException $exception Validation exception
+	 * @param \mako\validator\input\HttpInputInterface|null $input Input
+	 */
+	protected function setInput(?HttpInputInterface $input): void
+	{
+		$this->input = $input;
+	}
+
+	/**
+	 * Should we redirect the client if possible?
+	 *
 	 * @return bool
 	 */
-	protected function shouldRedirect(Request $request, ValidationException $exception): bool
+	protected function shouldRedirect(): bool
 	{
-		if($this->session === null || in_array($request->getMethod(), ['GET', 'HEAD']))
+		if($this->session === null || $this->viewFactory === null || in_array($this->request->getMethod(), ['GET', 'HEAD']))
 		{
 			return false;
 		}
 
-		return $exception->getMeta('should_redirect') !== false && $this->respondWithJson() === false && $this->respondWithXml() === false;
+		return ($this->input === null || $this->input->shouldRedirect()) && $this->respondWithJson() === false && $this->respondWithXml() === false;
 	}
 
 	/**
-	 * Get the redirect URL.
+	 * Should the old input be included?
 	 *
-	 * @param  \mako\validator\ValidationException $exception Validation exception
+	 * @return bool
+	 */
+	protected function shouldIncludeOldInput(): bool
+	{
+		if($this->input === null)
+		{
+			return true;
+		}
+
+		return $this->input->shouldIncludeOldInput();
+	}
+
+	/**
+	 * Returns the old input.
+	 *
+	 * @return array
+	 */
+	protected function getOldInput(): array
+	{
+		if($this->input === null)
+		{
+			$oldInput = $this->request->getData()->all();
+		}
+		else
+		{
+			$oldInput = $this->input->getOldInput();
+		}
+
+		return array_diff_key($oldInput, array_flip($this->dontInclude));
+	}
+
+	/**
+	 * Returns the redirect URL.
+	 *
 	 * @return string
 	 */
-	protected function getRedirectUrl(ValidationException $exception): string
+	protected function getRedirectUrl(): string
 	{
-		return $exception->getMeta('redirect_url', $this->urlBuilder->current());
+		if($this->input === null)
+		{
+			return $this->urlBuilder->current();
+		}
+
+		return $this->input->getRedirectUrl();
 	}
 
 	/**
 	 * Add errors to flash data and redirect.
 	 *
-	 * @param  \mako\http\Response                 $response  Response
 	 * @param  \mako\validator\ValidationException $exception Validation exception
 	 * @return \mako\http\Response
 	 */
-	protected function handleRedirect(Response $response, ValidationException $exception): Response
+	protected function handleRedirect(ValidationException $exception): Response
 	{
 		$this->session->putFlash($this->errorsFlashKey, $exception->getErrors());
 
-		$this->session->putFlash($this->oldInputFlashKey, $exception->getMeta('old_input'));
+		if($this->shouldIncludeOldInput())
+		{
+			$this->session->putFlash($this->oldInputFlashKey, $this->getOldInput());
+		}
 
-		$response->setBody(new Redirect($this->getRedirectUrl($exception), Redirect::SEE_OTHER));
+		$this->response->setBody(new Redirect($this->getRedirectUrl(), Redirect::SEE_OTHER));
 
-		return $response;
+		return $this->response;
+	}
+
+	/**
+	 * Returns the error message.
+	 *
+	 * @return string
+	 */
+	protected function getErrorMessage(): string
+	{
+		if($this->input !== null)
+		{
+			$errorMessage = $this->input->getErrorMessage();
+		}
+
+		return $errorMessage ?? $this->defaultErrorMessage;
 	}
 
 	/**
@@ -189,7 +263,7 @@ class InputValidation implements MiddlewareInterface
 	{
 		$xml = simplexml_load_string("<?xml version='1.0' encoding='{$charset}'?><error />");
 
-		$xml->addChild('message', $exception->getMeta('message', $this->defaultMessage));
+		$xml->addChild('message', $this->getErrorMessage());
 
 		$errors = $xml->addChild('errors');
 
@@ -204,32 +278,31 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Output errors.
 	 *
-	 * @param  \mako\http\Response                 $response  Response
 	 * @param  \mako\validator\ValidationException $exception Validation exception
 	 * @return \mako\http\Response
 	 */
-	protected function handleOutput(Response $response, ValidationException $exception): Response
+	protected function handleOutput(ValidationException $exception): Response
 	{
-		$response->setStatus($this->httpStatusCode);
+		$this->response->setStatus($this->httpStatusCode);
 
 		if($this->respondWithJson())
 		{
-			$response->setBody(new JSON
+			$this->response->setBody(new JSON
 			([
-				'message' => $exception->getMeta('message', $this->defaultMessage),
+				'message' => $this->getErrorMessage(),
 				'errors'  => $exception->getErrors(),
 			]));
 
-			return $response;
+			return $this->response;
 		}
 
 		if(function_exists('simplexml_load_string') && $this->respondWithXml())
 		{
-			$response->setType('application/xml');
+			$this->response->setType('application/xml');
 
-			$response->setBody($this->buildXmlFromException($exception, $response->getCharset()));
+			$this->response->setBody($this->buildXmlFromException($exception, $this->response->getCharset()));
 
-			return $response;
+			return $this->response;
 		}
 
 		throw new BadRequestException;
@@ -240,6 +313,10 @@ class InputValidation implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
+		$this->request = $request;
+
+		$this->response = $response;
+
 		if($this->session !== null && $this->viewFactory !== null)
 		{
 			$this->viewFactory->assign($this->errorsVariableName, $this->session->getFlash($this->errorsFlashKey));
@@ -253,14 +330,16 @@ class InputValidation implements MiddlewareInterface
 		}
 		catch(ValidationException $e)
 		{
+			$this->setInput($e->getInput());
+
 			$response->clear();
 
-			if($this->shouldRedirect($request, $e))
+			if($this->shouldRedirect())
 			{
-				return $this->handleRedirect($response, $e);
+				return $this->handleRedirect($e);
 			}
 
-			return $this->handleOutput($response, $e);
+			return $this->handleOutput($e);
 		}
 	}
 }

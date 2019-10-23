@@ -24,6 +24,13 @@ abstract class Input implements InputInterface
 	protected $rules;
 
 	/**
+	 * Error message.
+	 *
+	 * @var string|null
+	 */
+	protected $errorMessage;
+
+	/**
 	 * Validation extensions.
 	 *
 	 * @var array
@@ -57,8 +64,8 @@ abstract class Input implements InputInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMeta(): array
+	public function getErrorMessage(): ?string
 	{
-		return [];
+		return $this->errorMessage;
 	}
 }

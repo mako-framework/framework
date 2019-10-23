@@ -10,14 +10,12 @@ namespace mako\validator\input;
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
 
-use function array_filter;
-
 /**
  * HTTP input.
  *
  * @author Frederic G. Østby
  */
-abstract class HttpInput extends Input
+abstract class HttpInput extends Input implements HttpInputInterface
 {
 	/**
 	 * Request.
@@ -34,7 +32,7 @@ abstract class HttpInput extends Input
 	protected $urlBuilder;
 
 	/**
-	 * Should the request be redirected if possible?
+	 * Should we redirect the client if possible?
 	 *
 	 * @var bool
 	 */
@@ -45,7 +43,7 @@ abstract class HttpInput extends Input
 	 *
 	 * @var bool
 	 */
-	protected $includeOldInput = true;
+	protected $shouldIncludeOldInput = true;
 
 	/**
 	 * Constructor.
@@ -69,59 +67,34 @@ abstract class HttpInput extends Input
 	}
 
 	/**
-	 * Returns the error message.
-	 *
-	 * @return string|null
+	 * {@inheritdoc}
 	 */
-	protected function getMessage(): ?string
+	public function shouldRedirect(): bool
 	{
-		return null;
-	}
-
-	/**
-	 * Returns the redirect URL.
-	 *
-	 * @return string|null
-	 */
-	protected function getRedirectUrl(): ?string
-	{
-		return $this->urlBuilder->current();
-	}
-
-	/**
-	 * Returns the old input.
-	 *
-	 * @return array|null
-	 */
-	protected function getOldInput(): ?array
-	{
-		return $this->request->getData()->all();
-	}
-
-	/**
-	 * Builds the meta array.
-	 *
-	 * @return array
-	 */
-	protected function buildMeta(): array
-	{
-		return
-		[
-			'message'         => $this->getMessage(),
-			'should_redirect' => $this->shouldRedirect,
-			'redirect_url'    => $this->shouldRedirect ? $this->getRedirectUrl() : null,
-			'old_input'       => $this->shouldRedirect && $this->includeOldInput ? $this->getOldInput() : null,
-		];
+		return $this->shouldRedirect;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMeta(): array
+	public function getRedirectUrl(): string
 	{
-		return array_filter($this->buildMeta(), function($value)
-		{
-			return $value !== null;
-		});
+		return $this->urlBuilder->current();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function shouldIncludeOldInput(): bool
+	{
+		return $this->shouldIncludeOldInput;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getOldInput(): array
+	{
+		return $this->request->getData()->all();
 	}
 }

@@ -9,6 +9,7 @@ namespace mako\tests\unit\validator\input\http\routing\middleware;
 
 use mako\http\exceptions\BadRequestException;
 use mako\http\Request;
+use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\http\response\senders\Redirect;
@@ -16,6 +17,8 @@ use mako\http\routing\URLBuilder;
 use mako\session\Session;
 use mako\tests\TestCase;
 use mako\validator\input\http\routing\middleware\InputValidation;
+use mako\validator\input\HttpInput;
+use mako\validator\input\HttpInputInterface;
 use mako\validator\ValidationException;
 use mako\view\ViewFactory;
 use Mockery;
@@ -42,9 +45,9 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$middleware = new InputValidation($request, $response, $urlBuilder);
+		$middleware = new InputValidation($urlBuilder);
 
-		//
+		//-------------
 
 		$this->assertSame($response, $middleware->execute($request, $response, function($request, $response)
 		{
@@ -85,9 +88,9 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$middleware = new InputValidation($request, $response, $urlBuilder, $session, $viewFactory);
+		$middleware = new InputValidation($urlBuilder, $session, $viewFactory);
 
-		//
+		//-------------
 
 		$this->assertSame($response, $middleware->execute($request, $response, function($request, $response)
 		{
@@ -100,37 +103,40 @@ class InputValidationTest extends TestCase
 	 */
 	public function testShouldRedirectWithoutSession(): void
 	{
-		$request = Mockery::mock(Request::class);
-
-		//
-
-		$response = Mockery::mock(Response::class);
-
-		//
-
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		//
+		//-------------
 
-		$this->assertFalse((function(Request $request, ValidationException $exception)
+		$this->assertFalse((function()
 		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo(new InputValidation($request, $response, $urlBuilder), InputValidation::class)($request, new ValidationException([])));
+			return $this->shouldRedirect();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
 	}
 
 	/**
 	 *
 	 */
-	public function testShouldRedirectWithSession(): void
+	public function testShouldRedirectWithSessionWithoutViewFactory(): void
 	{
-		$request = Mockery::mock(Request::class);
+		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
-		$response = Mockery::mock(Response::class);
+		$session = Mockery::mock(Session::class);
 
-		//
+		//-------------
 
+		$this->assertFalse((function()
+		{
+			return $this->shouldRedirect();
+		})->bindTo(new InputValidation($urlBuilder, $session), InputValidation::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testShouldRedirectWithSessionAndViewFactory(): void
+	{
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
@@ -139,38 +145,39 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$request->shouldReceive('getMethod')->once()->andReturn('GET');
-
-		$this->assertFalse((function(Request $request, ValidationException $exception)
-		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo(new InputValidation($request, $response, $urlBuilder, $session), InputValidation::class)($request, new ValidationException([])));
+		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		//
+
+		$request = Mockery::mock(Request::class);
+
+		//-------------
+
+		$request->shouldReceive('getMethod')->once()->andReturn('GET');
+
+		$this->assertFalse((function() use ($request)
+		{
+			$this->request = $request;
+
+			return $this->shouldRedirect();
+		})->bindTo(new InputValidation($urlBuilder, $session, $viewFactory), InputValidation::class)());
+
+		//-------------
 
 		$request->shouldReceive('getMethod')->once()->andReturn('HEAD');
 
-		$this->assertFalse((function(Request $request, ValidationException $exception)
+		$this->assertFalse((function() use ($request)
 		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo(new InputValidation($request, $response, $urlBuilder, $session), InputValidation::class)($request, new ValidationException([])));
+			$this->request = $request;
 
-		//
+			return $this->shouldRedirect();
+		})->bindTo(new InputValidation($urlBuilder, $session, $viewFactory), InputValidation::class)());
+
+		//-------------
 
 		$request->shouldReceive('getMethod')->once()->andReturn('POST');
 
-		$exception = Mockery::mock(ValidationException::class);
-
-		$exception->shouldReceive('getMeta')->once()->with('should_redirect')->andReturn(false);
-
-		$this->assertFalse((function(Request $request, ValidationException $exception)
-		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo(new InputValidation($request, $response, $urlBuilder, $session), InputValidation::class)($request, $exception));
-
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
 		{
 			protected function respondWithJson(): bool
 			{
@@ -178,16 +185,18 @@ class InputValidationTest extends TestCase
 			}
 		};
 
+		$this->assertFalse((function() use ($request)
+		{
+			$this->request = $request;
+
+			return $this->shouldRedirect();
+		})->bindTo($middleware, InputValidation::class)());
+
+		//-------------
+
 		$request->shouldReceive('getMethod')->once()->andReturn('POST');
 
-		$this->assertFalse((function(Request $request, ValidationException $exception)
-		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo($middleware, InputValidation::class)($request, new ValidationException([])));
-
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
 		{
 			protected function respondWithJson(): bool
 			{
@@ -200,16 +209,18 @@ class InputValidationTest extends TestCase
 			}
 		};
 
+		$this->assertFalse((function() use ($request)
+		{
+			$this->request = $request;
+
+			return $this->shouldRedirect();
+		})->bindTo($middleware, InputValidation::class)());
+
+		//-------------
+
 		$request->shouldReceive('getMethod')->once()->andReturn('POST');
 
-		$this->assertFalse((function(Request $request, ValidationException $exception)
-		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo($middleware, InputValidation::class)($request, new ValidationException([])));
-
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
 		{
 			protected function respondWithJson(): bool
 			{
@@ -222,56 +233,228 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		$request->shouldReceive('getMethod')->once()->andReturn('POST');
-
-		$exception = Mockery::mock(ValidationException::class);
-
-		$exception->shouldReceive('getMeta')->once()->with('should_redirect')->andReturn(true);
-
-		$this->assertTrue((function(Request $request, ValidationException $exception)
+		$this->assertTrue((function() use ($request)
 		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo($middleware, InputValidation::class)($request, $exception));
+			$this->request = $request;
 
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
-		{
-			protected function respondWithJson(): bool
-			{
-				return false;
-			}
-
-			protected function respondWithXml(): bool
-			{
-				return false;
-			}
-		};
-
-		$request->shouldReceive('getMethod')->once()->andReturn('POST');
-
-		$exception = Mockery::mock(ValidationException::class);
-
-		$exception->shouldReceive('getMeta')->once()->with('should_redirect')->andReturn(null);
-
-		$this->assertTrue((function(Request $request, ValidationException $exception)
-		{
-			return $this->shouldRedirect($request, $exception);
-		})->bindTo($middleware, InputValidation::class)($request, $exception));
+			return $this->shouldRedirect();
+		})->bindTo($middleware, InputValidation::class)());
 	}
 
 	/**
 	 *
 	 */
-	public function testHandleRedirect(): void
+	public function testShouldIncludeOldInput(): void
 	{
-		$errors = ['foo' => 'bar'];
+		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$old = ['bar' => 'foo'];
+		//-------------
+
+		$input = Mockery::mock(HttpInput::class);
+
+		$input->shouldReceive('shouldIncludeOldInput')->once()->andReturn(false);
+
+		$this->assertFalse((function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->shouldIncludeOldInput();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$input = Mockery::mock(HttpInput::class);
+
+		$input->shouldReceive('shouldIncludeOldInput')->once()->andReturn(true);
+
+		$this->assertTrue((function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->shouldIncludeOldInput();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$this->assertTrue((function()
+		{
+			return $this->shouldIncludeOldInput();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetOldInput(): void
+	{
+		$formInput = ['username' => 'foobar', 'password' => 'barfoo'];
+
+		$expected1 = ['username' => 'foobar'];
+
+		$expected2 = [];
+
+		//
+
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		//-------------
+
+		$data = Mockery::mock(Parameters::class);
+
+		$data->shouldReceive('all')->once()->andReturn($formInput);
 
 		//
 
 		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getData')->once()->andReturn($data);
+
+		$this->assertSame($expected1, (function() use ($request)
+		{
+			$this->request = $request;
+
+			return $this->getOldInput();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$input = Mockery::mock(HttpInputInterface::class);
+
+		$input->shouldReceive('getOldInput')->once()->andReturn($formInput);
+
+		$this->assertSame($expected1, (function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->getOldInput();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$input = Mockery::mock(HttpInputInterface::class);
+
+		$input->shouldReceive('getOldInput')->once()->andReturn($formInput);
+
+		$middleware = new class ($urlBuilder) extends InputValidation
+		{
+			protected $dontInclude = ['username', 'password'];
+		};
+
+		$this->assertSame($expected2, (function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->getOldInput();
+		})->bindTo($middleware, InputValidation::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetRedirectUrl(): void
+	{
+		$expected = 'https://example.org';
+
+		//
+
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		//-------------
+
+		$urlBuilder->shouldReceive('current')->once()->andReturn($expected);
+
+		$this->assertSame($expected, (function()
+		{
+			return $this->getRedirectUrl();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$input = Mockery::mock(HttpInputInterface::class);
+
+		$input->shouldReceive('getRedirectUrl')->once()->andReturn($expected);
+
+		$this->assertSame($expected, (function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->getRedirectUrl();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetErrorMessage(): void
+	{
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		//-------------
+
+		$this->assertSame('Invalid input.', (function()
+		{
+			return $this->getErrorMessage();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$middleware = new class ($urlBuilder) extends InputValidation
+		{
+			protected $defaultErrorMessage = 'foobar';
+		};
+
+		$this->assertSame('foobar', (function()
+		{
+			return $this->getErrorMessage();
+		})->bindTo($middleware, InputValidation::class)());
+
+		//-------------
+
+		$input = Mockery::mock(HttpInputInterface::class);
+
+		$input->shouldReceive('getErrorMessage')->once()->andReturn(null);
+
+		$this->assertSame('Invalid input.', (function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->getErrorMessage();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+
+		//-------------
+
+		$input = Mockery::mock(HttpInputInterface::class);
+
+		$input->shouldReceive('getErrorMessage')->once()->andReturn('barfoo');
+
+		$this->assertSame('barfoo', (function() use ($input)
+		{
+			$this->input = $input;
+
+			return $this->getErrorMessage();
+		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testHandleRedirectWithoutOldInput(): void
+	{
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
+
+		//
+
+		$session = Mockery::mock(Session::class);
+
+		$session->shouldReceive('putFlash')->once()->with('mako.errors', ['foo' => 'bar']);
+
+		//
+
+		$exception = Mockery::mock(ValidationException::class);
+
+		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
 
 		//
 
@@ -281,51 +464,108 @@ class InputValidationTest extends TestCase
 
 		//
 
+		$middleware = new class ($urlBuilder, $session) extends InputValidation
+		{
+			protected function shouldIncludeOldInput(): bool
+			{
+				return false;
+			}
+		};
+
+		//-------------
+
+		$response = (function() use ($exception, $response)
+		{
+			$this->response = $response;
+
+			return $this->handleRedirect($exception);
+		})->bindTo($middleware, InputValidation::class)();
+
+		$this->assertInstanceOf(Response::class, $response);
+
+		$redirect = $response->getBody();
+
+		$this->assertInstanceOf(Redirect::class, $redirect);
+
+		$this->assertSame('https://example.org', (function()
+		{
+			return $this->location;
+		})->bindTo($redirect, Redirect::class)());
+
+		$this->assertSame(Redirect::SEE_OTHER, (function()
+		{
+			return $this->statusCode;
+		})->bindTo($redirect, Redirect::class)());
+	}
+
+	/**
+	 *
+	 */
+	public function testHandleRedirectWithOldInput(): void
+	{
 		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
 
 		//
 
 		$session = Mockery::mock(Session::class);
 
-		$session->shouldReceive('putFlash')->once()->with('mako.errors', $errors);
+		$session->shouldReceive('putFlash')->once()->with('mako.errors', ['foo' => 'bar']);
 
-		$session->shouldReceive('putFlash')->once()->with('mako.old', $old);
+		$session->shouldReceive('putFlash')->once()->with('mako.old', ['bar' => 'foo']);
 
 		//
 
 		$exception = Mockery::mock(ValidationException::class);
 
-		$exception->shouldReceive('getErrors')->once()->andReturn($errors);
-
-		$exception->shouldReceive('getMeta')->once()->with('old_input')->andReturn($old);
+		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
 
 		//
 
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
+		$response = Mockery::mock(Response::class);
+
+		$response->makePartial();
+
+		//
+
+		$middleware = new class ($urlBuilder, $session) extends InputValidation
 		{
-			public function getRedirectUrl(ValidationException $exception): string
+			protected function shouldIncludeOldInput(): bool
 			{
-				return 'https://example.org';
+				return true;
+			}
+
+			protected function getOldInput(): array
+			{
+				return ['bar' => 'foo'];
 			}
 		};
 
-		//
+		//-------------
 
-		$response = (function(Response $response, ValidationException $exception)
+		$response = (function() use ($exception, $response)
 		{
-			return $this->handleRedirect($response, $exception);
-		})->bindTo($middleware, InputValidation::class)($response, $exception);
+			$this->response = $response;
 
-		$body = $response->getBody();
+			return $this->handleRedirect($exception);
+		})->bindTo($middleware, InputValidation::class)();
 
-		$this->assertInstanceOf(Redirect::class, $body);
+		$this->assertInstanceOf(Response::class, $response);
 
-		$this->assertSame(Redirect::SEE_OTHER, $body->getStatus());
+		$redirect = $response->getBody();
+
+		$this->assertInstanceOf(Redirect::class, $redirect);
 
 		$this->assertSame('https://example.org', (function()
 		{
 			return $this->location;
-		})->bindTo($body, Redirect::class)());
+		})->bindTo($redirect, Redirect::class)());
+
+		$this->assertSame(Redirect::SEE_OTHER, (function()
+		{
+			return $this->statusCode;
+		})->bindTo($redirect, Redirect::class)());
 	}
 
 	/**
@@ -333,7 +573,18 @@ class InputValidationTest extends TestCase
 	 */
 	public function testHandleOutputWithJson(): void
 	{
-		$request = Mockery::mock(Request::class);
+		if(function_exists('json_encode') === false)
+		{
+			$this->markTestSkipped('JSON support is missing.');
+
+			return;
+		}
+
+		$middleware = Mockery::mock(InputValidation::class)->shouldAllowMockingProtectedMethods();
+
+		$middleware->shouldReceive('respondWithJson')->once()->andReturn(true);
+
+		$middleware->makePartial();
 
 		//
 
@@ -345,42 +596,25 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		//
-
-		$session = Mockery::mock(Session::class);
-
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
-		{
-			protected function respondWithJson(): bool
-			{
-				return true;
-			}
-
-			public function getResponse(ValidationException $exception): Response
-			{
-				return $this->handleOutput($this->response, $exception);
-			}
-		};
-
 		$exception = Mockery::mock(ValidationException::class);
-
-		$exception->shouldReceive('getMeta')->once()->with('message', 'Invalid input.')->andReturn('foobar');
 
 		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
 
-		//
+		//-------------
 
-		$response = $middleware->getResponse($exception);
+		$response = (function() use ($response, $exception)
+		{
+			$this->response = $response;
+
+			return $this->handleOutput($exception);
+
+		})->bindTo($middleware, InputValidation::class)();
 
 		$body = $response->getBody();
 
 		$this->assertInstanceOf(JSON::class, $body);
 
-		$this->assertSame(['message' => 'foobar', 'errors' => ['foo' => 'bar']], (function()
+		$this->assertSame(['message' => 'Invalid input.', 'errors' => ['foo' => 'bar']], (function()
 		{
 			return $this->data;
 		})->bindTo($body, JSON::class)());
@@ -398,9 +632,13 @@ class InputValidationTest extends TestCase
 			return;
 		}
 
-		//
+		$middleware = Mockery::mock(InputValidation::class)->shouldAllowMockingProtectedMethods();
 
-		$request = Mockery::mock(Request::class);
+		$middleware->shouldReceive('respondWithJson')->once()->andReturn(false);
+
+		$middleware->shouldReceive('respondWithXml')->once()->andReturn(true);
+
+		$middleware->makePartial();
 
 		//
 
@@ -408,51 +646,29 @@ class InputValidationTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(400);
 
+		$response->shouldReceive('setType')->once()->with('application/xml');
+
 		$response->shouldReceive('getCharset')->once()->andReturn('UTF-8');
 
 		$response->makePartial();
 
 		//
 
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		//
-
-		$session = Mockery::mock(Session::class);
-
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
-		{
-			protected function respondWithJson(): bool
-			{
-				return false;
-			}
-
-			protected function respondWithXml(): bool
-			{
-				return true;
-			}
-
-			public function getResponse(ValidationException $exception): Response
-			{
-				return $this->handleOutput($this->response, $exception);
-			}
-		};
-
 		$exception = Mockery::mock(ValidationException::class);
-
-		$exception->shouldReceive('getMeta')->once()->with('message', 'Invalid input.')->andReturn('foobar');
 
 		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
 
-		//
+		//-------------
 
-		$response = $middleware->getResponse($exception);
+		$response = (function() use ($response, $exception)
+		{
+			$this->response = $response;
 
-		$this->assertSame('application/xml', $response->getType());
+			return $this->handleOutput($exception);
 
-		$this->assertSame("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<error><message>foobar</message><errors><foo>bar</foo></errors></error>\n", $response->getBody());
+		})->bindTo($middleware, InputValidation::class)();
+
+		$this->assertSame("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<error><message>Invalid input.</message><errors><foo>bar</foo></errors></error>\n", $response->getBody());
 	}
 
 	/**
@@ -480,7 +696,9 @@ class InputValidationTest extends TestCase
 
 		$session = Mockery::mock(Session::class);
 
-		$middleware = new class ($request, $response, $urlBuilder, $session) extends InputValidation
+		//-------------
+
+		$middleware = new class ($urlBuilder, $session) extends InputValidation
 		{
 			protected function respondWithJson(): bool
 			{
@@ -494,9 +712,15 @@ class InputValidationTest extends TestCase
 
 			public function getResponse(ValidationException $exception): Response
 			{
-				return $this->handleOutput($this->response, $exception);
+				return $this->handleOutput($exception);
 			}
 		};
+
+		(function() use ($request, $response): void
+		{
+			$this->request  = $request;
+			$this->response = $response;
+		})->bindTo($middleware, InputValidation::class)();
 
 		$middleware->getResponse(new ValidationException([]));
 	}
@@ -510,6 +734,10 @@ class InputValidationTest extends TestCase
 
 		//
 
+		$urlBuilder = Mockery::mock(URLBuilder::class);
+
+		//
+
 		$request = Mockery::mock(Request::class);
 
 		//
@@ -520,13 +748,9 @@ class InputValidationTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(400);
 
-		//
+		//-------------
 
-		$urlBuilder = Mockery::mock(URLBuilder::class);
-
-		//
-
-		$middleware = new class ($request, $response, $urlBuilder) extends InputValidation
+		$middleware = new class ($urlBuilder) extends InputValidation
 		{
 			protected function respondWithJson(): bool
 			{
@@ -539,8 +763,6 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		//
-
 		$middleware->execute($request, $response, function($request, $response): void
 		{
 			throw new ValidationException([]);
@@ -552,16 +774,6 @@ class InputValidationTest extends TestCase
 	 */
 	public function testExecuteWithErrorsWithRedirect(): void
 	{
-		$request = Mockery::mock(Request::class);
-
-		//
-
-		$response = Mockery::mock(Response::class);
-
-		$response->shouldReceive('clear')->once();
-
-		//
-
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
@@ -582,20 +794,33 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$middleware = new class ($request, $response, $urlBuilder, $session, $viewFactory) extends InputValidation
+		$request = Mockery::mock(Request::class);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('clear')->once();
+
+		//-------------
+
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
 		{
-			protected function shouldRedirect(Request $request, ValidationException $exception): bool
+			protected function shouldRedirect(): bool
 			{
 				return true;
 			}
 
-			protected function handleRedirect(Response $response, ValidationException $exception): Response
+			protected function handleRedirect(ValidationException $exception): Response
 			{
-				return $response;
+				return $this->response;
 			}
 		};
 
-		//
+		(function() use ($request, $response): void
+		{
+			$this->response = $response;
+		})->bindTo($middleware, InputValidation::class)();
 
 		$this->assertSame($response, $middleware->execute($request, $response, function($request, $response): void
 		{
