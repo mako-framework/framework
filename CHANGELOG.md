@@ -1,3 +1,13 @@
+### 6.3.3 <small> (2019-10-23)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* Refactored the `InputValidation` middleware and added the `HttpInputInterface` interface.
+
+--------------------------------------------------------
+
 ### 6.3.2 <small> (2019-10-21)</small>
 
 Update using ```composer update```.

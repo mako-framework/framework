@@ -7,7 +7,7 @@
 
 namespace mako\validator;
 
-use mako\utility\Arr;
+use mako\validator\input\InputInterface;
 use RuntimeException;
 use Throwable;
 
@@ -32,11 +32,11 @@ class ValidationException extends RuntimeException
 	protected $errors;
 
 	/**
-	 * Exception meta.
+	 * Input.
 	 *
-	 * @var array
+	 * @var \mako\validator\input\InputInterface|null
 	 */
-	protected $meta = [];
+	protected $input;
 
 	/**
 	 * Constructor.
@@ -81,25 +81,22 @@ class ValidationException extends RuntimeException
 	}
 
 	/**
-	 * Adds meta.
+	 * Sets the input.
 	 *
-	 * @param string $key   Meta key
-	 * @param mixed  $value Meta value
+	 * @param \mako\validator\input\InputInterface $input Input
 	 */
-	public function addMeta(string $key, $value): void
+	public function setInput(InputInterface $input): void
 	{
-		Arr::set($this->meta, $key, $value);
+		$this->input = $input;
 	}
 
 	/**
-	 * Gets meta.
+	 * Returns the input.
 	 *
-	 * @param  string $key     Meta key
-	 * @param  mixed  $default Default return value
-	 * @return mixed
+	 * @return \mako\validator\input\InputInterface|null
 	 */
-	public function getMeta(string $key, $default = null)
+	public function getInput(): ?InputInterface
 	{
-		return Arr::get($this->meta, $key, $default);
+		return $this->input;
 	}
 }

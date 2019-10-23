@@ -45,9 +45,9 @@ interface InputInterface
 	public function addConditionalRules(Validator $validator): void;
 
 	/**
-	 * Returns an array of additional metadata for validator exceptions.
+	 * Returns the error message.
 	 *
-	 * @return array
+	 * @return string|null
 	 */
-	public function getMeta(): array;
+	public function getErrorMessage(): ?string;
 }

@@ -8,7 +8,9 @@
 namespace mako\tests\unit\validator;
 
 use mako\tests\TestCase;
+use mako\validator\input\InputInterface;
 use mako\validator\ValidationException;
+use Mockery;
 
 /**
  * @group unit
@@ -46,16 +48,14 @@ class ValidationExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMeta(): void
+	public function testSetInputAndGetInput(): void
 	{
 		$exception = new ValidationException([]);
 
-		$exception->addMeta('foo', 'bar');
+		$input = Mockery::mock(InputInterface::class);
 
-		$this->assertSame('bar', $exception->getMeta('foo'));
+		$exception->setInput($input);
 
-		$this->assertNull($exception->getMeta('bar'));
-
-		$this->assertFalse($exception->getMeta('bar', false));
+		$this->assertSame($input, $exception->getInput());
 	}
 }
