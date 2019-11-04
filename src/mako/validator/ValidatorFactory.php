@@ -68,13 +68,13 @@ class ValidatorFactory
 	/**
 	 * Creates and returns a validator instance.
 	 *
-	 * @param  array                     $input Array to validate
-	 * @param  array                     $rules Array of validation rules
+	 * @param  array                     $input    Array to validate
+	 * @param  array                     $ruleSets Array of validation rule sets
 	 * @return \mako\validator\Validator
 	 */
-	public function create(array $input, array $rules): Validator
+	public function create(array $input, array $ruleSets = []): Validator
 	{
-		$validator = new Validator($input, $rules, $this->i18n, $this->container);
+		$validator = new Validator($input, $ruleSets, $this->i18n, $this->container);
 
 		foreach($this->rules as $rule => $ruleClass)
 		{

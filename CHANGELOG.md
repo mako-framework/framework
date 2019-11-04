@@ -1,3 +1,13 @@
+### 6.3.4 <small> (2019-11-04)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* The `$ruleSets` parameter of the `ValidatorFactory` and `Validator` constructors is now optional.
+
+--------------------------------------------------------
+
 ### 6.3.3 <small> (2019-10-23)</small>
 
 Update using ```composer update```.

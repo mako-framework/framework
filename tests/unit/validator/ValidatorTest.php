@@ -85,6 +85,16 @@ class ValidatorTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicWithoutRules(): void
+	{
+		$validator = new Validator([]);
+
+		$this->assertSame([], $this->attributeSpy($validator, 'ruleSets'));
+	}
+
+	/**
+	 *
+	 */
 	public function testAddRules(): void
 	{
 		$validator = new Validator([], []);

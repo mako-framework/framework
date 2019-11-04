@@ -61,6 +61,28 @@ class ValidatorFactoryTest extends TestCase
 	/**
 	 *
 	 */
+	public function testCreateWithoutRules(): void
+	{
+		$i18n = Mockery::mock(I18n::class);
+
+		$container = Mockery::mock(Container::class);
+
+		$factory = new ValidatorFactory($i18n, $container);
+
+		$input = ['foo' => 'bar'];
+
+		$validator = $factory->create($input);
+
+		$this->assertInstanceOf(Validator::class, $validator);
+
+		$this->assertSame($input, $this->attributeSpy($validator, 'input'));
+
+		$this->assertSame([], $this->attributeSpy($validator, 'ruleSets'));
+	}
+
+	/**
+	 *
+	 */
 	public function testExtend(): void
 	{
 		$i18n = Mockery::mock(I18n::class);
