@@ -207,7 +207,7 @@ class Validator
 	 * @param \mako\i18n\I18n|null         $i18n      I18n
 	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(array $input, array $ruleSets, ?I18n $i18n = null, ?Container $container = null)
+	public function __construct(array $input, array $ruleSets = [], ?I18n $i18n = null, ?Container $container = null)
 	{
 		$this->input = $input;
 
