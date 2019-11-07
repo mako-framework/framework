@@ -1,3 +1,13 @@
+### 6.3.5 <small> (2019-11-07)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* The `ProgressBar::advance()` method will now throw a `LogicException` when trying to advance past 100%.
+
+--------------------------------------------------------
+
 ### 6.3.4 <small> (2019-11-04)</small>
 
 Update using ```composer update```.

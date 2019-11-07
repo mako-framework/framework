@@ -171,7 +171,7 @@ class UUIDTest extends TestCase
 
 		for($i = 0; $i < 100; $i++)
 		{
-			usleep(10); // We need to sleep since they can not be guaranteed to be 100% sequential due to the time presision
+			usleep(10); // We need to sleep since they cannot be guaranteed to be 100% sequential due to the time presision
 
 			$uuid = UUID::sequential();
 

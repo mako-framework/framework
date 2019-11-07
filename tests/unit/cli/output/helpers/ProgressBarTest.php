@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\cli\output\helpers;
 
+use LogicException;
 use mako\cli\output\helpers\ProgressBar;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -326,5 +327,32 @@ class ProgressBarTest extends TestCase
 		}
 
 		$progressBar->remove();
+	}
+
+	/**
+	 *
+	 */
+	public function testProgressPast100Percent(): void
+	{
+		$this->expectException(LogicException::class);
+
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('write')->times(12);
+
+		$progressBar = new class ($output, 10) extends ProgressBar
+		{
+			protected function shouldRedraw(): bool
+			{
+				return ($this->progress % 1) === 0;
+			}
+		};
+
+		$progressBar->draw();
+
+		for($i = 0; $i < 11; $i++)
+		{
+			$progressBar->advance();
+		}
 	}
 }
