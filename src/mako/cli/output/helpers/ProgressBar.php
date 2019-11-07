@@ -7,6 +7,7 @@
 
 namespace mako\cli\output\helpers;
 
+use LogicException;
 use mako\cli\output\Output;
 
 use function floor;
@@ -227,6 +228,11 @@ class ProgressBar
 	public function advance(): void
 	{
 		$this->progress++;
+
+		if($this->progress > $this->items)
+		{
+			throw new LogicException('You cannot advance past 100%.');
+		}
 
 		if($this->progress === $this->items || $this->shouldRedraw())
 		{
