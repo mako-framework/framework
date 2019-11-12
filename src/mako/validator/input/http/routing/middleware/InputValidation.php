@@ -321,7 +321,7 @@ class InputValidation implements MiddlewareInterface
 		{
 			$this->viewFactory->assign($this->errorsVariableName, $this->session->getFlash($this->errorsFlashKey));
 
-			$this->viewFactory->assign($this->oldInputVariableName, (object) $this->session->getFlash($this->oldInputFlashKey));
+			$this->viewFactory->assign($this->oldInputVariableName, $this->session->getFlash($this->oldInputFlashKey));
 		}
 
 		try

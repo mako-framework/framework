@@ -790,7 +790,7 @@ class InputValidationTest extends TestCase
 
 		$viewFactory->shouldReceive('assign')->once()->with('_errors_', null);
 
-		$viewFactory->shouldReceive('assign')->once()/*->with('_old_', (object) null)*/;
+		$viewFactory->shouldReceive('assign')->once()->with('_old_', null);
 
 		//
 
