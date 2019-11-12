@@ -1,3 +1,13 @@
+### 6.3.6 <small> (2019-11-12)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* The old input from the `InputValidation` middleware will no longer be cast to an object before being assigned to views.
+
+--------------------------------------------------------
+
 ### 6.3.5 <small> (2019-11-07)</small>
 
 Update using ```composer update```.
