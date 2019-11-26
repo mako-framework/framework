@@ -376,7 +376,7 @@ class ErrorHandler
 			}
 			catch(Throwable $e)
 			{
-				error_log(sprintf('%s on line %s in %s', $e->getMessage(), $e->getLine(), $e->getLine()));
+				error_log(sprintf('%s on line %s in %s.', $e->getMessage(), $e->getLine(), $e->getLine()));
 			}
 			finally
 			{
