@@ -1,3 +1,13 @@
+### 6.3.7 <small> (2019-11-26)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* The error handler will now attempt to log logger exceptions using PHP's system logger.
+
+--------------------------------------------------------
+
 ### 6.3.6 <small> (2019-11-12)</small>
 
 Update using ```composer update```.
