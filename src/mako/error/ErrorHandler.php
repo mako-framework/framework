@@ -18,6 +18,7 @@ use function array_merge;
 use function array_unique;
 use function array_unshift;
 use function error_get_last;
+use function error_log;
 use function error_reporting;
 use function filter_var;
 use function fwrite;
@@ -29,6 +30,7 @@ use function ob_end_clean;
 use function ob_get_level;
 use function register_shutdown_function;
 use function set_exception_handler;
+use function sprintf;
 
 /**
  * Error handler.
@@ -374,7 +376,7 @@ class ErrorHandler
 			}
 			catch(Throwable $e)
 			{
-				// We failed to log the exception
+				error_log(sprintf('%s on line %s in %s', $e->getMessage(), $e->getLine(), $e->getLine()));
 			}
 			finally
 			{
