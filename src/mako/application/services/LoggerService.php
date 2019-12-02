@@ -11,8 +11,10 @@ use mako\gatekeeper\Gatekeeper;
 use mako\http\Request;
 use mako\logger\Logger;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogHandler;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -98,6 +100,26 @@ class LoggerService extends Service
 		$handler->setFormatter($formatter);
 
 		return $handler;
+	}
+
+	/**
+	 * Returns a syslog handler.
+	 *
+	 * @return \Monolog\Handler\SyslogHandler
+	 */
+	protected function getSyslogHandler(): SyslogHandler
+	{
+		return new SyslogHandler($this->config->get('application.identifier', 'Mako'), $this->config->get('application.syslog.facility', LOG_USER));
+	}
+
+	/**
+	 * Returns a error log handler.
+	 *
+	 * @return \Monolog\Handler\ErrorLogHandler
+	 */
+	protected function getErrorLogHandler(): ErrorLogHandler
+	{
+		return new ErrorLogHandler;
 	}
 
 	/**
