@@ -30,7 +30,7 @@ class LoggerService extends Service
 	/**
 	 * Get information about the current user.
 	 *
-	 * @return \array|null
+	 * @return array|null
 	 */
 	protected function getUserContext(): ?array
 	{
