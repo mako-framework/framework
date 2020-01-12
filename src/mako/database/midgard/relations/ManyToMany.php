@@ -13,6 +13,8 @@ use mako\database\midgard\ORM;
 
 use function array_diff;
 use function array_merge;
+use function array_shift;
+use function count;
 use function implode;
 use function is_array;
 use function sort;
@@ -228,11 +230,21 @@ class ManyToMany extends Relation
 	/**
 	 * Returns a query builder instance to the junction table.
 	 *
+	 * @param  bool                       $includeWheres Should the wheres be included?
 	 * @return \mako\database\query\Query
 	 */
-	protected function junction()
+	protected function junction(bool $includeWheres = false)
 	{
-		return $this->connection->builder()->table($this->getJunctionTable());
+		$query = $this->connection->builder()->table($this->getJunctionTable());
+
+		if($includeWheres && count($this->wheres) > 1)
+		{
+			$query->wheres = $this->wheres;
+
+			array_shift($query->wheres);
+		}
+
+		return $query;
 	}
 
 	/**
@@ -321,7 +333,7 @@ class ManyToMany extends Relation
 
 		foreach($this->getJunctionKeys($id) as $key => $id)
 		{
-			$success = $success && (bool) $this->junction()->where($foreignKey, '=', $foreignKeyValue)->where($junctionKey, '=', $id)->update($this->getJunctionAttributes($key, $attributes));
+			$success = $success && (bool) $this->junction(true)->where($foreignKey, '=', $foreignKeyValue)->where($junctionKey, '=', $id)->update($this->getJunctionAttributes($key, $attributes));
 		}
 
 		return $success;
@@ -335,7 +347,7 @@ class ManyToMany extends Relation
 	 */
 	public function unlink($id = null): bool
 	{
-		$query = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
+		$query = $this->junction(true)->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
 
 		if($id !== null)
 		{
