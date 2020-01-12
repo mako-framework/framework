@@ -1,3 +1,13 @@
+### 6.3.8 <small> (2020-01-12)</small>
+
+Update using ```composer update```.
+
+#### Changes
+
+* `ManyToMany::unlink()` and `ManyToMany::updateLink()` now supports wheres.
+
+--------------------------------------------------------
+
 ### 6.3.7 <small> (2019-11-26)</small>
 
 Update using ```composer update```.

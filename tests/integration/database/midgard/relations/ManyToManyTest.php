@@ -324,6 +324,24 @@ class ManyToManyTest extends ORMTestCase
 	/**
 	 *
 	 */
+	public function testUnlinkWithWhere(): void
+	{
+		$user = ManyToManyUser::get(1);
+
+		$this->assertSame(2, $user->groups()->count());
+
+		$user->groups()->where('extra', '=', 'foobar')->unlink(1);
+
+		$this->assertSame(1, $user->groups()->count());
+
+		$queries = $this->connectionManager->connection('sqlite')->getLog();
+
+		$this->assertSame('DELETE FROM "groups_users" WHERE "extra" = \'foobar\' AND "user_id" = \'1\' AND "group_id" IN (1)', $queries[2]['query']);
+	}
+
+	/**
+	 *
+	 */
 	public function testLinkAndUnlinkUsingModel(): void
 	{
 		$user = ManyToManyUser::get(3);
@@ -502,5 +520,31 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertSame('foobar', $groups[0]->extra);
 		$this->assertSame(null, $groups[1]->extra);
+	}
+
+	/**
+	 *
+	 */
+	public function testUpdateLinkWithWheres(): void
+	{
+		$user = ManyToManyUser::get(1);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(2, count($groups));
+
+		$this->assertSame('foobar', $groups[0]->extra);
+		$this->assertSame(null, $groups[1]->extra);
+
+		$user->groups()->where('extra', '=', 'foobar')->updateLink([$groups[0], $groups[1]], ['extra' => 'barfoo']);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertSame('barfoo', $groups[0]->extra);
+		$this->assertSame(null, $groups[1]->extra);
+
+		$queries = $this->connectionManager->connection('sqlite')->getLog();
+
+		$this->assertSame('UPDATE "groups_users" SET "extra" = \'barfoo\' WHERE "extra" = \'foobar\' AND "user_id" = \'1\' AND "group_id" = \'2\'', $queries[3]['query']);
 	}
 }
