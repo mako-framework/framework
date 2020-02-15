@@ -179,6 +179,8 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @return \mako\gatekeeper\entities\user\User|bool
 	 */
 	public function getByIdentifier($identifier)
 	{
