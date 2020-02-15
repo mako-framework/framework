@@ -34,14 +34,6 @@ abstract class Type implements TypeInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getType(): int
-	{
-		return static::TYPE;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function getValue()
 	{
 		return $this->value;

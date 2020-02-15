@@ -17,9 +17,10 @@ use PDO;
 class LargeObject extends Type
 {
 	/**
-	 * PDO parameter type.
-	 *
-	 * @var int
+	 * {@inheritdoc}
 	 */
-	const TYPE = PDO::PARAM_LOB;
+	public function getType(): int
+	{
+		return PDO::PARAM_LOB;
+	}
 }
