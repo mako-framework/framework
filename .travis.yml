@@ -1,18 +1,21 @@
+os: linux
+
 language: php
 
-sudo: false
-
-matrix:
+jobs:
   fast_finish: true
   include:
     - php: 7.3
+      dist: bionic
     - php: 7.4
+      dist: bionic
     - php: nightly
+      dist: bionic
   allow_failures:
     - php: nightly
 
 services:
-  - redis-server
+  - redis
 
 before_install:
   - travis_retry composer self-update
