@@ -7,6 +7,8 @@
 
 namespace mako\database\query;
 
+use Closure;
+
 /**
  * Subquery container.
  *
@@ -17,7 +19,7 @@ class Subquery
 	/**
 	 * Builder closure or query builder instance.
 	 *
-	 * @var \Closure|\mako\database\query\Query
+	 * @var \Closure
 	 */
 	protected $query;
 
@@ -31,10 +33,10 @@ class Subquery
 	/**
 	 * Constructor.
 	 *
-	 * @param \Closure|\mako\database\query\Query $query Builder closure or query builder instance
-	 * @param string|null                         $alias Subquery alias
+	 * @param \Closure    $query Builder closure
+	 * @param string|null $alias Subquery alias
 	 */
-	public function __construct($query, ?string $alias = null)
+	public function __construct(Closure $query, ?string $alias = null)
 	{
 		$this->query = $query;
 		$this->alias = $alias;
@@ -66,9 +68,9 @@ class Subquery
 	/**
 	 * Returns the builder closure or query builder instance.
 	 *
-	 * @return \Closure|\mako\database\query\Query
+	 * @return \Closure
 	 */
-	public function getQuery()
+	public function getQuery(): Closure
 	{
 		return $this->query;
 	}

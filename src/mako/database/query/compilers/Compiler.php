@@ -7,7 +7,6 @@
 
 namespace mako\database\query\compilers;
 
-use Closure;
 use DateTimeInterface;
 use mako\database\query\Join;
 use mako\database\query\Query;
@@ -134,16 +133,11 @@ class Compiler
 	 */
 	protected function subquery(Subquery $subquery, bool $enclose = true): string
 	{
-		$query = $subquery->getQuery();
+		$builder = $subquery->getQuery();
 
-		if($query instanceof Closure)
-		{
-			$builder = $query;
+		$query = $this->query->newInstance()->inSubqueryContext();
 
-			$query = $this->query->newInstance()->inSubqueryContext();
-
-			$builder($query);
-		}
+		$builder($query);
 
 		$sql = $this->subselect($query);
 

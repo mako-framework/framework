@@ -1,3 +1,25 @@
+### 7.0.0 <small>2020-??-??</small>
+
+#### Changes
+
+* Passing a `Query` instance to the `Subquery` constructor is no longer supported.
+* Passing a `Closure` or `Query` instance to represent a subquery to the following methods is no longer supported:
+	- Query::table()
+	- Query::from()
+	- Query::into()
+	- Query::in()
+	- Query::notIn()
+	- Query::orIn()
+	- Query::orNotIn()
+	- Query::exists()
+	- Query::orExists()
+	- Query::notExists()
+	- Query::orNotExists()
+	- Query::with()
+	- Query::withRecursive()
+
+--------------------------------------------------------
+
 ### 6.3.8 <small> (2020-01-12)</small>
 
 Update using ```composer update```.
