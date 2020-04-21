@@ -2,6 +2,11 @@
 
 The major version bump is due to dropped support for PHP `7.2` and a several breaking changes. Most applications built using Mako `6.3.0` should run on Mako `7.0.0` with just a few simple adjustments.
 
+#### New
+
+* Added `Collection::first()` method.
+* Added `Collection::last()` method.
+
 #### Changes
 
 * Passing a `Query` instance to the `Subquery` constructor is no longer supported.

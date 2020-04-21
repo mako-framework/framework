@@ -321,6 +321,26 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
+	public function testFirst(): void
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$this->assertEquals(1, $collection->first());
+	}
+
+	/**
+	 *
+	 */
+	public function testLast(): void
+	{
+		$collection = new Collection([1, 2, 3]);
+
+		$this->assertEquals(3, $collection->last());
+	}
+
+	/**
+	 *
+	 */
 	public function testSort(): void
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);

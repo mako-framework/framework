@@ -21,6 +21,8 @@ use function array_filter;
 use function array_flip;
 use function array_intersect_key;
 use function array_key_exists;
+use function array_key_first;
+use function array_key_last;
 use function array_keys;
 use function array_map;
 use function array_merge;
@@ -289,6 +291,26 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	public function pop()
 	{
 		return array_pop($this->items);
+	}
+
+	/**
+	 * Returns the first item of the collection.
+	 *
+	 * @return mixed
+	 */
+	public function first()
+	{
+		return $this->items[array_key_first($this->items)];
+	}
+
+	/**
+	 * Returns the last item of the collection.
+	 *
+	 * @return mixed
+	 */
+	public function last()
+	{
+		return $this->items[array_key_last($this->items)];
 	}
 
 	/**
