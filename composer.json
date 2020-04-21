@@ -33,8 +33,8 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^1.25",
-        "filp/whoops": "^2.5",
-        "symfony/var-dumper": "^4.3"
+        "filp/whoops": "^2.7",
+        "symfony/var-dumper": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
