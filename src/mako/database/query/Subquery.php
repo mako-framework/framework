@@ -17,7 +17,7 @@ use Closure;
 class Subquery
 {
 	/**
-	 * Builder closure or query builder instance.
+	 * Builder closure.
 	 *
 	 * @var \Closure
 	 */
@@ -66,7 +66,7 @@ class Subquery
 	}
 
 	/**
-	 * Returns the builder closure or query builder instance.
+	 * Returns the builder closure.
 	 *
 	 * @return \Closure
 	 */
