@@ -1,4 +1,4 @@
-### 7.0.0 <small>2020-??-??</small>
+### 7.0.0 <small>(2020-??-??)</small>
 
 #### Changes
 
@@ -20,7 +20,7 @@
 
 --------------------------------------------------------
 
-### 6.3.8 <small> (2020-01-12)</small>
+### 6.3.8 <small>(2020-01-12)</small>
 
 Update using ```composer update```.
 
@@ -30,7 +30,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.7 <small> (2019-11-26)</small>
+### 6.3.7 <small>(2019-11-26)</small>
 
 Update using ```composer update```.
 
@@ -40,7 +40,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.6 <small> (2019-11-12)</small>
+### 6.3.6 <small>(2019-11-12)</small>
 
 Update using ```composer update```.
 
@@ -50,7 +50,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.5 <small> (2019-11-07)</small>
+### 6.3.5 <small>(2019-11-07)</small>
 
 Update using ```composer update```.
 
@@ -60,7 +60,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.4 <small> (2019-11-04)</small>
+### 6.3.4 <small>(2019-11-04)</small>
 
 Update using ```composer update```.
 
@@ -70,7 +70,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.3 <small> (2019-10-23)</small>
+### 6.3.3 <small>(2019-10-23)</small>
 
 Update using ```composer update```.
 
@@ -80,7 +80,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.2 <small> (2019-10-21)</small>
+### 6.3.2 <small>(2019-10-21)</small>
 
 Update using ```composer update```.
 
@@ -90,7 +90,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.1 <small> (2019-10-21)</small>
+### 6.3.1 <small>(2019-10-21)</small>
 
 Update using ```composer update```.
 
@@ -100,7 +100,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.3.0 <small> (2019-10-20)</small>
+### 6.3.0 <small>(2019-10-20)</small>
 
 #### New
 
@@ -147,7 +147,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.8, 6.0.7, 6.1.6, 6.2.4 <small> (2019-09-27)</small>
+### 5.7.8, 6.0.7, 6.1.6, 6.2.4 <small>(2019-09-27)</small>
 
 Update using ```composer update```.
 
@@ -157,7 +157,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.7, 6.0.6, 6.1.5, 6.2.3 <small> (2019-09-09)</small>
+### 5.7.7, 6.0.6, 6.1.5, 6.2.3 <small>(2019-09-09)</small>
 
 Update using ```composer update```.
 
@@ -167,7 +167,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.6, 6.0.5, 6.1.4, 6.2.2 <small> (2019-09-05)</small>
+### 5.7.6, 6.0.5, 6.1.4, 6.2.2 <small>(2019-09-05)</small>
 
 #### Bugfixes
 
@@ -175,7 +175,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.2.1 <small> (2019-08-27)</small>
+### 6.2.1 <small>(2019-08-27)</small>
 
 #### Bugfixes
 
@@ -183,7 +183,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.2.0 <small> (2019-08-26)</small>
+### 6.2.0 <small>(2019-08-26)</small>
 
 #### New
 
@@ -233,7 +233,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.5, 6.0.4, 6.1.3 <small> (2019-08-10)</small>
+### 5.7.5, 6.0.4, 6.1.3 <small>(2019-08-10)</small>
 
 #### Bugfixes
 
@@ -241,7 +241,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.4, 6.0.3, 6.1.2 <small> (2019-08-10)</small>
+### 5.7.4, 6.0.3, 6.1.2 <small>(2019-08-10)</small>
 
 #### Bugfixes
 
@@ -249,7 +249,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.3, 6.0.2, 6.1.1 <small> (2019-08-08)</small>
+### 5.7.3, 6.0.2, 6.1.1 <small>(2019-08-08)</small>
 
 #### Bugfixes
 
@@ -257,7 +257,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.1.0 <small> (2019-08-02)</small>
+### 6.1.0 <small>(2019-08-02)</small>
 
 #### New
 
@@ -307,7 +307,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 5.7.2, 6.0.1 <small> (2019-05-21)</small>
+### 5.7.2, 6.0.1 <small>(2019-05-21)</small>
 
 #### Bugfixes
 
@@ -315,7 +315,7 @@ Update using ```composer update```.
 
 --------------------------------------------------------
 
-### 6.0.0 <small> (2019-03-30)</small>
+### 6.0.0 <small>(2019-03-30)</small>
 
 The major version bump is due to dropped support for PHP `7.0` and `7.1` and a several breaking changes. Most applications built using Mako `5.7.0` should run on Mako `6.0.0` with just a few simple adjustments.
 
@@ -390,7 +390,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.7.1 <small> (2019-01-05)</small>
+### 5.7.1 <small>(2019-01-05)</small>
 
 #### New
 
@@ -398,7 +398,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.7.0 <small> (2018-12-06)</small>
+### 5.7.0 <small>(2018-12-06)</small>
 
 #### New
 
@@ -452,7 +452,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.6.0 <small> (2018-10-15)</small>
+### 5.6.0 <small>(2018-10-15)</small>
 
 #### New
 
@@ -496,7 +496,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.7 <small> (2018-06-14)</small>
+### 5.5.7 <small>(2018-06-14)</small>
 
 #### Improvements
 
@@ -505,7 +505,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.6 <small> (2018-05-23)</small>
+### 5.5.6 <small>(2018-05-23)</small>
 
 #### Improvements
 
@@ -513,7 +513,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.5 <small> (2018-05-11)</small>
+### 5.5.5 <small>(2018-05-11)</small>
 
 #### Bugfixes
 
@@ -521,7 +521,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.4 <small> (2018-04-07)</small>
+### 5.5.4 <small>(2018-04-07)</small>
 
 #### Improvements
 
@@ -530,7 +530,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.3 <small> (2018-03-22)</small>
+### 5.5.3 <small>(2018-03-22)</small>
 
 #### Improvements
 
@@ -538,7 +538,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.2 <small> (2018-03-21)</small>
+### 5.5.2 <small>(2018-03-21)</small>
 
 #### New
 
@@ -546,7 +546,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.0.25, 5.1.4, 5.2.12, 5.3.3, 5.4.1, 5.5.1 <small> (2018-03-20)</small>
+### 5.0.25, 5.1.4, 5.2.12, 5.3.3, 5.4.1, 5.5.1 <small>(2018-03-20)</small>
 
 #### Bugfixes
 
@@ -554,7 +554,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.5.0 <small> (2018-03-20)</small>
+### 5.5.0 <small>(2018-03-20)</small>
 
 #### New
 
@@ -591,7 +591,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.4.0 <small> (2018-03-05)</small>
+### 5.4.0 <small>(2018-03-05)</small>
 
 #### New
 
@@ -669,7 +669,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.3.2 <small> (2018-03-01)</small>
+### 5.3.2 <small>(2018-03-01)</small>
 
 #### Improvements
 
@@ -677,7 +677,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.3.1 <small> (2018-01-24)</small>
+### 5.3.1 <small>(2018-01-24)</small>
 
 #### Bugfixes
 
@@ -693,7 +693,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.3.0 <small> (2018-01-10)</small>
+### 5.3.0 <small>(2018-01-10)</small>
 
 #### New
 
@@ -763,7 +763,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.11 <small> (2017-11-30)</small>
+### 5.2.11 <small>(2017-11-30)</small>
 
 #### Bugfixes
 
@@ -771,7 +771,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.10 <small> (2017-11-18)</small>
+### 5.2.10 <small>(2017-11-18)</small>
 
 #### Bugfixes
 
@@ -779,7 +779,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.9 <small> (2017-10-26)</small>
+### 5.2.9 <small>(2017-10-26)</small>
 
 #### Bugfixes
 
@@ -787,7 +787,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.8 <small> (2017-10-13)</small>
+### 5.2.8 <small>(2017-10-13)</small>
 
 #### Bugfixes
 
@@ -795,7 +795,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.7 <small> (2017-10-12)</small>
+### 5.2.7 <small>(2017-10-12)</small>
 
 #### Bugfixes
 
@@ -803,7 +803,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.6 <small> (2017-10-11)</small>
+### 5.2.6 <small>(2017-10-11)</small>
 
 #### Bugfixes
 
@@ -811,7 +811,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.5 <small> (2017-10-07)</small>
+### 5.2.5 <small>(2017-10-07)</small>
 
 #### New
 
@@ -819,7 +819,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.4 <small> (2017-09-21)</small>
+### 5.2.4 <small>(2017-09-21)</small>
 
 #### New
 
@@ -827,7 +827,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.3 <small> (2017-08-22)</small>
+### 5.2.3 <small>(2017-08-22)</small>
 
 #### Bugfixes
 
@@ -835,7 +835,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.2 <small> (2017-08-16)</small>
+### 5.2.2 <small>(2017-08-16)</small>
 
 #### Bugfixes
 
@@ -843,7 +843,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.1 <small> (2017-06-06)</small>
+### 5.2.1 <small>(2017-06-06)</small>
 
 #### Bugfixes
 
@@ -851,7 +851,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.2.0 <small> (2017-05-08)</small>
+### 5.2.0 <small>(2017-05-08)</small>
 
 #### New
 
@@ -884,7 +884,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.1.3 <small> (2017-02-17)</small>
+### 5.1.3 <small>(2017-02-17)</small>
 
 #### Bugfixes
 
@@ -892,7 +892,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.1.2 <small> (2017-01-25)</small>
+### 5.1.2 <small>(2017-01-25)</small>
 
 #### Changes
 
@@ -900,7 +900,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.1.1 <small> (2017-01-17)</small>
+### 5.1.1 <small>(2017-01-17)</small>
 
 #### Changes
 
@@ -908,7 +908,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.1.0 <small> (2017-01-16)</small>
+### 5.1.0 <small>(2017-01-16)</small>
 
 #### New
 
@@ -937,7 +937,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 --------------------------------------------------------
 
-### 5.0.23 <small> (2017-01-01)</small>
+### 5.0.23 <small>(2017-01-01)</small>
 
 #### Bugfixes
 
