@@ -3,11 +3,13 @@ language: php
 sudo: false
 
 matrix:
+  fast_finish: true
   include:
-    - php: 7.2
     - php: 7.3
     - php: 7.4
-  fast_finish: true
+    - php: nightly
+  allow_failures:
+    - php: nightly
 
 services:
   - redis-server

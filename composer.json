@@ -29,7 +29,7 @@
         }
     },
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=7.3.0",
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^1.25",
@@ -44,7 +44,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-             "dev-master": "6.4-dev"
+             "dev-master": "7.0-dev"
         }
     },
     "suggest": {
