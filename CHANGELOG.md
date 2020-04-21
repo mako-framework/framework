@@ -1,5 +1,7 @@
 ### 7.0.0 <small>(2020-??-??)</small>
 
+The major version bump is due to dropped support for PHP `7.2` and a several breaking changes. Most applications built using Mako `6.3.0` should run on Mako `7.0.0` with just a few simple adjustments.
+
 #### Changes
 
 * Passing a `Query` instance to the `Subquery` constructor is no longer supported.
@@ -17,6 +19,8 @@
 	- `Query::orNotExists()`
 	- `Query::with()`
 	- `Query::withRecursive()`
+
+> Check out the upgrade guide for details on how to upgrade from `6.3.*.`
 
 --------------------------------------------------------
 
