@@ -437,7 +437,7 @@ class Compiler
 
 		foreach($setOperations as $setOperation)
 		{
-			$sql .= "{$this->subquery($setOperation['query'], false)} {$setOperation['operation']} ";
+			$sql .= "{$this->subselect($setOperation['query'])} {$setOperation['operation']} ";
 		}
 
 		return $sql;

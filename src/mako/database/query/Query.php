@@ -470,10 +470,7 @@ class Query
 
 		$previous->setOperations = [];
 
-		$setOperations = array_merge($this->setOperations, [['query' => new Subquery(function(&$query) use ($previous): void
-		{
-			$query = $previous;
-		}), 'operation' => $operation]]);
+		$setOperations = array_merge($this->setOperations, [['query' => $previous, 'operation' => $operation]]);
 
 		$this->reset();
 
