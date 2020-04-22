@@ -7,7 +7,6 @@
 
 namespace mako\reactor;
 
-use mako\cli\input\arguments\Argument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\reactor\traits\CommandHelperTrait;
@@ -43,19 +42,6 @@ abstract class Command implements CommandInterface
 	protected $description;
 
 	/**
-	 * Command information.
-	 *
-	 * @deprecated 7.0
-	 * @var array
-	 */
-	protected $commandInformation =
-	[
-		'description' => '',
-		'arguments'   => [],
-		'options'     => [],
-	];
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\Input   $input  Input
@@ -73,7 +59,7 @@ abstract class Command implements CommandInterface
 	 */
 	public function getDescription(): string
 	{
-		return $this->description ?? $this->commandInformation['description'] ?? '';
+		return $this->description ?? '';
 	}
 
 	/**
@@ -81,24 +67,6 @@ abstract class Command implements CommandInterface
 	 */
 	public function getArguments(): array
 	{
-		$arguments = [];
-
-		if(!empty($this->commandInformation['arguments']))
-		{
-			foreach($this->commandInformation['arguments'] as $name => $argument)
-			{
-				$arguments[] = new Argument($name, $argument['description'], $argument['optional'] ? Argument::IS_OPTIONAL : 0);
-			}
-		}
-
-		if(!empty($this->commandInformation['options']))
-		{
-			foreach($this->commandInformation['options'] as $name => $argument)
-			{
-				$arguments[] = new Argument("--{$name}", $argument['description'], $argument['optional'] ? Argument::IS_OPTIONAL : 0);
-			}
-		}
-
-		return $arguments;
+		return [];
 	}
 }

@@ -20,26 +20,16 @@ use Mockery;
 
 class Foo extends Command
 {
-	protected $commandInformation =
-	[
-		'description' => 'Command description.',
-		'options' =>
+	protected $description = 'Command description.';
+
+	public function getArguments(): array
+	{
+		return
 		[
-			'option' =>
-			[
-				'optional'    => false,
-				'description' => 'Option description.',
-			],
-		],
-		'arguments' =>
-		[
-			'arg2' =>
-			[
-				'optional'    => true,
-				'description' => 'Argument description.',
-			],
-		],
-	];
+			new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
+			new Argument('--option', 'Option description.'),
+		];
+	}
 
 	public function execute(): void
 	{
@@ -49,10 +39,7 @@ class Foo extends Command
 
 class Bar extends Command
 {
-	protected $commandInformation =
-	[
 
-	];
 }
 
 // --------------------------------------------------------------------------
@@ -73,13 +60,9 @@ class CommandTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		// @deprecated 7.0
-
 		$command = new Foo($input, $output);
 
 		$this->assertEquals('Command description.', $command->getDescription());
-
-		// @deprecated 7.0
 
 		$command = new Bar($input, $output);
 
@@ -103,8 +86,6 @@ class CommandTest extends TestCase
 		$input = Mockery::mock(Input::class);
 
 		$output = Mockery::mock(Output::class);
-
-		// @deprecated 7.0
 
 		$command = new Foo($input, $output);
 
@@ -130,10 +111,7 @@ class CommandTest extends TestCase
 
 		//
 
-		$command = new class ($input, $output) extends Command
-		{
-
-		};
+		$command = new Bar($input, $output);
 
 		$this->assertEquals([], $command->getArguments());
 	}
