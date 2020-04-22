@@ -9,7 +9,6 @@ namespace mako\database;
 
 use mako\common\ConnectionManager as BaseConnectionManager;
 use mako\database\connections\Connection;
-use mako\database\connections\DB2 as DB2Connection;
 use mako\database\connections\Firebird as FirebirdConnection;
 use mako\database\connections\MySQL as MySQLConnection;
 use mako\database\connections\Oracle as OracleConnection;
@@ -17,7 +16,6 @@ use mako\database\connections\Postgres as PostgresConnection;
 use mako\database\connections\SQLite as SQLiteConnection;
 use mako\database\connections\SQLServer as SQLServerConnection;
 use mako\database\query\compilers\Compiler;
-use mako\database\query\compilers\DB2 as DB2Compiler;
 use mako\database\query\compilers\Firebird as FirebirdCompiler;
 use mako\database\query\compilers\MySQL as MySQLCompiler;
 use mako\database\query\compilers\NuoDB as NuoDBCompiler;
@@ -51,7 +49,6 @@ class ConnectionManager extends BaseConnectionManager
 	protected $driverAliases =
 	[
 		'oracle' => ['oci', 'oracle'],
-		'db2'    => ['db2', 'ibm', 'odbc'],
 		'sqlsrv' => ['dblib', 'sqlsrv', 'mssql'],
 	];
 
@@ -62,7 +59,6 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected $connectionClasses =
 	[
-		'db2'      => DB2Connection::class,
 		'firebird' => FirebirdConnection::class,
 		'mysql'    => MySQLConnection::class,
 		'oracle'   => OracleConnection::class,
@@ -78,7 +74,6 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected $queryCompilerClasses =
 	[
-		'db2'      => DB2Compiler::class,
 		'firebird' => FirebirdCompiler::class,
 		'mysql'    => MySQLCompiler::class,
 		'nuodb'    => NuoDBCompiler::class,

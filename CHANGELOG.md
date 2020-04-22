@@ -24,6 +24,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 	- `Query::orNotExists()`
 	- `Query::with()`
 	- `Query::withRecursive()`
+* Dropped support for `DB2` databases.
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
 
