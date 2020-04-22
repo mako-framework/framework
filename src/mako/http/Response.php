@@ -422,11 +422,11 @@ class Response
 
 			if($raw)
 			{
-				setrawcookie($name, $value, $options['expires'], $options['path'], $options['domain'], $options['secure'], $options['httponly']);
+				setrawcookie($name, $value, $options);
 			}
 			else
 			{
-				setcookie($name, $value, $options['expires'], $options['path'], $options['domain'], $options['secure'], $options['httponly']);
+				setcookie($name, $value, $options);
 			}
 		}
 	}

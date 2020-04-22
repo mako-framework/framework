@@ -34,6 +34,7 @@ class Cookies implements Countable, IteratorAggregate
 		'domain'   => '',
 		'secure'   => false,
 		'httponly' => false,
+		'samesite' => 'Lax',
 	];
 
 	/**
