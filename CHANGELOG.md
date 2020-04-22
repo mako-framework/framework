@@ -45,6 +45,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Removed the following deprecated cache stores:
 	- `ZendDisk`
 	- `ZendMemory`
+* Removed support for the deprecated "empty else" template syntax.
 * Class aliases will no longer be registered during the application boot process.
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
