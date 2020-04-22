@@ -28,6 +28,14 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Removed the following deprecated methods from the `UploadedFile` class:
 	- `UploadedFile::getName()`
 	- `UploadedFile::getReportedType()`
+* Removed the following deprecated constants from the `Redirect` class:
+	- `Redirect::MULTIPLE_CHOICES`
+	- `Redirect::NOT_MODIFIED`
+	- `Redirect::USE_PROXY`
+* Removed the following deprecated methods from the `Redirect` class:
+	- `Redirect::multipleChoices()`
+	- `Redirect::notModified()`
+	- `Redirect::useProxy()`
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
 

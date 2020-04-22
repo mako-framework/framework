@@ -22,14 +22,6 @@ use function vsprintf;
 class Redirect implements ResponseSenderInterface
 {
 	/**
-	 * Multiple choices status code.
-	 *
-	 * @deprecated 7.0
-	 * @var int
-	 */
-	const MULTIPLE_CHOICES = 300;
-
-	/**
 	 * Moved permanently status code.
 	 *
 	 * @var int
@@ -49,22 +41,6 @@ class Redirect implements ResponseSenderInterface
 	 * @var int
 	 */
 	const SEE_OTHER = 303;
-
-	/**
-	 * Not modified status code.
-	 *
-	 * @deprecated 7.0
-	 * @var int
-	 */
-	const NOT_MODIFIED = 304;
-
-	/**
-	 * Use proxy status code.
-	 *
-	 * @deprecated 7.0
-	 * @var int
-	 */
-	const USE_PROXY = 305;
 
 	/**
 	 * Temporary redirect status code.
@@ -87,12 +63,9 @@ class Redirect implements ResponseSenderInterface
 	 */
 	const SUPPORTED_STATUS_CODES =
 	[
-		self::MULTIPLE_CHOICES,
 		self::MOVED_PERMANENTLY,
 		self::FOUND,
 		self::SEE_OTHER,
-		self::NOT_MODIFIED,
-		self::USE_PROXY,
 		self::TEMPORARY_REDIRECT,
 		self::PERMANENT_REDIRECT,
 	];
@@ -143,19 +116,6 @@ class Redirect implements ResponseSenderInterface
 	}
 
 	/**
-	 * Sets the HTTP status code to 300.
-	 *
-	 * @deprecated 7.0
-	 * @return \mako\http\response\senders\Redirect
-	 */
-	public function multipleChoices(): Redirect
-	{
-		$this->statusCode = self::MULTIPLE_CHOICES;
-
-		return $this;
-	}
-
-	/**
 	 * Sets the HTTP status code to 301.
 	 *
 	 * @return \mako\http\response\senders\Redirect
@@ -187,32 +147,6 @@ class Redirect implements ResponseSenderInterface
 	public function seeOther(): Redirect
 	{
 		$this->statusCode = self::SEE_OTHER;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the HTTP status code to 304.
-	 *
-	 * @deprecated 7.0
-	 * @return \mako\http\response\senders\Redirect
-	 */
-	public function notModified(): Redirect
-	{
-		$this->statusCode = self::NOT_MODIFIED;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the HTTP status code to 305.
-	 *
-	 * @deprecated 7.0
-	 * @return \mako\http\response\senders\Redirect
-	 */
-	public function useProxy(): Redirect
-	{
-		$this->statusCode = self::USE_PROXY;
 
 		return $this;
 	}
