@@ -512,41 +512,6 @@ EOF;
 	/**
 	 *
 	 */
-	public function testEchoEmptyElseWithPipeOr(): void
-	{
-		$template = '{{$foo || \'bar\'}}';
-
-		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
-
-		//
-
-		$fileSystem = $this->getFileSystem($template, $compiled);
-
-		//
-
-		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
-	}
-	/**
-	 *
-	 */
-	public function testEchoEmptyElseWithOr(): void
-	{
-		$template = '{{$foo or \'bar\'}}';
-
-		$compiled = '<?php echo $this->escapeHTML((empty($foo) ? \'bar\' : $foo), $__charset__); ?>';
-
-		//
-
-		$fileSystem = $this->getFileSystem($template, $compiled);
-
-		//
-
-		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
-	}
-
-	/**
-	 *
-	 */
 	public function testEchoEmptyElseWithDefault(): void
 	{
 		$template = '{{$foo, default: \'bar\'}}';
