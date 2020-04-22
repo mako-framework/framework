@@ -36,6 +36,8 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 	- `Redirect::multipleChoices()`
 	- `Redirect::notModified()`
 	- `Redirect::useProxy()`
+* Removed the following deprecated methods from the `ErrorHandler` class:
+	- `ErrorHandler::disableLoggingFor()`
 * Removed the following deprecated validation rule aliases:
 	- `max_filesize`
 	- `mimetype`

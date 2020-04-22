@@ -15,7 +15,7 @@ use mako\tests\TestCase;
 use Mockery;
 
 // --------------------------------------------------------------------------
-// START CLASSES @deprecated 7.0
+// START CLASSES
 // --------------------------------------------------------------------------
 
 class Foo extends Command

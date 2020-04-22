@@ -202,17 +202,6 @@ class ErrorHandler
 	}
 
 	/**
-	 * Disables logging for an exception type.
-	 *
-	 * @deprecated 7.0
-	 * @param string|array $exceptionType Exception type or array of exception types
-	 */
-	public function disableLoggingFor($exceptionType): void
-	{
-		$this->dontLog($exceptionType);
-	}
-
-	/**
 	 * Disables the shutdown handler.
 	 */
 	public function disableShutdownHandler(): void
