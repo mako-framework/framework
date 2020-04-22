@@ -8,7 +8,6 @@
 namespace mako\application;
 
 use LogicException;
-use mako\autoloading\AliasLoader;
 use mako\config\Config;
 use mako\config\loaders\Loader;
 use mako\file\FileSystem;
@@ -24,7 +23,6 @@ use function mb_regex_encoding;
 use function microtime;
 use function rtrim;
 use function setlocale;
-use function spl_autoload_register;
 use function vsprintf;
 
 /**
@@ -352,23 +350,6 @@ abstract class Application
 	}
 
 	/**
-	 * Registers class aliases.
-	 *
-	 * @deprecated 7.0
-	 */
-	protected function registerClassAliases(): void
-	{
-		$aliases = $this->config->get('application.class_aliases');
-
-		if(!empty($aliases))
-		{
-			$aliasLoader = new AliasLoader($aliases);
-
-			spl_autoload_register([$aliasLoader, 'load']);
-		}
-	}
-
-	/**
 	 * Loads the application bootstrap file.
 	 */
 	protected function bootstrap(): void
@@ -495,10 +476,6 @@ abstract class Application
 		// Register services in the IoC injection container
 
 		$this->registerServices();
-
-		// Register class aliases
-
-		$this->registerClassAliases();
 
 		// Load the application bootstrap file
 
