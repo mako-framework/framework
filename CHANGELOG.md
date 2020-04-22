@@ -36,6 +36,9 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 	- `Redirect::multipleChoices()`
 	- `Redirect::notModified()`
 	- `Redirect::useProxy()`
+* Removed the following deprecated validation rule aliases:
+	- `max_filesize`
+	- `mimetype`
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
 

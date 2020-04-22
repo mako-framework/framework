@@ -158,10 +158,8 @@ class Validator
 		'max_dimensions'           => MaxDimensions::class,
 		'max_file_size'            => MaxFileSize::class,
 		'max_filename_length'      => MaxFilenameLength::class,
-		'max_filesize'             => MaxFileSize::class, // @deprecated 7.0
 		'max_length'               => MaxLength::class,
 		'mime_type'                => MimeType::class,
-		'mimetype'                 => MimeType::class, // @deprecated 7.0
 		'min_dimensions'           => MinDimensions::class,
 		'min_length'               => MinLength::class,
 		'natural_non_zero'         => NaturalNonZero::class,
