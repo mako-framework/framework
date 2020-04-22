@@ -72,17 +72,6 @@ class UploadedFile extends FileInfo
 	}
 
 	/**
-	 * Returns the filename.
-	 *
-	 * @deprecated 7.0
-	 * @return string
-	 */
-	public function getName(): string
-	{
-		return $this->filename;
-	}
-
-	/**
 	 * Returns the filename reported by the client.
 	 *
 	 * @return string
@@ -100,17 +89,6 @@ class UploadedFile extends FileInfo
 	public function getReportedSize(): int
 	{
 		return $this->size;
-	}
-
-	/**
-	 * Returns the mime type reported by the client.
-	 *
-	 * @deprecated 7.0
-	 * @return string
-	 */
-	public function getReportedType(): string
-	{
-		return $this->type;
 	}
 
 	/**

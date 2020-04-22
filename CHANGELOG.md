@@ -25,6 +25,9 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 	- `Query::with()`
 	- `Query::withRecursive()`
 * Dropped support for `DB2` databases.
+* Removed the following deprecated methods from the `UploadedFile` class:
+	- `UploadedFile::getName()`
+	- `UploadedFile::getReportedType()`
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
 

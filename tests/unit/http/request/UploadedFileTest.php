@@ -27,16 +27,6 @@ class UploadedFileTest extends TestCase
 	}
 
 	/**
-	 * @deprecated 7.0
-	 */
-	public function testGetName(): void
-	{
-		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
-
-		$this->assertEquals('foo.bar', $file->getName());
-	}
-
-	/**
 	 *
 	 */
 	public function testGetReportedFilename(): void
@@ -54,16 +44,6 @@ class UploadedFileTest extends TestCase
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
 		$this->assertEquals(123, $file->getReportedSize());
-	}
-
-	/**
-	 * @deprecated 7.0
-	 */
-	public function testGetReportedType(): void
-	{
-		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
-
-		$this->assertEquals('foo/bar', $file->getReportedType());
 	}
 
 	/**
