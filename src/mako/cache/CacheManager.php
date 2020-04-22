@@ -16,8 +16,6 @@ use mako\cache\stores\Memory;
 use mako\cache\stores\NullStore;
 use mako\cache\stores\Redis;
 use mako\cache\stores\WinCache;
-use mako\cache\stores\ZendDisk;
-use mako\cache\stores\ZendMemory;
 use mako\common\AdapterManager;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\FileSystem;
@@ -162,28 +160,6 @@ class CacheManager extends AdapterManager
 	protected function wincacheFactory(array $configuration): WinCache
 	{
 		return (new WinCache)->setPrefix($configuration['prefix'] ?? '');
-	}
-
-	/**
-	 * Zend disk store factory.
-	 *
-	 * @param  array                       $configuration Configuration
-	 * @return \mako\cache\stores\ZendDisk
-	 */
-	protected function zenddiskFactory(array $configuration): ZendDisk
-	{
-		return (new ZendDisk)->setPrefix($configuration['prefix'] ?? '');
-	}
-
-	/**
-	 * Zend memory store factory.
-	 *
-	 * @param  array                         $configuration Configuration
-	 * @return \mako\cache\stores\ZendMemory
-	 */
-	protected function zendmemoryFactory(array $configuration): ZendMemory
-	{
-		return (new ZendMemory)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**

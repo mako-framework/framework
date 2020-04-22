@@ -40,6 +40,9 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 	- `max_filesize`
 	- `mimetype`
 * Removed the deprecated `commandInformation` property from the `Command` class.
+* Removed the following deprecated cache stores:
+	- `ZendDisk`
+	- `ZendMemory`
 * Class aliases will no longer be registered during the application boot process.
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
