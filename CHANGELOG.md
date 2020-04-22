@@ -39,6 +39,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Removed the following deprecated validation rule aliases:
 	- `max_filesize`
 	- `mimetype`
+* Removed the deprecated `commandInformation` property from the `Command` class.
 
 > Check out the upgrade guide for details on how to upgrade from `6.3.*.`
 
