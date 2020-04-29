@@ -166,7 +166,7 @@ abstract class Relation extends Query
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return \mako\database\midgard\ORM|null
 	 */
 	public function first()
 	{

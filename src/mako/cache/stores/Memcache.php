@@ -102,7 +102,11 @@ class Memcache extends Store
 	 */
 	public function get(string $key)
 	{
-		return $this->memcache->get($this->getPrefixedKey($key));
+		$success = false;
+
+		$value = $this->memcache->get($this->getPrefixedKey($key), $success);
+
+		return $success !== false ? $value : null;
 	}
 
 	/**

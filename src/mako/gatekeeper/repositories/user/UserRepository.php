@@ -10,6 +10,7 @@ namespace mako\gatekeeper\repositories\user;
 use InvalidArgumentException;
 use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\AuthorizerInterface;
+use mako\gatekeeper\entities\user\User;
 
 use function in_array;
 use function vsprintf;
@@ -61,9 +62,9 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Returns a model instance.
 	 *
-	 * @return \mako\database\midgard\ORM
+	 * @return \mako\gatekeeper\entities\user\User
 	 */
-	protected function getModel()
+	protected function getModel(): User
 	{
 		$model = $this->model;
 
@@ -88,12 +89,12 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Sets the authorizer.
 	 *
-	 * @param  \mako\gatekeeper\entities\user\User|bool $user User
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @param  \mako\gatekeeper\entities\user\User|null $user User
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	protected function setAuthorizer($user)
+	protected function setAuthorizer($user): ?User
 	{
-		if($user !== false && $this->authorizer !== null && $user instanceof AuthorizableInterface)
+		if($user !== null && $this->authorizer !== null && $user instanceof AuthorizableInterface)
 		{
 			$user->setAuthorizer($this->authorizer);
 		}
@@ -104,7 +105,7 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function createUser(array $properties = [])
+	public function createUser(array $properties = []): User
 	{
 		$user = $this->getModel();
 
@@ -126,9 +127,9 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its action token.
 	 *
 	 * @param  string                                   $token Action token
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getByActionToken(string $token)
+	public function getByActionToken(string $token): ?User
 	{
 		return $this->setAuthorizer($this->getModel()->where('action_token', '=', $token)->first());
 	}
@@ -137,9 +138,9 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its access token.
 	 *
 	 * @param  string                                   $token Access token
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getByAccessToken(string $token)
+	public function getByAccessToken(string $token): ?User
 	{
 		return $this->setAuthorizer($this->getModel()->where('access_token', '=', $token)->first());
 	}
@@ -148,9 +149,9 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its email address.
 	 *
 	 * @param  string                                   $email Email address
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getByEmail(string $email)
+	public function getByEmail(string $email): ?User
 	{
 		return $this->setAuthorizer($this->getModel()->where('email', '=', $email)->first());
 	}
@@ -159,9 +160,9 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its username.
 	 *
 	 * @param  string                                   $username Username
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getByUsername(string $username)
+	public function getByUsername(string $username): ?User
 	{
 		return $this->setAuthorizer($this->getModel()->where('username', '=', $username)->first());
 	}
@@ -170,9 +171,9 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its id.
 	 *
 	 * @param  int                                      $id User id
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getById(int $id)
+	public function getById(int $id): ?User
 	{
 		return $this->setAuthorizer($this->getModel()->where('id', '=', $id)->first());
 	}
@@ -180,9 +181,9 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getByIdentifier($identifier)
+	public function getByIdentifier($identifier): ?User
 	{
 		switch($this->identifier)
 		{

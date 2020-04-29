@@ -155,7 +155,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
 
-		$builder->shouldReceive('first')->once()->andReturn(false);
+		$builder->shouldReceive('first')->once()->andReturn(null);
 
 		$connection = $this->getDatabaseConnection();
 
@@ -165,7 +165,7 @@ class DatabaseTest extends TestCase
 
 		$cached = $store->get('foo');
 
-		$this->assertEquals(false, $cached);
+		$this->assertEquals(null, $cached);
 
 		//
 
@@ -187,7 +187,7 @@ class DatabaseTest extends TestCase
 
 		$cached = $store->get('foo');
 
-		$this->assertEquals(false, $cached);
+		$this->assertEquals(null, $cached);
 	}
 
 	/**

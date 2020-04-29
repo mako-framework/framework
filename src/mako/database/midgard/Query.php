@@ -215,9 +215,9 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a record using the value of its primary key.
 	 *
-	 * @param  int|string                 $id      Primary key
-	 * @param  array                      $columns Columns to select
-	 * @return \mako\database\midgard\ORM
+	 * @param  int|string                      $id      Primary key
+	 * @param  array                           $columns Columns to select
+	 * @return \mako\database\midgard\ORM|null
 	 */
 	public function get($id, array $columns = [])
 	{
@@ -396,18 +396,18 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return \mako\database\midgard\ORM|null
 	 */
 	public function first()
 	{
 		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
 
-		if($result !== false)
+		if($result !== null)
 		{
 			return $this->hydrateModelsAndLoadIncludes([$result])[0];
 		}
 
-		return false;
+		return null;
 	}
 
 	/**

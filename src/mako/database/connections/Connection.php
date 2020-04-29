@@ -585,7 +585,7 @@ class Connection
 	 * @param  string     $query        SQL query
 	 * @param  array      $params       Query params
 	 * @param  mixed      ...$fetchMode Fetch mode
-	 * @return mixed|bool
+	 * @return mixed|null
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
 	{
@@ -596,7 +596,7 @@ class Connection
 			$statement->setFetchMode(...$fetchMode);
 		}
 
-		return $statement->fetch();
+		return $statement->fetch() ?: null;
 	}
 
 	/**

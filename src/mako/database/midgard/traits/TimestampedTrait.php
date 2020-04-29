@@ -194,7 +194,7 @@ trait TimestampedTrait
 			{
 				$related = $relation->first();
 
-				if($related === false)
+				if($related === null)
 				{
 					continue 2;
 				}

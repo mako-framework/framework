@@ -296,21 +296,35 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the first item of the collection.
 	 *
-	 * @return mixed
+	 * @return mixed|null
 	 */
 	public function first()
 	{
-		return $this->items[array_key_first($this->items)];
+		$key = array_key_first($this->items);
+
+		if($key === null)
+		{
+			return null;
+		}
+
+		return $this->items[$key];
 	}
 
 	/**
 	 * Returns the last item of the collection.
 	 *
-	 * @return mixed
+	 * @return mixed|null
 	 */
 	public function last()
 	{
-		return $this->items[array_key_last($this->items)];
+		$key = array_key_last($this->items);
+
+		if($key === null)
+		{
+			return null;
+		}
+
+		return $this->items[$key];
 	}
 
 	/**

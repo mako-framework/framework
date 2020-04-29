@@ -7,6 +7,8 @@
 
 namespace mako\gatekeeper\repositories\user;
 
+use mako\gatekeeper\entities\user\UserEntityInterface;
+
 /**
  * User repository interface.
  *
@@ -20,13 +22,13 @@ interface UserRepositoryInterface
 	 * @param  array                                              $properties User properties
 	 * @return \mako\gatekeeper\entities\user\UserEntityInterface
 	 */
-	public function createUser(array $properties = []);
+	public function createUser(array $properties = []): UserEntityInterface;
 
 	/**
 	 * Fetches a user by its identifier.
 	 *
 	 * @param  string|int                                              $identifier User identifier
-	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|bool
+	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|null
 	 */
-	public function getByIdentifier($identifier);
+	public function getByIdentifier($identifier): ?UserEntityInterface;
 }

@@ -86,7 +86,7 @@ trait OptimisticLockingTrait
 		{
 			$model = static::get($this->getPrimaryKeyValue());
 
-			if($model !== false)
+			if($model !== null)
 			{
 				$this->original = $this->columns = $model->getRawColumnValues();
 

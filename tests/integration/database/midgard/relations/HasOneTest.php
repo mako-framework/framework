@@ -150,7 +150,7 @@ class HasOneTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertFalse($user->profile);
+			$this->assertNull($user->profile);
 		}
 
 		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));

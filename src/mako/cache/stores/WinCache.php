@@ -64,14 +64,9 @@ class WinCache extends Store
 	 */
 	public function get(string $key)
 	{
-		$cache = wincache_ucache_get($this->getPrefixedKey($key), $success);
+		$value = wincache_ucache_get($this->getPrefixedKey($key), $success);
 
-		if($success === true)
-		{
-			return $cache;
-		}
-
-		return false;
+		return $success ? $value : null;
 	}
 
 	/**
