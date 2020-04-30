@@ -352,7 +352,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 *
 	 * @return \mako\chrono\Time|\DateTimeInterface|null
 	 */
-	public function lockedUntil(): ?DateTimeInterface
+	public function lockedUntil()
 	{
 		return $this->locked_until;
 	}
@@ -390,7 +390,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 *
 	 * @return \mako\chrono\Time|\DateTimeInterface|null
 	 */
-	public function getLastFailAt(): ?DateTimeInterface
+	public function getLastFailAt()
 	{
 		return $this->last_fail_at;
 	}

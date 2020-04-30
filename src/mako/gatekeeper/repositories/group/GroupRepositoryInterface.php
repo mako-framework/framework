@@ -7,8 +7,6 @@
 
 namespace mako\gatekeeper\repositories\group;
 
-use mako\gatekeeper\entities\group\GroupEntityInterface;
-
 /**
  * Group repository interface.
  *
@@ -22,7 +20,7 @@ interface GroupRepositoryInterface
 	 * @param  array                                                $properties Group properties
 	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface
 	 */
-	public function createGroup(array $properties = []): GroupEntityInterface;
+	public function createGroup(array $properties = []);
 
 	/**
 	 * Gets a group by its identifier.
@@ -30,5 +28,5 @@ interface GroupRepositoryInterface
 	 * @param  string|int                                                $identifier Group identifier
 	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface|null
 	 */
-	public function getByIdentifier($identifier): ?GroupEntityInterface;
+	public function getByIdentifier($identifier);
 }

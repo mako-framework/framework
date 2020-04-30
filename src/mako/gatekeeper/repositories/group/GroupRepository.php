@@ -8,7 +8,6 @@
 namespace mako\gatekeeper\repositories\group;
 
 use InvalidArgumentException;
-use mako\gatekeeper\entities\group\Group;
 
 use function in_array;
 use function vsprintf;
@@ -52,7 +51,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 *
 	 * @return \mako\gatekeeper\entities\group\Group
 	 */
-	protected function getModel(): Group
+	protected function getModel()
 	{
 		$model = $this->model;
 
@@ -62,7 +61,7 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function createGroup(array $properties = []): Group
+	public function createGroup(array $properties = [])
 	{
 		$group = $this->getModel();
 
@@ -92,26 +91,12 @@ class GroupRepository implements GroupRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
-	 */
-	public function getByIdentifier($identifier): ?Group
-	{
-		switch($this->identifier)
-		{
-			case 'name':
-				return $this->getByName($identifier);
-			case 'id':
-				return $this->getById($identifier);
-		}
-	}
-
-	/**
 	 * Fetches a group by its name.
 	 *
 	 * @param  string                                     $name Group name
 	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
-	public function getByName(string $name): ?Group
+	public function getByName(string $name)
 	{
 		return $this->getModel()->where('name', '=', $name)->first();
 	}
@@ -122,8 +107,22 @@ class GroupRepository implements GroupRepositoryInterface
 	 * @param  int                                        $id Group id
 	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
-	public function getById(int $id): ?Group
+	public function getById(int $id)
 	{
 		return $this->getModel()->where('id', '=', $id)->first();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getByIdentifier($identifier)
+	{
+		switch($this->identifier)
+		{
+			case 'name':
+				return $this->getByName($identifier);
+			case 'id':
+				return $this->getById($identifier);
+		}
 	}
 }
