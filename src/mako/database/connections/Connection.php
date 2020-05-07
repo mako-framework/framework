@@ -617,11 +617,11 @@ class Connection
 	 *
 	 * @param  string     $query  SQL query
 	 * @param  array      $params Query parameters
-	 * @return mixed|bool
+	 * @return mixed|null
 	 */
 	public function column(string $query, array $params = [])
 	{
-		return $this->prepareAndExecute($query, $params)->fetchColumn();
+		return $this->prepareAndExecute($query, $params)->fetch(PDO::FETCH_NUM)[0] ?? null;
 	}
 
 	/**
