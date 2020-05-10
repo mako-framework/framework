@@ -96,7 +96,7 @@ class Database implements StoreInterface
 	{
 		$sessionData = $this->table()->select(['data'])->where('id', '=', $sessionId)->column();
 
-		return ($sessionData !== false) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
+		return ($sessionData !== null) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
 	}
 
 	/**
