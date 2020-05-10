@@ -150,7 +150,7 @@ class BelongsToTest extends ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertFalse($profile->user);
+			$this->assertNull($profile->user);
 		}
 
 		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));

@@ -770,9 +770,9 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a record using the value of its primary key.
 	 *
-	 * @param  mixed  $id      Primary key
-	 * @param  array  $columns Columns to select
-	 * @return static
+	 * @param  mixed       $id      Primary key
+	 * @param  array       $columns Columns to select
+	 * @return static|null
 	 */
 	public static function get($id, array $columns = [])
 	{

@@ -99,7 +99,7 @@ class Database extends Store
 
 		$cache = $this->table()->where('key', '=', $key)->first();
 
-		if($cache !== false)
+		if($cache !== null)
 		{
 			if(time() < $cache->lifetime)
 			{
@@ -109,7 +109,7 @@ class Database extends Store
 			$this->remove($key);
 		}
 
-		return false;
+		return null;
 	}
 
 	/**

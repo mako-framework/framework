@@ -176,7 +176,7 @@ class SessionTest extends TestCase
 	{
 		$userRepository = $this->getUserRepository();
 
-		$userRepository->shouldReceive('getByActionToken')->once()->with('foobar')->andReturn(false);
+		$userRepository->shouldReceive('getByActionToken')->once()->with('foobar')->andReturn(null);
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
@@ -258,7 +258,7 @@ class SessionTest extends TestCase
 
 		$userRepository = $this->getUserRepository();
 
-		$userRepository->shouldReceive('getByAccessToken')->times(1)->with('token')->andReturn(false);
+		$userRepository->shouldReceive('getByAccessToken')->times(1)->with('token')->andReturn(null);
 
 		$response = $this->getResponse();
 
@@ -312,7 +312,7 @@ class SessionTest extends TestCase
 	{
 		$userRepository = $this->getUserRepository();
 
-		$userRepository->shouldReceive('getByIdentifier')->once()->with('foo@example.org')->andReturn(false);
+		$userRepository->shouldReceive('getByIdentifier')->once()->with('foo@example.org')->andReturn(null);
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 

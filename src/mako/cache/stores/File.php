@@ -136,16 +136,10 @@ class File extends Store
 				unset($file);
 
 				$this->fileSystem->remove($this->cacheFile($key));
-
-				return false;
 			}
 		}
-		else
-		{
-			// Cache doesn't exist
 
-			return false;
-		}
+		return null;
 	}
 
 	/**

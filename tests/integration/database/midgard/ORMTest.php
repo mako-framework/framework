@@ -102,7 +102,7 @@ class ORMTest extends ORMTestCase
 	{
 		$user = TestUser::get(999);
 
-		$this->assertFalse($user);
+		$this->assertNull($user);
 	}
 
 	/**

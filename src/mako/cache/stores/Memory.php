@@ -86,11 +86,9 @@ class Memory extends Store implements IncrementDecrementInterface
 			}
 
 			$this->remove($key);
-
-			return false;
 		}
 
-		return false;
+		return null;
 	}
 
 	/**

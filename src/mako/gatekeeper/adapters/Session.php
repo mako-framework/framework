@@ -130,7 +130,7 @@ class Session extends Adapter
 	 */
 	public function getUser(): ?UserEntityInterface
 	{
-		if(empty($this->user) && $this->hasLoggedOut === false)
+		if($this->user === null && $this->hasLoggedOut === false)
 		{
 			// Check if there'a user that can be logged in
 
@@ -150,7 +150,7 @@ class Session extends Adapter
 			{
 				$user = $this->userRepository->getByAccessToken($token);
 
-				if($user === false || $user->isBanned() || !$user->isActivated())
+				if($user === null || $user->isBanned() || !$user->isActivated())
 				{
 					$this->logout();
 				}
@@ -177,7 +177,7 @@ class Session extends Adapter
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
-		if($user !== false)
+		if($user !== null)
 		{
 			if($this->options['throttling']['enabled'] && $user->isLocked())
 			{

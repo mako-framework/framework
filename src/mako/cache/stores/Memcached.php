@@ -118,7 +118,14 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 */
 	public function get(string $key)
 	{
-		return $this->memcached->get($this->getPrefixedKey($key));
+		$value = $this->memcached->get($this->getPrefixedKey($key));
+
+		if($this->memcached->getResultCode() === PHPMemcached::RES_NOTFOUND)
+		{
+			return null;
+		}
+
+		return $value;
 	}
 
 	/**

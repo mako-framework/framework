@@ -103,20 +103,20 @@ class BelongsTo extends Relation
 
 		foreach($results as $result)
 		{
-			$result->setRelated($relation, $grouped[$result->getRawColumnValue($foreignKey)] ?? false);
+			$result->setRelated($relation, $grouped[$result->getRawColumnValue($foreignKey)] ?? null);
 		}
 	}
 
 	/**
 	 * Returns related a record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return \mako\database\midgard\ORM|null
 	 */
 	public function getRelated()
 	{
 		if($this->parent->getRawColumnValue($this->getForeignKey()) === null)
 		{
-			return false;
+			return null;
 		}
 
 		return $this->first();

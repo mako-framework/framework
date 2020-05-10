@@ -25,6 +25,32 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
+	public function testColumn(): void
+	{
+		$query = new Query($this->connectionManager->connection());
+
+		$result = $query->table('users')->select(['id'])->where('id', '=', 1)->column();
+
+		$this->assertEquals(1, $result);
+
+		//
+
+		$query = new Query($this->connectionManager->connection());
+
+		$result = $query->table('users')->select(['id'])->where('id', '=', 0)->column();
+
+		$this->assertNull($result);
+
+		//
+
+		$this->assertEquals('SELECT "id" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT "id" FROM "users" WHERE "id" = 0 LIMIT 1', $this->connectionManager->connection()->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
 	public function testAllReturnType(): void
 	{
 		$query = new Query($this->connectionManager->connection());
