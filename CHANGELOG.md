@@ -48,6 +48,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 	- `ZendMemory`
 * Removed support for the deprecated "empty else" template syntax.
 * Class aliases will no longer be registered during the application boot process.
+* The Gatekeeper `Adapter::activateUser()` method will now always return a boolean value as described in the documentation.
 
 #### Improvements
 
