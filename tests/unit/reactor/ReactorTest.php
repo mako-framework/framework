@@ -58,16 +58,17 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
-$optionsTable = <<<EOF
---------------------------------------------------------------------------------
-| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
---------------------------------------------------------------------------------
-| command             | Command name                 | Yes                     |
-| --help              | Displays helpful information | Yes                     |
-| --mute              | Mutes all output             | Yes                     |
---------------------------------------------------------------------------------
+		$optionsTable = <<<EOF
+		--------------------------------------------------------------------------------
+		| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
+		--------------------------------------------------------------------------------
+		| command             | Command name                 | Yes                     |
+		| --help              | Displays helpful information | Yes                     |
+		| --mute              | Mutes all output             | Yes                     |
+		--------------------------------------------------------------------------------
 
-EOF;
+		EOF;
+
 		$output->shouldReceive('write')->once()->with($optionsTable, 1);
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');

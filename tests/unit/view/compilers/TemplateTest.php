@@ -172,7 +172,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 			<span>hello, world!</span>
 		</div>
 		{% endnospace %}
-EOF;
+		EOF;
 
 		$compiled = '<div><span>hello, world!</span></div>';
 
