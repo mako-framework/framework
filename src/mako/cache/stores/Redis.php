@@ -116,7 +116,7 @@ class Redis extends Store implements IncrementDecrementInterface
 
 		if($data === null)
 		{
-			return false;
+			return null;
 		}
 
 		return is_numeric($data) ? $data : unserialize($data, ['allowed_classes' => $this->classWhitelist]);

@@ -141,11 +141,11 @@ class StoreTest extends TestCase
 	{
 		$store = $this->getStore();
 
-		$store->shouldReceive('get')->once()->with('foo')->andReturn(false);
+		$store->shouldReceive('get')->once()->with('foo')->andReturn(null);
 
 		$store->shouldReceive('remove')->never();
 
-		$this->assertEquals(false, $store->getAndRemove('foo'));
+		$this->assertEquals(null, $store->getAndRemove('foo'));
 	}
 
 	/**
@@ -174,7 +174,7 @@ class StoreTest extends TestCase
 
 		$store = $this->getStore();
 
-		$store->shouldReceive('get')->with('foo')->andReturn(false);
+		$store->shouldReceive('get')->with('foo')->andReturn(null);
 
 		$store->shouldReceive('put')->with('foo', 'from closure', 0);
 

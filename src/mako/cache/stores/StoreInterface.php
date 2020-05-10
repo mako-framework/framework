@@ -45,8 +45,8 @@ interface StoreInterface
 	/**
 	 * Fetch data from the cache.
 	 *
-	 * @param  string $key Cache key
-	 * @return mixed
+	 * @param  string     $key Cache key
+	 * @return mixed|null
 	 */
 	public function get(string $key);
 

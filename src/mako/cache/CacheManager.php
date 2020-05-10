@@ -71,7 +71,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function apcuFactory(array $configuration): APCU
 	{
-		return (new APCU)->useAtomicGetOrElse($configuration['atomic_get_or_else'] ?? true)->setPrefix($configuration['prefix'] ?? '');
+		return (new APCU)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**

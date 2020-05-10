@@ -49,7 +49,7 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * Returns a model instance.
 	 *
-	 * @return \mako\database\midgard\ORM
+	 * @return \mako\gatekeeper\entities\group\Group
 	 */
 	protected function getModel()
 	{
@@ -91,6 +91,28 @@ class GroupRepository implements GroupRepositoryInterface
 	}
 
 	/**
+	 * Fetches a group by its name.
+	 *
+	 * @param  string                                     $name Group name
+	 * @return \mako\gatekeeper\entities\group\Group|null
+	 */
+	public function getByName(string $name)
+	{
+		return $this->getModel()->where('name', '=', $name)->first();
+	}
+
+	/**
+	 * Fetches a group by its id.
+	 *
+	 * @param  int                                        $id Group id
+	 * @return \mako\gatekeeper\entities\group\Group|null
+	 */
+	public function getById(int $id)
+	{
+		return $this->getModel()->where('id', '=', $id)->first();
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getByIdentifier($identifier)
@@ -102,27 +124,5 @@ class GroupRepository implements GroupRepositoryInterface
 			case 'id':
 				return $this->getById($identifier);
 		}
-	}
-
-	/**
-	 * Fetches a group by its name.
-	 *
-	 * @param  string                                     $name Group name
-	 * @return \mako\gatekeeper\entities\group\Group|bool
-	 */
-	public function getByName(string $name)
-	{
-		return $this->getModel()->where('name', '=', $name)->first();
-	}
-
-	/**
-	 * Fetches a group by its id.
-	 *
-	 * @param  int                                        $id Group id
-	 * @return \mako\gatekeeper\entities\group\Group|bool
-	 */
-	public function getById(int $id)
-	{
-		return $this->getModel()->where('id', '=', $id)->first();
 	}
 }

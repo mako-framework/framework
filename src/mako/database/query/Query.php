@@ -1378,8 +1378,8 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
-	 * @param  mixed ...$fetchMode Fetch mode
-	 * @return mixed
+	 * @param  mixed      ...$fetchMode Fetch mode
+	 * @return mixed|null
 	 */
 	protected function fetchFirst(...$fetchMode)
 	{
@@ -1391,7 +1391,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set.
 	 *
-	 * @return mixed
+	 * @return mixed|null
 	 */
 	public function first()
 	{

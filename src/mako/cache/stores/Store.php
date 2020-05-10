@@ -71,10 +71,10 @@ abstract class Store implements StoreInterface
 	/**
 	 * Fetch data from the cache and replace it.
 	 *
-	 * @param  string $key  Cache key
-	 * @param  mixed  $data The data to store
-	 * @param  int    $ttl  Time to live
-	 * @return mixed
+	 * @param  string     $key  Cache key
+	 * @param  mixed      $data The data to store
+	 * @param  int        $ttl  Time to live
+	 * @return mixed|null
 	 */
 	public function getAndPut(string $key, $data, int $ttl = 0)
 	{
@@ -88,14 +88,14 @@ abstract class Store implements StoreInterface
 	/**
 	 * Fetch data from the cache and remove it.
 	 *
-	 * @param  string $key Cache key
-	 * @return mixed
+	 * @param  string     $key Cache key
+	 * @return mixed|null
 	 */
 	public function getAndRemove(string $key)
 	{
 		$storedValue = $this->get($key);
 
-		if($storedValue !== false)
+		if($storedValue !== null)
 		{
 			$this->remove($key);
 		}
@@ -110,7 +110,7 @@ abstract class Store implements StoreInterface
 	{
 		$cached = $this->get($key);
 
-		if($cached === false)
+		if($cached === null)
 		{
 			$cached = $data();
 

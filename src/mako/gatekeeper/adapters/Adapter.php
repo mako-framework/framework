@@ -150,7 +150,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	{
 		$user = $this->userRepository->getByActionToken($token);
 
-		if($user === false)
+		if($user === null)
 		{
 			return false;
 		}

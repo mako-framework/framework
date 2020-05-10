@@ -44,14 +44,14 @@ class HasOne extends HasOneOrMany
 
 		foreach($results as $result)
 		{
-			$result->setRelated($relation, $grouped[$result->getPrimaryKeyValue()] ?? false);
+			$result->setRelated($relation, $grouped[$result->getPrimaryKeyValue()] ?? null);
 		}
 	}
 
 	/**
 	 * Returns related a record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return \mako\database\midgard\ORM|null
 	 */
 	public function getRelated()
 	{

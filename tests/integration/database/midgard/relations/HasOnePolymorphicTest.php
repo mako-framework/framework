@@ -158,7 +158,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertFalse($profile->image);
+			$this->assertNull($profile->image);
 		}
 
 		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));

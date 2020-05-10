@@ -137,7 +137,7 @@ class FileTest extends TestCase
 
 		$file = new File($fileSystem, '/cache');
 
-		$this->assertFalse($file->get('foo'));
+		$this->assertNull($file->get('foo'));
 
 		//
 
@@ -147,7 +147,7 @@ class FileTest extends TestCase
 
 		$file = new File($fileSystem, '/cache');
 
-		$this->assertFalse($file->get('foo'));
+		$this->assertNull($file->get('foo'));
 	}
 
 	/**

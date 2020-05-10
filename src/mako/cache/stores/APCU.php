@@ -28,16 +28,6 @@ use function function_exists;
 class APCU extends Store implements IncrementDecrementInterface
 {
 	/**
-	 * Whether to use atomic updates for getOrElse.
-	 *
-	 * This is a workaround for a known issue in ext-apcu, which breaks the apcu_entry
-	 * function. See issue #244.
-	 *
-	 * @var bool
-	 */
-	protected $atomicGetOrElse = true;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct()
@@ -46,19 +36,6 @@ class APCU extends Store implements IncrementDecrementInterface
 		{
 			throw new RuntimeException('APCU is not available on your system.');
 		}
-	}
-
-	/**
-	 * Set whether to use atomic get/set for getOrElse.
-	 *
-	 * @param  bool                    $toUse the new state.
-	 * @return \mako\cache\stores\APCU
-	 */
-	public function useAtomicGetOrElse(bool $toUse): APCU
-	{
-		$this->atomicGetOrElse = $toUse;
-
-		return $this;
 	}
 
 	/**
@@ -106,7 +83,9 @@ class APCU extends Store implements IncrementDecrementInterface
 	 */
 	public function get(string $key)
 	{
-		return apcu_fetch($this->getPrefixedKey($key));
+		$value = apcu_fetch($this->getPrefixedKey($key), $success);
+
+		return $success ? $value : null;
 	}
 
 	/**
@@ -114,12 +93,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
-		if($this->atomicGetOrElse)
-		{
-			return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
-		}
-
-		return parent::getOrElse($key, $data, $ttl);
+		return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
 	}
 
 	/**

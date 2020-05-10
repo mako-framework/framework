@@ -111,7 +111,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('where')->once()->with('id', '=', 123)->andReturn($builder);
 
-		$builder->shouldReceive('column')->once()->andReturn(false);
+		$builder->shouldReceive('column')->once()->andReturn(null);
 
 		$connection = $this->getDatabaseConnection();
 

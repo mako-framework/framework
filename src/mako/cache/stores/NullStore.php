@@ -51,7 +51,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	 */
 	public function get(string $key)
 	{
-		return false;
+		return null;
 	}
 
 	/**
