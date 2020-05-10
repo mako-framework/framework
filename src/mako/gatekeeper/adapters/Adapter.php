@@ -143,10 +143,10 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * Activates a user based on the provided auth token.
 	 *
-	 * @param  string                                   $token Auth token
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @param  string $token Auth token
+	 * @return bool
 	 */
-	public function activateUser(string $token)
+	public function activateUser(string $token): bool
 	{
 		$user = $this->userRepository->getByActionToken($token);
 
@@ -161,6 +161,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 
 		$user->save();
 
-		return $user;
+		return true;
 	}
 }

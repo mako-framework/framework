@@ -202,7 +202,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertInstanceOf(User::class, $adapter->activateUser('foobar'));
+		$this->assertTrue($adapter->activateUser('foobar'));
 	}
 
 	/**

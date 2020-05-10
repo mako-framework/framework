@@ -18,7 +18,7 @@ use function vsprintf;
  * @author Frederic G. Østby
  *
  * @method \mako\gatekeeper\entities\group\Group      createGroup(array $properties = [])
- * @method \mako\gatekeeper\entities\group\Group|bool getByIdentifier($identifier)
+ * @method \mako\gatekeeper\entities\group\Group|null getByIdentifier($identifier)
  */
 class GroupRepository implements GroupRepositoryInterface
 {

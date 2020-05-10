@@ -20,7 +20,7 @@ use function vsprintf;
  * @author Frederic G. Østby
  *
  * @method \mako\gatekeeper\entities\user\User      createUser(array $properties = [])
- * @method \mako\gatekeeper\entities\user\User|bool getByIdentifier($identifier)
+ * @method \mako\gatekeeper\entities\user\User|null getByIdentifier($identifier)
  */
 class UserRepository implements UserRepositoryInterface
 {
