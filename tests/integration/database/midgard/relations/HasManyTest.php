@@ -200,4 +200,16 @@ class HasManyTest extends ORMTestCase
 
 		$this->assertEquals('INSERT INTO "articles" ("created_at", "title", "body", "user_id") VALUES (\'2014-04-30 15:02:10\', \'article 4\', \'article 4 body\', \'1\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = HasManyUser::withCountOf('articles')->get(1);
+
+		$this->assertEquals(2, $user->articles_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id") AS "articles_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+	}
 }

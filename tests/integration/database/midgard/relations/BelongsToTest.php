@@ -159,4 +159,16 @@ class BelongsToTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" WHERE "username" = \'does not exist\' AND "users"."id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = BelongsToProfile::withCountOf('user')->get(1);
+
+		$this->assertEquals(1, $user->user_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "users" WHERE "users"."id" = "profiles"."user_id") AS "user_count" FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+	}
 }

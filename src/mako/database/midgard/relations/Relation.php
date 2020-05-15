@@ -68,7 +68,10 @@ abstract class Relation extends Query
 
 		$this->foreignKey = $foreignKey;
 
-		$this->lazyCriterion();
+		if($parent->isPersisted())
+		{
+			$this->lazyCriterion();
+		}
 	}
 
 	/**
@@ -150,6 +153,18 @@ abstract class Relation extends Query
 		}
 
 		return $this->eagerCriterion($keys)->all();
+	}
+
+	/**
+	 * Returns a query instance used to build relation count subqueries.
+	 *
+	 * @return $this
+	 */
+	protected function getRelationCountQuery()
+	{
+		$this->whereColumn("{$this->table}.{$this->getForeignKey()}", '=', "{$this->parent->getTable()}.{$this->parent->getPrimaryKey()}");
+
+		return $this;
 	}
 
 	/**

@@ -11,6 +11,7 @@ use Closure;
 use Generator;
 use mako\database\connections\Connection;
 use mako\database\query\Query as QueryBuilder;
+use mako\database\query\Subquery;
 use mako\utility\Str;
 use PDO;
 
@@ -20,7 +21,7 @@ use function array_merge;
 use function array_udiff;
 use function array_unique;
 use function in_array;
-use function is_numeric;
+use function is_int;
 use function is_string;
 use function strpos;
 use function substr;
@@ -307,6 +308,40 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Adds subqueries that count the number of related records for the chosen relations.
+	 *
+	 * @param  string|array $relations Relation or array of relations to count
+	 * @return $this
+	 */
+	public function withCountOf($relations)
+	{
+		foreach((array) $relations as $relation => $criteria)
+		{
+			if(is_int($relation))
+			{
+				$relation = $criteria;
+				$criteria = null;
+			}
+
+			$countQuery = $this->model->$relation()->getRelationCountQuery()->inSubqueryContext();
+
+			if($criteria !== null)
+			{
+				$criteria($countQuery);
+			}
+
+			$this->columns[] = new Subquery(function(&$query) use ($countQuery): void
+			{
+				$query = $countQuery;
+
+				$query->count();
+			}, "{$relation}_count");
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Returns a hydrated model.
 	 *
 	 * @param  array                      $result Database result
@@ -330,7 +365,7 @@ class Query extends QueryBuilder
 
 		foreach($this->model->getIncludes() as $include => $criteria)
 		{
-			if(is_numeric($include))
+			if(is_int($include))
 			{
 				$include  = $criteria;
 				$criteria = null;

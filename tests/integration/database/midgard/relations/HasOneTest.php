@@ -193,4 +193,16 @@ class HasOneTest extends ORMTestCase
 
 		$this->assertEquals('INSERT INTO "profiles" ("interests", "user_id") VALUES (\'gaming\', \'4\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = HasOneUser::withCountOf('profile')->get(1);
+
+		$this->assertEquals(1, $user->profile_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id") AS "profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+	}
 }

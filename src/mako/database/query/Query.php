@@ -1526,7 +1526,7 @@ class Query
 
 		return $this->newInstance()->table(new Subquery(function(&$query) use ($clone): void
 		{
-			$query = $clone;
+			$query = $clone->inSubqueryContext();
 		}, 'count'))->count();
 	}
 

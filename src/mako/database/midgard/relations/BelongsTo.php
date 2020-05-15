@@ -73,6 +73,18 @@ class BelongsTo extends Relation
 	}
 
 	/**
+	 * Returns a query instance used to build relation count subqueries.
+	 *
+	 * @return $this
+	 */
+	protected function getRelationCountQuery()
+	{
+		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->parent->getTable()}.{$this->getForeignKey()}");
+
+		return $this;
+	}
+
+	/**
 	 * Eager loads related records and matches them with their parent records.
 	 *
 	 * @param array         &$results Parent records
