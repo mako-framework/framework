@@ -201,4 +201,16 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('INSERT INTO "images" ("image", "imageable_type", "imageable_id") VALUES (\'bax.png\', \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\', \'4\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = HasOnePolymorphicProfile::withCountOf('image')->get(1);
+
+		$this->assertEquals(1, $user->image_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "images" WHERE "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' AND "images"."imageable_id" = "profiles"."id") AS "image_count" FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+	}
 }

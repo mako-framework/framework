@@ -210,4 +210,16 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('INSERT INTO "polymorphic_comments" ("created_at", "comment", "user_id", "commentable_type", "commentable_id") VALUES (\'2014-04-30 15:02:10\', \'this is a comment\', 1, \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\', \'1\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = HasManyPolymorphicArticle::withCountOf('comments')->get(1);
+
+		$this->assertEquals(2, $user->comments_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\' AND "polymorphic_comments"."commentable_id" = "articles"."id") AS "comments_count" FROM "articles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+	}
 }
