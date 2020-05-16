@@ -912,16 +912,11 @@ class Query
 	 */
 	public function in($column, $values, string $separator = 'AND', bool $not = false)
 	{
-		if($values instanceof Raw || $values instanceof Subquery)
-		{
-			$values = [$values];
-		}
-
 		$this->wheres[] =
 		[
 			'type'      => 'in',
 			'column'    => $column,
-			'values'    => $values,
+			'values'    => is_array($values) ? $values : [$values],
 			'separator' => $separator,
 			'not'       => $not,
 		];

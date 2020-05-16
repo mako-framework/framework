@@ -697,7 +697,7 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectWithClosureIn(): void
+	public function testSelectWithSubqueryIn(): void
 	{
 		$query = $this->getBuilder();
 
