@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use Generator;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -25,7 +26,7 @@ class BelongsToProfile extends TestORM
 
 	public function user()
 	{
-		return $this->belongsTo('mako\tests\integration\database\midgard\relations\BelongsToUser', 'user_id');
+		return $this->belongsTo(BelongsToUser::class, 'user_id');
 	}
 }
 
@@ -50,7 +51,7 @@ class BelongsToTest extends ORMTestCase
 
 		$user = $profile->user;
 
-		$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $user);
+		$this->assertInstanceOf(BelongsToUser::class, $user);
 
 		$this->assertEquals($profile->user_id, $user->id);
 
@@ -70,13 +71,13 @@ class BelongsToTest extends ORMTestCase
 
 		$generator = $profile->user()->yield();
 
-		$this->assertInstanceOf('Generator', $generator);
+		$this->assertInstanceOf(Generator::class, $generator);
 
 		$count = 0;
 
 		foreach($generator as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $user);
+			$this->assertInstanceOf(BelongsToUser::class, $user);
 
 			$this->assertEquals($user->id, $profile->user_id);
 
@@ -101,7 +102,7 @@ class BelongsToTest extends ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $profile->user);
+			$this->assertInstanceOf(BelongsToUser::class, $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
 		}
@@ -126,7 +127,7 @@ class BelongsToTest extends ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\BelongsToUser', $profile->user);
+			$this->assertInstanceOf(BelongsToUser::class, $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
 		}
@@ -165,9 +166,9 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$user = BelongsToProfile::withCountOf('user')->get(1);
+		$profile = BelongsToProfile::withCountOf('user')->get(1);
 
-		$this->assertEquals(1, $user->user_count);
+		$this->assertEquals(1, $profile->user_count);
 
 		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "users" WHERE "users"."id" = "profiles"."user_id") AS "user_count" FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}

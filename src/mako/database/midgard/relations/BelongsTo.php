@@ -58,10 +58,7 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * Sets the criterion used when eager loading related records.
-	 *
-	 * @param  array $keys Parent keys
-	 * @return $this
+	 * {@inheritdoc}
 	 */
 	protected function eagerCriterion(array $keys)
 	{
@@ -73,9 +70,7 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * Returns a query instance used to build relation count subqueries.
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
 	protected function getRelationCountQuery()
 	{

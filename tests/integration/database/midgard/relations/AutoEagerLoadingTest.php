@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use mako\database\midgard\ResultSet;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -22,7 +23,7 @@ class AutoEagerLoadingUser extends TestORM
 
 	public function articles()
 	{
-		return $this->hasMany('mako\tests\integration\database\midgard\relations\AutoEagerLoadingArticle', 'user_id');
+		return $this->hasMany(AutoEagerLoadingArticle::class, 'user_id');
 	}
 }
 
@@ -52,11 +53,11 @@ class AutoEagerLoadingTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\AutoEagerLoadingArticle', $article);
+				$this->assertInstanceOf(AutoEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 			}
@@ -78,11 +79,11 @@ class AutoEagerLoadingTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\AutoEagerLoadingArticle', $article);
+				$this->assertInstanceOf(AutoEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 			}

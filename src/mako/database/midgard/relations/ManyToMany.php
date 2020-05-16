@@ -169,16 +169,23 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * Sets the criterion used when eager loading related records.
-	 *
-	 * @param  array $keys Parent keys
-	 * @return $this
+	 * {@inheritdoc}
 	 */
 	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
 
 		$this->in("{$this->getJunctionTable()}.{$this->getForeignKey()}", $keys);
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getRelationCountQuery()
+	{
+		$this->whereColumn("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', "{$this->parent->getTable()}.{$this->parent->getPrimaryKey()}");
 
 		return $this;
 	}

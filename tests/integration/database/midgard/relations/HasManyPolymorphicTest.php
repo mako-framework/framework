@@ -7,6 +7,8 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use Generator;
+use mako\database\midgard\ResultSet;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -20,7 +22,7 @@ class HasManyPolymorphicArticle extends TestORM
 
 	public function comments()
 	{
-		return $this->hasManyPolymorphic('mako\tests\integration\database\midgard\relations\HasManyPolymorphicComment', 'commentable');
+		return $this->hasManyPolymorphic(HasManyPolymorphicComment::class, 'commentable');
 	}
 }
 
@@ -50,13 +52,13 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		$comments = $article->comments;
 
-		$this->assertInstanceOf('mako\database\midgard\ResultSet', $comments);
+		$this->assertInstanceOf(ResultSet::class, $comments);
 
 		$this->assertEquals(2, count($comments));
 
 		foreach($comments as $comment)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyPolymorphicComment', $comment);
+			$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 			$this->assertEquals($comment->commentable_type, $article->getClass());
 
@@ -79,11 +81,11 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		$generator = $article->comments()->yield();
 
-		$this->assertInstanceOf('Generator', $generator);
+		$this->assertInstanceOf(Generator::class, $generator);
 
 		foreach($generator as $comment)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyPolymorphicComment', $comment);
+			$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 			$this->assertEquals($comment->commentable_type, $article->getClass());
 
@@ -106,11 +108,11 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		foreach($articles as $article)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $article->comments);
+			$this->assertInstanceOf(ResultSet::class, $article->comments);
 
 			foreach($article->comments as $comment)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyPolymorphicComment', $comment);
+				$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 				$this->assertEquals($comment->commentable_type, $article->getClass());
 
@@ -138,11 +140,11 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		foreach($articles as $article)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $article->comments);
+			$this->assertInstanceOf(ResultSet::class, $article->comments);
 
 			foreach($article->comments as $comment)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyPolymorphicComment', $comment);
+				$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 				$this->assertEquals($comment->commentable_type, $article->getClass());
 
@@ -169,7 +171,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		foreach($articles as $article)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $article->comments);
+			$this->assertInstanceOf(ResultSet::class, $article->comments);
 
 			$this->assertEquals(0, count($article->comments));
 		}
@@ -216,9 +218,9 @@ class HasManyPolymorphicTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$user = HasManyPolymorphicArticle::withCountOf('comments')->get(1);
+		$article = HasManyPolymorphicArticle::withCountOf('comments')->get(1);
 
-		$this->assertEquals(2, $user->comments_count);
+		$this->assertEquals(2, $article->comments_count);
 
 		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "polymorphic_comments" WHERE "polymorphic_comments"."commentable_type" = \'\mako\tests\integration\database\midgard\relations\HasManyPolymorphicArticle\' AND "polymorphic_comments"."commentable_id" = "articles"."id") AS "comments_count" FROM "articles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}

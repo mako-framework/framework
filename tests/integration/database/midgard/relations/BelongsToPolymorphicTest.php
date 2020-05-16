@@ -66,9 +66,9 @@ class BelongsToPolymorphicTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$user = BelongsToPolymorphicImage::withCountOf('profile')->get(1);
+		$image = BelongsToPolymorphicImage::withCountOf('profile')->get(1);
 
-		$this->assertEquals(1, $user->profile_count);
+		$this->assertEquals(1, $image->profile_count);
 
 		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."id" = "images"."imageable_id") AS "profile_count" FROM "images" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}

@@ -323,6 +323,7 @@ class Query extends QueryBuilder
 				$criteria = null;
 			}
 
+			/** @var \mako\database\midgard\relations\Relation $countQuery */
 			$countQuery = $this->model->$relation()->getRelationCountQuery()->inSubqueryContext();
 
 			if($criteria !== null)
@@ -334,7 +335,7 @@ class Query extends QueryBuilder
 			{
 				$query = $countQuery;
 
-				$query->count();
+				$query->clearOrderings()->count();
 			}, "{$relation}_count");
 		}
 
