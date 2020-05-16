@@ -141,9 +141,9 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * Activates a user based on the provided auth token.
+	 * Activates a user based on the provided action token.
 	 *
-	 * @param  string $token Auth token
+	 * @param  string $token Action token
 	 * @return bool
 	 */
 	public function activateUser(string $token): bool
