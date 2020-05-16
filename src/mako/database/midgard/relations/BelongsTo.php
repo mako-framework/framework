@@ -62,8 +62,6 @@ class BelongsTo extends Relation
 	 */
 	protected function eagerCriterion(array $keys)
 	{
-		$this->lazy = false;
-
 		$this->in("{$this->table}.{$this->model->getPrimaryKey()}", $keys);
 
 		return $this;

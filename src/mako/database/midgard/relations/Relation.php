@@ -46,7 +46,7 @@ abstract class Relation extends Query
 	protected $foreignKey = null;
 
 	/**
-	 * Lazy load related records?
+	 * Are we lazy load related records?
 	 *
 	 * @var bool
 	 */
@@ -123,8 +123,6 @@ abstract class Relation extends Query
 	 */
 	protected function eagerCriterion(array $keys)
 	{
-		$this->lazy = false;
-
 		$this->in("{$this->table}.{$this->getForeignKey()}", $keys);
 
 		return $this;
@@ -138,6 +136,13 @@ abstract class Relation extends Query
 	 */
 	protected function eagerLoadChunked(array $keys)
 	{
+		// Tell the query builder that we're not lazy loading records
+
+		$this->lazy = false;
+
+		// If the number of related records is greater than the max chunk size
+		// then we'll load the records in appropriately sized chunks
+
 		if(count($keys) > static::EAGER_LOAD_CHUNK_SIZE)
 		{
 			$records = [];
@@ -151,6 +156,8 @@ abstract class Relation extends Query
 
 			return $this->createResultSet($records);
 		}
+
+		// The ammount of related records was small enough to be fetched in a single query
 
 		return $this->eagerCriterion($keys)->all();
 	}

@@ -173,8 +173,6 @@ class ManyToMany extends Relation
 	 */
 	protected function eagerCriterion(array $keys)
 	{
-		$this->lazy = false;
-
 		$this->in("{$this->getJunctionTable()}.{$this->getForeignKey()}", $keys);
 
 		return $this;
