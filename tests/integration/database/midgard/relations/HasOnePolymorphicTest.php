@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use Generator;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -20,7 +21,7 @@ class HasOnePolymorphicProfile extends TestORM
 
 	public function image()
 	{
-		return $this->hasOnePolymorphic('mako\tests\integration\database\midgard\relations\HasOnePolymorphicImage', 'imageable');
+		return $this->hasOnePolymorphic(HasOnePolymorphicImage::class, 'imageable');
 	}
 }
 
@@ -50,7 +51,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$image = $profile->image;
 
-		$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOnePolymorphicImage', $image);
+		$this->assertInstanceOf(HasOnePolymorphicImage::class, $image);
 
 		$this->assertEquals($profile->getClass(), $image->imageable_type);
 
@@ -72,13 +73,13 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$generator = $profile->image()->yield();
 
-		$this->assertInstanceOf('Generator', $generator);
+		$this->assertInstanceOf(Generator::class, $generator);
 
 		$count = 0;
 
 		foreach($generator as $image)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOnePolymorphicImage', $image);
+			$this->assertInstanceOf(HasOnePolymorphicImage::class, $image);
 
 			$this->assertEquals($profile->getClass(), $image->imageable_type);
 
@@ -105,7 +106,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOnePolymorphicImage', $profile->image);
+			$this->assertInstanceOf(HasOnePolymorphicImage::class, $profile->image);
 
 			$this->assertEquals($profile->getClass(), $profile->image->imageable_type);
 
@@ -132,7 +133,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		foreach($profiles as $profile)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasOnePolymorphicImage', $profile->image);
+			$this->assertInstanceOf(HasOnePolymorphicImage::class, $profile->image);
 
 			$this->assertEquals($profile->getClass(), $profile->image->imageable_type);
 
@@ -200,5 +201,17 @@ class HasOnePolymorphicTest extends ORMTestCase
 		$this->assertEquals('INSERT INTO "profiles" ("user_id", "interests") VALUES (4, \'games\')', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
 		$this->assertEquals('INSERT INTO "images" ("image", "imageable_type", "imageable_id") VALUES (\'bax.png\', \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\', \'4\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$profile = HasOnePolymorphicProfile::withCountOf('image')->get(1);
+
+		$this->assertEquals(1, $profile->image_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "images" WHERE "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' AND "images"."imageable_id" = "profiles"."id") AS "image_count" FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}
 }

@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use mako\database\midgard\ResultSet;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -20,7 +21,7 @@ class NestedEagerLoadingUser extends TestORM
 
 	public function articles()
 	{
-		return $this->hasMany('mako\tests\integration\database\midgard\relations\NestedEagerLoadingArticle', 'user_id');
+		return $this->hasMany(NestedEagerLoadingArticle::class, 'user_id');
 	}
 }
 
@@ -30,7 +31,7 @@ class NestedEagerLoadingArticle extends TestORM
 
 	public function comments()
 	{
-		return $this->hasMany('mako\tests\integration\database\midgard\relations\NestedEagerLoadingComment', 'article_id');
+		return $this->hasMany(NestedEagerLoadingComment::class, 'article_id');
 	}
 }
 
@@ -60,19 +61,19 @@ class NestedEagerLoadingTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\NestedEagerLoadingArticle', $article);
+				$this->assertInstanceOf(NestedEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 
-				$this->assertInstanceOf('mako\database\midgard\ResultSet', $article->comments);
+				$this->assertInstanceOf(ResultSet::class, $article->comments);
 
 				foreach($article->comments as $comment)
 				{
-					$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\NestedEagerLoadingComment', $comment);
+					$this->assertInstanceOf(NestedEagerLoadingComment::class, $comment);
 
 					$this->assertEquals($comment->article_id, $article->id);
 				}
@@ -100,15 +101,15 @@ class NestedEagerLoadingTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\NestedEagerLoadingArticle', $article);
+				$this->assertInstanceOf(NestedEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 
-				$this->assertInstanceOf('mako\database\midgard\ResultSet', $article->comments);
+				$this->assertInstanceOf(ResultSet::class, $article->comments);
 
 				$this->assertEquals(0, count($article->comments));
 			}

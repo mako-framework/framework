@@ -7,6 +7,8 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use Generator;
+use mako\database\midgard\ResultSet;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -20,7 +22,7 @@ class ManyToManyUser extends TestORM
 
 	public function groups()
 	{
-		return $this->manyToMany('mako\tests\integration\database\midgard\relations\ManyToManyGroup', 'user_id', 'groups_users', 'group_id');
+		return $this->manyToMany(ManyToManyGroup::class, 'user_id', 'groups_users', 'group_id');
 	}
 }
 
@@ -30,7 +32,7 @@ class ManyToManyGroup extends TestORM
 
 	public function users()
 	{
-		return $this->manyToMany('mako\tests\integration\database\midgard\relations\ManyToManyUser', 'group_id', 'groups_users', 'user_id');
+		return $this->manyToMany(ManyToManyUser::class, 'group_id', 'groups_users', 'user_id');
 	}
 }
 
@@ -55,13 +57,13 @@ class ManyToManyTest extends ORMTestCase
 
 		$groups = $user->groups;
 
-		$this->assertInstanceOf('mako\database\midgard\ResultSet', $groups);
+		$this->assertInstanceOf(ResultSet::class, $groups);
 
 		$this->assertEquals(2, count($groups));
 
 		foreach($groups as $group)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 		}
 
 		$this->assertEquals('admin', $groups[0]->name);
@@ -84,13 +86,13 @@ class ManyToManyTest extends ORMTestCase
 
 		$generator = $user->groups()->yield();
 
-		$this->assertInstanceOf('Generator', $generator);
+		$this->assertInstanceOf(Generator::class, $generator);
 
 		$count = 0;
 
 		foreach($generator as $group)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 
 			$count++;
 		}
@@ -113,13 +115,13 @@ class ManyToManyTest extends ORMTestCase
 
 		$users = $group->users;
 
-		$this->assertInstanceOf('mako\database\midgard\ResultSet', $users);
+		$this->assertInstanceOf(ResultSet::class, $users);
 
 		$this->assertEquals(1, count($users));
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyUser', $user);
+			$this->assertInstanceOf(ManyToManyUser::class, $user);
 		}
 
 		$this->assertEquals('foo', $users[0]->username);
@@ -140,13 +142,13 @@ class ManyToManyTest extends ORMTestCase
 
 		$groups = $user->groups()->alongWith(['extra'])->all();
 
-		$this->assertInstanceOf('mako\database\midgard\ResultSet', $groups);
+		$this->assertInstanceOf(ResultSet::class, $groups);
 
 		$this->assertEquals(2, count($groups));
 
 		foreach($groups as $group)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 		}
 
 		$this->assertEquals('foobar', $groups[0]->extra);
@@ -169,13 +171,13 @@ class ManyToManyTest extends ORMTestCase
 
 		$groups = $user->groups()->alongWith(['extra as additional'])->all();
 
-		$this->assertInstanceOf('mako\database\midgard\ResultSet', $groups);
+		$this->assertInstanceOf(ResultSet::class, $groups);
 
 		$this->assertEquals(2, count($groups));
 
 		foreach($groups as $group)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 		}
 
 		$this->assertEquals('foobar', $groups[0]->additional);
@@ -216,11 +218,11 @@ class ManyToManyTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->groups);
+			$this->assertInstanceOf(ResultSet::class, $user->groups);
 
 			foreach($user->groups as $group)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+				$this->assertInstanceOf(ManyToManyGroup::class, $group);
 			}
 		}
 
@@ -244,11 +246,11 @@ class ManyToManyTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->groups);
+			$this->assertInstanceOf(ResultSet::class, $user->groups);
 
 			foreach($user->groups as $group)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\ManyToManyGroup', $group);
+				$this->assertInstanceOf(ManyToManyGroup::class, $group);
 			}
 		}
 
@@ -271,7 +273,7 @@ class ManyToManyTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->groups);
+			$this->assertInstanceOf(ResultSet::class, $user->groups);
 
 			$this->assertEquals(0, count($user->groups));
 		}
@@ -546,5 +548,17 @@ class ManyToManyTest extends ORMTestCase
 		$queries = $this->connectionManager->connection('sqlite')->getLog();
 
 		$this->assertSame('UPDATE "groups_users" SET "extra" = \'barfoo\' WHERE "extra" = \'foobar\' AND "user_id" = \'1\' AND "group_id" = \'2\'', $queries[3]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = ManyToManyUser::withCountOf('groups')->get(1);
+
+		$this->assertEquals(2, $user->groups_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = "users"."id") AS "groups_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}
 }

@@ -58,16 +58,23 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * Sets the criterion used when eager loading related records.
-	 *
-	 * @param  array $keys Parent keys
-	 * @return $this
+	 * {@inheritdoc}
 	 */
 	protected function eagerCriterion(array $keys)
 	{
 		$this->lazy = false;
 
 		$this->in("{$this->table}.{$this->model->getPrimaryKey()}", $keys);
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getRelationCountQuery()
+	{
+		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->parent->getTable()}.{$this->getForeignKey()}");
 
 		return $this;
 	}

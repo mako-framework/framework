@@ -7,6 +7,8 @@
 
 namespace mako\tests\integration\database\midgard\relations;
 
+use Generator;
+use mako\database\midgard\ResultSet;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -20,7 +22,7 @@ class HasManyUser extends TestORM
 
 	public function articles()
 	{
-		return $this->hasMany('mako\tests\integration\database\midgard\relations\HasManyArticle', 'user_id');
+		return $this->hasMany(HasManyArticle::class, 'user_id');
 	}
 }
 
@@ -50,13 +52,13 @@ class HasManyTest extends ORMTestCase
 
 		$articles = $user->articles;
 
-		$this->assertInstanceOf('mako\database\midgard\ResultSet', $articles);
+		$this->assertInstanceOf(ResultSet::class, $articles);
 
 		$this->assertEquals(2, count($articles));
 
 		foreach($articles as $article)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
+			$this->assertInstanceOf(HasManyArticle::class, $article);
 
 			$this->assertEquals($article->user_id, $user->id);
 		}
@@ -77,11 +79,11 @@ class HasManyTest extends ORMTestCase
 
 		$generator = $user->articles()->yield();
 
-		$this->assertInstanceOf('Generator', $generator);
+		$this->assertInstanceOf(Generator::class, $generator);
 
 		foreach($generator as $article)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
+			$this->assertInstanceOf(HasManyArticle::class, $article);
 
 			$this->assertEquals($article->user_id, $user->id);
 		}
@@ -102,11 +104,11 @@ class HasManyTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
+				$this->assertInstanceOf(HasManyArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 			}
@@ -132,11 +134,11 @@ class HasManyTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			foreach($user->articles as $article)
 			{
-				$this->assertInstanceOf('mako\tests\integration\database\midgard\relations\HasManyArticle', $article);
+				$this->assertInstanceOf(HasManyArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 			}
@@ -161,7 +163,7 @@ class HasManyTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\database\midgard\ResultSet', $user->articles);
+			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			$this->assertEquals(0, count($user->articles));
 		}
@@ -199,5 +201,17 @@ class HasManyTest extends ORMTestCase
 		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 
 		$this->assertEquals('INSERT INTO "articles" ("created_at", "title", "body", "user_id") VALUES (\'2014-04-30 15:02:10\', \'article 4\', \'article 4 body\', \'1\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testWithCountOf(): void
+	{
+		$user = HasManyUser::withCountOf('articles')->get(1);
+
+		$this->assertEquals(2, $user->articles_count);
+
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id") AS "articles_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}
 }
