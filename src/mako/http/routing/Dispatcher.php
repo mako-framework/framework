@@ -201,7 +201,7 @@ class Dispatcher
 			$priority[$key] = [$position++, $value];
 		}
 
-		uasort($priority, function($a, $b)
+		uasort($priority, static function($a, $b)
 		{
 			return $a[1] === $b[1] ? ($a[0] > $b[0] ? 1 : -1) : ($a[1] > $b[1] ? 1 : -1);
 		});

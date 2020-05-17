@@ -51,7 +51,7 @@ class GatekeeperService extends Service
 		{
 			// Adapter factory
 
-			$factory = function() use ($container, $config)
+			$factory = static function() use ($container, $config)
 			{
 				$userRepository = new UserRepository($config['user_model'], $container->get(AuthorizerInterface::class));
 

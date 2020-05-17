@@ -200,7 +200,7 @@ class Str
 	 */
 	public static function underscored2camel(string $string, bool $upper = false): string
 	{
-		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), function($matches) { return mb_strtoupper($matches[1]); }, $string);
+		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), static function($matches) { return mb_strtoupper($matches[1]); }, $string);
 	}
 
 	/**
@@ -283,7 +283,7 @@ class Str
 	 */
 	public static function autolink(string $string, array $attributes = []): string
 	{
-		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', function($matches) use ($attributes)
+		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', static function($matches) use ($attributes)
 		{
 			return (new HTML())->tag('a', ['href' => $matches[0]] + $attributes, $matches[0]);
 		}, $string);
