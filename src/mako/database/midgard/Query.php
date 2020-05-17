@@ -331,12 +331,12 @@ class Query extends QueryBuilder
 				$criteria($countQuery);
 			}
 
-			$this->columns[] = new Subquery(function(&$query) use ($countQuery): void
+			$this->columns[] = new Subquery(static function(&$query) use ($countQuery): void
 			{
 				$query = $countQuery;
 
 				$query->clearOrderings()->count();
-			}, "{$relation}_count");
+			}, "{$relation}_count", true);
 		}
 
 		return $this;

@@ -175,7 +175,10 @@ class Reactor
 
 			$table = new Table($this->output);
 
-			$headers = array_map(function($value) { return "<green>{$value}</green>"; }, $headers);
+			$headers = array_map(static function($value)
+			{
+				return "<green>{$value}</green>";
+			}, $headers);
 
 			$table->draw($headers, $rows);
 		}

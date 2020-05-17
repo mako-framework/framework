@@ -31,15 +31,24 @@ class Subquery
 	protected $alias = null;
 
 	/**
+	 * Does the subquery provide its own query builder instance?
+	 *
+	 * @var bool
+	 */
+	protected $providesBuilderInstance;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param \Closure    $query Builder closure
-	 * @param string|null $alias Subquery alias
+	 * @param \Closure    $query                   Builder closure
+	 * @param string|null $alias                   Subquery alias
+	 * @param bool        $providesBuilderInstance Does the subquery provide its own query builder instance?
 	 */
-	public function __construct(Closure $query, ?string $alias = null)
+	public function __construct(Closure $query, ?string $alias = null, bool $providesBuilderInstance = false)
 	{
-		$this->query = $query;
-		$this->alias = $alias;
+		$this->query                = $query;
+		$this->alias                = $alias;
+		$this->providesBuilderInstance = $providesBuilderInstance;
 	}
 
 	/**
@@ -73,5 +82,15 @@ class Subquery
 	public function getQuery(): Closure
 	{
 		return $this->query;
+	}
+
+	/**
+	 * Returns TRUE if the subquery provides its own query builder instance and FALSE if not.
+	 *
+	 * @return bool
+	 */
+	public function providesBuilderInstance(): bool
+	{
+		return $this->providesBuilderInstance;
 	}
 }

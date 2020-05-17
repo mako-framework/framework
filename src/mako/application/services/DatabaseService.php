@@ -30,7 +30,7 @@ class DatabaseService extends Service
 		{
 			if($container->has(PaginationFactoryInterface::class))
 			{
-				Query::setPaginationFactory(function() use ($container)
+				Query::setPaginationFactory(static function() use ($container)
 				{
 					return $container->get(PaginationFactoryInterface::class);
 				});

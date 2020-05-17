@@ -56,4 +56,25 @@ class SubqueryTest extends TestCase
 
 		$this->assertSame('bar', $subquery->getAlias());
 	}
+
+	/**
+	 *
+	 */
+	public function testNeedsBuilderInstance(): void
+	{
+		$query = function(): void
+		{
+
+		};
+
+		$subquery = new Subquery($query);
+
+		$this->assertFalse($subquery->providesBuilderInstance());
+
+		//
+
+		$subquery = new Subquery($query, null, true);
+
+		$this->assertTrue($subquery->providesBuilderInstance());
+	}
 }

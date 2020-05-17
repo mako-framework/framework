@@ -135,7 +135,7 @@ class Compiler
 	{
 		$builder = $subquery->getQuery();
 
-		$query = $this->query->newInstance()->inSubqueryContext();
+		$query = $subquery->providesBuilderInstance() ? null : $this->query->newInstance()->inSubqueryContext();
 
 		$builder($query);
 

@@ -1519,10 +1519,10 @@ class Query
 			return $clone->count();
 		}
 
-		return $this->newInstance()->table(new Subquery(function(&$query) use ($clone): void
+		return $this->newInstance()->table(new Subquery(static function(&$query) use ($clone): void
 		{
 			$query = $clone->inSubqueryContext();
-		}, 'count'))->count();
+		}, 'count', true))->count();
 	}
 
 	/**
@@ -1599,11 +1599,11 @@ class Query
 	 *
 	 * @param  string       $function Aggregate function
 	 * @param  string|array $column   Column name or array of column names
-	 * @return array|void
+	 * @return mixed|void
 	 */
 	protected function aggregate(string $function, $column)
 	{
-		$this->select([new Raw(sprintf($function, $this->compiler->columns(is_array($column) ? $column : [$column])))]);
+		$this->select([new Raw(sprintf($function, is_array($column) ? $this->compiler->columns($column) : $this->compiler->column($column)))]);
 
 		if($this->inSubqueryContext === false)
 		{

@@ -80,7 +80,7 @@ trait I18nAwareTrait
 	{
 		if(property_exists($this, 'i18nParameters'))
 		{
-			$parameters = array_map(function($value)
+			$parameters = array_map(static function($value)
 			{
 				return is_array($value) ? implode(', ', $value) : $value;
 			}, array_intersect_key(get_object_vars($this), array_flip($this->i18nParameters)));
