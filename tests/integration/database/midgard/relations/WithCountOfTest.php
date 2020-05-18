@@ -72,20 +72,20 @@ class WithCountOfTest extends ORMTestCase
 	{
 		$user = WithCountOfUser::withCountOf
 		([
-			'articles' => function($query): void
+			'articles as no_articles_count' => function($query): void
 			{
 				$query->where('articles.id', '=', 0);
 			},
-			'profile' => function($query): void
+			'profile AS no_profile_count' => function($query): void
 			{
 				$query->where('profiles.id', '=', 0);
 			},
 		])->get(1);
 
-		$this->assertEquals(0, $user->articles_count);
+		$this->assertEquals(0, $user->no_articles_count);
 
-		$this->assertEquals(0, $user->profile_count);
+		$this->assertEquals(0, $user->no_profile_count);
 
-		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id" AND "articles"."id" = 0) AS "articles_count", (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id" AND "profiles"."id" = 0) AS "profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id" AND "articles"."id" = 0) AS "no_articles_count", (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id" AND "profiles"."id" = 0) AS "no_profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
 	}
 }

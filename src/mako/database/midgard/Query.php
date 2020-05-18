@@ -308,6 +308,24 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Parses the count relation name and returns an array consisting of the relation name and the chosen alias.
+	 *
+	 * @param  string $relation Relation name
+	 * @return array
+	 */
+	protected function parseRelationCountName(string $relation): array
+	{
+		if(stripos($relation, ' AS ') === false)
+		{
+			return [$relation, "{$relation}_count"];
+		}
+
+		[$relation, , $alias] = explode(' ', $relation, 3);
+
+		return [$relation, $alias];
+	}
+
+	/**
 	 * Adds subqueries that count the number of related records for the chosen relations.
 	 *
 	 * @param  string|array $relations Relation or array of relations to count
@@ -323,6 +341,8 @@ class Query extends QueryBuilder
 				$criteria = null;
 			}
 
+			[$relation, $alias] = $this->parseRelationCountName($relation);
+
 			/** @var \mako\database\midgard\relations\Relation $countQuery */
 			$countQuery = $this->model->$relation()->getRelationCountQuery()->inSubqueryContext();
 
@@ -336,7 +356,7 @@ class Query extends QueryBuilder
 				$query = $countQuery;
 
 				$query->clearOrderings()->count();
-			}, "{$relation}_count", true);
+			}, $alias, true);
 		}
 
 		return $this;
