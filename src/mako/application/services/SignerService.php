@@ -22,9 +22,13 @@ class SignerService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([Signer::class, 'signer'], function()
+		$config = $this->config;
+
+		// Register the Signer class
+
+		$this->container->registerSingleton([Signer::class, 'signer'], static function() use ($config)
 		{
-			return new Signer(Key::decode($this->config->get('application.secret')));
+			return new Signer(Key::decode($config->get('application.secret')));
 		});
 	}
 }

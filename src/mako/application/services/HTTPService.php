@@ -27,6 +27,8 @@ class HTTPService extends Service
 	 */
 	public function register(): void
 	{
+		$app = $this->app;
+
 		$config = $this->config->get('application');
 
 		// Request
@@ -45,14 +47,14 @@ class HTTPService extends Service
 
 		// Response
 
-		$this->container->registerSingleton([Response::class, 'response'], function($container)
+		$this->container->registerSingleton([Response::class, 'response'], static function($container) use ($app)
 		{
-			return new Response($container->get(Request::class), $this->app->getCharset(), $container->get(Signer::class));
+			return new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class));
 		});
 
 		// Routes
 
-		$this->container->registerSingleton([Routes::class, 'routes'], function($container)
+		$this->container->registerSingleton([Routes::class, 'routes'], static function($container) use ($app)
 		{
 			$routes = new Routes;
 
@@ -60,14 +62,14 @@ class HTTPService extends Service
 			{
 				include "{$app->getPath()}/routing/routes.php";
 			})
-			->bindTo($this->app)($this->app, $container, $routes);
+			->bindTo($app)($app, $container, $routes);
 
 			return $routes;
 		});
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, function($container)
+		$this->container->registerSingleton(Router::class, static function($container) use ($app)
 		{
 			$router = new Router($container->get(Routes::class), $container);
 
@@ -75,14 +77,14 @@ class HTTPService extends Service
 			{
 				include "{$app->getPath()}/routing/constraints.php";
 			})
-			->bindTo($this->app)($this->app, $container, $router);
+			->bindTo($app)($app, $container, $router);
 
 			return $router;
 		});
 
 		// Dispatcher
 
-		$this->container->registerSingleton(Dispatcher::class, function($container)
+		$this->container->registerSingleton(Dispatcher::class, static function($container) use ($app)
 		{
 			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
@@ -90,7 +92,7 @@ class HTTPService extends Service
 			{
 				include "{$app->getPath()}/routing/middleware.php";
 			})
-			->bindTo($this->app)($this->app, $container, $dispatcher);
+			->bindTo($app)($app, $container, $dispatcher);
 
 			return $dispatcher;
 		});

@@ -24,11 +24,17 @@ class I18nService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([I18n::class, 'i18n'], function($container)
-		{
-			$cache = $this->config->get('application.language_cache');
+		$app = $this->app;
 
-			$i18n = new I18n(new Loader($container->get(FileSystem::class), "{$this->app->getPath()}/resources/i18n"), $this->app->getLanguage());
+		$config = $this->config;
+
+		// Register the I18n class
+
+		$this->container->registerSingleton([I18n::class, 'i18n'], static function($container) use ($config, $app)
+		{
+			$i18n = new I18n(new Loader($container->get(FileSystem::class), "{$app->getPath()}/resources/i18n"), $app->getLanguage());
+
+			$cache = $config->get('application.language_cache');
 
 			if($cache !== false)
 			{

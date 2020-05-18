@@ -24,9 +24,11 @@ class DatabaseService extends Service
 	 */
 	public function register(): void
 	{
+		$config = $this->config;
+
 		// Register the connection manager
 
-		$this->container->registerSingleton([ConnectionManager::class, 'database'], function($container)
+		$this->container->registerSingleton([ConnectionManager::class, 'database'], static function($container) use ($config)
 		{
 			if($container->has(PaginationFactoryInterface::class))
 			{
@@ -36,7 +38,7 @@ class DatabaseService extends Service
 				});
 			}
 
-			$config = $this->config->get('database');
+			$config = $config->get('database');
 
 			return new ConnectionManager($config['default'], $config['configurations']);
 		});

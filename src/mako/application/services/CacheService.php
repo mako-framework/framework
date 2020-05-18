@@ -22,15 +22,17 @@ class CacheService extends Service
 	 */
 	public function register(): void
 	{
+		$config = $this->config;
+
 		// Register the cache manager
 
-		$this->container->registerSingleton([CacheManager::class, 'cache'], function($container)
+		$this->container->registerSingleton([CacheManager::class, 'cache'], static function($container) use ($config)
 		{
 			// Get configuration
 
-			$classWhitelist = $this->config->get('application.deserialization_whitelist');
+			$classWhitelist = $config->get('application.deserialization_whitelist');
 
-			$config = $this->config->get('cache');
+			$config = $config->get('cache');
 
 			// Create and return cache manager
 

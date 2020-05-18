@@ -22,11 +22,13 @@ class RedisService extends Service
 	 */
 	public function register(): void
 	{
+		$config = $this->config;
+
 		// Register the connection manager
 
-		$this->container->registerSingleton([ConnectionManager::class, 'redis'], function()
+		$this->container->registerSingleton([ConnectionManager::class, 'redis'], static function() use ($config)
 		{
-			$config = $this->config->get('redis');
+			$config = $config->get('redis');
 
 			return new ConnectionManager($config['default'], $config['configurations']);
 		});
