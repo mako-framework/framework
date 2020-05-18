@@ -20,9 +20,11 @@ use function array_keys;
 use function array_merge;
 use function array_udiff;
 use function array_unique;
+use function explode;
 use function in_array;
 use function is_int;
 use function is_string;
+use function stripos;
 use function strpos;
 use function substr;
 
@@ -50,6 +52,13 @@ class Query extends QueryBuilder
 	protected $modelClass;
 
 	/**
+	 * Relation count subqueries.
+	 *
+	 * @var array
+	 */
+	protected $relationCounters = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection Database connection
@@ -64,6 +73,19 @@ class Query extends QueryBuilder
 		$this->modelClass = $model->getClass();
 
 		$this->table = $model->getTable();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getColumns(): array
+	{
+		if(empty($this->relationCounters))
+		{
+			return $this->columns;
+		}
+
+		return array_merge($this->columns, $this->relationCounters);
 	}
 
 	/**
@@ -351,7 +373,7 @@ class Query extends QueryBuilder
 				$criteria($countQuery);
 			}
 
-			$this->columns[] = new Subquery(static function(&$query) use ($countQuery): void
+			$this->relationCounters[] = new Subquery(static function(&$query) use ($countQuery): void
 			{
 				$query = $countQuery;
 
@@ -518,6 +540,20 @@ class Query extends QueryBuilder
 		}
 
 		parent::batch($processor, $batchSize, $offsetStart, $offsetEnd);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function aggregate($function, $column)
+	{
+		// Empty "relationCounters" when performing aggregate queries
+
+		$this->relationCounters = [];
+
+		// Execute parent and return results
+
+		return parent::aggregate($function, $column);
 	}
 
 	/**

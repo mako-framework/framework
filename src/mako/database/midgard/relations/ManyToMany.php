@@ -72,7 +72,35 @@ class ManyToMany extends Relation
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getColumns(): array
+	{
+		if($this->lazy)
+		{
+			return array_merge(parent::getColumns(), $this->alongWith);
+		}
+
+		return array_merge(parent::getColumns(), $this->alongWith, ["{$this->getJunctionTable()}.{$this->getForeignKey()}"]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function aggregate($function, $column)
+	{
+		// Empty "alongWith" when performing aggregate queries
+
+		$this->alongWith = [];
+
+		// Execute parent and return results
+
+		return parent::aggregate($function, $column);
+	}
+
+	/**
 	 * Columns to include with the result.
+	 *
 	 * @param  array $columns Columns
 	 * @return $this
 	 */
@@ -89,33 +117,6 @@ class ManyToMany extends Relation
 		$this->alongWith = $columns;
 
 		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getColumns(): array
-	{
-		if($this->lazy)
-		{
-			return array_merge($this->columns, $this->alongWith);
-		}
-
-		return array_merge($this->columns, $this->alongWith, ["{$this->getJunctionTable()}.{$this->getForeignKey()}"]);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function aggregate($function, $column)
-	{
-		// Empty "alongWith" when performing aggregate queries
-
-		$this->alongWith = [];
-
-		// Execute parent and return results
-
-		return parent::aggregate($function, $column);
 	}
 
 	/**
