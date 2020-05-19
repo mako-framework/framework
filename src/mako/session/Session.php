@@ -244,9 +244,7 @@ class Session
 	 */
 	protected function loadData(): void
 	{
-		$data = $this->store->read($this->sessionId);
-
-		$this->sessionData = $data === false ? [] : $data;
+		$this->sessionData = $this->store->read($this->sessionId);
 	}
 
 	/**
