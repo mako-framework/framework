@@ -294,9 +294,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the first item of the collection.
+	 * Returns the first item of the collection or NULL if the collection is empty.
 	 *
-	 * @return mixed|null
+	 * @return mixed
 	 */
 	public function first()
 	{
@@ -311,9 +311,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the last item of the collection.
+	 * Returns the last item of the collection or NULL if the collection is empty.
 	 *
-	 * @return mixed|null
+	 * @return mixed
 	 */
 	public function last()
 	{

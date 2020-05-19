@@ -1371,10 +1371,10 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns the first row of the result set.
+	 * Executes a SELECT query and returns the first row of the result set or NULL if nothing is found.
 	 *
-	 * @param  mixed      ...$fetchMode Fetch mode
-	 * @return mixed|null
+	 * @param  mixed ...$fetchMode Fetch mode
+	 * @return mixed
 	 */
 	protected function fetchFirst(...$fetchMode)
 	{
@@ -1384,9 +1384,9 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns the first row of the result set.
+	 * Executes a SELECT query and returns the first row of the result set or NULL if nothing is found.
 	 *
-	 * @return mixed|null
+	 * @return mixed
 	 */
 	public function first()
 	{

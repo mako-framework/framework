@@ -43,10 +43,10 @@ interface StoreInterface
 	public function has(string $key): bool;
 
 	/**
-	 * Fetch data from the cache.
+	 * Fetch data from the cache. NULL will be returned if the item does not exist.
 	 *
-	 * @param  string     $key Cache key
-	 * @return mixed|null
+	 * @param  string $key Cache key
+	 * @return mixed
 	 */
 	public function get(string $key);
 

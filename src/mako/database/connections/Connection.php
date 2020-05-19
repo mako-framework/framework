@@ -580,12 +580,12 @@ class Connection
 	}
 
 	/**
-	 * Returns the first row of the result set.
+	 * Returns the first row of the result set or NULL if nothing is found.
 	 *
-	 * @param  string     $query        SQL query
-	 * @param  array      $params       Query params
-	 * @param  mixed      ...$fetchMode Fetch mode
-	 * @return mixed|null
+	 * @param  string $query        SQL query
+	 * @param  array  $params       Query params
+	 * @param  mixed  ...$fetchMode Fetch mode
+	 * @return mixed
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
 	{
@@ -613,11 +613,11 @@ class Connection
 	}
 
 	/**
-	 * Returns the value of the first column of the first row of the result set.
+	 * Returns the value of the first column of the first row of the result set or NULL if nothing is found.
 	 *
-	 * @param  string     $query  SQL query
-	 * @param  array      $params Query parameters
-	 * @return mixed|null
+	 * @param  string $query  SQL query
+	 * @param  array  $params Query parameters
+	 * @return mixed
 	 */
 	public function column(string $query, array $params = [])
 	{
