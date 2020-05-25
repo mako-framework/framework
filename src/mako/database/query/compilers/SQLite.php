@@ -22,11 +22,6 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected static $dateFormat = 'Y-m-d H:i:s';
-
-	/**
-	 * {@inheritdoc}
-	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		return "JSON_EXTRACT({$column}, '{$this->buildJsonPath($segments)}')";

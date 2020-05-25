@@ -23,11 +23,6 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
-	protected static $dateFormat = 'Y-m-d H:i:s';
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function escapeIdentifier(string $identifier): string
 	{
 		return '`' . str_replace('`', '``', $identifier) . '`';
