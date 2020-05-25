@@ -23,6 +23,11 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		$sql = [];

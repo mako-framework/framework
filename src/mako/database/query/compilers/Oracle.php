@@ -21,6 +21,11 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		return "JSON_VALUE({$column}, '{$this->buildJsonPath($segments)}')";

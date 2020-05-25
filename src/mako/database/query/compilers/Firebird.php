@@ -17,6 +17,11 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritdoc}
 	 */
+	protected static $dateFormat = 'Y-m-d H:i:s';
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function from($table): string
 	{
 		return $table === null ? ' FROM RDB$DATABASE' : parent::from($table);
