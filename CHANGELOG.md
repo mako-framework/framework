@@ -11,6 +11,24 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 
 #### Changes
 
+* The cache `StoreInterface::get()` method will now return `null` instead of `false` when the item does not exist in the cache.
+* The following methods in the database library will now return `null` instead of `false` when no matching record is found:
+	- `Connection::first()`
+	- `Connection::column()`
+	- `Query::first()`
+	- `Query::column()`
+	- `Query::get()`
+	- `ORM::get()`
+* The following methods in the Gatekeeper library will now return `null` instead of `false` when unable to retrieve data:
+	- `GroupRepositoryInterface::getByIdentifier()`
+	- `GroupRepository::getById()`
+	- `GroupRepository::getByName()`
+	- `UserRepositoryInterface::getByIdentifier()`
+	- `UserRepository::getByAccessToken()`
+	- `UserRepository::getByActionToken()`
+	- `UserRepository::getByEmail()`
+	- `UserRepository::getById()`
+	- `UserRepository::getByUsername()`
 * Passing a `Query` instance to the `Subquery` constructor is no longer supported.
 * Passing a `Closure` or `Query` instance to represent a subquery to the following methods is no longer supported:
 	- `Query::table()`
