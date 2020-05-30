@@ -32,7 +32,7 @@
         "php": ">=7.3.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "monolog/monolog": "^1.25",
+        "monolog/monolog": "^2.1",
         "filp/whoops": "^2.7",
         "symfony/var-dumper": "^5.0"
     },

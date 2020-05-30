@@ -46,7 +46,7 @@ class Logger extends MonoLogger
 	/**
 	 * {@inheritdoc}
 	 */
-	public function addRecord($level, $message, array $context = [])
+	public function addRecord(int $level, string $message, array $context = []): bool
 	{
 		return parent::addRecord($level, $message, $context + $this->context);
 	}
