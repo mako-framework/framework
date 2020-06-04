@@ -77,7 +77,18 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 
 --------------------------------------------------------
 
-### 6.3.8 <small>(2020-01-12)</small>
+### 6.2.5, 6.3.9 <small> (2020-06-04)</small>
+
+Update using ```composer update```.
+
+#### Bugfixes
+
+* Fixed issue that occurred when cloning queries that have set operations.
+* Query pagination now works with queries that have set operations.
+
+--------------------------------------------------------
+
+### 6.3.8 <small> (2020-01-12)</small>
 
 Update using ```composer update```.
 

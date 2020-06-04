@@ -142,6 +142,34 @@ class BaseCompilerTest extends BuilderTestCase
 	/**
 	 *
 	 */
+	public function testSelectWithUnionAndPagination(): void
+	{
+		$pagination = Mockery::mock(PaginationInterface::class);
+
+		$pagination->shouldReceive('limit')->once()->andReturn(10);
+
+		$pagination->shouldReceive('offset')->once()->andReturn(0);
+
+		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
+
+		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
+
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+
+		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
+
+		$query->table('users')->union()->table('users')->paginate();
+
+		$this->assertEquals(2, count($this->connectionManager->connection()->getLog()));
+
+		$this->assertEquals('SELECT COUNT(*) FROM (SELECT * FROM "users" UNION SELECT * FROM "users") AS "count"', $this->connectionManager->connection()->getLog()[0]['query']);
+
+		$this->assertEquals('SELECT * FROM "users" UNION SELECT * FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithPaginationAndZeroResults(): void
 	{
 		$pagination = Mockery::mock(PaginationInterface::class);
