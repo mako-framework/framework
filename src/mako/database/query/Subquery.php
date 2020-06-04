@@ -52,14 +52,6 @@ class Subquery
 	}
 
 	/**
-	 * Clone the query when cloning the subquery.
-	 */
-	public function __clone()
-	{
-		$this->query = clone $this->query;
-	}
-
-	/**
 	 * Sets the subquery alias.
 	 *
 	 * @param  string                        $alias
