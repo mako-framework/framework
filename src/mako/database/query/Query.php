@@ -177,11 +177,16 @@ class Query
 	}
 
 	/**
-	 * Create a fresh compiler instance when we clone the query.
+	 * Create a fresh compiler instance and clone set operation queries when we clone the query.
 	 */
 	public function __clone()
 	{
 		$this->compiler = $this->connection->getQueryCompiler($this);
+
+		foreach($this->setOperations as $key => $setOperation)
+		{
+			$this->setOperations[$key]['query'] = clone $setOperation['query'];
+		}
 	}
 
 	/**
@@ -1561,7 +1566,7 @@ class Query
 	{
 		$clone = (clone $this)->clearOrderings();
 
-		if(empty($this->groupings) && $this->distinct === false)
+		if(empty($this->setOperations) && empty($this->groupings) && $this->distinct === false)
 		{
 			return $clone->count();
 		}

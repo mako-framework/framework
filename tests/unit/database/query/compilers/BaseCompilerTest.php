@@ -1760,7 +1760,8 @@ class BaseCompilerTest extends TestCase
 			$query->table('sales2015')->limit(10);
 		}, 'limitedsales2015'))
 		->union()
-		->table(new Subquery(function($query): void {
+		->table(new Subquery(function($query): void
+		{
 			$query->table('sales2016')->limit(10);
 		}, 'limitedsales2016'));
 
@@ -2028,5 +2029,23 @@ class BaseCompilerTest extends TestCase
 
 		$this->assertEquals('WITH "cte" ("a", "b", "c") AS (WITH "cte2" AS (SELECT 1, 2, 3) SELECT * FROM "cte2") SELECT * FROM "cte"', $query['sql']);
 		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testCloneQueryWithUnions(): void
+	{
+		$query1 = $this->getBuilder();
+
+		$query1->table('foo')->where('id', '=', 1);
+
+		$query1->union();
+
+		$query1->table('bar')->where('id', '=', 2);
+
+		$query2 = clone $query1;
+
+		$this->assertSame($query1->getCompiler()->select()['params'], $query2->getCompiler()->select()['params']);
 	}
 }
