@@ -1,3 +1,12 @@
+### 6.2.5 <small> (2020-06-04)</small>
+
+#### Bugfixes
+
+* Fixed issue that occurred when cloning queries that have set operations.
+* Query pagination now works with queries that have set operations.
+
+--------------------------------------------------------
+
 ### 5.7.8, 6.0.7, 6.1.6, 6.2.4 <small> (2019-09-27)</small>
 
 Update using ```composer update```.
