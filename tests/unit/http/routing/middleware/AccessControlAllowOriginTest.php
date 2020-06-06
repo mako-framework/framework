@@ -70,7 +70,7 @@ class AccessControlAllowOriginTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', 'https://example.org')->once();
 
-		$responseHeaders->shouldReceive('add')->with('Vary', 'Origin')->once();
+		$responseHeaders->shouldReceive('add')->with('Vary', 'Origin', false)->once();
 
 		$middleware->execute($request, $response, function($request, $response)
 		{

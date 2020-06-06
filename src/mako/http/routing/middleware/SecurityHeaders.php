@@ -31,13 +31,23 @@ class SecurityHeaders implements MiddlewareInterface
 	];
 
 	/**
+	 * Returns an array containing the security headers we want to set.
+	 *
+	 * @return array
+	 */
+	protected function getHeaders(): array
+	{
+		return $this->headers;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		$headers = $response->getHeaders();
 
-		foreach($this->headers as $name => $value)
+		foreach($this->getHeaders() as $name => $value)
 		{
 			$headers->add($name, $value);
 		}

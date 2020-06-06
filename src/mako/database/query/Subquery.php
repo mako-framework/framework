@@ -46,8 +46,8 @@ class Subquery
 	 */
 	public function __construct(Closure $query, ?string $alias = null, bool $providesBuilderInstance = false)
 	{
-		$this->query                = $query;
-		$this->alias                = $alias;
+		$this->query                   = $query;
+		$this->alias                   = $alias;
 		$this->providesBuilderInstance = $providesBuilderInstance;
 	}
 

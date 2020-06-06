@@ -73,7 +73,7 @@ abstract class AccessControlAllowOrigin implements MiddlewareInterface
 			{
 				$response->getHeaders()->add('Access-Control-Allow-Origin', $origin);
 
-				$response->getHeaders()->add('Vary', 'Origin');
+				$response->getHeaders()->add('Vary', 'Origin', false);
 			}
 		}
 
