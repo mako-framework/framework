@@ -20,6 +20,12 @@ services:
 before_install:
   - travis_retry composer self-update
 
-install: travis_retry composer install --no-interaction --prefer-source --no-suggest
+install: 
+  - |
+    if [ $TRAVIS_PHP_VERSION = 'nightly' ]; then
+      travis_retry composer install --no-interaction --prefer-source --no-suggest --ignore-platform-reqs
+    else
+      travis_retry composer install --no-interaction --prefer-source --no-suggest
+    fi
 
 script: vendor/bin/phpunit
