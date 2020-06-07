@@ -75,7 +75,7 @@ class GatekeeperService extends Service
 				return new Session($userRepository, $groupRepository, $request, $response, $session, $options);
 			};
 
-			// Create and return the gatekepper instance
+			// Create and return the gatekeeper instance
 
 			return new Gatekeeper(['session', $factory]);
 		});
