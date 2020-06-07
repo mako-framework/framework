@@ -134,19 +134,19 @@ class Session extends Adapter
 		{
 			// Check if there'a user that can be logged in
 
-			$token = $this->session->get($this->options['auth_key'], false);
+			$token = $this->session->get($this->options['auth_key']);
 
-			if($token === false)
+			if($token === null)
 			{
-				$token = $this->request->getCookies()->getSigned($this->options['auth_key'], false);
+				$token = $this->request->getCookies()->getSigned($this->options['auth_key']);
 
-				if($token !== false)
+				if($token !== null)
 				{
 					$this->session->put($this->options['auth_key'], $token);
 				}
 			}
 
-			if($token !== false)
+			if($token !== null)
 			{
 				$user = $this->userRepository->getByAccessToken($token);
 

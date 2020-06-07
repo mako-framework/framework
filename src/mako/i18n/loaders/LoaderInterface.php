@@ -15,7 +15,7 @@ namespace mako\i18n\loaders;
 interface LoaderInterface
 {
 	/**
-	 * Returns inflection rules or NULL if they doesn't exist.
+	 * Returns the inflection rules or NULL if they don't exist.
 	 *
 	 * @param  string     $language Name of the language pack
 	 * @return array|null

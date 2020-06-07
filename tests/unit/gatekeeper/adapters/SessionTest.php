@@ -212,13 +212,13 @@ class SessionTest extends TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
+		$session->shouldReceive('get')->times(3)->with('gatekeeper_auth_key')->andReturn(null);
 
 		$request = $this->getRequest();
 
 		$cookies = Mockery::mock('\mako\http\request\Cookies');
 
-		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key', false)->andReturn(false);
+		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key')->andReturn(null);
 
 		$request->shouldReceive('getCookies')->times(3)->andReturn($cookies);
 
@@ -238,7 +238,7 @@ class SessionTest extends TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->times(1)->with('gatekeeper_auth_key', false)->andReturn(false);
+		$session->shouldReceive('get')->times(1)->with('gatekeeper_auth_key')->andReturn(null);
 
 		$session->shouldReceive('put')->times(1)->with('gatekeeper_auth_key', 'token');
 
@@ -252,7 +252,7 @@ class SessionTest extends TestCase
 
 		$cookies = Mockery::mock('\mako\http\request\Cookies');
 
-		$cookies->shouldReceive('getSigned')->times(1)->with('gatekeeper_auth_key', false)->andReturn('token');
+		$cookies->shouldReceive('getSigned')->times(1)->with('gatekeeper_auth_key')->andReturn('token');
 
 		$request->shouldReceive('getCookies')->times(1)->andReturn($cookies);
 
@@ -284,7 +284,7 @@ class SessionTest extends TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->once()->with('gatekeeper_auth_key', false)->andReturn('token');
+		$session->shouldReceive('get')->once()->with('gatekeeper_auth_key')->andReturn('token');
 
 		$user = $this->getUser();
 
