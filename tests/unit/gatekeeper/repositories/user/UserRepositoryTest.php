@@ -23,7 +23,7 @@ class UserRepositoryTest extends TestCase
 	/**
 	 *
 	 */
-	protected function getRepository(Closure $callback = null, AuthorizerInterface $authorizer = null)
+	protected function getRepository(?Closure $callback = null, ?AuthorizerInterface $authorizer = null)
 	{
 		$repository = Mockery::mock(UserRepository::class, ['mocked', $authorizer])->makePartial();
 

@@ -22,7 +22,7 @@ class GroupRepositoryTest extends TestCase
 	/**
 	 *
 	 */
-	protected function getRepository(Closure $callback = null)
+	protected function getRepository(?Closure $callback = null)
 	{
 		$repository = Mockery::mock(GroupRepository::class . '[getModel]', ['mocked'])->makePartial();
 

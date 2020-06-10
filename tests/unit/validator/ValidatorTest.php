@@ -405,7 +405,7 @@ class ValidatorTest extends TestCase
 				return $this;
 			}
 
-			public function getTranslatedErrorMessage(string $field, string $rule, string $package = null): string
+			public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string
 			{
 				$this->test->assertSame('foo', $field);
 

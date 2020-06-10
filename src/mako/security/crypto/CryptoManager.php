@@ -20,7 +20,7 @@ use function vsprintf;
  *
  * @author Frederic G. Østby
  *
- * @method \mako\security\crypto\encrypters\EncrypterInterface instance(string $configuration = null)
+ * @method \mako\security\crypto\encrypters\EncrypterInterface instance(?string $configuration = null)
  * @method string                                              encrypt(string $string)
  * @method string|bool                                         decrypt(string $string)
  */
