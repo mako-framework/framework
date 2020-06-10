@@ -436,7 +436,7 @@ class Query
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
-	public function with(string $name, array $columns = [], $query)
+	public function with(string $name, array $columns, $query)
 	{
 		if(($query instanceof Subquery) === false)
 		{
@@ -461,7 +461,7 @@ class Query
 	 * @param  \Closure|\mako\database\query\Query|\mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
-	public function withRecursive(string $name, array $columns = [], $query)
+	public function withRecursive(string $name, array $columns, $query)
 	{
 		$this->commonTableExpressions['recursive'] = true;
 
@@ -475,7 +475,7 @@ class Query
 	 * @param  string                                                                 $operation Operation
 	 * @return $this
 	 */
-	protected function setOperation($query = null, string $operation)
+	protected function setOperation($query, string $operation)
 	{
 		if($query === null)
 		{

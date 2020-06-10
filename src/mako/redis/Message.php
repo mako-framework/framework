@@ -86,7 +86,7 @@ class Message
 				$this->type    = $response[0];
 				break;
 			default:
-				throw new RedisException(vsprintf('Unable to parse message of type [ %s ].', $response[0]));
+				throw new RedisException(vsprintf('Unable to parse message of type [ %s ].', [$response[0]]));
 		}
 	}
 
