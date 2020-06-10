@@ -15,6 +15,7 @@ use mako\syringe\traits\ContainerAwareTrait;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
+use ReflectionNamedType;
 use ReflectionParameter;
 
 use function array_merge;
@@ -317,12 +318,14 @@ class Container
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
 	{
+		$parameterType = $parameter->getType();
+
 		// If the parameter should be a class instance then we'll try to resolve it using the container
 
-		if(($parameterClass = $parameter->getClass()) !== null)
-		{
-			$parameterClassName = $parameterClass->getName();
+		$parameterClassName = ($parameterType instanceof ReflectionNamedType && !$parameterType->isBuiltin()) ? $parameterType->getName() : null;
 
+		if($parameterClassName !== null)
+		{
 			if($class !== null)
 			{
 				$parameterClassName = $this->resolveContextualDependency($class->getName(), $parameterClassName);
@@ -352,7 +355,7 @@ class Container
 
 		// The parameter is nullable so we'll just return null
 
-		if($parameter->hasType() && $parameter->allowsNull())
+		if($parameterType !== null && $parameter->allowsNull())
 		{
 			return null;
 		}

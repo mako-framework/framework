@@ -436,7 +436,7 @@ class Query
 	 * @param  \mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
-	public function with(string $name, array $columns = [], Subquery $query)
+	public function with(string $name, array $columns, Subquery $query)
 	{
 		$this->commonTableExpressions['ctes'][] =
 		[
@@ -456,7 +456,7 @@ class Query
 	 * @param  \mako\database\query\Subquery $query   Query
 	 * @return $this
 	 */
-	public function withRecursive(string $name, array $columns = [], Subquery $query)
+	public function withRecursive(string $name, array $columns, Subquery $query)
 	{
 		$this->commonTableExpressions['recursive'] = true;
 
