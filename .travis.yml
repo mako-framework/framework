@@ -1,20 +1,32 @@
+os: linux
+
 language: php
 
-sudo: false
-
-matrix:
+jobs:
+  fast_finish: true
   include:
     - php: 7.2
+    dist: bionic
     - php: 7.3
+      dist: bionic
     - php: 7.4
-  fast_finish: true
+      dist: bionic
+    - php: nightly
+      dist: bionic
+  allow_failures:
+    - php: nightly
 
 services:
-  - redis-server
+  - redis
 
 before_install:
   - travis_retry composer self-update
 
-install: travis_retry composer install --no-interaction --prefer-source --no-suggest
-
+install: 
+  - |
+    if [ $TRAVIS_PHP_VERSION = 'nightly' ]; then
+      travis_retry composer install --no-interaction --prefer-source --no-suggest --ignore-platform-reqs
+    else
+      travis_retry composer install --no-interaction --prefer-source --no-suggest
+    fi
 script: vendor/bin/phpunit
