@@ -9,6 +9,8 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Added support for the `samesite` cookie option (defaults to `Lax`).
 * Added `Query::withCountOf()` method to the ORM query builder.
 * Added abstract `AccessControlAllowOrigin` middleware.
+* Added `Cookies::addRaw()` method.
+* Added `Cookies::addRawSigned()` method.
 
 #### Changes
 

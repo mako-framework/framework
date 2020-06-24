@@ -70,8 +70,32 @@ class CookiesTest extends TestCase
 
 		$cookies->addSigned('foo', 'value');
 
-		$this->assertSame('signedvalue', $cookies->all()['foo']['value']);
+		$foo = $cookies->all()['foo'];
+
+		$this->assertSame('signedvalue', $foo['value']);
+
+		$this->assertFalse($foo['raw']);
 	}
+
+   /**
+    *
+    */
+   public function testAddSignedWithRaw(): void
+   {
+	   $signer = Mockery::mock(Signer::class);
+
+	   $signer->shouldReceive('sign')->once()->with('value')->andReturn('signedvalue');
+
+	   $cookies = new Cookies($signer);
+
+	   $cookies->addSigned('foo', 'value', 0, [], true);
+
+	   $foo = $cookies->all()['foo'];
+
+	   $this->assertSame('signedvalue', $foo['value']);
+
+	   $this->assertTrue($foo['raw']);
+   }
 
 	/**
 	 *
@@ -162,6 +186,8 @@ class CookiesTest extends TestCase
 		$this->assertSame(false, $foo['options']['httponly']);
 		$this->assertSame('Lax', $foo['options']['samesite']);
 
+		$this->assertFalse($foo['raw']);
+
 		$cookies->add('foo', 'bar', 0, ['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
 
 		$foo = $cookies->all()['foo'];
@@ -171,12 +197,14 @@ class CookiesTest extends TestCase
 		$this->assertSame(true, $foo['options']['secure']);
 		$this->assertSame(true, $foo['options']['httponly']);
 		$this->assertSame('Strict', $foo['options']['samesite']);
+
+		$this->assertFalse($foo['raw']);
 	}
 
 	/**
 	 *
 	 */
-	public function testSetDefaults(): void
+	public function testAddWithDefaults(): void
 	{
 		$cookies = new Cookies;
 
@@ -191,21 +219,51 @@ class CookiesTest extends TestCase
 		$this->assertSame(true, $foo['options']['secure']);
 		$this->assertSame(true, $foo['options']['httponly']);
 		$this->assertSame('Strict', $foo['options']['samesite']);
+
+		$this->assertFalse($foo['raw']);
 	}
 
 	/**
 	 *
 	 */
-	public function testSetRaw(): void
+	public function testAddWithRaw(): void
 	{
 		$cookies = new Cookies;
 
 		$cookies->add('foo', 'bar', 0, [], true);
 
 		$this->assertTrue($cookies->all()['foo']['raw']);
+	}
 
-		$cookies->add('foo', 'bar', 0, []);
+	/**
+	 *
+	 */
+	public function testAddRaw(): void
+	{
+		$cookies = new Cookies;
 
-		$this->assertFalse($cookies->all()['foo']['raw']);
+		$cookies->addRaw('foo', 'bar', 0, []);
+
+		$this->assertTrue($cookies->all()['foo']['raw']);
+	}
+
+	/**
+	 *
+	 */
+	public function testAddRawSigned(): void
+	{
+		$signer = Mockery::mock(Signer::class);
+
+		$signer->shouldReceive('sign')->once()->with('bar')->andReturn('signedbar');
+
+		$cookies = new Cookies($signer);
+
+		$cookies->addRawSigned('foo', 'bar', 0, []);
+
+		$foo = $cookies->all()['foo'];
+
+		$this->assertTrue($foo['raw']);
+
+		$this->assertSame('signedbar', $foo['value']);
 	}
 }
