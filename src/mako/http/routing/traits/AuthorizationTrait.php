@@ -13,6 +13,8 @@ use mako\http\exceptions\ForbiddenException;
  * Authorization trait.
  *
  * @author Frederic G. Østby
+ *
+ * @property \mako\gatekeeper\authorization\AuthorizerInterface $authorizer
  */
 trait AuthorizationTrait
 {

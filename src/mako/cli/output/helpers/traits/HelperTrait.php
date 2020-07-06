@@ -13,6 +13,8 @@ use function mb_strwidth;
  * Helper trait.
  *
  * @author Frederic G. Østby
+ *
+ * @property \mako\cli\output\formatter\FormatterInterface|null $formatter
  */
 trait HelperTrait
 {
