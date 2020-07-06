@@ -348,7 +348,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * Returns null if the account isn't locked and a date time instance if its locked.
+	 * Returns null if the account isn't locked and a date time instance if it's locked.
 	 *
 	 * @return \mako\chrono\Time|\DateTimeInterface|null
 	 */

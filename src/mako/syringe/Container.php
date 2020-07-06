@@ -552,7 +552,7 @@ class Container
 
 		$instance = $this->factory($this->resolveHint($class), $parameters);
 
-		// Store the instance if its registered as a singleton
+		// Store the instance if it's registered as a singleton
 
 		if($reuseInstance && isset($this->hints[$class]) && $this->hints[$class]['singleton'])
 		{
