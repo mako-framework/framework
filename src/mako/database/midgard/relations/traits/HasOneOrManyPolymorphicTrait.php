@@ -28,17 +28,17 @@ trait HasOneOrManyPolymorphicTrait
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection      Database connection
-	 * @param \mako\database\midgard\ORM            $parent          Parent model
-	 * @param \mako\database\midgard\ORM            $related         Related model
+	 * @param \mako\database\midgard\ORM            $origin          Originating model
+	 * @param \mako\database\midgard\ORM            $model           Related model
 	 * @param string                                $polymorphicType Polymorphic type
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, string $polymorphicType)
+	public function __construct(Connection $connection, ORM $origin, ORM $model, string $polymorphicType)
 	{
 		$this->polymorphicType = "{$polymorphicType}_type";
 
-		parent::__construct($connection, $parent, $related, "{$polymorphicType}_id");
+		parent::__construct($connection, $origin, $model, "{$polymorphicType}_id");
 
-		$this->where("{$this->table}.{$this->polymorphicType}", '=', $parent->getClass());
+		$this->where("{$this->table}.{$this->polymorphicType}", '=', $origin->getClass());
 	}
 
 	/**
@@ -51,11 +51,11 @@ trait HasOneOrManyPolymorphicTrait
 	{
 		if($related instanceof $this->model)
 		{
-			$related->{$this->polymorphicType} = $this->parent->getClass();
+			$related->{$this->polymorphicType} = $this->origin->getClass();
 		}
 		else
 		{
-			$related[$this->polymorphicType] = $this->parent->getClass();
+			$related[$this->polymorphicType] = $this->origin->getClass();
 		}
 
 		return parent::create($related);

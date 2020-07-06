@@ -52,19 +52,19 @@ class ManyToMany extends Relation
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection    Database connection
-	 * @param \mako\database\midgard\ORM            $parent        Parent model
-	 * @param \mako\database\midgard\ORM            $related       Related model
+	 * @param \mako\database\midgard\ORM            $origin        Originating model
+	 * @param \mako\database\midgard\ORM            $model         Related model
 	 * @param string|null                           $foreignKey    Foreign key name
 	 * @param string|null                           $junctionTable Junction table name
 	 * @param string|null                           $junctionKey   Junction key name
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, ?string $foreignKey = null, ?string $junctionTable = null, ?string $junctionKey = null)
+	public function __construct(Connection $connection, ORM $origin, ORM $model, ?string $foreignKey = null, ?string $junctionTable = null, ?string $junctionKey = null)
 	{
 		$this->junctionTable = $junctionTable;
 
 		$this->junctionKey = $junctionKey;
 
-		parent::__construct($connection, $parent, $related, $foreignKey);
+		parent::__construct($connection, $origin, $model, $foreignKey);
 
 		$this->junctionJoin();
 
@@ -128,7 +128,7 @@ class ManyToMany extends Relation
 	{
 		if($this->junctionTable === null)
 		{
-			$tables = [$this->parent->getTable(), $this->model->getTable()];
+			$tables = [$this->origin->getTable(), $this->model->getTable()];
 
 			sort($tables);
 
@@ -166,7 +166,7 @@ class ManyToMany extends Relation
 	 */
 	protected function lazyCriterion(): void
 	{
-		$this->where("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', $this->parent->getPrimaryKeyValue());
+		$this->where("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', $this->origin->getPrimaryKeyValue());
 	}
 
 	/**
@@ -184,18 +184,18 @@ class ManyToMany extends Relation
 	 */
 	protected function getRelationCountQuery()
 	{
-		$this->whereColumn("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', "{$this->parent->getTable()}.{$this->parent->getPrimaryKey()}");
+		$this->whereColumn("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', "{$this->origin->getTable()}.{$this->origin->getPrimaryKey()}");
 
 		return $this;
 	}
 
 	/**
-	 * Eager loads related records and matches them with their parent records.
+	 * Eager loads related records and matches them with their originating records.
 	 *
-	 * @param array         &$results Parent records
+	 * @param array         &$results Originating records
 	 * @param string        $relation Relation name
 	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the parent record
+	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
@@ -306,7 +306,7 @@ class ManyToMany extends Relation
 
 		$foreignKey = $this->getForeignKey();
 
-		$foreignKeyValue = $this->parent->getPrimaryKeyValue();
+		$foreignKeyValue = $this->origin->getPrimaryKeyValue();
 
 		$junctionKey = $this->getJunctionKey();
 
@@ -333,7 +333,7 @@ class ManyToMany extends Relation
 
 		$foreignKey = $this->getForeignKey();
 
-		$foreignKeyValue = $this->parent->getPrimaryKeyValue();
+		$foreignKeyValue = $this->origin->getPrimaryKeyValue();
 
 		$junctionKey = $this->getJunctionKey();
 
@@ -353,7 +353,7 @@ class ManyToMany extends Relation
 	 */
 	public function unlink($id = null): bool
 	{
-		$query = $this->junction(true)->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue());
+		$query = $this->junction(true)->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue());
 
 		if($id !== null)
 		{
@@ -377,7 +377,7 @@ class ManyToMany extends Relation
 
 		// Fetch existing links
 
-		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->parent->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all()->pluck($this->getJunctionKey());
+		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all()->pluck($this->getJunctionKey());
 
 		// Link new relations
 

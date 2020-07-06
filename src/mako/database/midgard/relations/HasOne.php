@@ -17,12 +17,12 @@ use Closure;
 class HasOne extends HasOneOrMany
 {
 	/**
-	 * Eager loads related records and matches them with their parent records.
+	 * Eager loads related records and matches them with their originating records.
 	 *
-	 * @param array         &$results Parent records
+	 * @param array         &$results Originating records
 	 * @param string        $relation Relation name
 	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the parent record
+	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{

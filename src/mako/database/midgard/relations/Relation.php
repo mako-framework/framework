@@ -32,11 +32,11 @@ abstract class Relation extends Query
 	const EAGER_LOAD_CHUNK_SIZE = 900;
 
 	/**
-	 * Parent record.
+	 * Originating record.
 	 *
 	 * @var \mako\database\midgard\ORM
 	 */
-	protected $parent;
+	protected $origin;
 
 	/**
 	 * Foreign key.
@@ -56,26 +56,26 @@ abstract class Relation extends Query
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection Database connection
-	 * @param \mako\database\midgard\ORM            $parent     Parent model
-	 * @param \mako\database\midgard\ORM            $related    Related model
+	 * @param \mako\database\midgard\ORM            $origin     Originating model
+	 * @param \mako\database\midgard\ORM            $model      Related model
 	 * @param string|null                           $foreignKey Foreign key name
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, ?string $foreignKey = null)
+	public function __construct(Connection $connection, ORM $origin, ORM $model, ?string $foreignKey = null)
 	{
-		parent::__construct($connection, $related);
+		parent::__construct($connection, $model);
 
-		$this->parent = $parent;
+		$this->origin = $origin;
 
 		$this->foreignKey = $foreignKey;
 
-		if($parent->isPersisted())
+		if($origin->isPersisted())
 		{
 			$this->lazyCriterion();
 		}
 	}
 
 	/**
-	 * Returns the foreign key.
+	 * Returns the foreign key name.
 	 *
 	 * @return string
 	 */
@@ -83,7 +83,7 @@ abstract class Relation extends Query
 	{
 		if($this->foreignKey === null)
 		{
-			$this->foreignKey = $this->parent->getForeignKey();
+			$this->foreignKey = $this->origin->getForeignKey();
 		}
 
 		return $this->foreignKey;
@@ -112,13 +112,13 @@ abstract class Relation extends Query
 	 */
 	protected function lazyCriterion(): void
 	{
-		$this->where("{$this->table}.{$this->getForeignKey()}", '=', $this->parent->getPrimaryKeyValue());
+		$this->where("{$this->table}.{$this->getForeignKey()}", '=', $this->origin->getPrimaryKeyValue());
 	}
 
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @param  array $keys Parent keys
+	 * @param  array $keys Keys
 	 * @return $this
 	 */
 	protected function eagerCriterion(array $keys)
@@ -131,7 +131,7 @@ abstract class Relation extends Query
 	/**
 	 * Eager loads records in chunks.
 	 *
-	 * @param  array                            $keys Parent keys
+	 * @param  array                            $keys Keys
 	 * @return \mako\database\midgard\ResultSet
 	 */
 	protected function eagerLoadChunked(array $keys)
@@ -169,7 +169,7 @@ abstract class Relation extends Query
 	 */
 	protected function getRelationCountQuery()
 	{
-		$this->whereColumn("{$this->table}.{$this->getForeignKey()}", '=', "{$this->parent->getTable()}.{$this->parent->getPrimaryKey()}");
+		$this->whereColumn("{$this->table}.{$this->getForeignKey()}", '=', "{$this->origin->getTable()}.{$this->origin->getPrimaryKey()}");
 
 		return $this;
 	}

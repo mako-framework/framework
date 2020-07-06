@@ -24,13 +24,13 @@ abstract class HasOneOrMany extends Relation
 	{
 		if($related instanceof $this->model)
 		{
-			$related->{$this->getForeignKey()} = $this->parent->getPrimaryKeyValue();
+			$related->{$this->getForeignKey()} = $this->origin->getPrimaryKeyValue();
 
 			$related->save();
 
 			return $related;
 		}
 
-		return $this->model->create([$this->getForeignKey() => $this->parent->getPrimaryKeyValue()] + $related);
+		return $this->model->create([$this->getForeignKey() => $this->origin->getPrimaryKeyValue()] + $related);
 	}
 }

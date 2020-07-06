@@ -21,12 +21,12 @@ class BelongsToPolymorphic extends BelongsTo
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection      Database connection
-	 * @param \mako\database\midgard\ORM            $parent          Parent model
-	 * @param \mako\database\midgard\ORM            $related         Related model
+	 * @param \mako\database\midgard\ORM            $origin          Originating model
+	 * @param \mako\database\midgard\ORM            $model           Related model
 	 * @param string                                $polymorphicType Polymorphic type
 	 */
-	public function __construct(Connection $connection, ORM $parent, ORM $related, string $polymorphicType)
+	public function __construct(Connection $connection, ORM $origin, ORM $model, string $polymorphicType)
 	{
-		parent::__construct($connection, $parent, $related, "{$polymorphicType}_id");
+		parent::__construct($connection, $origin, $model, "{$polymorphicType}_id");
 	}
 }

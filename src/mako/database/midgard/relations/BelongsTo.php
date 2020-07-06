@@ -54,7 +54,7 @@ class BelongsTo extends Relation
 	 */
 	protected function lazyCriterion(): void
 	{
-		$this->where("{$this->table}.{$this->model->getPrimaryKey()}", '=', $this->parent->getRawColumnValue($this->getForeignKey()));
+		$this->where("{$this->table}.{$this->model->getPrimaryKey()}", '=', $this->origin->getRawColumnValue($this->getForeignKey()));
 	}
 
 	/**
@@ -72,18 +72,18 @@ class BelongsTo extends Relation
 	 */
 	protected function getRelationCountQuery()
 	{
-		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->parent->getTable()}.{$this->getForeignKey()}");
+		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->origin->getTable()}.{$this->getForeignKey()}");
 
 		return $this;
 	}
 
 	/**
-	 * Eager loads related records and matches them with their parent records.
+	 * Eager loads related records and matches them with their originating records.
 	 *
-	 * @param array         &$results Parent records
+	 * @param array         &$results Originating records
 	 * @param string        $relation Relation name
 	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the parent record
+	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
@@ -119,7 +119,7 @@ class BelongsTo extends Relation
 	 */
 	public function getRelated()
 	{
-		if($this->parent->getRawColumnValue($this->getForeignKey()) === null)
+		if($this->origin->getRawColumnValue($this->getForeignKey()) === null)
 		{
 			return null;
 		}
