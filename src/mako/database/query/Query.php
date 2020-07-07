@@ -158,7 +158,7 @@ class Query
 	/**
 	 * Pagination factory.
 	 *
-	 * @var \mako\pagination\PaginationFactoryInterface
+	 * @var \mako\pagination\PaginationFactoryInterface|\Closure
 	 */
 	protected static $paginationFactory;
 
