@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
 namespace mako\chrono\traits;
 
 use DateTimeZone;
@@ -9,6 +14,11 @@ use function min;
 use function mktime;
 use function strftime;
 
+/**
+ * Time trait.
+ *
+ * @author Frederic G. Østby
+ */
 trait TimeTrait
 {
 	/**
