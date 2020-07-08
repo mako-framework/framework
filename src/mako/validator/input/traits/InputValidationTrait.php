@@ -16,6 +16,9 @@ use function is_string;
  * Input validation trait.
  *
  * @author Frederic G. Østby
+ *
+ * @property \mako\syringe\Container          $container
+ * @property \mako\validator\ValidatorFactory $validator
  */
 trait InputValidationTrait
 {
@@ -26,7 +29,7 @@ trait InputValidationTrait
 	 * @param  array        $rules Validation rules
 	 * @return array
 	 */
-	protected function validate($input, array $rules = []): array
+	protected function getValidatedInput($input, array $rules = []): array
 	{
 		if(is_string($input))
 		{

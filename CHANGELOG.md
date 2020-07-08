@@ -11,6 +11,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Added abstract `AccessControlAllowOrigin` middleware.
 * Added `Cookies::addRaw()` method.
 * Added `Cookies::addRawSigned()` method.
+* Added a `InputValidationTrait` for use in a controller context.
 
 #### Changes
 
@@ -71,6 +72,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Removed support for the deprecated "empty else" template syntax.
 * Class aliases will no longer be registered during the application boot process.
 * The Gatekeeper `Adapter::activateUser()` method will now always return a boolean value as described in the documentation.
+* Renamed the `InputValidationTrait::validate()` method to `InputValidationTrait::getValidatedInput()`.
 
 #### Improvements
 
