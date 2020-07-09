@@ -94,8 +94,6 @@ Update using ```composer update```.
 
 ### 6.2.5, 6.3.9 <small>(2020-06-04)</small>
 
-Update using ```composer update```.
-
 #### Bugfixes
 
 * Fixed issue that occurred when cloning queries that have set operations.
@@ -105,8 +103,6 @@ Update using ```composer update```.
 
 ### 6.3.8 <small>(2020-01-12)</small>
 
-Update using ```composer update```.
-
 #### Changes
 
 * `ManyToMany::unlink()` and `ManyToMany::updateLink()` now supports wheres.
@@ -114,8 +110,6 @@ Update using ```composer update```.
 --------------------------------------------------------
 
 ### 6.3.7 <small>(2019-11-26)</small>
-
-Update using ```composer update```.
 
 #### Changes
 
@@ -125,8 +119,6 @@ Update using ```composer update```.
 
 ### 6.3.6 <small>(2019-11-12)</small>
 
-Update using ```composer update```.
-
 #### Changes
 
 * The old input from the `InputValidation` middleware will no longer be cast to an object before being assigned to views.
@@ -134,8 +126,6 @@ Update using ```composer update```.
 --------------------------------------------------------
 
 ### 6.3.5 <small>(2019-11-07)</small>
-
-Update using ```composer update```.
 
 #### Changes
 
@@ -145,8 +135,6 @@ Update using ```composer update```.
 
 ### 6.3.4 <small>(2019-11-04)</small>
 
-Update using ```composer update```.
-
 #### Changes
 
 * The `$ruleSets` parameter of the `ValidatorFactory` and `Validator` constructors is now optional.
@@ -154,8 +142,6 @@ Update using ```composer update```.
 --------------------------------------------------------
 
 ### 6.3.3 <small>(2019-10-23)</small>
-
-Update using ```composer update```.
 
 #### Changes
 
@@ -165,8 +151,6 @@ Update using ```composer update```.
 
 ### 6.3.2 <small>(2019-10-21)</small>
 
-Update using ```composer update```.
-
 #### Bugfixes
 
 * `Request::isSecure()` will no longer fail if `REMOTE_ADDR` isn't set.
@@ -174,8 +158,6 @@ Update using ```composer update```.
 --------------------------------------------------------
 
 ### 6.3.1 <small>(2019-10-21)</small>
-
-Update using ```composer update```.
 
 #### Bugfixes
 
@@ -232,8 +214,6 @@ Update using ```composer update```.
 
 ### 5.7.8, 6.0.7, 6.1.6, 6.2.4 <small>(2019-09-27)</small>
 
-Update using ```composer update```.
-
 #### Bugfixes
 
 * The correct field name will now be displayed when using wildcard validation rules.
@@ -241,8 +221,6 @@ Update using ```composer update```.
 --------------------------------------------------------
 
 ### 5.7.7, 6.0.6, 6.1.5, 6.2.3 <small>(2019-09-09)</small>
-
-Update using ```composer update```.
 
 #### Bugfixes
 
