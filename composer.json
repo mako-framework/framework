@@ -37,8 +37,8 @@
         "symfony/var-dumper": "^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.1",
-        "mockery/mockery": "^1.4"
+        "phpunit/phpunit": "^9.2",
+        "mockery/mockery": "^1.4.1"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",
