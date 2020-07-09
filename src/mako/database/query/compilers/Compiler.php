@@ -682,7 +682,7 @@ class Compiler
 
 		foreach($wheres as $where)
 		{
-			$conditions[] = ($conditionCounter > 0 ? $where['separator'] . ' ' : null) . $this->{$where['type']}($where);
+			$conditions[] = ($conditionCounter > 0 ? "{$where['separator']} " : '') . $this->{$where['type']}($where);
 
 			$conditionCounter++;
 		}
@@ -744,7 +744,7 @@ class Compiler
 
 		foreach($join->getConditions() as $condition)
 		{
-			$conditions[] = ($conditionCounter > 0 ? $condition['separator'] . ' ' : null) . $this->{$condition['type']}($condition);
+			$conditions[] = ($conditionCounter > 0 ? "{$condition['separator']} " : '') . $this->{$condition['type']}($condition);
 
 			$conditionCounter++;
 		}
@@ -823,7 +823,7 @@ class Compiler
 
 		foreach($havings as $having)
 		{
-			$conditions[] = ($conditionCounter > 0 ? $having['separator'] . ' ' : null) . "{$this->column($having['column'])} {$having['operator']} {$this->param($having['value'])}";
+			$conditions[] = ($conditionCounter > 0 ? "{$having['separator']} " : '') . "{$this->column($having['column'])} {$having['operator']} {$this->param($having['value'])}";
 
 			$conditionCounter++;
 		}
