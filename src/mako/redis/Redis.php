@@ -600,6 +600,26 @@ class Redis
 	}
 
 	/**
+	 * Handles a set response.
+	 *
+	 * @param  string $response Redis response
+	 * @return array
+	 */
+	protected function handleSetResponse(string $response): array
+	{
+		$data = [];
+
+		$count = (int) substr($response, 1);
+
+		for($i = 0; $i < $count; $i++)
+		{
+			$data[] = $this->getResponse();
+		}
+
+		return array_unique($data, SORT_REGULAR);
+	}
+
+	/**
 	 * Handles simple error responses.
 	 *
 	 * @param  string $response Redis response
@@ -665,6 +685,8 @@ class Redis
 				return $this->handleArrayResponse($response);
 			case '%': // map response
 				return $this->handleMapResponse($response);
+			case '~': // set response
+				return $this->handleSetResponse($response);
 			case '-': // simple error response
 				return $this->handleSimpleErrorResponse($response);
 			case '!': // blob error response
