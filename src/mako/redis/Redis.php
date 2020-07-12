@@ -265,9 +265,44 @@ class Redis
 	/**
 	 * Command terminator length.
 	 *
-	 * @var string
+	 * @var int
 	 */
 	const CRLF_LENGTH = 2;
+
+	/**
+	 * Verbatim string prefix length.
+	 *
+	 * @var int
+	 */
+	const VERBATIM_PREFIX_LENGTH = 4;
+
+	/**
+	 * RESP version 2.
+	 *
+	 * @var int
+	 */
+	const RESP2 = 2;
+
+	/**
+	 * RESP version 3.
+	 *
+	 * @var int
+	 */
+	const RESP3 = 3;
+
+	/**
+	 * Current RESP version.
+	 *
+	 * @var int
+	 */
+	protected $resp = 2;
+
+	/**
+	 * Redis username.
+	 *
+	 * @var string
+	 */
+	protected $username;
 
 	/**
 	 * Redis password.
@@ -328,10 +363,28 @@ class Redis
 	{
 		$this->connection = $connection;
 
+		// Switch protocol to RESP3
+
+		if(!empty($options['resp']) && $options['resp'] === static::RESP3)
+		{
+			$this->resp = $this->hello(static::RESP3)['proto'];
+		}
+
+		// Authenticate
+
 		if(!empty($options['password']))
 		{
-			$this->auth($this->password = $options['password']);
+			if(empty($options['username']))
+			{
+				$this->auth($this->password = $options['password']);
+			}
+			else
+			{
+				$this->auth($this->username = $options['username'], $this->password = $options['password']);
+			}
 		}
+
+		// Select database
 
 		if(!empty($options['database']))
 		{
@@ -371,7 +424,13 @@ class Redis
 
 		$connection = new Connection($server, $port, $this->connection->getOptions());
 
-		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
+		return new static($connection,
+		[
+			'resp'     => $this->resp,
+			'username' => $this->username,
+			'password' => $this->password,
+			'database' => $this->database,
+		]);
 	}
 
 	/**
@@ -418,7 +477,20 @@ class Redis
 
 		$length = (int) substr($response, 1);
 
-		return substr($this->connection->read($length + static::CRLF_LENGTH), 0, - static::CRLF_LENGTH);
+		return substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+	}
+
+	/**
+	 * Handles a verbatim string response.
+	 *
+	 * @param  string $response Redis response
+	 * @return string
+	 */
+	protected function handleVerbatimStringResponse(string $response): string
+	{
+		$length = (int) substr($response, 1);
+
+		return substr($this->connection->read($length + static::CRLF_LENGTH), static::VERBATIM_PREFIX_LENGTH, -static::CRLF_LENGTH);
 	}
 
 	/**
@@ -430,6 +502,56 @@ class Redis
 	protected function handleNumberResponse(string $response): int
 	{
 		return (int) substr($response, 1);
+	}
+
+	/**
+	 * Handles a double response.
+	 *
+	 * @param  string $response Redis response
+	 * @return float
+	 */
+	protected function handleDoubleResponse(string $response): float
+	{
+		$value = substr($response, 1);
+
+		if($value === 'inf')
+		{
+			return INF;
+		}
+
+		if($value === '-inf')
+		{
+			return -INF;
+		}
+
+		return (float) $value;
+	}
+
+	/**
+	 * Handles a big number response.
+	 *
+	 * @param  string $response Redis response
+	 * @return string
+	 */
+	protected function handleBigNumberResponse(string $response): string
+	{
+		return substr($response, 1);
+	}
+
+	/**
+	 * Handles a boolean response.
+	 *
+	 * @param  string $response Redis response
+	 * @return bool
+	 */
+	protected function handleBooleanResponse(string $response): bool
+	{
+		if($response === '#t')
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -458,9 +580,29 @@ class Redis
 	}
 
 	/**
+	 * Handles a map response.
+	 *
+	 * @param  string $response Redis response
+	 * @return array
+	 */
+	protected function handleMapResponse(string $response): array
+	{
+		$data = [];
+
+		$count = (int) substr($response, 1);
+
+		for($i = 0; $i < $count; $i++)
+		{
+			$data[$this->getResponse()] = $this->getResponse();
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Handles simple error responses.
 	 *
-	 * @param  string $response Error response
+	 * @param  string $response Redis response
 	 * @return mixed
 	 */
 	protected function handleSimpleErrorResponse(string $response)
@@ -480,6 +622,21 @@ class Redis
 	}
 
 	/**
+	 * Handles blob error responses.
+	 *
+	 * @param  string $response Redis response
+	 * @return void
+	 */
+	protected function handleBlobErrorResponse(string $response): void
+	{
+		$length = (int) substr($response, 1);
+
+		$response = substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+
+		throw new RedisException(vsprintf('%s.', [$response]));
+	}
+
+	/**
 	 * Returns response from redis server.
 	 *
 	 * @return mixed
@@ -494,12 +651,26 @@ class Redis
 				return $this->handleSimpleStringResponse($response);
 			case '$': // blob string response
 				return $this->handleBlobStringResponse($response);
+			case '=': // verbatim string response
+				return $this->handleVerbatimStringResponse($response);
 			case ':': // number response
 				return $this->handleNumberResponse($response);
+			case ',': // double reponse
+				return $this->handleDoubleResponse($response);
+			case '(': // big number response
+				return $this->handleBigNumberResponse($response);
+			case '#': // boolean response
+				return $this->handleBooleanResponse($response);
 			case '*': // array response
 				return $this->handleArrayResponse($response);
+			case '%': // map response
+				return $this->handleMapResponse($response);
 			case '-': // simple error response
 				return $this->handleSimpleErrorResponse($response);
+			case '!': // blob error response
+				return $this->handleBlobErrorResponse($response);
+			case '_': // null response
+				return null;
 			default:
 				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
 		}
