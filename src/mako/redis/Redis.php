@@ -393,6 +393,16 @@ class Redis
 	}
 
 	/**
+	 * Returns the RESP version the connection was created with.
+	 *
+	 * @return int
+	 */
+	public function getRespVersion(): int
+	{
+		return $this->resp;
+	}
+
+	/**
 	 * Returns the connection.
 	 *
 	 * @return \mako\redis\Connection
@@ -620,6 +630,29 @@ class Redis
 	}
 
 	/**
+	 * Handles an attribute response.
+	 *
+	 * @param  string $response Redis response
+	 * @return mixed
+	 */
+	protected function handleAttributeResponse(string $response)
+	{
+		// Just discard the attribute data for now
+
+		$count = (int) substr($response, 1);
+
+		for($i = 0; $i < $count; $i++)
+		{
+			$this->getResponse();
+			$this->getResponse();
+		}
+
+		// Return the actual response data
+
+		return $this->getResponse();
+	}
+
+	/**
 	 * Handles simple error responses.
 	 *
 	 * @param  string $response Redis response
@@ -687,6 +720,8 @@ class Redis
 				return $this->handleMapResponse($response);
 			case '~': // set response
 				return $this->handleSetResponse($response);
+			case '|': // attribute response
+				return $this->handleAttributeResponse($response);
 			case '-': // simple error response
 				return $this->handleSimpleErrorResponse($response);
 			case '!': // blob error response
