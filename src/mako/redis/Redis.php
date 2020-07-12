@@ -393,56 +393,23 @@ class Redis
 	}
 
 	/**
-	 * Handles redis error responses.
-	 *
-	 * @param  string $response Error response
-	 * @return mixed
-	 */
-	protected function handleErrorResponse(string $response)
-	{
-		$response = substr($response, 1);
-
-		[$type, $error] = explode(' ', $response, 2);
-
-		switch($type)
-		{
-			case 'MOVED':
-			case 'ASK':
-				return $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand);
-			default:
-				throw new RedisException(vsprintf('%s.', [$response]));
-		}
-	}
-
-	/**
-	 * Handles a status response.
+	 * Handles a simple string response.
 	 *
 	 * @param  string $response Redis response
 	 * @return string
 	 */
-	protected function handleStatusResponse(string $response): string
+	protected function handleSimpleStringResponse(string $response): string
 	{
 		return substr($response, 1);
 	}
 
 	/**
-	 * Handles a integer response.
-	 *
-	 * @param  string $response Redis response
-	 * @return int
-	 */
-	protected function handleIntegerResponse(string $response): int
-	{
-		return (int) substr($response, 1);
-	}
-
-	/**
-	 * Handles a bulk response.
+	 * Handles a blob string response.
 	 *
 	 * @param  string      $response Redis response
 	 * @return string|null
 	 */
-	protected function handleBulkResponse(string $response): ?string
+	protected function handleBlobStringResponse(string $response): ?string
 	{
 		if($response === '$-1')
 		{
@@ -455,12 +422,23 @@ class Redis
 	}
 
 	/**
-	 * Handles a multi-bulk response.
+	 * Handles a number response.
+	 *
+	 * @param  string $response Redis response
+	 * @return int
+	 */
+	protected function handleNumberResponse(string $response): int
+	{
+		return (int) substr($response, 1);
+	}
+
+	/**
+	 * Handles a array response.
 	 *
 	 * @param  string     $response Redis response
 	 * @return array|null
 	 */
-	protected function handleMultiBulkResponse(string $response): ?array
+	protected function handleArrayResponse(string $response): ?array
 	{
 		if($response === '*-1')
 		{
@@ -480,6 +458,28 @@ class Redis
 	}
 
 	/**
+	 * Handles simple error responses.
+	 *
+	 * @param  string $response Error response
+	 * @return mixed
+	 */
+	protected function handleSimpleErrorResponse(string $response)
+	{
+		$response = substr($response, 1);
+
+		[$type, $error] = explode(' ', $response, 2);
+
+		switch($type)
+		{
+			case 'MOVED':
+			case 'ASK':
+				return $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand);
+			default:
+				throw new RedisException(vsprintf('%s.', [$response]));
+		}
+	}
+
+	/**
 	 * Returns response from redis server.
 	 *
 	 * @return mixed
@@ -490,16 +490,16 @@ class Redis
 
 		switch(substr($response, 0, 1))
 		{
-			case '-': // error reply
-				return $this->handleErrorResponse($response);
-			case '+': // status reply
-				return $this->handleStatusResponse($response);
-			case ':': // integer reply
-				return $this->handleIntegerResponse($response);
-			case '$': // bulk reply
-				return $this->handleBulkResponse($response);
-			case '*': // multi-bulk reply
-				return $this->handleMultiBulkResponse($response);
+			case '+': // simple string response
+				return $this->handleSimpleStringResponse($response);
+			case '$': // blob string response
+				return $this->handleBlobStringResponse($response);
+			case ':': // number response
+				return $this->handleNumberResponse($response);
+			case '*': // array response
+				return $this->handleArrayResponse($response);
+			case '-': // simple error response
+				return $this->handleSimpleErrorResponse($response);
 			default:
 				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
 		}
