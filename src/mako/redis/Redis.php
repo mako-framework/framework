@@ -291,11 +291,11 @@ class Redis
 	const RESP3 = 3;
 
 	/**
-	 * Current RESP version.
+	 * RESP version the connection was created with.
 	 *
 	 * @var int
 	 */
-	protected $resp = 2;
+	protected $resp = Redis::RESP2;
 
 	/**
 	 * Redis username.
@@ -432,9 +432,7 @@ class Redis
 	{
 		[$server, $port] = explode(':', $server, 2);
 
-		$connection = new Connection($server, $port, $this->connection->getOptions());
-
-		return new static($connection,
+		return new static(new Connection($server, $port, $this->connection->getOptions()),
 		[
 			'resp'     => $this->resp,
 			'username' => $this->username,
