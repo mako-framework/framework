@@ -11,6 +11,7 @@ use Closure;
 use mako\utility\Str;
 
 use function array_merge;
+use function array_unique;
 use function count;
 use function explode;
 use function implode;
@@ -29,7 +30,20 @@ use function vsprintf;
  * @author Frederic G. Østby
  *
  * @see http://redis.io/topics/protocol Redis protocol specification.
+ * @see https://github.com/antirez/RESP3/blob/master/spec.md Redis protocol specification.
  *
+ * @method mixed aclLoad()
+ * @method mixed aclSave()
+ * @method mixed aclList()
+ * @method mixed aclUsers()
+ * @method mixed aclGetuser()
+ * @method mixed aclSetuser()
+ * @method mixed aclDeluser()
+ * @method mixed aclCat()
+ * @method mixed aclGenpass()
+ * @method mixed aclWhoami()
+ * @method mixed aclLog()
+ * @method mixed aclHelp()
  * @method mixed append()
  * @method mixed auth()
  * @method mixed bgrewriteaof()
@@ -43,24 +57,30 @@ use function vsprintf;
  * @method mixed brpoplpush()
  * @method mixed bzpopmin()
  * @method mixed bzpopmax()
+ * @method mixed clientCaching()
  * @method mixed clientId()
  * @method mixed clientKill()
  * @method mixed clientList()
  * @method mixed clientGetname()
+ * @method mixed clientGetredir()
  * @method mixed clientPause()
  * @method mixed clientReply()
  * @method mixed clientSetname()
+ * @method mixed clientTracking()
  * @method mixed clientUnblock()
  * @method mixed clusterAddslots()
+ * @method mixed clusterBumpepoch()
  * @method mixed clusterCountFailureReports()
  * @method mixed clusterCountkeysinslot()
  * @method mixed clusterDelslots()
  * @method mixed clusterFailover()
+ * @method mixed clusterFlushslots()
  * @method mixed clusterForget()
  * @method mixed clusterGetkeysinslot()
  * @method mixed clusterInfo()
  * @method mixed clusterKeyslot()
  * @method mixed clusterMeet()
+ * @method mixed clusterMyid()
  * @method mixed clusterNodes()
  * @method mixed clusterReplicate()
  * @method mixed clusterReset()
@@ -106,6 +126,7 @@ use function vsprintf;
  * @method mixed getrange()
  * @method mixed getset()
  * @method mixed hdel()
+ * @method mixed hello()
  * @method mixed hexists()
  * @method mixed hget()
  * @method mixed hgetall()
@@ -123,12 +144,14 @@ use function vsprintf;
  * @method mixed incrby()
  * @method mixed incrbyfloat()
  * @method mixed info()
+ * @method mixed lolwut()
  * @method mixed keys()
  * @method mixed lastsave()
  * @method mixed lindex()
  * @method mixed linsert()
  * @method mixed llen()
  * @method mixed lpop()
+ * @method mixed lpos()
  * @method mixed lpush()
  * @method mixed lpushx()
  * @method mixed lrange()
@@ -143,6 +166,9 @@ use function vsprintf;
  * @method mixed memoryUsage()
  * @method mixed mget()
  * @method mixed migrate()
+ * @method mixed moduleList()
+ * @method mixed moduleLoad()
+ * @method mixed moduleUnload()
  * @method mixed move()
  * @method mixed mset()
  * @method mixed msetnx()
@@ -200,11 +226,13 @@ use function vsprintf;
  * @method mixed spop()
  * @method mixed srandmember()
  * @method mixed srem()
+ * @method mixed stralgo()
  * @method mixed strlen()
  * @method mixed sunion()
  * @method mixed sunionstore()
  * @method mixed swapdb()
  * @method mixed sync()
+ * @method mixed psync()
  * @method mixed time()
  * @method mixed touch()
  * @method mixed ttl()
@@ -252,6 +280,12 @@ use function vsprintf;
  * @method mixed xack()
  * @method mixed xclaim()
  * @method mixed xpending()
+ * @method mixed latencyDoctor()
+ * @method mixed latencyGraph()
+ * @method mixed latencyHistory()
+ * @method mixed latencyLatest()
+ * @method mixed latencyReset()
+ * @method mixed latencyHelp()
  */
 class Redis
 {
@@ -265,9 +299,51 @@ class Redis
 	/**
 	 * Command terminator length.
 	 *
-	 * @var string
+	 * @var int
 	 */
 	const CRLF_LENGTH = 2;
+
+	/**
+	 * Verbatim string prefix length.
+	 *
+	 * @var int
+	 */
+	const VERBATIM_PREFIX_LENGTH = 4;
+
+	/**
+	 * UUID representing a "end" response.
+	 *
+	 * @var string
+	 */
+	const END = 'dd0edad3-61d3-415b-aeab-61b14841cda3';
+
+	/**
+	 * RESP version 2.
+	 *
+	 * @var int
+	 */
+	const RESP2 = 2;
+
+	/**
+	 * RESP version 3.
+	 *
+	 * @var int
+	 */
+	const RESP3 = 3;
+
+	/**
+	 * RESP version the connection was created with.
+	 *
+	 * @var int
+	 */
+	protected $resp = Redis::RESP2;
+
+	/**
+	 * Redis username.
+	 *
+	 * @var string
+	 */
+	protected $username;
 
 	/**
 	 * Redis password.
@@ -319,6 +395,13 @@ class Redis
 	protected $lastCommand;
 
 	/**
+	 * Response attributes.
+	 *
+	 * @var array
+	 */
+	protected $attributes = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\redis\Connection $connection Redis connection
@@ -328,15 +411,43 @@ class Redis
 	{
 		$this->connection = $connection;
 
+		// Switch protocol to RESP3
+
+		if(!empty($options['resp']) && $options['resp'] === static::RESP3)
+		{
+			$this->hello($this->resp = static::RESP3);
+		}
+
+		// Authenticate
+
 		if(!empty($options['password']))
 		{
-			$this->auth($this->password = $options['password']);
+			if(empty($options['username']))
+			{
+				$this->auth($this->password = $options['password']);
+			}
+			else
+			{
+				$this->auth($this->username = $options['username'], $this->password = $options['password']);
+			}
 		}
+
+		// Select database
 
 		if(!empty($options['database']))
 		{
 			$this->select($this->database = $options['database']);
 		}
+	}
+
+	/**
+	 * Returns the RESP version the connection was created with.
+	 *
+	 * @return int
+	 */
+	public function getRespVersion(): int
+	{
+		return $this->resp;
 	}
 
 	/**
@@ -360,6 +471,16 @@ class Redis
 	}
 
 	/**
+	 * Returns the response attributes from the last call.
+	 *
+	 * @return array
+	 */
+	public function getAttributes(): array
+	{
+		return $this->attributes;
+	}
+
+	/**
 	 * Creates a cluster client.
 	 *
 	 * @param  string            $server Server string
@@ -369,9 +490,13 @@ class Redis
 	{
 		[$server, $port] = explode(':', $server, 2);
 
-		$connection = new Connection($server, $port, $this->connection->getOptions());
-
-		return new static($connection, ['password' => $this->password, 'database' => $this->database]);
+		return new static(new Connection($server, $port, $this->connection->getOptions()),
+		[
+			'resp'     => $this->resp,
+			'username' => $this->username,
+			'password' => $this->password,
+			'database' => $this->database,
+		]);
 	}
 
 	/**
@@ -416,9 +541,42 @@ class Redis
 			return null;
 		}
 
+		$length = substr($response, 1);
+
+		// Do we have a streamed blob string response?
+
+		if($length === '?')
+		{
+			$string = '';
+
+			$length = (int) substr(trim($this->connection->readLine()), 1);
+
+			while($length !== 0)
+			{
+				$string .= substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+
+				$length = (int) substr(trim($this->connection->readLine()), 1);
+			}
+
+			return $string;
+		}
+
+		// It was just a normal blob string response
+
+		return substr($this->connection->read((int) $length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+	}
+
+	/**
+	 * Handles a verbatim string response.
+	 *
+	 * @param  string $response Redis response
+	 * @return string
+	 */
+	protected function handleVerbatimStringResponse(string $response): string
+	{
 		$length = (int) substr($response, 1);
 
-		return substr($this->connection->read($length + static::CRLF_LENGTH), 0, - static::CRLF_LENGTH);
+		return substr($this->connection->read($length + static::CRLF_LENGTH), static::VERBATIM_PREFIX_LENGTH, -static::CRLF_LENGTH);
 	}
 
 	/**
@@ -430,6 +588,56 @@ class Redis
 	protected function handleNumberResponse(string $response): int
 	{
 		return (int) substr($response, 1);
+	}
+
+	/**
+	 * Handles a double response.
+	 *
+	 * @param  string $response Redis response
+	 * @return float
+	 */
+	protected function handleDoubleResponse(string $response): float
+	{
+		$value = substr($response, 1);
+
+		if($value === 'inf')
+		{
+			return INF;
+		}
+
+		if($value === '-inf')
+		{
+			return -INF;
+		}
+
+		return (float) $value;
+	}
+
+	/**
+	 * Handles a big number response.
+	 *
+	 * @param  string $response Redis response
+	 * @return string
+	 */
+	protected function handleBigNumberResponse(string $response): string
+	{
+		return substr($response, 1);
+	}
+
+	/**
+	 * Handles a boolean response.
+	 *
+	 * @param  string $response Redis response
+	 * @return bool
+	 */
+	protected function handleBooleanResponse(string $response): bool
+	{
+		if($response === '#t')
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -447,7 +655,30 @@ class Redis
 
 		$data = [];
 
-		$count = (int) substr($response, 1);
+		$count = substr($response, 1);
+
+		// Do we have a streamed array response?
+
+		if($count === '?')
+		{
+			while(true)
+			{
+				$value = $this->getResponse();
+
+				if($value === static::END)
+				{
+					break;
+				}
+
+				$data[] = $value;
+			}
+
+			return $data;
+		}
+
+		// It was just a normal array response
+
+		$count = (int) $count;
 
 		for($i = 0; $i < $count; $i++)
 		{
@@ -458,9 +689,100 @@ class Redis
 	}
 
 	/**
+	 * Handles a map response.
+	 *
+	 * @param  string $response Redis response
+	 * @return array
+	 */
+	protected function handleMapResponse(string $response): array
+	{
+		$data = [];
+
+		$count = substr($response, 1);
+
+		// Do we have a streamed map response?
+
+		if($count === '?')
+		{
+			while(true)
+			{
+				$key = $this->getResponse();
+
+				if($key === static::END)
+				{
+					break;
+				}
+
+				$data[$key] = $this->getResponse();
+			}
+
+			return $data;
+		}
+
+		// It was just a normal map response
+
+		$count = (int) $count;
+
+		for($i = 0; $i < $count; $i++)
+		{
+			$data[$this->getResponse()] = $this->getResponse();
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Handles a set response.
+	 *
+	 * @param  string $response Redis response
+	 * @return array
+	 */
+	protected function handleSetResponse(string $response): array
+	{
+		return array_unique($this->handleArrayResponse($response), SORT_REGULAR);
+	}
+
+	/**
+	 * Handles an attribute response.
+	 *
+	 * @param  string $response Redis response
+	 * @return mixed
+	 */
+	protected function handleAttributeResponse(string $response)
+	{
+		// Fetch and store the response attributes
+
+		$attributes = [];
+
+		$count = (int) substr($response, 1);
+
+		for($i = 0; $i < $count; $i++)
+		{
+			$attributes[$this->getResponse()] = $this->getResponse();
+		}
+
+		$this->attributes[] = $attributes;
+
+		// Return the actual response data
+
+		return $this->getResponse();
+	}
+
+	/**
+	 * Handles a push response.
+	 *
+	 * @param  string $response Redis response
+	 * @return array
+	 */
+	protected function handlePushResponse(string $response): array
+	{
+		return $this->handleArrayResponse($response);
+	}
+
+	/**
 	 * Handles simple error responses.
 	 *
-	 * @param  string $response Error response
+	 * @param  string $response Redis response
 	 * @return mixed
 	 */
 	protected function handleSimpleErrorResponse(string $response)
@@ -480,6 +802,21 @@ class Redis
 	}
 
 	/**
+	 * Handles blob error responses.
+	 *
+	 * @param  string $response Redis response
+	 * @return void
+	 */
+	protected function handleBlobErrorResponse(string $response): void
+	{
+		$length = (int) substr($response, 1);
+
+		$response = substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+
+		throw new RedisException(vsprintf('%s.', [$response]));
+	}
+
+	/**
 	 * Returns response from redis server.
 	 *
 	 * @return mixed
@@ -494,12 +831,34 @@ class Redis
 				return $this->handleSimpleStringResponse($response);
 			case '$': // blob string response
 				return $this->handleBlobStringResponse($response);
+			case '=': // verbatim string response
+				return $this->handleVerbatimStringResponse($response);
 			case ':': // number response
 				return $this->handleNumberResponse($response);
+			case ',': // double reponse
+				return $this->handleDoubleResponse($response);
+			case '(': // big number response
+				return $this->handleBigNumberResponse($response);
+			case '#': // boolean response
+				return $this->handleBooleanResponse($response);
 			case '*': // array response
 				return $this->handleArrayResponse($response);
+			case '%': // map response
+				return $this->handleMapResponse($response);
+			case '~': // set response
+				return $this->handleSetResponse($response);
+			case '|': // attribute response
+				return $this->handleAttributeResponse($response);
+			case '>': // push response
+				return $this->handlePushResponse($response);
 			case '-': // simple error response
 				return $this->handleSimpleErrorResponse($response);
+			case '!': // blob error response
+				return $this->handleBlobErrorResponse($response);
+			case '_': // null response
+				return null;
+			case '.': // end response (internal type used to represent the end of a streamed aggregate response)
+				return static::END;
 			default:
 				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
 		}
@@ -650,6 +1009,10 @@ class Redis
 	 */
 	public function pipeline(Closure $pipeline): array
 	{
+		// Reset attributes
+
+		$this->attributes = [];
+
 		// Enable pipelining
 
 		$this->pipelined = true;
@@ -702,6 +1065,10 @@ class Redis
 
 			return $this;
 		}
+
+		// Reset attributes
+
+		$this->attributes = [];
 
 		// Send command to server and return response
 
