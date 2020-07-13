@@ -111,25 +111,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testException(): void
-	{
-		$this->expectException(RedisException::class);
-
-		$connection = Mockery::mock(Connection::class);
-
-		$connection->shouldReceive('write')->once();
-
-		$connection->shouldReceive('readLine')->once()->andReturn("-ERR unknown command 'foobar'\r\n");
-
-		$redis = new Redis($connection);
-
-		$redis->foobar();
-	}
-
-	/**
-	 *
-	 */
-	public function testStatusReply(): void
+	public function testSimpleStringResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -145,23 +127,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIntegerReply(): void
-	{
-		$connection = Mockery::mock(Connection::class);
-
-		$connection->shouldReceive('write')->once();
-
-		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
-
-		$redis = new Redis($connection);
-
-		$this->assertSame(1, $redis->foobar());
-	}
-
-	/**
-	 *
-	 */
-	public function testBulkReply(): void
+	public function testBlobStringResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -179,7 +145,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBulkNullReply(): void
+	public function testNullBlobStringResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -195,7 +161,137 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkReply(): void
+	public function testVerbatimStringResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("=10\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("txt:foobar\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame('foobar', $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testNumberResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(1, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testDoubleResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn(",1.1\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(1.1, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testDoubleResponseWithInfinity(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn(",inf\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(INF, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testDoubleResponseWithNegativeInfinity(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn(",-inf\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(-INF, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testBigNumberResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("(3492890328409238509324850943850943825024385\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame('3492890328409238509324850943850943825024385', $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testBooleanResponseWithTrue(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("#t\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(true, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testBooleanResponseWithFalse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("#f\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(false, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testArrayResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -219,7 +315,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkMixedReply(): void
+	public function testArrayResponseWithMixedTypes(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -241,7 +337,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkEmptyReply(): void
+	public function testEmptyArrayResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
@@ -257,13 +353,123 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	public function testMultiBulkNullReply(): void
+	public function testNullArrayResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
 
 		$connection->shouldReceive('readLine')->once()->andReturn("*-1\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(null, $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testMapResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("%2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+first\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+second\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":2\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(['first' => 1, 'second' => 2], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testSetResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("~3\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("bar\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("bar\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(['foo', 'bar'], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testSimpleErrorResponse(): void
+	{
+		$this->expectException(RedisException::class);
+
+		$this->expectExceptionMessage("ERR unknown command 'foobar'");
+
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("-ERR unknown command 'foobar'\r\n");
+
+		$redis = new Redis($connection);
+
+		$redis->foobar();
+	}
+
+	/**
+	 *
+	 */
+	public function testBlobErrorResponse(): void
+	{
+		$this->expectException(RedisException::class);
+
+		$this->expectExceptionMessage("ERR unknown command 'foobar'");
+
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("!28\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("ERR unknown command 'foobar'\r\n");
+
+		$redis = new Redis($connection);
+
+		$redis->foobar();
+	}
+
+	/**
+	 *
+	 */
+	public function testNullResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("_\r\n");
 
 		$redis = new Redis($connection);
 

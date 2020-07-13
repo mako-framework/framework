@@ -29,6 +29,7 @@ use function vsprintf;
  * @author Frederic G. Østby
  *
  * @see http://redis.io/topics/protocol Redis protocol specification.
+ * @see https://github.com/antirez/RESP3/blob/master/spec.md Redis protocol specification.
  *
  * @method mixed append()
  * @method mixed auth()
@@ -367,7 +368,7 @@ class Redis
 
 		if(!empty($options['resp']) && $options['resp'] === static::RESP3)
 		{
-			$this->resp = $this->hello(static::RESP3)['proto'];
+			$this->hello($this->resp = static::RESP3);
 		}
 
 		// Authenticate
