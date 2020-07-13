@@ -737,6 +737,17 @@ class Redis
 	}
 
 	/**
+	 * Handles a push response.
+	 *
+	 * @param  string $response Redis response
+	 * @return array
+	 */
+	protected function handlePushResponse(string $response): array
+	{
+		return $this->handleArrayResponse($response);
+	}
+
+	/**
 	 * Handles simple error responses.
 	 *
 	 * @param  string $response Redis response
@@ -806,6 +817,8 @@ class Redis
 				return $this->handleSetResponse($response);
 			case '|': // attribute response
 				return $this->handleAttributeResponse($response);
+			case '>': // push response
+				return $this->handlePushResponse($response);
 			case '-': // simple error response
 				return $this->handleSimpleErrorResponse($response);
 			case '!': // blob error response

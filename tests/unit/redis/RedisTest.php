@@ -591,6 +591,30 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
+	public function testPushResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn(">2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("foo\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$3\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("bar\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(['foo', 'bar'], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
 	public function testSimpleErrorResponse(): void
 	{
 		$this->expectException(RedisException::class);
