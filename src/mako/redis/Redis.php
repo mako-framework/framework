@@ -363,6 +363,13 @@ class Redis
 	protected $lastCommand;
 
 	/**
+	 * Response attributes.
+	 *
+	 * @var array
+	 */
+	protected $attributes = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\redis\Connection $connection Redis connection
@@ -429,6 +436,16 @@ class Redis
 	public function getClusterClients(): array
 	{
 		return $this->clusterClients;
+	}
+
+	/**
+	 * Returns the response attributes from the last call.
+	 *
+	 * @return array
+	 */
+	public function getAttributes(): array
+	{
+		return $this->attributes;
 	}
 
 	/**
@@ -701,15 +718,18 @@ class Redis
 	 */
 	protected function handleAttributeResponse(string $response)
 	{
-		// Just discard the attribute data for now
+		// Fetch and store the response attributes
+
+		$attributes = [];
 
 		$count = (int) substr($response, 1);
 
 		for($i = 0; $i < $count; $i++)
 		{
-			$this->getResponse();
-			$this->getResponse();
+			$attributes[$this->getResponse()] = $this->getResponse();
 		}
+
+		$this->attributes[] = $attributes;
 
 		// Return the actual response data
 
@@ -944,6 +964,10 @@ class Redis
 	 */
 	public function pipeline(Closure $pipeline): array
 	{
+		// Reset attributes
+
+		$this->attributes = [];
+
 		// Enable pipelining
 
 		$this->pipelined = true;
@@ -996,6 +1020,10 @@ class Redis
 
 			return $this;
 		}
+
+		// Reset attributes
+
+		$this->attributes = [];
 
 		// Send command to server and return response
 

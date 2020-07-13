@@ -584,6 +584,8 @@ class RedisTest extends TestCase
 		$redis = new Redis($connection);
 
 		$this->assertSame([2039123, 9543892], $redis->foobar());
+
+		$this->assertSame([['key-popularity' => ['a' => 0.1923, 'b' => 0.0012]]], $redis->getAttributes());
 	}
 
 	/**
