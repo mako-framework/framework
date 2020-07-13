@@ -11,6 +11,7 @@ use Closure;
 use mako\utility\Str;
 
 use function array_merge;
+use function array_unique;
 use function count;
 use function explode;
 use function implode;
