@@ -486,7 +486,7 @@ class Redis
 
 		$length = substr($response, 1);
 
-		// Do we have a streamed blob sting response?
+		// Do we have a streamed blob string response?
 
 		if($length === '?')
 		{
