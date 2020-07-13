@@ -427,6 +427,28 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
+	public function testStreamedArrayResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("*?\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(".\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame([1, 2], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
 	public function testMapResponse(): void
 	{
 		$connection = Mockery::mock(Connection::class);
@@ -442,6 +464,32 @@ class RedisTest extends TestCase
 		$connection->shouldReceive('readLine')->once()->andReturn("+second\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn(":2\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame(['first' => 1, 'second' => 2], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testStreamedMapResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("%?\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+first\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+second\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(".\r\n");
 
 		$redis = new Redis($connection);
 
@@ -474,6 +522,30 @@ class RedisTest extends TestCase
 		$redis = new Redis($connection);
 
 		$this->assertSame(['foo', 'bar'], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testStreamedSetResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("~?\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":1\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(".\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame([1, 2], $redis->foobar());
 	}
 
 	/**

@@ -278,6 +278,13 @@ class Redis
 	const VERBATIM_PREFIX_LENGTH = 4;
 
 	/**
+	 * UUID representing a "end" response.
+	 *
+	 * @var string
+	 */
+	const END = 'dd0edad3-61d3-415b-aeab-61b14841cda3';
+
+	/**
 	 * RESP version 2.
 	 *
 	 * @var int
@@ -598,7 +605,30 @@ class Redis
 
 		$data = [];
 
-		$count = (int) substr($response, 1);
+		$count = substr($response, 1);
+
+		// Do we have a streamed array response?
+
+		if($count === '?')
+		{
+			while(true)
+			{
+				$value = $this->getResponse();
+
+				if($value === static::END)
+				{
+					break;
+				}
+
+				$data[] = $value;
+			}
+
+			return $data;
+		}
+
+		// It was just a normal array response
+
+		$count = (int) $count;
 
 		for($i = 0; $i < $count; $i++)
 		{
@@ -618,7 +648,30 @@ class Redis
 	{
 		$data = [];
 
-		$count = (int) substr($response, 1);
+		$count = substr($response, 1);
+
+		// Do we have a streamed map response?
+
+		if($count === '?')
+		{
+			while(true)
+			{
+				$key = $this->getResponse();
+
+				if($key === static::END)
+				{
+					break;
+				}
+
+				$data[$key] = $this->getResponse();
+			}
+
+			return $data;
+		}
+
+		// It was just a normal map response
+
+		$count = (int) $count;
 
 		for($i = 0; $i < $count; $i++)
 		{
@@ -636,16 +689,7 @@ class Redis
 	 */
 	protected function handleSetResponse(string $response): array
 	{
-		$data = [];
-
-		$count = (int) substr($response, 1);
-
-		for($i = 0; $i < $count; $i++)
-		{
-			$data[] = $this->getResponse();
-		}
-
-		return array_unique($data, SORT_REGULAR);
+		return array_unique($this->handleArrayResponse($response), SORT_REGULAR);
 	}
 
 	/**
@@ -747,6 +791,8 @@ class Redis
 				return $this->handleBlobErrorResponse($response);
 			case '_': // null response
 				return null;
+			case '.': // end response (internal type used to represent the end of a streamed aggregate response)
+				return static::END;
 			default:
 				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
 		}
