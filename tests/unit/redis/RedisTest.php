@@ -21,6 +21,20 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
+	public function testResp3(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once()->with("*2\r\n$5\r\nHELLO\r\n$1\r\n3\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
+
+		new Redis($connection, ['resp' => 3]);
+	}
+
+	/**
+	 *
+	 */
 	public function testAuth(): void
 	{
 		$connection = Mockery::mock(Connection::class);
@@ -30,6 +44,20 @@ class RedisTest extends TestCase
 		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
 
 		new Redis($connection, ['password' => 'foobar']);
+	}
+
+	/**
+	 *
+	 */
+	public function testAuthWithUsername(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once()->with("*3\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n$6\r\nfoobar\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
+
+		new Redis($connection, ['username' => 'foobar', 'password' => 'foobar']);
 	}
 
 	/**
@@ -416,6 +444,44 @@ class RedisTest extends TestCase
 		$redis = new Redis($connection);
 
 		$this->assertSame(['foo', 'bar'], $redis->foobar());
+	}
+
+	/**
+	 *
+	 */
+	public function testAttributeResponse(): void
+	{
+		$connection = Mockery::mock(Connection::class);
+
+		$connection->shouldReceive('write')->once();
+
+		$connection->shouldReceive('readLine')->once()->andReturn("|1\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("+key-popularity\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("%2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$1\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("a\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(",0.1923\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("$1\r\n");
+
+		$connection->shouldReceive('read')->once()->andReturn("b\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(",0.0012\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn("*2\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":2039123\r\n");
+
+		$connection->shouldReceive('readLine')->once()->andReturn(":9543892\r\n");
+
+		$redis = new Redis($connection);
+
+		$this->assertSame([2039123, 9543892], $redis->foobar());
 	}
 
 	/**
