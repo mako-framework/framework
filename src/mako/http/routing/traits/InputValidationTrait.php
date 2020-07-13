@@ -9,6 +9,8 @@ namespace mako\http\routing\traits;
 
 use mako\validator\input\traits\InputValidationTrait as BaseInputValidationTrait;
 
+use function is_string;
+
 /**
  * Input validation trait.
  *
