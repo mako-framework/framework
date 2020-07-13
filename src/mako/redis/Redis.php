@@ -484,9 +484,29 @@ class Redis
 			return null;
 		}
 
-		$length = (int) substr($response, 1);
+		$length = substr($response, 1);
 
-		return substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+		// Do we have a streamed blob sting response?
+
+		if($length === '?')
+		{
+			$string = '';
+
+			$length = (int) substr(trim($this->connection->readLine()), 1);
+
+			while($length !== 0)
+			{
+				$string .= substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
+
+				$length = (int) substr(trim($this->connection->readLine()), 1);
+			}
+
+			return $string;
+		}
+
+		// It was just a normal blob string response
+
+		return substr($this->connection->read((int) $length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
 	}
 
 	/**
