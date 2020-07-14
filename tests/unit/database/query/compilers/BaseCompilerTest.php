@@ -1032,6 +1032,25 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithComplexRawJoinWithParameter(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->join('barfoo', function($join): void
+		{
+			$join->onRaw('barfoo.foobar_id', '=', 'SUBSTRING(?, 1, 2)', ['foo']);
+			$join->orOnRaw('barfoo.foobar_id', '!=', 'SUBSTRING(?, 1, 2)', ['bar']);
+		});
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING(?, 1, 2) OR "barfoo"."foobar_id" != SUBSTRING(?, 1, 2)', $query['sql']);
+		$this->assertEquals(['foo', 'bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithSubqueryJoin(): void
 	{
 		$query = $this->getBuilder();
@@ -1218,6 +1237,21 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithOrderRawWithParameters(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByRaw('FIELD(id, [?])', [[1, 2, 3]]);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, [?]) ASC', $query['sql']);
+		$this->assertEquals([[1, 2, 3]], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithOrderDescending(): void
 	{
 		$query = $this->getBuilder();
@@ -1248,6 +1282,21 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithOrderDescendingRawWithParameters(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->descendingRaw('FIELD(id, [?])', [[1, 2, 3]]);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, [?]) DESC', $query['sql']);
+		$this->assertEquals([[1, 2, 3]], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithOrderAscending(): void
 	{
 		$query = $this->getBuilder();
@@ -1273,6 +1322,21 @@ class BaseCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, 1, 2, 3) ASC', $query['sql']);
 		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithOrderAscendingRawWithParameters(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->ascendingRaw('FIELD(id, [?])', [[1, 2, 3]]);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY FIELD(id, [?]) ASC', $query['sql']);
+		$this->assertEquals([[1, 2, 3]], $query['params']);
 	}
 
 	/**
