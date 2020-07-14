@@ -12,11 +12,11 @@ use mako\utility\Arr;
 use function sprintf;
 
 /**
- * Match rule.
+ * Match field rule.
  *
  * @author Frederic G. Østby
  */
-class Match extends Rule implements RuleInterface
+class MatchField extends Rule implements RuleInterface
 {
 	/**
 	 * Field name.
