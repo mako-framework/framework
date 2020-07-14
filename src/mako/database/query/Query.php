@@ -595,12 +595,13 @@ class Query
 	/**
 	 * Sets the columns we want to select using raw SQL.
 	 *
-	 * @param  string $sql Raw sql
+	 * @param  string $sql        Raw sql
+	 * @param  array  $parameters Parameters
 	 * @return $this
 	 */
-	public function selectRaw(string $sql)
+	public function selectRaw(string $sql, array $parameters = [])
 	{
-		$this->columns = [new Raw($sql)];
+		$this->columns = [new Raw($sql, $parameters)];
 
 		return $this;
 	}
@@ -1248,13 +1249,14 @@ class Query
 	/**
 	 * Adds a raw ORDER BY clause.
 	 *
-	 * @param  string $raw   Raw SQL
-	 * @param  string $order Sorting order
+	 * @param  string $raw        Raw SQL
+	 * @param  array  $parameters Parameters
+	 * @param  string $order      Sorting order
 	 * @return $this
 	 */
-	public function orderByRaw($raw, string $order = 'ASC')
+	public function orderByRaw($raw, array $parameters = [], string $order = 'ASC')
 	{
-		return $this->orderBy(new Raw($raw), $order);
+		return $this->orderBy(new Raw($raw, $parameters), $order);
 	}
 
 	/**
@@ -1271,12 +1273,13 @@ class Query
 	/**
 	 * Adds a raw ascending ORDER BY clause.
 	 *
-	 * @param  string $raw Raw SQL
+	 * @param  string $raw        Raw SQL
+	 * @param  array  $parameters Parameters
 	 * @return $this
 	 */
-	public function ascendingRaw($raw)
+	public function ascendingRaw($raw, array $parameters = [])
 	{
-		return $this->orderByRaw($raw, 'ASC');
+		return $this->orderByRaw($raw, $parameters, 'ASC');
 	}
 
 	/**
@@ -1293,12 +1296,13 @@ class Query
 	/**
 	 * Adds a raw descending ORDER BY clause.
 	 *
-	 * @param  string $raw Raw SQL
+	 * @param  string $raw        Raw SQL
+	 * @param  array  $parameters Parameters
 	 * @return $this
 	 */
-	public function descendingRaw($raw)
+	public function descendingRaw($raw, array $parameters = [])
 	{
-		return $this->orderByRaw($raw, 'DESC');
+		return $this->orderByRaw($raw, $parameters, 'DESC');
 	}
 
 	/**

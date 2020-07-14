@@ -13,6 +13,13 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Added `Cookies::addRawSigned()` method.
 * Added a `InputValidationTrait` for use in a controller context.
 * The Redis client now supports Redis 6 ACL as well as the new RESP3 protocol.
+* The following "raw" query builder methods now support query parameters:
+	- `Join::onRaw()`
+	- `Join::orOnRaw()`
+	- `Query::selectRaw()`
+	- `Query::orderByRaw()`
+	- `Query::ascendingRaw()`
+	- `Query::descendingRaw()`
 
 #### Changes
 
