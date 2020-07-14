@@ -12,7 +12,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Added `Cookies::addRaw()` method.
 * Added `Cookies::addRawSigned()` method.
 * Added a `InputValidationTrait` for use in a controller context.
-* The Redis client now supports the Redis 6 ACL feature as well as the new RESP3 protocol.
+* The Redis client now supports Redis 6 ACL as well as the new RESP3 protocol.
 
 #### Changes
 
