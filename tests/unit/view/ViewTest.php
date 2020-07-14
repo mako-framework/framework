@@ -10,6 +10,7 @@ namespace mako\tests\unit\view;
 use mako\tests\TestCase;
 use mako\view\renderers\RendererInterface;
 use mako\view\View;
+use Mockery;
 
 /**
  * @group unit
@@ -31,15 +32,9 @@ class ViewTest extends TestCase
 
 		$total = array_merge($variables, $initial);
 
-		$renderer = $this->createMock(RendererInterface::class);
+		$renderer = Mockery::mock(RendererInterface::class);
 
-		$renderer->expects($this->once())
-		->method('render')
-		->with('TestView', $total)
-		->willReturnCallback(function()
-		{
-			return 'The view contents';
-		});
+		$renderer->shouldReceive('render')->once()->with('TestView', $total)->andReturn('The new contents');
 
 		$view = new View('TestView', $initial, $renderer);
 
