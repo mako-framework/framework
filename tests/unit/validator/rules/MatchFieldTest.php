@@ -8,19 +8,19 @@
 namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
-use mako\validator\rules\Match;
+use mako\validator\rules\MatchField;
 
 /**
  * @group unit
  */
-class MatchTest extends TestCase
+class MatchFieldTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Match('barfoo');
+		$rule = new MatchField('barfoo');
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,7 +30,7 @@ class MatchTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Match('barfoo');
+		$rule = new MatchField('barfoo');
 
 		$this->assertTrue($rule->validate('bar', ['barfoo' => 'bar']));
 	}
@@ -40,7 +40,7 @@ class MatchTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Match('barfoo');
+		$rule = new MatchField('barfoo');
 
 		$this->assertFalse($rule->validate('foo', ['barfoo' => 'bar']));
 

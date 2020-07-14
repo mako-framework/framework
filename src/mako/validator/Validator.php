@@ -50,7 +50,7 @@ use mako\validator\rules\IP;
 use mako\validator\rules\JSON;
 use mako\validator\rules\LessThan;
 use mako\validator\rules\LessThanOrEqualTo;
-use mako\validator\rules\Match;
+use mako\validator\rules\MatchField;
 use mako\validator\rules\MaxLength;
 use mako\validator\rules\MinLength;
 use mako\validator\rules\Natural;
@@ -154,7 +154,7 @@ class Validator
 		'json'                     => JSON::class,
 		'less_than_or_equal_to'    => LessThanOrEqualTo::class,
 		'less_than'                => LessThan::class,
-		'match'                    => Match::class,
+		'match'                    => MatchField::class,
 		'max_dimensions'           => MaxDimensions::class,
 		'max_file_size'            => MaxFileSize::class,
 		'max_filename_length'      => MaxFilenameLength::class,
