@@ -90,7 +90,13 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 
 --------------------------------------------------------
 
-Update using ```composer update```.
+### 6.3.11, <small>(2020-07-15)</small>
+
+#### Bugfixes
+
+* PHP `8.0` compatibility.
+
+--------------------------------------------------------
 
 ### 6.3.10, <small>(2020-07-09)</small>
 
