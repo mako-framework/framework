@@ -90,7 +90,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 
 --------------------------------------------------------
 
-### 6.3.11, <small>(2020-07-15)</small>
+### 6.3.11 <small>(2020-07-15)</small>
 
 #### Bugfixes
 
@@ -98,7 +98,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 
 --------------------------------------------------------
 
-### 6.3.10, <small>(2020-07-09)</small>
+### 6.3.10 <small>(2020-07-09)</small>
 
 #### Bugfixes
 
