@@ -67,8 +67,8 @@ class Signer
 	/**
 	 * Returns the original string if the signature is valid or FALSE if not.
 	 *
-	 * @param  string      $string The string you want to validate
-	 * @return string|bool
+	 * @param  string       $string The string you want to validate
+	 * @return string|false
 	 */
 	public function validate(string $string)
 	{

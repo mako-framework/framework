@@ -30,7 +30,7 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Excludes the chosen columns and relations from array and json representations of the collection.
 	 *
-	 * @param string|array|bool $column Column or relation to hide from the
+	 * @param string|array|false $column Column or relation to hide from the
 	 */
 	public function protect($column): void
 	{
@@ -43,7 +43,7 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Exposes the chosen columns and relations in the array and json representations of the collection.
 	 *
-	 * @param string|array|bool $column Column or relation to hide from the
+	 * @param string|array|true $column Column or relation to hide from the
 	 */
 	public function expose($column): void
 	{

@@ -1049,7 +1049,7 @@ abstract class ORM implements JsonSerializable
 	 * Excludes the chosen columns and relations from array and json representations of the record.
 	 * You expose all fields by passing FALSE.
 	 *
-	 * @param  string|array|bool $column Column or relation to hide from the
+	 * @param  string|array|false $column Column or relation to hide from the
 	 * @return $this
 	 */
 	public function protect($column)
@@ -1063,7 +1063,7 @@ abstract class ORM implements JsonSerializable
 	 * Exposes the chosen columns and relations in the array and json representations of the record.
 	 * You can expose all fields by passing TRUE.
 	 *
-	 * @param  string|array|bool $column Column or relation to hide from the
+	 * @param  string|array|true $column Column or relation to hide from the
 	 * @return $this
 	 */
 	public function expose($column)

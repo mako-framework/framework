@@ -17,18 +17,18 @@ interface IncrementDecrementInterface
 	/**
 	 * Increments a stored number.
 	 *
-	 * @param  string   $key  Cache key
-	 * @param  int      $step Step
-	 * @return int|bool
+	 * @param  string    $key  Cache key
+	 * @param  int       $step Step
+	 * @return int|false
 	 */
 	public function increment(string $key, int $step = 1);
 
 	/**
 	 * Decrements a stored number.
 	 *
-	 * @param  string   $key  Cache key
-	 * @param  int      $step Step
-	 * @return int|bool
+	 * @param  string    $key  Cache key
+	 * @param  int       $step Step
+	 * @return int|false
 	 */
 	public function decrement(string $key, int $step = 1);
 }

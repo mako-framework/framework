@@ -22,7 +22,7 @@ use function vsprintf;
  *
  * @method \mako\security\crypto\encrypters\EncrypterInterface instance(?string $configuration = null)
  * @method string                                              encrypt(string $string)
- * @method string|bool                                         decrypt(string $string)
+ * @method string|false                                        decrypt(string $string)
  */
 class CryptoManager extends AdapterManager
 {

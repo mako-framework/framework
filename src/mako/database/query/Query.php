@@ -1704,9 +1704,9 @@ class Query
 	/**
 	 * Inserts data into the chosen table and returns the auto increment id.
 	 *
-	 * @param  array    $values     Associative array of column values
-	 * @param  string   $primaryKey Primary key
-	 * @return int|bool
+	 * @param  array     $values     Associative array of column values
+	 * @param  string    $primaryKey Primary key
+	 * @return int|false
 	 */
 	public function insertAndGetId(array $values, string $primaryKey = 'id')
 	{

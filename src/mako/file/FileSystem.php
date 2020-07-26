@@ -202,8 +202,8 @@ class FileSystem
 	/**
 	 * Returns the contents of the file.
 	 *
-	 * @param  string      $file File path
-	 * @return string|bool
+	 * @param  string       $file File path
+	 * @return string|false
 	 */
 	public function get(string $file)
 	{
@@ -213,10 +213,10 @@ class FileSystem
 	/**
 	 * Writes the supplied data to a file.
 	 *
-	 * @param  string   $file File path
-	 * @param  mixed    $data File data
-	 * @param  bool     $lock Acquire an exclusive write lock?
-	 * @return int|bool
+	 * @param  string    $file File path
+	 * @param  mixed     $data File data
+	 * @param  bool      $lock Acquire an exclusive write lock?
+	 * @return int|false
 	 */
 	public static function put(string $file, $data, bool $lock = false)
 	{
@@ -226,10 +226,10 @@ class FileSystem
 	/**
 	 * Prepends the supplied data to a file.
 	 *
-	 * @param  string   $file File path
-	 * @param  mixed    $data File data
-	 * @param  bool     $lock Acquire an exclusive write lock?
-	 * @return int|bool
+	 * @param  string    $file File path
+	 * @param  mixed     $data File data
+	 * @param  bool      $lock Acquire an exclusive write lock?
+	 * @return int|false
 	 */
 	public static function prepend(string $file, $data, bool $lock = false)
 	{
@@ -239,10 +239,10 @@ class FileSystem
 	/**
 	 * Appends the supplied data to a file.
 	 *
-	 * @param  string   $file File path
-	 * @param  mixed    $data File data
-	 * @param  bool     $lock Acquire an exclusive write lock?
-	 * @return int|bool
+	 * @param  string    $file File path
+	 * @param  mixed     $data File data
+	 * @param  bool      $lock Acquire an exclusive write lock?
+	 * @return int|false
 	 */
 	public static function append(string $file, $data, bool $lock = false)
 	{

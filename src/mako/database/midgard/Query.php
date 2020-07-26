@@ -255,7 +255,7 @@ class Query extends QueryBuilder
 	/**
 	 * Adds relations to eager load.
 	 *
-	 * @param  string|array|bool $includes Relation or array of relations to eager load
+	 * @param  string|array|false $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
 	public function including($includes)
@@ -297,7 +297,7 @@ class Query extends QueryBuilder
 	/**
 	 * Removes relations to eager load.
 	 *
-	 * @param  string|array|bool $excludes Relation or array of relations to exclude from eager loading
+	 * @param  string|array|true $excludes Relation or array of relations to exclude from eager loading
 	 * @return $this
 	 */
 	public function excluding($excludes)
