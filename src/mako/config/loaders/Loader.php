@@ -10,8 +10,7 @@ namespace mako\config\loaders;
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 
-use function array_replace_recursive;
-use function array_reverse;
+use function array_merge;
 use function strpos;
 use function substr_replace;
 use function vsprintf;
@@ -50,44 +49,29 @@ class Loader implements LoaderInterface
 	 */
 	public function load(string $file, ?string $environment = null): array
 	{
-		$loaded = 0;
+		$paths = $this->getCascadingFilePaths($file);
 
-		$config = [];
-
-		// Load configuration
-
-		foreach(array_reverse($this->getCascadingFilePaths($file)) as $path)
-		{
-			if($this->fileSystem->has($path))
-			{
-				$loaded++;
-
-				$config = array_replace_recursive($config, $this->fileSystem->include($path));
-			}
-		}
-
-		if($loaded === 0)
-		{
-			throw new LoaderException(vsprintf('The [ %s ] config file does not exist.', [$file]));
-		}
-
-		// Merge environment specific configuration
+		// If we have an environment then we must prepend the environment specific config paths to the paths array
 
 		if($environment !== null)
 		{
 			$namespace = strpos($file, '::');
 
-			$namespaced = ($namespace === false) ? "{$environment}.{$file}" : substr_replace($file, "{$environment}.", $namespace + 2, 0);
+			$environmentFile = ($namespace === false) ? "{$environment}.{$file}" : substr_replace($file, "{$environment}.", $namespace + 2, 0);
 
-			foreach(array_reverse($this->getCascadingFilePaths($namespaced)) as $path)
+			$paths = array_merge($this->getCascadingFilePaths($environmentFile), $paths);
+		}
+
+		// Include the first existing file or throw an exception if we don't find any config files
+
+		foreach($paths as $path)
+		{
+			if($this->fileSystem->has($path))
 			{
-				if($this->fileSystem->has($path))
-				{
-					$config = array_replace_recursive($config, $this->fileSystem->include($path));
-				}
+				return $this->fileSystem->include($path);
 			}
 		}
 
-		return $config;
+		throw new LoaderException(vsprintf('The [ %s ] config file does not exist.', [$file]));
 	}
 }

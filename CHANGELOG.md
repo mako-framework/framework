@@ -81,6 +81,7 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 * Class aliases will no longer be registered during the application boot process.
 * The Gatekeeper `Adapter::activateUser()` method will now always return a boolean value as described in the documentation.
 * Renamed the `InputValidationTrait::validate()` method to `InputValidationTrait::getValidatedInput()`.
+* Removed the undocumented recursive configuration file merging.
 
 #### Improvements
 

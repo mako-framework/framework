@@ -84,10 +84,6 @@ class ConfigTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/packages/baz/config/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
-
 		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/settings.php')->andReturn(true);
 
 		$fileSystem->shouldReceive('include')->once()->with('/app/config/packages/baz/settings.php')->andReturn(['greeting' => 'hello']);
@@ -106,16 +102,36 @@ class ConfigTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/app/config/settings.php')->andReturn(true);
-
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/settings.php')->andReturn(['greeting' => 'hello', 'goodbye' => 'sayonara']);
-
 		$fileSystem->shouldReceive('has')->once()->with('/app/config/dev/settings.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('include')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'konnichiwa']);
+		$fileSystem->shouldReceive('include')->once()->with('/app/config/dev/settings.php')->andReturn(['greeting' => 'hello']);
 
 		$loader = new Loader($fileSystem, '/app/config');
 
-		$this->assertEquals(['greeting' => 'konnichiwa', 'goodbye' => 'sayonara'], $loader->load('settings', 'dev'));
+		$this->assertEquals(['greeting' => 'hello'], $loader->load('settings', 'dev'));
+	}
+
+	/**
+	 *
+	 */
+	public function testLoadEvironmentOverrideWithPackage(): void
+	{
+		$fileSystem = $this->getFileSystem();
+
+		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/dev/settings.php')->andReturn(false);
+
+		$fileSystem->shouldReceive('has')->once()->with('/app/packages/baz/config/dev/settings.php')->andReturn(false);
+
+		$fileSystem->shouldReceive('has')->once()->with('/app/config/packages/baz/settings.php')->andReturn(false);
+
+		$fileSystem->shouldReceive('has')->once()->with('/app/packages/baz/config/settings.php')->andReturn(true);
+
+		$fileSystem->shouldReceive('include')->once()->with('/app/packages/baz/config/settings.php')->andReturn(['greeting' => 'hello']);
+
+		$loader = new Loader($fileSystem, '/app/config');
+
+		$loader->registerNamespace('baz', '/app/packages/baz/config');
+
+		$this->assertEquals(['greeting' => 'hello'], $loader->load('baz::settings', 'dev'));
 	}
 }
