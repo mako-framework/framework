@@ -7,6 +7,7 @@
 
 namespace mako\pixl\processors;
 
+use GdImage;
 use InvalidArgumentException;
 use mako\pixl\Image;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
@@ -218,7 +219,7 @@ class GD implements ProcessorInterface
 	 */
 	public function restore(): void
 	{
-		if(!is_resource($this->snapshot))
+		if(is_resource($this->snapshot) === false || ($this->snapshot instanceof GdImage) === false)
 		{
 			throw new RuntimeException('No snapshot to restore.');
 		}
