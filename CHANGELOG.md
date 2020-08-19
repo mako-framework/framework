@@ -91,6 +91,14 @@ The major version bump is due to dropped support for PHP `7.2` and a several bre
 
 --------------------------------------------------------
 
+### 6.3.12 <small>(2020-08-19)</small>
+
+#### Bugfixes
+
+* PHP `8.0` compatibility.
+
+--------------------------------------------------------
+
 ### 6.3.11 <small>(2020-07-15)</small>
 
 #### Bugfixes
