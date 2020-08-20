@@ -286,7 +286,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Returns TRUE if the provided password is correct and FALSE if not.
 	 *
-	 * @param  string $password Privided password
+	 * @param  string $password Provided password
 	 * @param  bool   $autoSave Autosave rehashed password?
 	 * @return bool
 	 */
@@ -296,7 +296,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 		$isValid = $hasher->verify($password, $this->password);
 
-		// Check if the password needs to be rehashed IF the provided password is valid
+		// Check if the password needs to be rehashed if the provided password is valid
 
 		if($isValid && $hasher->needsRehash($this->password))
 		{
