@@ -109,7 +109,7 @@ class LoggerService extends Service
 	 */
 	protected function getSyslogHandler(): SyslogHandler
 	{
-		return new SyslogHandler($this->config->get('application.identifier', 'Mako'), $this->config->get('application.syslog.facility', LOG_USER));
+		return new SyslogHandler($this->config->get('application.logger.syslog.identifier', 'Mako'), $this->config->get('application.logger.syslog.facility', LOG_USER));
 	}
 
 	/**
