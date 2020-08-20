@@ -144,7 +144,7 @@ class LoggerService extends Service
 
 			$logger->setContext($this->getContext());
 
-			foreach((array) $this->config->get('application.log_handler', ['stream']) as $handler)
+			foreach($this->config->get('application.logger.handler') as $handler)
 			{
 				$logger->pushHandler($this->getHandler($handler));
 			}
