@@ -140,7 +140,7 @@ class LoggerService extends Service
 	{
 		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function()
 		{
-			$logger = new Logger('mako');
+			$logger = new Logger($this->config->get('application.logger.channel', 'mako'));
 
 			$logger->setContext($this->getContext());
 
