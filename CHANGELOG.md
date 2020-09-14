@@ -1,4 +1,4 @@
-### 7.0.0 <small>(2020-??-??)</small>
+### 7.0.0 <small>(2020-09-14)</small>
 
 The major version bump is due to dropped support for PHP `7.2` and a several breaking changes. Most applications built using Mako `6.3.0` should run on Mako `7.0.0` with just a few simple adjustments.
 
