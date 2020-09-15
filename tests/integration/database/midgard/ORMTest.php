@@ -524,4 +524,19 @@ class ORMTest extends ORMTestCase
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 10 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
 	}
+
+	/**
+	 *
+	 */
+	public function testToArrayWithNullRelatedRecord(): void
+	{
+		/** @var \mako\database\midgard\ORM $user */
+		$user = new TestUser(['username' => 'foobar']);
+
+		$user->setRelated('relation_1', null);
+
+		$array = $user->toArray();
+
+		$this->assertSame(['username' => 'foobar', 'relation_1' => null], $array);
+	}
 }
