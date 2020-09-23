@@ -122,13 +122,18 @@ class Container
 	/**
 	 * Registers a contextual dependency.
 	 *
-	 * @param string $class          Class
-	 * @param string $interface      Interface
-	 * @param string $implementation Implementation
+	 * @param string|array $dependent      Class name or an array containing a class and method name
+	 * @param string       $interface      Interface name
+	 * @param string       $implementation Implementation name
 	 */
-	public function registerContextualDependency(string $class, string $interface, string $implementation): void
+	public function registerContextualDependency($dependent, string $interface, string $implementation): void
 	{
-		$this->contextualDependencies[$class][$interface] = $implementation;
+		if(is_array($dependent))
+		{
+			$dependent = "{$dependent[0]}::{$dependent[1]}";
+		}
+
+		$this->contextualDependencies[$dependent][$interface] = $implementation;
 	}
 
 	/**
@@ -245,13 +250,13 @@ class Container
 	/**
 	 * Resolves a contextual dependency.
 	 *
-	 * @param  string $class     Class
+	 * @param  string $dependent Class name or class name and method name separated by a double colon
 	 * @param  string $interface Interface
 	 * @return string
 	 */
-	protected function resolveContextualDependency(string $class, string $interface): string
+	protected function resolveContextualDependency(string $dependent, string $interface): string
 	{
-		return $this->contextualDependencies[$class][$interface] ?? $interface;
+		return $this->contextualDependencies[$dependent][$interface] ?? $interface;
 	}
 
 	/**
@@ -314,9 +319,10 @@ class Container
 	 *
 	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
 	 * @param  \ReflectionClass|null $class     ReflectionClass instance
+	 * @param  string|null           $name      Metod name
 	 * @return mixed
 	 */
-	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null)
+	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null)
 	{
 		$parameterType = $parameter->getType();
 
@@ -328,7 +334,7 @@ class Container
 		{
 			if($class !== null)
 			{
-				$parameterClassName = $this->resolveContextualDependency($class->getName(), $parameterClassName);
+				$parameterClassName = $this->resolveContextualDependency(($method === null ? $class->getName() : "{$class->getName()}::{$method}"), $parameterClassName);
 			}
 
 			try
@@ -371,9 +377,10 @@ class Container
 	 * @param  array                 $reflectionParameters Reflection parameters
 	 * @param  array                 $providedParameters   Provided Parameters
 	 * @param  \ReflectionClass|null $class                ReflectionClass instance
+	 * @param  string|null           $name                 Method name
 	 * @return array
 	 */
-	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null): array
+	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null, ?string $method = null): array
 	{
 		if(empty($reflectionParameters))
 		{
@@ -390,7 +397,7 @@ class Container
 		{
 			if($parameter instanceof ReflectionParameter)
 			{
-				$parameters[$key] = $this->resolveParameter($parameter, $class);
+				$parameters[$key] = $this->resolveParameter($parameter, $class, $method);
 			}
 		}
 
@@ -588,12 +595,10 @@ class Container
 		if(is_array($callable))
 		{
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
-		}
-		else
-		{
-			$reflection = new ReflectionFunction($callable);
+
+			return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters, $reflection->getDeclaringClass(), $callable[1]));
 		}
 
-		return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters));
+		return $callable(...$this->resolveParameters((new ReflectionFunction($callable))->getParameters(), $parameters));
 	}
 }

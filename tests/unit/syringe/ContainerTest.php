@@ -113,6 +113,19 @@ class ContextClassB
 	}
 }
 
+class ContextualMethods
+{
+	public function foo(ContextualInterface $implementation): ContextualInterface
+	{
+		return $implementation;
+	}
+
+	public function bar(ContextualInterface $implementation): ContextualInterface
+	{
+		return $implementation;
+	}
+}
+
 class ReplaceA
 {
 	protected $value;
@@ -539,6 +552,22 @@ class ContainerTest extends TestCase
 
 		$this->assertInstanceOf(ContextualImplementationA::class, $a->implementation);
 		$this->assertInstanceOf(ContextualImplementationB::class, $b->implementation);
+	}
+
+	/**
+	 *
+	 */
+	public function testContextualDependencyOnAClassMethod(): void
+	{
+		$container = new Container;
+
+		$container->registerContextualDependency([ContextualMethods::class, 'foo'], ContextualInterface::class, ContextualImplementationA::class);
+		$container->registerContextualDependency([ContextualMethods::class, 'bar'], ContextualInterface::class, ContextualImplementationB::class);
+
+		$class = new ContextualMethods;
+
+		$this->assertInstanceOf(ContextualImplementationA::class, $container->call([$class, 'foo']));
+		$this->assertInstanceOf(ContextualImplementationB::class, $container->call([$class, 'bar']));
 	}
 
 	/**
