@@ -42,7 +42,7 @@ use function vsprintf;
  * @property \mako\utility\Humanizer                            $humanizer
  * @property \mako\validator\ValidatorFactory                   $validator
  * @property \mako\view\ViewFactory                             $view
- * @property \Psr\Log\LoggerInterface                           $logger
+ * @property \mako\logger\Logger                                $logger
  */
 trait ContainerAwareTrait
 {
