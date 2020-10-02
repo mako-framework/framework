@@ -1,5 +1,7 @@
 ### 7.1.0 <small>(2020-??-??)</small>
 
+#### New
+
 * It is now possible to register contextual dependencies for class methods in the container.
 
 --------------------------------------------------------
