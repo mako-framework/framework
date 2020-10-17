@@ -60,7 +60,11 @@ class Secret extends Question
 
 			if(DIRECTORY_SEPARATOR === '\\')
 			{
-				$answer = trim(shell_exec(__DIR__ . '/resources/hiddeninput.exe'));
+				$answer = trim(
+					shell_exec(
+						escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')
+					)
+				);
 			}
 			else
 			{
