@@ -114,6 +114,11 @@ class Server extends Command
 
 		// Start the server
 
-		passthru(PHP_BINDIR . "/php -S {$address}:{$availablePort} -t {$docroot} " . __DIR__ . '/router.php');
+		passthru(
+			escapeshellcmd(PHP_BINDIR . '/php') .
+			" -S " . escapeshellarg("{$address}:{$availablePort}") .
+			" -t " . escapeshellarg($docroot) .
+			' ' . escapeshellarg(__DIR__ . "/router.php")
+		);
 	}
 }
