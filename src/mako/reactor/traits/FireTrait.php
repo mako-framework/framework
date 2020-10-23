@@ -44,10 +44,10 @@ trait FireTrait
 	{
 		if($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null)
 		{
-			$command .= " --env={$environment}";
+			$command .= ' ' . escapeshellarg("--env={$environment}");
 		}
 
-		$command = PHP_BINARY . " {$this->buildReactorPath()} {$command} 2>&1";
+		$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg($this->buildReactorPath()) . " {$command} 2>&1";
 
 		if(DIRECTORY_SEPARATOR === '\\')
 		{
