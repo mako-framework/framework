@@ -1,3 +1,11 @@
+### 6.3.13 <small>(2020-10-22)</small>
+
+#### Bugfixes
+
+* Fixed an issue where the path to the application could prevent the development server from starting ([#282](https://github.com/mako-framework/framework/pull/282)).
+
+--------------------------------------------------------
+
 ### 6.3.12 <small>(2020-08-19)</small>
 
 #### Bugfixes
