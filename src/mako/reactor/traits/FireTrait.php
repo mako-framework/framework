@@ -9,6 +9,8 @@ namespace mako\reactor\traits;
 
 use Closure;
 
+use function escapeshellarg;
+use function escapeshellcmd;
 use function feof;
 use function fread;
 use function pclose;
