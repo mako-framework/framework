@@ -2,7 +2,7 @@
 
 #### Bugfixes
 
-* Fixed an issue where path to the reactor executable would fail. ([#283](https://github.com/mako-framework/framework/pull/283)).
+* Fixed an issue where the path to the reactor executable would fail. ([#283](https://github.com/mako-framework/framework/pull/283)).
 
 --------------------------------------------------------
 
