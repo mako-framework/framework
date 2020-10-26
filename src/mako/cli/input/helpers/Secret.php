@@ -9,6 +9,7 @@ namespace mako\cli\input\helpers;
 
 use RuntimeException;
 
+use function escapeshellcmd;
 use function exec;
 use function shell_exec;
 use function trim;

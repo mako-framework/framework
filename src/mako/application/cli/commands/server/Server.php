@@ -12,6 +12,8 @@ use mako\cli\input\arguments\Argument;
 use mako\reactor\Command;
 
 use function dirname;
+use function escapeshellarg;
+use function escapeshellcmd;
 use function fclose;
 use function fsockopen;
 use function gethostbyname;
@@ -116,9 +118,9 @@ class Server extends Command
 
 		passthru(
 			escapeshellcmd(PHP_BINDIR . '/php') .
-			" -S " . escapeshellarg("{$address}:{$availablePort}") .
-			" -t " . escapeshellarg($docroot) .
-			' ' . escapeshellarg(__DIR__ . "/router.php")
+			' -S ' . escapeshellarg("{$address}:{$availablePort}") .
+			' -t ' . escapeshellarg($docroot) .
+			' ' . escapeshellarg(__DIR__ . '/router.php')
 		);
 	}
 }

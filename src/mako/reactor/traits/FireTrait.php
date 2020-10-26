@@ -9,6 +9,8 @@ namespace mako\reactor\traits;
 
 use Closure;
 
+use function escapeshellarg;
+use function escapeshellcmd;
 use function feof;
 use function fread;
 use function pclose;
@@ -46,10 +48,10 @@ trait FireTrait
 	{
 		if($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null)
 		{
-			$command .= " --env={$environment}";
+			$command .= ' --env=' . escapeshellarg($environment);
 		}
 
-		$command = PHP_BINARY . " {$this->buildReactorPath()} {$command} 2>&1";
+		$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg($this->buildReactorPath()) . " {$command} 2>&1";
 
 		if(DIRECTORY_SEPARATOR === '\\')
 		{

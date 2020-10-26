@@ -6,6 +6,14 @@
 
 --------------------------------------------------------
 
+### 6.3.14, 7.0.3 <small>(2020-10-26)</small>
+
+#### Bugfixes
+
+* Fixed an issue where path to the reactor executable would fail. ([#283](https://github.com/mako-framework/framework/pull/283)).
+
+--------------------------------------------------------
+
 ### 6.3.13, 7.0.2 <small>(2020-10-22)</small>
 
 #### Bugfixes
