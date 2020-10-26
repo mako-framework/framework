@@ -46,7 +46,7 @@ trait FireTrait
 	{
 		if($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null)
 		{
-			$command .= ' ' . escapeshellarg("--env={$environment}");
+			$command .= ' --env=' . escapeshellarg($environment);
 		}
 
 		$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg($this->buildReactorPath()) . " {$command} 2>&1";
