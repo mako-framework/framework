@@ -171,13 +171,13 @@ class FireTraitTest extends TestCase
 
 		if(DIRECTORY_SEPARATOR === '/')
 		{
-			$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 ' . escapeshellarg('--env=dev') . ' 2>&1';
+			$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 --env=\'dev\' 2>&1';
 
 			$this->assertEquals($command, $class->test());
 		}
 		else
 		{
-			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 ' . escapeshellarg('--env=dev') . ' 2>&1';
+			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 --env=\'dev\' 2>&1';
 		}
 	}
 
@@ -222,7 +222,7 @@ class FireTraitTest extends TestCase
 		}
 		else
 		{
-			$command = 'start ' .escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . '  foobar --test=1 --env=prod 2>&1';
+			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . '  foobar --test=1 --env=prod 2>&1';
 		}
 	}
 
