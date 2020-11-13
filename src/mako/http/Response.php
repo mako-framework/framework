@@ -114,7 +114,7 @@ class Response
 		100 => 'Continue',
 		101 => 'Switching Protocols',
 		102 => 'Processing',
-		103 => 'Checkpoint',
+		103 => 'Early Hints',
 
 		// 2xx Success
 
@@ -137,6 +137,7 @@ class Response
 		303 => 'See Other',
 		304 => 'Not Modified',
 		305 => 'Use Proxy',
+		306 => 'Switch Proxy',
 		307 => 'Temporary Redirect',
 		308 => 'Permanent Redirect',
 
@@ -166,6 +167,7 @@ class Response
 		422 => 'Unprocessable Entity',
 		423 => 'Locked',
 		424 => 'Failed Dependency',
+		425 => 'Too Early',
 		426 => 'Upgrade Required',
 		428 => 'Precondition Required',
 		429 => 'Too Many Requests',

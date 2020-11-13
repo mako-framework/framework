@@ -3,6 +3,8 @@
 #### New
 
 * It is now possible to register contextual dependencies for class methods in the container.
+* Added a HTTP status code helper class.
+* Added missing status codes to `Response` class.
 
 --------------------------------------------------------
 
