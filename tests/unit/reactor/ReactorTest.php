@@ -395,7 +395,7 @@ EOF;
 
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['command' => 'foo'])->andThrow(new InvalidArgumentException('Invalid argument [ bar ].'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', [])->andThrow(new InvalidArgumentException('Invalid argument [ bar ].'));
 
 		//
 
@@ -443,7 +443,7 @@ EOF;
 
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['command' => 'foo'])->andThrow(new UnexpectedValueException('Unexpected value.'));
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', [])->andThrow(new UnexpectedValueException('Unexpected value.'));
 
 		//
 
@@ -475,7 +475,7 @@ EOF;
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
-		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
+		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo', 'test' => 'bar']);
 
 		//
 
@@ -489,7 +489,7 @@ EOF;
 
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
-		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['command' => 'foo']);
+		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['test' => 'bar']);
 
 		//
 

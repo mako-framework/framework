@@ -364,9 +364,13 @@ class Reactor
 	{
 		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
 
+		$globalArgumentNames = array_keys($this->input->getArgumentParser()->getArguments());
+
 		$this->input->getArgumentParser()->clearCache()->addArguments($commandInstance->getArguments());
 
-		return $this->dispatcher->dispatch($this->commands[$command], $this->input->getArguments());
+		$filteredArguments = array_diff_key($this->input->getArguments(), array_flip($globalArgumentNames));
+
+		return $this->dispatcher->dispatch($this->commands[$command], $filteredArguments);
 	}
 
 	/**
