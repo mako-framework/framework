@@ -1,5 +1,5 @@
 # Mako Framework
 
-[![Build Status](https://img.shields.io/travis/mako-framework/framework/master.svg?style=flat)](https://travis-ci.org/mako-framework/framework)
+[![Build Status](https://github.com/mako-framework/framework/workflows/CI/badge.svg)](https://github.com/mako-framework/framework/actions?query=workflow%3ACI)
 
 This is the Mako Framework core. You'll find the documentation at [makoframework.com](http://makoframework.com/).
