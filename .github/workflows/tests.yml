@@ -1,0 +1,52 @@
+name: "CI"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit-tests-on-linux:
+    name: "Unit tests on linux"
+    runs-on: "ubuntu-latest"
+    continue-on-error: ${{ matrix.experimental }}
+    services:
+      redis:
+        image: redis:6.0
+        ports:
+          - 6379:6379
+        options: --entrypoint redis-server
+    strategy:
+      fail-fast: false
+      matrix:
+          php-version:
+            - "7.2"
+            - "7.3"
+            - "7.4"
+          experimental:
+            - false
+          include:
+            - php-version: "8.0"
+              experimental: true
+              composer-options: "--ignore-platform-reqs"
+            - php-version: "8.1"
+              experimental: true
+              composer-options: "--ignore-platform-reqs"
+    steps:
+      - name: "Checkout code"
+        uses: "actions/checkout@v2"
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          extensions: mbstring, sqlite, pdo, pdo_sqlite
+          ini-values: "memory_limit=-1"
+          tools: composer:v2
+          coverage: none
+      - name: "Install dependencies"
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer install --prefer-dist --no-interaction --no-progress ${{ matrix.composer-options }}
+      - name: "Run unit tests"
+        run: "./vendor/bin/phpunit --verbose"
