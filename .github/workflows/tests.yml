@@ -24,14 +24,13 @@ jobs:
             - "7.4"
           experimental:
             - false
-          composer-options: "--no-interaction --prefer-source --no-suggest"
           include:
             - php-version: "8.0"
               experimental: true
-              composer-options: "--no-interaction --prefer-source --no-suggest --ignore-platform-reqs"
+              composer-options: "--ignore-platform-reqs"
             - php-version: "8.1"
               experimental: true
-              composer-options: "--no-interaction --prefer-source --no-suggest --ignore-platform-reqs"
+              composer-options: "--ignore-platform-reqs"
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v2"
@@ -45,6 +44,6 @@ jobs:
       - name: "Install dependencies"
         uses: "ramsey/composer-install@v1"
         with:
-          composer-options: "${{ matrix.composer-options }}"
+          composer-options: "--no-interaction --prefer-source --no-suggest ${{ matrix.composer-options }}"
       - name: "Run unit tests"
         run: "./vendor/bin/phpunit --verbose"
