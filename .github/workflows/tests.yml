@@ -40,10 +40,13 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           extensions: mbstring, sqlite, pdo, pdo_sqlite
           ini-values: "memory_limit=-1"
+          tools: composer:v2
           coverage: none
       - name: "Install dependencies"
-        uses: "ramsey/composer-install@v1"
+        uses: nick-invision/retry@v1
         with:
-          composer-options: "--no-interaction --prefer-source --no-suggest ${{ matrix.composer-options }}"
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer install --prefer-dist --no-interaction --no-progress --${{ matrix.composer-options }}
       - name: "Run unit tests"
         run: "./vendor/bin/phpunit --verbose"
