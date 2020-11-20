@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  unit-tests-on-linux:
-    name: "Unit tests on linux"
+  tests-on-linux:
+    name: "Tests on linux"
     runs-on: "ubuntu-latest"
     continue-on-error: ${{ matrix.experimental }}
     services:
