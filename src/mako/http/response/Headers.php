@@ -107,7 +107,7 @@ class Headers implements Countable, IteratorAggregate
 	 *
 	 * @param  string $name          Header name
 	 * @param  string $value         Header value
-	 * @param  string $caseSensitive Should the comparison be case-sensitive?
+	 * @param  bool   $caseSensitive Should the comparison be case-sensitive?
 	 * @return bool
 	 */
 	public function hasValue(string $name, string $value, bool $caseSensitive = true): bool

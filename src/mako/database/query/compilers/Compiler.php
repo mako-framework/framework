@@ -74,10 +74,9 @@ class Compiler
 	/**
 	 * Sets the date format.
 	 *
-	 * @param  string $dateFormat Date format
-	 * @return string
+	 * @param string $dateFormat Date format
 	 */
-	public static function setDateFormat(string $dateFormat)
+	public static function setDateFormat(string $dateFormat): void
 	{
 		static::$dateFormat = $dateFormat;
 	}

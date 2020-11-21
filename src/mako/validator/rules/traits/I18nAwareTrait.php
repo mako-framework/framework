@@ -100,6 +100,14 @@ trait I18nAwareTrait
 	}
 
 	/**
+	 * Returns an error message.
+	 *
+	 * @param  string $field Field name
+	 * @return string
+	 */
+	abstract public function getErrorMessage(string $field): string;
+
+	/**
 	 * Returns the translated error message.
 	 *
 	 * @param  string      $field   Field name
