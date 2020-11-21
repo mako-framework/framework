@@ -12,8 +12,6 @@ use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
 
-use function sprintf;
-
 /**
  * One-time token rule.
  *
@@ -53,6 +51,6 @@ class OneTimeToken extends Rule implements RuleInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('Invalid security token.', $field);
+		return 'Invalid security token.';
 	}
 }

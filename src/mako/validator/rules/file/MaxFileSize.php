@@ -57,7 +57,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	{
 		if(is_numeric($unit = substr($size, -3)) === false)
 		{
-			$size = substr($size, 0, -3);
+			$size = (int) substr($size, 0, -3);
 
 			switch($unit)
 			{
