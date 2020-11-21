@@ -81,7 +81,7 @@ class File extends Store
 
 		$data = $ttl . "\n" . serialize($data);
 
-		return is_int($this->fileSystem->put($this->cacheFile($key), $data, LOCK_EX));
+		return is_int($this->fileSystem->put($this->cacheFile($key), $data, true));
 	}
 
 	/**
