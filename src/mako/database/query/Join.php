@@ -124,7 +124,7 @@ class Join
 	 * @param  string                    $column1    Column name
 	 * @param  string                    $operator   Operator
 	 * @param  string                    $raw        Raw SQL
-	 * @param  string                    $parameters Parameters
+	 * @param  array                     $parameters Parameters
 	 * @param  string                    $separator  Condition separator
 	 * @return \mako\database\query\Join
 	 */
