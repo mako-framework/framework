@@ -82,7 +82,7 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 *
-	 * @param  string                               $column1   Column name
+	 * @param  string|\Closure                      $column1   Column name
 	 * @param  string|null                          $operator  Operator
 	 * @param  string|\mako\database\query\Raw|null $column2   Column name
 	 * @param  string                               $separator Condition separator
@@ -135,7 +135,7 @@ class Join
 	/**
 	 * Adds a OR ON condition to the join.
 	 *
-	 * @param  string                               $column1  Column name
+	 * @param  string|\Closure                      $column1  Column name
 	 * @param  string|null                          $operator Operator
 	 * @param  string|\mako\database\query\Raw|null $column2  Column name
 	 * @return \mako\database\query\Join

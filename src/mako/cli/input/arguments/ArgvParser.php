@@ -254,7 +254,7 @@ class ArgvParser
 	 *
 	 * @param \mako\cli\input\arguments\Argument $argument Argument
 	 * @param string|null                        $token    Token
-	 * @param string|bool                        $value    Value
+	 * @param string|bool|null                   $value    Value
 	 */
 	protected function storeValue(Argument $argument, ?string $token, $value): void
 	{
