@@ -485,7 +485,7 @@ class Request
 	 *
 	 * @return \mako\http\request\Body
 	 */
-	public function getBody(): Parameters
+	public function getBody(): Body
 	{
 		if($this->parsedBody === null)
 		{
