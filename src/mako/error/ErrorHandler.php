@@ -63,7 +63,7 @@ class ErrorHandler
 	/**
 	 * Logger instance.
 	 *
-	 * @var \Psr\Log\LoggerInterface
+	 * @var \Closure|\Psr\Log\LoggerInterface
 	 */
 	protected $logger;
 
