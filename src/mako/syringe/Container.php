@@ -319,7 +319,7 @@ class Container
 	 *
 	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
 	 * @param  \ReflectionClass|null $class     ReflectionClass instance
-	 * @param  string|null           $name      Metod name
+	 * @param  string|null           $method    Metod name
 	 * @return mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null)
@@ -377,7 +377,7 @@ class Container
 	 * @param  array                 $reflectionParameters Reflection parameters
 	 * @param  array                 $providedParameters   Provided Parameters
 	 * @param  \ReflectionClass|null $class                ReflectionClass instance
-	 * @param  string|null           $name                 Method name
+	 * @param  string|null           $method               Method name
 	 * @return array
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null, ?string $method = null): array
