@@ -16,8 +16,8 @@ use mako\chrono\traits\TimeTrait;
  * @author Frederic G. Østby
  *
  * @method $this|false setTimezone(string|\DateTimeZone $timeZone)
- * @method $this|false forward(int seconds)
- * @method $this|false rewind(int seconds)
+ * @method $this|false forward(int $seconds)
+ * @method $this|false rewind(int $seconds)
  */
 class Time extends DateTime implements TimeInterface
 {
