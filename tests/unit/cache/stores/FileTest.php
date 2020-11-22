@@ -39,7 +39,7 @@ class FileTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (31556926 + time()) . "\n" . serialize(123), LOCK_EX);
+		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (31556926 + time()) . "\n" . serialize(123), true);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -47,7 +47,7 @@ class FileTest extends TestCase
 
 		//
 
-		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (3600 + time()) . "\n" . serialize(123), LOCK_EX);
+		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (3600 + time()) . "\n" . serialize(123), true);
 
 		$file = new File($fileSystem, '/cache');
 
