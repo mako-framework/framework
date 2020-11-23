@@ -114,6 +114,8 @@ class GroupRepository implements GroupRepositoryInterface
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
 	public function getByIdentifier($identifier)
 	{
@@ -123,6 +125,8 @@ class GroupRepository implements GroupRepositoryInterface
 				return $this->getByName($identifier);
 			case 'id':
 				return $this->getById($identifier);
+			default:
+				throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 	}
 }

@@ -8,7 +8,7 @@
 namespace mako\validator\rules\traits;
 
 use mako\i18n\I18n;
-use mako\validator\rules\RuleInterface;
+use mako\validator\rules\I18nAwareInterface;
 
 use function array_flip;
 use function array_intersect_key;
@@ -38,10 +38,10 @@ trait I18nAwareTrait
 	/**
 	 * Sets the I18n instance.
 	 *
-	 * @param  \mako\i18n\I18n                     $i18n I18n
-	 * @return \mako\validator\rules\RuleInterface
+	 * @param  \mako\i18n\I18n                          $i18n I18n
+	 * @return \mako\validator\rules\I18nAwareInterface
 	 */
-	public function setI18n(I18n $i18n): RuleInterface
+	public function setI18n(I18n $i18n): I18nAwareInterface
 	{
 		$this->i18n = $i18n;
 

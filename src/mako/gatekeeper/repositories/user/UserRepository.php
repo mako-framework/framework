@@ -192,6 +192,8 @@ class UserRepository implements UserRepositoryInterface
 				return $this->getByUsername($identifier);
 			case 'id':
 				return $this->getById($identifier);
+			default:
+				throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 	}
 }

@@ -19,10 +19,10 @@ interface I18nAwareInterface
 	/**
 	 * Sets the I18n instance.
 	 *
-	 * @param  \mako\i18n\I18n                     $i18n I18n
-	 * @return \mako\validator\rules\RuleInterface
+	 * @param  \mako\i18n\I18n                          $i18n I18n
+	 * @return \mako\validator\rules\I18nAwareInterface
 	 */
-	public function setI18n(I18n $i18n): RuleInterface;
+	public function setI18n(I18n $i18n): I18nAwareInterface;
 
 	/**
 	 * Returns the translated error message.

@@ -396,7 +396,7 @@ class ValidatorTest extends TestCase
 
 			}
 
-			public function setI18n(I18n $i18n): RuleInterface
+			public function setI18n(I18n $i18n): I18nAwareInterface
 			{
 				$this->i18n = $i18n;
 

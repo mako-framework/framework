@@ -9,6 +9,7 @@ namespace mako\tests\unit\validator\rules\traits;
 
 use mako\i18n\I18n;
 use mako\tests\TestCase;
+use mako\validator\rules\I18nAwareInterface;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\I18nAwareTrait;
 use Mockery;
@@ -23,7 +24,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessage(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
@@ -50,7 +51,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageFromPackage(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
@@ -77,7 +78,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageWithParameters(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
@@ -110,7 +111,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldName(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
@@ -143,7 +144,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldNames(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
@@ -188,7 +189,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testDefaultI18nMessage(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
@@ -219,7 +220,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testDefaultMessage(): void
 	{
-		$rule = new class implements RuleInterface
+		$rule = new class implements RuleInterface, I18nAwareInterface
 		{
 			use I18nAwareTrait;
 
