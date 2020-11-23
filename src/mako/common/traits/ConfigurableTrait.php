@@ -60,6 +60,6 @@ trait ConfigurableTrait
 	 */
 	public function removeConfiguration(string $name): void
 	{
-		unset($this->configurations[$name], $this->connections[$name]);
+		unset($this->configurations[$name]);
 	}
 }

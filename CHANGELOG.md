@@ -1,8 +1,18 @@
+### 6.3.14 <small>(2020-11-23)</small>
+
+#### Bugfixes
+
+* Connection managers will now close connections before removing configurations when calling the `removeConfiguration` method.
+
+--------------------------------------------------------
+
 ### 6.3.14 <small>(2020-10-26)</small>
 
 #### Bugfixes
 
 * Fixed an issue where the path to the reactor executable would fail. ([#283](https://github.com/mako-framework/framework/pull/283)).
+
+--------------------------------------------------------
 
 ### 6.3.13 <small>(2020-10-22)</small>
 
