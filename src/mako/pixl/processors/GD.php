@@ -219,7 +219,7 @@ class GD implements ProcessorInterface
 	 */
 	public function restore(): void
 	{
-		if(is_resource($this->snapshot) === false || ($this->snapshot instanceof GdImage) === false)
+		if(is_resource($this->snapshot) === false || (class_exists(GdImage::class, false) && ($this->snapshot instanceof GdImage) === false))
 		{
 			throw new RuntimeException('No snapshot to restore.');
 		}
