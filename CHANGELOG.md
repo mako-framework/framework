@@ -8,6 +8,14 @@
 
 --------------------------------------------------------
 
+### 6.3.15, 7.0.4 <small>(2020-11-23)</small>
+
+#### Bugfixes
+
+* Connection managers will now close connections before removing configurations when calling the `removeConfiguration` method.
+
+--------------------------------------------------------
+
 ### 6.3.14, 7.0.3 <small>(2020-10-26)</small>
 
 #### Bugfixes

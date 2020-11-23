@@ -804,8 +804,7 @@ class Redis
 	/**
 	 * Handles blob error responses.
 	 *
-	 * @param  string $response Redis response
-	 * @return void
+	 * @param string $response Redis response
 	 */
 	protected function handleBlobErrorResponse(string $response): void
 	{
@@ -854,7 +853,7 @@ class Redis
 			case '-': // simple error response
 				return $this->handleSimpleErrorResponse($response);
 			case '!': // blob error response
-				return $this->handleBlobErrorResponse($response);
+				$this->handleBlobErrorResponse($response);
 			case '_': // null response
 				return null;
 			case '.': // end response (internal type used to represent the end of a streamed aggregate response)
