@@ -114,7 +114,7 @@ class Request
 	/**
 	 * Parsed request body.
 	 *
-	 * @var \mako\http\request\Parameters
+	 * @var \mako\http\request\Body
 	 */
 	protected $parsedBody;
 
