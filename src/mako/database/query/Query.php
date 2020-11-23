@@ -1169,10 +1169,10 @@ class Query
 	/**
 	 * Adds a HAVING clause.
 	 *
-	 * @param  string $column    Column name
-	 * @param  string $operator  Operator
-	 * @param  mixed  $value     Value
-	 * @param  string $separator Clause separator
+	 * @param  string|\mako\database\query\Raw $column    Column name
+	 * @param  string                          $operator  Operator
+	 * @param  mixed                           $value     Value
+	 * @param  string                          $separator Clause separator
 	 * @return $this
 	 */
 	public function having($column, $operator, $value, string $separator = 'AND')
@@ -1231,8 +1231,8 @@ class Query
 	/**
 	 * Adds a ORDER BY clause.
 	 *
-	 * @param  string|array $columns Column name or array of column names
-	 * @param  string       $order   Sorting order
+	 * @param  string|array|\mako\database\query\Raw $columns Column name or array of column names
+	 * @param  string                                $order   Sorting order
 	 * @return $this
 	 */
 	public function orderBy($columns, string $order = 'ASC')

@@ -78,7 +78,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Image resource.
 	 *
-	 * @var resource
+	 * @var \GdImage|resource|null
 	 */
 	protected $snapshot;
 
@@ -284,7 +284,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): void
+	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): void
 	{
 		$oldWidth  = imagesx($this->image);
 		$oldHeight = imagesy($this->image);

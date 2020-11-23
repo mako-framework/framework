@@ -64,11 +64,11 @@ interface ProcessorInterface
 	/**
 	 * Resizes the image to the chosen size.
 	 *
-	 * @param int $width       Width of the image
-	 * @param int $height      Height of the image
-	 * @param int $aspectRatio Aspect ratio
+	 * @param int      $width       Width of the image
+	 * @param int|null $height      Height of the image
+	 * @param int      $aspectRatio Aspect ratio
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE);
+	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE);
 
 	/**
 	 * Crops the image.

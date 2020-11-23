@@ -37,7 +37,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * Imagick instance.
 	 *
-	 * @var \Imagick
+	 * @var \Imagick|null
 	 */
 	protected $snapshot;
 
@@ -139,7 +139,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): void
+	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): void
 	{
 		$oldWidth  = $this->image->getImageWidth();
 		$oldHeight = $this->image->getImageHeight();

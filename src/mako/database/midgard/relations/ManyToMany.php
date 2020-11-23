@@ -226,7 +226,7 @@ class ManyToMany extends Relation
 	/**
 	 * Returns a related result set from the database.
 	 *
-	 * @return \mako\database\midgard\ORM
+	 * @return \mako\database\midgard\ResultSet
 	 */
 	public function getRelated()
 	{
@@ -383,7 +383,7 @@ class ManyToMany extends Relation
 
 		if(!empty($diff = array_diff($keys, $existing)))
 		{
-			$success = $success && $this->link($diff);
+			$success = $this->link($diff);
 		}
 
 		// Unlink old relations
