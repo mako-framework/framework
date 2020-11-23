@@ -19,7 +19,9 @@ use function method_exists;
  */
 abstract class ConnectionManager
 {
-	use ConfigurableTrait;
+	use ConfigurableTrait {
+		ConfigurableTrait::removeConfiguration as baseRemoveConfiguration;
+	}
 
 	/**
 	 * Connections.
@@ -91,6 +93,19 @@ abstract class ConnectionManager
 		$this->close($connection);
 
 		return $returnValue;
+	}
+
+	/**
+	 * Removes a configuration.
+	 * It will also close and remove any active connection linked to the configuration.
+	 *
+	 * @param string $name Connection name
+	 */
+	public function removeConfiguration(string $name): void
+	{
+		$this->close($name);
+
+		$this->baseRemoveConfiguration($name);
 	}
 
 	/**
