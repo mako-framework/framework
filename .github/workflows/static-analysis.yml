@@ -1,0 +1,32 @@
+name: "Static analysis"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static-analysis:
+    name: "Static analysis"
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+          php-version:
+            - "7.3"
+    steps:
+      - name: "Checkout code"
+        uses: "actions/checkout@v2"
+      - name: "Setup PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          ini-values: "memory_limit=-1"
+          tools: composer:v2
+          coverage: none
+      - name: "Install dependencies"
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer install --prefer-dist --no-interaction --no-progress
+      - name: "Run analysis"
+        run: "./vendor/bin/phpstan analyze src --no-progress --memory-limit=-1 -c phpstan.neon -l 1"
