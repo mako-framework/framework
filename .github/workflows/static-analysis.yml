@@ -29,4 +29,4 @@ jobs:
           max_attempts: 5
           command: composer install --prefer-dist --no-interaction --no-progress
       - name: "Run analysis"
-        run: "./vendor/bin/phpstan analyze src --no-progress --memory-limit=-1 -c phpstan.neon -l 1"
+        run: "./vendor/bin/phpstan analyze src --no-progress --memory-limit=-1 -c phpstan.neon"
