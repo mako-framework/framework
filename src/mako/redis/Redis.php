@@ -868,7 +868,7 @@ class Redis
 	 *
 	 * @param  string $name      Camel cased or snake cased command name
 	 * @param  array  $arguments Command arguments
-	 * @return array
+	 * @return string
 	 */
 	protected function buildCommand(string $name, array $arguments = []): string
 	{
