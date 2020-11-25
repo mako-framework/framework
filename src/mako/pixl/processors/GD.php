@@ -16,6 +16,7 @@ use RuntimeException;
 use function abs;
 use function array_map;
 use function array_sum;
+use function class_exists;
 use function function_exists;
 use function getimagesize;
 use function hexdec;
