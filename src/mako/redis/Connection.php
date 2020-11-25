@@ -22,6 +22,7 @@ use function stream_set_timeout;
 use function stream_socket_client;
 use function strlen;
 use function substr;
+use function trim;
 use function vsprintf;
 
 /**

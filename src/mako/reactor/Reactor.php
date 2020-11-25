@@ -17,7 +17,9 @@ use mako\common\traits\SuggestionTrait;
 use mako\syringe\Container;
 use ReflectionClass;
 
+use function array_diff_key;
 use function array_filter;
+use function array_flip;
 use function array_keys;
 use function array_map;
 use function implode;
