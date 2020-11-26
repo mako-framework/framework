@@ -27,8 +27,6 @@ jobs:
           experimental:
             - false
           include:
-            - php-version: "8.0"
-              composer-options: "--ignore-platform-reqs"
             - php-version: "8.1"
               experimental: true
               composer-options: "--ignore-platform-reqs"
