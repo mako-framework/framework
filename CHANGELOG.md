@@ -1,3 +1,11 @@
+### 6.3.16 <small>(2020-11-26)</small>
+
+#### Bugfixes
+
+* Fixed error that could occur when restoring GD snapshots on PHP `8.0`.
+
+--------------------------------------------------------
+
 ### 6.3.15 <small>(2020-11-23)</small>
 
 #### Bugfixes
