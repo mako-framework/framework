@@ -7,7 +7,6 @@
 
 namespace mako\utility;
 
-use Closure;
 use Throwable;
 
 use function usleep;
@@ -27,11 +26,11 @@ class Retry
 	protected $callable;
 
 	/**
-	 * The maximum number of attempts.
+	 * The number of attempts.
 	 *
 	 * @var int
 	 */
-	protected $maxAttempts;
+	protected $attempts;
 
 	/**
 	 * The time we want to want to wait between each attempt in microseconds.
@@ -41,25 +40,25 @@ class Retry
 	protected $wait;
 
 	/**
-	 * Closure that decides whether or not we should retry.
+	 * Callable that decides whether or not we should retry.
 	 *
-	 * @var \Closure|null
+	 * @var callable|null
 	 */
 	protected $decider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param callable      $callable    The callable
-	 * @param int           $maxAttempts The maximum number of attempts
-	 * @param int           $wait        The time we want to want to wait between each attempt in microseconds
-	 * @param \Closure|null $decider     Closure that decides whether or not we should retry
+	 * @param callable      $callable The callable
+	 * @param int           $attempts The number of attempts
+	 * @param int           $wait     The time we want to want to wait between each attempt in microseconds
+	 * @param callable|null $decider  Callable that decides whether or not we should retry
 	 */
-	public function __construct(callable $callable, $maxAttempts = 5, $wait = 50000, ?Closure $decider = null)
+	public function __construct(callable $callable, $attempts = 5, $wait = 50000, ?callable $decider = null)
 	{
 		$this->callable = $callable;
 
-		$this->maxAttempts = $maxAttempts;
+		$this->attempts = $attempts;
 
 		$this->wait = $wait;
 
@@ -67,14 +66,14 @@ class Retry
 	}
 
 	/**
-	 * Sets the maximum number of attempts.
+	 * Sets the number of attempts.
 	 *
-	 * @param  int                 $maxAttempts The maximum number of attempts
+	 * @param  int                 $attempts The maximum number of attempts
 	 * @return \mako\utility\Retry
 	 */
-	public function times(int $maxAttempts): Retry
+	public function setAttempts(int $attempts): Retry
 	{
-		$this->maxAttempts = $maxAttempts;
+		$this->attempts = $attempts;
 
 		return $this;
 	}
@@ -85,7 +84,7 @@ class Retry
 	 * @param  int                 $wait The time we want to want to wait between each attempt in microseconds
 	 * @return \mako\utility\Retry
 	 */
-	public function waitFor(int $wait): Retry
+	public function setWait(int $wait): Retry
 	{
 		$this->wait = $wait;
 
@@ -95,10 +94,10 @@ class Retry
 	/**
 	 * Sets the decider that decides whether or not we should retry.
 	 *
-	 * @param  \Closure            $decider Closure that decides whether or not we should retry
+	 * @param  callable            $decider Callable that decides whether or not we should retry
 	 * @return \mako\utility\Retry
 	 */
-	public function if(Closure $decider): Retry
+	public function setDecider(callable $decider): Retry
 	{
 		$this->decider = $decider;
 
@@ -122,7 +121,7 @@ class Retry
 		}
 		catch(Throwable $e)
 		{
-			if(++$attempts < $this->maxAttempts && ($this->decider === null || ($this->decider)($e) === true))
+			if(++$attempts < $this->attempts && ($this->decider === null || ($this->decider)($e) === true))
 			{
 				usleep($this->wait);
 

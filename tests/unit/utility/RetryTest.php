@@ -93,7 +93,7 @@ class RetryTest extends TestCase
 	{
 		$callable = $this->getCallable();
 
-		$this->assertSame('failsFourTimes', (new Retry([$callable, 'failsFourTimes']))->times(5)->waitFor(0)());
+		$this->assertSame('failsFourTimes', (new Retry([$callable, 'failsFourTimes']))->setAttempts(5)->setWait(0)());
 
 		$this->assertSame(5, $callable->getAttempts());
 	}
@@ -134,7 +134,7 @@ class RetryTest extends TestCase
 		{
 			$callable = $this->getCallable();
 
-			(new Retry([$callable, 'failsFourTimes']))->times(4)->waitFor(0)();
+			(new Retry([$callable, 'failsFourTimes']))->setAttempts(4)->SetWait(0)();
 
 			$this->assertSame(4, $callable->getAttempts());
 		}
@@ -183,7 +183,7 @@ class RetryTest extends TestCase
 		{
 			$callable = $this->getCallable();
 
-			(new Retry([$callable, 'failsFourTimes']))->if(function(Throwable $e)
+			(new Retry([$callable, 'failsFourTimes']))->setDecider(function(Throwable $e)
 			{
 				return $e instanceof InvalidArgumentException;
 			})();
