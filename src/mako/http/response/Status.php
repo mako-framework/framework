@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http;
+namespace mako\http\response;
 
 /**
  * HTTP status codes.
