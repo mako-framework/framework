@@ -7,6 +7,10 @@
 * Added missing status codes to `Response` class.
 * Added a `Retry` helper class that allows you to retry a callable a set number of times.
 
+#### Changes
+
+* Cloned database connections will now get a new PDO instance and have their query log and transaction nesting level reset.
+
 --------------------------------------------------------
 
 ### 6.3.16, 7.0.5 <small>(2020-11-26)</small>

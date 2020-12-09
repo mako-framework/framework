@@ -216,6 +216,19 @@ class ConnectionManager extends BaseConnectionManager
 	}
 
 	/**
+	 * Adds a database connection to the connection manager.
+	 *
+	 * @param  \mako\database\connections\Connection $connection Database connection
+	 * @return \mako\database\ConnectionManager
+	 */
+	public function setConnection(Connection $connection): ConnectionManager
+	{
+		$this->connections[$connection->getName()] = $connection;
+
+		return $this;
+	}
+
+	/**
 	 * Clears the query log of every connection.
 	 */
 	public function clearLogs(): void

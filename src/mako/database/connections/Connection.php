@@ -191,6 +191,20 @@ class Connection
 	}
 
 	/**
+	 * Reset the log and transaction nesting level and create a new PDO instance when cloning the connection.
+	 */
+	public function __clone()
+	{
+		$this->name = "{$this->name}_clone";
+
+		$this->log = [];
+
+		$this->transactionNestingLevel = 0;
+
+		$this->pdo = $this->connect();
+	}
+
+	/**
 	 * Closes the database connection.
 	 */
 	public function close(): void
