@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Arr rule.
- *
- * @author Frederic G. Østby
  */
 class Arr extends Rule implements RuleInterface
 {

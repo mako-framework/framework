@@ -27,8 +27,6 @@ use function vsprintf;
 
 /**
  * Application.
- *
- * @author Frederic G. Østby
  */
 abstract class Application
 {

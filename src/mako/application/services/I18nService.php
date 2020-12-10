@@ -14,8 +14,6 @@ use mako\i18n\loaders\Loader;
 
 /**
  * I18n service.
- *
- * @author Frederic G. Østby
  */
 class I18nService extends Service
 {

@@ -16,8 +16,6 @@ use function sprintf;
 
 /**
  * Max filename length rule.
- *
- * @author Frederic G. Østby
  */
 class MaxFilenameLength extends Rule implements RuleInterface
 {

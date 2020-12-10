@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Handler interface.
- *
- * @author Frederic G. Østby
  */
 interface HandlerInterface
 {

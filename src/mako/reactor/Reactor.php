@@ -27,8 +27,6 @@ use function ksort;
 
 /**
  * Reactor.
- *
- * @author Frederic G. Østby
  */
 class Reactor
 {

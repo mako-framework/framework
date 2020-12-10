@@ -9,8 +9,6 @@ namespace mako\security\password;
 
 /**
  * Hahser interface.
- *
- * @author Frederic G. Østby
  */
 interface HasherInterface
 {

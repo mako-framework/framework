@@ -12,8 +12,6 @@ use mako\cache\stores\StoreInterface;
 
 /**
  * Cache service.
- *
- * @author Frederic G. Østby
  */
 class CacheService extends Service
 {

@@ -11,8 +11,6 @@ use function microtime;
 
 /**
  * Stopwatch lap.
- *
- * @author Yamada Taro
  */
 class Lap
 {

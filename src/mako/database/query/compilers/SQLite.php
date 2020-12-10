@@ -11,9 +11,6 @@ use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 
 /**
  * Compiles SQLite queries.
- *
- * @author Frederic G. Østby
- * @author Yamada Taro
  */
 class SQLite extends Compiler
 {

@@ -11,8 +11,6 @@ use mako\event\Event;
 
 /**
  * Event service.
- *
- * @author Frederic G. Østby
  */
 class EventService extends Service
 {

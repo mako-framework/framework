@@ -81,8 +81,6 @@ use function vsprintf;
 
 /**
  * Input validation.
- *
- * @author Frederic G. Østby
  */
 class Validator
 {

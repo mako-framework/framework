@@ -9,8 +9,6 @@ namespace mako\common\traits;
 
 /**
  * Configurable trait.
- *
- * @author Frederic G. Østby
  */
 trait ConfigurableTrait
 {

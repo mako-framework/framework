@@ -9,8 +9,6 @@ namespace mako\validator\rules;
 
 /**
  * Rule interface.
- *
- * @author Frederic G. Østby
  */
 interface RuleInterface
 {

@@ -20,8 +20,6 @@ use function random_bytes;
 
 /**
  * Content security policy middleware.
- *
- * @author Frederic G. Østby
  */
 class ContentSecurityPolicy implements MiddlewareInterface
 {

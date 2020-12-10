@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Exact dimensions rule.
- *
- * @author Frederic G. Østby
  */
 class ExactDimensions extends Rule implements RuleInterface
 {

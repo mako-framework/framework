@@ -11,8 +11,6 @@ use Closure;
 
 /**
  * Subquery container.
- *
- * @author Frederic G. Østby
  */
 class Subquery
 {

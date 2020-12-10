@@ -13,8 +13,6 @@ use function str_replace;
 
 /**
  * Compiles MySQL queries.
- *
- * @author Frederic G. Østby
  */
 class MySQL extends Compiler
 {

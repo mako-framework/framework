@@ -27,8 +27,6 @@ use function stripos;
 
 /**
  * HTTP response.
- *
- * @author Frederic G. Østby
  */
 class Response
 {

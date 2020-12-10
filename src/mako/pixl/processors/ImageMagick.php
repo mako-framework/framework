@@ -20,8 +20,6 @@ use function vsprintf;
 
 /**
  * ImageMagick processor.
- *
- * @author Frederic G. Østby
  */
 class ImageMagick implements ProcessorInterface
 {

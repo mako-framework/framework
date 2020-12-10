@@ -14,8 +14,6 @@ use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
 
 /**
  * Token rule.
- *
- * @author Frederic G. Østby
  */
 class Token extends Rule implements RuleInterface
 {

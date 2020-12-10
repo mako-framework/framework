@@ -32,8 +32,6 @@ use function vsprintf;
 
 /**
  * File response.
- *
- * @author Frederic G. Østby
  */
 class File implements ResponseSenderInterface
 {

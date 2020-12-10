@@ -16,8 +16,6 @@ use function preg_replace;
 
 /**
  * Command that generates a new application secret.
- *
- * @author Frederic G. Østby
  */
 class GenerateSecret extends Command
 {

@@ -12,8 +12,6 @@ use mako\database\midgard\ORM;
 
 /**
  * Belongs to polymorphic relation.
- *
- * @author Frederic G. Østby
  */
 class BelongsToPolymorphic extends BelongsTo
 {

@@ -27,8 +27,6 @@ use function vsprintf;
 
 /**
  * Compiles SQL queries.
- *
- * @author Frederic G. Østby
  */
 class Compiler
 {

@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Alpha rule.
- *
- * @author Frederic G. Østby
  */
 class Alpha extends Rule implements RuleInterface
 {

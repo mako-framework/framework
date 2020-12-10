@@ -15,8 +15,6 @@ use function ob_start;
 
 /**
  * Plain PHP view renderer.
- *
- * @author Frederic G. Østby
  */
 class PHP implements RendererInterface
 {

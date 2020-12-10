@@ -17,8 +17,6 @@ use function openssl_random_pseudo_bytes;
 
 /**
  * OpenSSL encrypter.
- *
- * @author Frederic G. Østby
  */
 class OpenSSL extends Encrypter implements EncrypterInterface
 {

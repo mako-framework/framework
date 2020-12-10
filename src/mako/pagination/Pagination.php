@@ -18,9 +18,6 @@ use function max;
 
 /**
  * Pagination class.
- *
- * @author Frederic G. Østby
- * @author Yamada Taro
  */
 class Pagination implements PaginationInterface
 {

@@ -15,8 +15,6 @@ use function property_exists;
 
 /**
  * Timestamped trait.
- *
- * @author Frederic G. Østby
  */
 trait TimestampedTrait
 {

@@ -22,8 +22,6 @@ use function array_replace_recursive;
 /**
  * Session adapter.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\gatekeeper\entities\user\User|null getUser()
  */
 class Session extends Adapter

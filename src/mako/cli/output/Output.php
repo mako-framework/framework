@@ -15,8 +15,6 @@ use function var_export;
 
 /**
  * Output.
- *
- * @author Frederic G. Østby
  */
 class Output
 {

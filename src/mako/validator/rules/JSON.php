@@ -13,8 +13,6 @@ use function sprintf;
 
 /**
  * JSON rule.
- *
- * @author Frederic G. Østby
  */
 class JSON extends Rule implements RuleInterface
 {

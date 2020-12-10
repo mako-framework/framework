@@ -16,8 +16,6 @@ use function vsprintf;
 
 /**
  * Uploaded file.
- *
- * @author Frederic G. Østby
  */
 class UploadedFile extends FileInfo
 {

@@ -16,8 +16,6 @@ use function vsprintf;
 
 /**
  * Route collection.
- *
- * @author Frederic G. Østby
  */
 class Routes
 {

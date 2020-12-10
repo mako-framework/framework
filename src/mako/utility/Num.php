@@ -15,8 +15,6 @@ use function str_split;
 
 /**
  * Class containing number helper methods.
- *
- * @author Frederic G. Østby
  */
 class Num
 {

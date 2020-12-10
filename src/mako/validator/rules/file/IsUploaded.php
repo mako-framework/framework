@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Is uploaded rule.
- *
- * @author Frederic G. Østby
  */
 class IsUploaded extends Rule implements RuleInterface
 {

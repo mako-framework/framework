@@ -14,8 +14,6 @@ use function is_int;
 
 /**
  * Command dispatcher.
- *
- * @author Frederic G. Østby
  */
 class Dispatcher
 {

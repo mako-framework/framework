@@ -9,8 +9,6 @@ namespace mako\database\query\compilers;
 
 /**
  * Compiles Firebird queries.
- *
- * @author Frederic G. Østby
  */
 class Firebird extends Compiler
 {

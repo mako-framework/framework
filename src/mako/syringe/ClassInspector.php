@@ -13,8 +13,6 @@ use function get_parent_class;
 
 /**
  * Class inspector.
- *
- * @author Frederic G. Østby
  */
 class ClassInspector
 {

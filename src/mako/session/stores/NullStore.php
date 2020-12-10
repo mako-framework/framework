@@ -9,8 +9,6 @@ namespace mako\session\stores;
 
 /**
  * Null store.
- *
- * @author Frederic G. Østby
  */
 class NullStore implements StoreInterface
 {

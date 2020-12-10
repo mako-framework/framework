@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * In rule.
- *
- * @author Frederic G. Østby
  */
 class In extends Rule implements RuleInterface
 {

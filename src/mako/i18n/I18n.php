@@ -22,8 +22,6 @@ use function vsprintf;
 
 /**
  * Internationalization class.
- *
- * @author Frederic G. Østby
  */
 class I18n
 {

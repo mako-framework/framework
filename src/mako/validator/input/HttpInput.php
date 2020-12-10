@@ -12,8 +12,6 @@ use mako\http\routing\URLBuilder;
 
 /**
  * HTTP input.
- *
- * @author Frederic G. Østby
  */
 abstract class HttpInput extends Input implements HttpInputInterface
 {

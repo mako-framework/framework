@@ -62,8 +62,6 @@ use function vsprintf;
 
 /**
  * GD processor.
- *
- * @author Frederic G. Østby
  */
 class GD implements ProcessorInterface
 {

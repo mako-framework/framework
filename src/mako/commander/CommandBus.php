@@ -18,8 +18,6 @@ use function substr_replace;
 
 /**
  * Command bus.
- *
- * @author Yamada Taro
  */
 class CommandBus implements CommandBusInterface
 {

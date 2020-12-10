@@ -27,8 +27,6 @@ use function usort;
 
 /**
  * Base command.
- *
- * @author Frederic G. Østby
  */
 abstract class Command extends BaseCommand
 {

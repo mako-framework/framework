@@ -19,8 +19,6 @@ use mako\session\Session as HttpSession;
 
 /**
  * Gatekeeper service.
- *
- * @author Frederic G. Østby
  */
 class GatekeeperService extends Service
 {

@@ -11,8 +11,6 @@ use mako\database\query\Query;
 
 /**
  * Query builder helper.
- *
- * @author Frederic G. Østby
  */
 class Helper implements HelperInterface
 {

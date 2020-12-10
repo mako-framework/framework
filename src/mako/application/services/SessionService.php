@@ -22,8 +22,6 @@ use mako\syringe\Container;
 
 /**
  * Session service.
- *
- * @author Frederic G. Østby
  */
 class SessionService extends Service
 {

@@ -11,9 +11,6 @@ use JsonSerializable;
 
 /**
  * Pagination interface.
- *
- * @author Frederic G. Østby
- * @author Yamada Taro
  */
 interface PaginationInterface extends JsonSerializable
 {

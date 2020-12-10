@@ -9,8 +9,6 @@ namespace mako\view\renderers;
 
 /**
  * Renderer interface.
- *
- * @author Frederic G. Østby
  */
 interface RendererInterface
 {

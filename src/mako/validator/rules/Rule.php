@@ -12,8 +12,6 @@ use mako\validator\rules\traits\I18nAwareTrait;
 
 /**
  * Base rule.
- *
- * @author Frederic G. Østby
  */
 abstract class Rule implements I18nAwareInterface
 {

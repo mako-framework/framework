@@ -13,8 +13,6 @@ use function strpos;
 
 /**
  * IPv4 utilities.
- *
- * @author Frederic G. Østby
  */
 class IPv4
 {

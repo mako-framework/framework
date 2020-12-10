@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Service unavailable exception.
- *
- * @author Frederic G. Østby
  */
 class ServiceUnavailableException extends HttpException
 {

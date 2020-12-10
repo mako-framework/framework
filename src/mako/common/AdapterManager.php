@@ -17,8 +17,6 @@ use function vsprintf;
 
 /**
  * Adapter manager.
- *
- * @author Frederic G. Østby
  */
 abstract class AdapterManager
 {

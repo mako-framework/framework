@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Invalid token exception.
- *
- * @author Frederic G. Østby
  */
 class InvalidTokenException extends HttpException
 {

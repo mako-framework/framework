@@ -11,8 +11,6 @@ use function similar_text;
 
 /**
  * Suggestion trait.
- *
- * @author Frederic G. Østby
  */
 trait SuggestionTrait
 {

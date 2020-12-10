@@ -22,8 +22,6 @@ use function strpos;
 
 /**
  * Many to many relation.
- *
- * @author Frederic G. Østby
  */
 class ManyToMany extends Relation
 {

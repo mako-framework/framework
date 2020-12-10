@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Min dimensions rule.
- *
- * @author Frederic G. Østby
  */
 class MinDimensions extends Rule implements RuleInterface
 {

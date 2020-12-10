@@ -14,8 +14,6 @@ use function str_replace;
 
 /**
  * Extension of the PHP DateTimeZone class.
- *
- * @author Frederic G. Østby
  */
 class TimeZone extends DateTimeZone
 {

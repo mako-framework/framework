@@ -39,8 +39,6 @@ use function vsprintf;
 
 /**
  * Collection.
- *
- * @author Frederic G. Østby
  */
 class Collection implements ArrayAccess, Countable, IteratorAggregate
 {

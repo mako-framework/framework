@@ -9,8 +9,6 @@ namespace mako\gatekeeper\entities\group;
 
 /**
  * Group entity interface.
- *
- * @author Frederic G. Østby
  */
 interface GroupEntityInterface
 {

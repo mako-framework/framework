@@ -13,8 +13,6 @@ use function is_bool;
 
 /**
  * MySQL database connection.
- *
- * @author Frederic G. Østby
  */
 class MySQL extends Connection
 {

@@ -15,8 +15,6 @@ use function unserialize;
 
 /**
  * Redis store.
- *
- * @author Frederic G. Østby
  */
 class Redis extends Store implements IncrementDecrementInterface
 {

@@ -14,8 +14,6 @@ use function vsprintf;
 
 /**
  * Extendable trait.
- *
- * @author Yamada Taro
  */
 trait ExtendableTrait
 {

@@ -16,8 +16,6 @@ use function strftime;
 
 /**
  * Time trait.
- *
- * @author Frederic G. Østby
  */
 trait TimeTrait
 {

@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Forbidden exception.
- *
- * @author Frederic G. Østby
  */
 class ForbiddenException extends HttpException
 {

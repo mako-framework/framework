@@ -15,8 +15,6 @@ use function implode;
 
 /**
  * Command that lists all registered routes.
- *
- * @author Frederic G. Østby
  */
 class ListRoutes extends Command
 {

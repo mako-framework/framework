@@ -11,8 +11,6 @@ use mako\security\crypto\CryptoManager;
 
 /**
  * Crypto service.
- *
- * @author Frederic G. Østby
  */
 class CryptoService extends Service
 {

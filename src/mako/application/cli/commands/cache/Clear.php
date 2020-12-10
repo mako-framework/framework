@@ -12,8 +12,6 @@ use mako\cli\input\arguments\Argument;
 
 /**
  * Command that clears the cache.
- *
- * @author Frederic G. Østby
  */
 class Clear extends Command
 {

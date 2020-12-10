@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Alphanumeric rule.
- *
- * @author Frederic G. Østby
  */
 class Alphanumeric extends Rule implements RuleInterface
 {

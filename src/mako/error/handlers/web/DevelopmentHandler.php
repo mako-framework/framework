@@ -23,8 +23,6 @@ use function function_exists;
 
 /**
  * Development handler.
- *
- * @author Frederic G. Østby
  */
 class DevelopmentHandler extends Handler implements HandlerInterface
 {

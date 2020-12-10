@@ -16,8 +16,6 @@ use Throwable;
 
 /**
  * Error handler service.
- *
- * @author Frederic G. Østby
  */
 class ErrorHandlerService extends Service
 {

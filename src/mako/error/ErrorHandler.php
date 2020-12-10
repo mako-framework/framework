@@ -34,8 +34,6 @@ use function sprintf;
 
 /**
  * Error handler.
- *
- * @author Frederic G. Østby
  */
 class ErrorHandler
 {

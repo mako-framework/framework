@@ -11,8 +11,6 @@ use mako\validator\Validator;
 
 /**
  * Input interface.
- *
- * @author Frederic G. Østby
  */
 interface InputInterface
 {

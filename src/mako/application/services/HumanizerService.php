@@ -12,8 +12,6 @@ use mako\utility\Humanizer;
 
 /**
  * Humanizer service.
- *
- * @author Frederic G. Østby
  */
 class HumanizerService extends Service
 {

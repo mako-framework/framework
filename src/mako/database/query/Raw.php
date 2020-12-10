@@ -9,8 +9,6 @@ namespace mako\database\query;
 
 /**
  * Raw SQL container.
- *
- * @author Frederic G. Østby
  */
 class Raw
 {

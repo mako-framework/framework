@@ -16,8 +16,6 @@ use function json_encode;
 
 /**
  * Result set.
- *
- * @author Frederic G. Østby
  */
 class ResultSet extends Collection implements JsonSerializable
 {

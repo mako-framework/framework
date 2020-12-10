@@ -14,8 +14,6 @@ use function method_exists;
 
 /**
  * Connection manager.
- *
- * @author Frederic G. Østby
  */
 abstract class ConnectionManager
 {

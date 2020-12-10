@@ -24,8 +24,6 @@ use function sprintf;
 
 /**
  * Query builder.
- *
- * @author Frederic G. Østby
  */
 class Query
 {

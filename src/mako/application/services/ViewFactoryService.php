@@ -13,8 +13,6 @@ use mako\view\ViewFactory;
 
 /**
  * View factory service.
- *
- * @author Frederic G. Østby
  */
 class ViewFactoryService extends Service
 {

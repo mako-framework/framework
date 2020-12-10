@@ -11,8 +11,6 @@ use mako\gatekeeper\repositories\group\GroupRepositoryInterface;
 
 /**
  * With groups interface.
- *
- * @author Frederic G. Østby
  */
 interface WithGroupsInterface
 {

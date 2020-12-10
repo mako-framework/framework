@@ -23,8 +23,6 @@ use function sprintf;
 
 /**
  * Server command.
- *
- * @author Frederic G. Østby
  */
 class Server extends Command
 {

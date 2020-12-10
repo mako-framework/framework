@@ -42,8 +42,6 @@ use function vsprintf;
 
 /**
  * ORM.
- *
- * @author Frederic G. Østby
  */
 abstract class ORM implements JsonSerializable
 {

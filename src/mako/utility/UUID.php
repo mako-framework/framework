@@ -30,10 +30,6 @@ use function vsprintf;
 
 /**
  * Class that generates and validates UUIDs.
- *
- * @author Frederic G. Østby
- * @author Andrew Moore (http://www.php.net/manual/en/function.uniqid.php#94959)
- * @author Jack (http://stackoverflow.com/a/15875555)
  */
 class UUID
 {

@@ -11,8 +11,6 @@ use mako\i18n\I18n;
 
 /**
  * I18n aware interface.
- *
- * @author Frederic G. Østby
  */
 interface I18nAwareInterface
 {

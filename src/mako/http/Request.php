@@ -43,8 +43,6 @@ use function strtoupper;
 
 /**
  * Executes requets.
- *
- * @author Frederic G. Østby
  */
 class Request
 {

@@ -11,8 +11,6 @@ use function vsprintf;
 
 /**
  * Redis pub/sub message.
- *
- * @author Frederic G. Østby
  */
 class Message
 {

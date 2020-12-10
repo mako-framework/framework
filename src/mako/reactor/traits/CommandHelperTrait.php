@@ -25,8 +25,6 @@ use function str_repeat;
 
 /**
  * Controller helper trait.
- *
- * @author Frederic G. Østby
  */
 trait CommandHelperTrait
 {

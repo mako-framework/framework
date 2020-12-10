@@ -13,8 +13,6 @@ use function time;
 
 /**
  * Memcached store.
- *
- * @author Frederic G. Østby
  */
 class Memcached extends Store implements IncrementDecrementInterface
 {

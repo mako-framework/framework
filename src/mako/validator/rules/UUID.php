@@ -13,8 +13,6 @@ use function sprintf;
 
 /**
  * UUID rule.
- *
- * @author Frederic G. Østby
  */
 class UUID extends Rule implements RuleInterface
 {

@@ -13,8 +13,6 @@ use function getimagesize;
 
 /**
  * Image size trait.
- *
- * @author Frederic G. Østby
  */
 trait GetImageSizeTrait
 {

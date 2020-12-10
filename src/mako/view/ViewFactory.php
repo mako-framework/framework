@@ -18,8 +18,6 @@ use function vsprintf;
 
 /**
  * View factory.
- *
- * @author Frederic G. Østby
  */
 class ViewFactory
 {

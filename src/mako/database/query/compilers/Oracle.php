@@ -11,8 +11,6 @@ use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 
 /**
  * Compiles Oracle queries.
- *
- * @author Frederic G. Østby
  */
 class Oracle extends Compiler
 {

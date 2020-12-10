@@ -15,8 +15,6 @@ use function trim;
 
 /**
  * Confirmation helper.
- *
- * @author Frederic G. Østby
  */
 class Confirmation extends Question
 {

@@ -9,8 +9,6 @@ namespace mako\syringe\exceptions;
 
 /**
  * Unable to resolve parameter exception.
- *
- * @author Frederic G. Østby
  */
 class UnableToResolveParameterException extends ContainerException
 {

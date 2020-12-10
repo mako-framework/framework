@@ -14,8 +14,6 @@ use function is_string;
 /**
  * Input validation trait.
  *
- * @author Frederic G. Østby
- *
  * @property \mako\http\Request $request
  */
 trait InputValidationTrait

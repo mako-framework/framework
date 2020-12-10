@@ -12,8 +12,6 @@ use mako\http\Response;
 
 /**
  * Response builder interface.
- *
- * @author Frederic G. Østby
  */
 interface ResponseBuilderInterface
 {

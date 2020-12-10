@@ -14,8 +14,6 @@ use function is_int;
 
 /**
  * HTML helper.
- *
- * @author Frederic G. Østby
  */
 class HTML
 {

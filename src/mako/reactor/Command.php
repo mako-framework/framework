@@ -13,8 +13,6 @@ use mako\reactor\traits\CommandHelperTrait;
 
 /**
  * Base command.
- *
- * @author Frederic G. Østby
  */
 abstract class Command implements CommandInterface
 {

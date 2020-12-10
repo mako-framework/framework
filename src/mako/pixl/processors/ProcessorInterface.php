@@ -11,8 +11,6 @@ use mako\pixl\Image;
 
 /**
  * Image manipulation processor interface.
- *
- * @author Frederic G. Østby
  */
 interface ProcessorInterface
 {

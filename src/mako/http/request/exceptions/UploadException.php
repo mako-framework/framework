@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Upload exception.
- *
- * @author Frederic G. Østby
  */
 class UploadException extends RuntimeException
 {

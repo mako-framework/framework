@@ -13,8 +13,6 @@ use Throwable;
 
 /**
  * Production handler.
- *
- * @author Frederic G. Østby
  */
 class ProductionHandler implements HandlerInterface
 {

@@ -12,8 +12,6 @@ use function property_exists;
 
 /**
  * Nullable trait.
- *
- * @author Frederic G. Østby
  */
 trait NullableTrait
 {

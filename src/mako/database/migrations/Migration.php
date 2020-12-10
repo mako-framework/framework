@@ -13,8 +13,6 @@ use mako\syringe\traits\ContainerAwareTrait;
 
 /**
  * Base migration.
- *
- * @author Frederic G. Østby
  */
 abstract class Migration
 {

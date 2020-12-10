@@ -28,8 +28,6 @@ use function trim;
 
 /**
  * Collection of string manipulation methods.
- *
- * @author Frederic G. Østby
  */
 class Str
 {

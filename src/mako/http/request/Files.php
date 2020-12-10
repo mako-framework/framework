@@ -13,8 +13,6 @@ use function is_array;
 
 /**
  * Files.
- *
- * @author Frederic G. Østby
  */
 class Files extends Parameters
 {

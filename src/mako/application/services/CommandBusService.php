@@ -12,8 +12,6 @@ use mako\commander\CommandBusInterface;
 
 /**
  * Command bus service.
- *
- * @author Yamada Taro
  */
 class CommandBusService extends Service
 {

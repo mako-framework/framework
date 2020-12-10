@@ -19,8 +19,6 @@ use function count;
 
 /**
  * Parameters.
- *
- * @author Frederic G. Østby
  */
 class Parameters implements Countable, IteratorAggregate
 {

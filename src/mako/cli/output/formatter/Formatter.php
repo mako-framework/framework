@@ -22,8 +22,6 @@ use function vsprintf;
 
 /**
  * Formatter.
- *
- * @author Frederic G. Østby
  */
 class Formatter implements FormatterInterface
 {

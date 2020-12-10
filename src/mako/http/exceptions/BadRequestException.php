@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Bad request exception.
- *
- * @author Frederic G. Østby
  */
 class BadRequestException extends HttpException
 {

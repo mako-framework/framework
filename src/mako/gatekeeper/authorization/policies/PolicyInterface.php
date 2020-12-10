@@ -11,8 +11,6 @@ use mako\gatekeeper\entities\user\UserEntityInterface;
 
 /**
  * Policy interface.
- *
- * @author Frederic G. Østby
  */
 interface PolicyInterface
 {

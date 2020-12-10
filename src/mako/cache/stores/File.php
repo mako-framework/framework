@@ -19,8 +19,6 @@ use function unserialize;
 
 /**
  * File store.
- *
- * @author Frederic G. Østby
  */
 class File extends Store
 {

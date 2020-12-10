@@ -15,8 +15,6 @@ use function vsprintf;
 
 /**
  * IP rule.
- *
- * @author Frederic G. Østby
  */
 class IP extends Rule implements RuleInterface
 {

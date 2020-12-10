@@ -19,8 +19,6 @@ use function vsprintf;
 
 /**
  * Command that creates a migration.
- *
- * @author Frederic G. Østby
  */
 class Create extends Command
 {

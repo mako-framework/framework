@@ -9,8 +9,6 @@ namespace mako\cache\stores;
 
 /**
  * Increment and decrement interface.
- *
- * @author Frederic G. Østby
  */
 interface IncrementDecrementInterface
 {

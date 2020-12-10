@@ -12,8 +12,6 @@ use mako\cli\input\arguments\Argument;
 
 /**
  * Command that removes the chosen key from the cache.
- *
- * @author Frederic G. Østby
  */
 class Remove extends Command
 {

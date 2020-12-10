@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * I18n exception.
- *
- * @author Frederic G. Østby
  */
 class I18nException extends RuntimeException
 {

@@ -18,8 +18,6 @@ use function in_array;
 
 /**
  * Development handler.
- *
- * @author Frederic G. Østby
  */
 class DevelopmentHandler implements HandlerInterface
 {

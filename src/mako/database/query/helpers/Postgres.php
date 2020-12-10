@@ -11,8 +11,6 @@ use mako\database\query\Query;
 
 /**
  * Query builder postgres helper.
- *
- * @author Frederic G. Østby
  */
 class Postgres implements HelperInterface
 {

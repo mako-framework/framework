@@ -15,8 +15,6 @@ use function vsprintf;
 /**
  * Container aware trait.
  *
- * @author Frederic G. Østby
- *
  * @property \mako\application\Application                      $app
  * @property \mako\cache\CacheManager                           $cache
  * @property \mako\cli\input\Input                              $input

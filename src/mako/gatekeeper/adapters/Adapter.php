@@ -16,8 +16,6 @@ use mako\gatekeeper\repositories\user\UserRepositoryInterface;
 /**
  * Base adapter.
  *
- * @author Frederic G. Østby
- *
  * @method mako\gatekeeper\repositories\group\GroupRepository getGroupRepository()
  * @method mako\gatekeeper\repositories\user\UserRepository   getUserRepository()
  */

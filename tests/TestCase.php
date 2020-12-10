@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
  * Base test case.
- *
- * @author Frederic G. Østby
  */
 abstract class TestCase extends PHPUnitTestCase
 {

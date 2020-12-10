@@ -20,8 +20,6 @@ use function simplexml_load_string;
 
 /**
  * Production handler.
- *
- * @author Frederic G. Østby
  */
 class ProductionHandler extends Handler implements HandlerInterface
 {

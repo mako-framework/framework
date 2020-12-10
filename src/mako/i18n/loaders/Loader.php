@@ -14,8 +14,6 @@ use function vsprintf;
 
 /**
  * Language loader.
- *
- * @author Frederic G. Østby
  */
 class Loader implements LoaderInterface
 {

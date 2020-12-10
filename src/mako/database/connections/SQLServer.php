@@ -9,8 +9,6 @@ namespace mako\database\connections;
 
 /**
  * SQLServer database connection.
- *
- * @author Frederic G. Østby
  */
 class SQLServer extends Connection
 {

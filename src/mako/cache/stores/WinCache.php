@@ -19,8 +19,6 @@ use function wincache_ucache_set;
 
 /**
  * WinCache store.
- *
- * @author Frederic G. Østby
  */
 class WinCache extends Store
 {

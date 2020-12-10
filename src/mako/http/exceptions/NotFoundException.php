@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Not found exception.
- *
- * @author Frederic G. Østby
  */
 class NotFoundException extends HttpException
 {

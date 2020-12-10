@@ -16,8 +16,6 @@ use function strlen;
 
 /**
  * Ordered list helper.
- *
- * @author Frederic G. Østby
  */
 class OrderedList
 {

@@ -9,8 +9,6 @@ namespace mako;
 
 /**
  * Mako.
- *
- * @author Frederic G. Østby
  */
 class Mako
 {

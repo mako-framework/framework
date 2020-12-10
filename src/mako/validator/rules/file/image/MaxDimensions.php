@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Max dimensions rule.
- *
- * @author Frederic G. Østby
  */
 class MaxDimensions extends Rule implements RuleInterface
 {

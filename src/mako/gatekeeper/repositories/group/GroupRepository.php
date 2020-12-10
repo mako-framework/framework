@@ -15,8 +15,6 @@ use function vsprintf;
 /**
  * Group repository.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\gatekeeper\entities\group\Group      createGroup(array $properties = [])
  * @method \mako\gatekeeper\entities\group\Group|null getByIdentifier($identifier)
  */

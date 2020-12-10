@@ -15,8 +15,6 @@ use function strpos;
 
 /**
  * Key helpers.
- *
- * @author Frederic G. Østby
  */
 class Key
 {

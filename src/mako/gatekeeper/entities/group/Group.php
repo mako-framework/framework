@@ -16,8 +16,6 @@ use mako\gatekeeper\entities\user\User;
 /**
  * Group.
  *
- * @author Frederic G. Østby
- *
  * @method   int                              getId()
  * @property int                              $id
  * @property \mako\utility\Time               $created_at

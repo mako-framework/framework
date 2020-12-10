@@ -17,8 +17,6 @@ use function vsprintf;
 
 /**
  * Middleware stack.
- *
- * @author Yamada Taro
  */
 class Onion
 {

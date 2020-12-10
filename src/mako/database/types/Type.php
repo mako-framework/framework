@@ -9,8 +9,6 @@ namespace mako\database\types;
 
 /**
  * Abstract type.
- *
- * @author Frederic G. Østby
  */
 abstract class Type implements TypeInterface
 {

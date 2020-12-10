@@ -11,8 +11,6 @@ use mako\database\query\ResultSet as BaseResultSet;
 
 /**
  * ORM result set.
- *
- * @author Frederic G. Østby
  */
 class ResultSet extends BaseResultSet
 {

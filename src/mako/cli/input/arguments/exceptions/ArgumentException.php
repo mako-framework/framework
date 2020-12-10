@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Argument exception.
- *
- * @author Frederic G. Østby
  */
 class ArgumentException extends RuntimeException
 {

@@ -24,8 +24,6 @@ use function trim;
 
 /**
  * Headers.
- *
- * @author Frederic G. Østby
  */
 class Headers implements Countable, IteratorAggregate
 {

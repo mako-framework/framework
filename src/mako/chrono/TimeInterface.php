@@ -11,8 +11,6 @@ use DateTimeInterface;
 
 /**
  * Time interface.
- *
- * @author Frederic G. Østby
  */
 interface TimeInterface extends DateTimeInterface
 {

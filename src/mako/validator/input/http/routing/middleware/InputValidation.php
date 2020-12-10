@@ -29,8 +29,6 @@ use function simplexml_load_string;
 
 /**
  * Input validation middleware.
- *
- * @author Frederic G. Østby
  */
 class InputValidation implements MiddlewareInterface
 {

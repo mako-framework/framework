@@ -16,8 +16,6 @@ use mako\syringe\traits\ContainerAwareTrait;
 
 /**
  * Controller helper trait.
- *
- * @author Frederic G. Østby
  */
 trait ControllerHelperTrait
 {

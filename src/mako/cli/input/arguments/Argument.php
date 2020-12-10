@@ -20,8 +20,6 @@ use function vsprintf;
 
 /**
  * Argument.
- *
- * @author Frederic G. Østby
  */
 class Argument
 {

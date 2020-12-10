@@ -12,8 +12,6 @@ use mako\cli\input\reader\ReaderInterface;
 
 /**
  * Input.
- *
- * @author Frederic G. Østby
  */
 class Input
 {

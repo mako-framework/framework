@@ -18,8 +18,6 @@ use function vsprintf;
 
 /**
  * Max file size rule.
- *
- * @author Frederic G. Østby
  */
 class MaxFileSize extends Rule implements RuleInterface
 {

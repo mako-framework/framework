@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Read-only exception.
- *
- * @author Frederic G. Østby
  */
 class ReadOnlyException extends RuntimeException
 {

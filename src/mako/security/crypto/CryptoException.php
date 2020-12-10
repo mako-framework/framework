@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Crypto exception.
- *
- * @author Yamada Taro
  */
 class CryptoException extends RuntimeException
 {

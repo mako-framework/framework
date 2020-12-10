@@ -13,8 +13,6 @@ use function mb_substr;
 
 /**
  * Signs and validates strings using MACs (message authentication codes).
- *
- * @author Frederic G. Østby
  */
 class Signer
 {

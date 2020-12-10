@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Natural rule.
- *
- * @author Frederic G. Østby
  */
 class Natural extends Rule implements RuleInterface
 {

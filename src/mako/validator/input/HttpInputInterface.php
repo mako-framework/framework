@@ -9,8 +9,6 @@ namespace mako\validator\input;
 
 /**
  * HTTP input interface.
- *
- * @author Frederic G. Østby
  */
 interface HttpInputInterface extends InputInterface
 {

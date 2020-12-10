@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Stale record exception.
- *
- * @author Frederic G. Østby
  */
 class StaleRecordException extends RuntimeException
 {

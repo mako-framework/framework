@@ -9,8 +9,6 @@ namespace mako\application\cli\commands\migrations\traits;
 
 /**
  * Rollback trait.
- *
- * @author Frederic G. Østby
  */
 trait RollbackTrait
 {

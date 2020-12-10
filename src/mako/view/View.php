@@ -11,8 +11,6 @@ use mako\view\renderers\RendererInterface;
 
 /**
  * View.
- *
- * @author Frederic G. Østby
  */
 class View
 {

@@ -12,8 +12,6 @@ use mako\http\Response;
 
 /**
  * Response sender interface.
- *
- * @author Frederic G. Østby
  */
 interface ResponseSenderInterface
 {

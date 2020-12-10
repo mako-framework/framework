@@ -14,8 +14,6 @@ use mako\pagination\PaginationFactoryInterface;
 
 /**
  * Database service.
- *
- * @author Frederic G. Østby
  */
 class DatabaseService extends Service
 {

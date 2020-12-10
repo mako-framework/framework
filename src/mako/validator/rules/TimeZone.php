@@ -14,8 +14,6 @@ use function sprintf;
 
 /**
  * Time zone rule.
- *
- * @author Frederic G. Østby
  */
 class TimeZone extends Rule implements RuleInterface
 {

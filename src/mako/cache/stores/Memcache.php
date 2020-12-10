@@ -13,8 +13,6 @@ use function time;
 
 /**
  * Memcache store.
- *
- * @author Frederic G. Østby
  */
 class Memcache extends Store
 {

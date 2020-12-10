@@ -9,8 +9,6 @@ namespace mako\gatekeeper\authorization;
 
 /**
  * Authorizable interface.
- *
- * @author Frederic G. Østby
  */
 interface AuthorizableInterface
 {

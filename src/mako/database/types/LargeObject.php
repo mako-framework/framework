@@ -11,8 +11,6 @@ use PDO;
 
 /**
  * Large object type.
- *
- * @author Frederic G. Østby
  */
 class LargeObject extends Type
 {

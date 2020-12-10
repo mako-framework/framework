@@ -9,8 +9,6 @@ namespace mako\i18n\loaders;
 
 /**
  * Loader interface.
- *
- * @author Frederic G. Østby
  */
 interface LoaderInterface
 {

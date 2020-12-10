@@ -11,8 +11,6 @@ use mako\http\routing\traits\ControllerHelperTrait;
 
 /**
  * Base controller.
- *
- * @author Frederic G. Østby
  */
 abstract class Controller
 {

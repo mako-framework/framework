@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Exact length rule.
- *
- * @author Frederic G. Østby
  */
 class ExactLength extends Rule implements RuleInterface
 {

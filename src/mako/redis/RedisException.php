@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Redis exception.
- *
- * @author Frederic G. Østby
  */
 class RedisException extends RuntimeException
 {

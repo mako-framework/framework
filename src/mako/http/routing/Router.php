@@ -30,8 +30,6 @@ use function vsprintf;
 
 /**
  * Router.
- *
- * @author Frederic G. Østby
  */
 class Router
 {

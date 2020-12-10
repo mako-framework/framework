@@ -11,8 +11,6 @@ use function time;
 
 /**
  * Memory store.
- *
- * @author Frederic G. Østby
  */
 class Memory extends Store implements IncrementDecrementInterface
 {

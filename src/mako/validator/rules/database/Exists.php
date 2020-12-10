@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Exists rule.
- *
- * @author Frederic G. Østby
  */
 class Exists extends Rule implements RuleInterface
 {

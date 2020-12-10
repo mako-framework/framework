@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Hex rule.
- *
- * @author Frederic G. Østby
  */
 class Hex extends Rule implements RuleInterface
 {

@@ -13,8 +13,6 @@ use function str_repeat;
 
 /**
  * Terminal bell helper.
- *
- * @author Frederic G. Østby
  */
 class Bell
 {

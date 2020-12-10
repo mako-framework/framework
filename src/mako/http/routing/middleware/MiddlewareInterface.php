@@ -13,8 +13,6 @@ use mako\http\Response;
 
 /**
  * Middleware interface.
- *
- * @author Frederic G. Østby
  */
 interface MiddlewareInterface
 {

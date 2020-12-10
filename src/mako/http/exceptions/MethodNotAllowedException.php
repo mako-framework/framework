@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Method not allowed exception.
- *
- * @author Frederic G. Østby
  */
 class MethodNotAllowedException extends HttpException
 {

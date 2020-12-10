@@ -15,8 +15,6 @@ use mako\view\ViewFactory;
 
 /**
  * Pagination factory service.
- *
- * @author Frederic G. Østby
  */
 class PaginationFactoryService extends Service
 {

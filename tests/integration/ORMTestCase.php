@@ -9,8 +9,6 @@ namespace mako\tests\integration;
 
 /**
  * ORM test case.
- *
- * @author Frederic G. Østby
  */
 abstract class ORMTestCase extends BuilderTestCase
 {

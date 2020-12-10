@@ -18,8 +18,6 @@ use function strpos;
 
 /**
  * IPv6 utilities.
- *
- * @author Frederic G. Østby
  */
 class IPv6
 {

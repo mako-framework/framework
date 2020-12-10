@@ -45,8 +45,6 @@ use function str_replace;
 
 /**
  * CLI application.
- *
- * @author Frederic G. Østby
  */
 class Application extends BaseApplication
 {

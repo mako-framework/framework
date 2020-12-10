@@ -12,8 +12,6 @@ use mako\tests\TestCase;
 
 /**
  * Builder test case.
- *
- * @author Frederic G. Østby
  */
 abstract class BuilderTestCase extends TestCase
 {

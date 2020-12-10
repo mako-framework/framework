@@ -29,8 +29,6 @@ use function vsprintf;
 
 /**
  * Route dispatcher.
- *
- * @author Frederic G. Østby
  */
 class Dispatcher
 {

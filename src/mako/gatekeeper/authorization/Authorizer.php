@@ -17,8 +17,6 @@ use function vsprintf;
 
 /**
  * Authorizer.
- *
- * @author Frederic G. Østby
  */
 class Authorizer implements AuthorizerInterface
 {

@@ -11,8 +11,6 @@ use mako\gatekeeper\entities\user\UserEntityInterface;
 
 /**
  * Base policy.
- *
- * @author Frederic G. Østby
  */
 abstract class Policy implements PolicyInterface
 {

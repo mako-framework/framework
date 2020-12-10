@@ -17,8 +17,6 @@ use function vsprintf;
 
 /**
  * Function parser trait.
- *
- * @author Frederic G. Østby
  */
 trait FunctionParserTrait
 {

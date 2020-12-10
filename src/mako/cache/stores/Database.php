@@ -16,8 +16,6 @@ use function unserialize;
 
 /**
  * Database store.
- *
- * @author Frederic G. Østby
  */
 class Database extends Store
 {

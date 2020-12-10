@@ -16,8 +16,6 @@ use function trim;
 
 /**
  * Secret helper.
- *
- * @author Frederic G. Østby
  */
 class Secret extends Question
 {

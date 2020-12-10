@@ -19,8 +19,6 @@ use function time;
 
 /**
  * Makes data more human friendly.
- *
- * @author Frederic G. Østby
  */
 class Humanizer
 {

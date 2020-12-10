@@ -9,8 +9,6 @@ namespace mako\security\password;
 
 /**
  * Argon2i hasher.
- *
- * @author Frederic G. Østby
  */
 class Argon2i extends Hasher
 {

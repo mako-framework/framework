@@ -11,8 +11,6 @@ use mako\cli\input\arguments\Argument;
 
 /**
  * Command that runs all outstanding migrations.
- *
- * @author Frederic G. Østby
  */
 class Up extends Command
 {

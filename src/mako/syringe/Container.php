@@ -27,8 +27,6 @@ use function vsprintf;
 
 /**
  * Inversion of control container.
- *
- * @author Frederic G. Østby
  */
 class Container
 {

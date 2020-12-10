@@ -14,8 +14,6 @@ use function vsprintf;
 
 /**
  * Command that checks if there are any outstanding migrations.
- *
- * @author Frederic G. Østby
  */
 class Status extends Command
 {

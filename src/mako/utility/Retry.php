@@ -13,8 +13,6 @@ use function usleep;
 
 /**
  * Helper class that allows you to retry a callable a set number of times if it fails.
- *
- * @author Frederic G. Østby
  */
 class Retry
 {

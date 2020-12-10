@@ -13,8 +13,6 @@ use function sprintf;
 
 /**
  * After rule.
- *
- * @author Frederic G. Østby
  */
 class After extends Rule implements RuleInterface
 {

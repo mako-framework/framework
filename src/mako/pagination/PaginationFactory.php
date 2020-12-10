@@ -15,9 +15,6 @@ use function max;
 
 /**
  * Pagination factory.
- *
- * @author Frederic G. Østby
- * @author Yamada Taro
  */
 class PaginationFactory implements PaginationFactoryInterface
 {

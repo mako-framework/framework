@@ -19,8 +19,6 @@ use function trim;
 
 /**
  * Route.
- *
- * @author Frederic G. Østby
  */
 class Route
 {

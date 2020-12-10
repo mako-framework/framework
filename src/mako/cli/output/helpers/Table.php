@@ -19,8 +19,6 @@ use function str_repeat;
 
 /**
  * Table helper.
- *
- * @author Frederic G. Østby
  */
 class Table
 {

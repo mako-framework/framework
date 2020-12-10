@@ -14,8 +14,6 @@ use function round;
 
 /**
  * Calculate new image dimensions.
- *
- * @author Frederic G. Østby
  */
 trait CalculateNewDimensionsTrait
 {

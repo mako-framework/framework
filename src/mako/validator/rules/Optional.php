@@ -9,8 +9,6 @@ namespace mako\validator\rules;
 
 /**
  * Optional rule.
- *
- * @author Frederic G. Østby
  */
 class Optional extends Rule implements RuleInterface
 {

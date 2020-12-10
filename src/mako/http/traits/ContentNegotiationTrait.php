@@ -13,8 +13,6 @@ use function strpos;
 /**
  * Basic content negotiation.
  *
- * @author Frederic G. Østby
- *
  * @property \mako\http\Request  $request
  * @property \mako\http\Response $response
  */

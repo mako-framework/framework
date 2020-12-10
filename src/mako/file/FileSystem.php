@@ -32,8 +32,6 @@ use function unlink;
 
 /**
  * File system.
- *
- * @author Frederic G. Østby
  */
 class FileSystem
 {

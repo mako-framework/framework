@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Hasher exception.
- *
- * @author Frederic G. Østby
  */
 class HasherException extends RuntimeException
 {

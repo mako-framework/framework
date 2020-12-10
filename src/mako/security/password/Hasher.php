@@ -13,8 +13,6 @@ use function password_verify;
 
 /**
  * Base hasher.
- *
- * @author Frederic G. Østby
  */
 abstract class Hasher implements HasherInterface
 {

@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Regex rule.
- *
- * @author Frederic G. Østby
  */
 class Regex extends Rule implements RuleInterface
 {

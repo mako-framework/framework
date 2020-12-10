@@ -20,8 +20,6 @@ use function strtolower;
 
 /**
  * Headers.
- *
- * @author Frederic G. Østby
  */
 class Headers implements Countable, IteratorAggregate
 {

@@ -12,8 +12,6 @@ use function fwrite;
 
 /**
  * Standard writer.
- *
- * @author Frederic G. Østby
  */
 class Standard implements WriterInterface
 {

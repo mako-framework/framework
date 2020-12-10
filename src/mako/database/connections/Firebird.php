@@ -11,8 +11,6 @@ use PDOException;
 
 /**
  * Firebird database connection.
- *
- * @author Frederic G. Østby
  */
 class Firebird extends Connection
 {

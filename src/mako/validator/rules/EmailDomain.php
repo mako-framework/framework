@@ -14,8 +14,6 @@ use function strpos;
 
 /**
  * Email domain rule.
- *
- * @author Frederic G. Østby
  */
 class EmailDomain extends Rule implements RuleInterface
 {

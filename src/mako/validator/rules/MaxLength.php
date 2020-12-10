@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Max length rule.
- *
- * @author Frederic G. Østby
  */
 class MaxLength extends Rule implements RuleInterface
 {

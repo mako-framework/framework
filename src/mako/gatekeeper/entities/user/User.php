@@ -26,8 +26,6 @@ use function random_bytes;
 /**
  * User.
  *
- * @author Frederic G. Østby
- *
  * @method int                                getId()
  * @property int                              $id
  * @property \mako\chrono\Time                $created_at

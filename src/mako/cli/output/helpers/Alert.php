@@ -19,8 +19,6 @@ use function trim;
 
 /**
  * Alert helper.
- *
- * @author Frederic G. Østby
  */
 class Alert
 {

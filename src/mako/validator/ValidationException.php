@@ -19,8 +19,6 @@ use function rtrim;
 
 /**
  * Validation exception.
- *
- * @author Frederic G. Østby
  */
 class ValidationException extends RuntimeException
 {

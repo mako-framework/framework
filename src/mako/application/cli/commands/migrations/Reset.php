@@ -12,8 +12,6 @@ use mako\cli\input\arguments\Argument;
 
 /**
  * Command that rolls back the last batch of migrations.
- *
- * @author Frederic G. Østby
  */
 class Reset extends Command
 {

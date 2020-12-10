@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Loader exception.
- *
- * @author Frederic G. Østby
  */
 class LoaderException extends RuntimeException
 {

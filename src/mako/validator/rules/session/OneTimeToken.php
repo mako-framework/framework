@@ -14,8 +14,6 @@ use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
 
 /**
  * One-time token rule.
- *
- * @author Frederic G. Østby
  */
 class OneTimeToken extends Rule implements RuleInterface
 {

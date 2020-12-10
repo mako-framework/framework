@@ -11,8 +11,6 @@ use mako\database\midgard\ORM;
 
 /**
  * Test ORM.
- *
- * @author Frederic G. Østby
  */
 class TestORM extends ORM
 {

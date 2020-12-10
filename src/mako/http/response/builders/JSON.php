@@ -15,8 +15,6 @@ use function preg_match;
 
 /**
  * JSON builder.
- *
- * @author Frederic G. Østby
  */
 class JSON implements ResponseBuilderInterface
 {

@@ -13,8 +13,6 @@ use function microtime;
 
 /**
  * Stopwatch.
- *
- * @author Yamada Taro
  */
 class Stopwatch
 {

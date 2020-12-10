@@ -26,8 +26,6 @@ use function vsprintf;
 
 /**
  * Argument parser.
- *
- * @author Frederic G. Østby
  */
 class ArgvParser
 {

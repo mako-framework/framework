@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * URL rule.
- *
- * @author Frederic G. Østby
  */
 class URL extends Rule implements RuleInterface
 {

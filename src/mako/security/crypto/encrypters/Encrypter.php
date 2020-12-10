@@ -11,8 +11,6 @@ use function hash_pbkdf2;
 
 /**
  * Base encrypter.
- *
- * @author Frederic G. Østby
  */
 abstract class Encrypter
 {

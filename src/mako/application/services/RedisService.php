@@ -12,8 +12,6 @@ use mako\redis\Redis;
 
 /**
  * Redis service.
- *
- * @author Frederic G. Østby
  */
 class RedisService extends Service
 {

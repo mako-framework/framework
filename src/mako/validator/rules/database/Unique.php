@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Unique rule.
- *
- * @author Frederic G. Østby
  */
 class Unique extends Rule implements RuleInterface
 {

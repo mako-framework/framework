@@ -11,8 +11,6 @@ use Closure;
 
 /**
  * Has many relation.
- *
- * @author Frederic G. Østby
  */
 class HasMany extends HasOneOrMany
 {

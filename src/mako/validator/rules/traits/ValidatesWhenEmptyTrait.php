@@ -9,8 +9,6 @@ namespace mako\validator\rules\traits;
 
 /**
  * Validates when empty trait.
- *
- * @author Frederic G. Østby
  */
 trait ValidatesWhenEmptyTrait
 {

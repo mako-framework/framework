@@ -12,8 +12,6 @@ use mako\security\Signer;
 
 /**
  * Signer service.
- *
- * @author Frederic G. Østby
  */
 class SignerService extends Service
 {

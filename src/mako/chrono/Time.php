@@ -13,8 +13,6 @@ use mako\chrono\traits\TimeTrait;
 /**
  * Extension of the PHP DateTime class.
  *
- * @author Frederic G. Østby
- *
  * @method $this|false setTimezone(string|\DateTimeZone $timeZone)
  * @method $this|false forward(int $seconds)
  * @method $this|false rewind(int $seconds)

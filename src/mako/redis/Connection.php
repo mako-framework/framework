@@ -27,8 +27,6 @@ use function vsprintf;
 
 /**
  * Redis connection.
- *
- * @author Frederic G. Østby
  */
 class Connection
 {

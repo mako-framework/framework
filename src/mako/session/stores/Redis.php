@@ -14,8 +14,6 @@ use function unserialize;
 
 /**
  * Redis store.
- *
- * @author Frederic G. Østby
  */
 class Redis implements StoreInterface
 {

@@ -11,8 +11,6 @@ use function strpos;
 
 /**
  * IP utilities.
- *
- * @author Frederic G. Østby
  */
 class IP
 {

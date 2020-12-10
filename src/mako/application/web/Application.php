@@ -17,8 +17,6 @@ use function ob_start;
 
 /**
  * Web application.
- *
- * @author Frederic G. Østby
  */
 class Application extends BaseApplication
 {

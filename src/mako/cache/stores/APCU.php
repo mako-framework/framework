@@ -22,8 +22,6 @@ use function function_exists;
 
 /**
  * APCU store.
- *
- * @author Frederic G. Østby
  */
 class APCU extends Store implements IncrementDecrementInterface
 {

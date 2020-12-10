@@ -17,8 +17,6 @@ use mako\security\Signer;
 
 /**
  * HTTP service.
- *
- * @author Frederic G. Østby
  */
 class HTTPService extends Service
 {

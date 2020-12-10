@@ -12,8 +12,6 @@ use mako\gatekeeper\repositories\user\UserRepositoryInterface;
 
 /**
  * Adapter interface.
- *
- * @author Frederic G. Østby
  */
 interface AdapterInterface
 {

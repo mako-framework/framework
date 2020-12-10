@@ -14,8 +14,6 @@ use function sprintf;
 
 /**
  * Required rule.
- *
- * @author Frederic G. Østby
  */
 class Required extends Rule implements RuleInterface
 {

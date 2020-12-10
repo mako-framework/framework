@@ -9,9 +9,6 @@ namespace mako\pagination;
 
 /**
  * Pagination factory interface.
- *
- * @author Frederic G. Østby
- * @author Yamada Taro
  */
 interface PaginationFactoryInterface
 {

@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Min length rule.
- *
- * @author Frederic G. Østby
  */
 class MinLength extends Rule implements RuleInterface
 {

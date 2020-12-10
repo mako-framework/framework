@@ -13,8 +13,6 @@ use function substr;
 
 /**
  * Server.
- *
- * @author Frederic G. Østby
  */
 class Server extends Parameters
 {

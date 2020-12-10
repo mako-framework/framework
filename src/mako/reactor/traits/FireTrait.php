@@ -20,8 +20,6 @@ use function strpos;
 /**
  * Fire trait.
  *
- * @author Frederic G. Østby
- *
  * @property \mako\application\cli\Application $app
  */
 trait FireTrait

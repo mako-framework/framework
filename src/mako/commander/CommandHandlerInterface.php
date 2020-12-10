@@ -9,8 +9,6 @@ namespace mako\commander;
 
 /**
  * Command handler interface.
- *
- * @author Yamada Taro
  */
 interface CommandHandlerInterface
 {

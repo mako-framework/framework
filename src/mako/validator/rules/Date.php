@@ -13,8 +13,6 @@ use function sprintf;
 
 /**
  * Date rule.
- *
- * @author Frederic G. Østby
  */
 class Date extends Rule implements RuleInterface
 {

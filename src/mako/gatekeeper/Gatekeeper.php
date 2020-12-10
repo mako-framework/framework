@@ -13,8 +13,6 @@ use mako\gatekeeper\adapters\AdapterInterface;
 /**
  * Gatekeeper.
  *
- * @author Frederic G. Østby
- *
  * @method string                                                     getName()
  * @method void                                                       setUserRepository(\mako\gatekeeper\repositories\user\UserRepositoryInterface $userRepository)
  * @method \mako\gatekeeper\repositories\user\UserRepositoryInterface getUserRepository()

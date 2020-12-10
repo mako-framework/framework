@@ -17,8 +17,6 @@ use function vsprintf;
 /**
  * User repository.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\gatekeeper\entities\user\User      createUser(array $properties = [])
  * @method \mako\gatekeeper\entities\user\User|null getByIdentifier($identifier)
  */

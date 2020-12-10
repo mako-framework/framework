@@ -23,9 +23,6 @@ use function strtoupper;
 
 /**
  * Escaper trait.
- *
- * @author Frederic G. Østby
- * @author Pádraic Brady
  */
 trait EscaperTrait
 {

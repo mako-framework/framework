@@ -11,8 +11,6 @@ use UnexpectedValueException as BaseUnexpectedValueException;
 
 /**
  * Argument exception.
- *
- * @author Frederic G. Østby
  */
 class UnexpectedValueException extends BaseUnexpectedValueException
 {

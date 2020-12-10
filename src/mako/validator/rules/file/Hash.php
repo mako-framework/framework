@@ -14,8 +14,6 @@ use function sprintf;
 
 /**
  * Hash rule.
- *
- * @author Frederic G. Østby
  */
 class Hash extends Rule implements RuleInterface
 {

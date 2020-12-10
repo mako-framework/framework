@@ -11,8 +11,6 @@ use function sprintf;
 
 /**
  * Between rule.
- *
- * @author Frederic G. Østby
  */
 class Between extends Rule implements RuleInterface
 {

@@ -11,8 +11,6 @@ use function sprintf;
 
 /**
  * Less than or equal to rule.
- *
- * @author Frederic G. Østby
  */
 class LessThanOrEqualTo extends Rule implements RuleInterface
 {

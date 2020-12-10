@@ -9,8 +9,6 @@ namespace mako\gatekeeper\repositories\group;
 
 /**
  * Group repository interface.
- *
- * @author Frederic G. Østby
  */
 interface GroupRepositoryInterface
 {

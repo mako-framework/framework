@@ -9,8 +9,6 @@ namespace mako\cache\stores;
 
 /**
  * Base store.
- *
- * @author Frederic G. Østby
  */
 abstract class Store implements StoreInterface
 {

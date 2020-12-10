@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Float rule.
- *
- * @author Frederic G. Østby
  */
 class FloatingPoint extends Rule implements RuleInterface
 {

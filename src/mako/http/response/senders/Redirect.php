@@ -16,8 +16,6 @@ use function vsprintf;
 
 /**
  * Redirect response.
- *
- * @author Frederic G. Østby
  */
 class Redirect implements ResponseSenderInterface
 {

@@ -14,8 +14,6 @@ use function sprintf;
 
 /**
  * Hmac rule.
- *
- * @author Frederic G. Østby
  */
 class Hmac extends Rule implements RuleInterface
 {

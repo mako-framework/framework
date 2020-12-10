@@ -9,8 +9,6 @@ namespace mako\gatekeeper\entities\user;
 
 /**
  * User entity interface.
- *
- * @author Frederic G. Østby
  */
 interface UserEntityInterface
 {

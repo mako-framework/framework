@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Container exception.
- *
- * @author Frederic G. Østby
  */
 class ContainerException extends RuntimeException
 {

@@ -14,8 +14,6 @@ use function array_unique;
 
 /**
  * Belongs to relation.
- *
- * @author Frederic G. Østby
  */
 class BelongsTo extends Relation
 {

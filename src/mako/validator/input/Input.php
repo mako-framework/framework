@@ -11,8 +11,6 @@ use mako\validator\Validator;
 
 /**
  * Input.
- *
- * @author Frederic G. Østby
  */
 abstract class Input implements InputInterface
 {

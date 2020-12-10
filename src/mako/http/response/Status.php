@@ -9,8 +9,6 @@ namespace mako\http\response;
 
 /**
  * HTTP status codes.
- *
- * @author Frederic G. Østby
  */
 class Status
 {

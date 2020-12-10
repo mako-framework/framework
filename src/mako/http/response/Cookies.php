@@ -18,8 +18,6 @@ use function time;
 
 /**
  * Cookies.
- *
- * @author Frederic G. Østby
  */
 class Cookies implements Countable, IteratorAggregate
 {

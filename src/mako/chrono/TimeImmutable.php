@@ -13,8 +13,6 @@ use mako\chrono\traits\TimeTrait;
 /**
  * Extension of the PHP DateTimeImmutable class.
  *
- * @author Frederic G. Østby
- *
  * @method static|false setTimezone(string|\DateTimeZone $timeZone)
  * @method static|false forward(int $seconds)
  * @method static|false rewind(int $seconds)

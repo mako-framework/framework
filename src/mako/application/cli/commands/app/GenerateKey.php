@@ -12,8 +12,6 @@ use mako\security\Key;
 
 /**
  * Command that generates an encryption key.
- *
- * @author Frederic G. Østby
  */
 class GenerateKey extends Command
 {

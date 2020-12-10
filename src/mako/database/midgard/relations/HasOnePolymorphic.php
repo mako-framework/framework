@@ -11,8 +11,6 @@ use mako\database\midgard\relations\traits\HasOneOrManyPolymorphicTrait;
 
 /**
  * Has one polymorphic relation.
- *
- * @author Frederic G. Østby
  */
 class HasOnePolymorphic extends HasOne
 {

@@ -9,8 +9,6 @@ namespace mako\commander;
 
 /**
  * Self handling command interface.
- *
- * @author Yamada Taro
  */
 interface SelfHandlingCommandInterface
 {

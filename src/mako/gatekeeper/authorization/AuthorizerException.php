@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Authorizer exception.
- *
- * @author Frederic G. Østby
  */
 class AuthorizerException extends RuntimeException
 {

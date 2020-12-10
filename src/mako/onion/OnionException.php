@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * Onion exception.
- *
- * @author Frederic G. Østby
  */
 class OnionException extends RuntimeException
 {

@@ -12,8 +12,6 @@ use function str_replace;
 
 /**
  * JSON path builder trait.
- *
- * @author Frederic G. Østby
  */
 trait JsonPathBuilderTrait
 {

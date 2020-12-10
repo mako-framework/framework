@@ -27,8 +27,6 @@ use function vsprintf;
 /**
  * Redis client.
  *
- * @author Frederic G. Østby
- *
  * @see http://redis.io/topics/protocol Redis protocol specification.
  * @see https://github.com/antirez/RESP3/blob/master/spec.md Redis protocol specification.
  *

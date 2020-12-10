@@ -28,8 +28,6 @@ use function vsprintf;
 /**
  * Cache manager.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\cache\stores\StoreInterface instance($configuration = null)
  * @method bool                              put(string $key, $data, int $ttl = 0)
  * @method bool                              putIfNotExists(string $key, $data, int $ttl = 0)

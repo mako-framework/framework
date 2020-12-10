@@ -17,8 +17,6 @@ use function strpos;
 
 /**
  * Body.
- *
- * @author Frederic G. Østby
  */
 class Body extends Parameters
 {

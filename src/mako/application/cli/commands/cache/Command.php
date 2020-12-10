@@ -18,8 +18,6 @@ use function in_array;
 
 /**
  * Cache base command.
- *
- * @author Frederic G. Østby
  */
 abstract class Command extends BaseCommand
 {

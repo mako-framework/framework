@@ -9,8 +9,6 @@ namespace mako\database\connections;
 
 /**
  * Postgres database connection.
- *
- * @author Frederic G. Østby
  */
 class Postgres extends Connection
 {

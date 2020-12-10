@@ -19,8 +19,6 @@ use function count;
 
 /**
  * Base relation.
- *
- * @author Frederic G. Østby
  */
 abstract class Relation extends Query
 {

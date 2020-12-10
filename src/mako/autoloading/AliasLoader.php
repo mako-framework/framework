@@ -12,8 +12,6 @@ use function class_alias;
 
 /**
  * Alias loader.
- *
- * @author Frederic G. Østby
  */
 class AliasLoader
 {

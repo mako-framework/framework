@@ -9,8 +9,6 @@ namespace mako\cli\input\reader;
 
 /**
  * Reader interface.
- *
- * @author Frederic G. Østby
  */
 interface ReaderInterface
 {

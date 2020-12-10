@@ -9,8 +9,6 @@ namespace mako\cache\stores;
 
 /**
  * Store interface.
- *
- * @author Frederic G. Østby
  */
 interface StoreInterface
 {

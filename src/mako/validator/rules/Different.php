@@ -13,8 +13,6 @@ use function sprintf;
 
 /**
  * Different rule.
- *
- * @author Frederic G. Østby
  */
 class Different extends Rule implements RuleInterface
 {

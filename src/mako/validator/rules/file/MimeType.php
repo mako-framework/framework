@@ -16,8 +16,6 @@ use function sprintf;
 
 /**
  * Mime type rule.
- *
- * @author Frederic G. Østby
  */
 class MimeType extends Rule implements RuleInterface
 {

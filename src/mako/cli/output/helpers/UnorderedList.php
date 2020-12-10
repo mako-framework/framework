@@ -14,8 +14,6 @@ use function str_repeat;
 
 /**
  * Unordered list helper.
- *
- * @author Frederic G. Østby
  */
 class UnorderedList
 {

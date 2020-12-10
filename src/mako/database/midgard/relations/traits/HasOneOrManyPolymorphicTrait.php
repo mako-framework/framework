@@ -12,8 +12,6 @@ use mako\database\midgard\ORM;
 
 /**
  * Has one or has many polymorphic relation.
- *
- * @author Frederic G. Østby
  */
 trait HasOneOrManyPolymorphicTrait
 {

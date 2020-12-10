@@ -11,8 +11,6 @@ use function str_replace;
 
 /**
  * Compiles NuoDB queries.
- *
- * @author Frederic G. Østby
  */
 class NuoDB extends Compiler
 {

@@ -15,8 +15,6 @@ use function is_string;
 /**
  * Input validation trait.
  *
- * @author Frederic G. Østby
- *
  * @property \mako\syringe\Container          $container
  * @property \mako\validator\ValidatorFactory $validator
  */

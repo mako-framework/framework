@@ -13,8 +13,6 @@ use function sprintf;
 
 /**
  * Match field rule.
- *
- * @author Frederic G. Østby
  */
 class MatchField extends Rule implements RuleInterface
 {

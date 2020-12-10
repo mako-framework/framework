@@ -9,8 +9,6 @@ namespace mako\security\crypto\encrypters;
 
 /**
  * Encrypter interface.
- *
- * @author Frederic G. Østby
  */
 interface EncrypterInterface
 {

@@ -12,8 +12,6 @@ use function trim;
 
 /**
  * Reader.
- *
- * @author Frederic G. Østby
  */
 class Reader implements ReaderInterface
 {

@@ -11,8 +11,6 @@ use Closure;
 
 /**
  * Table join.
- *
- * @author Frederic G. Østby
  */
 class Join
 {

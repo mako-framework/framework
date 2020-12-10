@@ -20,8 +20,6 @@ use function strlen;
 
 /**
  * Progress bar helper.
- *
- * @author Frederic G. Østby
  */
 class ProgressBar
 {

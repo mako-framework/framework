@@ -11,8 +11,6 @@ use PDOException;
 
 /**
  * Oracle database connection.
- *
- * @author Frederic G. Østby
  */
 class Oracle extends Connection
 {

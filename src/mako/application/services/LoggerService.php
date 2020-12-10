@@ -22,8 +22,6 @@ use function date;
 
 /**
  * Logger service.
- *
- * @author Frederic G. Østby
  */
 class LoggerService extends Service
 {

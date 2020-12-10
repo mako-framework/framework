@@ -11,8 +11,6 @@ use mako\gatekeeper\entities\user\UserEntityInterface;
 
 /**
  * Authorizer interface.
- *
- * @author Frederic G. Østby
  */
 interface AuthorizerInterface
 {

@@ -9,8 +9,6 @@ namespace mako\database\types;
 
 /**
  * Type interface.
- *
- * @author Frederic G. Østby
  */
 interface TypeInterface
 {

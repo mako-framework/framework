@@ -12,8 +12,6 @@ use function fwrite;
 
 /**
  * Error writer.
- *
- * @author Frederic G. Østby
  */
 class Error implements WriterInterface
 {

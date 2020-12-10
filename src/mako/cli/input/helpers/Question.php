@@ -14,8 +14,6 @@ use function trim;
 
 /**
  * Question helper.
- *
- * @author Frederic G. Østby
  */
 class Question
 {

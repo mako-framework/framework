@@ -15,8 +15,6 @@ use function strpos;
 
 /**
  * Config class.
- *
- * @author Frederic G. Østby
  */
 class Config
 {

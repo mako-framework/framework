@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Email rule.
- *
- * @author Frederic G. Østby
  */
 class Email extends Rule implements RuleInterface
 {

@@ -17,8 +17,6 @@ use function implode;
 
 /**
  * Base handler.
- *
- * @author Frederic G. Østby
  */
 abstract class Handler
 {

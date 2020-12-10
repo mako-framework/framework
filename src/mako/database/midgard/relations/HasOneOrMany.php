@@ -9,8 +9,6 @@ namespace mako\database\midgard\relations;
 
 /**
  * Has one or has many relation.
- *
- * @author Frederic G. Østby
  */
 abstract class HasOneOrMany extends Relation
 {

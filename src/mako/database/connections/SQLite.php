@@ -9,8 +9,6 @@ namespace mako\database\connections;
 
 /**
  * SQLite database connection.
- *
- * @author Frederic G. Østby
  */
 class SQLite extends Connection
 {

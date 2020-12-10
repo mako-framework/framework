@@ -12,8 +12,6 @@ use mako\validator\ValidatorFactory;
 
 /**
  * Validator factory service.
- *
- * @author Frederic G. Østby
  */
 class ValidatorFactoryService extends Service
 {

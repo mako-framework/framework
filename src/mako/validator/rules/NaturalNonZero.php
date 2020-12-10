@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Natural non-zero rule.
- *
- * @author Frederic G. Østby
  */
 class NaturalNonZero extends Rule implements RuleInterface
 {

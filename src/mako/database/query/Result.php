@@ -14,8 +14,6 @@ use function json_encode;
 
 /**
  * Result.
- *
- * @author Frederic G. Østby
  */
 class Result implements JsonSerializable
 {

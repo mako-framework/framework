@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Integer rule.
- *
- * @author Frederic G. Østby
  */
 class Integer extends Rule implements RuleInterface
 {

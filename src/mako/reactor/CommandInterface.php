@@ -9,8 +9,6 @@ namespace mako\reactor;
 
 /**
  * Command interface.
- *
- * @author Frederic G. Østby
  */
 interface CommandInterface
 {

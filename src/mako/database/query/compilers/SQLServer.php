@@ -13,8 +13,6 @@ use function str_replace;
 
 /**
  * Compiles SQL Server queries.
- *
- * @author Frederic G. Østby
  */
 class SQLServer extends Compiler
 {

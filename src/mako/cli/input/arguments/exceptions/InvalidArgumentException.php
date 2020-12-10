@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Invalid option exception.
- *
- * @author Frederic G. Østby
  */
 class InvalidArgumentException extends ArgumentException
 {

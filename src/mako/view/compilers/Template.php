@@ -21,8 +21,6 @@ use function trim;
 
 /**
  * Template compiler.
- *
- * @author Frederic G. Østby
  */
 class Template
 {

@@ -19,8 +19,6 @@ use function strlen;
 
 /**
  * Stream response.
- *
- * @author Frederic G. Østby
  */
 class Stream implements ResponseSenderInterface
 {

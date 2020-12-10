@@ -15,8 +15,6 @@ use function property_exists;
 
 /**
  * Optimistic locking trait.
- *
- * @author Frederic G. Østby
  */
 trait OptimisticLockingTrait
 {

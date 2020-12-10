@@ -39,8 +39,6 @@ use function vsprintf;
 
 /**
  * Database connection.
- *
- * @author Frederic G. Østby
  */
 class Connection
 {

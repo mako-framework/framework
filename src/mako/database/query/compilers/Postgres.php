@@ -14,9 +14,6 @@ use function str_replace;
 
 /**
  * Compiles Postgres queries.
- *
- * @author Frederic G. Østby
- * @author Yamada Taro
  */
 class Postgres extends Compiler
 {

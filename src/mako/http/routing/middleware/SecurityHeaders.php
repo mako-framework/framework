@@ -13,8 +13,6 @@ use mako\http\Response;
 
 /**
  * Security headers middleware.
- *
- * @author Frederic G. Østby
  */
 class SecurityHeaders implements MiddlewareInterface
 {

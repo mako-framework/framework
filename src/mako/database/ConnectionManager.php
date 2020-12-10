@@ -35,8 +35,6 @@ use function vsprintf;
 /**
  * Database connection manager.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\database\connections\Connection connection($connection = null)
  */
 class ConnectionManager extends BaseConnectionManager

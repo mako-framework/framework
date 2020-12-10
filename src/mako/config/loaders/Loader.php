@@ -17,8 +17,6 @@ use function vsprintf;
 
 /**
  *  Loader.
- *
- * @author Frederic G. Østby
  */
 class Loader implements LoaderInterface
 {

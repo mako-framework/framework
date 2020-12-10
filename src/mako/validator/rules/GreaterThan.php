@@ -11,8 +11,6 @@ use function sprintf;
 
 /**
  * Greater than rule.
- *
- * @author Frederic G. Østby
  */
 class GreaterThan extends Rule implements RuleInterface
 {

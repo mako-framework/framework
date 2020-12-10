@@ -16,8 +16,6 @@ use function strpos;
 
 /**
  * URL builder.
- *
- * @author Frederic G. Østby
  */
 class URLBuilder
 {

@@ -9,8 +9,6 @@ namespace mako\cache\stores;
 
 /**
  * Null store.
- *
- * @author Frederic G. Østby
  */
 class NullStore extends Store implements IncrementDecrementInterface
 {

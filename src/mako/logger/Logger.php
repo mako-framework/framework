@@ -11,8 +11,6 @@ use Monolog\Logger as MonoLogger;
 
 /**
  * Logger.
- *
- * @author Frederic G. Østby
  */
 class Logger extends MonoLogger
 {

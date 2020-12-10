@@ -12,8 +12,6 @@ use function min;
 
 /**
  * Bcrypt hasher.
- *
- * @author Frederic G. Østby
  */
 class Bcrypt extends Hasher
 {

@@ -13,8 +13,6 @@ use mako\syringe\Container;
 
 /**
  * Abstract service.
- *
- * @author Frederic G. Østby
  */
 abstract class Service
 {

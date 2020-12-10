@@ -12,8 +12,6 @@ use mako\syringe\Container;
 
 /**
  * Validator factory.
- *
- * @author Frederic G. Østby
  */
 class ValidatorFactory
 {

@@ -25,8 +25,6 @@ use function substr;
 
 /**
  * Package.
- *
- * @author Frederic G. Østby
  */
 abstract class Package
 {

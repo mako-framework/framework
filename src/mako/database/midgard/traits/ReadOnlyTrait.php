@@ -11,8 +11,6 @@ use mako\database\midgard\traits\exceptions\ReadOnlyException;
 
 /**
  * Read-only trait.
- *
- * @author Frederic G. Østby
  */
 trait ReadOnlyTrait
 {

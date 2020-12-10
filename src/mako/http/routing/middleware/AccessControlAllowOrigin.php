@@ -15,8 +15,6 @@ use function in_array;
 
 /**
  * Access control allow origin middleware.
- *
- * @author Frederic G. Østby
  */
 abstract class AccessControlAllowOrigin implements MiddlewareInterface
 {

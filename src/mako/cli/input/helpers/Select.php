@@ -15,8 +15,6 @@ use function trim;
 
 /**
  * Select helper.
- *
- * @author Frederic G. Østby
  */
 class Select
 {

@@ -31,8 +31,6 @@ use function substr;
 /**
  * ORM query builder.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\database\midgard\ResultSet paginate($itemsPerPage = null, array $options = [])
  */
 class Query extends QueryBuilder

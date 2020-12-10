@@ -11,8 +11,6 @@ use RuntimeException;
 
 /**
  * View exception.
- *
- * @author Frederic G. Østby
  */
 class ViewException extends RuntimeException
 {

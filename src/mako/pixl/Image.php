@@ -19,8 +19,6 @@ use function vsprintf;
 
 /**
  * Image manipulation class.
- *
- * @author Frederic G. Østby
  */
 class Image
 {

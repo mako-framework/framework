@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Not in rule.
- *
- * @author Frederic G. Østby
  */
 class NotIn extends Rule implements RuleInterface
 {

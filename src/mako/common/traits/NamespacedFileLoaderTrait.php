@@ -17,8 +17,6 @@ use function vsprintf;
 
 /**
  * Namespaced file loader trait.
- *
- * @author Frederic G. Østby
  */
 trait NamespacedFileLoaderTrait
 {

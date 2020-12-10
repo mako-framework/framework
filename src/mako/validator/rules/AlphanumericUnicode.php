@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Alphanumeric unicode rule.
- *
- * @author Frederic G. Østby
  */
 class AlphanumericUnicode extends Rule implements RuleInterface
 {

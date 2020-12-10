@@ -12,8 +12,6 @@ use mako\security\Signer;
 
 /**
  * Crypto wrapper.
- *
- * @author Frederic G. Østby
  */
 class Crypto
 {

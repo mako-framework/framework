@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Gone exception.
- *
- * @author Frederic G. Østby
  */
 class GoneException extends HttpException
 {

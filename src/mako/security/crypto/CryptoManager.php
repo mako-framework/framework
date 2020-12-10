@@ -18,8 +18,6 @@ use function vsprintf;
 /**
  * Crypto manager.
  *
- * @author Frederic G. Østby
- *
  * @method \mako\security\crypto\encrypters\EncrypterInterface instance(?string $configuration = null)
  * @method string                                              encrypt(string $string)
  * @method string|false                                        decrypt(string $string)

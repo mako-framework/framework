@@ -12,8 +12,6 @@ use Throwable;
 
 /**
  * HTTP exception.
- *
- * @author Frederic G. Østby
  */
 class HttpException extends RuntimeException
 {

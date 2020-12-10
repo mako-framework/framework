@@ -24,8 +24,6 @@ use function trim;
 
 /**
  * Array helper.
- *
- * @author Frederic G. Østby
  */
 class Arr
 {

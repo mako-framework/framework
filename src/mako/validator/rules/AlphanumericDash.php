@@ -12,8 +12,6 @@ use function sprintf;
 
 /**
  * Alphanumeric dash rule.
- *
- * @author Frederic G. Østby
  */
 class AlphanumericDash extends Rule implements RuleInterface
 {

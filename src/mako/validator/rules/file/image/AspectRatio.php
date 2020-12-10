@@ -15,8 +15,6 @@ use function sprintf;
 
 /**
  * Aspect ratio rule.
- *
- * @author Frederic G. Østby
  */
 class AspectRatio extends Rule implements RuleInterface
 {

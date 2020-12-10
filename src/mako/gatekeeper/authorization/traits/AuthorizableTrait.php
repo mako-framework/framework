@@ -11,8 +11,6 @@ use mako\gatekeeper\authorization\AuthorizerInterface;
 
 /**
  * Authorizable trait.
- *
- * @author Frederic G. Østby
  */
 trait AuthorizableTrait
 {

@@ -9,8 +9,6 @@ namespace mako\http\routing\constraints;
 
 /**
  * Constraint interface.
- *
- * @author Frederic G. Østby
  */
 interface ConstraintInterface
 {

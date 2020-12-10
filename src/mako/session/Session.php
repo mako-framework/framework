@@ -25,8 +25,6 @@ use function random_bytes;
 
 /**
  * Session class.
- *
- * @author Frederic G. Østby
  */
 class Session
 {

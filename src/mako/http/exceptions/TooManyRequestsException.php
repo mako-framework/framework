@@ -11,8 +11,6 @@ use Throwable;
 
 /**
  * Too many requests exception.
- *
- * @author Frederic G. Østby
  */
 class TooManyRequestsException extends HttpException
 {

@@ -9,8 +9,6 @@ namespace mako\gatekeeper\repositories\user;
 
 /**
  * User repository interface.
- *
- * @author Frederic G. Østby
  */
 interface UserRepositoryInterface
 {

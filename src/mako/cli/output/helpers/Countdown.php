@@ -16,8 +16,6 @@ use function usleep;
 
 /**
  * Countdown helper.
- *
- * @author Yamada Taro
  */
 class Countdown
 {

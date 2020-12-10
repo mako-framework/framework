@@ -20,8 +20,6 @@ use function str_replace;
 
 /**
  * Mako template view renderer.
- *
- * @author Frederic G. Østby
  */
 class Template extends PHP
 {

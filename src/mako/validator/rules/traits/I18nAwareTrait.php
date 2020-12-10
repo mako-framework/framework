@@ -23,8 +23,6 @@ use function str_replace;
 
 /**
  * I18n aware trait.
- *
- * @author Frederic G. Østby
  */
 trait I18nAwareTrait
 {

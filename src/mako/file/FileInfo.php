@@ -18,8 +18,6 @@ use function hash_hmac_file;
 
 /**
  * File info.
- *
- * @author Frederic G. Østby
  */
 class FileInfo extends SplFileInfo
 {

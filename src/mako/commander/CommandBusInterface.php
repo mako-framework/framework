@@ -12,8 +12,6 @@ use mako\syringe\Container;
 
 /**
  * Command bus interface.
- *
- * @author Yamada Taro
  */
 interface CommandBusInterface
 {

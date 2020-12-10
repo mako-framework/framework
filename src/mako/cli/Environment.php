@@ -14,8 +14,6 @@ use function preg_match;
 
 /**
  * Environment.
- *
- * @author Frederic G. Østby
  */
 class Environment
 {
