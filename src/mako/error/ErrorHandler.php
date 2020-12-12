@@ -61,7 +61,7 @@ class ErrorHandler
 	/**
 	 * Logger instance.
 	 *
-	 * @var \Closure|\Psr\Log\LoggerInterface
+	 * @var \Closure|\Psr\Log\LoggerInterface|null
 	 */
 	protected $logger;
 
@@ -177,9 +177,9 @@ class ErrorHandler
 	/**
 	 * Return logger instance.
 	 *
-	 * @return \Psr\Log\LoggerInterface
+	 * @return \Psr\Log\LoggerInterface|null
 	 */
-	public function getLogger(): LoggerInterface
+	public function getLogger(): ?LoggerInterface
 	{
 		if($this->logger instanceof Closure)
 		{
