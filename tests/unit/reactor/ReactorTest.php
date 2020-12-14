@@ -58,7 +58,7 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
-		$optionsTable = <<<EOF
+		$optionsTable = <<<'EOF'
 		--------------------------------------------------------------------------------
 		| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
 		--------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
 
-$commandsTable = <<<EOF
+$commandsTable = <<<'EOF'
 -------------------------------------------------------
 | <green>Command</green> | <green>Description</green> |
 -------------------------------------------------------
@@ -148,7 +148,7 @@ EOF;
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
-$optionsTable = <<<EOF
+$optionsTable = <<<'EOF'
 --------------------------------------------------------------------------------
 | <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
 --------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ EOF;
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
 
-$commandsTable = <<<EOF
+$commandsTable = <<<'EOF'
 -------------------------------------------------------
 | <green>Command</green> | <green>Description</green> |
 -------------------------------------------------------
@@ -539,7 +539,7 @@ EOF;
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments and options:</yellow>');
 
-		$argumentsTable = <<<EOF
+		$argumentsTable = <<<'EOF'
 ------------------------------------------------------------------------------
 | <green>Name</green> | <green>Description</green> | <green>Optional</green> |
 ------------------------------------------------------------------------------

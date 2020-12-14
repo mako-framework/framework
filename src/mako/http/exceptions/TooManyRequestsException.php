@@ -15,7 +15,7 @@ use Throwable;
 class TooManyRequestsException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'You have made too many requests to the server.';
 

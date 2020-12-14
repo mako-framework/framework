@@ -16,7 +16,7 @@ use function sprintf;
 class AlphanumericDash extends Rule implements RuleInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -24,7 +24,7 @@ class AlphanumericDash extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

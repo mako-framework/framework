@@ -15,7 +15,7 @@ use mako\database\query\Query;
 class Helper implements HelperInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function insertAndGetId(Query $query, array $values, ?string $primaryKey = null)
 	{

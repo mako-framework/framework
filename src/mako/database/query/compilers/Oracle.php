@@ -17,12 +17,12 @@ class Oracle extends Compiler
 	use JsonPathBuilderTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
@@ -30,7 +30,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function from($table): string
 	{
@@ -38,7 +38,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function betweenDate(array $where): string
 	{
@@ -46,7 +46,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function whereDate(array $where): string
 	{
@@ -54,7 +54,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function lock($lock): string
 	{
@@ -67,7 +67,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function orderings(array $orderings): string
 	{
@@ -80,7 +80,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function limit(?int $limit): string
 	{
@@ -100,7 +100,7 @@ class Oracle extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function offset(?int $offset): string
 	{

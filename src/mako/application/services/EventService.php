@@ -15,7 +15,7 @@ use mako\event\Event;
 class EventService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

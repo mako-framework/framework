@@ -16,12 +16,12 @@ use mako\cli\input\arguments\Argument;
 class Remove extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Removes the chosen key from the cache.';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

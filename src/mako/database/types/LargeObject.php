@@ -15,7 +15,7 @@ use PDO;
 class LargeObject extends Type
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getType(): int
 	{

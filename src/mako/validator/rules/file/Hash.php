@@ -52,7 +52,7 @@ class Hash extends Rule implements RuleInterface
 	protected $i18nParameters = ['hash', 'algorithm'];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -60,7 +60,7 @@ class Hash extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

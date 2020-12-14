@@ -52,7 +52,7 @@ abstract class Hasher implements HasherInterface
 	abstract protected function getAlgorithm();
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function create(string $password): string
 	{
@@ -67,7 +67,7 @@ abstract class Hasher implements HasherInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function verify(string $password, string $hash): bool
 	{
@@ -75,7 +75,7 @@ abstract class Hasher implements HasherInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function needsRehash(string $hash): bool
 	{

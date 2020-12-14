@@ -43,7 +43,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	protected $user;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUserRepository(UserRepositoryInterface $userRepository): void
 	{
@@ -51,7 +51,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUserRepository()
 	{
@@ -59,7 +59,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setGroupRepository(GroupRepositoryInterface $groupRepository): void
 	{
@@ -67,7 +67,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getGroupRepository()
 	{
@@ -75,7 +75,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUser(UserEntityInterface $user): void
 	{
@@ -83,7 +83,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isGuest(): bool
 	{
@@ -91,7 +91,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isLoggedIn(): bool
 	{

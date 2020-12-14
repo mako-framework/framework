@@ -13,7 +13,7 @@ namespace mako\security\password;
 class Argon2i extends Hasher
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getAlgorithm()
 	{

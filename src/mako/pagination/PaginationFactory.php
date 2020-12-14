@@ -80,7 +80,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function create(int $items, ?int $itemsPerPage = null, array $options = []): PaginationInterface
 	{

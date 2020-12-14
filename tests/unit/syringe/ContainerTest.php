@@ -170,7 +170,7 @@ class ImpossibleToResolveDependencyA
 {
 	public $store;
 
-	public function __construct(StoreInterface $store = null)
+	public function __construct(?StoreInterface $store = null)
 	{
 		$this->store = $store;
 	}

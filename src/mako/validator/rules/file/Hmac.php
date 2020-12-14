@@ -62,7 +62,7 @@ class Hmac extends Rule implements RuleInterface
 	protected $i18nParameters = ['hmac', 'algorithm'];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -70,7 +70,7 @@ class Hmac extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

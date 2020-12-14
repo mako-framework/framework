@@ -23,7 +23,7 @@ interface UserRepositoryInterface
 	/**
 	 * Fetches a user by its identifier.
 	 *
-	 * @param  string|int                                              $identifier User identifier
+	 * @param  int|string                                              $identifier User identifier
 	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|null
 	 */
 	public function getByIdentifier($identifier);

@@ -18,7 +18,7 @@ use mako\tests\TestCase;
 class ConnectionTest extends TestCase
 {
 	/**
-	 * @var \mako\redis\Connection.
+	 * @var \mako\redis\Connection
 	 */
 	protected $connection;
 

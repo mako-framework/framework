@@ -18,12 +18,12 @@ use function vsprintf;
 class Status extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Checks if there are any outstanding migrations.';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

@@ -20,7 +20,7 @@ use Throwable;
 class ErrorHandlerService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

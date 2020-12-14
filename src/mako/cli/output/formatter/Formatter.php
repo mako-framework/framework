@@ -107,7 +107,7 @@ class Formatter implements FormatterInterface
 	 * Adds a user defined style.
 	 *
 	 * @param string       $name  Style name
-	 * @param string|array $style Style or array of styles
+	 * @param array|string $style Style or array of styles
 	 */
 	public function addStyle(string $name, $style): void
 	{
@@ -249,7 +249,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function format(string $string): string
 	{
@@ -295,7 +295,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function escape(string $string): string
 	{
@@ -303,7 +303,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function stripTags(string $string): string
 	{

@@ -45,7 +45,7 @@ class Authorizer implements AuthorizerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function registerPolicy(string $entityClass, string $policyClass): void
 	{
@@ -71,7 +71,7 @@ class Authorizer implements AuthorizerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function can(?UserEntityInterface $user, string $action, $entity, ...$parameters): bool
 	{

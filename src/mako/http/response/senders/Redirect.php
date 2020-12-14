@@ -184,7 +184,7 @@ class Redirect implements ResponseSenderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function send(Request $request, Response $response): void
 	{

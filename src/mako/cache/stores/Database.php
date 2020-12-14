@@ -36,7 +36,7 @@ class Database extends Store
 	/**
 	 * Class whitelist.
 	 *
-	 * @var bool|array
+	 * @var array|bool
 	 */
 	protected $classWhitelist;
 
@@ -45,7 +45,7 @@ class Database extends Store
 	 *
 	 * @param \mako\database\connections\Connection $connection     Database connection
 	 * @param string                                $table          Database table
-	 * @param bool|array                            $classWhitelist Class whitelist
+	 * @param array|bool                            $classWhitelist Class whitelist
 	 */
 	public function __construct(Connection $connection, string $table, $classWhitelist = false)
 	{
@@ -67,7 +67,7 @@ class Database extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
@@ -81,7 +81,7 @@ class Database extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function has(string $key): bool
 	{
@@ -89,7 +89,7 @@ class Database extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function get(string $key)
 	{
@@ -111,7 +111,7 @@ class Database extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function remove(string $key): bool
 	{
@@ -119,7 +119,7 @@ class Database extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function clear(): bool
 	{

@@ -16,7 +16,7 @@ use mako\utility\Humanizer;
 class HumanizerService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

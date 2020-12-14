@@ -13,7 +13,7 @@ namespace mako\tests\integration;
 abstract class ORMTestCase extends BuilderTestCase
 {
 	/**
-	 *{@inheritdoc}
+	 *{@inheritDoc}
 	 */
 	public function setup(): void
 	{
@@ -25,7 +25,7 @@ abstract class ORMTestCase extends BuilderTestCase
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function tearDown(): void
 	{

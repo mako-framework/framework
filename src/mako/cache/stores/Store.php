@@ -54,7 +54,7 @@ abstract class Store implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
@@ -102,7 +102,7 @@ abstract class Store implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{

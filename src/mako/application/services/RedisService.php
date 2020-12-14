@@ -16,7 +16,7 @@ use mako\redis\Redis;
 class RedisService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

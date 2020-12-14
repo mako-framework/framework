@@ -132,7 +132,7 @@ class LoggerService extends Service
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

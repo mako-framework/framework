@@ -29,7 +29,7 @@ class ViewFactoryService extends Service
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

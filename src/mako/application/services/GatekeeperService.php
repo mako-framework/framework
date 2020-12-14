@@ -23,7 +23,7 @@ use mako\session\Session as HttpSession;
 class GatekeeperService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

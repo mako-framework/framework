@@ -100,7 +100,7 @@ class UserRepository implements UserRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function createUser(array $properties = [])
 	{
@@ -176,7 +176,7 @@ class UserRepository implements UserRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @return \mako\gatekeeper\entities\user\User|null
 	 */

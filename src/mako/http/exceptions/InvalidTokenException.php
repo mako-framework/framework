@@ -15,7 +15,7 @@ use Throwable;
 class InvalidTokenException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'An invalid or expired token was provided.';
 

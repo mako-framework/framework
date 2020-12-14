@@ -45,7 +45,7 @@ class Event
 	 * Registers an event handler.
 	 *
 	 * @param string          $name    Event name
-	 * @param string|\Closure $handler Event handler
+	 * @param \Closure|string $handler Event handler
 	 */
 	public function register(string $name, $handler): void
 	{
@@ -87,7 +87,7 @@ class Event
 	 * Overrides an event.
 	 *
 	 * @param string          $name    Event name
-	 * @param string|\Closure $handler Event handler
+	 * @param \Closure|string $handler Event handler
 	 */
 	public function override(string $name, $handler): void
 	{
@@ -134,7 +134,7 @@ class Event
 	/**
 	 * Executes the event handler and returns the response.
 	 *
-	 * @param  string|\Closure $handler    Event handler
+	 * @param  \Closure|string $handler    Event handler
 	 * @param  array           $parameters Parameters
 	 * @return mixed
 	 */

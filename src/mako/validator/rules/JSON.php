@@ -17,7 +17,7 @@ use function sprintf;
 class JSON extends Rule implements RuleInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -25,7 +25,7 @@ class JSON extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

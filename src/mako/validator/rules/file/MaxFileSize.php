@@ -49,7 +49,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	 * Convert human friendly size to bytes.
 	 *
 	 * @param  int|string $size Size
-	 * @return int|float
+	 * @return float|int
 	 */
 	protected function convertToBytes($size)
 	{
@@ -84,7 +84,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -92,7 +92,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

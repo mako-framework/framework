@@ -15,7 +15,7 @@ use mako\security\crypto\CryptoManager;
 class CryptoService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

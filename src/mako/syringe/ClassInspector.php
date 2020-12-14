@@ -19,7 +19,7 @@ class ClassInspector
 	/**
 	 * Returns an array of all traits used by a class.
 	 *
-	 * @param  string|object $class    Class name or class instance
+	 * @param  object|string $class    Class name or class instance
 	 * @param  bool          $autoload Autoload
 	 * @return array
 	 */

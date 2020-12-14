@@ -57,7 +57,7 @@ abstract class HttpInput extends Input implements HttpInputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getInput(): array
 	{
@@ -65,7 +65,7 @@ abstract class HttpInput extends Input implements HttpInputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function shouldRedirect(): bool
 	{
@@ -73,7 +73,7 @@ abstract class HttpInput extends Input implements HttpInputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRedirectUrl(): string
 	{
@@ -81,7 +81,7 @@ abstract class HttpInput extends Input implements HttpInputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function shouldIncludeOldInput(): bool
 	{
@@ -89,7 +89,7 @@ abstract class HttpInput extends Input implements HttpInputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getOldInput(): array
 	{

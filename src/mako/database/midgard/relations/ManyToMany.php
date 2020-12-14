@@ -70,7 +70,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getColumns(): array
 	{
@@ -83,7 +83,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function aggregate($function, $column)
 	{
@@ -160,7 +160,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function lazyCriterion(): void
 	{
@@ -168,7 +168,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function eagerCriterion(array $keys)
 	{
@@ -178,7 +178,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getRelationCountQuery()
 	{

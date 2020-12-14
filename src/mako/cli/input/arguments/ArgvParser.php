@@ -220,8 +220,8 @@ class ArgvParser
 	 *
 	 * @param  \mako\cli\input\arguments\Argument $argument Argument
 	 * @param  string|null                        $token    Token
-	 * @param  string|bool                        $value    Value
-	 * @return string|bool|float|int
+	 * @param  bool|string                        $value    Value
+	 * @return bool|float|int|string
 	 */
 	protected function castValue(Argument $argument, ?string $token, $value)
 	{
@@ -252,7 +252,7 @@ class ArgvParser
 	 *
 	 * @param \mako\cli\input\arguments\Argument $argument Argument
 	 * @param string|null                        $token    Token
-	 * @param string|bool|null                   $value    Value
+	 * @param bool|string|null                   $value    Value
 	 */
 	protected function storeValue(Argument $argument, ?string $token, $value): void
 	{

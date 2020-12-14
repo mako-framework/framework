@@ -19,12 +19,12 @@ class SQLServer extends Compiler
 	use JsonPathBuilderTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s.0000000';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function escapeIdentifier(string $identifier): string
 	{
@@ -32,7 +32,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
@@ -40,7 +40,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
@@ -48,7 +48,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function from($from): string
 	{
@@ -63,7 +63,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function betweenDate(array $where): string
 	{
@@ -71,7 +71,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function whereDate(array $where): string
 	{
@@ -79,7 +79,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function orderings(array $orderings): string
 	{
@@ -92,7 +92,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function limit(?int $limit): string
 	{
@@ -105,7 +105,7 @@ class SQLServer extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function offset(?int $offset): string
 	{

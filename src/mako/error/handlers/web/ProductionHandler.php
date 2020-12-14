@@ -194,7 +194,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function handle(Throwable $exception)
 	{

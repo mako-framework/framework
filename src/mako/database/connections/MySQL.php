@@ -17,7 +17,7 @@ use function is_bool;
 class MySQL extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function bindParameter(PDOStatement $statement, int $key, $value): void
 	{

@@ -103,7 +103,7 @@ class Pagination implements PaginationInterface
 	protected $pagination = [];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __construct(int $items, int $itemsPerPage, int $currentPage, array $options = [])
 	{
@@ -125,7 +125,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function items(): int
 	{
@@ -133,7 +133,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function itemsPerPage(): int
 	{
@@ -141,7 +141,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function currentPage(): int
 	{
@@ -149,7 +149,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isValidPage(): bool
 	{
@@ -157,7 +157,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function numberOfPages(): int
 	{
@@ -165,7 +165,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function limit(): int
 	{
@@ -173,7 +173,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function offset(): int
 	{
@@ -227,7 +227,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function toArray(): array
 	{
@@ -265,7 +265,7 @@ class Pagination implements PaginationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function toJson(int $options = 0): string
 	{

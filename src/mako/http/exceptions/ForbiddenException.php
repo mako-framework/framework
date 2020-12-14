@@ -15,7 +15,7 @@ use Throwable;
 class ForbiddenException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'You don\'t have permission to access the requested resource.';
 

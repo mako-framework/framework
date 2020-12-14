@@ -138,7 +138,7 @@ class Template extends PHP
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function render(string $__view__, array $__variables__): string
 	{

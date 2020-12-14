@@ -148,7 +148,7 @@ class JSON implements ResponseBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function build(Request $request, Response $response): void
 	{

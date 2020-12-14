@@ -19,12 +19,12 @@ class MySQL extends Compiler
 	use JsonPathBuilderTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function escapeIdentifier(string $identifier): string
 	{
@@ -32,7 +32,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
@@ -40,7 +40,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
@@ -48,7 +48,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function betweenDate(array $where): string
 	{
@@ -59,7 +59,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function whereDate(array $where): string
 	{
@@ -98,7 +98,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function offset(?int $offset): string
 	{
@@ -111,7 +111,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function lock($lock): string
 	{
@@ -124,7 +124,7 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function insertWithoutValues(): string
 	{

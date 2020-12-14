@@ -42,7 +42,7 @@ class Logger extends MonoLogger
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addRecord(int $level, string $message, array $context = []): bool
 	{

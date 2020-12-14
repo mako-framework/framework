@@ -13,7 +13,7 @@ namespace mako\database\connections;
 class Postgres extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $supportsTransactionalDDL = true;
 }

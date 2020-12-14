@@ -31,7 +31,7 @@ trait C
 
 class D
 {
-	use C, B;
+	use B, C;
 }
 
 class E extends D

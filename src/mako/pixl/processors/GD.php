@@ -191,7 +191,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function open($image): void
 	{
@@ -201,7 +201,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function snapshot(): void
 	{
@@ -214,7 +214,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function restore(): void
 	{
@@ -229,7 +229,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getWidth()
 	{
@@ -237,7 +237,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getHeight()
 	{
@@ -245,7 +245,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDimensions()
 	{
@@ -253,7 +253,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function rotate($degrees): void
 	{
@@ -281,7 +281,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): void
 	{
@@ -306,7 +306,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function crop($width, $height, $x, $y): void
 	{
@@ -329,7 +329,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function flip($direction = Image::FLIP_HORIZONTAL): void
 	{
@@ -369,7 +369,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): void
 	{
@@ -424,7 +424,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function brightness($level = 50): void
 	{
@@ -468,7 +468,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function greyscale(): void
 	{
@@ -515,7 +515,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function sepia(): void
 	{
@@ -554,7 +554,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function bitonal(): void
 	{
@@ -596,7 +596,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function colorize($color): void
 	{
@@ -642,7 +642,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function sharpen(): void
 	{
@@ -654,7 +654,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function pixelate($pixelSize = 10): void
 	{
@@ -674,7 +674,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function negate(): void
 	{
@@ -706,7 +706,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function border($color = '#000', $thickness = 5): void
 	{
@@ -735,7 +735,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getImageBlob($type = null, $quality = 95)
 	{
@@ -771,7 +771,7 @@ class GD implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function save($file, $quality = 95): void
 	{

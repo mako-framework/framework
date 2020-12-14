@@ -23,7 +23,7 @@ class Standard implements WriterInterface
 	protected $isDirect;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isDirect(): bool
 	{
@@ -36,7 +36,7 @@ class Standard implements WriterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function write(string $string): void
 	{

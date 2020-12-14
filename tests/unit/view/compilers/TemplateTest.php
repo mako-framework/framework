@@ -166,7 +166,7 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	 */
 	public function testNospace(): void
 	{
-		$template = <<<EOF
+		$template = <<<'EOF'
 		{% nospace %}
 		<div>
 			<span>hello, world!</span>

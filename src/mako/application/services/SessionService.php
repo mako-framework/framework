@@ -30,7 +30,7 @@ class SessionService extends Service
 	 *
 	 * @param  \mako\syringe\Container       $container      Container
 	 * @param  array                         $config         Store configuration
-	 * @param  bool|array                    $classWhitelist Class whitelist
+	 * @param  array|bool                    $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Database
 	 */
 	protected function getDatabaseStore(Container $container, array $config, $classWhitelist)
@@ -43,7 +43,7 @@ class SessionService extends Service
 	 *
 	 * @param  \mako\syringe\Container   $container      Container
 	 * @param  array                     $config         Store configuration
-	 * @param  bool|array                $classWhitelist Class whitelist
+	 * @param  array|bool                $classWhitelist Class whitelist
 	 * @return \mako\session\stores\File
 	 */
 	protected function getFileStore(Container $container, array $config, $classWhitelist): File
@@ -56,7 +56,7 @@ class SessionService extends Service
 	 *
 	 * @param  \mako\syringe\Container        $container      Container
 	 * @param  array                          $config         Store configuration
-	 * @param  bool|array                     $classWhitelist Class whitelist
+	 * @param  array|bool                     $classWhitelist Class whitelist
 	 * @return \mako\session\stores\NullStore
 	 */
 	protected function getNullStore(Container $container, array $config, $classWhitelist): NullStore
@@ -69,7 +69,7 @@ class SessionService extends Service
 	 *
 	 * @param  \mako\syringe\Container    $container      Container
 	 * @param  array                      $config         Store configuration
-	 * @param  bool|array                 $classWhitelist Class whitelist
+	 * @param  array|bool                 $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Redis
 	 */
 	protected function getRedisStore(Container $container, array $config, $classWhitelist): Redis
@@ -82,7 +82,7 @@ class SessionService extends Service
 	 *
 	 * @param  \mako\syringe\Container             $container      Container
 	 * @param  array                               $config         Session configuration
-	 * @param  bool|array                          $classWhitelist Class whitelist
+	 * @param  array|bool                          $classWhitelist Class whitelist
 	 * @return \mako\session\stores\StoreInterface
 	 */
 	protected function getStore(Container $container, array $config, $classWhitelist): StoreInterface
@@ -93,7 +93,7 @@ class SessionService extends Service
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

@@ -16,7 +16,7 @@ use mako\validator\ValidatorFactory;
 class ValidatorFactoryService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

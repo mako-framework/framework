@@ -13,7 +13,7 @@ namespace mako\database\connections;
 class SQLite extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $supportsTransactionalDDL = true;
 }

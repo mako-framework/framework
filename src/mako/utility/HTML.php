@@ -76,7 +76,7 @@ class HTML
 	 * Helper method for building media tags.
 	 *
 	 * @param  string       $type       Tag type
-	 * @param  string|array $files      File or array of files
+	 * @param  array|string $files      File or array of files
 	 * @param  array        $attributes Tag attributes
 	 * @return string
 	 */
@@ -95,7 +95,7 @@ class HTML
 	/**
 	 * Creates audio tag with support for multiple sources.
 	 *
-	 * @param  string|array $files      File or array of files
+	 * @param  array|string $files      File or array of files
 	 * @param  array        $attributes Tag attributes
 	 * @return string
 	 */
@@ -107,7 +107,7 @@ class HTML
 	/**
 	 * Creates video tag with support for multiple sources.
 	 *
-	 * @param  string|array $files      File or array of files
+	 * @param  array|string $files      File or array of files
 	 * @param  array        $attributes Tag attributes
 	 * @return string
 	 */

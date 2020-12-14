@@ -178,7 +178,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{

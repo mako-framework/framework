@@ -15,7 +15,7 @@ abstract class HasOneOrMany extends Relation
 	/**
 	 * Creates a related record.
 	 *
-	 * @param  \mako\database\midgard\ORM|array $related Related record
+	 * @param  array|\mako\database\midgard\ORM $related Related record
 	 * @return \mako\database\midgard\ORM
 	 */
 	public function create($related)

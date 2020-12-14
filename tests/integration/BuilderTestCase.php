@@ -21,7 +21,7 @@ abstract class BuilderTestCase extends TestCase
 	protected $connectionManager;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setup(): void
 	{

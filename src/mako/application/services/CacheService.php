@@ -16,7 +16,7 @@ use mako\cache\stores\StoreInterface;
 class CacheService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{
