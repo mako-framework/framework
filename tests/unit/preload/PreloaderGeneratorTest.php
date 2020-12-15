@@ -10,6 +10,9 @@ namespace mako\tests\unit\preload;
 use mako\preload\PreloaderGenerator;
 use mako\tests\TestCase;
 
+/**
+ * @group unit
+ */
 class PreloaderGeneratorTest extends TestCase
 {
 	/**
