@@ -8,6 +8,8 @@
 namespace mako\syringe;
 
 use function array_pop;
+use function class_implements;
+use function class_parents;
 use function class_uses;
 use function get_parent_class;
 

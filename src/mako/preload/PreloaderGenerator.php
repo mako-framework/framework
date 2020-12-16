@@ -11,6 +11,8 @@ use mako\syringe\ClassInspector;
 use ReflectionClass;
 
 use function array_map;
+use function array_unique;
+use function sort;
 use function sprintf;
 use function var_export;
 
