@@ -9,6 +9,7 @@ namespace mako\application\cli;
 
 use mako\application\Application as BaseApplication;
 use mako\application\cli\commands\app\GenerateKey;
+use mako\application\cli\commands\app\GeneratePreloader;
 use mako\application\cli\commands\app\GenerateSecret;
 use mako\application\cli\commands\app\ListRoutes;
 use mako\application\cli\commands\cache\Clear;
@@ -188,6 +189,14 @@ class Application extends BaseApplication
 			'app.generate_key'    => GenerateKey::class,
 			'app.generate_secret' => GenerateSecret::class,
 		];
+
+		if(PHP_VERSION_ID >= 70400)
+		{
+			$commands = array_merge($commands,
+			[
+				'app.generate_preloader' => GeneratePreloader::class,
+			]);
+		}
 
 		if($this->container->has(Routes::class))
 		{

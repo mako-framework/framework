@@ -80,6 +80,13 @@ abstract class Application
 	protected $applicationPath;
 
 	/**
+	 * Application storage path.
+	 *
+	 * @var string
+	 */
+	protected $storagePath;
+
+	/**
 	 * Booted packages.
 	 *
 	 * @var array
@@ -208,6 +215,16 @@ abstract class Application
 	}
 
 	/**
+	 * Gets the application storage path.
+	 *
+	 * @return string
+	 */
+	public function getStoragePath(): string
+	{
+		return $this->storagePath;
+	}
+
+	/**
 	 * Returns all the application packages.
 	 *
 	 * @return array
@@ -295,6 +312,10 @@ abstract class Application
 		// Set locale information
 
 		$this->setLanguage($config['default_language']);
+
+		// Set storage path
+
+		$this->storagePath = $config['storage_path'] ?? "{$this->applicationPath}/storage";
 	}
 
 	/**

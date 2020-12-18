@@ -6,6 +6,8 @@
 * Added a HTTP status code helper class.
 * Added missing status codes to `Response` class.
 * Added a `Retry` helper class that allows you to retry a callable a set number of times.
+* Added `Application::getStoragePath()` method.
+* Added `app.generate_prelaoder` command that generates an opcache preloder script for improved production performance (only available on PHP `7.4` and greater).
 
 #### Changes
 

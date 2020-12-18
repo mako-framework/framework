@@ -23,9 +23,7 @@ class ViewFactoryService extends Service
 	 */
 	protected function getStoragePath(): string
 	{
-		$base = $this->config->get('application.storage_path') ?? "{$this->app->getPath()}/storage";
-
-		return "{$base}/cache/views";
+		return "{$this->app->getStoragePath()}/cache/views";
 	}
 
 	/**

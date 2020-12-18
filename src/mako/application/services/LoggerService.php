@@ -77,9 +77,7 @@ class LoggerService extends Service
 	 */
 	protected function getStoragePath(): string
 	{
-		$base = $this->config->get('application.storage_path') ?? "{$this->app->getPath()}/storage";
-
-		return "{$base}/logs/" . date('Y-m-d') . '.mako';
+		return "{$this->app->getStoragePath()}/logs/" . date('Y-m-d') . '.mako';
 	}
 
 	/**
