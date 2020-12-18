@@ -65,6 +65,7 @@ class GeneratePreloader extends Command
 		return
 		[
 			new Argument('-i|--ignore-core-classes', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
+			new Argument('-o|--output-path', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
 		];
 	}
 
@@ -104,22 +105,24 @@ class GeneratePreloader extends Command
 	/**
 	 * Returns the path to where the opcache preloder script should be stored.
 	 *
+	 * @param  string|null $outputPath Output path
 	 * @return string
 	 */
-	protected function getStoragePath(): string
+	protected function getOutputPath(?string $outputPath): string
 	{
-		return $this->app->getStoragePath();
+		return $outputPath ?? "{$this->app->getStoragePath()}/preload.php";
 	}
 
 	/**
 	 * Generates an opcache preloader script.
 	 *
-	 * @param  bool $ignoreCoreClasses Should the default selection of core classes be ignored?
+	 * @param  bool        $ignoreCoreClasses Should the default selection of core classes be ignored?
+	 * @param  string|null $outputPath        Output path
 	 * @return int
 	 */
-	public function execute(bool $ignoreCoreClasses = false): int
+	public function execute(bool $ignoreCoreClasses = false, ?string $outputPath = null): int
 	{
-		$path = "{$this->getStoragePath()}/preload.php";
+		$path = $this->getOutputPath($outputPath);
 
 		$classes = $this->getClasses($ignoreCoreClasses);
 
