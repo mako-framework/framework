@@ -1,6 +1,6 @@
 <?php
 
-namespace mako\tests\unit\preload\classes;
+namespace mako\tests\unit\classes\preload\classes;
 
 use DateTime;
 use DateTimeInterface;

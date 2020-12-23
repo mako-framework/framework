@@ -8,6 +8,7 @@
 namespace mako\syringe;
 
 use Closure;
+use mako\classes\ClassInspector;
 use mako\syringe\exceptions\ContainerException;
 use mako\syringe\exceptions\UnableToInstantiateException;
 use mako\syringe\exceptions\UnableToResolveParameterException;

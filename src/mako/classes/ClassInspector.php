@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\syringe;
+namespace mako\classes;
 
 use function array_pop;
 use function class_implements;

@@ -7,11 +7,14 @@
 * Added missing status codes to `Response` class.
 * Added a `Retry` helper class that allows you to retry a callable a set number of times.
 * Added `Application::getStoragePath()` method.
+* Added a `Finder` class.
+* Added a `ClassFinder` class.
 * Added `app.generate_prelaoder` command that generates an opcache preloder script for improved production performance (only available on PHP `7.4` and greater).
 
 #### Changes
 
 * Cloned database connections will now get a new PDO instance and have their query log and transaction nesting level reset.
+* The `ClassInspector` has been moved from the `mako\syringe` namespace to the `mako\classes` namespace.
 
 --------------------------------------------------------
 

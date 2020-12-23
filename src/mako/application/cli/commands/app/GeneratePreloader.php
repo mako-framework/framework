@@ -8,11 +8,11 @@
 namespace mako\application\cli\commands\app;
 
 use mako\application\Application;
+use mako\classes\preload\PreloaderGenerator;
 use mako\cli\input\arguments\Argument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
-use mako\preload\PreloaderGenerator;
 use mako\reactor\Command;
 
 use function array_merge;

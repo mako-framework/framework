@@ -5,15 +5,15 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\preload;
+namespace mako\tests\unit\classes\preload;
 
-use mako\preload\PreloaderGenerator;
+use mako\classes\preload\PreloaderGenerator;
 use mako\tests\TestCase;
-use mako\tests\unit\preload\classes\CA;
-use mako\tests\unit\preload\classes\CB;
-use mako\tests\unit\preload\classes\CC;
-use mako\tests\unit\preload\classes\CD;
-use mako\tests\unit\preload\classes\CE;
+use mako\tests\unit\classes\preload\classes\CA;
+use mako\tests\unit\classes\preload\classes\CB;
+use mako\tests\unit\classes\preload\classes\CC;
+use mako\tests\unit\classes\preload\classes\CD;
+use mako\tests\unit\classes\preload\classes\CE;
 
 /**
  * @group unit

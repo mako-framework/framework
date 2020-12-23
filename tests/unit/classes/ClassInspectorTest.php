@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\syringe;
+namespace mako\tests\unit\classes;
 
-use mako\syringe\ClassInspector;
+use mako\classes\ClassInspector;
 use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------
@@ -45,8 +45,8 @@ class ClassInspectorTest extends TestCase
 
 		$expectedParents =
 		[
-			'mako\tests\unit\syringe\E' => 'mako\tests\unit\syringe\E',
-			'mako\tests\unit\syringe\D' => 'mako\tests\unit\syringe\D',
+			'mako\tests\unit\classes\E' => 'mako\tests\unit\classes\E',
+			'mako\tests\unit\classes\D' => 'mako\tests\unit\classes\D',
 		];
 
 		$this->assertSame($expectedParents, $parents);
@@ -61,10 +61,10 @@ class ClassInspectorTest extends TestCase
 
 		$exptectedInterfaces =
 		[
-			'mako\tests\unit\syringe\IC' => 'mako\tests\unit\syringe\IC',
-			'mako\tests\unit\syringe\ID' => 'mako\tests\unit\syringe\ID',
-			'mako\tests\unit\syringe\IA' => 'mako\tests\unit\syringe\IA',
-			'mako\tests\unit\syringe\IB' => 'mako\tests\unit\syringe\IB',
+			'mako\tests\unit\classes\IC' => 'mako\tests\unit\classes\IC',
+			'mako\tests\unit\classes\ID' => 'mako\tests\unit\classes\ID',
+			'mako\tests\unit\classes\IA' => 'mako\tests\unit\classes\IA',
+			'mako\tests\unit\classes\IB' => 'mako\tests\unit\classes\IB',
 		];
 
 		// We are sorting the arrays since the order doesn't matter and it changed between PHP 7.3 and 7.4
@@ -80,15 +80,15 @@ class ClassInspectorTest extends TestCase
 	 */
 	public function testGetTraits(): void
 	{
-		$traitsD = ClassInspector::getTraits('mako\tests\unit\syringe\D');
+		$traitsD = ClassInspector::getTraits('mako\tests\unit\classes\D');
 
-		$traitsE = ClassInspector::getTraits('mako\tests\unit\syringe\E');
+		$traitsE = ClassInspector::getTraits('mako\tests\unit\classes\E');
 
 		$expectedTraits =
 		[
-			'mako\tests\unit\syringe\C' => 'mako\tests\unit\syringe\C',
-			'mako\tests\unit\syringe\B' => 'mako\tests\unit\syringe\B',
-			'mako\tests\unit\syringe\A' => 'mako\tests\unit\syringe\A',
+			'mako\tests\unit\classes\C' => 'mako\tests\unit\classes\C',
+			'mako\tests\unit\classes\B' => 'mako\tests\unit\classes\B',
+			'mako\tests\unit\classes\A' => 'mako\tests\unit\classes\A',
 		];
 
 		$this->assertEquals($expectedTraits, $traitsD);

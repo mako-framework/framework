@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\preload;
+namespace mako\classes\preload;
 
-use mako\syringe\ClassInspector;
+use mako\classes\ClassInspector;
 use ReflectionClass;
 
 use function array_map;
