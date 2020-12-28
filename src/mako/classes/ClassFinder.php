@@ -177,11 +177,11 @@ class ClassFinder
 	}
 
 	/**
-	 * Returns the tokens that should be used to match class like items.
+	 * Returns the tokens we're searching for.
 	 *
 	 * @return array
 	 */
-	protected function getClasslikeTokens(): array
+	protected function getAllowedClasslikeTokens(): array
 	{
 		$tokens = [];
 
@@ -228,7 +228,7 @@ class ClassFinder
 	{
 		$namespaceTokens = $this->getNamespaceTokens();
 
-		$classlikeTokens = $this->getClasslikeTokens();
+		$allowedClasslikeTokens = $this->getAllowedClasslikeTokens();
 
 		$tokens = token_get_all(php_strip_whitespace($path));
 
@@ -256,15 +256,14 @@ class ClassFinder
 				$namespace .= '\\';
 			}
 
-			if(in_array($tokens[$i][0], $classlikeTokens) && T_WHITESPACE === $tokens[$i + 1][0] && T_STRING === $tokens[$i + 2][0])
+			if(in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT]) && T_WHITESPACE === $tokens[$i + 1][0] && T_STRING === $tokens[$i + 2][0])
 			{
-				if($this->includeAbstractClasses || (!isset($tokens[$i - 2]) || !is_array($tokens[$i - 2]) || $tokens[$i - 2][0] !== T_ABSTRACT))
+				if(in_array($tokens[$i][0], $allowedClasslikeTokens) && ($this->includeAbstractClasses || (!isset($tokens[$i - 2]) || !is_array($tokens[$i - 2]) || $tokens[$i - 2][0] !== T_ABSTRACT)))
 				{
 					return $namespace . $tokens[$i + 2][1];
 				}
 
 				return null;
-
 			}
 		}
 
