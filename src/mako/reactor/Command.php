@@ -33,6 +33,13 @@ abstract class Command implements CommandInterface
 	protected $output;
 
 	/**
+	 * Command.
+	 *
+	 * @var string
+	 */
+	protected $command;
+
+	/**
 	 * Command description.
 	 *
 	 * @var string
@@ -50,6 +57,14 @@ abstract class Command implements CommandInterface
 		$this->input = $input;
 
 		$this->output = $output;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getCommand(): ?string
+	{
+		return $this->command ?? null;
 	}
 
 	/**

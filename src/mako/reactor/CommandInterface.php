@@ -27,6 +27,13 @@ interface CommandInterface
 	const STATUS_ERROR = 1;
 
 	/**
+	 * Returns the command.
+	 *
+	 * @return string|null
+	 */
+	public function getCommand(): ?string;
+
+	/**
 	 * Returns the command description.
 	 *
 	 * @return string

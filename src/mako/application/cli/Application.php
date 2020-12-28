@@ -21,6 +21,7 @@ use mako\application\cli\commands\migrations\Status;
 use mako\application\cli\commands\migrations\Up;
 use mako\application\cli\commands\server\Server;
 use mako\cache\CacheManager;
+use mako\classes\ClassFinder;
 use mako\cli\input\arguments\Argument;
 use mako\cli\input\arguments\ArgvParser;
 use mako\cli\input\arguments\exceptions\ArgumentException;
@@ -32,10 +33,12 @@ use mako\cli\output\Output;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
+use mako\file\Finder;
 use mako\http\routing\Routes;
 use mako\Mako;
 use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
+use ReflectionClass;
 
 use function array_merge;
 use function array_shift;
@@ -176,6 +179,40 @@ class Application extends BaseApplication
 	}
 
 	/**
+	 * Returns the application commands.
+	 *
+	 * @return array
+	 */
+	protected function getApplicationCommands(): array
+	{
+		$commands = [];
+
+		$commandsDirectory = $this->config->get('application.commands_directory');
+
+		if($commandsDirectory !== null)
+		{
+			$finder = new ClassFinder(new Finder((array) $commandsDirectory));
+
+			$finder->excludeInterfaces()->excludeAbstractClasses()->excludeTraits();
+
+			foreach($finder->findImplementing(CommandInterface::class) as $commandClass)
+			{
+				/** @var \mako\reactor\CommandInterface $command */
+				$command = (new ReflectionClass($commandClass))->newInstanceWithoutConstructor();
+
+				$command = $command->getCommand();
+
+				if($command !== null)
+				{
+					$commands[$command] = $commandClass;
+				}
+			}
+		}
+
+		return $this->config->get('application.commands', []) + $commands;
+	}
+
+	/**
 	 * Returns all registered commands.
 	 *
 	 * @return array
@@ -230,7 +267,7 @@ class Application extends BaseApplication
 
 		// Add application commands
 
-		$commands += $this->config->get('application.commands');
+		$commands += $this->getApplicationCommands();
 
 		// Add package commands
 
