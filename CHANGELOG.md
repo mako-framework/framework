@@ -16,7 +16,7 @@
 #### Changes
 
 * Cloned database connections will now get a new PDO instance and have their query log and transaction nesting level reset.
-* The `ClassInspector` has been moved from the `mako\syringe` namespace to the `mako\classes` namespace.
+* The `ClassInspector` class has been moved from the `mako\syringe` namespace to the `mako\classes` namespace.
 
 --------------------------------------------------------
 
