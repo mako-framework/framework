@@ -260,10 +260,10 @@ class ClassFinder
 			{
 				if($this->includeAbstractClasses || (!isset($tokens[$i - 2]) || !is_array($tokens[$i - 2]) || $tokens[$i - 2][0] !== T_ABSTRACT))
 				{
-					$i += 2; // Skip class, interface or trait keyword and whitespace
-
-					return $namespace . $tokens[$i][1];
+					return $namespace . $tokens[$i + 2][1];
 				}
+
+				return null;
 
 			}
 		}
