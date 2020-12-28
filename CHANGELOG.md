@@ -10,11 +10,13 @@
 * Added a `Finder` class.
 * Added a `ClassFinder` class.
 * Added `app.generate_prelaoder` command that generates an opcache preloder script for improved production performance (only available on PHP `7.4` and greater).
+* It is now possible for reactor commands to automatically register themselves.
 
 #### Changes
 
 * Cloned database connections will now get a new PDO instance and have their query log and transaction nesting level reset.
 * The `ClassInspector` has been moved from the `mako\syringe` namespace to the `mako\classes` namespace.
+* Added `getCommand` method to the `CommandInterface` interface.
 
 --------------------------------------------------------
 
