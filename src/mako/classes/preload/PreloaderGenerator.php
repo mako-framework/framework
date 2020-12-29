@@ -41,10 +41,10 @@ class PreloaderGenerator
 	/**
 	 * Adds missing user defined dependencies to the class array.
 	 *
-	 * @param  array $classes An array of class names
+	 * @param  iterable $classes An iterable of class names
 	 * @return array
 	 */
-	protected function addMissingDependencies(array $classes): array
+	protected function addMissingDependencies(iterable $classes): array
 	{
 		$merged = [];
 
@@ -97,10 +97,10 @@ class PreloaderGenerator
 	/**
 	 * Generates a preloader.
 	 *
-	 * @param  array  $classes An array of class names
+	 * @param  iterable $classes An iterable of class names
 	 * @return string
 	 */
-	public function generatePreloader(array $classes): string
+	public function generatePreloader(iterable $classes): string
 	{
 		$classes = $this->getClassFilePaths($this->addMissingDependencies($classes));
 

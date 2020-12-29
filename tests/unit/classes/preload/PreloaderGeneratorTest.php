@@ -47,6 +47,33 @@ class PreloaderGeneratorTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGeneratePreloaderFromGenerator(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/CA.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader((function()
+		{
+			yield CA::class;
+		})()));
+	}
+
+	/**
+	 *
+	 */
 	public function testGeneratePreloaderWithMissingParent(): void
 	{
 		$classPath = __DIR__;
@@ -142,4 +169,5 @@ class PreloaderGeneratorTest extends TestCase
 
 		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CE::class]));
 	}
+
 }
