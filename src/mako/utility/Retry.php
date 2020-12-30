@@ -38,6 +38,13 @@ class Retry
 	protected $wait;
 
 	/**
+	 * Should the time between each attempt increase exponentially?
+	 *
+	 * @var bool
+	 */
+	protected $exponentialWait;
+
+	/**
 	 * Callable that decides whether or not we should retry.
 	 *
 	 * @var callable|null
@@ -47,18 +54,21 @@ class Retry
 	/**
 	 * Constructor.
 	 *
-	 * @param callable      $callable The callable
-	 * @param int           $attempts The number of attempts
-	 * @param int           $wait     The time we want to want to wait between each attempt in microseconds
-	 * @param callable|null $decider  Callable that decides whether or not we should retry
+	 * @param callable      $callable        The callable
+	 * @param int           $attempts        The number of attempts
+	 * @param int           $wait            The time we want to want to wait between each attempt in microseconds
+	 * @param bool          $exponentialWait Should the time between each attempt increase exponentially?
+	 * @param callable|null $decider         Callable that decides whether or not we should retry
 	 */
-	public function __construct(callable $callable, $attempts = 5, $wait = 50000, ?callable $decider = null)
+	public function __construct(callable $callable, $attempts = 5, $wait = 50000, bool $exponentialWait = false, ?callable $decider = null)
 	{
 		$this->callable = $callable;
 
 		$this->attempts = $attempts;
 
 		$this->wait = $wait;
+
+		$this->exponentialWait = $exponentialWait;
 
 		$this->decider = $decider;
 	}
@@ -90,6 +100,18 @@ class Retry
 	}
 
 	/**
+	 * Enables exponential waiting.
+	 *
+	 * @return \mako\utility\Retry
+	 */
+	public function exponentialWait(): Retry
+	{
+		$this->exponentialWait = true;
+
+		return $this;
+	}
+
+	/**
 	 * Sets the decider that decides whether or not we should retry.
 	 *
 	 * @param  callable            $decider Callable that decides whether or not we should retry
@@ -100,6 +122,22 @@ class Retry
 		$this->decider = $decider;
 
 		return $this;
+	}
+
+	/**
+	 * Returns the number of microseconds we should wait for.
+	 *
+	 * @param  int $attempts Number of attempts
+	 * @return int
+	 */
+	protected function calculateWait(int $attempts): int
+	{
+		if($this->exponentialWait)
+		{
+			return (2 ** ($attempts - 1)) * $this->wait;
+		}
+
+		return $this->wait;
 	}
 
 	/**
@@ -121,7 +159,7 @@ class Retry
 		{
 			if(++$attempts < $this->attempts && ($this->decider === null || ($this->decider)($e) === true))
 			{
-				usleep($this->wait);
+				usleep($this->calculateWait($attempts));
 
 				goto start;
 			}

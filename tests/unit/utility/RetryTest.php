@@ -157,7 +157,7 @@ class RetryTest extends TestCase
 		{
 			$callable = $this->getCallable();
 
-			(new Retry([$callable, 'failsFourTimes'], 4, 0, function(Throwable $e)
+			(new Retry([$callable, 'failsFourTimes'], 4, 0, false, function(Throwable $e)
 			{
 				return $e instanceof InvalidArgumentException;
 			}))();
