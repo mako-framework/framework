@@ -9,6 +9,7 @@ namespace mako\file;
 
 use FilesystemIterator;
 use Generator;
+use Iterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -98,10 +99,10 @@ class Finder
 	/**
 	 * Creates an iterator instance.
 	 *
-	 * @param  string     $path
-	 * @return \Generator
+	 * @param  string    $path
+	 * @return \Iterator
 	 */
-	protected function createIterator(string $path): Generator
+	protected function createIterator(string $path): Iterator
 	{
 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::CURRENT_AS_PATHNAME | FilesystemIterator::SKIP_DOTS));
 
@@ -112,12 +113,10 @@ class Finder
 
 		if($this->pattern === null)
 		{
-			yield from $iterator;
-
-			return;
+			return $iterator;
 		}
 
-		yield from new RegexIterator($iterator, $this->pattern);
+		return new RegexIterator($iterator, $this->pattern);
 	}
 
 	/**
