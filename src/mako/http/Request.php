@@ -210,10 +210,11 @@ class Request
 	/**
 	 * Constructor.
 	 *
-	 * @param array                      $request Request data and options
-	 * @param \mako\security\Signer|null $signer  Signer instance used to validate signed cookies
+	 * @param array                      $request    Request data and options
+	 * @param \mako\security\Signer|null $signer     Signer instance used to validate signed cookies
+	 * @param string|null                $scriptName Script name
 	 */
-	public function __construct(array $request = [], ?Signer $signer = null)
+	public function __construct(array $request = [], ?Signer $signer = null, ?string $scriptName = null)
 	{
 		// Collect request data
 
@@ -227,7 +228,12 @@ class Request
 
 		// Get the script name
 
-		$this->scriptName = basename($this->server->get('SCRIPT_FILENAME'));
+		$this->scriptName = $scriptName ?? basename($this->server->get('SCRIPT_FILENAME'));
+
+		if($this->scriptName === 'reactor')
+		{
+			$this->scriptName = 'index.php';
+		}
 
 		// Set the request path and method
 
