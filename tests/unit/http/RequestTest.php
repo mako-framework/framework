@@ -78,6 +78,26 @@ class RequestTest extends TestCase
 		$request = new Request(['server' => $server]);
 
 		$this->assertEquals('app.php', $request->getScriptName());
+
+		//
+
+		$server['SCRIPT_FILENAME'] = '/var/www/reactor';
+
+		$request = new Request(['server' => $server]);
+
+		$this->assertEquals('index.php', $request->getScriptName());
+	}
+
+	/**
+	 *
+	 */
+	public function testScriptNameOverride(): void
+	{
+		$server = $this->getServerData();
+
+		$request = new Request(['server' => $server], null, 'foo.php');
+
+		$this->assertEquals('foo.php', $request->getScriptName());
 	}
 
 	/**

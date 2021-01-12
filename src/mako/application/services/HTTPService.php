@@ -35,7 +35,7 @@ class HTTPService extends Service
 
 		$this->container->registerSingleton([Request::class, 'request'], static function($container) use ($config)
 		{
-			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class));
+			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class), $config['script_name'] ?? null);
 
 			if(!empty($config['trusted_proxies']))
 			{
