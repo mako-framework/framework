@@ -1,3 +1,11 @@
+### 6.3.17, 7.0.6, 7.1.1 <small>(2021-01-12)</small>
+
+#### Bugfixes
+
+* Fixed bug that could occur when building "non-clean" URLs in the command line.
+
+--------------------------------------------------------
+
 ### 7.1.0 <small>(2020-12-31)</small>
 
 #### New
