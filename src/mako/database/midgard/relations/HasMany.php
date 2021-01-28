@@ -49,11 +49,11 @@ class HasMany extends HasOneOrMany
 	}
 
 	/**
-	 * Returns a related result set from the database.
+	 * Fetches a related result set from the database.
 	 *
 	 * @return \mako\database\midgard\ResultSet
 	 */
-	public function getRelated()
+	protected function fetchRelated()
 	{
 		return $this->all();
 	}

@@ -10,6 +10,7 @@ namespace mako\tests\integration\database\midgard\relations;
 use Generator;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
+use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -171,5 +172,17 @@ class BelongsToTest extends ORMTestCase
 		$this->assertEquals(1, $profile->user_count);
 
 		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "users" WHERE "users"."id" = "profiles"."user_id") AS "user_count" FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testWithNonPersistedModel(): void
+	{
+		$this->expectException(RuntimeException::class);
+
+		$this->expectExceptionMessage('Unable to fetch related records for non-persisted models.');
+
+		(new BelongsToProfile())->user;
 	}
 }

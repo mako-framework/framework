@@ -1,3 +1,11 @@
+### 7.0.7 <small>(2021-01-28)</small>
+
+#### Bugfixes
+
+* The ORM will now throw an exception when attempting to access related records on non-persisted models instead of loading random records.
+
+--------------------------------------------------------
+
 ### 6.3.17, 7.0.6 <small>(2021-01-12)</small>
 
 #### Bugfixes

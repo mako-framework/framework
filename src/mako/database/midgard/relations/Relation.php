@@ -10,6 +10,7 @@ namespace mako\database\midgard\relations;
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
+use RuntimeException;
 
 use function array_chunk;
 use function array_merge;
@@ -207,5 +208,27 @@ abstract class Relation extends Query
 		$this->adjustQuery();
 
 		return parent::all();
+	}
+
+	/**
+	 * Fetches the related record(s) from the database.
+	 *
+	 * @return \mako\database\midgard\ORM|\mako\database\midgard\ResultSet|null
+	 */
+	abstract protected function fetchRelated();
+
+	/**
+	 * Returns the related record(s) from the database.
+	 *
+	 * @return \mako\database\midgard\ORM|\mako\database\midgard\ResultSet|null
+	 */
+	public function getRelated()
+	{
+		if(!$this->origin->isPersisted())
+		{
+			throw new RuntimeException('Unable to fetch related records for non-persisted models.');
+		}
+
+		return $this->fetchRelated();
 	}
 }
