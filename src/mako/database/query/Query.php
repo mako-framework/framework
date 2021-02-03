@@ -1075,12 +1075,12 @@ class Query
 	/**
 	 * Adds a JOIN clause.
 	 *
-	 * @param  string          $table    Table name
-	 * @param  \Closure|string $column1  Column name or closure
-	 * @param  string          $operator Operator
-	 * @param  string          $column2  Column name
-	 * @param  string          $type     Join type
-	 * @param  bool            $raw      Raw join?
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  \Closure|string                                               $column1  Column name or closure
+	 * @param  string                                                        $operator Operator
+	 * @param  string                                                        $column2  Column name
+	 * @param  string                                                        $type     Join type
+	 * @param  bool                                                          $raw      Raw join?
 	 * @return $this
 	 */
 	public function join($table, $column1 = null, $operator = null, $column2 = null, string $type = 'INNER', bool $raw = false)
@@ -1111,11 +1111,11 @@ class Query
 	/**
 	 * Adds a raw JOIN clause.
 	 *
-	 * @param  string $table    Table name
-	 * @param  string $column1  Column name or closure
-	 * @param  string $operator Operator
-	 * @param  string $raw      Raw SQL
-	 * @param  string $type     Join type
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  string                                                        $column1  Column name or closure
+	 * @param  string                                                        $operator Operator
+	 * @param  string                                                        $raw      Raw SQL
+	 * @param  string                                                        $type     Join type
 	 * @return $this
 	 */
 	public function joinRaw($table, $column1, $operator, $raw, string $type = 'INNER')
@@ -1126,10 +1126,10 @@ class Query
 	/**
 	 * Adds a LEFT OUTER JOIN clause.
 	 *
-	 * @param  string          $table    Table name
-	 * @param  \Closure|string $column1  Column name or closure
-	 * @param  string          $operator Operator
-	 * @param  string          $column2  Column name
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  \Closure|string                                               $column1  Column name or closure
+	 * @param  string                                                        $operator Operator
+	 * @param  string                                                        $column2  Column name
 	 * @return $this
 	 */
 	public function leftJoin($table, $column1 = null, $operator = null, $column2 = null)
@@ -1140,10 +1140,10 @@ class Query
 	/**
 	 * Adds a raw LEFT OUTER JOIN clause.
 	 *
-	 * @param  string $table    Table name
-	 * @param  string $column1  Column name or closure
-	 * @param  string $operator Operator
-	 * @param  string $raw      Raw SQL
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  string                                                        $column1  Column name or closure
+	 * @param  string                                                        $operator Operator
+	 * @param  string                                                        $raw      Raw SQL
 	 * @return $this
 	 */
 	public function leftJoinRaw($table, $column1, $operator, $raw)
