@@ -25,7 +25,7 @@
 * Added `Application::getStoragePath()` method.
 * Added a `Finder` class.
 * Added a `ClassFinder` class.
-* Added `app.generate_prelaoder` command that generates an opcache preloder script for improved production performance (only available on PHP `7.4` and greater).
+* Added `app.generate_preloader` command that generates an opcache preloder script for improved production performance (only available on PHP `7.4` and greater).
 * It is now possible for reactor commands to automatically register themselves.
 * Added `getCommand` method to the `CommandInterface` interface.
 
