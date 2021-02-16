@@ -1,3 +1,11 @@
+### 7.2.0 <small>(2021-??-??)</small>
+
+#### New
+
+* The default production error views now have "dark mode" support.
+
+--------------------------------------------------------
+
 ### 7.0.7, 7.1.2 <small>(2021-01-28)</small>
 
 #### Bugfixes

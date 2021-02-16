@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>{{block:title}}Error{{endblock}}</title>
 		<style type="text/css">
-		body
-		{
+		body {
 			background: #FEFEFE;
 			color: #333333;
 			padding: 0;
@@ -15,8 +14,7 @@
 			font-size: 100%;
 			line-height: 100%;
 		}
-		.container
-		{
+		.container {
 			position: absolute;
 			height: 100%;
 			width: 100%;
@@ -24,8 +22,7 @@
 			align-items: center;
 			justify-content: center;
 		}
-	 	.container h1
-		{
+	 	.container h1 {
 			padding: 0;
 			margin: 0;
 			width: auto;
@@ -34,13 +31,17 @@
 			line-height: 1em;
 			border-bottom: 4px #2DB28A solid
 		}
-		.container .message
-		{
+		.container .message {
 			padding: 2em;
 		}
-		.container .message p
-		{
+		.container .message p {
 			font-size: 1.1em;
+		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background: #222222;
+				color: #EDEDED;
+			}
 		}
 		</style>
 	</head>
