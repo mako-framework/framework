@@ -25,6 +25,7 @@ use function filter_var;
 use function fwrite;
 use function get_class;
 use function headers_sent;
+use function http_response_code;
 use function in_array;
 use function ini_get;
 use function ob_end_clean;

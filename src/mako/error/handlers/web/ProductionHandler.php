@@ -14,7 +14,9 @@ use mako\http\Response;
 use mako\view\ViewFactory;
 use Throwable;
 
+use function array_filter;
 use function function_exists;
+use function is_array;
 use function json_encode;
 use function simplexml_load_string;
 
