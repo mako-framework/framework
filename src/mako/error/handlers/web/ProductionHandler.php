@@ -134,15 +134,17 @@ class ProductionHandler extends Handler implements HandlerInterface
 			{
 				$view = $code;
 			}
+
+			$data = $exception->getData();
 		}
 
 		try
 		{
-			return $this->view->render('mako-error::' . $view);
+			return $this->view->render('mako-error::' . $view, ['data' => $data ?? []]);
 		}
 		catch(Throwable $e)
 		{
-			return $this->view->clearAutoAssignVariables()->render('mako-error::' . $view);
+			return $this->view->clearAutoAssignVariables()->render('mako-error::' . $view, ['data' => $data ?? []]);
 		}
 	}
 

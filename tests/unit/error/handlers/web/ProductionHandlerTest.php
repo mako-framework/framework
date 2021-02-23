@@ -65,7 +65,7 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andReturn('rendered');
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['data' => []])->andReturn('rendered');
 
 		//
 
@@ -83,11 +83,11 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andThrow(RuntimeException::class);
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['data' => []])->andThrow(RuntimeException::class);
 
 		$viewFactory->shouldReceive('clearAutoAssignVariables')->once()->andReturn($viewFactory);
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error')->andReturn('rendered');
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['data' => []])->andReturn('rendered');
 
 		//
 
@@ -179,7 +179,7 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('exists')->once()->with('mako-error::405')->andReturn(true);
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::405')->andReturn('rendered');
+		$viewFactory->shouldReceive('render')->once()->with('mako-error::405', ['data' => []])->andReturn('rendered');
 
 		//
 

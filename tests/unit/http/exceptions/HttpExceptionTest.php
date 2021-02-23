@@ -34,4 +34,20 @@ class HttpExceptionTest extends TestCase
 
 		$this->assertSame('Server Error', $exception->getMessage());
 	}
+
+	/**
+	 *
+	 */
+	public function testSetAndGetData(): void
+	{
+		$exception = new HttpException(500);
+
+		$data = ['foo' => 'bar'];
+
+		$this->assertSame([], $exception->getData());
+
+		$this->assertInstanceOf(HttpException::class, $exception->setData($data));
+
+		$this->assertSame($data, $exception->getData());
+	}
 }
