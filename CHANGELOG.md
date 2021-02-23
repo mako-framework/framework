@@ -4,7 +4,7 @@
 
 * The default production error views now have "dark mode" support.
 * Added `setData` and `getData` methods to the `HttpException` class.
-* The `HttpException` data array is available in the production error templates as `$data`.
+* The `HttpException` data array is available in the production error views as `$data`.
 
 --------------------------------------------------------
 
