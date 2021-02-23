@@ -38,16 +38,16 @@ class HttpExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetData(): void
+	public function testSetAndGetMetadata(): void
 	{
 		$exception = new HttpException(500);
 
 		$data = ['foo' => 'bar'];
 
-		$this->assertSame([], $exception->getData());
+		$this->assertSame([], $exception->getMetadata());
 
-		$this->assertInstanceOf(HttpException::class, $exception->setData($data));
+		$this->assertInstanceOf(HttpException::class, $exception->setMetadata($data));
 
-		$this->assertSame($data, $exception->getData());
+		$this->assertSame($data, $exception->getMetadata());
 	}
 }

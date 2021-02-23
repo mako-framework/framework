@@ -23,11 +23,11 @@ class HttpException extends RuntimeException
 	protected $defaultMessage;
 
 	/**
-	 * Additional data.
+	 * Exception metadata.
 	 *
 	 * @var array
 	 */
-	protected $data = [];
+	protected $metadata = [];
 
 	/**
 	 * Constructor.
@@ -42,25 +42,25 @@ class HttpException extends RuntimeException
 	}
 
 	/**
-	 * Sets additional data.
+	 * Sets exception metadata.
 	 *
-	 * @param  array $data Additional data
+	 * @param  array $metadata Exception metadata
 	 * @return $this
 	 */
-	public function setData(array $data)
+	public function setMetadata(array $metadata)
 	{
-		$this->data = $data;
+		$this->metadata = $metadata;
 
 		return $this;
 	}
 
 	/**
-	 * Returns additional data.
+	 * Returns exception metadata.
 	 *
 	 * @return array
 	 */
-	public function getData(): array
+	public function getMetadata(): array
 	{
-		return $this->data;
+		return $this->metadata;
 	}
 }
