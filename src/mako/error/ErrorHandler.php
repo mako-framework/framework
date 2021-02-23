@@ -10,6 +10,7 @@ namespace mako\error;
 use Closure;
 use ErrorException;
 use mako\error\handlers\HandlerInterface;
+use mako\http\exceptions\HttpException;
 use mako\syringe\Container;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -308,6 +309,26 @@ class ErrorHandler
 	}
 
 	/**
+	 * Logs the exception.
+	 *
+	 * @param \Throwable $exception An exception object
+	 */
+	protected function logException(Throwable $exception): void
+	{
+		if($this->shouldExceptionBeLogged($exception))
+		{
+			try
+			{
+				$this->getLogger()->error($exception->getMessage(), ['exception' => $exception]);
+			}
+			catch(Throwable $e)
+			{
+				error_log(sprintf('%s on line %s in %s.', $e->getMessage(), $e->getLine(), $e->getLine()));
+			}
+		}
+	}
+
+	/**
 	 * Handles uncaught exceptions.
 	 *
 	 * @param \Throwable $exception An exception object
@@ -337,6 +358,11 @@ class ErrorHandler
 		{
 			if((PHP_SAPI === 'cli' || headers_sent() === false) && $this->displayErrors())
 			{
+				if(PHP_SAPI !== 'cli')
+				{
+					http_response_code($exception instanceof HttpException ? $exception->getCode() : 500);
+				}
+
 				// Empty output buffers
 
 				$this->clearOutputBuffers();
@@ -350,20 +376,17 @@ class ErrorHandler
 				$this->write('Additionally, the error handler failed with the following error:' . PHP_EOL);
 
 				$this->getFallbackHandler()($e);
+
+				// And finally we'll log the additional exception
+
+				$this->logException($e);
 			}
 		}
 		finally
 		{
 			try
 			{
-				if($this->shouldExceptionBeLogged($exception))
-				{
-					$this->getLogger()->error($exception->getMessage(), ['exception' => $exception]);
-				}
-			}
-			catch(Throwable $e)
-			{
-				error_log(sprintf('%s on line %s in %s.', $e->getMessage(), $e->getLine(), $e->getLine()));
+				$this->logException($exception);
 			}
 			finally
 			{

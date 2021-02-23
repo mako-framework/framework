@@ -71,11 +71,13 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 * @param  \Throwable $exception Exception
 	 * @return array
 	 */
-	protected function getStatusCodeAndMessage(Throwable $exception): array
+	protected function getStatusCodeMessageAndMetadata(Throwable $exception): array
 	{
 		if($exception instanceof HttpException)
 		{
 			$message = $exception->getMessage();
+
+			$metadata = $exception->getMetadata();
 		}
 
 		if(empty($message))
@@ -83,7 +85,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 			$message = 'An error has occurred while processing your request.';
 		}
 
-		return ['code' => $this->getStatusCode($exception), 'message' => $message];
+		return ['code' => $this->getStatusCode($exception), 'message' => $message, 'metadata' => $metadata ?? []];
 	}
 
 	/**
@@ -94,7 +96,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	protected function getExceptionAsJson(Throwable $exception): string
 	{
-		return json_encode(['error' => $this->getStatusCodeAndMessage($exception)]);
+		return json_encode(['error' => array_filter($this->getStatusCodeMessageAndMetadata($exception))]);
 	}
 
 	/**
@@ -105,13 +107,33 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	protected function getExceptionAsXml(Throwable $exception): string
 	{
-		['code' => $code, 'message' => $message] = $this->getStatusCodeAndMessage($exception);
+		['code' => $code, 'message' => $message, 'metadata' => $metadata] = $this->getStatusCodeMessageAndMetadata($exception);
 
 		$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><error />");
 
 		$xml->addChild('code', $code);
 
 		$xml->addChild('message', $message);
+
+		if(!empty($metadata))
+		{
+			$meta = $xml->addChild('metadata');
+
+			($builder = function($xml, $metadata) use (&$builder)
+			{
+				foreach($metadata as $key => $value)
+				{
+					if(is_array($value))
+					{
+						$child = $xml->addChild($key);
+
+						return $builder($child, $value);
+					}
+
+					$xml->addChild($key, $value);
+				}
+			})($meta, $metadata);
+		}
 
 		return $xml->asXML();
 	}
@@ -156,7 +178,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	protected function getExceptionAsPlainText(Throwable $exception): string
 	{
-		['message' => $message] = $this->getStatusCodeAndMessage($exception);
+		['message' => $message] = $this->getStatusCodeMessageAndMetadata($exception);
 
 		return $message;
 	}

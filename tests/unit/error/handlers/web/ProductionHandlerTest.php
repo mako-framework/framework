@@ -9,6 +9,7 @@ namespace mako\tests\unit\error\handlers\web;
 
 use ErrorException;
 use mako\error\handlers\web\ProductionHandler;
+use mako\http\exceptions\ForbiddenException;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Request;
 use mako\http\request\Headers as RequestHeaders;
@@ -274,6 +275,47 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testHttpExceptionWithJsonResponse(): void
+	{
+		if(function_exists('json_encode') === false)
+		{
+			$this->markTestSkipped('JSON support is missing.');
+
+			return;
+		}
+
+		$request = Mockery::mock(Request::class);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('getType')->once()->andReturn('application/json');
+
+		$response->shouldReceive('clear')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCaching')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCompression')->once()->andReturn($response);
+
+		$response->shouldReceive('setType')->once()->with('application/json');
+
+		$response->shouldReceive('setBody')->once()->with('{"error":{"code":403,"message":"You don\'t have permission to access the requested resource.","metadata":{"foo":"bar"}}}')->andReturn($response);
+
+		$response->shouldReceive('setStatus')->once()->with(403)->andReturn($response);
+
+		$response->shouldReceive('send')->once();
+
+		//
+
+		$handler = new ProductionHandler($request, $response);
+
+		$this->assertFalse($handler->handle((new ForbiddenException)->setMetadata(['foo' => 'bar'])));
+	}
+
+	/**
+	 *
+	 */
 	public function testRegularErrorWithXmlResponse(): void
 	{
 		if(function_exists('simplexml_load_string') === false)
@@ -320,5 +362,56 @@ class ProductionHandlerTest extends TestCase
 		$handler = new ProductionHandler($request, $response);
 
 		$this->assertFalse($handler->handle(new ErrorException));
+	}
+
+	/**
+	 *
+	 */
+	public function testHttpExceptionWithXmlResponse(): void
+	{
+		if(function_exists('simplexml_load_string') === false)
+		{
+			$this->markTestSkipped('XML support is missing.');
+
+			return;
+		}
+
+		$responseHeaders = Mockery::mock(RequestHeaders::class);
+
+		$responseHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
+
+		//
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('clear')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCaching')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCompression')->once()->andReturn($response);
+
+		$response->shouldReceive('getType')->twice()->andReturn('application/xml');
+
+		$response->shouldReceive('setType')->once()->with('application/xml');
+
+		$response->shouldReceive('setBody')->once()->with('<?xml version="1.0" encoding="utf-8"?>
+<error><code>403</code><message>You don\'t have permission to access the requested resource.</message><metadata><foo>bar</foo></metadata></error>
+')->andReturn($response);
+
+		$response->shouldReceive('setStatus')->once()->with(403)->andReturn($response);
+
+		$response->shouldReceive('send')->once();
+
+		//
+
+		$handler = new ProductionHandler($request, $response);
+
+		$this->assertFalse($handler->handle((new ForbiddenException)->setMetadata(['foo' => 'bar'])));
 	}
 }
