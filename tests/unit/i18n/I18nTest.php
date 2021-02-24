@@ -50,23 +50,6 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetCache(): void
-	{
-		$i18n = new I18n($this->getLoader(), 'en_US');
-
-		$i18n->setCache($this->getCache());
-
-		$cache = (function()
-		{
-			return $this->cache;
-		})->bindTo($i18n, I18n::class)();
-
-		$this->assertInstanceOf(StoreInterface::class, $cache);
-	}
-
-	/**
-	 *
-	 */
 	public function testGetLanguage(): void
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
@@ -290,40 +273,6 @@ class I18nTest extends TestCase
 		$this->assertEquals('1,234:123', $i18n->get('baz.number3', [1234.123]));
 
 		$this->assertEquals('1;234:123', $i18n->get('baz.number4', [1234.123]));
-	}
-
-	/**
-	 *
-	 */
-	public function testCacheLoad(): void
-	{
-		$cache = $this->getCache();
-
-		$cache->shouldReceive('get')->once()->with('mako.i18n.en_US')->andReturn($this->strings);
-
-		$i18n = new I18n($this->getLoader(), 'en_US', $cache);
-
-		$this->assertEquals('foostring', $i18n->get('foo.foo'));
-	}
-
-	/**
-	 *
-	 */
-	public function testCacheSave(): void
-	{
-		$loader = $this->getLoader();
-
-		$loader->shouldReceive('loadStrings')->once()->with('en_US', 'foo')->andReturn($this->strings['foo']);
-
-		$cache = $this->getCache();
-
-		$cache->shouldReceive('get')->once()->with('mako.i18n.en_US')->andReturn(false);
-
-		$cache->shouldReceive('put')->once()->with('mako.i18n.en_US', ['foo' => $this->strings['foo']], 3600);
-
-		$i18n = new I18n($loader, 'en_US', $cache);
-
-		$this->assertEquals('foostring', $i18n->get('foo.foo'));
 	}
 
 	/**

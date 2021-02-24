@@ -7,6 +7,10 @@
 	- The `HttpException` metadata array is available in the production error views as `$_metadata_`.
 	- The `HttpException` metadata array will also be avaiable in the JSON and XML representation of the errors.
 
+### Changes
+
+* The language cache has been removed as [OPcache](https://www.php.net/manual/en/book.opcache.php) will cache the language files in memory and load them faster than any other cache solution.
+
 --------------------------------------------------------
 
 ### 7.0.7, 7.1.2 <small>(2021-01-28)</small>

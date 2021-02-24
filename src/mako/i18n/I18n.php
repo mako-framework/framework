@@ -7,7 +7,6 @@
 
 namespace mako\i18n;
 
-use mako\cache\stores\StoreInterface;
 use mako\i18n\loaders\LoaderInterface;
 use mako\utility\Arr;
 
@@ -54,47 +53,16 @@ class I18n
 	protected $inflections = [];
 
 	/**
-	 * Cache instance.
-	 *
-	 * @var \mako\cache\stores\StoreInterface
-	 */
-	protected $cache;
-
-	/**
-	 * Should we rebuild the cache?
-	 *
-	 * @var bool
-	 */
-	protected $rebuildCache = false;
-
-	/**
 	 * Constructor.
 	 *
-	 * @param \mako\i18n\loaders\LoaderInterface     $loader   Loader instance
-	 * @param string                                 $language Default language pack name
-	 * @param \mako\cache\stores\StoreInterface|null $cache    Cache instance
+	 * @param \mako\i18n\loaders\LoaderInterface $loader   Loader instance
+	 * @param string                             $language Default language pack name
 	 */
-	public function __construct(LoaderInterface $loader, string $language, ?StoreInterface $cache = null)
+	public function __construct(LoaderInterface $loader, string $language)
 	{
 		$this->loader = $loader;
 
 		$this->language = $language;
-
-		$this->cache = $cache;
-	}
-
-	/**
-	 * Destructor.
-	 */
-	public function __destruct()
-	{
-		if($this->cache !== null && $this->rebuildCache)
-		{
-			foreach($this->strings as $language => $strings)
-			{
-				$this->cache->put("mako.i18n.{$language}", $strings, 3600);
-			}
-		}
 	}
 
 	/**
@@ -105,16 +73,6 @@ class I18n
 	public function getLoader(): LoaderInterface
 	{
 		return $this->loader;
-	}
-
-	/**
-	 * Sets the cache.
-	 *
-	 * @param \mako\cache\stores\StoreInterface $cache Cache instance
-	 */
-	public function setCache(StoreInterface $cache): void
-	{
-		$this->cache = $cache;
 	}
 
 	/**
@@ -213,20 +171,6 @@ class I18n
 	}
 
 	/**
-	 * Loads language strings from cache.
-	 *
-	 * @param  string $language Name of the language pack
-	 * @param  string $file     File from which we are loading the strings
-	 * @return bool
-	 */
-	protected function loadFromCache(string $language, string $file): bool
-	{
-		$this->strings[$language] = $this->cache->get("mako.i18n.{$language}");
-
-		return $this->strings[$language] !== false && isset($this->strings[$language][$file]);
-	}
-
-	/**
 	 * Loads all strings for the language.
 	 *
 	 * @param string $language Name of the language pack
@@ -234,16 +178,6 @@ class I18n
 	 */
 	protected function loadStrings(string $language, string $file): void
 	{
-		if($this->cache !== null)
-		{
-			if($this->loadFromCache($language, $file))
-			{
-				return;
-			}
-
-			$this->rebuildCache = true;
-		}
-
 		$this->strings[$language][$file] = $this->loader->loadStrings($language, $file);
 	}
 
