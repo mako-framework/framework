@@ -7,32 +7,27 @@
 
 namespace mako\error\handlers\web;
 
+use ErrorException;
 use mako\application\Application;
 use mako\error\handlers\HandlerInterface;
+use mako\file\FileSystem;
 use mako\http\Request;
 use mako\http\Response;
+use mako\view\renderers\Template;
+use mako\view\ViewFactory;
 use Throwable;
-use Whoops\Handler\HandlerInterface as WhoopsHandlerInterface;
-use Whoops\Handler\JsonResponseHandler;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Handler\XmlResponseHandler;
-use Whoops\Run as Whoops;
 
-use function current;
 use function function_exists;
+use function get_class;
+use function json_encode;
+use function simplexml_load_string;
+use function sys_get_temp_dir;
 
 /**
  * Development handler.
  */
 class DevelopmentHandler extends Handler implements HandlerInterface
 {
-	/**
-	 * Whoops.
-	 *
-	 * @var \Whoops\Run
-	 */
-	protected $whoops;
-
 	/**
 	 * Request instance.
 	 *
@@ -57,75 +52,154 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param \Whoops\Run                   $whoops   Whoops
 	 * @param \mako\http\Request            $request  Request
 	 * @param \mako\http\Response           $response Response
 	 * @param \mako\application\Application $app      Application
 	 */
-	public function __construct(Whoops $whoops, Request $request, Response $response, Application $app)
+	public function __construct(Request $request, Response $response, Application $app)
 	{
-		$this->whoops = $whoops;
-
 		$this->request = $request;
 
 		$this->response = $response;
 
 		$this->app = $app;
-
-		$this->configureWhoops();
 	}
 
 	/**
-	 * Returns a Whoops handler.
+	 * Returns the exception type.
 	 *
-	 * @return \Whoops\Handler\HandlerInterface
+	 * @param  \Throwable $exception Exception
+	 * @return string
 	 */
-	protected function getWhoopsHandler(): WhoopsHandlerInterface
+	protected function getExceptionType(Throwable $exception): string
+	{
+		if($exception instanceof ErrorException)
+		{
+			$type = get_class($exception);
+
+			switch($exception->getCode())
+			{
+				case E_DEPRECATED:
+				case E_USER_DEPRECATED:
+					$type .= ': Deprecated';
+					break;
+				case E_NOTICE:
+				case E_USER_NOTICE:
+					$type .= ': Notice';
+					break;
+				case E_WARNING:
+				case E_USER_WARNING:
+					$type .= ': Warning';
+					break;
+			}
+
+			return $type;
+		}
+
+		return get_class($exception);
+	}
+
+	/**
+	 * Return a JSON representation of the exception.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return string
+	 */
+	protected function getExceptionAsJson(Throwable $exception): string
+	{
+		$details =
+		[
+			'type'    => $this->getExceptionType($exception),
+			'code'    => $exception->getCode(),
+			'message' => $exception->getMessage(),
+			'file'    => $exception->getFile(),
+			'line'    => $exception->getLine(),
+		];
+
+		return json_encode(['error' => $details]);
+	}
+
+	/**
+	 * Return a XML representation of the exception.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return string
+	 */
+	protected function getExceptionAsXml(Throwable $exception): string
+	{
+		$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><error />");
+
+		$xml->addChild('type', $this->getExceptionType($exception));
+
+		$xml->addChild('code', $exception->getCode());
+
+		$xml->addChild('message', $exception->getMessage());
+
+		$xml->addChild('file', $exception->getFile());
+
+		$xml->addChild('line', $exception->getLine());
+
+		return $xml->asXML();
+	}
+
+	/**
+	 * Returns a view factory.
+	 *
+	 * @return \mako\view\ViewFactory
+	 */
+	protected function getViewFactory(): ViewFactory
+	{
+		$fileSystem = new FileSystem;
+
+		$factory = new ViewFactory($fileSystem, '');
+
+		$factory->extend('.tpl.php', function() use ($fileSystem)
+		{
+			return new Template($fileSystem, sys_get_temp_dir());
+		});
+
+		$factory->registerNamespace('mako-error', __DIR__ . '/views');
+
+		return $factory;
+	}
+
+	/**
+	 * Returns a rendered error view.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return string
+	 */
+	protected function getExceptionAsHtml(Throwable $exception): string
+	{
+		return $this->getViewFactory()->render('mako-error::development.error',
+		[
+			'type'    => $this->getExceptionType($exception),
+			'code'    => $exception->getCode(),
+			'message' => $exception->getMessage(),
+			'file'    => $exception->getFile(),
+			'line'    => $exception->getLine(),
+		]);
+	}
+
+	/**
+	 * Builds a response.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return array
+	 */
+	protected function buildResponse(Throwable $exception): array
 	{
 		if(function_exists('json_encode') && $this->respondWithJson())
 		{
-			return new JsonResponseHandler;
+			return ['type' => 'application/json', 'body' => $this->getExceptionAsJson($exception)];
 		}
 
 		if(function_exists('simplexml_load_string') && $this->respondWithXml())
 		{
-			return new XmlResponseHandler;
+			return ['type' => 'application/xml', 'body' => $this->getExceptionAsXml($exception)];
 		}
 
-		$handler = new PrettyPageHandler;
-
-		$handler->handleUnconditionally(true);
-
-		$handler->setApplicationPaths([$this->app->getPath()]);
-
-		$handler->setPageTitle('Error');
-
-		$blacklist = $this->app->getConfig()->get('application.error_handler.debug_blacklist');
-
-		if(!empty($blacklist))
-		{
-			foreach($blacklist as $superglobal => $keys)
-			{
-				foreach($keys as $key)
-				{
-					$handler->blacklist($superglobal, $key);
-				}
-			}
-		}
-
-		return $handler;
-	}
-
-	/**
-	 * Configure Whoops.
-	 */
-	protected function configureWhoops(): void
-	{
-		$this->whoops->prependHandler($this->getWhoopsHandler());
-
-		$this->whoops->writeToOutput(false);
-
-		$this->whoops->allowQuit(false);
+		return ['type' => 'text/html', 'body' => $this->getExceptionAsHtml($exception)];
 	}
 
 	/**
@@ -133,13 +207,15 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	 */
 	public function handle(Throwable $exception)
 	{
+		['type' => $type, 'body' => $body] = $this->buildResponse($exception);
+
 		$this->sendResponse($this->response
 		->clear()
 		->disableCaching()
 		->disableCompression()
-		->setBody($this->whoops->handleException($exception))
-		->setStatus($this->getStatusCode($exception))
-		->setType(current($this->whoops->getHandlers())->contentType()), $exception);
+		->setType($type)
+		->setBody($body)
+		->setStatus($this->getStatusCode($exception)), $exception);
 
 		return false;
 	}

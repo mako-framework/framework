@@ -33,7 +33,6 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^2.1",
-        "filp/whoops": "^2.7",
         "symfony/var-dumper": "^5.1"
     },
     "require-dev": {

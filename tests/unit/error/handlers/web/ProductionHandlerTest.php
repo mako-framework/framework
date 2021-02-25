@@ -52,7 +52,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('text/html');
 
-		$response->shouldReceive('setType')->once()->with('text/html');
+		$response->shouldReceive('setType')->once()->with('text/html')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
@@ -114,7 +114,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('text/html');
 
-		$response->shouldReceive('setType')->once()->with('text/html');
+		$response->shouldReceive('setType')->once()->with('text/html')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
@@ -162,7 +162,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('text/html');
 
-		$response->shouldReceive('setType')->once()->with('text/html');
+		$response->shouldReceive('setType')->once()->with('text/html')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
@@ -216,7 +216,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('text/plain');
 
-		$response->shouldReceive('setType')->once()->with('text/plain');
+		$response->shouldReceive('setType')->once()->with('text/plain')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('An error has occurred while processing your request.')->andReturn($response);
 
@@ -257,7 +257,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('disableCompression')->once()->andReturn($response);
 
-		$response->shouldReceive('setType')->once()->with('application/json');
+		$response->shouldReceive('setType')->once()->with('application/json')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('{"error":{"code":500,"message":"An error has occurred while processing your request."}}')->andReturn($response);
 
@@ -298,7 +298,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('disableCompression')->once()->andReturn($response);
 
-		$response->shouldReceive('setType')->once()->with('application/json');
+		$response->shouldReceive('setType')->once()->with('application/json')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('{"error":{"code":403,"message":"You don\'t have permission to access the requested resource.","metadata":{"foo":"bar"}}}')->andReturn($response);
 
@@ -347,7 +347,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('application/xml');
 
-		$response->shouldReceive('setType')->once()->with('application/xml');
+		$response->shouldReceive('setType')->once()->with('application/xml')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('<?xml version="1.0" encoding="utf-8"?>
 <error><code>500</code><message>An error has occurred while processing your request.</message></error>
@@ -398,7 +398,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->twice()->andReturn('application/xml');
 
-		$response->shouldReceive('setType')->once()->with('application/xml');
+		$response->shouldReceive('setType')->once()->with('application/xml')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('<?xml version="1.0" encoding="utf-8"?>
 <error><code>403</code><message>You don\'t have permission to access the requested resource.</message><metadata><foo>bar</foo></metadata></error>
