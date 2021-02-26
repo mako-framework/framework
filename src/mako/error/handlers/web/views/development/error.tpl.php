@@ -108,12 +108,19 @@
 				border-top: 1px solid #CCCCCC;
 				padding: 1rem;
 			}
+			.exception > .body.details > .frame > .details > .location {
+				background-color: #525863;
+				color: #ABB2BF;
+				padding: 1rem;
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
+			}
 			.exception > .body.details > .frame > .details > .code {
 				background-color: #383E49;
 				color: #ABB2BF;
 				padding: 1rem;
-				margin-top: 1rem;
-				border-radius: 8px;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
 			}
 			.exception > .body.details > .frame > .details > .code > div {
 				line-height: 125%;
@@ -124,6 +131,7 @@
 			.exception > .body.details > .frame > .details > .code > div > span.line {
 				display: inline-block;
 				width: 4rem;
+				padding-left: .5rem;
 			}
 			.exception > .body.details > .frame > .details > .code > div > pre {
 				display: inline-block;
@@ -169,8 +177,10 @@
 							{% if($frame['is_internal']) %}
 								<p>[internal]</p>
 							{% else %}
-								<p><b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.</p>
-								{% if($frame['code'] !== null) %}
+								{% if($frame['code'] === null) %}
+									<p><b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.</p>
+								{% else %}
+									<div class="location"><b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.</div>
 									<div class="code">
 										{% foreach($frame['code'] as $line => $code) %}
 											<div class="{{$line === $frame['line'] ? 'highlight' : 'normal'}}">
