@@ -48,13 +48,16 @@
 				display: flex;
 			}
 			.exception > .tabs > .tab {
-				padding: 1.5rem;
+				padding: 1.25rem;
 				width: 100%;
 				text-align: center;
 				font-weight: bold;
 				justify-content: space-evenly;
 				border-bottom: 4px solid transparent;
 				cursor: pointer;
+			}
+			.exception > .tabs > .tab:hover {
+				background-color: #EEEEEE;
 			}
 			.exception > .tabs > .tab.active {
 				border-color: #CCCCCC;
