@@ -29,7 +29,7 @@
 				justify-content: space-between;
 			}
 			.exception > .header > .environment {
-				color: #999;
+				color: #999999;
 				font-size: 1rem;
 			}
 			.exception > .body {
@@ -45,7 +45,7 @@
 				padding: 0;
 			}
 			.exception > .tabs {
-				background-color: #f6f6f6;
+				background-color: #F6F6F6;
 				padding: 2rem;
 				border: 1px solid #CCCCCC;
 				border-top: none;
@@ -66,7 +66,7 @@
 			}
 			.exception > .body.details > .frame > .title > .number {
 				display: inline-block;
-				background-color: #ccc;
+				background-color: #CCCCCC;
 				width: 3rem;
 				padding: .25rem;
 				border-radius: 4px;
@@ -74,19 +74,23 @@
 			}
 			.exception > .body.details > .frame > .title > .type {
 				display: inline-block;
-				background-color: #ccc;
+				background-color: #CCCCCC;
 				width: 4.5rem;
 				padding: .25rem;
 				border-radius: 4px;
 				text-align: center;
+			}
+			.exception > .body.details > .frame > .title > .type.internal {
+				background-color: #ad3935;
+				color: #FFFFFF;
 			}
 			.exception > .body.details > .frame > .title > .type.app {
 				background-color: #123;
 				color: #2DB28A;
 			}
 			.exception > .body.details > .frame > .title > .toggle {
-				background-color: #fff;
-				color: #666;
+				background-color: #FFFFFF;
+				color: #666666;
 				padding: .25rem;
 				border-radius: 4px;
 				float: right;
@@ -97,8 +101,8 @@
 				padding: 1rem;
 			}
 			.exception > .body.details > .frame > .details > .code {
-				background-color: #383e49;
-				color: #abb2bf;
+				background-color: #383E49;
+				color: #ABB2BF;
 				padding: 1rem;
 				margin-top: 1rem;
 				border-radius: 8px;
@@ -131,7 +135,7 @@
 				<div class="environment">Mako: {{\mako\Mako::VERSION}}, PHP: {{PHP_VERSION}}</div>
 			</div>
 			<div class="body">
-				<h1>{{$type}} ({{$code}})</h1>
+				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
 
 				<p>{{rtrim($message, '.')}}.</p>
 
@@ -146,7 +150,7 @@
 						<div class="title">
 							<span class="toggle" aria-hidden="true">{{$frame['open'] ? '▼' : '▲'}}</span>
 							<span class="number">{{$key}}</span>
-							<span class="type {{$frame['is_app'] ? 'app' : 'vendor'}}">{{$frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor')}}</span>
+							<span class="type {{$frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor')}}">{{$frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor')}}</span>
 							{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}<span class="function">{{$frame['function']}}()</span>
 						</div>
 						<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">
