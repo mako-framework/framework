@@ -37,9 +37,6 @@
 				border: 1px solid #CCCCCC;
 				border-top: none;
 			}
-			.exception > .body p:last-of-type {
-				margin-bottom: 0;
-			}
 			.exception > .body h1 {
 				margin-top: 0;
 				padding: 0;
@@ -122,6 +119,9 @@
 				margin: 0;
 				padding: 0;
 			}
+			.exception > .body.details > .frame > .details > ol > li:not(:last-child) {
+				border-bottom: 1px solid #CCCCCC;
+			}
 		</style>
 	</head>
 	<body>
@@ -144,16 +144,16 @@
 				{% foreach($trace as $key => $frame) %}
 					<div class="frame">
 						<div class="title">
-							<span class="toggle" aria-hidden="true">{{$frame['open'] ? '▼' : '▲'}}</span>
+							<span class="toggle" aria-hidden="true">{{raw:$frame['open'] ? '&#x25BC;' : '&#x25B2;'}}</span>
 							<span class="number">{{$key}}</span>
 							<span class="type {{$frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor')}}">{{$frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor')}}</span>
 							{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}<span class="function">{{$frame['function']}}()</span>
 						</div>
 						<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">
 							{% if($frame['is_internal']) %}
-								[internal]
+								<p>[internal]</p>
 							{% else %}
-							<b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.
+								<p><b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.</p>
 								{% if($frame['code'] !== null) %}
 									<div class="code">
 										{% foreach($frame['code'] as $line => $code) %}
@@ -162,6 +162,14 @@
 											</div>
 										{% endforeach %}
 									</div>
+								{% endif %}
+								{% if(!empty($frame['args'])) %}
+									<p><b>Arguments:</b></p>
+									<ol>
+										{% foreach($frame['args'] as $argument) %}
+											<li>{{raw:$dump($argument)}}</li>
+										{% endforeach %}
+									</ol>
 								{% endif %}
 							{% endif %}
 						</div>
@@ -181,8 +189,18 @@
 					element.addEventListener('click', function() {
 						element.nextElementSibling.style.display = element.nextElementSibling.style.display === 'none' ? 'block' : 'none';
 
-						element.querySelector('.toggle').innerHTML = element.nextElementSibling.style.display === 'none' ? '▲' : '▼';
+						element.querySelector('.toggle').innerHTML = element.nextElementSibling.style.display === 'none' ? '&#x25B2;' : '&#x25BC;';
 					});
+				});
+
+				document.querySelectorAll('.sf-dump-expanded').forEach(function(element) {
+					element.classList.remove('sf-dump-expanded');
+
+					element.classList.add('sf-dump-compact');
+				});
+
+				document.querySelectorAll('.sf-dump-toggle > span').forEach(function(element) {
+					element.innerHTML = '&#9654;'
 				});
 			});
 		</script>

@@ -7,6 +7,7 @@
 
 namespace mako\error\handlers\web;
 
+use Closure;
 use ErrorException;
 use mako\application\Application;
 use mako\error\handlers\HandlerInterface;
@@ -15,6 +16,9 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\view\renderers\Template;
 use mako\view\ViewFactory;
+use Symfony\Component\VarDumper\Caster\Caster;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Throwable;
 
 use function abs;
@@ -28,6 +32,7 @@ use function get_class;
 use function is_readable;
 use function json_encode;
 use function simplexml_load_string;
+use function str_repeat;
 use function strpos;
 use function sys_get_temp_dir;
 
@@ -243,6 +248,69 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	}
 
 	/**
+	 * Returns a Symfony var-dumper closure.
+	 *
+	 * @return \Closure
+	 */
+	protected function getDumper(): Closure
+	{
+		$dumper = new HtmlDumper(null, null, HtmlDumper::DUMP_STRING_LENGTH);
+		$cloner = new VarCloner;
+
+		$dumper->setStyles
+		([
+			'default'   => 'background-color:transparent; color:#91CDA4; line-height:1.2em; font:14px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: normal',
+			'num'       => 'font-weight:normal; color:#666666',
+	        'const'     => 'font-weight:bold',
+	        'str'       => 'font-weight:normal; color:#888888',
+	        'note'      => 'color:#666666',
+	        'ref'       => 'color:#A0A0A0',
+	        'public'    => 'color:#94A9A9',
+	        'protected' => 'color:#94A9A9',
+	        'private'   => 'color:#94A9A9',
+	        'meta'      => 'color:#7B8D8D',
+	        'key'       => 'color:#569771',
+	        'index'     => 'color:#666666',
+	        'ellipsis'  => 'color:#91CDA4',
+		]);
+
+		// We're using a callable to capture the output so that the generated javascript/css only gets printed once
+
+		$callable = new class
+		{
+			protected $dump;
+
+			public function __invoke($line, $depth): void
+			{
+				if($depth >= 0)
+				{
+					$this->dump .= str_repeat('  ', $depth) . "{$line}\n";
+				}
+			}
+
+			public function getDump(): ?string
+			{
+				try
+				{
+					return $this->dump;
+				}
+				finally
+				{
+					$this->dump = null;
+				}
+
+			}
+		};
+
+		return static function($value) use ($dumper, $cloner, $callable): ?string
+		{
+			$dumper->dump($cloner->cloneVar($value, Caster::EXCLUDE_VERBOSE), $callable);
+
+			return $callable->getDump();
+		};
+	}
+
+	/**
 	 * Returns a view factory.
 	 *
 	 * @return \mako\view\ViewFactory
@@ -279,6 +347,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			'file'    => $exception->getFile(),
 			'line'    => $exception->getLine(),
 			'trace'   => $this->getEnhancedStackTrace($exception),
+			'dump'    => $this->getDumper(),
 		]);
 	}
 
