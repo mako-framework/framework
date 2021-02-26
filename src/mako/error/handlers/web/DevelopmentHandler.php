@@ -17,10 +17,18 @@ use mako\view\renderers\Template;
 use mako\view\ViewFactory;
 use Throwable;
 
+use function abs;
+use function count;
+use function fclose;
+use function feof;
+use function fgets;
+use function fopen;
 use function function_exists;
 use function get_class;
+use function is_readable;
 use function json_encode;
 use function simplexml_load_string;
+use function strpos;
 use function sys_get_temp_dir;
 
 /**
@@ -28,6 +36,13 @@ use function sys_get_temp_dir;
  */
 class DevelopmentHandler extends Handler implements HandlerInterface
 {
+	/**
+	 * Source padding.
+	 *
+	 * @var int
+	 */
+	const SOURCE_PADDING = 6;
+
 	/**
 	 * Request instance.
 	 *
@@ -79,6 +94,9 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 
 			switch($exception->getCode())
 			{
+				case E_COMPILE_ERROR:
+					$type .= ': Compile Error';
+					break;
 				case E_DEPRECATED:
 				case E_USER_DEPRECATED:
 					$type .= ': Deprecated';
@@ -143,6 +161,88 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	}
 
 	/**
+	 * Returns the source code surrounding the error.
+	 *
+	 * @param  string     $file File path
+	 * @param  int        $line Error line
+	 * @return array|null
+	 */
+	protected function getSourceCode(string $file, int $line): ?array
+	{
+		if(!is_readable($file))
+		{
+			return null;
+		}
+
+		$handle      = fopen($file, 'r');
+		$lines       = [];
+		$currentLine = 0;
+
+		while(!feof($handle))
+		{
+			if($currentLine++ > $line + static::SOURCE_PADDING)
+			{
+				break;
+			}
+
+			$sourceCode = fgets($handle);
+
+			if($currentLine >= ($line - static::SOURCE_PADDING) && $currentLine <= ($line + static::SOURCE_PADDING))
+			{
+				$lines[$currentLine] = $sourceCode;
+			}
+		}
+
+		fclose($handle);
+
+		return $lines;
+	}
+
+	/**
+	 * Returns an enhanced stack trace.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return array
+	 */
+	protected function getEnhancedStackTrace(Throwable $exception): array
+	{
+		$stackTrace = $exception->getTrace();
+
+		$frameCount = count($stackTrace);
+
+		$enhancedStackTrace = [];
+
+		$foundFirstAppFrame = false;
+
+		foreach($stackTrace as $key => $frame)
+		{
+			$key = abs($key - $frameCount);
+
+			$enhancedStackTrace[$key] = $frame;
+
+			$enhancedStackTrace[$key]['is_app'] = $enhancedStackTrace[$key]['is_internal'] = $enhancedStackTrace[$key]['open'] = false;
+
+			if(!isset($frame['file']))
+			{
+				$enhancedStackTrace[$key]['is_internal'] = true;
+
+				continue;
+			}
+
+			$enhancedStackTrace[$key]['code'] = $this->getSourceCode($frame['file'], $frame['line']);
+
+			$enhancedStackTrace[$key]['is_app'] = strpos($frame['file'], $this->app->getPath()) === 0;
+
+			if($foundFirstAppFrame === false && $enhancedStackTrace[$key]['is_app'] === true)
+			{
+				$enhancedStackTrace[$key]['open'] = $foundFirstAppFrame = true;
+			}
+		}
+
+		return $enhancedStackTrace;
+	}
+
+	/**
 	 * Returns a view factory.
 	 *
 	 * @return \mako\view\ViewFactory
@@ -178,6 +278,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			'message' => $exception->getMessage(),
 			'file'    => $exception->getFile(),
 			'line'    => $exception->getLine(),
+			'trace'   => $this->getEnhancedStackTrace($exception),
 		]);
 	}
 
