@@ -80,10 +80,6 @@
 				border-radius: 4px;
 				text-align: center;
 			}
-			.exception > .body.details > .frame > .title > .type.internal {
-				background-color: #ad3935;
-				color: #FFFFFF;
-			}
 			.exception > .body.details > .frame > .title > .type.app {
 				background-color: #123;
 				color: #2DB28A;
