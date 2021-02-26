@@ -43,9 +43,21 @@
 			}
 			.exception > .tabs {
 				background-color: #F6F6F6;
-				padding: 2rem;
 				border: 1px solid #CCCCCC;
 				border-top: none;
+				display: flex;
+			}
+			.exception > .tabs > .tab {
+				padding: 1.5rem;
+				width: 100%;
+				text-align: center;
+				font-weight: bold;
+				justify-content: space-evenly;
+				border-bottom: 4px solid transparent;
+				cursor: pointer;
+			}
+			.exception > .tabs > .tab.active {
+				border-color: #CCCCCC;
 			}
 			.exception > .body.details > .frame {
 				background-color: #EEEEEE;
@@ -119,7 +131,7 @@
 				margin: 0;
 				padding: 0;
 			}
-			.exception > .body.details > .frame > .details > ol > li:not(:last-child) {
+			.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
 				border-bottom: 1px solid #CCCCCC;
 			}
 		</style>
@@ -137,10 +149,11 @@
 
 				<p><b>Location:</b> {{$file}} on line {{$line}}.</p>
 			</div>
-			{#<div class="tabs">
-
-			</div>#}
-			<div class="body details">
+			<div class="tabs">
+				<div class="tab active" data-target="stack-trace">Stack Trace</div>
+				<div class="tab" data-target="environment">Environment</div>
+			</div>
+			<div id="stack-trace" class="body details" data-open="true">
 				{% foreach($trace as $key => $frame) %}
 					<div class="frame">
 						<div class="title">
@@ -176,13 +189,56 @@
 					</div>
 				{% endforeach %}
 			</div>
+			<div id="environment" class="body details" data-open="false">
+				{% foreach($superglobals as $name => $values) %}
+					{% if(!empty($values)) %}
+						<div class="frame">
+								<div class="title">
+									<span class="toggle" aria-hidden="true">&#x25B2;</span>
+									${{$name}}
+								</div>
+								<div class="details" data-open="false">
+									<ul>
+										{% foreach($values as $name => $value) %}
+											<li><p>{{$name}} {{raw:$dump($value)}}</p></li>
+										{% endforeach %}
+									</ul>
+								</div>
+						</div>
+					{% endif %}
+				{% endforeach %}
+			</div>
 		</div>
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function() {
-				document.querySelectorAll('.frame > .details').forEach(function(element) {
+				document.querySelectorAll('.details').forEach(function(element) {
 					if (element.getAttribute('data-open') !== "true") {
 						element.style.display = 'none';
 					}
+				});
+
+				document.querySelectorAll('.tab').forEach(function(element) {
+					element.addEventListener('click', function(event) {
+						const targetId = event.target.getAttribute('data-target');
+
+						const targetElement = document.getElementById(targetId);
+
+						document.querySelectorAll('.body.details').forEach(function(element) {
+							if(element.id !== targetId) {
+								element.style.display = 'none';
+							}
+						});
+
+						if(targetElement.style.display === 'none') {
+							targetElement.style.display = 'block';
+						}
+
+						document.querySelectorAll('.tab').forEach(function(tab) {
+							tab.classList.remove('active');
+						});
+
+						element.classList.add('active');
+					});
 				});
 
 				document.querySelectorAll('.frame > .title').forEach(function(element) {

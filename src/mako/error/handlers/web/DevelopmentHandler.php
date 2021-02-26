@@ -341,13 +341,23 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	{
 		return $this->getViewFactory()->render('mako-error::development.error',
 		[
-			'type'    => $this->getExceptionType($exception),
-			'code'    => $exception->getCode(),
-			'message' => $exception->getMessage(),
-			'file'    => $exception->getFile(),
-			'line'    => $exception->getLine(),
-			'trace'   => $this->getEnhancedStackTrace($exception),
-			'dump'    => $this->getDumper(),
+			'type'         => $this->getExceptionType($exception),
+			'code'         => $exception->getCode(),
+			'message'      => $exception->getMessage(),
+			'file'         => $exception->getFile(),
+			'line'         => $exception->getLine(),
+			'trace'        => $this->getEnhancedStackTrace($exception),
+			'dump'         => $this->getDumper(),
+			'superglobals' =>
+			[
+				'_ENV'     => $_ENV ?? [],
+				'_SERVER'  => $_SERVER ?? [],
+				'_COOKIE'  => $_COOKIE ?? [],
+				'_SESSION' => $_SESSION ?? [],
+				'_GET'     => $_GET ?? [],
+				'_POST'    => $_POST ?? [],
+				'_FILES'   => $_FILES ?? [],
+			],
 		]);
 	}
 
