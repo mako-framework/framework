@@ -8,8 +8,10 @@
 namespace mako\error\handlers\web;
 
 use Closure;
+use Doctrine\SqlFormatter\SqlFormatter;
 use ErrorException;
 use mako\application\Application;
+use mako\database\ConnectionManager;
 use mako\error\handlers\HandlerInterface;
 use mako\file\FileSystem;
 use mako\http\Request;
@@ -311,6 +313,33 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	}
 
 	/**
+	 * Returns the database queries.
+	 *
+	 * @return array|null
+	 */
+	protected function getQueries(): ?array
+	{
+		if(!$this->app->getContainer()->has(ConnectionManager::class))
+		{
+			return null;
+		}
+
+		$formatter = new SqlFormatter;
+
+		$groupedQueries = $this->app->getContainer()->get(ConnectionManager::class)->getLogs();
+
+		foreach($groupedQueries as $connectionKey => $connectionQueries)
+		{
+			foreach($connectionQueries as $key => $query)
+			{
+				$groupedQueries[$connectionKey][$key]['query'] = $formatter->format($query['query']);
+			}
+		}
+
+		return $groupedQueries;
+	}
+
+	/**
 	 * Returns a view factory.
 	 *
 	 * @return \mako\view\ViewFactory
@@ -348,6 +377,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			'line'         => $exception->getLine(),
 			'trace'        => $this->getEnhancedStackTrace($exception),
 			'dump'         => $this->getDumper(),
+			'queries'      => $this->getQueries(),
 			'superglobals' =>
 			[
 				'_ENV'     => $_ENV ?? [],

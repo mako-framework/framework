@@ -8,10 +8,14 @@
 			body {
 				background-color: #EEEEEE;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+				font-size: 100%;
 				display: flex;
 				justify-content: center;
 				margin: 0;
 				padding: 2rem;
+			}
+			.center {
+				text-align: center;
 			}
 			.exception {
 				background-color: #FFFFFF;
@@ -163,6 +167,7 @@
 			<div class="tabs">
 				<div class="tab active" data-target="stack-trace">Stack Trace</div>
 				<div class="tab" data-target="environment">Environment</div>
+				{% if($queries !== null) %}<div class="tab" data-target="queries">Queries</div>{% endif %}
 			</div>
 			<div id="stack-trace" class="body details" data-open="true">
 				{% foreach($trace as $key => $frame) %}
@@ -221,6 +226,33 @@
 					{% endif %}
 				{% endforeach %}
 			</div>
+			{% if($queries !== null) %}
+				<div id="queries" class="body details" data-open="false">
+					{% if(empty($queries)) %}
+						<div class="center">No database connections have been established.</div>
+					{% else %}
+						{% foreach($queries as $name => $connectionQueries) %}
+							<div class="frame">
+								<div class="title">
+									<span class="toggle" aria-hidden="true">&#x25B2;</span>
+									{{$name}} connection ({{count($connectionQueries)}})
+								</div>
+								<div class="details" data-open="false">
+									{% if(empty($connectionQueries)) %}
+										<div class="center">No database queries have been logged. <em>Have you enabled to query log?</em></div>
+									{% else %}
+										<ol>
+											{% foreach($connectionQueries as ['query' => $query]) %}
+												<li>{{raw:$query}}</li>
+											{% endforeach %}
+										</ol>
+									{% endif %}
+								</div>
+							</div>
+						{% endforeach %}
+					{% endif %}
+				</div>
+			{% endif %}
 		</div>
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function() {
