@@ -160,7 +160,7 @@
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
 
-				<p>{{rtrim($message, '.')}}.</p>
+				<p>{{$message)}}.</p>
 
 				<p><b>Location:</b> {{$file}} on line {{$line}}.</p>
 			</div>
