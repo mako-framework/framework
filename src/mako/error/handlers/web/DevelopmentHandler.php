@@ -256,7 +256,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	 */
 	protected function getDumper(): Closure
 	{
-		$dumper = new HtmlDumper(null, null, HtmlDumper::DUMP_STRING_LENGTH);
+		$dumper = new HtmlDumper(null, $this->app->getCharset(), HtmlDumper::DUMP_STRING_LENGTH);
 		$cloner = new VarCloner;
 
 		$dumper->setStyles
@@ -348,7 +348,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	{
 		$fileSystem = new FileSystem;
 
-		$factory = new ViewFactory($fileSystem, '');
+		$factory = new ViewFactory($fileSystem, '', $this->app->getCharset());
 
 		$factory->extend('.tpl.php', function() use ($fileSystem)
 		{
