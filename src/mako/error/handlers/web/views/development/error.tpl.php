@@ -74,7 +74,10 @@
 				background-color: #EEEEEE;
 				border: 1px solid #CCCCCC;
 			}
-			.exception > .body.details > .frame:not(:last-child) {
+			.exception > .body.details > .frame.error {
+				margin-bottom: 2rem;
+			}
+			.exception > .body.details > .frame:not(:last-child):not(.error) {
 				border-bottom: none;
 			}
 			.exception > .body.details > .frame > .title {
@@ -221,7 +224,7 @@
 			</div>
 			<div id="stack-trace" class="body details" data-open="true">
 				{% foreach($trace as $key => $frame) %}
-					<div class="frame">
+					<div class="frame{% if($frame['is_error']) %} error{% endif %}">
 						<div class="title">
 							<span class="toggle" aria-hidden="true">{{raw:$frame['open'] ? '&#x25BC;' : '&#x25B2;'}}</span>
 							<span class="number">{{$key}}</span>
