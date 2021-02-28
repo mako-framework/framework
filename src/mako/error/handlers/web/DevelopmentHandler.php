@@ -215,6 +215,13 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	{
 		$stackTrace = $exception->getTrace();
 
+		array_unshift($stackTrace,
+		[
+			'class' => get_class($exception),
+			'file'  => $exception->getFile(),
+			'line'  => $exception->getLine(),
+		]);
+
 		$frameCount = count($stackTrace);
 
 		$enhancedStackTrace = [];
@@ -245,6 +252,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 				$enhancedStackTrace[$key]['open'] = $foundFirstAppFrame = true;
 			}
 		}
+
+		$enhancedStackTrace[array_key_first($enhancedStackTrace)]['open'] = true;
 
 		return $enhancedStackTrace;
 	}

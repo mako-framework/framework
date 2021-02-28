@@ -212,10 +212,7 @@
 			</div>
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
-
 				<p>{{$message}}</p>
-
-				<p><b>Location:</b> {{$file}} on line {{$line}}.</p>
 			</div>
 			<div class="tabs">
 				<div class="tab active" data-target="stack-trace">Stack Trace</div>
@@ -229,7 +226,7 @@
 							<span class="toggle" aria-hidden="true">{{raw:$frame['open'] ? '&#x25BC;' : '&#x25B2;'}}</span>
 							<span class="number">{{$key}}</span>
 							<span class="type {{$frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor')}}">{{$frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor')}}</span>
-							<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}<span class="function">{{$frame['function']}}()</span></span>
+							<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}{% if(isset($frame['function'])) %}<span class="function">{{$frame['function']}}()</span>{% endif %}</span>
 						</div>
 						<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">
 							{% if($frame['is_internal']) %}
