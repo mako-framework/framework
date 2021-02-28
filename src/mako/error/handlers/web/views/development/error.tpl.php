@@ -7,12 +7,16 @@
 		<style type="text/css">
 			body {
 				background-color: #EEEEEE;
+				color: #333333;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 				font-size: 100%;
 				display: flex;
 				justify-content: center;
 				margin: 0;
 				padding: 2rem;
+			}
+			li.sql > pre {
+				background-color: transparent !important;
 			}
 			.center {
 				text-align: center;
@@ -77,7 +81,11 @@
 				padding: 1rem;
 				cursor: pointer;
 			}
-			.exception > .body.details > .frame > .title > .function {
+			.exception > .body.details > .frame > .title > .title {
+				display: inline-block;
+				padding: .25rem;
+			}
+			.exception > .body.details > .frame > .title > .title > .function {
 				color: #2DB28A;
 			}
 			.exception > .body.details > .frame > .title > .number {
@@ -149,6 +157,49 @@
 			.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
 				border-bottom: 1px solid #CCCCCC;
 			}
+			@media (prefers-color-scheme: dark) {
+				body {
+					background: #222222;
+					color: #EDEDED;
+				}
+				li.sql > pre > span {
+					color: #EDEDED !important;
+				}
+				.exception {
+					background-color: #333333;
+				}
+				.exception > .header {
+					border: 1px solid #555555;
+				}
+				.exception > .body {
+					border-color: #555555;
+				}
+				.exception > .tabs {
+					background-color: #3f3f3f;
+					border-color: #555555;
+				}
+				.exception > .tabs > .tab:hover {
+					background-color: #333333;
+				}
+				.exception > .tabs > .tab.active {
+					border-color: #555555;
+				}
+				.exception > .body.details > .frame {
+					background-color: #222222;
+					border: 1px solid #555555;
+				}
+				.exception > .body.details > .frame > .title > .number, .exception > .body.details > .frame > .title > .type {
+					background-color: #111111;
+				}
+				.exception > .body.details > .frame > .title > .toggle {
+					background-color: #111111;
+				}
+				.exception > .body.details > .frame > .details {
+					background-color: #333333;
+					border-color: #555555;
+					padding: 1rem;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -176,7 +227,7 @@
 							<span class="toggle" aria-hidden="true">{{raw:$frame['open'] ? '&#x25BC;' : '&#x25B2;'}}</span>
 							<span class="number">{{$key}}</span>
 							<span class="type {{$frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor')}}">{{$frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor')}}</span>
-							{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}<span class="function">{{$frame['function']}}()</span>
+							<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}<span class="function">{{$frame['function']}}()</span></span>
 						</div>
 						<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">
 							{% if($frame['is_internal']) %}
@@ -213,7 +264,7 @@
 						<div class="frame">
 								<div class="title">
 									<span class="toggle" aria-hidden="true">&#x25B2;</span>
-									${{$name}}
+									<span class="title">${{$name}}</span>
 								</div>
 								<div class="details" data-open="false">
 									<ul>
@@ -235,7 +286,7 @@
 							<div class="frame">
 								<div class="title">
 									<span class="toggle" aria-hidden="true">&#x25B2;</span>
-									{{$name}} connection ({{count($connectionQueries)}})
+									<span class="title">{{$name}} connection ({{count($connectionQueries)}})</span>
 								</div>
 								<div class="details" data-open="false">
 									{% if(empty($connectionQueries)) %}
@@ -243,7 +294,7 @@
 									{% else %}
 										<ol>
 											{% foreach($connectionQueries as ['query' => $query]) %}
-												<li>{{raw:$query}}</li>
+												<li class="sql">{{raw:$query}}</li>
 											{% endforeach %}
 										</ol>
 									{% endif %}
