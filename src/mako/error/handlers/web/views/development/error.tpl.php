@@ -111,8 +111,10 @@
 			.exception > .body.details > .frame > .title > .toggle {
 				background-color: #FFFFFF;
 				color: #666666;
+				width: 1.3rem;
 				padding: .25rem;
 				border-radius: 4px;
+				text-align: center;
 				float: right;
 			}
 			.exception > .body.details > .frame > .details {
@@ -218,7 +220,7 @@
 			<div class="tabs">
 				<div class="tab active" data-target="stack-trace">Stack Trace</div>
 				<div class="tab" data-target="environment">Environment</div>
-				{% if($queries !== null) %}<div class="tab" data-target="queries">Queries</div>{% endif %}
+				{% if($queries !== null) %}<div class="tab" data-target="database">Database</div>{% endif %}
 			</div>
 			<div id="stack-trace" class="body details" data-open="true">
 				{% foreach($trace as $key => $frame) %}
@@ -278,7 +280,7 @@
 				{% endforeach %}
 			</div>
 			{% if($queries !== null) %}
-				<div id="queries" class="body details" data-open="false">
+				<div id="database" class="body details" data-open="false">
 					{% if(empty($queries)) %}
 						<div class="center">No database connections have been established.</div>
 					{% else %}
