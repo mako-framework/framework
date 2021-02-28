@@ -216,6 +216,16 @@
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
 				<p>{{$message}}</p>
+				{% if(!empty($previous)) %}
+					<h2>Previous Exceptions</h2>
+					<ol>
+						{% foreach($previous as $exception) %}
+							<li>
+								<em>{{$exception['type']}}</em> in {{$exception['file']}} on line {{$exception['line']}}.
+							</li>
+						{% endforeach %}
+					</ol>
+				{% endif %}
 			</div>
 			<div class="tabs">
 				<div class="tab active" data-target="stack-trace">Stack Trace</div>

@@ -313,7 +313,7 @@ class Connection
 		}
 		catch(PDOException $e)
 		{
-			throw new RuntimeException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]));
+			throw new RuntimeException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), 0, $e);
 		}
 
 		// Run queries
@@ -538,7 +538,7 @@ class Connection
 				goto prepare;
 			}
 
-			throw new PDOException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e->getPrevious());
+			throw new PDOException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e);
 		}
 
 		// Bind parameters

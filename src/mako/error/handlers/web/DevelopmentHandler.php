@@ -263,6 +263,29 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	}
 
 	/**
+	 * Returns the previous exceptions.
+	 *
+	 * @param  \Throwable $exception Exception
+	 * @return array
+	 */
+	protected function getPreviousExceptions(Throwable $exception): array
+	{
+		$previousExceptions = [];
+
+		while(($exception = $exception->getPrevious()) !== null)
+		{
+			$previousExceptions[] =
+			[
+				'type'    => $this->getExceptionType($exception),
+				'file'    => $exception->getFile(),
+				'line'    => $exception->getLine(),
+			];
+		}
+
+		return $previousExceptions;
+	}
+
+	/**
 	 * Returns a Symfony var-dumper closure.
 	 *
 	 * @return \Closure
@@ -389,6 +412,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			'file'         => $exception->getFile(),
 			'line'         => $exception->getLine(),
 			'trace'        => $this->getEnhancedStackTrace($exception),
+			'previous'     => $this->getPreviousExceptions($exception),
 			'dump'         => $this->getDumper(),
 			'queries'      => $this->getQueries(),
 			'superglobals' =>
