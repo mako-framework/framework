@@ -225,7 +225,7 @@
 						<div class="title">
 							<span class="toggle" aria-hidden="true">{{raw:$frame['open'] ? '&#x25BC;' : '&#x25B2;'}}</span>
 							<span class="number">{{$key}}</span>
-							<span class="type {{$frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor')}}">{{$frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor')}}</span>
+							<span class="type {{$frame['is_error'] ? 'error' : ($frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor'))}}">{{$frame['is_error'] ? 'Error' : ($frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor'))}}</span>
 							<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}{% if(isset($frame['function'])) %}<span class="function">{{$frame['function']}}()</span>{% endif %}</span>
 						</div>
 						<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">

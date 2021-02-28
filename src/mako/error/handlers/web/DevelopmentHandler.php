@@ -215,18 +215,11 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	{
 		$stackTrace = $exception->getTrace();
 
-		array_unshift($stackTrace,
-		[
-			'class' => get_class($exception),
-			'file'  => $exception->getFile(),
-			'line'  => $exception->getLine(),
-		]);
-
 		$frameCount = count($stackTrace);
 
 		$enhancedStackTrace = [];
 
-		$foundFirstAppFrame = false;
+		$foundAppFrame = false;
 
 		foreach($stackTrace as $key => $frame)
 		{
@@ -234,7 +227,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 
 			$enhancedStackTrace[$key] = $frame;
 
-			$enhancedStackTrace[$key]['is_app'] = $enhancedStackTrace[$key]['is_internal'] = $enhancedStackTrace[$key]['open'] = false;
+			$enhancedStackTrace[$key]['is_error'] = $enhancedStackTrace[$key]['is_app'] = $enhancedStackTrace[$key]['is_internal'] = $enhancedStackTrace[$key]['open'] = false;
 
 			if(!isset($frame['file']))
 			{
@@ -247,15 +240,26 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 
 			$enhancedStackTrace[$key]['is_app'] = strpos($frame['file'], $this->app->getPath()) === 0;
 
-			if($foundFirstAppFrame === false && $enhancedStackTrace[$key]['is_app'] === true)
+			if($foundAppFrame === false && $enhancedStackTrace[$key]['is_app'] === true)
 			{
-				$enhancedStackTrace[$key]['open'] = $foundFirstAppFrame = true;
+				$enhancedStackTrace[$key]['open'] = $foundAppFrame = true;
 			}
 		}
 
-		$enhancedStackTrace[array_key_first($enhancedStackTrace)]['open'] = true;
-
-		return $enhancedStackTrace;
+		return
+		[
+			'-' =>
+			[
+				'class'       => get_class($exception),
+				'file'        => $exception->getFile(),
+				'line'        => $exception->getLine(),
+				'is_error'    => true,
+				'is_app'      => false,
+				'is_internal' => false,
+				'open'        => $foundAppFrame === false,
+				'code'        => $this->getSourceCode($exception->getFile(), $exception->getLine()),
+			],
+		] + $enhancedStackTrace;
 	}
 
 	/**
