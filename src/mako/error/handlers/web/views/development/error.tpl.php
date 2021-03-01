@@ -179,7 +179,7 @@
 					border-color: #555555;
 				}
 				.exception > .tabs > .tab:hover {
-					background-color: #333333;
+					background-color: #222222;
 				}
 				.exception > .tabs > .tab.active {
 					border-color: #555555;
