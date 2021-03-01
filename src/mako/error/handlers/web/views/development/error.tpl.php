@@ -192,6 +192,9 @@
 				.exception > .body {
 					border-color: #555555;
 				}
+				.exception > .body.details > table tr td:first-child {
+					border-color: #555555;
+				}
 				.exception > .tabs {
 					background-color: #3f3f3f;
 					border-color: #555555;
