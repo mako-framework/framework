@@ -135,6 +135,7 @@
 				padding: 1rem;
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
+				tab-size: 4;
 			}
 			.exception > .body.details > .frame > .details > .code > div {
 				line-height: 125%;
