@@ -15,9 +15,6 @@
 				margin: 0;
 				padding: 2rem;
 			}
-			li.sql > pre {
-				background-color: transparent !important;
-			}
 			.center {
 				text-align: center;
 			}
@@ -167,9 +164,6 @@
 					background: #222222;
 					color: #EDEDED;
 				}
-				li.sql > pre > span {
-					color: #EDEDED !important;
-				}
 				.exception {
 					background-color: #333333;
 				}
@@ -203,6 +197,9 @@
 					background-color: #333333;
 					border-color: #555555;
 					padding: 1rem;
+				}
+				.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
+					border-color: #555555;
 				}
 			}
 		</style>
@@ -306,7 +303,7 @@
 									{% else %}
 										<ol>
 											{% foreach($connectionQueries as ['query' => $query]) %}
-												<li class="sql">{{raw:$query}}</li>
+												<li>{{raw:$query}}</li>
 											{% endforeach %}
 										</ol>
 									{% endif %}

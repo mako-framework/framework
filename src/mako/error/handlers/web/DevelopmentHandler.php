@@ -8,6 +8,7 @@
 namespace mako\error\handlers\web;
 
 use Closure;
+use Doctrine\SqlFormatter\HtmlHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
 use ErrorException;
 use mako\application\Application;
@@ -297,10 +298,10 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 
 		$dumper->setStyles
 		([
-			'default'   => 'background-color:transparent; color:#91CDA4; line-height:1.2em; font:14px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: normal',
-			'num'       => 'font-weight:normal; color:#666666',
+			'default'   => 'background-color:transparent;color:#91CDA4;line-height:1.2em;font:14px Menlo, Monaco, Consolas, monospace;word-wrap:break-word;white-space:pre-wrap;position:relative;z-index:99999;word-break:normal',
+			'num'       => 'font-weight:normal;color:#666666',
 	        'const'     => 'font-weight:bold',
-	        'str'       => 'font-weight:normal; color:#888888',
+	        'str'       => 'font-weight:normal;color:#888888',
 	        'note'      => 'color:#666666',
 	        'ref'       => 'color:#A0A0A0',
 	        'public'    => 'color:#94A9A9',
@@ -360,7 +361,16 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			return null;
 		}
 
-		$formatter = new SqlFormatter;
+		$formatter = new SqlFormatter(new HtmlHighlighter
+		([
+			HtmlHighlighter::HIGHLIGHT_BACKTICK_QUOTE => 'style="color:#C678DD;"',
+			HtmlHighlighter::HIGHLIGHT_COMMENT        => 'style="color:#5C6370"',
+			HtmlHighlighter::HIGHLIGHT_NUMBER         => 'style="color:#D19A66;"',
+			HtmlHighlighter::HIGHLIGHT_PRE            => 'style="padding:1rem;background-color:#383E49;color:#ABB2BF;border-radius:8px;"',
+			HtmlHighlighter::HIGHLIGHT_QUOTE          => 'style="color:#98C379;"',
+			HtmlHighlighter::HIGHLIGHT_VARIABLE       => 'style="color:#61AFEF;"',
+			HtmlHighlighter::HIGHLIGHT_WORD           => '',
+		]));
 
 		$groupedQueries = $this->app->getContainer()->get(ConnectionManager::class)->getLogs();
 
