@@ -33,8 +33,8 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "monolog/monolog": "^2.1",
-        "filp/whoops": "^2.7",
-        "symfony/var-dumper": "^5.1"
+        "symfony/var-dumper": "^5.1",
+        "doctrine/sql-formatter": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4",

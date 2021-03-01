@@ -146,7 +146,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 * @param  \Throwable $exception Exception
 	 * @return string
 	 */
-	protected function getExceptionAsRenderedView(Throwable $exception): string
+	protected function getExceptionAsHtml(Throwable $exception): string
 	{
 		$view = 'error';
 
@@ -186,37 +186,29 @@ class ProductionHandler extends Handler implements HandlerInterface
 	}
 
 	/**
-	 * Returns a response body.
+	 * Returns a response.
 	 *
 	 * @param  \Throwable $exception Exception
-	 * @return string
+	 * @return array
 	 */
-	protected function getBody(Throwable $exception): string
+	protected function buildResponse(Throwable $exception): array
 	{
 		if(function_exists('json_encode') && $this->respondWithJson())
 		{
-			$this->response->setType('application/json');
-
-			return $this->getExceptionAsJson($exception);
+			return ['type' => 'application/json', 'body' => $this->getExceptionAsJson($exception)];
 		}
 
 		if(function_exists('simplexml_load_string') && $this->respondWithXml())
 		{
-			$this->response->setType('application/xml');
-
-			return $this->getExceptionAsXml($exception);
+			return ['type' => 'application/xml', 'body' => $this->getExceptionAsXml($exception)];
 		}
 
 		if($this->view !== null)
 		{
-			$this->response->setType('text/html');
-
-			return $this->getExceptionAsRenderedView($exception);
+			return ['type' => 'text/html', 'body' => $this->getExceptionAsHtml($exception)];
 		}
 
-		$this->response->setType('text/plain');
-
-		return $this->getExceptionAsPlainText($exception);
+		return ['type' => 'text/plain', 'body' => $this->getExceptionAsPlainText($exception)];
 	}
 
 	/**
@@ -224,11 +216,14 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	public function handle(Throwable $exception)
 	{
+		['type' => $type, 'body' => $body] = $this->buildResponse($exception);
+
 		$this->sendResponse($this->response
 		->clear()
 		->disableCaching()
 		->disableCompression()
-		->setBody($this->getBody($exception))
+		->setType($type)
+		->setBody($body)
 		->setStatus($this->getStatusCode($exception)), $exception);
 
 		return false;
