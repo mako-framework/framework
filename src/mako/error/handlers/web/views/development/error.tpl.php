@@ -67,6 +67,24 @@
 			.exception > .tabs > .tab.active {
 				border-color: #CCCCCC;
 			}
+			.exception > .body.details > table {
+				width: 100%;
+				margin-bottom: 2rem;
+				border-spacing: 0;
+				border-collapse: separate;
+			}
+			.exception > .body.details > table tr td {
+				padding: 1rem;
+			}
+			.exception > .body.details > table tr td:first-child {
+				width: 30%;
+				border-right: 1px solid #CCCCCC;
+				text-align: right;
+			}
+			.exception > .body.details > table tr td:last-child {
+				width: 70%;
+				text-align: left;
+			}
 			.exception > .body.details > .frame {
 				background-color: #EEEEEE;
 				border: 1px solid #CCCCCC;
@@ -269,6 +287,16 @@
 				{% endforeach %}
 			</div>
 			<div id="environment" class="body details" data-open="false">
+				<table>
+					<tr>
+						<td>os</td>
+						<td>{{php_uname()}}</td>
+					</tr>
+					<tr>
+						<td>server time</td>
+						<td>{{strftime('%Y-%m-%d %H:%M:%S %Z')}}</td>
+					</tr>
+				</table>
 				{% foreach($superglobals as $name => $values) %}
 					{% if(!empty($values)) %}
 						<div class="frame">
