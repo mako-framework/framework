@@ -7,6 +7,7 @@
 * Added `setMetadata` and `getMetadata` methods to the `HttpException` class.
 	- The `HttpException` metadata array is available in the production error views as `$_metadata_`.
 	- The `HttpException` metadata array will also be avaiable in the JSON and XML representation of the errors.
+* Template block names can now be surrounded by single quotes for consistency.
 
 #### Changes
 

@@ -350,9 +350,45 @@ Hello, world!<?php echo $__view__->render(); ?>';
 	/**
 	 *
 	 */
+	public function testBlockDefinitionWithQuotes(): void
+	{
+		$template = "{% block:'foo' %}Hello, world!{% endblock %}";
+
+		$compiled = '<?php $__renderer__->open(\'foo\'); ?>Hello, world!<?php $__renderer__->close(); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
 	public function testBlockOutput(): void
 	{
 		$template = '{{ block:foo }}Hello, world!{{ endblock }}';
+
+		$compiled = '<?php $__renderer__->open(\'foo\'); ?>Hello, world!<?php $__renderer__->output(\'foo\'); ?>';
+
+		//
+
+		$fileSystem = $this->getFileSystem($template, $compiled);
+
+		//
+
+		(new Template($fileSystem, $this->cachePath, $this->templateName))->compile();
+	}
+
+	/**
+	 *
+	 */
+	public function testBlockOutputWithQuotes(): void
+	{
+		$template = "{{ block:'foo' }}Hello, world!{{ endblock }}";
 
 		$compiled = '<?php $__renderer__->open(\'foo\'); ?>Hello, world!<?php $__renderer__->output(\'foo\'); ?>';
 

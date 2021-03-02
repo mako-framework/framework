@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="{{$__charset__ }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>{{block:title}}Error{{endblock}}</title>
+		<title>{{block:'title'}}Error{{endblock}}</title>
 		<style type="text/css">
 		body {
 			background: #FEFEFE;
@@ -48,7 +48,7 @@
 	<body>
 		<div class="container">
 			<div class="message">
-				{{block:message}}
+				{{block:'message'}}
 					<h1>Error</h1>
 					<p>An error has occurred while processing your request.</p>
 				{{endblock}}

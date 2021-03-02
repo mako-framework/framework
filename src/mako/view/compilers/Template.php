@@ -225,11 +225,11 @@ class Template
 	{
 		// Compile blocks
 
-		$template = preg_replace('/{%\s*block:(.*?)\s*%}(.*?){%\s*endblock\s*%}/is', '<?php $__renderer__->open(\'$1\'); ?>$2<?php $__renderer__->close(); ?>', $template);
+		$template = preg_replace("/{%\s*block:'?(.*?)'?\s*%}(.*?){%\s*endblock\s*%}/is", '<?php $__renderer__->open(\'$1\'); ?>$2<?php $__renderer__->close(); ?>', $template);
 
 		// Compile block output
 
-		return preg_replace('/{{\s*block:(.*?)\s*}}(.*?){{\s*endblock\s*}}/is', '<?php $__renderer__->open(\'$1\'); ?>$2<?php $__renderer__->output(\'$1\'); ?>', $template);
+		return preg_replace("/{{\s*block:'?(.*?)'?\s*}}(.*?){{\s*endblock\s*}}/is", '<?php $__renderer__->open(\'$1\'); ?>$2<?php $__renderer__->output(\'$1\'); ?>', $template);
 	}
 
 	/**
