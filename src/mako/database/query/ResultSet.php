@@ -81,6 +81,7 @@ class ResultSet extends Collection implements JsonSerializable
 	 *
 	 * @return array
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize(): array
 	{
 		if($this->pagination === null)
