@@ -179,6 +179,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed $offset The offset to retrieve
 	 * @return mixed
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($offset)
 	{
 		if(array_key_exists($offset, $this->items))
