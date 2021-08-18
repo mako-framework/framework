@@ -99,6 +99,7 @@ trait TimeTrait
 	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return static|false
 	 */
+	#[ReturnTypeWillChange]
 	public static function createFromFormat($format, $time, $timeZone = null)
 	{
 		if($timeZone !== null)
@@ -124,6 +125,7 @@ trait TimeTrait
 	 * @param  string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
 	 * @return $this|static|false
 	 */
+	#[ReturnTypeWillChange]
 	public function setTimezone($timeZone)
 	{
 		if(($timeZone instanceof DateTimeZone) === false)
