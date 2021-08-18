@@ -259,6 +259,7 @@ class Pagination implements PaginationInterface
 	 *
 	 * @return array
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize(): array
 	{
 		return $this->toArray();

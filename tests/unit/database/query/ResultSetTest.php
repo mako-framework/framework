@@ -21,6 +21,17 @@ class ResultSetTest extends TestCase
 	/**
 	 *
 	 */
+	public function setUp(): void
+	{
+		if(PHP_VERSION_ID >= 80100)
+		{
+			$this->markTestSkipped('Cannot mock classes with the ReturnTypeWillChange annotations.');
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function testToArray(): void
 	{
 		$result = new Result;
