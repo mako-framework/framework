@@ -47,11 +47,11 @@ class IP extends Rule implements RuleInterface
 	 *
 	 * @return int|null
 	 */
-	protected function getFlags(): ?int
+	protected function getFlags(): int
 	{
 		if($this->version === null)
 		{
-			return null;
+			return 0;
 		}
 
 		switch($this->version)
