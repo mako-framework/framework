@@ -31,6 +31,8 @@ class BaseCompilerTest extends BuilderTestCase
 		{
 			$this->markTestSkipped('Mockery must be updated to support PHP 8.1.');
 		}
+
+		parent::setUp();
 	}
 
 	/**
