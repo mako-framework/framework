@@ -25,7 +25,7 @@ class ResultSetTest extends TestCase
 	{
 		if(PHP_VERSION_ID >= 80100)
 		{
-			$this->markTestSkipped('Cannot mock classes with the ReturnTypeWillChange annotations.');
+			$this->markTestSkipped('Mockery must be updated to support PHP 8.1.');
 		}
 	}
 

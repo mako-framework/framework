@@ -221,9 +221,16 @@ class I18n
 	 */
 	protected function loadFromCache(string $language, string $file): bool
 	{
-		$this->strings[$language] = $this->cache->get("mako.i18n.{$language}");
+		$cache = $this->cache->get("mako.i18n.{$language}");
 
-		return $this->strings[$language] !== false && isset($this->strings[$language][$file]);
+		if($cache === false)
+		{
+			return false;
+		}
+
+		$this->strings[$language] = $cache;
+
+		return isset($this->strings[$language][$file]);
 	}
 
 	/**

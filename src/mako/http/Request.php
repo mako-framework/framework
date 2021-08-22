@@ -228,7 +228,7 @@ class Request
 
 		// Get the script name
 
-		$this->scriptName = $scriptName ?? basename($this->server->get('SCRIPT_FILENAME'));
+		$this->scriptName = $scriptName ?? basename($this->server->get('SCRIPT_FILENAME', ''));
 
 		if($this->scriptName === 'reactor')
 		{
@@ -682,7 +682,7 @@ class Request
 	{
 		if($this->basePath === null)
 		{
-			$path = $this->server->get('SCRIPT_NAME');
+			$path = $this->server->get('SCRIPT_NAME', '');
 
 			$this->basePath = rtrim(str_replace(basename($path), '', $path), '/');
 		}
@@ -742,7 +742,7 @@ class Request
 	 */
 	public function isClean(): bool
 	{
-		return strpos($this->server->get('REQUEST_URI'), $this->server->get('SCRIPT_NAME')) !== 0;
+		return strpos($this->server->get('REQUEST_URI', ''), $this->server->get('SCRIPT_NAME', '')) !== 0;
 	}
 
 	/**
