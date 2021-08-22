@@ -353,7 +353,7 @@ class TimeTest extends TestCase
 	{
 		$time = Time::createFromDate(1983, 8, 30);
 
-		$locale = setlocale(LC_TIME, null);
+		$locale = setlocale(LC_TIME, '0');
 
 		if(setlocale(LC_TIME, ['ja_JP.UTF-8', 'ja_JP.utf8']) !== false)
 		{

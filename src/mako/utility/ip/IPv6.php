@@ -46,7 +46,7 @@ class IPv6
 			}
 		}
 
-		$binNetmask = str_repeat('f', $netmask / 4);
+		$binNetmask = str_repeat('f', (int) ($netmask / 4));
 
 		switch($netmask % 4)
 		{

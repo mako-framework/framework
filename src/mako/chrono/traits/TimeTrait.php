@@ -249,6 +249,12 @@ trait TimeTrait
 	 */
 	public function formatLocalized(string $format): string
 	{
-		return strftime($format, $this->getTimestamp());
+		$errorLevel = error_reporting(error_reporting() ^ E_DEPRECATED); // Disable deprecation warning for PHP 8.1
+
+		$formatted = strftime($format, $this->getTimestamp());
+
+		error_reporting($errorLevel); // Restore error level
+
+		return $formatted;
 	}
 }

@@ -33,7 +33,7 @@ class Argon2iTest extends TestCase
 	{
 		$password = 'foobar';
 
-		$hasher = new Argon2i(['time_cost' => 1]);
+		$hasher = new Argon2i(['time_cost' => 3]);
 
 		$hash1 = $hasher->create($password);
 
@@ -69,8 +69,8 @@ class Argon2iTest extends TestCase
 	{
 		$password = 'foobar';
 
-		$hasher1 = new Argon2i(['time_cost' => 1]);
-		$hasher2 = new Argon2i(['time_cost' => 2]);
+		$hasher1 = new Argon2i(['time_cost' => 3]);
+		$hasher2 = new Argon2i(['time_cost' => 4]);
 
 		$hash = $hasher1->create($password);
 
