@@ -1,3 +1,15 @@
+### ?.?.? <small>(2021-??-??)</small>
+
+#### New
+
+* Added abstract `AccessControl` middleware.
+
+#### Deprecations
+
+* Deprecated the `AccessControlAllowOrigin` middleware.
+
+--------------------------------------------------------
+
 ### 7.2.0 <small>(2021-03-02)</small>
 
 #### New

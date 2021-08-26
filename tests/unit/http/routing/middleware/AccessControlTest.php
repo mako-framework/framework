@@ -11,24 +11,23 @@ use mako\http\Request;
 use mako\http\request\Headers as RequestHeaders;
 use mako\http\Response;
 use mako\http\response\Headers as ResponseHeaders;
-use mako\http\routing\middleware\AccessControlAllowOrigin;
+use mako\http\routing\middleware\AccessControl;
 use mako\tests\TestCase;
 use Mockery;
 
 /**
  * @group unit
- * @deprecated
  */
-class AccessControlAllowOriginTest extends TestCase
+class AccessControlTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testAllowAll(): void
 	{
-		$middleware = new class extends AccessControlAllowOrigin
+		$middleware = new class extends AccessControl
 		{
-			protected $allowAll = true;
+			protected $allowAllDomains = true;
 		};
 
 		$request         = Mockery::mock(Request::class);
@@ -50,7 +49,7 @@ class AccessControlAllowOriginTest extends TestCase
 	 */
 	public function testAllowWithValidDomain(): void
 	{
-		$middleware = new class extends AccessControlAllowOrigin
+		$middleware = new class extends AccessControl
 		{
 			protected $allowedDomains =
 			[
@@ -84,7 +83,7 @@ class AccessControlAllowOriginTest extends TestCase
 	 */
 	public function testAllowWithInvalidDomain(): void
 	{
-		$middleware = new class extends AccessControlAllowOrigin
+		$middleware = new class extends AccessControl
 		{
 			protected $allowedDomains =
 			[
@@ -95,7 +94,6 @@ class AccessControlAllowOriginTest extends TestCase
 		$request         = Mockery::mock(Request::class);
 		$requestHeaders  = Mockery::mock(RequestHeaders::class);
 		$response        = Mockery::mock(Response::class);
-		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
 
@@ -112,7 +110,7 @@ class AccessControlAllowOriginTest extends TestCase
 	 */
 	public function testAllowWithNoOrigin(): void
 	{
-		$middleware = new class extends AccessControlAllowOrigin
+		$middleware = new class extends AccessControl
 		{
 			protected $allowedDomains =
 			[
@@ -123,11 +121,91 @@ class AccessControlAllowOriginTest extends TestCase
 		$request         = Mockery::mock(Request::class);
 		$requestHeaders  = Mockery::mock(RequestHeaders::class);
 		$response        = Mockery::mock(Response::class);
-		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
+
+		$middleware->execute($request, $response, function($request, $response)
+		{
+			return $response;
+		});
+	}
+
+	/**
+	 *
+	 */
+	public function testAllowsCredentials(): void
+	{
+		$middleware = new class extends AccessControl
+		{
+			protected $allowAllDomains = true;
+			protected $allowCredentials = true;
+		};
+
+		$request         = Mockery::mock(Request::class);
+		$response        = Mockery::mock(Response::class);
+		$responseHeaders = Mockery::mock(ResponseHeaders::class);
+
+		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+
+		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
+
+		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Credentials', 'true')->once();
+
+		$middleware->execute($request, $response, function($request, $response)
+		{
+			return $response;
+		});
+	}
+
+	/**
+	 *
+	 */
+	public function testAllowHeaders(): void
+	{
+		$middleware = new class extends AccessControl
+		{
+			protected $allowAllDomains = true;
+			protected $allowedHeaders = ['X-Custom-Header1', 'X-Custom-Header2'];
+		};
+
+		$request         = Mockery::mock(Request::class);
+		$response        = Mockery::mock(Response::class);
+		$responseHeaders = Mockery::mock(ResponseHeaders::class);
+
+		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+
+		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
+
+		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Headers', 'X-Custom-Header1, X-Custom-Header2')->once();
+
+		$middleware->execute($request, $response, function($request, $response)
+		{
+			return $response;
+		});
+	}
+
+	/**
+	 *
+	 */
+	public function testAllowMethods(): void
+	{
+		$middleware = new class extends AccessControl
+		{
+			protected $allowAllDomains = true;
+			protected $allowedMethods = ['GET', 'POST'];
+		};
+
+		$request         = Mockery::mock(Request::class);
+		$response        = Mockery::mock(Response::class);
+		$responseHeaders = Mockery::mock(ResponseHeaders::class);
+
+		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+
+		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
+
+		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Methods', 'GET, POST')->once();
 
 		$middleware->execute($request, $response, function($request, $response)
 		{
