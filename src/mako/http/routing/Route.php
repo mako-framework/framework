@@ -53,6 +53,7 @@ class Route
 	/**
 	 * Route action namespace.
 	 *
+	 * @deprecated
 	 * @var string
 	 */
 	protected $namespace;
@@ -102,10 +103,10 @@ class Route
 	/**
 	 * Constructor.
 	 *
-	 * @param array           $methods Route methods
-	 * @param string          $route   Route
-	 * @param \Closure|string $action  Route action
-	 * @param string|null     $name    Route name
+	 * @param array                 $methods Route methods
+	 * @param string                $route   Route
+	 * @param array|\Closure|string $action  Route action
+	 * @param string|null           $name    Route name
 	 */
 	public function __construct(array $methods, string $route, $action, ?string $name = null)
 	{
@@ -143,7 +144,7 @@ class Route
 	/**
 	 * Returns the route action.
 	 *
-	 * @return \Closure|string
+	 * @return array|\Closure|string
 	 */
 	public function getAction()
 	{
@@ -220,6 +221,7 @@ class Route
 	/**
 	 * Sets the route action namespace.
 	 *
+	 * @deprecated
 	 * @param  string                   $namespace Route action namespace
 	 * @return \mako\http\routing\Route
 	 */

@@ -1,12 +1,14 @@
-### ?.?.? <small>(2021-??-??)</small>
+### 7.3.? <small>(2021-??-??)</small>
 
 #### New
 
 * Added abstract `AccessControl` middleware.
+* Added new and cleaner way of registering class methods as route actions.
 
 #### Deprecations
 
 * Deprecated the `AccessControlAllowOrigin` middleware.
+* Deprecated the `Route::namespace()` method.
 
 --------------------------------------------------------
 

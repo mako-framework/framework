@@ -262,19 +262,26 @@ class Dispatcher
 	/**
 	 * Executes a controller action.
 	 *
-	 * @param  string              $controller Controller
+	 * @param  array|string        $controller Controller
 	 * @param  array               $parameters Parameters
 	 * @return \mako\http\Response
 	 */
-	protected function executeController(string $controller, array $parameters): Response
+	protected function executeController($controller, array $parameters): Response
 	{
-		if(strpos($controller, '::') === false)
+		if(is_array($controller))
 		{
-			$method = '__invoke';
+			[$controller, $method] = $controller;
 		}
 		else
 		{
-			[$controller, $method] = explode('::', $controller, 2);
+			if(strpos($controller, '::') === false)
+			{
+				$method = '__invoke';
+			}
+			else
+			{
+				[$controller, $method] = explode('::', $controller, 2);
+			}
 		}
 
 		$controller = $this->container->get($controller);
