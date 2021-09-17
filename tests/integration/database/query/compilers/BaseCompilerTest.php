@@ -27,11 +27,6 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function setUp(): void
 	{
-		if(PHP_VERSION_ID >= 80100)
-		{
-			$this->markTestSkipped('Mockery must be updated to support PHP 8.1.');
-		}
-
 		parent::setUp();
 	}
 
