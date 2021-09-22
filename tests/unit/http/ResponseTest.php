@@ -20,7 +20,7 @@ use Mockery;
 class ResponseTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\http\Request|\Mockery\MockInterface
 	 */
 	public function getRequest()
 	{
@@ -32,12 +32,24 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function getHeaders()
+	protected function getHeaders(): array
 	{
 		return
 		[
 			'X-Foo-Bar' => 'foo bar',
 			'X-Baz-Bax' => 'baz bax',
+		];
+	}
+
+	/**
+	 *
+	 */
+	protected function getCookies(): array
+	{
+		return
+		[
+			'foo-bar' => 'foo bar',
+			'baz-bax' => 'baz bax',
 		];
 	}
 
@@ -193,9 +205,80 @@ class ResponseTest extends TestCase
 			$response->getHeaders()->add($header, $value);
 		}
 
-		$response->getCookies()->add('foo', 'foo cookie');
+		foreach($this->getCookies() as $cookie => $value)
+		{
+			$response->getCookies()->add($cookie, $value);
+		}
+
+		$this->assertCount(2, $response->getHeaders());
+
+		$this->assertCount(2, $response->getCookies());
 
 		$this->assertInstanceOf(Response::class, $response->clear());
+
+		$this->assertNull($response->getBody());
+
+		$this->assertCount(0, $response->getHeaders());
+
+		$this->assertCount(0, $response->getCookies());
+	}
+
+	/**
+	 *
+	 */
+	public function testClearExcept(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$response->setBody('Hello, world!');
+
+		foreach($this->getHeaders() as $header => $value)
+		{
+			$response->getHeaders()->add($header, $value);
+		}
+
+		foreach($this->getCookies() as $cookie => $value)
+		{
+			$response->getCookies()->add($cookie, $value);
+		}
+
+		$this->assertCount(2, $response->getHeaders());
+
+		$this->assertCount(2, $response->getCookies());
+
+		$this->assertInstanceOf(Response::class, $response->clearExcept(['headers' => ['X-Foo-.*'], 'cookies' => ['foo-.*']]));
+
+		$this->assertNull($response->getBody());
+
+		$this->assertCount(1, $response->getHeaders());
+
+		$this->assertCount(1, $response->getCookies());
+	}
+
+	/**
+	 *
+	 */
+	public function testClearExceptWithNoExceptions(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$response->setBody('Hello, world!');
+
+		foreach($this->getHeaders() as $header => $value)
+		{
+			$response->getHeaders()->add($header, $value);
+		}
+
+		foreach($this->getCookies() as $cookie => $value)
+		{
+			$response->getCookies()->add($cookie, $value);
+		}
+
+		$this->assertCount(2, $response->getHeaders());
+
+		$this->assertCount(2, $response->getCookies());
+
+		$this->assertInstanceOf(Response::class, $response->clearExcept([]));
 
 		$this->assertNull($response->getBody());
 
@@ -218,11 +301,90 @@ class ResponseTest extends TestCase
 			$response->getHeaders()->add($header, $value);
 		}
 
-		$response->getCookies()->add('foo', 'foo cookie');
+		foreach($this->getCookies() as $cookie => $value)
+		{
+			$response->getCookies()->add($cookie, $value);
+		}
 
 		$response->setStatus(404);
 
+		$this->assertCount(2, $response->getHeaders());
+
+		$this->assertCount(2, $response->getCookies());
+
 		$this->assertInstanceOf(Response::class, $response->reset());
+
+		$this->assertNull($response->getBody());
+
+		$this->assertCount(0, $response->getHeaders());
+
+		$this->assertCount(0, $response->getCookies());
+
+		$this->assertSame(200, $response->getStatus());
+	}
+
+	/**
+	 *
+	 */
+	public function testResetExcept(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$response->setBody('Hello, world!');
+
+		foreach($this->getHeaders() as $header => $value)
+		{
+			$response->getHeaders()->add($header, $value);
+		}
+
+		foreach($this->getCookies() as $cookie => $value)
+		{
+			$response->getCookies()->add($cookie, $value);
+		}
+
+		$response->setStatus(404);
+
+		$this->assertCount(2, $response->getHeaders());
+
+		$this->assertCount(2, $response->getCookies());
+
+		$this->assertInstanceOf(Response::class, $response->resetExcept(['headers' => ['X-Foo-.*'], 'cookies' => ['foo-.*']]));
+
+		$this->assertNull($response->getBody());
+
+		$this->assertCount(1, $response->getHeaders());
+
+		$this->assertCount(1, $response->getCookies());
+
+		$this->assertSame(200, $response->getStatus());
+	}
+
+	/**
+	 *
+	 */
+	public function testResetExceptWithNoExceptions(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$response->setBody('Hello, world!');
+
+		foreach($this->getHeaders() as $header => $value)
+		{
+			$response->getHeaders()->add($header, $value);
+		}
+
+		foreach($this->getCookies() as $cookie => $value)
+		{
+			$response->getCookies()->add($cookie, $value);
+		}
+
+		$response->setStatus(404);
+
+		$this->assertCount(2, $response->getHeaders());
+
+		$this->assertCount(2, $response->getCookies());
+
+		$this->assertInstanceOf(Response::class, $response->resetExcept([]));
 
 		$this->assertNull($response->getBody());
 

@@ -172,6 +172,28 @@ class CookiesTest extends TestCase
 	/**
 	 *
 	 */
+	public function testClearExcept(): void
+	{
+		$cookies = new Cookies;
+
+		$cookies->add('foo-bar', '1');
+
+		$cookies->add('foo-baz', '2');
+
+		$cookies->add('hello-workd', 3);
+
+		$this->assertSame(3, count($cookies));
+
+		$cookies->clearExcept(['foo-.*', 'hello']);
+
+		$this->assertSame(2, count($cookies));
+
+		$this->assertSame(['foo-bar', 'foo-baz'], array_keys($cookies->all()));
+	}
+
+	/**
+	 *
+	 */
 	public function testAddWithOptions(): void
 	{
 		$cookies = new Cookies;

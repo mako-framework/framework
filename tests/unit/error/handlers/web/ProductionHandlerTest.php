@@ -30,21 +30,21 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithView(): void
 	{
-		$responseHeaders = Mockery::mock(RequestHeaders::class);
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
 
 		//
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -92,21 +92,21 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$responseHeaders = Mockery::mock(RequestHeaders::class);
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
 
 		//
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -154,7 +154,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -194,21 +194,21 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithoutView(): void
 	{
-		$responseHeaders = Mockery::mock(RequestHeaders::class);
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($responseHeaders);
+		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
 
 		//
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -234,6 +234,48 @@ class ProductionHandlerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testRegularErrorWithoutViewWithResetExceptions(): void
+	{
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
+
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
+
+		//
+
+		$request = Mockery::mock(Request::class);
+
+		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+
+		//
+
+		$response = Mockery::mock(Response::class);
+
+		$response->shouldReceive('clearExcept')->once()->with(['headers' => ['Access-Control-.*']])->andReturn($response);
+
+		$response->shouldReceive('disableCaching')->once()->andReturn($response);
+
+		$response->shouldReceive('disableCompression')->once()->andReturn($response);
+
+		$response->shouldReceive('getType')->twice()->andReturn('text/plain');
+
+		$response->shouldReceive('setType')->once()->with('text/plain')->andReturn($response);
+
+		$response->shouldReceive('setBody')->once()->with('An error has occurred while processing your request.')->andReturn($response);
+
+		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
+
+		$response->shouldReceive('send')->once();
+
+		//
+
+		$handler = new ProductionHandler($request, $response, null, ['headers' => ['Access-Control-.*']]);
+
+		$this->assertFalse($handler->handle(new ErrorException));
+	}
+
+	/**
+	 *
+	 */
 	public function testRegularErrorWithJsonResponse(): void
 	{
 		if(function_exists('json_encode') === false)
@@ -251,7 +293,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->once()->andReturn('application/json');
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -292,7 +334,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('getType')->once()->andReturn('application/json');
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -325,21 +367,21 @@ class ProductionHandlerTest extends TestCase
 			return;
 		}
 
-		$responseHeaders = Mockery::mock(RequestHeaders::class);
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
 
 		//
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
 
 		//
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 
@@ -376,21 +418,21 @@ class ProductionHandlerTest extends TestCase
 			return;
 		}
 
-		$responseHeaders = Mockery::mock(RequestHeaders::class);
+		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
-		$responseHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
+		$requestHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
 
 		//
 
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
 
 		//
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once()->andReturn($response);
+		$response->shouldReceive('clearExcept')->once()->andReturn($response);
 
 		$response->shouldReceive('disableCaching')->once()->andReturn($response);
 

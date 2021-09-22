@@ -10,9 +10,11 @@ namespace mako\http\response;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use mako\http\response\traits\PatternMatcherTrait;
 use mako\security\Signer;
 use RuntimeException;
 
+use function array_filter;
 use function count;
 use function time;
 
@@ -21,6 +23,8 @@ use function time;
  */
 class Cookies implements Countable, IteratorAggregate
 {
+	use PatternMatcherTrait;
+
 	/**
 	 * Default options.
 	 *
@@ -211,6 +215,22 @@ class Cookies implements Countable, IteratorAggregate
 	public function clear(): Cookies
 	{
 		$this->cookies = [];
+
+		return $this;
+	}
+
+	/**
+	 * Clears all the cookies except those that patch the provided names or patterns.
+	 *
+	 * @param  array                       $cookies Cookie names or patterns
+	 * @return \mako\http\response\Cookies
+	 */
+	public function clearExcept(array $cookies): Cookies
+	{
+		$this->cookies = array_filter($this->cookies, function($key) use ($cookies)
+		{
+			return $this->matchesPatterns($key, $cookies);
+		}, ARRAY_FILTER_USE_KEY);
 
 		return $this;
 	}

@@ -113,6 +113,28 @@ class HeadersTest extends TestCase
 	/**
 	 *
 	 */
+	public function testClearExcept(): void
+	{
+		$headers = new Headers;
+
+		$headers->add('Access-Control-Allow-Origin', '*');
+
+		$headers->add('X-Custom-Header-1', 'foo');
+
+		$headers->add('X-Custom-Header-2', 'bar');
+
+		$this->assertSame(3, count($headers));
+
+		$headers->clearExcept(['Access-Control-.*', 'X-Custom-Header-2']);
+
+		$this->assertSame(2, count($headers));
+
+		$this->assertSame(['Access-Control-Allow-Origin', 'X-Custom-Header-2'], array_keys($headers->all()));
+	}
+
+	/**
+	 *
+	 */
 	public function testAddMultiple(): void
 	{
 		$headers = new Headers;

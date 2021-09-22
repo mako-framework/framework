@@ -10,8 +10,10 @@ namespace mako\http\response;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use mako\http\response\traits\PatternMatcherTrait;
 
 use function array_column;
+use function array_filter;
 use function array_map;
 use function array_merge;
 use function count;
@@ -23,6 +25,8 @@ use function strtolower;
  */
 class Headers implements Countable, IteratorAggregate
 {
+	use PatternMatcherTrait;
+
 	/**
 	 * Headers.
 	 *
@@ -144,6 +148,22 @@ class Headers implements Countable, IteratorAggregate
 	public function clear(): Headers
 	{
 		$this->headers = [];
+
+		return $this;
+	}
+
+	/**
+	 * Clears all the headers except those that patch the provided names or patterns.
+	 *
+	 * @param  array                       $headers Header names or patterns
+	 * @return \mako\http\response\Headers
+	 */
+	public function clearExcept(array $headers): Headers
+	{
+		$this->headers = array_filter($this->headers, function($key) use ($headers)
+		{
+			return $this->matchesPatterns($key, $headers);
+		}, ARRAY_FILTER_USE_KEY);
 
 		return $this;
 	}

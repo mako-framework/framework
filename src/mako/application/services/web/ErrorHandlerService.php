@@ -41,7 +41,7 @@ class ErrorHandlerService extends Service
 			}
 		}
 
-		$errorHandler->handle(Throwable::class, $config['display_errors'] ? DevelopmentHandler::class : ProductionHandler::class);
+		$errorHandler->handle(Throwable::class, $config['display_errors'] ? DevelopmentHandler::class : ProductionHandler::class, ['keep' => $config['keep'] ?? []]);
 
 		$this->container->registerInstance([ErrorHandler::class, 'errorHandler'], $errorHandler);
 	}

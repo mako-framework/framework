@@ -214,10 +214,11 @@ class ErrorHandler
 	 *
 	 * @param string          $exceptionType Exception type
 	 * @param \Closure|string $handler       Exception handler
+	 * @param array           $parameters    Constructor parameters
 	 */
-	public function handle(string $exceptionType, $handler): void
+	public function handle(string $exceptionType, $handler, array $parameters = []): void
 	{
-		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler]);
+		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler, 'parameters' => $parameters]);
 	}
 
 	/**
@@ -284,29 +285,31 @@ class ErrorHandler
 	/**
 	 * Creates and returns an error handler instance.
 	 *
-	 * @param  string                                $handler Handler class name
+	 * @param  string                                $handler    Handler class name
+	 * @param  array                                 $parameters Constructor parameters
 	 * @return \mako\error\handlers\HandlerInterface
 	 */
-	protected function handlerFactory(string $handler): HandlerInterface
+	protected function handlerFactory(string $handler, array $parameters): HandlerInterface
 	{
-		return $this->container->get($handler);
+		return $this->container->get($handler, $parameters);
 	}
 
 	/**
 	 * Handle the exception.
 	 *
-	 * @param  \Closure|string $handler   Exception handler
 	 * @param  \Throwable      $exception Exceotion
+	 * @param  \Closure|string $handler   Exception handler
+	 * @param  array           $paramters Constructor parameters
 	 * @return mixed
 	 */
-	protected function handleException($handler, Throwable $exception)
+	protected function handleException(Throwable $exception, $handler, array $parameters)
 	{
 		if($handler instanceof Closure)
 		{
 			return $handler($exception);
 		}
 
-		return $this->handlerFactory($handler)->handle($exception);
+		return $this->handlerFactory($handler, $parameters)->handle($exception);
 	}
 
 	/**
@@ -348,7 +351,7 @@ class ErrorHandler
 			{
 				if($exception instanceof $handler['exceptionType'])
 				{
-					if($this->handleException($handler['handler'], $exception) !== null)
+					if($this->handleException($exception, $handler['handler'], $handler['parameters']) !== null)
 					{
 						break;
 					}

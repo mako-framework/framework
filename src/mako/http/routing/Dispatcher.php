@@ -22,6 +22,7 @@ use function array_intersect_key;
 use function array_keys;
 use function array_merge;
 use function explode;
+use function is_array;
 use function method_exists;
 use function strpos;
 use function uasort;

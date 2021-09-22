@@ -11,6 +11,7 @@ use Closure;
 use mako\http\Request;
 use mako\http\Response;
 
+use function implode;
 use function in_array;
 
 /**

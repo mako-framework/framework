@@ -47,13 +47,21 @@ class ProductionHandler extends Handler implements HandlerInterface
 	protected $view;
 
 	/**
+	 * Cookies and headers to keep.
+	 *
+	 * @var array
+	 */
+	protected $keep;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \mako\http\Request          $request  Request
 	 * @param \mako\http\Response         $response Response
 	 * @param \mako\view\ViewFactory|null $view     View factory
+	 * @param \array                      $keep     Cookies and headers to keep
 	 */
-	public function __construct(Request $request, Response $response, ?ViewFactory $view = null)
+	public function __construct(Request $request, Response $response, ?ViewFactory $view = null, array $keep = [])
 	{
 		$this->request = $request;
 
@@ -65,6 +73,8 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 			$this->view->registerNamespace('mako-error', __DIR__ . '/views');
 		}
+
+		$this->keep = $keep;
 	}
 
 	/**
@@ -219,7 +229,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 		['type' => $type, 'body' => $body] = $this->buildResponse($exception);
 
 		$this->sendResponse($this->response
-		->clear()
+		->clearExcept($this->keep)
 		->disableCaching()
 		->disableCompression()
 		->setType($type)

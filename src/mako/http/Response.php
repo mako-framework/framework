@@ -371,6 +371,23 @@ class Response
 	}
 
 	/**
+	 * Clears the response body in addition to cookies and headers that don't match the provided names or patterns.
+	 *
+	 * @param  array               $exceptions Exceptions
+	 * @return \mako\http\Response
+	 */
+	public function clearExcept(array $exceptions): Response
+	{
+		$this->clearBody();
+
+		empty($exceptions['headers']) ? $this->headers->clear() : $this->headers->clearExcept($exceptions['headers']);
+
+		empty($exceptions['cookies']) ? $this->cookies->clear() : $this->cookies->clearExcept($exceptions['cookies']);
+
+		return $this;
+	}
+
+	/**
 	 * Resets the response.
 	 *
 	 * @return \mako\http\Response
@@ -380,6 +397,19 @@ class Response
 		$this->statusCode = self::DEFAULT_STATUS;
 
 		return $this->clear();
+	}
+
+	/**
+	 * Resets the response except for cookies and headers that match the provided names or patterns.
+	 *
+	 * @param  array               $exceptions Exceptions
+	 * @return \mako\http\Response
+	 */
+	public function resetExcept(array $exceptions): Response
+	{
+		$this->statusCode = self::DEFAULT_STATUS;
+
+		return $this->clearExcept($exceptions);
 	}
 
 	/**

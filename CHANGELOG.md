@@ -4,6 +4,11 @@
 
 * Added abstract `AccessControl` middleware.
 * Added new and cleaner way of registering class methods as route actions.
+* Added `Cookies::clearExcept()` method.
+* Added `Headers::clearExcept()` method.
+* Added `Response::clearExcept()` method.
+* Added `Response::resetExcept()` method.
+* It is now possible to define a whitelist of cookies and headers to keep when an exception has been handled.
 
 #### Deprecations
 
