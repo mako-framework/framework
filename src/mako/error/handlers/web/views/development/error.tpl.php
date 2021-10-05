@@ -297,7 +297,7 @@
 					</tr>
 					<tr>
 						<td>server time</td>
-						<td>{{strftime('%Y-%m-%d %H:%M:%S %Z')}}</td>
+						<td>{{(new \DateTime)->format('Y-m-d H:i:s T')}}</td>
 					</tr>
 				</table>
 				{% foreach($superglobals as $name => $values) %}
