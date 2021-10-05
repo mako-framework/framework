@@ -7,6 +7,8 @@
 
 namespace mako\tests\integration\database\query\compilers;
 
+use LogicException;
+use mako\database\exceptions\NotFoundException;
 use mako\database\query\Query;
 use mako\database\query\Subquery;
 use mako\pagination\PaginationFactoryInterface;
@@ -81,6 +83,30 @@ class BaseCompilerTest extends BuilderTestCase
 		$this->assertInstanceOf('mako\database\query\Result', $result);
 
 		$this->assertEquals('SELECT * FROM "users" LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testFirstOrThrow(): void
+	{
+		$this->expectException(NotFoundException::class);
+
+		$query = new Query($this->connectionManager->connection());
+
+		$query->table('users')->where('id', '=', 100)->firstOrThrow();
+	}
+
+	/**
+	 *
+	 */
+	public function testFirstOrThrowWithCustomException(): void
+	{
+		$this->expectException(LogicException::class);
+
+		$query = new Query($this->connectionManager->connection());
+
+		$query->table('users')->where('id', '=', 100)->firstOrThrow(LogicException::class);
 	}
 
 	/**

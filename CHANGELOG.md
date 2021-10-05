@@ -9,6 +9,12 @@
 * Added `Response::clearExcept()` method.
 * Added `Response::resetExcept()` method.
 * It is now possible to define a whitelist of cookies and headers to keep when an exception has been handled.
+* Added `Connection::firstOrThrow()` method to the database connection class.
+* Added `Query::firstOrThrow()` method to the base query builder class.
+* Added `Query::getOrThrow()` method to the ORM query builder class.
+* Added `Query::firstOrThrow()` method to the ORM query builder class.
+* Added `ORM::getOrThrow()` method.
+* The database library will now throw `mako\database\exceptions\DatabaseException` exceptions that extend the previously thrown `RuntimeException` exceptions.
 
 #### Deprecations
 

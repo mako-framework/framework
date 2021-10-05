@@ -14,6 +14,8 @@ use mako\chrono\Time;
 use mako\classes\ClassInspector;
 use mako\database\ConnectionManager;
 use mako\database\connections\Connection;
+use mako\database\exceptions\DatabaseException;
+use mako\database\exceptions\NotFoundException;
 use mako\database\midgard\relations\BelongsTo;
 use mako\database\midgard\relations\BelongsToPolymorphic;
 use mako\database\midgard\relations\HasMany;
@@ -23,7 +25,6 @@ use mako\database\midgard\relations\HasOnePolymorphic;
 use mako\database\midgard\relations\ManyToMany;
 use mako\utility\Str;
 use mako\utility\UUID;
-use RuntimeException;
 
 use function array_diff;
 use function array_diff_key;
@@ -527,7 +528,7 @@ abstract class ORM implements JsonSerializable
 				case 'string':
 					return (string) $value;
 				default:
-					throw new RuntimeException(vsprintf('Unsupported type [ %s ].', [$this->cast[$name]]));
+					throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$this->cast[$name]]));
 			}
 		}
 
@@ -632,7 +633,7 @@ abstract class ORM implements JsonSerializable
 
 		// All options have been exhausted so we'll throw an exception
 
-		throw new RuntimeException(vsprintf('Unknown column or relation [ %s ].', [$name]));
+		throw new DatabaseException(vsprintf('Unknown column or relation [ %s ].', [$name]));
 	}
 
 	/**
@@ -775,6 +776,19 @@ abstract class ORM implements JsonSerializable
 	public static function get($id, array $columns = [])
 	{
 		return (new static)->builder()->get($id, $columns);
+	}
+
+	/**
+	 * Returns a record using the value of its primary key.
+	 *
+	 * @param  mixed  $id        Primary key
+	 * @param  array  $columns   Columns to select
+	 * @param  string $exception Exception class
+	 * @return static
+	 */
+	public static function getOrThrow($id, array $columns = [], string $exception = NotFoundException::class)
+	{
+		return (new static)->builder()->getOrThrow($id, $columns, $exception);
 	}
 
 	/**
@@ -931,7 +945,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	protected function generatePrimaryKey()
 	{
-		throw new RuntimeException(vsprintf('The [ %s::generatePrimaryKey() ] method must be implemented.', [static::class]));
+		throw new DatabaseException(vsprintf('The [ %s::generatePrimaryKey() ] method must be implemented.', [static::class]));
 	}
 
 	/**

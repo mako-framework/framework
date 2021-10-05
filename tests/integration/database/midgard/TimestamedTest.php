@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard;
 
+use mako\database\midgard\traits\TimestampedTrait;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -16,14 +17,14 @@ use mako\tests\integration\TestORM;
 
 class TimestampedFoo extends TestORM
 {
-	use \mako\database\midgard\traits\TimestampedTrait;
+	use TimestampedTrait;
 
 	protected $tableName = 'timestamped_foos';
 }
 
 class TimestampedBar extends TestORM
 {
-	use \mako\database\midgard\traits\TimestampedTrait;
+	use TimestampedTrait;
 
 	protected $tableName = 'timestamped_bars';
 
@@ -31,7 +32,7 @@ class TimestampedBar extends TestORM
 
 	public function foo()
 	{
-		return $this->belongsTo('mako\tests\integration\database\midgard\TimestampedFoo', 'timestamped_foo_id');
+		return $this->belongsTo(TimestampedFoo::class, 'timestamped_foo_id');
 	}
 }
 

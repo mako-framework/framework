@@ -8,9 +8,9 @@
 namespace mako\database\midgard\relations;
 
 use mako\database\connections\Connection;
+use mako\database\exceptions\DatabaseException;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
-use RuntimeException;
 
 use function array_chunk;
 use function array_merge;
@@ -224,7 +224,7 @@ abstract class Relation extends Query
 	{
 		if(!$this->origin->isPersisted())
 		{
-			throw new RuntimeException('Unable to fetch related records for non-persisted models.');
+			throw new DatabaseException('Unable to fetch related records for non-persisted models.');
 		}
 
 		return $this->fetchRelated();

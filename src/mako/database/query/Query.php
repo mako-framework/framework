@@ -11,6 +11,7 @@ use Closure;
 use DateTimeInterface;
 use Generator;
 use mako\database\connections\Connection;
+use mako\database\exceptions\NotFoundException;
 use mako\pagination\PaginationFactoryInterface;
 use PDO;
 
@@ -1398,6 +1399,31 @@ class Query
 	public function first()
 	{
 		return $this->fetchFirst(PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
+	 * Executes a SELECT query and returns the first row of the result set or throw an exception if nothing is found.
+	 *
+	 * @param  string $exception    Exception class
+	 * @param  mixed  ...$fetchMode Fetch mode
+	 * @return mixed
+	 */
+	protected function fetchFirstOrThrow(string $exception, ...$fetchMode)
+	{
+		$query = $this->limit(1)->compiler->select();
+
+		return $this->connection->firstOrThrow($query['sql'], $query['params'], $exception, ...$fetchMode);
+	}
+
+	/**
+	 * Executes a SELECT query and returns the first row of the result set or throw an exception if nothing is found.
+	 *
+	 * @param  string $exception Exception class
+	 * @return mixed
+	 */
+	public function firstOrThrow(string $exception = NotFoundException::class)
+	{
+		return $this->fetchFirstOrThrow($exception, PDO::FETCH_CLASS, Result::class);
 	}
 
 	/**

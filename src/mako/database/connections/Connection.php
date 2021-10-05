@@ -9,6 +9,8 @@ namespace mako\database\connections;
 
 use Closure;
 use Generator;
+use mako\database\exceptions\DatabaseException;
+use mako\database\exceptions\NotFoundException;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
@@ -16,7 +18,6 @@ use mako\database\types\TypeInterface;
 use PDO;
 use PDOException;
 use PDOStatement;
-use RuntimeException;
 
 use function array_shift;
 use function array_splice;
@@ -313,7 +314,7 @@ class Connection
 		}
 		catch(PDOException $e)
 		{
-			throw new RuntimeException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), 0, $e);
+			throw new DatabaseException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), 0, $e);
 		}
 
 		// Run queries
@@ -609,6 +610,25 @@ class Connection
 		}
 
 		return $statement->fetch() ?: null;
+	}
+
+	/**
+	 * Returns the first row of the result set or throw an exception if nothing is found.
+	 *
+	 * @param  string $query        SQL query
+	 * @param  array  $params       Query params
+	 * @param  string $exception    Exception class
+	 * @param  mixed  ...$fetchMode Fetch mode
+	 * @return mixed
+	 */
+	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, ...$fetchMode)
+	{
+		if(($row = $this->first($query, $params, ...$fetchMode)) === null)
+		{
+			throw new $exception;
+		}
+
+		return $row;
 	}
 
 	/**

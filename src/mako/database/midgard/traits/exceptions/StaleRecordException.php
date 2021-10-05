@@ -7,12 +7,12 @@
 
 namespace mako\database\midgard\traits\exceptions;
 
-use RuntimeException;
+use mako\database\exceptions\DatabaseException;
 
 /**
  * Stale record exception.
  */
-class StaleRecordException extends RuntimeException
+class StaleRecordException extends DatabaseException
 {
 
 }

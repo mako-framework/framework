@@ -15,6 +15,7 @@ use mako\database\connections\Oracle as OracleConnection;
 use mako\database\connections\Postgres as PostgresConnection;
 use mako\database\connections\SQLite as SQLiteConnection;
 use mako\database\connections\SQLServer as SQLServerConnection;
+use mako\database\exceptions\DatabaseException;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\compilers\Firebird as FirebirdCompiler;
 use mako\database\query\compilers\MySQL as MySQLCompiler;
@@ -25,7 +26,6 @@ use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\Helper;
 use mako\database\query\helpers\Postgres as PostgresHelper;
-use RuntimeException;
 
 use function array_merge;
 use function explode;
@@ -197,7 +197,7 @@ class ConnectionManager extends BaseConnectionManager
 	{
 		if(!isset($this->configurations[$connectionName]))
 		{
-			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the database configuration.', [$connectionName]));
+			throw new DatabaseException(vsprintf('[ %s ] has not been defined in the database configuration.', [$connectionName]));
 		}
 
 		$config = $this->configurations[$connectionName];

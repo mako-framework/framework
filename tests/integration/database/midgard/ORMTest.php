@@ -8,6 +8,9 @@
 namespace mako\tests\integration\database\midgard;
 
 use DateTime;
+use LogicException;
+use mako\database\exceptions\NotFoundException;
+use mako\database\midgard\ResultSet;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 use mako\utility\UUID;
@@ -84,7 +87,7 @@ class ORMTest extends ORMTestCase
 	{
 		$user = TestUser::get(1);
 
-		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+		$this->assertInstanceOf(TestUser::class, $user);
 
 		$this->assertEquals(1, $user->id);
 
@@ -93,6 +96,26 @@ class ORMTest extends ORMTestCase
 		$this->assertEquals('foo', $user->username);
 
 		$this->assertEquals('foo@example.org', $user->email);
+	}
+
+	/**
+	 *
+	 */
+	public function testGetOrThrow(): void
+	{
+		$this->expectException(NotFoundException::class);
+
+		TestUser::getOrThrow(1000);
+	}
+
+	/**
+	 *
+	 */
+	public function testGetOrThrowWithCustomException(): void
+	{
+		$this->expectException(LogicException::class);
+
+		TestUser::getOrThrow(1000, [], LogicException::class);
 	}
 
 	/**
@@ -112,7 +135,27 @@ class ORMTest extends ORMTestCase
 	{
 		$users = TestUser::first();
 
-		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $users);
+		$this->assertInstanceOf(TestUser::class, $users);
+	}
+
+	/**
+	 *
+	 */
+	public function testFirstOrThrow(): void
+	{
+		$this->expectException(NotFoundException::class);
+
+		(new TestUser)->builder()->where('id', '=', 1000)->firstOrThrow();
+	}
+
+	/**
+	 *
+	 */
+	public function testFirstOrThrowWithCustomException(): void
+	{
+		$this->expectException(LogicException::class);
+
+		(new TestUser)->builder()->where('id', '=', 1000)->firstOrThrow(LogicException::class);
 	}
 
 	/**
@@ -122,11 +165,11 @@ class ORMTest extends ORMTestCase
 	{
 		$users = TestUser::all();
 
-		$this->assertInstanceOf('\mako\database\midgard\ResultSet', $users);
+		$this->assertInstanceOf(ResultSet::class, $users);
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+			$this->assertInstanceOf(TestUser::class, $user);
 		}
 	}
 
@@ -141,7 +184,7 @@ class ORMTest extends ORMTestCase
 
 		foreach($users as $user)
 		{
-			$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+			$this->assertInstanceOf(TestUser::class, $user);
 		}
 	}
 
@@ -426,7 +469,7 @@ class ORMTest extends ORMTestCase
 	{
 		$user = TestUser::where('id', '=', 1)->first();
 
-		$this->assertInstanceOf('mako\tests\integration\database\midgard\TestUser', $user);
+		$this->assertInstanceOf(TestUser::class, $user);
 	}
 
 	/**

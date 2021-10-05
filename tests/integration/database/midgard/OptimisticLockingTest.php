@@ -8,6 +8,7 @@
 namespace mako\tests\integration\database\midgard;
 
 use mako\database\midgard\traits\exceptions\StaleRecordException;
+use mako\database\midgard\traits\OptimisticLockingTrait;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 
@@ -17,7 +18,7 @@ use mako\tests\integration\TestORM;
 
 class OptimisticLock extends TestORM
 {
-	use \mako\database\midgard\traits\OptimisticLockingTrait;
+	use OptimisticLockingTrait;
 
 	protected $tableName = 'optimistic_locks';
 }

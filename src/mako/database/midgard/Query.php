@@ -10,6 +10,7 @@ namespace mako\database\midgard;
 use Closure;
 use Generator;
 use mako\database\connections\Connection;
+use mako\database\exceptions\NotFoundException;
 use mako\database\query\Query as QueryBuilder;
 use mako\database\query\Subquery;
 use mako\utility\Str;
@@ -251,6 +252,24 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Returns a record using the value of its primary key.
+	 *
+	 * @param  int|string                 $id        Primary key
+	 * @param  array                      $columns   Columns to select
+	 * @param  string                     $exception Exception class
+	 * @return \mako\database\midgard\ORM
+	 */
+	public function getOrThrow($id, array $columns = [], string $exception = NotFoundException::class)
+	{
+		if(!empty($columns))
+		{
+			$this->select($columns);
+		}
+
+		return $this->where($this->model->getPrimaryKey(), '=', $id)->firstOrThrow($exception);
+	}
+
+	/**
 	 * Adds relations to eager load.
 	 *
 	 * @param  array|false|string $includes Relation or array of relations to eager load
@@ -484,6 +503,17 @@ class Query extends QueryBuilder
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns a single record from the database.
+	 *
+	 * @param  string                     $exception Exception class
+	 * @return \mako\database\midgard\ORM
+	 */
+	public function firstOrThrow(string $exception = NotFoundException::class)
+	{
+		return $this->hydrateModel($this->fetchFirstOrThrow($exception, PDO::FETCH_ASSOC));
 	}
 
 	/**

@@ -8,9 +8,9 @@
 namespace mako\tests\integration\database\midgard\relations;
 
 use Generator;
+use mako\database\exceptions\DatabaseException;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
-use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -179,7 +179,7 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testWithNonPersistedModel(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(DatabaseException::class);
 
 		$this->expectExceptionMessage('Unable to fetch related records for non-persisted models.');
 

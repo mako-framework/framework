@@ -8,11 +8,11 @@
 namespace mako\database\query\compilers;
 
 use DateTimeInterface;
+use mako\database\exceptions\DatabaseException;
 use mako\database\query\Join;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
-use RuntimeException;
 
 use function array_keys;
 use function array_merge;
@@ -198,7 +198,7 @@ class Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', [static::class]));
+		throw new DatabaseException(vsprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', [static::class]));
 	}
 
 	/**
@@ -211,7 +211,7 @@ class Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', [static::class]));
+		throw new DatabaseException(vsprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', [static::class]));
 	}
 
 	/**
@@ -574,7 +574,7 @@ class Compiler
 	 */
 	protected function whereDate(array $where): string
 	{
-		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
+		throw new DatabaseException(vsprintf('The [ %s ] query compiler does not support date comparisons.', [static::class]));
 	}
 
 	/**
@@ -616,7 +616,7 @@ class Compiler
 	 */
 	protected function betweenDate(array $where): string
 	{
-		throw new RuntimeException(vsprintf('The [ %s ] query compiler does not support date ranges.', [static::class]));
+		throw new DatabaseException(vsprintf('The [ %s ] query compiler does not support date ranges.', [static::class]));
 	}
 
 	/**

@@ -7,12 +7,12 @@
 
 namespace mako\database\midgard\traits\exceptions;
 
-use RuntimeException;
+use mako\database\exceptions\DatabaseException;
 
 /**
  * Read-only exception.
  */
-class ReadOnlyException extends RuntimeException
+class ReadOnlyException extends DatabaseException
 {
 
 }
