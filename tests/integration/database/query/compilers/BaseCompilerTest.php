@@ -34,7 +34,7 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testColumn(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$result = $query->table('users')->select(['id'])->where('id', '=', 1)->column();
 
@@ -42,7 +42,7 @@ class BaseCompilerTest extends BuilderTestCase
 
 		//
 
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$result = $query->table('users')->select(['id'])->where('id', '=', 0)->column();
 
@@ -50,9 +50,9 @@ class BaseCompilerTest extends BuilderTestCase
 
 		//
 
-		$this->assertEquals('SELECT "id" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT "id" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "id" FROM "users" WHERE "id" = 0 LIMIT 1', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT "id" FROM "users" WHERE "id" = 0 LIMIT 1', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -60,7 +60,7 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testAllReturnType(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$results = $query->table('users')->all();
 
@@ -68,7 +68,7 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$this->assertInstanceOf('mako\database\query\Result', $results[0]);
 
-		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 
 	/**
@@ -76,13 +76,13 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testFirstReturnType(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$result = $query->table('users')->first();
 
 		$this->assertInstanceOf('mako\database\query\Result', $result);
 
-		$this->assertEquals('SELECT * FROM "users" LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 
 	/**
@@ -92,7 +92,7 @@ class BaseCompilerTest extends BuilderTestCase
 	{
 		$this->expectException(NotFoundException::class);
 
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$query->table('users')->where('id', '=', 100)->firstOrThrow();
 	}
@@ -104,7 +104,7 @@ class BaseCompilerTest extends BuilderTestCase
 	{
 		$this->expectException(LogicException::class);
 
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$query->table('users')->where('id', '=', 100)->firstOrThrow(LogicException::class);
 	}
@@ -114,7 +114,7 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testYieldReturnType(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$results = $query->table('users')->yield();
 
@@ -125,7 +125,7 @@ class BaseCompilerTest extends BuilderTestCase
 			$this->assertInstanceOf('mako\database\query\Result', $result);
 		}
 
-		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 
 	/**
@@ -133,13 +133,13 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testPairs(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$results = $query->table('users')->ascending('id')->limit(2)->pairs('username', 'email');
 
 		$this->assertEquals(['foo' => 'foo@example.org', 'bar' => 'bar@example.org'], $results);
 
-		$this->assertEquals('SELECT "username", "email" FROM "users" ORDER BY "id" ASC LIMIT 2', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT "username", "email" FROM "users" ORDER BY "id" ASC LIMIT 2', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 
 	/**
@@ -157,17 +157,17 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
 
 		$query->table('users')->paginate();
 
-		$this->assertEquals(2, count($this->connectionManager->connection()->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -185,17 +185,17 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
 
 		$query->table('users')->union()->table('users')->paginate();
 
-		$this->assertEquals(2, count($this->connectionManager->connection()->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT COUNT(*) FROM (SELECT * FROM "users" UNION SELECT * FROM "users") AS "count"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM (SELECT * FROM "users" UNION SELECT * FROM "users") AS "count"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" UNION SELECT * FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" UNION SELECT * FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -213,15 +213,15 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
 
 		$query->table('users')->where('id', '=', 0)->paginate();
 
-		$this->assertEquals(1, count($this->connectionManager->connection()->getLog()));
+		$this->assertEquals(1, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT COUNT(*) FROM "users" WHERE "id" = 0', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM "users" WHERE "id" = 0', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 
 	/**
@@ -239,17 +239,17 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
 
 		$query->table('users')->ascending('id')->paginate();
 
-		$this->assertEquals(2, count($this->connectionManager->connection()->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC LIMIT 10 OFFSET 0', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -267,17 +267,17 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
 
 		$query->table('users')->select(['id', 'username'])->groupBy(['id', 'username'])->paginate();
 
-		$this->assertEquals(2, count($this->connectionManager->connection()->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT COUNT(*) FROM (SELECT "id", "username" FROM "users" GROUP BY "id", "username") AS "count"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM (SELECT "id", "username" FROM "users" GROUP BY "id", "username") AS "count"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "id", "username" FROM "users" GROUP BY "id", "username" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT "id", "username" FROM "users" GROUP BY "id", "username" LIMIT 10 OFFSET 0', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -295,17 +295,17 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->connection()]);
+		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
 
 		$query->table('users')->select(['id', 'username'])->distinct()->paginate();
 
-		$this->assertEquals(2, count($this->connectionManager->connection()->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT COUNT(*) FROM (SELECT DISTINCT "id", "username" FROM "users") AS "count"', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM (SELECT DISTINCT "id", "username" FROM "users") AS "count"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT DISTINCT "id", "username" FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT DISTINCT "id", "username" FROM "users" LIMIT 10 OFFSET 0', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -313,16 +313,16 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testBatch(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$results = $query->table('users')->batch(function($results): void
 		{
 
 		});
 
-		$this->assertEquals('SELECT * FROM "users" LIMIT 1000', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" LIMIT 1000', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" LIMIT 1000 OFFSET 1000', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" LIMIT 1000 OFFSET 1000', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -330,16 +330,16 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testBatchWithCriteria(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$results = $query->table('users')->where('id', '!=', 'foobar')->batch(function($results): void
 		{
 
 		});
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000', $this->connectionManager->getConnection()->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000 OFFSET 1000', $this->connectionManager->connection()->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" != \'foobar\' LIMIT 1000 OFFSET 1000', $this->connectionManager->getConnection()->getLog()[1]['query']);
 	}
 
 	/**
@@ -347,7 +347,7 @@ class BaseCompilerTest extends BuilderTestCase
 	 */
 	public function testSubQueryWithAggregate(): void
 	{
-		$query = new Query($this->connectionManager->connection());
+		$query = new Query($this->connectionManager->getConnection());
 
 		$result = $query->table('users')->select([new Subquery(function($query): void
 		{
@@ -356,8 +356,8 @@ class BaseCompilerTest extends BuilderTestCase
 
 		$this->assertInstanceOf('mako\database\query\Result', $result);
 
-		$this->assertSame(1, count($this->connectionManager->connection()->getLog()));
+		$this->assertSame(1, count($this->connectionManager->getConnection()->getLog()));
 
-		$this->assertEquals('SELECT (SELECT COUNT(*) FROM "users") AS "count" FROM "users" LIMIT 1', $this->connectionManager->connection()->getLog()[0]['query']);
+		$this->assertEquals('SELECT (SELECT COUNT(*) FROM "users") AS "count" FROM "users" LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 }

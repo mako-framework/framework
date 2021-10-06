@@ -16,6 +16,7 @@ use function vsprintf;
  * Redis connection manager.
  *
  * @method \mako\redis\Redis connection($connection = null)
+ * @method \mako\redis\Redis getConnection($connection = null)
  */
 class ConnectionManager extends BaseConnectionManager
 {

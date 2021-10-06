@@ -51,6 +51,6 @@ abstract class BuilderTestCase extends TestCase
 
 		$sql = file_get_contents(__DIR__ . '/resources/sqlite.sql');
 
-		$this->connectionManager->connection()->getPDO()->exec($sql);
+		$this->connectionManager->getConnection()->getPDO()->exec($sql);
 	}
 }

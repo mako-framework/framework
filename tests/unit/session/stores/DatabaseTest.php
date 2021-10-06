@@ -49,7 +49,7 @@ class DatabaseTest extends TestCase
 
 		$connection = $this->getDatabaseConnection();
 
-		$connection->shouldReceive('builder')->twice()->andReturn($builder);
+		$connection->shouldReceive('getQuery')->twice()->andReturn($builder);
 
 		$store = new Database($connection, 'mako_sessions');
 
@@ -69,7 +69,7 @@ class DatabaseTest extends TestCase
 
 		$connection = $this->getDatabaseConnection();
 
-		$connection->shouldReceive('builder')->twice()->andReturn($builder);
+		$connection->shouldReceive('getQuery')->twice()->andReturn($builder);
 
 		$store = new Database($connection, 'mako_sessions');
 
@@ -93,7 +93,7 @@ class DatabaseTest extends TestCase
 
 		$connection = $this->getDatabaseConnection();
 
-		$connection->shouldReceive('builder')->once()->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$store = new Database($connection, 'mako_sessions');
 
@@ -115,7 +115,7 @@ class DatabaseTest extends TestCase
 
 		$connection = $this->getDatabaseConnection();
 
-		$connection->shouldReceive('builder')->once()->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$store = new Database($connection, 'mako_sessions');
 
@@ -139,7 +139,7 @@ class DatabaseTest extends TestCase
 
 		$connection = $this->getDatabaseConnection();
 
-		$connection->shouldReceive('builder')->once()->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$store = new Database($connection, 'mako_sessions');
 
@@ -161,7 +161,7 @@ class DatabaseTest extends TestCase
 
 		$connection = $this->getDatabaseConnection();
 
-		$connection->shouldReceive('builder')->once()->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$store = new Database($connection, 'mako_sessions');
 

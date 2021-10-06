@@ -73,7 +73,7 @@ abstract class Migration
 	 */
 	public function getConnection(): Connection
 	{
-		return $this->database->connection($this->connectionName);
+		return $this->database->getConnection($this->connectionName);
 	}
 
 	/**

@@ -35,7 +35,7 @@ class RedisService extends Service
 
 		$this->container->registerSingleton(Redis::class, static function($container)
 		{
-			return $container->get(ConnectionManager::class)->connection();
+			return $container->get(ConnectionManager::class)->getConnection();
 		});
 	}
 }

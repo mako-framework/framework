@@ -55,11 +55,11 @@ class HasOneTest extends ORMTestCase
 
 		$this->assertEquals($user->id, $profile->user_id);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'1\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'1\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -86,11 +86,11 @@ class HasOneTest extends ORMTestCase
 
 		$this->assertEquals(1, $count);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -107,15 +107,15 @@ class HasOneTest extends ORMTestCase
 			$this->assertEquals($user->id, $user->profile->user_id);
 		}
 
-		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(4, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'1\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'1\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'2\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'2\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[2]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'3\' LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" = \'3\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -132,11 +132,11 @@ class HasOneTest extends ORMTestCase
 			$this->assertEquals($user->id, $user->profile->user_id);
 		}
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -154,11 +154,11 @@ class HasOneTest extends ORMTestCase
 			$this->assertNull($user->profile);
 		}
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "profiles" WHERE "interests" = \'does not exist\' AND "profiles"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "profiles" WHERE "interests" = \'does not exist\' AND "profiles"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -188,11 +188,11 @@ class HasOneTest extends ORMTestCase
 
 		$user->delete();
 
-		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(4, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2014-04-30 14:12:43\', \'bax\', \'bax@example.org\')', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2014-04-30 14:12:43\', \'bax\', \'bax@example.org\')', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('INSERT INTO "profiles" ("interests", "user_id") VALUES (\'gaming\', \'4\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('INSERT INTO "profiles" ("interests", "user_id") VALUES (\'gaming\', \'4\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -204,6 +204,6 @@ class HasOneTest extends ORMTestCase
 
 		$this->assertEquals(1, $user->profile_count);
 
-		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id") AS "profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id") AS "profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 	}
 }

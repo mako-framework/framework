@@ -15,11 +15,18 @@
 * Added `Query::firstOrThrow()` method to the ORM query builder class.
 * Added `ORM::getOrThrow()` method.
 * The database library will now throw `mako\database\exceptions\DatabaseException` exceptions that extend the previously thrown `RuntimeException` exceptions.
+* Added `ConnectionManager::getConnection()` method.
+* Added `Connection::getQuery()` method.
+* Added `ORM::getQuery()` method.
 
 #### Deprecations
 
 * Deprecated the `AccessControlAllowOrigin` middleware.
 * Deprecated the `Route::namespace()` method.
+* Deprecated the `ConnectionManager::connection()` method.
+* Deprecated the `Connection::builder()` method.
+* Deprecated the `Connection::table()` method.
+* Deprecated the `ORM::builder()` method.
 
 --------------------------------------------------------
 

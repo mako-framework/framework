@@ -35,7 +35,7 @@ class SessionService extends Service
 	 */
 	protected function getDatabaseStore(Container $container, array $config, $classWhitelist)
 	{
-		return new Database($container->get(DatabaseConnectionManager::class)->connection($config['configuration']), $config['table'], $classWhitelist);
+		return new Database($container->get(DatabaseConnectionManager::class)->getConnection($config['configuration']), $config['table'], $classWhitelist);
 	}
 
 	/**
@@ -74,7 +74,7 @@ class SessionService extends Service
 	 */
 	protected function getRedisStore(Container $container, array $config, $classWhitelist): Redis
 	{
-		return new Redis($container->get(RedisConnectionManager::class)->connection($config['configuration']), $classWhitelist);
+		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist);
 	}
 
 	/**

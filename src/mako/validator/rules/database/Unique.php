@@ -92,7 +92,8 @@ class Unique extends Rule implements RuleInterface
 			return true;
 		}
 
-		$count = $this->database->connection($this->connection)
+		$count = $this->database->getConnection($this->connection)
+		->getQuery()
 		->table($this->table)
 		->where($this->column, '=', $value);
 

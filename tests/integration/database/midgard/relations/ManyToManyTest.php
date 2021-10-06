@@ -70,11 +70,11 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals('user', $groups[1]->name);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -99,11 +99,11 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(2, $count);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -126,11 +126,11 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals('foo', $users[0]->username);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "groups" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "groups" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "users".* FROM "users" INNER JOIN "groups_users" ON "groups_users"."user_id" = "users"."id" WHERE "groups_users"."group_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "users".* FROM "users" INNER JOIN "groups_users" ON "groups_users"."user_id" = "users"."id" WHERE "groups_users"."group_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -155,11 +155,11 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertNull($groups[1]->extra);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".*, "groups_users"."extra" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".*, "groups_users"."extra" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -184,11 +184,11 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertNull($groups[1]->additional);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".*, "groups_users"."extra" AS "additional" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".*, "groups_users"."extra" AS "additional" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -202,11 +202,11 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(2, $groups);
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT COUNT(*) FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -226,15 +226,15 @@ class ManyToManyTest extends ORMTestCase
 			}
 		}
 
-		$this->assertEquals(4, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(4, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'2\'', $this->connectionManager->connection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'2\'', $this->connectionManager->getConnection('sqlite')->getLog()[2]['query']);
 
-		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'3\'', $this->connectionManager->connection('sqlite')->getLog()[3]['query']);
+		$this->assertEquals('SELECT "groups".* FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = \'3\'', $this->connectionManager->getConnection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -254,11 +254,11 @@ class ManyToManyTest extends ORMTestCase
 			}
 		}
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".*, "groups_users"."user_id" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".*, "groups_users"."user_id" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -278,11 +278,11 @@ class ManyToManyTest extends ORMTestCase
 			$this->assertEquals(0, count($user->groups));
 		}
 
-		$this->assertEquals(2, count($this->connectionManager->connection('sqlite')->getLog()));
+		$this->assertEquals(2, count($this->connectionManager->getConnection('sqlite')->getLog()));
 
-		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT * FROM "users" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT "groups".*, "groups_users"."user_id" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "name" = \'does not exist\' AND "groups_users"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->connection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT "groups".*, "groups_users"."user_id" FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "name" = \'does not exist\' AND "groups_users"."user_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -336,7 +336,7 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertSame(1, $user->groups()->count());
 
-		$queries = $this->connectionManager->connection('sqlite')->getLog();
+		$queries = $this->connectionManager->getConnection('sqlite')->getLog();
 
 		$this->assertSame('DELETE FROM "groups_users" WHERE "extra" = \'foobar\' AND "user_id" = \'1\' AND "group_id" IN (1)', $queries[2]['query']);
 	}
@@ -545,7 +545,7 @@ class ManyToManyTest extends ORMTestCase
 		$this->assertSame('barfoo', $groups[0]->extra);
 		$this->assertSame(null, $groups[1]->extra);
 
-		$queries = $this->connectionManager->connection('sqlite')->getLog();
+		$queries = $this->connectionManager->getConnection('sqlite')->getLog();
 
 		$this->assertSame('UPDATE "groups_users" SET "extra" = \'barfoo\' WHERE "extra" = \'foobar\' AND "user_id" = \'1\' AND "group_id" = \'2\'', $queries[3]['query']);
 	}
@@ -559,6 +559,6 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(2, $user->groups_count);
 
-		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = "users"."id") AS "groups_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "groups" INNER JOIN "groups_users" ON "groups_users"."group_id" = "groups"."id" WHERE "groups_users"."user_id" = "users"."id") AS "groups_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 	}
 }

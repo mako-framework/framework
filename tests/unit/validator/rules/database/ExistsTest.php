@@ -36,17 +36,19 @@ class ExistsTest extends TestCase
 	{
 		$builder = Mockery::mock(Query::class);
 
+		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
+
 		$builder->shouldReceive('where')->once()->with('email', '=', 'foo@example.org')->andReturn($builder);
 
 		$builder->shouldReceive('count')->once()->andReturn(1);
 
 		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('table')->once()->with('users')->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$database = Mockery::mock(ConnectionManager::class);
 
-		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
+		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
 
 		$rule = new Exists('users', 'email', 'foobar', $database);
 
@@ -60,17 +62,19 @@ class ExistsTest extends TestCase
 	{
 		$builder = Mockery::mock(Query::class);
 
+		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
+
 		$builder->shouldReceive('where')->once()->with('email', '=', 'foo@example.org')->andReturn($builder);
 
 		$builder->shouldReceive('count')->once()->andReturn(0);
 
 		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('table')->once()->with('users')->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$database = Mockery::mock(ConnectionManager::class);
 
-		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
+		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
 
 		$rule = new Exists('users', 'email', 'foobar', $database);
 

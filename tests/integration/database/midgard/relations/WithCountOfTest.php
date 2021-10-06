@@ -62,7 +62,7 @@ class WithCountOfTest extends ORMTestCase
 
 		$this->assertEquals(1, $user->profile_count);
 
-		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id") AS "articles_count", (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id") AS "profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT *, (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id") AS "articles_count", (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id") AS "profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 	}
 
 	/**
@@ -86,7 +86,7 @@ class WithCountOfTest extends ORMTestCase
 
 		$this->assertEquals(0, $user->no_profile_count);
 
-		$this->assertEquals('SELECT "id", (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id" AND "articles"."id" = 0) AS "no_articles_count", (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id" AND "profiles"."id" = 0) AS "no_profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT "id", (SELECT COUNT(*) FROM "articles" WHERE "articles"."user_id" = "users"."id" AND "articles"."id" = 0) AS "no_articles_count", (SELECT COUNT(*) FROM "profiles" WHERE "profiles"."user_id" = "users"."id" AND "profiles"."id" = 0) AS "no_profile_count" FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 	}
 
 	/**
@@ -96,6 +96,6 @@ class WithCountOfTest extends ORMTestCase
 	{
 		$user = WithCountOfUser::withCountOf('articles')->count();
 
-		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->connection('sqlite')->getLog()[0]['query']);
+		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 	}
 }

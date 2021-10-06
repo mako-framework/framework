@@ -106,9 +106,9 @@ abstract class Command extends BaseCommand
 	 *
 	 * @return \mako\database\query\Query
 	 */
-	protected function builder(): Query
+	protected function getQuery(): Query
 	{
-		return $this->database->connection($this->getConnectionName())->builder()->table('mako_migrations');
+		return $this->database->getConnection($this->getConnectionName())->getQuery()->table('mako_migrations');
 	}
 
 	/**
@@ -221,11 +221,11 @@ abstract class Command extends BaseCommand
 	 */
 	protected function getMigrated(?int $batches = null): ResultSet
 	{
-		$query = $this->builder();
+		$query = $this->getQuery();
 
 		if($batches !== null && $batches > 0)
 		{
-			$query->where('batch', '>', ($this->builder()->max('batch') - $batches));
+			$query->where('batch', '>', ($this->getQuery()->max('batch') - $batches));
 		}
 
 		return $query->select(['version', 'package'])->descending('version')->all();
@@ -317,10 +317,10 @@ abstract class Command extends BaseCommand
 			switch($method)
 			{
 				case 'up':
-					$this->builder()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
+					$this->getQuery()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
 					break;
 				case 'down':
-					$this->builder()->where('version', '=', $migration->version)->delete();
+					$this->getQuery()->where('version', '=', $migration->version)->delete();
 					break;
 
 			}

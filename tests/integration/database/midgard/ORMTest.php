@@ -145,7 +145,7 @@ class ORMTest extends ORMTestCase
 	{
 		$this->expectException(NotFoundException::class);
 
-		(new TestUser)->builder()->where('id', '=', 1000)->firstOrThrow();
+		(new TestUser)->getQuery()->where('id', '=', 1000)->firstOrThrow();
 	}
 
 	/**
@@ -155,7 +155,7 @@ class ORMTest extends ORMTestCase
 	{
 		$this->expectException(LogicException::class);
 
-		(new TestUser)->builder()->where('id', '=', 1000)->firstOrThrow(LogicException::class);
+		(new TestUser)->getQuery()->where('id', '=', 1000)->firstOrThrow(LogicException::class);
 	}
 
 	/**

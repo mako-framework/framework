@@ -36,17 +36,19 @@ class UniqueTest extends TestCase
 	{
 		$builder = Mockery::mock(Query::class);
 
+		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
+
 		$builder->shouldReceive('where')->once()->with('email', '=', 'foo@example.org')->andReturn($builder);
 
 		$builder->shouldReceive('count')->once()->andReturn(0);
 
 		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('table')->once()->with('users')->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$database = Mockery::mock(ConnectionManager::class);
 
-		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
+		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
 
 		$rule = new Unique('users', 'email', null, 'foobar', $database);
 
@@ -60,6 +62,8 @@ class UniqueTest extends TestCase
 	{
 		$builder = Mockery::mock(Query::class);
 
+		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
+
 		$builder->shouldReceive('where')->once()->with('email', '=', 'foo@example.org')->andReturn($builder);
 
 		$builder->shouldReceive('where')->once()->with('email', '!=', 'bar@example.org')->andReturn($builder);
@@ -68,11 +72,11 @@ class UniqueTest extends TestCase
 
 		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('table')->once()->with('users')->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$database = Mockery::mock(ConnectionManager::class);
 
-		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
+		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
 
 		$rule = new Unique('users', 'email', 'bar@example.org', 'foobar', $database);
 
@@ -98,17 +102,19 @@ class UniqueTest extends TestCase
 	{
 		$builder = Mockery::mock(Query::class);
 
+		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
+
 		$builder->shouldReceive('where')->once()->with('email', '=', 'foo@example.org')->andReturn($builder);
 
 		$builder->shouldReceive('count')->once()->andReturn(1);
 
 		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('table')->once()->with('users')->andReturn($builder);
+		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
 		$database = Mockery::mock(ConnectionManager::class);
 
-		$database->shouldReceive('connection')->once()->with('foobar')->andReturn($connection);
+		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
 
 		$rule = new Unique('users', 'email', null, 'foobar', $database);
 

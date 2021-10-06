@@ -239,7 +239,7 @@ class ManyToMany extends Relation
 	 */
 	protected function junction(bool $includeWheres = false)
 	{
-		$query = $this->connection->builder()->table($this->getJunctionTable());
+		$query = $this->connection->getQuery()->table($this->getJunctionTable());
 
 		if($includeWheres && count($this->wheres) > 1)
 		{

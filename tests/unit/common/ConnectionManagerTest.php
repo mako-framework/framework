@@ -58,13 +58,13 @@ class ConnectionManagerTest extends TestCase
 	{
 		$manager = new ConnectionManager('foo', []);
 
-		$connection = $manager->connection();
+		$connection = $manager->getConnection();
 
 		$this->assertInstanceOf('mako\tests\unit\common\Connection', $connection);
 
 		$this->assertSame('foo', $connection->getName());
 
-		$connection = $manager->connection('bar');
+		$connection = $manager->getConnection('bar');
 
 		$this->assertInstanceOf('mako\tests\unit\common\Connection', $connection);
 
@@ -83,7 +83,7 @@ class ConnectionManagerTest extends TestCase
 			return $this->connections;
 		})->bindTo($manager, ConnectionManager::class);
 
-		$connection = $manager->connection();
+		$connection = $manager->getConnection();
 
 		$this->assertTrue(isset($getConnections()['foo']));
 
@@ -93,7 +93,7 @@ class ConnectionManagerTest extends TestCase
 
 		//
 
-		$connection = $manager->connection('foo');
+		$connection = $manager->getConnection('foo');
 
 		$this->assertTrue(isset($getConnections()['foo']));
 

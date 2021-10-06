@@ -713,9 +713,20 @@ class Connection
 	/**
 	 * Returns a query builder instance.
 	 *
+	 * @deprecated
 	 * @return \mako\database\query\Query
 	 */
 	public function builder(): Query
+	{
+		return $this->getQuery();
+	}
+
+	/**
+	 * Returns a query builder instance.
+	 *
+	 * @return \mako\database\query\Query
+	 */
+	public function getQuery(): Query
 	{
 		return new Query($this);
 	}
@@ -723,12 +734,13 @@ class Connection
 	/**
 	 * Returns a query builder instance where we have already chosen the table we want to query.
 	 *
-	 * @param  array|\Closure|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Database table or subquery
+	 * @deprecated
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
 	public function table($table): Query
 	{
-		return $this->builder()->table($table);
+		return $this->getQuery()->table($table);
 	}
 
 	/**

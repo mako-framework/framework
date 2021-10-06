@@ -91,7 +91,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function databaseFactory(array $configuration): Database
 	{
-		return (new Database($this->container->get(DatabaseConnectionManager::class)->connection($configuration['configuration']), $configuration['table'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new Database($this->container->get(DatabaseConnectionManager::class)->getConnection($configuration['configuration']), $configuration['table'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**
@@ -135,7 +135,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function redisFactory(array $configuration): Redis
 	{
-		return (new Redis($this->container->get(RedisConnectionManager::class)->connection($configuration['configuration']), $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new Redis($this->container->get(RedisConnectionManager::class)->getConnection($configuration['configuration']), $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**

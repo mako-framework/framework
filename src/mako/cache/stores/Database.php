@@ -63,7 +63,7 @@ class Database extends Store
 	 */
 	protected function table(): Query
 	{
-		return $this->connection->builder()->table($this->table);
+		return $this->connection->getQuery()->table($this->table);
 	}
 
 	/**

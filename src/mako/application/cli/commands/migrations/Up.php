@@ -44,7 +44,7 @@ class Up extends Command
 			return;
 		}
 
-		$batch = $this->builder()->max('batch') + 1;
+		$batch = $this->getQuery()->max('batch') + 1;
 
 		foreach($migrations as $migration)
 		{

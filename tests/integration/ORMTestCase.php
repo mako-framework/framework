@@ -29,6 +29,6 @@ abstract class ORMTestCase extends BuilderTestCase
 	 */
 	public function tearDown(): void
 	{
-		$this->connectionManager->connection('sqlite')->clearLog();
+		$this->connectionManager->getConnection('sqlite')->clearLog();
 	}
 }

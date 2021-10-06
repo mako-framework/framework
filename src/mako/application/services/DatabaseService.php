@@ -45,7 +45,7 @@ class DatabaseService extends Service
 
 		$this->container->registerSingleton(Connection::class, static function($container)
 		{
-			return $container->get(ConnectionManager::class)->connection();
+			return $container->get(ConnectionManager::class)->getConnection();
 		});
 	}
 }

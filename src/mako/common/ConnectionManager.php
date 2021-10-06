@@ -39,10 +39,22 @@ abstract class ConnectionManager
 	/**
 	 * Returns the chosen connection.
 	 *
+	 * @deprecated
 	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */
 	public function connection(?string $connection = null)
+	{
+		return $this->getConnection($connection);
+	}
+
+	/**
+	 * Returns the chosen connection.
+	 *
+	 * @param  string|null $connection Connection name
+	 * @return mixed
+	 */
+	public function getConnection(?string $connection = null)
 	{
 		$connection = $connection ?? $this->default;
 
@@ -86,7 +98,7 @@ abstract class ConnectionManager
 	 */
 	public function executeAndClose(Closure $closure, ?string $connection = null)
 	{
-		$returnValue = $closure($this->connection($connection));
+		$returnValue = $closure($this->getConnection($connection));
 
 		$this->close($connection);
 
@@ -115,6 +127,6 @@ abstract class ConnectionManager
 	 */
 	public function __call(string $name, array $arguments)
 	{
-		return $this->connection()->$name(...$arguments);
+		return $this->getConnection()->$name(...$arguments);
 	}
 }

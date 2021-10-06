@@ -252,7 +252,7 @@ abstract class ORM implements JsonSerializable
 			static::$connectionManager = Application::instance()->getContainer()->get('database');
 		}
 
-		return static::$connectionManager->connection($this->connectionName);
+		return static::$connectionManager->getConnection($this->connectionName);
 	}
 
 	/**
@@ -284,7 +284,7 @@ abstract class ORM implements JsonSerializable
 
 		if($dateFormat === null)
 		{
-			$dateFormat = $this->builder()->getCompiler()->getDateFormat();
+			$dateFormat = $this->getQuery()->getCompiler()->getDateFormat();
 		}
 
 		return $dateFormat;
@@ -489,7 +489,7 @@ abstract class ORM implements JsonSerializable
 		(function($includes, $model): void
 		{
 			$this->including($includes)->loadIncludes([$model]);
-		})->bindTo($this->builder(), Query::class)($includes, $this);
+		})->bindTo($this->getQuery(), Query::class)($includes, $this);
 
 		return $this;
 	}
@@ -759,9 +759,20 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a query builder instance.
 	 *
+	 * @deprecated
 	 * @return \mako\database\midgard\Query
 	 */
 	public function builder(): Query
+	{
+		return $this->getQuery();
+	}
+
+	/**
+	 * Returns a query builder instance.
+	 *
+	 * @return \mako\database\midgard\Query
+	 */
+	public function getQuery(): Query
 	{
 		return new Query($this->getConnection(), $this);
 	}
@@ -775,7 +786,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public static function get($id, array $columns = [])
 	{
-		return (new static)->builder()->get($id, $columns);
+		return (new static)->getQuery()->get($id, $columns);
 	}
 
 	/**
@@ -788,7 +799,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public static function getOrThrow($id, array $columns = [], string $exception = NotFoundException::class)
 	{
-		return (new static)->builder()->getOrThrow($id, $columns, $exception);
+		return (new static)->getQuery()->getOrThrow($id, $columns, $exception);
 	}
 
 	/**
@@ -1001,7 +1012,7 @@ abstract class ORM implements JsonSerializable
 		{
 			// This is a new record so we need to insert it into the database.
 
-			$this->insertRecord($this->builder());
+			$this->insertRecord($this->getQuery());
 
 			$this->isPersisted = true;
 		}
@@ -1009,7 +1020,7 @@ abstract class ORM implements JsonSerializable
 		{
 			// This record exists and is modified so all we have to do is update it.
 
-			$success = $this->updateRecord($this->builder());
+			$success = $this->updateRecord($this->getQuery());
 		}
 
 		if($success)
@@ -1042,7 +1053,7 @@ abstract class ORM implements JsonSerializable
 	{
 		if($this->isPersisted)
 		{
-			$deleted = $this->deleteRecord($this->builder());
+			$deleted = $this->deleteRecord($this->getQuery());
 
 			if($deleted)
 			{
@@ -1173,7 +1184,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function __call(string $name, array $arguments)
 	{
-		return $this->builder()->$name(...$arguments);
+		return $this->getQuery()->$name(...$arguments);
 	}
 
 	/**
@@ -1185,6 +1196,6 @@ abstract class ORM implements JsonSerializable
 	 */
 	public static function __callStatic(string $name, array $arguments)
 	{
-		return (new static)->builder()->$name(...$arguments);
+		return (new static)->getQuery()->$name(...$arguments);
 	}
 }

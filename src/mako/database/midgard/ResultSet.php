@@ -62,7 +62,7 @@ class ResultSet extends BaseResultSet
 		(function($includes, $items): void
 		{
 			$this->including($includes)->loadIncludes($items);
-		})->bindTo($this->items[0]->builder(), Query::class)($includes, $this->items);
+		})->bindTo($this->items[0]->getQuery(), Query::class)($includes, $this->items);
 
 		return $this;
 	}
