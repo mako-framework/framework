@@ -6,11 +6,6 @@ parameters:
 			path: src/mako/database/connections/Connection.php
 
 		-
-			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ORM\\:\\:including\\(\\)\\.$#"
-			count: 1
-			path: src/mako/database/midgard/ORM.php
-
-		-
 			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet\\:\\:including\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ResultSet.php
