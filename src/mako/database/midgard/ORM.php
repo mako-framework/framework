@@ -43,6 +43,8 @@ use function vsprintf;
 
 /**
  * ORM.
+ *
+ * @mixin \mako\database\midgard\Query
  */
 abstract class ORM implements JsonSerializable
 {

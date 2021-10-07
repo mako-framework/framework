@@ -28,14 +28,8 @@ use function vsprintf;
 /**
  * Cache manager.
  *
+ * @mixin \mako\cache\stores\StoreInterface
  * @method \mako\cache\stores\StoreInterface instance($configuration = null)
- * @method bool                              put(string $key, $data, int $ttl = 0)
- * @method bool                              putIfNotExists(string $key, $data, int $ttl = 0)
- * @method bool                              has(string $key)
- * @method mixed                             get(string $key)
- * @method mixed                             getOrElse(string $key, callable $data, int $ttl = 0)
- * @method bool                              remove(string $key)
- * @method bool                              clear()
  */
 class CacheManager extends AdapterManager
 {

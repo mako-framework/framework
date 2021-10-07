@@ -35,6 +35,7 @@ use function vsprintf;
 /**
  * Database connection manager.
  *
+ * @mixin \mako\database\connections\Connection
  * @method \mako\database\connections\Connection connection($connection = null)
  * @method \mako\database\connections\Connection getConnection($connection = null)
  */

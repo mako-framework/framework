@@ -13,13 +13,7 @@ use mako\gatekeeper\adapters\AdapterInterface;
 /**
  * Gatekeeper.
  *
- * @method string                                                     getName()
- * @method void                                                       setUserRepository(\mako\gatekeeper\repositories\user\UserRepositoryInterface $userRepository)
- * @method \mako\gatekeeper\repositories\user\UserRepositoryInterface getUserRepository()
- * @method void                                                       setUser(\mako\gatekeeper\entities\user\UserEntityInterface $user)
- * @method \mako\gatekeeper\entities\user\UserEntityInterface|null    getUser()
- * @method bool                                                       isGuest()
- * @method bool                                                       isLoggedIn()
+ * @mixin \mako\gatekeeper\adapters\AdapterInterface
  */
 class Gatekeeper
 {

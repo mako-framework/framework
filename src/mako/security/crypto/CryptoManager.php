@@ -18,9 +18,8 @@ use function vsprintf;
 /**
  * Crypto manager.
  *
+ * @mixin \mako\security\crypto\encrypters\EncrypterInterface
  * @method \mako\security\crypto\encrypters\EncrypterInterface instance(?string $configuration = null)
- * @method string                                              encrypt(string $string)
- * @method false|string                                        decrypt(string $string)
  */
 class CryptoManager extends AdapterManager
 {
