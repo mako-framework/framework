@@ -28,6 +28,12 @@
 * Deprecated the `Connection::table()` method.
 * Deprecated the `ORM::builder()` method.
 
+#### Improvements
+
+* Better autocompletion when calling methods proxied by `__call` methods.
+
+> All deprecated features will be removed in Mako 8.0.
+
 --------------------------------------------------------
 
 ### 7.2.0 <small>(2021-03-02)</small>
