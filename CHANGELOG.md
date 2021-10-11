@@ -18,6 +18,7 @@
 * Added `ConnectionManager::getConnection()` method.
 * Added `Connection::getQuery()` method.
 * Added `ORM::getQuery()` method.
+* Added `FileSystem::copy()` method.
 
 #### Deprecations
 

@@ -140,6 +140,18 @@ class FileSystem
 	}
 
 	/**
+	 * Copies a file.
+	 *
+	 * @param  string $source      Path to source file
+	 * @param  string $destination Path to the destination file
+	 * @return bool
+	 */
+	public function copy(string $source, string $destination): bool
+	{
+		return copy($source, $destination);
+	}
+
+	/**
 	 * Renames a file or directory.
 	 *
 	 * @param  string $oldName Old name
