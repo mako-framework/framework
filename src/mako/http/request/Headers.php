@@ -264,4 +264,24 @@ class Headers implements Countable, IteratorAggregate
 
 		return $this->acceptableEncodings ?: (array) $default;
 	}
+
+	/**
+	 * Returns the bearer token or NULL if there isn't one.
+	 *
+	 * @return string|null
+	 */
+	public function getBearerToken(): ?string
+	{
+		if(($value = $this->get('authorization')) === null)
+		{
+			return null;
+		}
+
+		if(($pos = stripos($value, 'Bearer ')) === false)
+		{
+			return null;
+		}
+
+		return substr($value, $pos + 7);
+	}
 }

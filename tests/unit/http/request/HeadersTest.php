@@ -239,4 +239,26 @@ class HeadersTest extends TestCase
 
 		$this->assertSame(['default'], $headers->getAcceptableEncodings('default'));
 	}
+
+	/**
+	 *
+	 */
+	public function testGetBearerToken(): void
+	{
+		$headers = new Headers(['AUTHORIZATION' => 'Bearer foobar']);
+
+		$this->assertSame('foobar', $headers->getBearerToken());
+
+		//
+
+		$headers = new Headers(['AUTHORIZATION' => 'Bearerfoobar']);
+
+		$this->assertNull($headers->getBearerToken());
+
+		//
+
+		$headers = new Headers;
+
+		$this->assertNull($headers->getBearerToken());
+	}
 }

@@ -23,6 +23,7 @@
 * Added `CacheManager::getStore()` method.
 * Added `CryptoManager::getInstance()` method.
 * Added `CryptoManager::getEncrypter()` method.
+* Added `Headers::getBearerToken()` method.
 
 #### Deprecations
 
