@@ -1,4 +1,4 @@
-### 7.3.? <small>(2021-??-??)</small>
+### 7.3.0 <small>(2021-??-??)</small>
 
 #### New
 
@@ -34,6 +34,14 @@
 * Better autocompletion when calling methods proxied by `__call` methods.
 
 > All deprecated features will be removed in Mako 8.0.
+
+--------------------------------------------------------
+
+### 6.3.18, 7.0.8, 7.1.3, 7.2.1 <small>(2021-10-12)</small>
+
+#### Bugfixes
+
+* PHP `8.1` compatibility.
 
 --------------------------------------------------------
 
