@@ -19,9 +19,9 @@ class Migration_{{version}} extends Migration
 	public function up(): void
 	{
 		$this->getConnection()->query
-		(
+		(<<<SQL
 
-		);
+		SQL);
 	}
 
 	/**
@@ -30,8 +30,8 @@ class Migration_{{version}} extends Migration
 	public function down(): void
 	{
 		$this->getConnection()->query
-		(
+		(<<<SQL
 
-		);
+		SQL);
 	}
 }
