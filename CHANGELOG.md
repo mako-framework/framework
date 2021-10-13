@@ -19,6 +19,10 @@
 * Added `Connection::getQuery()` method.
 * Added `ORM::getQuery()` method.
 * Added `FileSystem::copy()` method.
+* Added `CacheManager::getInstance()` method.
+* Added `CacheManager::getStore()` method.
+* Added `CryptoManager::getInstance()` method.
+* Added `CryptoManager::getEncrypter()` method.
 
 #### Deprecations
 
@@ -28,6 +32,8 @@
 * Deprecated the `Connection::builder()` method.
 * Deprecated the `Connection::table()` method.
 * Deprecated the `ORM::builder()` method.
+* Deprecated `CacheManager::instance()` method.
+* Deprecated `CryptoManager::instance()` method.
 
 #### Improvements
 

@@ -45,7 +45,7 @@ class Clear extends Command
 			return static::STATUS_ERROR;
 		}
 
-		$cache->instance($configuration)->clear();
+		$cache->getInstance($configuration)->clear();
 
 		$this->write('Cleared the [ <yellow>' . ($configuration ?? 'default') . '</yellow> ] cache.');
 	}

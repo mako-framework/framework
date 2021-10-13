@@ -41,7 +41,7 @@ class CacheService extends Service
 
 		$this->container->registerSingleton(StoreInterface::class, static function($container)
 		{
-			return $container->get(CacheManager::class)->instance();
+			return $container->get(CacheManager::class)->getInstance();
 		});
 	}
 }

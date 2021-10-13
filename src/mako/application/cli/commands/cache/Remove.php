@@ -47,7 +47,7 @@ class Remove extends Command
 			return static::STATUS_ERROR;
 		}
 
-		$cache->instance($configuration)->remove($key);
+		$cache->getInstance($configuration)->remove($key);
 
 		$this->write("Removed the [ <yellow>{$key}</yellow> ] key from the [ <yellow>" . ($configuration ?? 'default') . '</yellow> ] cache.');
 	}

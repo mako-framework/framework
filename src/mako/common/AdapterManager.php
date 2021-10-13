@@ -109,10 +109,22 @@ abstract class AdapterManager
 	/**
 	 * Returns an instance of the chosen adapter configuration.
 	 *
+	 * @deprecated
 	 * @param  string|null $configuration Configuration name
 	 * @return mixed
 	 */
 	public function instance(?string $configuration = null)
+	{
+		return $this->getInstance($configuration);
+	}
+
+	/**
+	 * Returns an instance of the chosen adapter configuration.
+	 *
+	 * @param  string|null $configuration Configuration name
+	 * @return mixed
+	 */
+	public function getInstance(?string $configuration = null)
 	{
 		$configuration = $configuration ?? $this->default;
 
@@ -133,6 +145,6 @@ abstract class AdapterManager
 	 */
 	public function __call(string $name, array $arguments)
 	{
-		return $this->instance()->$name(...$arguments);
+		return $this->getInstance()->$name(...$arguments);
 	}
 }

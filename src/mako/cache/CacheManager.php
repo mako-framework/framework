@@ -15,6 +15,7 @@ use mako\cache\stores\Memcached;
 use mako\cache\stores\Memory;
 use mako\cache\stores\NullStore;
 use mako\cache\stores\Redis;
+use mako\cache\stores\StoreInterface;
 use mako\cache\stores\WinCache;
 use mako\common\AdapterManager;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
@@ -30,6 +31,7 @@ use function vsprintf;
  *
  * @mixin \mako\cache\stores\StoreInterface
  * @method \mako\cache\stores\StoreInterface instance($configuration = null)
+ * @method \mako\cache\stores\StoreInterface getInstance($configuration = null)
  */
 class CacheManager extends AdapterManager
 {
@@ -170,5 +172,16 @@ class CacheManager extends AdapterManager
 		$configuration = $this->configurations[$configuration];
 
 		return $this->factory($configuration['type'], $configuration);
+	}
+
+	/**
+	 * Returns an instance of the chosen cache store. Alias of CacheManager::getInstance().
+	 *
+	 * @param  string|null                       $configuration Configuration name
+	 * @return \mako\cache\stores\StoreInterface
+	 */
+	public function getStore(?string $configuration = null): StoreInterface
+	{
+		return $this->getInstance($configuration);
 	}
 }
