@@ -51,7 +51,7 @@ trait FireTrait
 
 		$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg($this->buildReactorPath()) . " {$command} 2>&1";
 
-		if(DIRECTORY_SEPARATOR === '\\')
+		if(PHP_OS_FAMILY === 'Windows')
 		{
 			if($background)
 			{

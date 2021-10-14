@@ -53,11 +53,11 @@ class Secret extends Question
 	 */
 	public function ask(string $question, $default = null, bool $fallback = false)
 	{
-		if(DIRECTORY_SEPARATOR === '\\' || $this->hasStty())
+		if(PHP_OS_FAMILY === 'Windows' || $this->hasStty())
 		{
 			$this->output->write(trim($question) . ' ');
 
-			if(DIRECTORY_SEPARATOR === '\\')
+			if(PHP_OS_FAMILY === 'Windows')
 			{
 				$answer = trim(
 					shell_exec(
