@@ -59,11 +59,7 @@ class Secret extends Question
 
 			if(PHP_OS_FAMILY === 'Windows')
 			{
-				$answer = trim(
-					shell_exec(
-						escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')
-					)
-				);
+				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')));
 			}
 			else
 			{
