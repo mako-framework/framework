@@ -70,7 +70,7 @@ class GD implements ProcessorInterface
 	/**
 	 * Image resource.
 	 *
-	 * @var resource
+	 * @var \GdImage|resource
 	 */
 	protected $image;
 
@@ -140,9 +140,9 @@ class GD implements ProcessorInterface
 	/**
 	 * Creates an image resource that we can work with.
 	 *
-	 * @param  string   $image     Path to image file
-	 * @param  array    $imageInfo Image info
-	 * @return resource
+	 * @param  string            $image     Path to image file
+	 * @param  array             $imageInfo Image info
+	 * @return \GdImage|resource
 	 */
 	protected function createImageResource($image, $imageInfo)
 	{
@@ -739,7 +739,7 @@ class GD implements ProcessorInterface
 	 */
 	public function getImageBlob($type = null, $quality = 95)
 	{
-		$type = $type ?? $this->imageInfo['mime'];
+		$type ??= $this->imageInfo['mime'];
 
 		// Return image blob
 

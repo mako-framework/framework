@@ -84,7 +84,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	 */
 	public function create(int $items, ?int $itemsPerPage = null, array $options = []): PaginationInterface
 	{
-		$itemsPerPage = $itemsPerPage ?? $this->options['items_per_page'];
+		$itemsPerPage ??= $this->options['items_per_page'];
 
 		$options = $options + $this->options;
 

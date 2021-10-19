@@ -168,7 +168,7 @@ class Gatekeeper
 	 */
 	public function adapter(?string $name = null): AdapterInterface
 	{
-		$name = $name ?? $this->defaultAdapter;
+		$name ??= $this->defaultAdapter;
 
 		return $this->adapters[$name] ?? $this->adapterFactory($name);
 	}

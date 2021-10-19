@@ -115,7 +115,7 @@ class I18n
 	 */
 	public function pluralize(string $word, ?int $count = null, ?string $language = null): string
 	{
-		$language = $language ?? $this->language;
+		$language ??= $this->language;
 
 		if(!isset($this->inflections[$language]))
 		{

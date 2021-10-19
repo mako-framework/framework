@@ -102,7 +102,7 @@ class Server extends Command
 
 		// Set the document root
 
-		$docroot = $docroot ?? dirname($application->getPath()) . '/public';
+		$docroot ??= dirname($application->getPath()) . '/public';
 
 		// Tell the user where the server will be running
 

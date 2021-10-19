@@ -126,7 +126,7 @@ abstract class AdapterManager
 	 */
 	public function getInstance(?string $configuration = null)
 	{
-		$configuration = $configuration ?? $this->default;
+		$configuration ??= $this->default;
 
 		if(!isset($this->instances[$configuration]))
 		{

@@ -56,7 +56,7 @@ abstract class ConnectionManager
 	 */
 	public function getConnection(?string $connection = null)
 	{
-		$connection = $connection ?? $this->default;
+		$connection ??= $this->default;
 
 		if(!isset($this->connections[$connection]))
 		{
@@ -73,7 +73,7 @@ abstract class ConnectionManager
 	 */
 	public function close(?string $connection = null): void
 	{
-		$connection = $connection ?? $this->default;
+		$connection ??= $this->default;
 
 		if(isset($this->connections[$connection]))
 		{

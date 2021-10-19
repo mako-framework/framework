@@ -60,9 +60,9 @@ trait TimeTrait
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
-		$month = $month ?? $now->format('n');
+		$month ??= $now->format('n');
 
-		$day = $day ?? min($date->daysInMonths()[$month - 1], $now->format('j'));
+		$day ??= min($date->daysInMonths()[$month - 1], $now->format('j'));
 
 		return $date->setDate($year, $month, $day);
 	}

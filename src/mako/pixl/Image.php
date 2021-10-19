@@ -416,7 +416,7 @@ class Image
 	 */
 	public function save($file = null, $quality = 95): void
 	{
-		$file = $file ?? $this->image;
+		$file ??= $this->image;
 
 		// Mage sure that the file or directory is writable
 
