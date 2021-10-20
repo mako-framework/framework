@@ -1,5 +1,9 @@
 ### 8.0.0 <small>(202?-??-??)</small>
 
+#### Changes
+
+* The `Str::alternator()` method now returns an `Alternator` instance instead of a closure.
+
 --------------------------------------------------------
 
 ### 7.3.0 <small>(2021-10-19)</small>

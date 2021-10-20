@@ -7,9 +7,8 @@
 
 namespace mako\utility;
 
-use Closure;
+use mako\utility\str\Alternator;
 
-use function count;
 use function mb_strlen;
 use function mb_strtolower;
 use function mb_strtoupper;
@@ -260,19 +259,14 @@ class Str
 	}
 
 	/**
-	 * Returns a closure that will alternate between the defined strings.
+	 * Returns a alternator that will alternate between the defined strings.
 	 *
-	 * @param  array    $strings Array of strings to alternate between
-	 * @return \Closure
+	 * @param  array                        $strings Array of strings to alternate between
+	 * @return \mako\utility\str\Alternator
 	 */
-	public static function alternator(array $strings): Closure
+	public static function alternator(array $strings): Alternator
 	{
-		return static function() use ($strings)
-		{
-			static $i = 0;
-
-			return $strings[($i++ % count($strings))];
-		};
+		return new Alternator($strings);
 	}
 
 	/**

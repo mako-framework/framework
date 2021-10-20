@@ -9,6 +9,7 @@ namespace mako\tests\unit\utility;
 
 use mako\tests\TestCase;
 use mako\utility\Str;
+use mako\utility\str\Alternator;
 
 /**
  * @group unit
@@ -172,11 +173,15 @@ class StrTest extends TestCase
 	{
 		$alternator = Str::alternator(['foo', 'bar']);
 
+		$this->assertInstanceOf(Alternator::class, $alternator);
+
 		$this->assertEquals('foo', $alternator());
 		$this->assertEquals('bar', $alternator());
 		$this->assertEquals('foo', $alternator());
 
 		$alternator = Str::alternator(['foo', 'bar', 'baz']);
+
+		$this->assertInstanceOf(Alternator::class, $alternator);
 
 		$this->assertEquals('foo', $alternator());
 		$this->assertEquals('bar', $alternator());
