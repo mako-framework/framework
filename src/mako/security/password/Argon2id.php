@@ -15,7 +15,7 @@ class Argon2id extends Hasher
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getAlgorithm()
+	protected function getAlgorithm(): ?string
 	{
 		return PASSWORD_ARGON2ID;
 	}

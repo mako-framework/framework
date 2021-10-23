@@ -47,9 +47,9 @@ abstract class Hasher implements HasherInterface
 	/**
 	 * Returns the algorithm type.
 	 *
-	 * @return int|string
+	 * @return string|null
 	 */
-	abstract protected function getAlgorithm();
+	abstract protected function getAlgorithm(): ?string;
 
 	/**
 	 * {@inheritDoc}
