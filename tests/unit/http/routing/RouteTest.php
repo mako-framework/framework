@@ -304,36 +304,6 @@ class RouteTest extends TestCase
 	/**
 	 *
 	 */
-	public function testNamespace(): void
-	{
-		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app\controllers');
-
-		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
-	}
-
-	/**
-	 *
-	 */
-	public function testNestedNamespace(): void
-	{
-		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->namespace('app')->namespace('controllers');
-
-		$this->assertSame('app\controllers\FooController::fooAction', $route->getAction());
-	}
-
-	/**
-	 *
-	 */
-	public function testClosureNamespace(): void
-	{
-		$route = (new Route(['GET'], '/', function(): void {}))->namespace('app\controllers');
-
-		$this->assertInstanceOf('Closure', $route->getAction());
-	}
-
-	/**
-	 *
-	 */
 	public function testMiddleware(): void
 	{
 		$route = (new Route(['GET'], '/', 'FooController::fooAction'))->middleware('foo');

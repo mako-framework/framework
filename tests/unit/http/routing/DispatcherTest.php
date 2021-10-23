@@ -327,40 +327,6 @@ class DispatcherTest extends TestCase
 	}
 
 	/**
-	 * @deprecated
-	 */
-	public function testControllerActionDefinedAsString(): void
-	{
-		$route = Mockery::mock(Route::class);
-
-		$route->shouldReceive('getAction')->once()->andReturn('mako\tests\unit\http\routing\SimpleController::foo');
-
-		$route->shouldReceive('getParameters')->once()->andReturn([]);
-
-		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
-
-		$request = Mockery::mock(Request::class);
-
-		$responseHeaders = Mockery::mock(Headers::class);
-
-		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
-
-		$response = Mockery::mock(Response::class)->makePartial();
-
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
-
-		$container = Mockery::mock(Container::class)->makePartial();
-
-		$container->shouldReceive('get')->with(Response::class)->andReturn($response);
-
-		$dispatcher = new Dispatcher($request, $response, $container);
-
-		$response = $dispatcher->dispatch($route);
-
-		$this->assertEquals('Hello, world!', $response->getBody());
-	}
-
-	/**
 	 *
 	 */
 	public function testControllerActionWithParams(): void

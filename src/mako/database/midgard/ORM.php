@@ -761,17 +761,6 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @deprecated
-	 * @return \mako\database\midgard\Query
-	 */
-	public function builder(): Query
-	{
-		return $this->getQuery();
-	}
-
-	/**
-	 * Returns a query builder instance.
-	 *
 	 * @return \mako\database\midgard\Query
 	 */
 	public function getQuery(): Query

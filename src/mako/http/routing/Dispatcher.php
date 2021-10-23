@@ -21,10 +21,8 @@ use function array_fill_keys;
 use function array_intersect_key;
 use function array_keys;
 use function array_merge;
-use function explode;
 use function is_array;
 use function method_exists;
-use function strpos;
 use function uasort;
 use function vsprintf;
 
@@ -275,14 +273,7 @@ class Dispatcher
 		}
 		else
 		{
-			if(strpos($controller, '::') === false)
-			{
-				$method = '__invoke';
-			}
-			else
-			{
-				[$controller, $method] = explode('::', $controller, 2);
-			}
+			$method = '__invoke';
 		}
 
 		$controller = $this->container->get($controller);

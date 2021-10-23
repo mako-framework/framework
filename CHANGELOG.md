@@ -7,6 +7,16 @@
 #### Changes
 
 * The `Str::alternator()` method now returns an `Alternator` instance instead of a closure.
+* Removed the deprecated `AdapterManager::instance()` method.
+* Removed the deprecated `ConnectionManager::instance()` method.
+* Removed the following deprecated methods from the `Connection` class:
+	- `Connection::builder()`
+	- `Connection::table()`
+* Removed the deprecated `ORM::builder()` method.
+* Removed the deprecated `Route::namespace()` method.
+* Removed support for defining method controller actions as strings.
+* Removed the deprecated `AccessControlAllowOrigin` middleware.
+
 
 --------------------------------------------------------
 

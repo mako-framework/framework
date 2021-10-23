@@ -39,18 +39,6 @@ abstract class ConnectionManager
 	/**
 	 * Returns the chosen connection.
 	 *
-	 * @deprecated
-	 * @param  string|null $connection Connection name
-	 * @return mixed
-	 */
-	public function connection(?string $connection = null)
-	{
-		return $this->getConnection($connection);
-	}
-
-	/**
-	 * Returns the chosen connection.
-	 *
 	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */

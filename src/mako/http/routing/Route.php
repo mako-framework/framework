@@ -51,14 +51,6 @@ class Route
 	protected $name;
 
 	/**
-	 * Route action namespace.
-	 *
-	 * @deprecated
-	 * @var string
-	 */
-	protected $namespace;
-
-	/**
 	 * Route prefix.
 	 *
 	 * @var string
@@ -216,20 +208,6 @@ class Route
 	public function getParameter(string $name, $default = null)
 	{
 		return $this->parameters[$name] ?? $default;
-	}
-
-	/**
-	 * Sets the route action namespace.
-	 *
-	 * @deprecated
-	 * @param  string                   $namespace Route action namespace
-	 * @return \mako\http\routing\Route
-	 */
-	public function namespace(string $namespace): Route
-	{
-		$this->namespace .= "{$namespace}\\";
-
-		return $this;
 	}
 
 	/**
