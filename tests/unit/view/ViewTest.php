@@ -17,7 +17,10 @@ use Mockery;
  */
 class ViewTest extends TestCase
 {
-	public function testView(): void
+	/**
+	 *
+	 */
+	public function testRender(): void
 	{
 		$variables =
 		[
@@ -44,5 +47,37 @@ class ViewTest extends TestCase
 		}
 
 		$view->render();
+	}
+
+	/**
+	 *
+	 */
+	public function testRenderWithToString(): void
+	{
+		$variables =
+		[
+			'foo' => 'bar',
+			'baz' => 4,
+		];
+
+		$initial =
+		[
+			'initial' => 'variables',
+		];
+
+		$total = array_merge($variables, $initial);
+
+		$renderer = Mockery::mock(RendererInterface::class);
+
+		$renderer->shouldReceive('render')->once()->with('TestView', $total)->andReturn('The new contents');
+
+		$view = new View('TestView', $initial, $renderer);
+
+		foreach($variables as $key => $value)
+		{
+			$view->assign($key, $value);
+		}
+
+		(string) $view;
 	}
 }

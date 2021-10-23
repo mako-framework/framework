@@ -1,5 +1,9 @@
 ### 8.0.0 <small>(202?-??-??)</small>
 
+#### New
+
+* Views can now be rendered by casting them to strings.
+
 #### Changes
 
 * The `Str::alternator()` method now returns an `Alternator` instance instead of a closure.

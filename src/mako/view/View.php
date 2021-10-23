@@ -94,4 +94,14 @@ class View
 	{
 		return $this->renderer->render($this->path, $this->variables);
 	}
+
+	/**
+	 * Returns the rendered view.
+	 *
+	 * @return string
+	 */
+	public function __toString(): string
+	{
+		return $this->render();
+	}
 }
