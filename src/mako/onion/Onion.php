@@ -135,10 +135,7 @@ class Onion
 	 */
 	protected function buildLayerClosure(object $layer, Closure $next): Closure
 	{
-		return function(...$arguments) use ($layer, $next)
-		{
-			return $layer->execute(...array_merge($arguments, [$next]));
-		};
+		return fn(...$arguments) => $layer->execute(...array_merge($arguments, [$next]));
 	}
 
 	/**
