@@ -53,10 +53,7 @@ class Dispatcher
 	 */
 	protected function filterArguments(array $arguments): array
 	{
-		return array_filter($arguments, static function($value)
-		{
-			return $value !== null;
-		});
+		return array_filter($arguments, static fn($value) => $value !== null);
 	}
 
 	/**

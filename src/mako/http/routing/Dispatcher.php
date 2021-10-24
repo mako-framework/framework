@@ -198,10 +198,7 @@ class Dispatcher
 			$priority[$key] = [$position++, $value];
 		}
 
-		uasort($priority, static function($a, $b)
-		{
-			return $a[1] === $b[1] ? ($a[0] > $b[0] ? 1 : -1) : ($a[1] > $b[1] ? 1 : -1);
-		});
+		uasort($priority, static fn($a, $b) => $a[1] === $b[1] ? ($a[0] > $b[0] ? 1 : -1) : ($a[1] > $b[1] ? 1 : -1));
 
 		foreach($priority as $key => $value)
 		{

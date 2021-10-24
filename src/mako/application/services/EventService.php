@@ -19,9 +19,6 @@ class EventService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([Event::class, 'event'], static function($container)
-		{
-			return new Event($container);
-		});
+		$this->container->registerSingleton([Event::class, 'event'], static fn($container) => new Event($container));
 	}
 }

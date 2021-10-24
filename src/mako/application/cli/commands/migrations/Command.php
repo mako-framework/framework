@@ -253,10 +253,7 @@ abstract class Command extends BaseCommand
 				}
 			}
 
-			usort($migrations, static function($a, $b)
-			{
-				return strcmp($a->version, $b->version);
-			});
+			usort($migrations, static fn($a, $b) => strcmp($a->version, $b->version));
 		}
 
 		return $migrations;

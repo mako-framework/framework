@@ -45,10 +45,7 @@ class HTTPService extends Service
 
 		// Response
 
-		$this->container->registerSingleton([Response::class, 'response'], static function($container) use ($app)
-		{
-			return new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class));
-		});
+		$this->container->registerSingleton([Response::class, 'response'], static fn($container) => new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class)));
 
 		// Routes
 
@@ -97,9 +94,6 @@ class HTTPService extends Service
 
 		// URLBuilder
 
-		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static function($container) use ($config)
-		{
-			return new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']);
-		});
+		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static fn($container) => new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']));
 	}
 }

@@ -30,10 +30,7 @@ class DatabaseService extends Service
 		{
 			if($container->has(PaginationFactoryInterface::class))
 			{
-				Query::setPaginationFactory(static function() use ($container)
-				{
-					return $container->get(PaginationFactoryInterface::class);
-				});
+				Query::setPaginationFactory(static fn() => $container->get(PaginationFactoryInterface::class));
 			}
 
 			$config = $config->get('database');
@@ -43,9 +40,6 @@ class DatabaseService extends Service
 
 		// Register the default connection
 
-		$this->container->registerSingleton(Connection::class, static function($container)
-		{
-			return $container->get(ConnectionManager::class)->getConnection();
-		});
+		$this->container->registerSingleton(Connection::class, static fn($container) => $container->get(ConnectionManager::class)->getConnection());
 	}
 }

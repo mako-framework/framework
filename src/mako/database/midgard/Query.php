@@ -337,10 +337,7 @@ class Query extends QueryBuilder
 				}
 			}
 
-			$this->model->setIncludes(array_udiff($includes, $excludes, static function($a, $b)
-			{
-				return $a === $b ? 0 : -1;
-			}));
+			$this->model->setIncludes(array_udiff($includes, $excludes, static fn($a, $b) => $a === $b ? 0 : -1));
 		}
 
 		return $this;
