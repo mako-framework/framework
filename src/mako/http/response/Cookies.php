@@ -227,10 +227,7 @@ class Cookies implements Countable, IteratorAggregate
 	 */
 	public function clearExcept(array $cookies): Cookies
 	{
-		$this->cookies = array_filter($this->cookies, function($key) use ($cookies)
-		{
-			return $this->matchesPatterns($key, $cookies);
-		}, ARRAY_FILTER_USE_KEY);
+		$this->cookies = array_filter($this->cookies, fn($key) => $this->matchesPatterns($key, $cookies), ARRAY_FILTER_USE_KEY);
 
 		return $this;
 	}

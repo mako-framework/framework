@@ -88,10 +88,7 @@ class PreloaderGenerator
 	 */
 	protected function getClassFilePaths(array $classes): array
 	{
-		return array_map(function($class)
-		{
-			return (new ReflectionClass($class))->getFileName();
-		}, $classes);
+		return array_map(static fn($class) => (new ReflectionClass($class))->getFileName(), $classes);
 	}
 
 	/**

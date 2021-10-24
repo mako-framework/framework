@@ -25,6 +25,20 @@ use function vsprintf;
 class I18n
 {
 	/**
+	 * Regex that matches pluralization tags.
+	 *
+	 * @var string
+	 */
+	const PLURALIZATION_TAG_REGEX = '/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu';
+
+	/**
+	 * Regex that matches number tags.
+	 *
+	 * @var string
+	 */
+	const NUMBER_TAG_REGEX = '/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu';
+
+	/**
 	 * Language loader.
 	 *
 	 * @var \mako\i18n\loaders\LoaderInterface
@@ -227,10 +241,7 @@ class I18n
 	 */
 	protected function parsePluralizationTags(string $string): string
 	{
-		return preg_replace_callback('/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu', function($matches)
-		{
-			return $this->pluralize($matches[2], (int) $matches[1]);
-		}, $string);
+		return preg_replace_callback(static::PLURALIZATION_TAG_REGEX, fn($matches) => $this->pluralize($matches[2], (int) $matches[1]), $string);
 	}
 
 	/**
@@ -241,10 +252,7 @@ class I18n
 	 */
 	protected function parseNumberTags(string $string): string
 	{
-		return preg_replace_callback('/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu', function($matches)
-		{
-			return $this->number((float) $matches[7], ($matches[2] ?: 0), $matches[4], $matches[6]);
-		}, $string);
+		return preg_replace_callback(static::NUMBER_TAG_REGEX, fn($matches) => $this->number((float) $matches[7], ($matches[2] ?: 0), $matches[4], $matches[6]), $string);
 	}
 
 	/**

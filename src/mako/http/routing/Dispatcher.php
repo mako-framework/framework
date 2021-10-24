@@ -341,9 +341,6 @@ class Dispatcher
 
 		$this->addMiddlewareToStack($onion, array_merge($this->globalMiddleware, $route->getMiddleware()));
 
-		return $onion->peel(function() use ($route)
-		{
-			return $this->executeAction($route);
-		}, [$this->request, $this->response]);
+		return $onion->peel(fn() => $this->executeAction($route), [$this->request, $this->response]);
 	}
 }

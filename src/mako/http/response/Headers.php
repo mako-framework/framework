@@ -160,10 +160,7 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function clearExcept(array $headers): Headers
 	{
-		$this->headers = array_filter($this->headers, function($key) use ($headers)
-		{
-			return $this->matchesPatterns($key, $headers);
-		}, ARRAY_FILTER_USE_KEY);
+		$this->headers = array_filter($this->headers, fn($key) => $this->matchesPatterns($key, $headers), ARRAY_FILTER_USE_KEY);
 
 		return $this;
 	}
