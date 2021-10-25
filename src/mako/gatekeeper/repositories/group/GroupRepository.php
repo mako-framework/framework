@@ -113,7 +113,7 @@ class GroupRepository implements GroupRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getByIdentifier($identifier)
 	{

@@ -39,7 +39,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{

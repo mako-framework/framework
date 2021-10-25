@@ -178,7 +178,7 @@ class UserRepository implements UserRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @return \mako\gatekeeper\entities\user\User|null
 	 */

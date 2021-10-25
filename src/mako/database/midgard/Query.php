@@ -76,7 +76,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getColumns(): array
 	{
@@ -255,7 +255,7 @@ class Query extends QueryBuilder
 	/**
 	 * Adds relations to eager load.
 	 *
-	 * @param  string|array|false $includes Relation or array of relations to eager load
+	 * @param  array|false|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
 	public function including($includes)
@@ -297,7 +297,7 @@ class Query extends QueryBuilder
 	/**
 	 * Removes relations to eager load.
 	 *
-	 * @param  string|array|true $excludes Relation or array of relations to exclude from eager loading
+	 * @param  array|string|true $excludes Relation or array of relations to exclude from eager loading
 	 * @return $this
 	 */
 	public function excluding($excludes)
@@ -350,7 +350,7 @@ class Query extends QueryBuilder
 	/**
 	 * Adds subqueries that count the number of related records for the chosen relations.
 	 *
-	 * @param  string|array $relations Relation or array of relations to count
+	 * @param  array|string $relations Relation or array of relations to count
 	 * @return $this
 	 */
 	public function withCountOf($relations)
@@ -543,7 +543,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function aggregate($function, $column)
 	{

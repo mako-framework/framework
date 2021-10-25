@@ -72,7 +72,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getColumns(): array
 	{
@@ -170,7 +170,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function eagerCriterion(array $keys)
 	{
@@ -180,7 +180,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getRelationCountQuery()
 	{

@@ -58,7 +58,7 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function eagerCriterion(array $keys)
 	{
@@ -68,7 +68,7 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getRelationCountQuery()
 	{

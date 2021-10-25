@@ -158,7 +158,7 @@ class Query
 	/**
 	 * Pagination factory.
 	 *
-	 * @var \mako\pagination\PaginationFactoryInterface|\Closure
+	 * @var \Closure|\mako\pagination\PaginationFactoryInterface
 	 */
 	protected static $paginationFactory;
 
@@ -547,7 +547,7 @@ class Query
 	/**
 	 * Sets table we want to query.
 	 *
-	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function table($table)
@@ -560,7 +560,7 @@ class Query
 	/**
 	 * Alias of Query::table().
 	 *
-	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function from($table)
@@ -571,7 +571,7 @@ class Query
 	/**
 	 * Alias of Query::table().
 	 *
-	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Database table or subquery
 	 * @return $this
 	 */
 	public function into($table)
@@ -1607,7 +1607,7 @@ class Query
 	 * Executes the query and returns the result if not in subquery context.
 	 *
 	 * @param  string       $function Aggregate function
-	 * @param  string|array $column   Column name or array of column names
+	 * @param  array|string $column   Column name or array of column names
 	 * @return mixed
 	 */
 	protected function aggregate(string $function, $column)
@@ -1706,7 +1706,7 @@ class Query
 	 *
 	 * @param  array     $values     Associative array of column values
 	 * @param  string    $primaryKey Primary key
-	 * @return int|false
+	 * @return false|int
 	 */
 	public function insertAndGetId(array $values, string $primaryKey = 'id')
 	{

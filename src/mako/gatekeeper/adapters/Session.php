@@ -171,7 +171,7 @@ class Session extends Adapter
 	 * @param  int|string  $identifier User email or username
 	 * @param  string|null $password   User password
 	 * @param  bool        $force      Skip the password check?
-	 * @return true|int
+	 * @return int|true
 	 */
 	protected function authenticate($identifier, ?string $password, bool $force = false)
 	{
@@ -239,7 +239,7 @@ class Session extends Adapter
 	 * @param  string|null $password   User password
 	 * @param  bool        $remember   Set a remember me cookie?
 	 * @param  bool        $force      Login the user without checking the password?
-	 * @return true|int
+	 * @return int|true
 	 */
 	public function login($identifier, ?string $password, bool $remember = false, bool $force = false)
 	{
@@ -276,7 +276,7 @@ class Session extends Adapter
 	 *
 	 * @param  int|string $identifier User identifier
 	 * @param  bool       $remember   Set a remember me cookie?
-	 * @return true|int
+	 * @return int|true
 	 */
 	public function forceLogin($identifier, bool $remember = false)
 	{

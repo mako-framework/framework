@@ -308,28 +308,28 @@ class Redis
 	 *
 	 * @var int
 	 */
-	const VERBATIM_PREFIX_LENGTH = 4;
+	public const VERBATIM_PREFIX_LENGTH = 4;
 
 	/**
 	 * UUID representing a "end" response.
 	 *
 	 * @var string
 	 */
-	const END = 'dd0edad3-61d3-415b-aeab-61b14841cda3';
+	public const END = 'dd0edad3-61d3-415b-aeab-61b14841cda3';
 
 	/**
 	 * RESP version 2.
 	 *
 	 * @var int
 	 */
-	const RESP2 = 2;
+	public const RESP2 = 2;
 
 	/**
 	 * RESP version 3.
 	 *
 	 * @var int
 	 */
-	const RESP3 = 3;
+	public const RESP3 = 3;
 
 	/**
 	 * RESP version the connection was created with.
