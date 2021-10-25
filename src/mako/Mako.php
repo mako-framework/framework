@@ -24,7 +24,7 @@ class Mako
 	 *
 	 * @var int
 	 */
-	const VERSION_MAJOR = 7;
+	public const VERSION_MAJOR = 7;
 
 	/**
 	 * Mako minor version.

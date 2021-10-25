@@ -31,7 +31,7 @@ class Server extends Command
 	 *
 	 * @var int
 	 */
-	const MAX_PORTS_TO_TRY = 10;
+	public const MAX_PORTS_TO_TRY = 10;
 
 	/**
 	 * {@inheritDoc}

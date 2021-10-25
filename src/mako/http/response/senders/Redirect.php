@@ -24,42 +24,42 @@ class Redirect implements ResponseSenderInterface
 	 *
 	 * @var int
 	 */
-	const MOVED_PERMANENTLY = 301;
+	public const MOVED_PERMANENTLY = 301;
 
 	/**
 	 * Found status code.
 	 *
 	 * @var int
 	 */
-	const FOUND = 302;
+	public const FOUND = 302;
 
 	/**
 	 * See other status code.
 	 *
 	 * @var int
 	 */
-	const SEE_OTHER = 303;
+	public const SEE_OTHER = 303;
 
 	/**
 	 * Temporary redirect status code.
 	 *
 	 * @var int
 	 */
-	const TEMPORARY_REDIRECT = 307;
+	public const TEMPORARY_REDIRECT = 307;
 
 	/**
 	 * Permanent redirect status code.
 	 *
 	 * @var int
 	 */
-	const PERMANENT_REDIRECT = 308;
+	public const PERMANENT_REDIRECT = 308;
 
 	/**
 	 * Supported redirect types.
 	 *
 	 * @var array
 	 */
-	const SUPPORTED_STATUS_CODES =
+	public const SUPPORTED_STATUS_CODES =
 	[
 		self::MOVED_PERMANENTLY,
 		self::FOUND,

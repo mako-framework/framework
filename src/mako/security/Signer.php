@@ -21,7 +21,7 @@ class Signer
 	 *
 	 * @var int
 	 */
-	const MAC_LENGTH = 64;
+	public const MAC_LENGTH = 64;
 
 	/**
 	 * Secret used to sign and validate strings.
