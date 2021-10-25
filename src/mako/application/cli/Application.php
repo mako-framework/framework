@@ -167,7 +167,7 @@ class Application extends BaseApplication
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function initialize(): void
 	{
@@ -238,7 +238,7 @@ class Application extends BaseApplication
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function run(): void
 	{

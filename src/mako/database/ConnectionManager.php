@@ -154,7 +154,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * Sets a driver alias.
 	 *
 	 * @param string       $driver Driver name
-	 * @param string|array $alias  Alias or array of aliases
+	 * @param array|string $alias  Alias or array of aliases
 	 */
 	public function setDriverAlias(string $driver, $alias): void
 	{

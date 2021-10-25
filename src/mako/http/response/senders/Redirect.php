@@ -27,28 +27,28 @@ class Redirect implements ResponseSenderInterface
 	 * @deprecated 7.0
 	 * @var int
 	 */
-	const MULTIPLE_CHOICES = 300;
+	public const MULTIPLE_CHOICES = 300;
 
 	/**
 	 * Moved permanently status code.
 	 *
 	 * @var int
 	 */
-	const MOVED_PERMANENTLY = 301;
+	public const MOVED_PERMANENTLY = 301;
 
 	/**
 	 * Found status code.
 	 *
 	 * @var int
 	 */
-	const FOUND = 302;
+	public const FOUND = 302;
 
 	/**
 	 * See other status code.
 	 *
 	 * @var int
 	 */
-	const SEE_OTHER = 303;
+	public const SEE_OTHER = 303;
 
 	/**
 	 * Not modified status code.
@@ -56,7 +56,7 @@ class Redirect implements ResponseSenderInterface
 	 * @deprecated 7.0
 	 * @var int
 	 */
-	const NOT_MODIFIED = 304;
+	public const NOT_MODIFIED = 304;
 
 	/**
 	 * Use proxy status code.
@@ -64,28 +64,28 @@ class Redirect implements ResponseSenderInterface
 	 * @deprecated 7.0
 	 * @var int
 	 */
-	const USE_PROXY = 305;
+	public const USE_PROXY = 305;
 
 	/**
 	 * Temporary redirect status code.
 	 *
 	 * @var int
 	 */
-	const TEMPORARY_REDIRECT = 307;
+	public const TEMPORARY_REDIRECT = 307;
 
 	/**
 	 * Permanent redirect status code.
 	 *
 	 * @var int
 	 */
-	const PERMANENT_REDIRECT = 308;
+	public const PERMANENT_REDIRECT = 308;
 
 	/**
 	 * Supported redirect types.
 	 *
 	 * @var array
 	 */
-	const SUPPORTED_STATUS_CODES =
+	public const SUPPORTED_STATUS_CODES =
 	[
 		self::MULTIPLE_CHOICES,
 		self::MOVED_PERMANENTLY,
@@ -252,7 +252,7 @@ class Redirect implements ResponseSenderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function send(Request $request, Response $response): void
 	{

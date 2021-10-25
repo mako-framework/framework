@@ -15,12 +15,12 @@ namespace mako\database\query\compilers;
 class Firebird extends Compiler
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function from($table): string
 	{
@@ -28,7 +28,7 @@ class Firebird extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function betweenDate(array $where): string
 	{
@@ -36,7 +36,7 @@ class Firebird extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function whereDate(array $where): string
 	{
@@ -44,7 +44,7 @@ class Firebird extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function limit(?int $limit): string
 	{
@@ -54,7 +54,7 @@ class Firebird extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function offset(?int $offset): string
 	{
@@ -64,7 +64,7 @@ class Firebird extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function lock($lock): string
 	{

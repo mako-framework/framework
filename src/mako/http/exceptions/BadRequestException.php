@@ -17,7 +17,7 @@ use Throwable;
 class BadRequestException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'The server was unable to process the request.';
 

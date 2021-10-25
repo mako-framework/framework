@@ -35,7 +35,7 @@ class ZendDisk extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
@@ -43,7 +43,7 @@ class ZendDisk extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function has(string $key): bool
 	{
@@ -51,7 +51,7 @@ class ZendDisk extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function get(string $key)
 	{
@@ -59,7 +59,7 @@ class ZendDisk extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function remove(string $key): bool
 	{
@@ -67,7 +67,7 @@ class ZendDisk extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function clear(): bool
 	{

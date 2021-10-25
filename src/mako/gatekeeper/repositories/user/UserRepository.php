@@ -20,7 +20,7 @@ use function vsprintf;
  * @author Frederic G. Østby
  *
  * @method \mako\gatekeeper\entities\user\User      createUser(array $properties = [])
- * @method \mako\gatekeeper\entities\user\User|bool getByIdentifier($identifier)
+ * @method bool|\mako\gatekeeper\entities\user\User getByIdentifier($identifier)
  */
 class UserRepository implements UserRepositoryInterface
 {
@@ -88,8 +88,8 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Sets the authorizer.
 	 *
-	 * @param  \mako\gatekeeper\entities\user\User|bool $user User
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @param  bool|\mako\gatekeeper\entities\user\User $user User
+	 * @return bool|\mako\gatekeeper\entities\user\User
 	 */
 	protected function setAuthorizer($user)
 	{
@@ -102,7 +102,7 @@ class UserRepository implements UserRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function createUser(array $properties = [])
 	{
@@ -126,7 +126,7 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its action token.
 	 *
 	 * @param  string                                   $token Action token
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return bool|\mako\gatekeeper\entities\user\User
 	 */
 	public function getByActionToken(string $token)
 	{
@@ -137,7 +137,7 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its access token.
 	 *
 	 * @param  string                                   $token Access token
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return bool|\mako\gatekeeper\entities\user\User
 	 */
 	public function getByAccessToken(string $token)
 	{
@@ -148,7 +148,7 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its email address.
 	 *
 	 * @param  string                                   $email Email address
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return bool|\mako\gatekeeper\entities\user\User
 	 */
 	public function getByEmail(string $email)
 	{
@@ -159,7 +159,7 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its username.
 	 *
 	 * @param  string                                   $username Username
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return bool|\mako\gatekeeper\entities\user\User
 	 */
 	public function getByUsername(string $username)
 	{
@@ -170,7 +170,7 @@ class UserRepository implements UserRepositoryInterface
 	 * Fetches a user by its id.
 	 *
 	 * @param  int                                      $id User id
-	 * @return \mako\gatekeeper\entities\user\User|bool
+	 * @return bool|\mako\gatekeeper\entities\user\User
 	 */
 	public function getById(int $id)
 	{
@@ -178,7 +178,7 @@ class UserRepository implements UserRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getByIdentifier($identifier)
 	{

@@ -20,7 +20,7 @@ use function array_unique;
 class BelongsTo extends Relation
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getForeignKey()
 	{
@@ -33,7 +33,7 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function keys(array $results)
 	{
@@ -50,7 +50,7 @@ class BelongsTo extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function lazyCriterion(): void
 	{
@@ -110,7 +110,7 @@ class BelongsTo extends Relation
 	/**
 	 * Returns related a record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return false|\mako\database\midgard\ORM
 	 */
 	public function getRelated()
 	{

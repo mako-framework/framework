@@ -105,7 +105,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): string
 	{
@@ -113,7 +113,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function createUser(string $email, string $username, string $password, bool $activate = false, array $properties = []): User
 	{
@@ -126,7 +126,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUser(): ?UserEntityInterface
 	{
@@ -168,7 +168,7 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  string|int  $identifier User email or username
+	 * @param  int|string  $identifier User email or username
 	 * @param  string|null $password   User password
 	 * @param  bool        $force      Skip the password check?
 	 * @return bool|int
@@ -235,7 +235,7 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  string|int  $identifier User identifier
+	 * @param  int|string  $identifier User identifier
 	 * @param  string|null $password   User password
 	 * @param  bool        $remember   Set a remember me cookie?
 	 * @param  bool        $force      Login the user without checking the password?
@@ -274,7 +274,7 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier exists and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  string|int $identifier User identifier
+	 * @param  int|string $identifier User identifier
 	 * @param  bool       $remember   Set a remember me cookie?
 	 * @return bool|int
 	 */

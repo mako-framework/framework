@@ -38,7 +38,7 @@ class Compiler
 	 *
 	 * @var string
 	 */
-	const JSON_PATH_SEPARATOR = '->';
+	public const JSON_PATH_SEPARATOR = '->';
 
 	/**
 	 * Datetime format.
@@ -243,7 +243,7 @@ class Compiler
 	/**
 	 * Compiles a table.
 	 *
-	 * @param  string|\mako\database\query\Raw|\mako\database\query\Subquery $table Table
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table Table
 	 * @return string
 	 */
 	public function table($table): string
@@ -350,7 +350,7 @@ class Compiler
 	/**
 	 * Compiles a column.
 	 *
-	 * @param  string|\mako\database\query\Raw|\mako\database\query\Subquery $column     Column
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $column     Column
 	 * @param  bool                                                          $allowAlias Allow aliases?
 	 * @return string
 	 */
@@ -530,7 +530,7 @@ class Compiler
 	/**
 	 * Compiles the FROM clause.
 	 *
-	 * @param  string|array|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Table
+	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Table
 	 * @return string
 	 */
 	protected function from($table): string

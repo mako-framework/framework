@@ -69,7 +69,7 @@ abstract class Command implements CommandInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDescription(): string
 	{
@@ -77,7 +77,7 @@ abstract class Command implements CommandInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

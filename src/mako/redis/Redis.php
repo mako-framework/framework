@@ -260,14 +260,14 @@ class Redis
 	 *
 	 * @var string
 	 */
-	const CRLF = "\r\n";
+	public const CRLF = "\r\n";
 
 	/**
 	 * Command terminator length.
 	 *
 	 * @var string
 	 */
-	const CRLF_LENGTH = 2;
+	public const CRLF_LENGTH = 2;
 
 	/**
 	 * Redis password.

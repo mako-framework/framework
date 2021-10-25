@@ -22,7 +22,7 @@ use function preg_replace;
 class GenerateSecret extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Generates a new application secret.';
 

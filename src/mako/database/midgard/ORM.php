@@ -52,28 +52,28 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @var int
 	 */
-	const PRIMARY_KEY_TYPE_INCREMENTING = 1000;
+	public const PRIMARY_KEY_TYPE_INCREMENTING = 1000;
 
 	/**
 	 * UUID primary key.
 	 *
 	 * @var int
 	 */
-	const PRIMARY_KEY_TYPE_UUID = 1001;
+	public const PRIMARY_KEY_TYPE_UUID = 1001;
 
 	/**
 	 * Custom primary key.
 	 *
 	 * @var int
 	 */
-	const PRIMARY_KEY_TYPE_CUSTOM = 1002;
+	public const PRIMARY_KEY_TYPE_CUSTOM = 1002;
 
 	/**
 	 * No primary key.
 	 *
 	 * @var int
 	 */
-	const PRIMARY_KEY_TYPE_NONE = 1003;
+	public const PRIMARY_KEY_TYPE_NONE = 1003;
 
 	/**
 	 * Connection name to use for the model.
@@ -482,7 +482,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Eager loads relations on the model.
 	 *
-	 * @param  string|array $includes Relation or array of relations to eager load
+	 * @param  array|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
 	public function include($includes)
@@ -1049,7 +1049,7 @@ abstract class ORM implements JsonSerializable
 	 * Excludes the chosen columns and relations from array and json representations of the record.
 	 * You expose all fields by passing FALSE.
 	 *
-	 * @param  string|array|bool $column Column or relation to hide from the
+	 * @param  array|bool|string $column Column or relation to hide from the
 	 * @return $this
 	 */
 	public function protect($column)
@@ -1063,7 +1063,7 @@ abstract class ORM implements JsonSerializable
 	 * Exposes the chosen columns and relations in the array and json representations of the record.
 	 * You can expose all fields by passing TRUE.
 	 *
-	 * @param  string|array|bool $column Column or relation to hide from the
+	 * @param  array|bool|string $column Column or relation to hide from the
 	 * @return $this
 	 */
 	public function expose($column)

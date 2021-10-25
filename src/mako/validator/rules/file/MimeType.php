@@ -31,7 +31,7 @@ class MimeType extends Rule implements RuleInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param string|array $mimeType Mime type or array of mime types
+	 * @param array|string $mimeType Mime type or array of mime types
 	 */
 	public function __construct($mimeType)
 	{
@@ -46,7 +46,7 @@ class MimeType extends Rule implements RuleInterface
 	protected $i18nParameters = ['mimeTypes'];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -54,7 +54,7 @@ class MimeType extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

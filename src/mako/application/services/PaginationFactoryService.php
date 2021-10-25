@@ -21,7 +21,7 @@ use mako\view\ViewFactory;
 class PaginationFactoryService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

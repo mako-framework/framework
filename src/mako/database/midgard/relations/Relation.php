@@ -29,7 +29,7 @@ abstract class Relation extends Query
 	 *
 	 * @var int
 	 */
-	const EAGER_LOAD_CHUNK_SIZE = 900;
+	public const EAGER_LOAD_CHUNK_SIZE = 900;
 
 	/**
 	 * Parent record.
@@ -166,7 +166,7 @@ abstract class Relation extends Query
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return false|\mako\database\midgard\ORM
 	 */
 	public function first()
 	{

@@ -42,7 +42,7 @@ class Loader implements LoaderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function loadInflection(string $language): ?array
 	{
@@ -57,7 +57,7 @@ class Loader implements LoaderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function loadStrings(string $language, string $file): array
 	{

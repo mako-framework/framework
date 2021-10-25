@@ -23,7 +23,7 @@ class Signer
 	 *
 	 * @var int
 	 */
-	const MAC_LENGTH = 64;
+	public const MAC_LENGTH = 64;
 
 	/**
 	 * Secret used to sign and validate strings.
@@ -68,7 +68,7 @@ class Signer
 	 * Returns the original string if the signature is valid or FALSE if not.
 	 *
 	 * @param  string      $string The string you want to validate
-	 * @return string|bool
+	 * @return bool|string
 	 */
 	public function validate(string $string)
 	{

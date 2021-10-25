@@ -19,7 +19,7 @@ use function is_array;
 class Files extends Parameters
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __construct(array $parameters = [])
 	{
@@ -91,7 +91,7 @@ class Files extends Parameters
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function add(string $name, $value): void
 	{

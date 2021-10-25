@@ -38,7 +38,7 @@ class Database implements StoreInterface
 	/**
 	 * Class whitelist.
 	 *
-	 * @var bool|array
+	 * @var array|bool
 	 */
 	protected $classWhitelist;
 
@@ -47,7 +47,7 @@ class Database implements StoreInterface
 	 *
 	 * @param \mako\database\connections\Connection $connection     Database connection
 	 * @param string                                $table          Database table
-	 * @param bool|array                            $classWhitelist Class whitelist
+	 * @param array|bool                            $classWhitelist Class whitelist
 	 */
 	public function __construct(Connection $connection, string $table, $classWhitelist = false)
 	{
@@ -69,7 +69,7 @@ class Database implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
@@ -90,7 +90,7 @@ class Database implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function read(string $sessionId): array
 	{
@@ -100,7 +100,7 @@ class Database implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function delete(string $sessionId): void
 	{
@@ -108,7 +108,7 @@ class Database implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function gc(int $dataTTL): void
 	{

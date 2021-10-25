@@ -17,12 +17,12 @@ use function str_replace;
 class NuoDB extends Compiler
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function escapeIdentifier(string $identifier): string
 	{
@@ -30,7 +30,7 @@ class NuoDB extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function lock($lock): string
 	{

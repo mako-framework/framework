@@ -38,14 +38,14 @@ class ArgvParser
 	 *
 	 * @var string
 	 */
-	const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
+	public const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
 
 	/**
 	 * Regex that matches floats.
 	 *
 	 * @var string
 	 */
-	const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
+	public const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
 
 	/**
 	 * Argv.
@@ -222,8 +222,8 @@ class ArgvParser
 	 *
 	 * @param  \mako\cli\input\arguments\Argument $argument Argument
 	 * @param  string|null                        $token    Token
-	 * @param  string|bool                        $value    Value
-	 * @return string|bool|float|int
+	 * @param  bool|string                        $value    Value
+	 * @return bool|float|int|string
 	 */
 	protected function castValue(Argument $argument, ?string $token, $value)
 	{
@@ -254,7 +254,7 @@ class ArgvParser
 	 *
 	 * @param \mako\cli\input\arguments\Argument $argument Argument
 	 * @param string|null                        $token    Token
-	 * @param string|bool|null                   $value    Value
+	 * @param bool|string|null                   $value    Value
 	 */
 	protected function storeValue(Argument $argument, ?string $token, $value): void
 	{

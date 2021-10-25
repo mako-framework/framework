@@ -22,7 +22,7 @@ class Required extends Rule implements RuleInterface
 	use ValidatesWhenEmptyTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -30,7 +30,7 @@ class Required extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

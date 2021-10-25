@@ -37,7 +37,7 @@ class Response
 	 *
 	 * @var int
 	 */
-	const DEFAULT_STATUS = 200;
+	public const DEFAULT_STATUS = 200;
 
 	/**
 	 * Request instance.

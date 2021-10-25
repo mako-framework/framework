@@ -33,15 +33,15 @@ class Server extends Command
 	 *
 	 * @var int
 	 */
-	const MAX_PORTS_TO_TRY = 10;
+	public const MAX_PORTS_TO_TRY = 10;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Starts the local development server.';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

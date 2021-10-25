@@ -20,7 +20,7 @@ use mako\pagination\PaginationFactoryInterface;
 class DatabaseService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

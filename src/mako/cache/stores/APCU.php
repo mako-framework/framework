@@ -51,7 +51,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	/**
 	 * Set whether to use atomic get/set for getOrElse.
 	 *
-	 * @param  bool                    $toUse the new state.
+	 * @param  bool                    $toUse the new state
 	 * @return \mako\cache\stores\APCU
 	 */
 	public function useAtomicGetOrElse(bool $toUse): APCU
@@ -62,7 +62,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
@@ -70,7 +70,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
@@ -78,7 +78,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function increment(string $key, int $step = 1)
 	{
@@ -86,7 +86,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function decrement(string $key, int $step = 1)
 	{
@@ -94,7 +94,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function has(string $key): bool
 	{
@@ -102,7 +102,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function get(string $key)
 	{
@@ -110,7 +110,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getOrElse(string $key, callable $data, int $ttl = 0)
 	{
@@ -123,7 +123,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function remove(string $key): bool
 	{
@@ -131,7 +131,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function clear(): bool
 	{

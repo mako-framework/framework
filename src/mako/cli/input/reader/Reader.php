@@ -18,7 +18,7 @@ use function trim;
 class Reader implements ReaderInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function read(): string
 	{

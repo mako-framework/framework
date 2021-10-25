@@ -30,7 +30,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * Class whitelist.
 	 *
-	 * @var bool|array
+	 * @var array|bool
 	 */
 	protected $classWhitelist;
 
@@ -38,7 +38,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	 * Constructor.
 	 *
 	 * @param \mako\redis\Redis $redis          Redis client
-	 * @param bool|array        $classWhitelist Class whitelist
+	 * @param array|bool        $classWhitelist Class whitelist
 	 */
 	public function __construct(RedisClient $redis, $classWhitelist = false)
 	{
@@ -48,7 +48,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
@@ -65,7 +65,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
@@ -84,7 +84,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function increment(string $key, int $step = 1)
 	{
@@ -92,7 +92,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function decrement(string $key, int $step = 1)
 	{
@@ -100,7 +100,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function has(string $key): bool
 	{
@@ -108,7 +108,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function get(string $key)
 	{
@@ -123,7 +123,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function remove(string $key): bool
 	{
@@ -131,7 +131,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function clear(): bool
 	{

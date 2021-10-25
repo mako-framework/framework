@@ -17,7 +17,7 @@ use PDOException;
 class Firebird extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isAlive(): bool
 	{

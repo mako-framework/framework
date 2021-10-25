@@ -46,7 +46,7 @@ class CacheManager extends AdapterManager
 	/**
 	 * Class whitelist.
 	 *
-	 * @var bool|array
+	 * @var array|bool
 	 */
 	protected $classWhitelist;
 
@@ -56,7 +56,7 @@ class CacheManager extends AdapterManager
 	 * @param string                  $default        Default connection name
 	 * @param array                   $configurations Configurations
 	 * @param \mako\syringe\Container $container      Container
-	 * @param bool|array              $classWhitelist Class whitelist
+	 * @param array|bool              $classWhitelist Class whitelist
 	 */
 	public function __construct(string $default, array $configurations, Container $container, $classWhitelist = false)
 	{

@@ -18,7 +18,7 @@ use PDOException;
 class DB2 extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isAlive(): bool
 	{

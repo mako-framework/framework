@@ -19,7 +19,7 @@ interface IncrementDecrementInterface
 	 *
 	 * @param  string   $key  Cache key
 	 * @param  int      $step Step
-	 * @return int|bool
+	 * @return bool|int
 	 */
 	public function increment(string $key, int $step = 1);
 
@@ -28,7 +28,7 @@ interface IncrementDecrementInterface
 	 *
 	 * @param  string   $key  Cache key
 	 * @param  int      $step Step
-	 * @return int|bool
+	 * @return bool|int
 	 */
 	public function decrement(string $key, int $step = 1);
 }

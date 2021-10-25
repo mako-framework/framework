@@ -21,5 +21,5 @@ class LargeObject extends Type
 	 *
 	 * @var int
 	 */
-	const TYPE = PDO::PARAM_LOB;
+	public const TYPE = PDO::PARAM_LOB;
 }

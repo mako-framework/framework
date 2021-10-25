@@ -18,7 +18,7 @@ use mako\security\Signer;
 class SignerService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

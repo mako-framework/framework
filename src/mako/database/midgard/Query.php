@@ -76,7 +76,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
@@ -89,7 +89,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function insert(array $values = []): bool
 	{
@@ -117,7 +117,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function update(array $values): int
 	{
@@ -145,7 +145,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function increment($column, int $increment = 1): int
 	{
@@ -167,7 +167,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function decrement($column, int $decrement = 1): int
 	{
@@ -189,7 +189,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function delete(): int
 	{
@@ -232,7 +232,7 @@ class Query extends QueryBuilder
 	/**
 	 * Adds relations to eager load.
 	 *
-	 * @param  string|array|bool $includes Relation or array of relations to eager load
+	 * @param  array|bool|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
 	public function including($includes)
@@ -274,7 +274,7 @@ class Query extends QueryBuilder
 	/**
 	 * Removes relations to eager load.
 	 *
-	 * @param  string|array|bool $excludes Relation or array of relations to exclude from eager loading
+	 * @param  array|bool|string $excludes Relation or array of relations to exclude from eager loading
 	 * @return $this
 	 */
 	public function excluding($excludes)
@@ -396,7 +396,7 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return \mako\database\midgard\ORM|false
+	 * @return false|\mako\database\midgard\ORM
 	 */
 	public function first()
 	{
@@ -452,7 +452,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null): void
 	{

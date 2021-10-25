@@ -194,7 +194,7 @@ class ErrorHandler
 	/**
 	 * Disables logging for an exception type.
 	 *
-	 * @param string|array $exceptionType Exception type or array of exception types
+	 * @param array|string $exceptionType Exception type or array of exception types
 	 */
 	public function dontLog($exceptionType): void
 	{
@@ -205,7 +205,7 @@ class ErrorHandler
 	 * Disables logging for an exception type.
 	 *
 	 * @deprecated 7.0
-	 * @param string|array $exceptionType Exception type or array of exception types
+	 * @param array|string $exceptionType Exception type or array of exception types
 	 */
 	public function disableLoggingFor($exceptionType): void
 	{
@@ -224,7 +224,7 @@ class ErrorHandler
 	 * Prepends an exception handler to the stack.
 	 *
 	 * @param string          $exceptionType Exception type
-	 * @param string|\Closure $handler       Exception handler
+	 * @param \Closure|string $handler       Exception handler
 	 */
 	public function handle(string $exceptionType, $handler): void
 	{
@@ -306,7 +306,7 @@ class ErrorHandler
 	/**
 	 * Handle the exception.
 	 *
-	 * @param  string|\Closure $handler   Exception handler
+	 * @param  \Closure|string $handler   Exception handler
 	 * @param  \Throwable      $exception Exceotion
 	 * @return mixed
 	 */

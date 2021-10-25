@@ -17,7 +17,7 @@ use mako\gatekeeper\entities\user\UserEntityInterface;
 abstract class Policy implements PolicyInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function before(?UserEntityInterface $user, string $action, $entity): ?bool
 	{

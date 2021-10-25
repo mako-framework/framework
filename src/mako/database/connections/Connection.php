@@ -54,7 +54,7 @@ class Connection
 	/**
 	 * Query compiler.
 	 *
-	 * @var string.
+	 * @var string
 	 */
 	protected $queryCompiler;
 
@@ -503,7 +503,7 @@ class Connection
 	 * @param  bool          &$success Was the query executed successfully?
 	 * @return \PDOStatement
 	 */
-	protected function prepareAndExecute(string $query, array $params, bool &$success = null): PDOStatement
+	protected function prepareAndExecute(string $query, array $params, ?bool &$success = null): PDOStatement
 	{
 		// Prepare query and parameters
 
@@ -585,7 +585,7 @@ class Connection
 	 * @param  string     $query        SQL query
 	 * @param  array      $params       Query params
 	 * @param  mixed      ...$fetchMode Fetch mode
-	 * @return mixed|bool
+	 * @return bool|mixed
 	 */
 	public function first(string $query, array $params = [], ...$fetchMode)
 	{
@@ -617,7 +617,7 @@ class Connection
 	 *
 	 * @param  string     $query  SQL query
 	 * @param  array      $params Query parameters
-	 * @return mixed|bool
+	 * @return bool|mixed
 	 */
 	public function column(string $query, array $params = [])
 	{
@@ -691,7 +691,7 @@ class Connection
 	/**
 	 * Returns a query builder instance where we have already chosen the table we want to query.
 	 *
-	 * @param  string|array|\Closure|\mako\database\query\Subquery|\mako\database\query\Raw|null $table Database table or subquery
+	 * @param  array|\Closure|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Database table or subquery
 	 * @return \mako\database\query\Query
 	 */
 	public function table($table): Query

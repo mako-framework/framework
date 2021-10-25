@@ -42,7 +42,7 @@ class MaxLength extends Rule implements RuleInterface
 	protected $i18nParameters = ['maxLength'];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
@@ -50,7 +50,7 @@ class MaxLength extends Rule implements RuleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(string $field): string
 	{

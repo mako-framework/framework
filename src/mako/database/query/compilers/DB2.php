@@ -18,12 +18,12 @@ use function trim;
 class DB2 extends Compiler
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function from($table): string
 	{
@@ -31,7 +31,7 @@ class DB2 extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function lock($lock): string
 	{
@@ -44,7 +44,7 @@ class DB2 extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function select(): array
 	{
