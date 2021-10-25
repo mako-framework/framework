@@ -1,3 +1,9 @@
+### 7.3.1 <small>(2021-10-25)</small>
+
+#### New
+
+* Added protected `AccessControl::getAllowedDomains()` method.
+
 ### 7.3.0 <small>(2021-10-19)</small>
 
 #### New
