@@ -82,6 +82,16 @@ abstract class AccessControl implements MiddlewareInterface
 	}
 
 	/**
+	 * Returns the allowed domains.
+	 *
+	 * @return array
+	 */
+	protected function getAllowedDomains(): array
+	{
+		return $this->allowedDomains;
+	}
+
+	/**
 	 * Returns TRUE if the domain is allowed and FALSE if not.
 	 *
 	 * @param  string $domain Domain
@@ -89,7 +99,7 @@ abstract class AccessControl implements MiddlewareInterface
 	 */
 	protected function isDomainAllowed(string $domain): bool
 	{
-		return in_array($domain, $this->allowedDomains, true);
+		return in_array($domain, $this->getAllowedDomains(), true);
 	}
 
 	/**
