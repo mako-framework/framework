@@ -36,35 +36,35 @@ class Str
 	 *
 	 * @var string
 	 */
-	const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	public const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
 	 * Alphabetic characters.
 	 *
 	 * @var string
 	 */
-	const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	public const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
 	 * Hexadecimal characters.
 	 *
 	 * @var string
 	 */
-	const HEXDEC = '0123456789abcdef';
+	public const HEXDEC = '0123456789abcdef';
 
 	/**
 	 * Numeric characters.
 	 *
 	 * @var string
 	 */
-	const NUMERIC = '0123456789';
+	public const NUMERIC = '0123456789';
 
 	/**
 	 * ASCII symbols.
 	 *
 	 * @var string
 	 */
-	const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+	public const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 	/**
 	 * Pluralization rules.

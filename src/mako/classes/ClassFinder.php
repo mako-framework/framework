@@ -28,7 +28,7 @@ class ClassFinder
 	 *
 	 * @var string
 	 */
-	const PHP_FILENAME_PATTERN = '/\.php$/';
+	public const PHP_FILENAME_PATTERN = '/\.php$/';
 
 	/**
 	 * Finder instance.

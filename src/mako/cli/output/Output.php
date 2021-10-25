@@ -23,14 +23,14 @@ class Output
 	 *
 	 * @var int
 	 */
-	const STANDARD = 1;
+	public const STANDARD = 1;
 
 	/**
 	 * Error output.
 	 *
 	 * @var int
 	 */
-	const ERROR = 2;
+	public const ERROR = 2;
 
 	/**
 	 * Standard writer.

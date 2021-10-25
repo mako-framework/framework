@@ -22,14 +22,14 @@ class Environment
 	 *
 	 * @var int
 	 */
-	const DEFAULT_WIDTH = 80;
+	public const DEFAULT_WIDTH = 80;
 
 	/**
 	 * Default height.
 	 *
 	 * @var int
 	 */
-	const DEFAULT_HEIGHT = 25;
+	public const DEFAULT_HEIGHT = 25;
 
 	/**
 	 * Do we have ANSI support?

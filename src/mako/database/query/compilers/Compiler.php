@@ -35,7 +35,7 @@ class Compiler
 	 *
 	 * @var string
 	 */
-	const JSON_PATH_SEPARATOR = '->';
+	public const JSON_PATH_SEPARATOR = '->';
 
 	/**
 	 * Datetime format.

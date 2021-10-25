@@ -19,42 +19,42 @@ interface TimeInterface extends DateTimeInterface
 	 *
 	 * @var int
 	 */
-	const MINUTE = 60;
+	public const MINUTE = 60;
 
 	/**
 	 * Number of seconds in an hour.
 	 *
 	 * @var int
 	 */
-	const HOUR = 3600;
+	public const HOUR = 3600;
 
 	/**
 	 * Number of seconds in a day.
 	 *
 	 * @var int
 	 */
-	const DAY = 86400;
+	public const DAY = 86400;
 
 	/**
 	 * Number of seconds in a week.
 	 *
 	 * @var int
 	 */
-	const WEEK = 604800;
+	public const WEEK = 604800;
 
 	/**
 	 * Average number of seconds in a month.
 	 *
 	 * @var int
 	 */
-	const MONTH = 2629744;
+	public const MONTH = 2629744;
 
 	/**
 	 * Average number of seconds in a year.
 	 *
 	 * @var int
 	 */
-	const YEAR = 31556926;
+	public const YEAR = 31556926;
 
 	/**
 	 * Returns a new instance set to the current time.

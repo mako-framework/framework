@@ -39,7 +39,7 @@ class Dispatcher
 	 *
 	 * @var int
 	 */
-	const MIDDLEWARE_DEFAULT_PRIORITY = 100;
+	public const MIDDLEWARE_DEFAULT_PRIORITY = 100;
 
 	/**
 	 * Request.

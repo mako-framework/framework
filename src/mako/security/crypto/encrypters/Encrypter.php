@@ -19,14 +19,14 @@ abstract class Encrypter
 	 *
 	 * @var string
 	 */
-	const DERIVATION_HASH = 'sha256';
+	public const DERIVATION_HASH = 'sha256';
 
 	/**
 	 * Derivation iterations.
 	 *
 	 * @var int
 	 */
-	const DERIVATION_ITERATIONS = 1024;
+	public const DERIVATION_ITERATIONS = 1024;
 
 	/**
 	 * Generate a PBKDF2 key derivation of a supplied key.
