@@ -26,14 +26,14 @@ class CommandBus implements CommandBusInterface
 	 *
 	 * @var string
 	 */
-	const COMMAND_SUFFIX = 'Command';
+	public const COMMAND_SUFFIX = 'Command';
 
 	/**
 	 * Handler suffix.
 	 *
 	 * @var string
 	 */
-	const HANDLER_SUFFIX = 'Handler';
+	public const HANDLER_SUFFIX = 'Handler';
 
 	/**
 	 * Container.

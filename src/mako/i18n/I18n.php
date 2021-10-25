@@ -29,14 +29,14 @@ class I18n
 	 *
 	 * @var string
 	 */
-	const PLURALIZATION_TAG_REGEX = '/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu';
+	public const PLURALIZATION_TAG_REGEX = '/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu';
 
 	/**
 	 * Regex that matches number tags.
 	 *
 	 * @var string
 	 */
-	const NUMBER_TAG_REGEX = '/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu';
+	public const NUMBER_TAG_REGEX = '/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu';
 
 	/**
 	 * Language loader.

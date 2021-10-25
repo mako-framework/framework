@@ -49,7 +49,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	 *
 	 * @var int
 	 */
-	const SOURCE_PADDING = 6;
+	public const SOURCE_PADDING = 6;
 
 	/**
 	 * Request instance.
