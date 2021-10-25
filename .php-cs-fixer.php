@@ -3,8 +3,7 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-return Config::create()
-->setRules
+return (new Config)->setRules
 ([
 	'align_multiline_comment' => true,
 	'array_syntax' => ['syntax' => 'short'],
@@ -29,7 +28,7 @@ return Config::create()
 	'lowercase_static_reference' => true,
 	'magic_constant_casing' => true,
 	'magic_method_casing' => true,
-	'method_argument_space' => true,
+	'method_argument_space' => ['on_multiline' => 'ignore'],
 	'native_function_casing' => true,
 	'native_function_type_declaration_casing' => true,
 	'no_alias_functions' => true,
@@ -84,11 +83,11 @@ return Config::create()
 	'standardize_not_equals' => true,
 	'switch_case_semicolon_to_colon' => true,
 	'switch_case_space' => true,
-	'trailing_comma_in_multiline_array' => true,
+	'trailing_comma_in_multiline' => ['elements' => ['arrays']],
 	'trim_array_spaces' => true,
 	'visibility_required' => true,
 	'void_return' => true,
 	'whitespace_after_comma_in_array' => true,
 ])
 ->setRiskyAllowed(true)
-->setFinder(Finder::create()->in(__DIR__));
+->setFinder((new Finder)->in(__DIR__));

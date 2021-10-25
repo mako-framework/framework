@@ -27,42 +27,42 @@ class Alert
 	 *
 	 * @var int
 	 */
-	const PADDING = 1;
+	public const PADDING = 1;
 
 	/**
 	 * Default template.
 	 *
 	 * @var string
 	 */
-	const DEFAULT = '%s';
+	public const DEFAULT = '%s';
 
 	/**
 	 * Info template.
 	 *
 	 * @var string
 	 */
-	const INFO = '<bg_blue><black>%s</black></bg_blue>';
+	public const INFO = '<bg_blue><black>%s</black></bg_blue>';
 
 	/**
 	 * Success template.
 	 *
 	 * @var string
 	 */
-	const SUCCESS = '<bg_green><black>%s</black></bg_green>';
+	public const SUCCESS = '<bg_green><black>%s</black></bg_green>';
 
 	/**
 	 * Warning template.
 	 *
 	 * @var string
 	 */
-	const WARNING = '<bg_yellow><black>%s</black></bg_yellow>';
+	public const WARNING = '<bg_yellow><black>%s</black></bg_yellow>';
 
 	/**
 	 * Danger template.
 	 *
 	 * @var string
 	 */
-	const DANGER = '<bg_red><white>%s</white></bg_red>';
+	public const DANGER = '<bg_red><white>%s</white></bg_red>';
 
 	/**
 	 * Output instance.

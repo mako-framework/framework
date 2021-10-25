@@ -51,7 +51,7 @@ class Request
 	 *
 	 * @var string
 	 */
-	const REMOTE_ADDRESS_FALLBACK = '127.0.0.1';
+	public const REMOTE_ADDRESS_FALLBACK = '127.0.0.1';
 
 	/**
 	 * Script name.

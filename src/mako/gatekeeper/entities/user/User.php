@@ -26,7 +26,7 @@ use function random_bytes;
 /**
  * User.
  *
- * @method int                                getId()
+ * @method   int                              getId()
  * @property int                              $id
  * @property \mako\chrono\Time                $created_at
  * @property \mako\chrono\Time                $updated_at
