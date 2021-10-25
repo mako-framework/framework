@@ -18,7 +18,7 @@ use mako\commander\CommandBusInterface;
 class CommandBusService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

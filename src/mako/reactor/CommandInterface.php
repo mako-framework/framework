@@ -19,14 +19,14 @@ interface CommandInterface
 	 *
 	 * @var int
 	 */
-	const STATUS_SUCCESS = 0;
+	public const STATUS_SUCCESS = 0;
 
 	/**
 	 * Error status code.
 	 *
 	 * @var int
 	 */
-	const STATUS_ERROR = 1;
+	public const STATUS_ERROR = 1;
 
 	/**
 	 * Returns the command description.

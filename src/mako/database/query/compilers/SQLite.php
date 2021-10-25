@@ -20,12 +20,12 @@ class SQLite extends Compiler
 	use JsonPathBuilderTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
@@ -33,7 +33,7 @@ class SQLite extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
@@ -41,7 +41,7 @@ class SQLite extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function betweenDate(array $where): string
 	{
@@ -52,7 +52,7 @@ class SQLite extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function whereDate(array $where): string
 	{
@@ -91,7 +91,7 @@ class SQLite extends Compiler
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function offset(?int $offset): string
 	{

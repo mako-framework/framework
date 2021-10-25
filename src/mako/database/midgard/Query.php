@@ -99,7 +99,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
 	{
@@ -112,7 +112,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function insert(array $values = []): bool
 	{
@@ -140,7 +140,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function update(array $values): int
 	{
@@ -168,7 +168,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function increment($column, int $increment = 1): int
 	{
@@ -190,7 +190,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function decrement($column, int $decrement = 1): int
 	{
@@ -212,7 +212,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function delete(): int
 	{
@@ -530,7 +530,7 @@ class Query extends QueryBuilder
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null): void
 	{

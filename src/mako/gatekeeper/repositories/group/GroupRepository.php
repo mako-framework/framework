@@ -59,7 +59,7 @@ class GroupRepository implements GroupRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function createGroup(array $properties = [])
 	{

@@ -17,7 +17,7 @@ use Throwable;
 class GoneException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'The resource you requested is no longer available and will not be available again.';
 

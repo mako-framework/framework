@@ -32,21 +32,21 @@ class Formatter implements FormatterInterface
 	 *
 	 * @var string
 	 */
-	const TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
+	public const TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
 
 	/**
 	 * Regex that matches escaped tags.
 	 *
 	 * @var string
 	 */
-	const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
+	public const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
 
 	/**
 	 * Regex that mathes ANSI SGR sequences.
 	 *
 	 * @var string
 	 */
-	const ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
+	public const ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
 
 	/**
 	 * Styles.
@@ -109,7 +109,7 @@ class Formatter implements FormatterInterface
 	 * Adds a user defined style.
 	 *
 	 * @param string       $name  Style name
-	 * @param string|array $style Style or array of styles
+	 * @param array|string $style Style or array of styles
 	 */
 	public function addStyle(string $name, $style): void
 	{
@@ -251,7 +251,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function format(string $string): string
 	{
@@ -297,7 +297,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function escape(string $string): string
 	{
@@ -305,7 +305,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function stripTags(string $string): string
 	{

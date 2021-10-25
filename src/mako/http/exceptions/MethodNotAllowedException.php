@@ -17,7 +17,7 @@ use Throwable;
 class MethodNotAllowedException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'The request method that was used is not supported by this resource.';
 

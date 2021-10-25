@@ -28,14 +28,14 @@ class CommandBus implements CommandBusInterface
 	 *
 	 * @var string
 	 */
-	const COMMAND_SUFFIX = 'Command';
+	public const COMMAND_SUFFIX = 'Command';
 
 	/**
 	 * Handler suffix.
 	 *
 	 * @var string
 	 */
-	const HANDLER_SUFFIX = 'Handler';
+	public const HANDLER_SUFFIX = 'Handler';
 
 	/**
 	 * Container.
@@ -52,7 +52,7 @@ class CommandBus implements CommandBusInterface
 	protected $onion;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __construct(?Container $container = null, ?Onion $onion = null)
 	{
@@ -172,7 +172,7 @@ class CommandBus implements CommandBusInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function dispatch($command, array $parameters = [], array $middleware = [])
 	{

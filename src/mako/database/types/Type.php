@@ -32,7 +32,7 @@ abstract class Type implements TypeInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getValue()
 	{

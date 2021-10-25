@@ -20,7 +20,7 @@ use mako\i18n\loaders\Loader;
 class I18nService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

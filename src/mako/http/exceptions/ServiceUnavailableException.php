@@ -17,7 +17,7 @@ use Throwable;
 class ServiceUnavailableException extends HttpException
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $defaultMessage = 'The service is currently unavailable.';
 

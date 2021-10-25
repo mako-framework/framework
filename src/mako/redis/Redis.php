@@ -294,14 +294,14 @@ class Redis
 	 *
 	 * @var string
 	 */
-	const CRLF = "\r\n";
+	public const CRLF = "\r\n";
 
 	/**
 	 * Command terminator length.
 	 *
 	 * @var int
 	 */
-	const CRLF_LENGTH = 2;
+	public const CRLF_LENGTH = 2;
 
 	/**
 	 * Verbatim string prefix length.

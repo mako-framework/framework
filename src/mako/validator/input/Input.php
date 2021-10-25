@@ -38,7 +38,7 @@ abstract class Input implements InputInterface
 	protected $extensions = [];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRules(): array
 	{
@@ -46,7 +46,7 @@ abstract class Input implements InputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getExtensions(): array
 	{
@@ -54,7 +54,7 @@ abstract class Input implements InputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addConditionalRules(Validator $validator): void
 	{
@@ -62,7 +62,7 @@ abstract class Input implements InputInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(): ?string
 	{

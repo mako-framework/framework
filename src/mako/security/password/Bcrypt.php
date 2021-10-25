@@ -18,7 +18,7 @@ use function min;
 class Bcrypt extends Hasher
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function normalizeOptions(array $options): array
 	{
@@ -33,7 +33,7 @@ class Bcrypt extends Hasher
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getAlgorithm()
 	{

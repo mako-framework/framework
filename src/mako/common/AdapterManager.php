@@ -65,7 +65,7 @@ abstract class AdapterManager
 	 * Adds extension.
 	 *
 	 * @param string          $name    Adapter name
-	 * @param string|\Closure $adapter Adapter
+	 * @param \Closure|string $adapter Adapter
 	 */
 	public function extend(string $name, $adapter): void
 	{

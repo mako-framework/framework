@@ -26,7 +26,7 @@ class Countdown
 	 *
 	 * @var int
 	 */
-	const SLEEP_TIME = 250000;
+	public const SLEEP_TIME = 250000;
 
 	/**
 	 * Output instance.

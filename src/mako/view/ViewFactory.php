@@ -136,7 +136,7 @@ class ViewFactory
 	 * Registers a custom view renderer.
 	 *
 	 * @param  string                 $extension Extension handled by the renderer
-	 * @param  string|\Closure        $renderer  Renderer class or closure that creates a renderer instance
+	 * @param  \Closure|string        $renderer  Renderer class or closure that creates a renderer instance
 	 * @return \mako\view\ViewFactory
 	 */
 	public function extend(string $extension, $renderer): ViewFactory
@@ -231,7 +231,7 @@ class ViewFactory
 	/**
 	 * Creates a renderer instance.
 	 *
-	 * @param  string|\Closure                        $renderer Renderer class or closure
+	 * @param  \Closure|string                        $renderer Renderer class or closure
 	 * @return \mako\view\renderers\RendererInterface
 	 */
 	protected function rendererFactory($renderer): RendererInterface

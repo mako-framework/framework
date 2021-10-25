@@ -85,7 +85,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function aggregate($function, $column)
 	{
@@ -162,7 +162,7 @@ class ManyToMany extends Relation
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function lazyCriterion(): void
 	{

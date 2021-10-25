@@ -45,7 +45,7 @@ class Loader implements LoaderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(string $file, ?string $environment = null): array
 	{

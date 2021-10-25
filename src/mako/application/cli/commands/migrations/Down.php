@@ -20,12 +20,12 @@ class Down extends Command
 	use RollbackTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Rolls back the last batch of migrations.';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

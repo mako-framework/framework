@@ -70,7 +70,7 @@ class Container
 	/**
 	 * Parse the hint parameter.
 	 *
-	 * @param  string|array $hint Type hint or array contaning both type hint and alias
+	 * @param  array|string $hint Type hint or array contaning both type hint and alias
 	 * @return string
 	 */
 	protected function parseHint($hint): string
@@ -88,8 +88,8 @@ class Container
 	/**
 	 * Register a type hint.
 	 *
-	 * @param string|array    $hint      Type hint or array contaning both type hint and alias
-	 * @param string|\Closure $class     Class name or closure
+	 * @param array|string    $hint      Type hint or array contaning both type hint and alias
+	 * @param \Closure|string $class     Class name or closure
 	 * @param bool            $singleton Should we return the same instance every time?
 	 */
 	public function register($hint, $class, bool $singleton = false): void
@@ -100,8 +100,8 @@ class Container
 	/**
 	 * Register a type hint and return the same instance every time.
 	 *
-	 * @param string|array    $hint  Type hint or array contaning both type hint and alias
-	 * @param string|\Closure $class Class name or closure
+	 * @param array|string    $hint  Type hint or array contaning both type hint and alias
+	 * @param \Closure|string $class Class name or closure
 	 */
 	public function registerSingleton($hint, $class): void
 	{
@@ -111,7 +111,7 @@ class Container
 	/**
 	 * Register a singleton instance.
 	 *
-	 * @param string|array $hint     Type hint or array contaning both type hint and alias
+	 * @param array|string $hint     Type hint or array contaning both type hint and alias
 	 * @param object       $instance Class instance
 	 */
 	public function registerInstance($hint, object $instance): void
@@ -178,7 +178,7 @@ class Container
 	 * Replaces a registered type hint.
 	 *
 	 * @param string          $hint      Type hint
-	 * @param string|\Closure $class     Class name or closure
+	 * @param \Closure|string $class     Class name or closure
 	 * @param bool            $singleton Are we replacing a singleton?
 	 */
 	public function replace(string $hint, $class, bool $singleton = false): void
@@ -204,7 +204,7 @@ class Container
 	 * Replaces a registered singleton type hint.
 	 *
 	 * @param string          $hint  Type hint
-	 * @param string|\Closure $class Class name or closure
+	 * @param \Closure|string $class Class name or closure
 	 */
 	public function replaceSingleton(string $hint, $class): void
 	{
@@ -235,7 +235,7 @@ class Container
 	 * Resolves a type hint.
 	 *
 	 * @param  string          $hint Type hint
-	 * @return string|\Closure
+	 * @return \Closure|string
 	 */
 	protected function resolveHint(string $hint)
 	{
@@ -463,7 +463,7 @@ class Container
 	/**
 	 * Creates a class instance.
 	 *
-	 * @param  string|\Closure $class      Class name or closure
+	 * @param  \Closure|string $class      Class name or closure
 	 * @param  array           $parameters Constructor parameters
 	 * @return object
 	 */

@@ -18,7 +18,7 @@ use mako\security\Key;
 class GenerateKey extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Generates a 256-bit encryption key.';
 

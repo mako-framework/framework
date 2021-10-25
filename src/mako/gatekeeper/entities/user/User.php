@@ -28,7 +28,7 @@ use function random_bytes;
  *
  * @author Frederic G. Østby
  *
- * @method int                                getId()
+ * @method   int                              getId()
  * @property int                              $id
  * @property \mako\chrono\Time                $created_at
  * @property \mako\chrono\Time                $updated_at
@@ -106,7 +106,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getId()
 	{
@@ -144,7 +144,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUsername(): string
 	{
@@ -314,7 +314,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isMemberOf($group): bool
 	{
@@ -350,7 +350,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Returns null if the account isn't locked and a date time instance if it's locked.
 	 *
-	 * @return \mako\chrono\Time|\DateTimeInterface|null
+	 * @return \DateTimeInterface|\mako\chrono\Time|null
 	 */
 	public function lockedUntil()
 	{
@@ -388,7 +388,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Gets the time of the last failed attempt.
 	 *
-	 * @return \mako\chrono\Time|\DateTimeInterface|null
+	 * @return \DateTimeInterface|\mako\chrono\Time|null
 	 */
 	public function getLastFailAt()
 	{

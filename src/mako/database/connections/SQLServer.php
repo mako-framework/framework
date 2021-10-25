@@ -15,7 +15,7 @@ namespace mako\database\connections;
 class SQLServer extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function createSavepoint(): bool
 	{
@@ -23,7 +23,7 @@ class SQLServer extends Connection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function rollBackSavepoint(): bool
 	{

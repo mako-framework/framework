@@ -30,7 +30,7 @@ abstract class Relation extends Query
 	 *
 	 * @var int
 	 */
-	const EAGER_LOAD_CHUNK_SIZE = 900;
+	public const EAGER_LOAD_CHUNK_SIZE = 900;
 
 	/**
 	 * Originating record.

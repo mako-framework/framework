@@ -17,7 +17,7 @@ use PDOException;
 class Oracle extends Connection
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isAlive(): bool
 	{

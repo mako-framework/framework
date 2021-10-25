@@ -15,16 +15,16 @@ use mako\chrono\traits\TimeTrait;
  *
  * @author Frederic G. Østby
  *
- * @method static|false setTimezone(string|\DateTimeZone $timeZone)
- * @method static|false forward(int $seconds)
- * @method static|false rewind(int $seconds)
+ * @method false|static setTimezone(\DateTimeZone|string $timeZone)
+ * @method false|static forward(int $seconds)
+ * @method false|static rewind(int $seconds)
  */
 class TimeImmutable extends DateTimeImmutable implements TimeInterface
 {
 	use TimeTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function copy()
 	{

@@ -227,7 +227,7 @@ class Query
 	/**
 	 * Sets the pagination factory.
 	 *
-	 * @param \mako\pagination\PaginationFactoryInterface|\Closure $factory Pagination factory
+	 * @param \Closure|\mako\pagination\PaginationFactoryInterface $factory Pagination factory
 	 */
 	public static function setPaginationFactory($factory): void
 	{
@@ -621,7 +621,7 @@ class Query
 	/**
 	 * Adds a WHERE clause.
 	 *
-	 * @param  string|array|\Closure $column    Column name, an array of column names or closure
+	 * @param  array|\Closure|string $column    Column name, an array of column names or closure
 	 * @param  string|null           $operator  Operator
 	 * @param  mixed                 $value     Value
 	 * @param  string                $separator Clause separator
@@ -660,8 +660,8 @@ class Query
 	/**
 	 * Adds a raw WHERE clause.
 	 *
-	 * @param  string|array      $column    Column name, an array of column names or raw SQL
-	 * @param  string|array|null $operator  Operator or parameters
+	 * @param  array|string      $column    Column name, an array of column names or raw SQL
+	 * @param  array|string|null $operator  Operator or parameters
 	 * @param  string|null       $raw       Raw SQL
 	 * @param  string            $separator Clause separator
 	 * @return $this
@@ -686,7 +686,7 @@ class Query
 	/**
 	 * Adds a OR WHERE clause.
 	 *
-	 * @param  string|array|\Closure $column   Column name, an array of column names or closure
+	 * @param  array|\Closure|string $column   Column name, an array of column names or closure
 	 * @param  string|null           $operator Operator
 	 * @param  mixed                 $value    Value
 	 * @return $this
@@ -699,8 +699,8 @@ class Query
 	/**
 	 * Adds a raw OR WHERE clause.
 	 *
-	 * @param  string|array      $column   Column name, and array of column names or raw SQL
-	 * @param  string|array|null $operator Operator or parameters
+	 * @param  array|string      $column   Column name, and array of column names or raw SQL
+	 * @param  array|string|null $operator Operator or parameters
 	 * @param  string|null       $raw      Raw SQL
 	 * @return $this
 	 */
@@ -714,7 +714,7 @@ class Query
 	 *
 	 * @param  string                    $column    Column name
 	 * @param  string                    $operator  Operator
-	 * @param  string|\DateTimeInterface $date      Date
+	 * @param  \DateTimeInterface|string $date      Date
 	 * @param  string                    $separator Separator
 	 * @return $this
 	 */
@@ -738,7 +738,7 @@ class Query
 	 *
 	 * @param  string                    $column   Column name
 	 * @param  string                    $operator Operator
-	 * @param  string|\DateTimeInterface $date     Date
+	 * @param  \DateTimeInterface|string $date     Date
 	 * @return $this
 	 */
 	public function orWhereDate(string $column, string $operator, $date)
@@ -749,9 +749,9 @@ class Query
 	/**
 	 * Adds a column comparison clause.
 	 *
-	 * @param  string|array $column1   Column name of array of column names
+	 * @param  array|string $column1   Column name of array of column names
 	 * @param  string       $operator  Operator
-	 * @param  string|array $column2   Column name of array of column names
+	 * @param  array|string $column2   Column name of array of column names
 	 * @param  string       $separator Separator
 	 * @return $this
 	 */
@@ -772,9 +772,9 @@ class Query
 	/**
 	 * Adds a column comparison clause.
 	 *
-	 * @param  string|array $column1  Column name of array of column names
+	 * @param  array|string $column1  Column name of array of column names
 	 * @param  string       $operator Operator
-	 * @param  string|array $column2  Column name of array of column names
+	 * @param  array|string $column2  Column name of array of column names
 	 * @return $this
 	 */
 	public function orWhereColumn($column1, string $operator, $column2)
@@ -850,8 +850,8 @@ class Query
 	 * Adds a date range clause.
 	 *
 	 * @param  string                    $column    Column name
-	 * @param  string|\DateTimeInterface $date1     First date
-	 * @param  string|\DateTimeInterface $date2     Second date
+	 * @param  \DateTimeInterface|string $date1     First date
+	 * @param  \DateTimeInterface|string $date2     Second date
 	 * @param  string                    $separator Separator
 	 * @param  bool                      $not       Not between?
 	 * @return $this
@@ -875,8 +875,8 @@ class Query
 	 * Adds a date range clause.
 	 *
 	 * @param string                    $column Column name
-	 * @param string|\DateTimeInterface $date1  First date
-	 * @param string|\DateTimeInterface $date2  Second date
+	 * @param \DateTimeInterface|string $date1  First date
+	 * @param \DateTimeInterface|string $date2  Second date
 	 */
 	public function orBetweenDate(string $column, $date1, $date2)
 	{
@@ -887,8 +887,8 @@ class Query
 	 * Adds a date range clause.
 	 *
 	 * @param string                    $column Column name
-	 * @param string|\DateTimeInterface $date1  First date
-	 * @param string|\DateTimeInterface $date2  Second date
+	 * @param \DateTimeInterface|string $date1  First date
+	 * @param \DateTimeInterface|string $date2  Second date
 	 */
 	public function notBetweenDate(string $column, $date1, $date2)
 	{
@@ -899,8 +899,8 @@ class Query
 	 * Adds a date range clause.
 	 *
 	 * @param string                    $column Column name
-	 * @param string|\DateTimeInterface $date1  First date
-	 * @param string|\DateTimeInterface $date2  Second date
+	 * @param \DateTimeInterface|string $date1  First date
+	 * @param \DateTimeInterface|string $date2  Second date
 	 */
 	public function orNotBetweenDate(string $column, $date1, $date2)
 	{
@@ -1078,7 +1078,7 @@ class Query
 	 * Adds a JOIN clause.
 	 *
 	 * @param  string          $table    Table name
-	 * @param  string|\Closure $column1  Column name or closure
+	 * @param  \Closure|string $column1  Column name or closure
 	 * @param  string          $operator Operator
 	 * @param  string          $column2  Column name
 	 * @param  string          $type     Join type
@@ -1129,7 +1129,7 @@ class Query
 	 * Adds a LEFT OUTER JOIN clause.
 	 *
 	 * @param  string          $table    Table name
-	 * @param  string|\Closure $column1  Column name or closure
+	 * @param  \Closure|string $column1  Column name or closure
 	 * @param  string          $operator Operator
 	 * @param  string          $column2  Column name
 	 * @return $this
@@ -1156,7 +1156,7 @@ class Query
 	/**
 	 * Adds a GROUP BY clause.
 	 *
-	 * @param  string|array $columns Column name or array of column names
+	 * @param  array|string $columns Column name or array of column names
 	 * @return $this
 	 */
 	public function groupBy($columns)
@@ -1231,7 +1231,7 @@ class Query
 	/**
 	 * Adds a ORDER BY clause.
 	 *
-	 * @param  string|array $columns Column name or array of column names
+	 * @param  array|string $columns Column name or array of column names
 	 * @param  string       $order   Sorting order
 	 * @return $this
 	 */
@@ -1262,7 +1262,7 @@ class Query
 	/**
 	 * Adds an ascending ORDER BY clause.
 	 *
-	 * @param  string|array $columns Column name or array of column names
+	 * @param  array|string $columns Column name or array of column names
 	 * @return $this
 	 */
 	public function ascending($columns)
@@ -1285,7 +1285,7 @@ class Query
 	/**
 	 * Adds a descending ORDER BY clause.
 	 *
-	 * @param  string|array $columns Column name or array of column names
+	 * @param  array|string $columns Column name or array of column names
 	 * @return $this
 	 */
 	public function descending($columns)
@@ -1680,7 +1680,7 @@ class Query
 	/**
 	 * Returns the number of distinct values of the chosen column.
 	 *
-	 * @param  string|array $column Column name or array of column names
+	 * @param  array|string $column Column name or array of column names
 	 * @return int
 	 */
 	public function countDistinct($column): int

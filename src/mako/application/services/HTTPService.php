@@ -23,7 +23,7 @@ use mako\security\Signer;
 class HTTPService extends Service
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{

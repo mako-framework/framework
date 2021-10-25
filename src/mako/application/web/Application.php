@@ -23,7 +23,7 @@ use function ob_start;
 class Application extends BaseApplication
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function run(): void
 	{

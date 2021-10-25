@@ -26,7 +26,7 @@ trait TimeTrait
 	 * Constructor.
 	 *
 	 * @param string                    $time     A date/time string
-	 * @param string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
+	 * @param \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 */
 	public function __construct(string $time = 'now', $timeZone = null)
 	{
@@ -41,7 +41,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance set to the current time.
 	 *
-	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
+	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return static
 	 */
 	public static function now($timeZone = null)
@@ -55,8 +55,8 @@ trait TimeTrait
 	 * @param  int                       $year     Year
 	 * @param  int|null                  $month    Month (1 to 12)
 	 * @param  int|null                  $day      Day of month (1 to 31)
-	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
-	 * @return static|false
+	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
+	 * @return false|static
 	 */
 	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, $timeZone = null)
 	{
@@ -73,8 +73,8 @@ trait TimeTrait
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 *
 	 * @param  int                       $timestamp UNIX timestamp
-	 * @param  string|\DateTimeZone|null $timeZone  A valid time zone or a DateTimeZone object
-	 * @return static|false
+	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
+	 * @return false|static
 	 */
 	public static function createFromTimestamp(int $timestamp, $timeZone = null)
 	{
@@ -85,8 +85,8 @@ trait TimeTrait
 	 * Returns a new instance according to the specified DOS timestamp.
 	 *
 	 * @param  int                       $timestamp DOS timestamp
-	 * @param  string|\DateTimeZone|null $timeZone  A valid time zone or a DateTimeZone object
-	 * @return static|false
+	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
+	 * @return false|static
 	 */
 	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null)
 	{
@@ -107,8 +107,8 @@ trait TimeTrait
 	 *
 	 * @param  string                    $format   The format that the passed in string should be in
 	 * @param  string                    $time     String representing the time
-	 * @param  string|\DateTimeZone|null $timeZone A valid time zone or a DateTimeZone object
-	 * @return static|false
+	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
+	 * @return false|static
 	 */
 	#[\ReturnTypeWillChange]
 	public static function createFromFormat($format, $time, $timeZone = null)
@@ -133,8 +133,8 @@ trait TimeTrait
 	/**
 	 * Sets the time zone.
 	 *
-	 * @param  string|\DateTimeZone $timeZone A valid time zone or a DateTimeZone object
-	 * @return $this|static|false
+	 * @param  \DateTimeZone|string $timeZone A valid time zone or a DateTimeZone object
+	 * @return $this|false|static
 	 */
 	#[\ReturnTypeWillChange]
 	public function setTimezone($timeZone)
@@ -151,7 +151,7 @@ trait TimeTrait
 	 * Move forward in time by x seconds.
 	 *
 	 * @param  int                $seconds Number of seconds
-	 * @return $this|static|false
+	 * @return $this|false|static
 	 */
 	public function forward(int $seconds)
 	{
@@ -162,7 +162,7 @@ trait TimeTrait
 	 * Move backward in time by x seconds.
 	 *
 	 * @param  int                $seconds Number of seconds
-	 * @return $this|static|false
+	 * @return $this|false|static
 	 */
 	public function rewind(int $seconds)
 	{

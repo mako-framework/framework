@@ -25,12 +25,12 @@ use function vsprintf;
 class Create extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Creates a new migration.';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

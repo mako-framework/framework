@@ -15,7 +15,7 @@ namespace mako\session\stores;
 class NullStore implements StoreInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
@@ -23,7 +23,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function read(string $sessionId): array
 	{
@@ -31,7 +31,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function delete(string $sessionId): void
 	{
@@ -39,7 +39,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function gc(int $dataTTL): void
 	{

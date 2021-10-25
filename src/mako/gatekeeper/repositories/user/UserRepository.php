@@ -102,7 +102,7 @@ class UserRepository implements UserRepositoryInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function createUser(array $properties = [])
 	{

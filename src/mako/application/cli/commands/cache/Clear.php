@@ -18,12 +18,12 @@ use mako\cli\input\arguments\Argument;
 class Clear extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Clears the cache.';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

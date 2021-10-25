@@ -119,7 +119,7 @@ class Routes
 	 *
 	 * @param  array                    $methods HTTP methods
 	 * @param  string                   $route   Route
-	 * @param  string|\Closure          $action  Route action
+	 * @param  \Closure|string          $action  Route action
 	 * @param  string|null              $name    Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -157,7 +157,7 @@ class Routes
 	 * Adds a route that responds to GET requests to the collection.
 	 *
 	 * @param  string                   $route  Route
-	 * @param  string|\Closure          $action Route action
+	 * @param  \Closure|string          $action Route action
 	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -170,7 +170,7 @@ class Routes
 	 * Adds a route that responds to POST requests to the collection.
 	 *
 	 * @param  string                   $route  Route
-	 * @param  string|\Closure          $action Route action
+	 * @param  \Closure|string          $action Route action
 	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -183,7 +183,7 @@ class Routes
 	 * Adds a route that responds to PUT requests to the collection.
 	 *
 	 * @param  string                   $route  Route
-	 * @param  string|\Closure          $action Route action
+	 * @param  \Closure|string          $action Route action
 	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -196,7 +196,7 @@ class Routes
 	 * Adds a route that responds to PATCH requests to the collection.
 	 *
 	 * @param  string                   $route  Route
-	 * @param  string|\Closure          $action Route action
+	 * @param  \Closure|string          $action Route action
 	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -209,7 +209,7 @@ class Routes
 	 * Adds a route that responds to DELETE requests to the collection.
 	 *
 	 * @param  string                   $route  Route
-	 * @param  string|\Closure          $action Route action
+	 * @param  \Closure|string          $action Route action
 	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -222,7 +222,7 @@ class Routes
 	 * Adds a route that responts to all HTTP methods to the collection.
 	 *
 	 * @param  string                   $route  Route
-	 * @param  string|\Closure          $action Route action
+	 * @param  \Closure|string          $action Route action
 	 * @param  string|null              $name   Route name
 	 * @return \mako\http\routing\Route
 	 */
@@ -236,7 +236,7 @@ class Routes
 	 *
 	 * @param  array                    $methods Array of HTTP methods the route should respond to
 	 * @param  string                   $route   Route
-	 * @param  string|\Closure          $action  Route action
+	 * @param  \Closure|string          $action  Route action
 	 * @param  string|null              $name    Route name
 	 * @return \mako\http\routing\Route
 	 */

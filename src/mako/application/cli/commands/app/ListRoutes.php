@@ -21,7 +21,7 @@ use function implode;
 class ListRoutes extends Command
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Lists all registered routes.';
 

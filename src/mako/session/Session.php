@@ -35,7 +35,7 @@ class Session
 	 *
 	 * @var int
 	 */
-	const MAX_TOKENS = 20;
+	public const MAX_TOKENS = 20;
 
 	/**
 	 * Has the session been destroyed?

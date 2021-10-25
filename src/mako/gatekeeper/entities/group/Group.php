@@ -47,7 +47,7 @@ class Group extends ORM implements GroupEntityInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getId()
 	{
@@ -65,7 +65,7 @@ class Group extends ORM implements GroupEntityInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): string
 	{

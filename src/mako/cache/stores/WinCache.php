@@ -36,7 +36,7 @@ class WinCache extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function put(string $key, $data, int $ttl = 0): bool
 	{
@@ -44,7 +44,7 @@ class WinCache extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
@@ -52,7 +52,7 @@ class WinCache extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function has(string $key): bool
 	{
@@ -60,7 +60,7 @@ class WinCache extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function get(string $key)
 	{
@@ -70,7 +70,7 @@ class WinCache extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function remove(string $key): bool
 	{
@@ -78,7 +78,7 @@ class WinCache extends Store
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function clear(): bool
 	{

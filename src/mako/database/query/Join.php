@@ -82,9 +82,9 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 *
-	 * @param  string|\Closure                      $column1   Column name
+	 * @param  \Closure|string                      $column1   Column name
 	 * @param  string|null                          $operator  Operator
-	 * @param  string|\mako\database\query\Raw|null $column2   Column name
+	 * @param  \mako\database\query\Raw|string|null $column2   Column name
 	 * @param  string                               $separator Condition separator
 	 * @return \mako\database\query\Join
 	 */
@@ -136,9 +136,9 @@ class Join
 	/**
 	 * Adds a OR ON condition to the join.
 	 *
-	 * @param  string|\Closure                      $column1  Column name
+	 * @param  \Closure|string                      $column1  Column name
 	 * @param  string|null                          $operator Operator
-	 * @param  string|\mako\database\query\Raw|null $column2  Column name
+	 * @param  \mako\database\query\Raw|string|null $column2  Column name
 	 * @return \mako\database\query\Join
 	 */
 	public function orOn($column1, ?string $operator = null, $column2 = null): Join

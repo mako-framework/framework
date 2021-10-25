@@ -74,7 +74,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function open($image): void
 	{
@@ -82,7 +82,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function snapshot(): void
 	{
@@ -90,7 +90,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function restore(): void
 	{
@@ -105,7 +105,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getWidth()
 	{
@@ -113,7 +113,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getHeight()
 	{
@@ -121,7 +121,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDimensions()
 	{
@@ -129,7 +129,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function rotate($degrees): void
 	{
@@ -137,7 +137,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): void
 	{
@@ -150,7 +150,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function crop($width, $height, $x, $y): void
 	{
@@ -158,7 +158,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function flip($direction = Image::FLIP_HORIZONTAL): void
 	{
@@ -177,7 +177,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): void
 	{
@@ -222,7 +222,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function brightness($level = 50): void
 	{
@@ -230,7 +230,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function greyscale(): void
 	{
@@ -238,7 +238,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function sepia(): void
 	{
@@ -246,7 +246,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function bitonal(): void
 	{
@@ -254,7 +254,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function colorize($color): void
 	{
@@ -262,7 +262,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function sharpen(): void
 	{
@@ -270,7 +270,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function pixelate($pixelSize = 10): void
 	{
@@ -284,7 +284,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function negate(): void
 	{
@@ -292,7 +292,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function border($color = '#000', $thickness = 5): void
 	{
@@ -302,7 +302,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getImageBlob($type = null, $quality = 95)
 	{
@@ -324,7 +324,7 @@ class ImageMagick implements ProcessorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function save($file, $quality = 95): void
 	{

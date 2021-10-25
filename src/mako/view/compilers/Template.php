@@ -31,7 +31,7 @@ class Template
 	 *
 	 * @var string
 	 */
-	const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
+	public const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
 
 	/**
 	 * File system instance.

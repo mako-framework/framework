@@ -17,7 +17,7 @@ use mako\database\query\Query;
 class Postgres implements HelperInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function insertAndGetId(Query $query, array $values, ?string $primaryKey = null)
 	{

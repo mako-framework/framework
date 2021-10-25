@@ -59,7 +59,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function encrypt(string $string): string
 	{
@@ -71,7 +71,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function decrypt(string $string)
 	{
