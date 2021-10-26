@@ -331,7 +331,7 @@
 								</div>
 								<div class="details" data-open="false">
 									{% if(empty($connectionQueries)) %}
-										<div class="center">No database queries have been logged. <em>Have you enabled to query log?</em></div>
+										<div class="center">No database queries have been logged. <em>Have you enabled the query log?</em></div>
 									{% else %}
 										<ol>
 											{% foreach($connectionQueries as ['query' => $query]) %}
