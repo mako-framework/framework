@@ -5,6 +5,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 #### New
 
 * Views can now be rendered by casting them to strings.
+* Added `WriterInterface::setStream()` method.
 
 #### Changes
 

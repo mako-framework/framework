@@ -7,39 +7,18 @@
 
 namespace mako\cli\output\writer;
 
-use function fstat;
-use function fwrite;
-
 /**
  * Error writer.
  */
-class Error implements WriterInterface
+class Error extends Writer
 {
 	/**
-	 * Is the stream direct?
+	 * Constructor.
 	 *
-	 * @var bool
+	 * @param resource $stream Output stream
 	 */
-	protected $isDirect;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function isDirect(): bool
+	public function __construct($stream = STDERR)
 	{
-		if($this->isDirect === null)
-		{
-			$this->isDirect = (0020000 === (fstat(STDERR)['mode'] & 0170000));
-		}
-
-		return $this->isDirect;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function write(string $string): void
-	{
-		fwrite(STDERR, $string);
+		$this->stream = $stream;
 	}
 }

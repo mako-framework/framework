@@ -13,6 +13,13 @@ namespace mako\cli\output\writer;
 interface WriterInterface
 {
 	/**
+	 * Sets the output stream.
+	 *
+	 * @param resource $stream
+	 */
+	public function setStream($stream): void;
+
+	/**
 	 * Returns TRUE if the output isn't redirected or piped and FALSE in all other situations.
 	 *
 	 * @return bool
