@@ -17,6 +17,7 @@ use function count;
 use function explode;
 use function krsort;
 use function str_replace;
+use function stripos;
 use function strpos;
 use function strtoupper;
 use function substr;

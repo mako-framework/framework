@@ -10,6 +10,7 @@ namespace mako\file;
 use FilesystemIterator;
 use SplFileObject;
 
+use function copy;
 use function dirname;
 use function disk_free_space;
 use function disk_total_space;
