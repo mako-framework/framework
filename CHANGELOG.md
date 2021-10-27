@@ -1,5 +1,7 @@
 ### 8.0.0 <small>(202?-??-??)</small>
 
+The major version bump is due to dropped support for PHP `7.3` and a several breaking changes. Most applications built using Mako `7.3.0` should run on Mako `8.0.0` with just a few simple adjustments.
+
 #### New
 
 * Views can now be rendered by casting them to strings.
