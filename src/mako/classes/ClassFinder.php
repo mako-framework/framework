@@ -81,7 +81,7 @@ class ClassFinder
 	}
 
 	/**
-	 * Includes abstract classes.
+	 * Includes classes.
 	 *
 	 * @return $this
 	 */
@@ -93,7 +93,7 @@ class ClassFinder
 	}
 
 	/**
-	 * Excludes abstract classes.
+	 * Excludes classes.
 	 *
 	 * @return $this
 	 */
