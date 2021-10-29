@@ -217,17 +217,10 @@ class Application extends BaseApplication
 
 		$commands =
 		[
-			'app.generate_key'    => GenerateKey::class,
-			'app.generate_secret' => GenerateSecret::class,
+			'app.generate_key'       => GenerateKey::class,
+			'app.generate_secret'    => GenerateSecret::class,
+			'app.generate_preloader' => GeneratePreloader::class,
 		];
-
-		if(PHP_VERSION_ID >= 70400)
-		{
-			$commands = array_merge($commands,
-			[
-				'app.generate_preloader' => GeneratePreloader::class,
-			]);
-		}
 
 		if($this->container->has(Routes::class))
 		{
