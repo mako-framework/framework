@@ -290,6 +290,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 				'type'    => $this->getExceptionType($exception),
 				'file'    => $exception->getFile(),
 				'line'    => $exception->getLine(),
+				'code'    => $exception->getCode(),
+				'message' => $exception->getMessage(),
 			];
 		}
 

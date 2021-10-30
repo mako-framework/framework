@@ -240,7 +240,8 @@
 					<ol>
 						{% foreach($previous as $exception) %}
 							<li>
-								<em>{{$exception['type']}}</em> in {{$exception['file']}} on line {{$exception['line']}}.
+								<em>{{$exception['type']}}{% if(!empty($exception['code'])) %} ({{$exception['code']}}){% endif %}</em> in {{$exception['file']}} on line {{$exception['line']}}.
+								{% if(!empty($exception['message'])) %}<small><p>{{$exception['message']}}</p></small>{% endif %}
 							</li>
 						{% endforeach %}
 					</ol>
