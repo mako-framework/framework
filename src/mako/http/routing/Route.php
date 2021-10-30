@@ -7,8 +7,6 @@
 
 namespace mako\http\routing;
 
-use Closure;
-
 use function array_merge;
 use function in_array;
 use function preg_replace;
@@ -136,16 +134,11 @@ class Route
 	/**
 	 * Returns the route action.
 	 *
-	 * @return array|\Closure|string
+	 * @return array|\Closure
 	 */
 	public function getAction()
 	{
-		if($this->action instanceof Closure || empty($this->namespace))
-		{
-			return $this->action;
-		}
-
-		return "{$this->namespace}{$this->action}";
+		return $this->action;
 	}
 
 	/**
