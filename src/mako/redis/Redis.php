@@ -8,6 +8,7 @@
 namespace mako\redis;
 
 use Closure;
+use mako\redis\exceptions\RedisException;
 use mako\utility\Str;
 
 use function array_merge;

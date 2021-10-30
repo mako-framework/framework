@@ -7,6 +7,8 @@
 
 namespace mako\redis;
 
+use mako\redis\exceptions\RedisException;
+
 use function vsprintf;
 
 /**

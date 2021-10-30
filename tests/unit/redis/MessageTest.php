@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\redis;
 
+use mako\redis\exceptions\RedisException;
 use mako\redis\Message;
-use mako\redis\RedisException;
 use mako\tests\TestCase;
 
 /**

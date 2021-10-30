@@ -8,8 +8,8 @@
 namespace mako\tests\unit\redis;
 
 use mako\redis\Connection;
+use mako\redis\exceptions\RedisException;
 use mako\redis\Redis;
-use mako\redis\RedisException;
 use mako\tests\TestCase;
 use Mockery;
 

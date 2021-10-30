@@ -7,6 +7,7 @@
 
 namespace mako\redis;
 
+use mako\redis\exceptions\RedisException;
 use Throwable;
 
 use function fclose;
