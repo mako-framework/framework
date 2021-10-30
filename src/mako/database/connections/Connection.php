@@ -18,6 +18,7 @@ use mako\database\types\TypeInterface;
 use PDO;
 use PDOException;
 use PDOStatement;
+use Throwable;
 
 use function array_shift;
 use function array_splice;
@@ -539,7 +540,7 @@ class Connection
 				goto prepare;
 			}
 
-			throw new PDOException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e);
+			throw new DatabaseException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e);
 		}
 
 		// Bind parameters
@@ -832,11 +833,11 @@ class Connection
 
 			$this->commitTransaction();
 		}
-		catch(PDOException $e)
+		catch(Throwable $e)
 		{
 			$this->rollBackTransaction();
 
-			throw $e;
+			throw new DatabaseException('Exception caught. The transaction has been rolled back.', 0, $e);
 		}
 
 		return $returnValue;
