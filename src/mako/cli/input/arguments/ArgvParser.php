@@ -12,7 +12,6 @@ use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\MissingArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\common\traits\SuggestionTrait;
-use RuntimeException;
 
 use function array_keys;
 use function array_shift;
@@ -169,7 +168,7 @@ class ArgvParser
 
 		if(isset($this->arguments[$normalizedName]))
 		{
-			throw new RuntimeException(vsprintf('Ambiguous argument name. [ %s ] will collide with [ %s ].', [$name, $this->arguments[$normalizedName]->getName()]));
+			throw new ArgumentException(vsprintf('Ambiguous argument name. [ %s ] will collide with [ %s ].', [$name, $this->arguments[$normalizedName]->getName()]));
 		}
 
 		// Check if the argument has an alias and that it's unique
@@ -178,7 +177,7 @@ class ArgvParser
 		{
 			if(isset($this->map[$alias]))
 			{
-				throw new RuntimeException(vsprintf('Duplicate alias detected [ %s ]. The alias of [ %s ] will collide with the alias of [ %s ].', [$alias, $name, $this->getArgument($alias)->getName()]));
+				throw new ArgumentException(vsprintf('Duplicate alias detected [ %s ]. The alias of [ %s ] will collide with the alias of [ %s ].', [$alias, $name, $this->getArgument($alias)->getName()]));
 			}
 
 			$this->map[$alias] = $normalizedName;

@@ -7,12 +7,12 @@
 
 namespace mako\cli\input\arguments\exceptions;
 
-use RuntimeException;
+use mako\cli\exceptions\CliException;
 
 /**
  * Argument exception.
  */
-class ArgumentException extends RuntimeException
+class ArgumentException extends CliException
 {
 
 }

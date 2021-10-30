@@ -7,6 +7,8 @@
 
 namespace mako\cli\output\formatter;
 
+use mako\cli\output\formatter\exceptions\FormatterException;
+
 use function array_merge;
 use function array_pop;
 use function end;

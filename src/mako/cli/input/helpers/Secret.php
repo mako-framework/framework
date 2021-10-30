@@ -7,7 +7,7 @@
 
 namespace mako\cli\input\helpers;
 
-use RuntimeException;
+use mako\cli\exceptions\CliException;
 
 use function escapeshellcmd;
 use function exec;
@@ -82,7 +82,7 @@ class Secret extends Question
 		}
 		else
 		{
-			throw new RuntimeException('Unable to hide the user input.');
+			throw new CliException('Unable to hide the user input.');
 		}
 	}
 }

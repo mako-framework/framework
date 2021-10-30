@@ -7,12 +7,12 @@
 
 namespace mako\tests\unit\cli\output\helpers;
 
+use mako\cli\exceptions\CliException;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 /**
  * @group unit
@@ -160,7 +160,7 @@ class TableTest extends TestCase
 	 */
 	public function testInvalidInput(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(CliException::class);
 
 		$output = Mockery::mock(Output::class);
 

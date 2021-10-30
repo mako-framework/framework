@@ -19,6 +19,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Removed the deprecated `Route::namespace()` method.
 * Removed support for defining method controller actions as strings.
 * Removed the deprecated `AccessControlAllowOrigin` middleware.
+* Moved the `mako\cli\output\formatter\FormatterException` exception to `mako\cli\output\formatter\exceptions\FormatterException`.
 
 
 --------------------------------------------------------

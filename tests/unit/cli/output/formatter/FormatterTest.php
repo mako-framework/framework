@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\cli\output\formatter;
 
+use mako\cli\output\formatter\exceptions\FormatterException;
 use mako\cli\output\formatter\Formatter;
-use mako\cli\output\formatter\FormatterException;
 use mako\tests\TestCase;
 
 /**

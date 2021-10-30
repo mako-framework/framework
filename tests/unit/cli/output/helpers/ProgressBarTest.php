@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\cli\output\helpers;
 
-use LogicException;
+use mako\cli\exceptions\CliException;
 use mako\cli\output\helpers\ProgressBar;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -334,7 +334,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressPast100Percent(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(CliException::class);
 
 		$output = Mockery::mock(Output::class);
 

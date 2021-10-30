@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\formatter;
+namespace mako\cli\output\formatter\exceptions;
 
-use RuntimeException;
+use mako\cli\exceptions\CliException;
 
 /**
  * Formatter exception.
  */
-class FormatterException extends RuntimeException
+class FormatterException extends CliException
 {
 
 }

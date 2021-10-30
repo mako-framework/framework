@@ -7,10 +7,9 @@
 
 namespace mako\tests\unit\cli\input\arguments;
 
-use LogicException;
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\tests\TestCase;
-use RuntimeException;
 
 /**
  * @group unit
@@ -54,7 +53,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testArgumentWithInvalidName(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage('Invalid argument name [ --123 ].');
 
@@ -66,7 +65,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testArgumentWithInvalidAlias(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage('Invalid argument alias [ -po ].');
 
@@ -78,7 +77,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testPositionalBooleanArgument(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage("Argument can't be both positional and a boolean flag.");
 
@@ -90,7 +89,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testBooleanArrayArgument(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage("Argument can't be both a boolean flag and an array.");
 
@@ -102,7 +101,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testBooleanIntegerArgument(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage("Argument can't be both a boolean flag and an integer.");
 
@@ -114,7 +113,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testBooleanFloatArgument(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage("Argument can't be both a boolean flag and a float.");
 
@@ -126,7 +125,7 @@ class ArgumentTest extends TestCase
 	 */
 	public function testIntegerFloatArgument(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage("Argument can't be both a float and an integer.");
 

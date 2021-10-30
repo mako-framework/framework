@@ -14,7 +14,6 @@ use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\MissingArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\tests\TestCase;
-use RuntimeException;
 
 /**
  * @group unit
@@ -78,7 +77,7 @@ class ArgvParserTest extends TestCase
 	 */
 	public function testAmbiguousArgumentNames(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage('Ambiguous argument name. [ --document_root ] will collide with [ --document-root ].');
 
@@ -90,7 +89,7 @@ class ArgvParserTest extends TestCase
 	 */
 	public function testDuplicateAliases(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(ArgumentException::class);
 
 		$this->expectExceptionMessage('Duplicate alias detected [ -h ]. The alias of [ --host ] will collide with the alias of [ --help ].');
 

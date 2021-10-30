@@ -7,9 +7,9 @@
 
 namespace mako\cli\output\helpers;
 
+use mako\cli\exceptions\CliException;
 use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
-use RuntimeException;
 
 use function array_sum;
 use function array_values;
@@ -157,7 +157,7 @@ class Table
 	{
 		if(!$this->isValidInput($columnNames, $rows))
 		{
-			throw new RuntimeException('The number of cells in each row must match the number of columns.');
+			throw new CliException('The number of cells in each row must match the number of columns.');
 		}
 
 		$columnWidths = $this->getColumnWidths($columnNames, $rows);

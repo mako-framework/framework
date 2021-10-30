@@ -7,9 +7,8 @@
 
 namespace mako\cli\input\arguments;
 
-use LogicException;
+use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\utility\Str;
-use RuntimeException;
 
 use function explode;
 use function ltrim;
@@ -164,7 +163,7 @@ class Argument
 	{
 		if(preg_match(static::NAME_REGEX, $name) !== 1)
 		{
-			throw new RuntimeException(vsprintf('Invalid argument name [ %s ].', [$name]));
+			throw new ArgumentException(vsprintf('Invalid argument name [ %s ].', [$name]));
 		}
 
 		return $name;
@@ -180,7 +179,7 @@ class Argument
 	{
 		if(preg_match(static::ALIAS_REGEX, $alias) !== 1)
 		{
-			throw new RuntimeException(vsprintf('Invalid argument alias [ %s ].', [$alias]));
+			throw new ArgumentException(vsprintf('Invalid argument alias [ %s ].', [$alias]));
 		}
 
 		return $alias;
@@ -219,27 +218,27 @@ class Argument
 	{
 		if($this->isPositional && static::IS_BOOL === ($options & static::IS_BOOL))
 		{
-			throw new LogicException("Argument can't be both positional and a boolean flag.");
+			throw new ArgumentException("Argument can't be both positional and a boolean flag.");
 		}
 
 		if(static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_ARRAY === ($options & static::IS_ARRAY))
 		{
-			throw new LogicException("Argument can't be both a boolean flag and an array.");
+			throw new ArgumentException("Argument can't be both a boolean flag and an array.");
 		}
 
 		if(static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_INT === ($options & static::IS_INT))
 		{
-			throw new LogicException("Argument can't be both a boolean flag and an integer.");
+			throw new ArgumentException("Argument can't be both a boolean flag and an integer.");
 		}
 
 		if(static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_FLOAT === ($options & static::IS_FLOAT))
 		{
-			throw new LogicException("Argument can't be both a boolean flag and a float.");
+			throw new ArgumentException("Argument can't be both a boolean flag and a float.");
 		}
 
 		if(static::IS_FLOAT === ($options & static::IS_FLOAT) && static::IS_INT === ($options & static::IS_INT))
 		{
-			throw new LogicException("Argument can't be both a float and an integer.");
+			throw new ArgumentException("Argument can't be both a float and an integer.");
 		}
 
 		return $options;
