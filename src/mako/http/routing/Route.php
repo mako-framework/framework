@@ -93,10 +93,10 @@ class Route
 	/**
 	 * Constructor.
 	 *
-	 * @param array                 $methods Route methods
-	 * @param string                $route   Route
-	 * @param array|\Closure|string $action  Route action
-	 * @param string|null           $name    Route name
+	 * @param array          $methods Route methods
+	 * @param string         $route   Route
+	 * @param array|\Closure $action  Route action
+	 * @param string|null    $name    Route name
 	 */
 	public function __construct(array $methods, string $route, $action, ?string $name = null)
 	{
