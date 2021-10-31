@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\config\loaders;
 
+use mako\config\loaders\exceptions\LoaderException;
 use mako\config\loaders\Loader;
-use mako\config\loaders\LoaderException;
 use mako\tests\TestCase;
 use Mockery;
 

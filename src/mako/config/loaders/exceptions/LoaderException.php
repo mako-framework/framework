@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\config\loaders;
+namespace mako\config\loaders\exceptions;
 
-use RuntimeException;
+use mako\config\exceptions\ConfigException;
 
 /**
  * Loader exception.
  */
-class LoaderException extends RuntimeException
+class LoaderException extends ConfigException
 {
 
 }

@@ -8,6 +8,7 @@
 namespace mako\config\loaders;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
+use mako\config\loaders\exceptions\LoaderException;
 use mako\file\FileSystem;
 
 use function array_merge;
