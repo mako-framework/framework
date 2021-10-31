@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\onion;
 
+use mako\onion\exceptions\OnionException;
 use mako\onion\Onion;
-use mako\onion\OnionException;
 use mako\tests\TestCase;
 
 // --------------------------------------------------------------------------

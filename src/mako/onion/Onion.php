@@ -8,6 +8,7 @@
 namespace mako\onion;
 
 use Closure;
+use mako\onion\exceptions\OnionException;
 use mako\syringe\Container;
 
 use function array_merge;

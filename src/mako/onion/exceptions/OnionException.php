@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\onion;
+namespace mako\onion\exceptions;
 
 use RuntimeException;
 
