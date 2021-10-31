@@ -9,6 +9,7 @@ namespace mako\i18n\loaders;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
+use mako\i18n\loaders\exceptions\LoaderException;
 
 use function vsprintf;
 

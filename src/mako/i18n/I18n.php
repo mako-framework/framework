@@ -7,6 +7,7 @@
 
 namespace mako\i18n;
 
+use mako\i18n\exceptions\I18nException;
 use mako\i18n\loaders\LoaderInterface;
 use mako\utility\Arr;
 

@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\i18n;
+namespace mako\i18n\exceptions;
 
 use RuntimeException;
 

@@ -22,6 +22,8 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Moved the `mako\cli\output\formatter\FormatterException` exception to `mako\cli\output\formatter\exceptions\FormatterException`.
 * Moved the `mako\redis\RedisException` exception to `mako\redis\exceptions\RedisException`.
 * Moved the `mako\config\loaders\LoaderException` exception to `mako\config\loaders\exceptions\LoaderException`.
+* Moved the `mako\i18n\I18nException` exception to `mako\i18n\exceptions\I18nException`.
+* Moved the `mako\i18n\loaders\LoaderException` exception to `mako\i18n\loaders\exceptions\LoaderException`.
 
 
 --------------------------------------------------------

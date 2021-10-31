@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\i18n\loaders;
+namespace mako\i18n\loaders\exceptions;
 
-use RuntimeException;
+use mako\i18n\exceptions\I18nException;
 
 /**
  * Loader exception.
  */
-class LoaderException extends RuntimeException
+class LoaderException extends I18nException
 {
 
 }

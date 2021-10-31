@@ -8,8 +8,8 @@
 namespace mako\tests\unit\i18n;
 
 use mako\cache\stores\StoreInterface;
+use mako\i18n\exceptions\I18nException;
 use mako\i18n\I18n;
-use mako\i18n\I18nException;
 use mako\i18n\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
