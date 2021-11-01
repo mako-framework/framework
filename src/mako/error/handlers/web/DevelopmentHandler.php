@@ -436,13 +436,13 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			'queries'      => $this->getQueries(),
 			'superglobals' =>
 			[
-				'_ENV'     => $_ENV ?? [],
-				'_SERVER'  => $_SERVER ?? [],
-				'_COOKIE'  => $_COOKIE ?? [],
+				'_ENV'     => $_ENV,
+				'_SERVER'  => $_SERVER,
+				'_COOKIE'  => $_COOKIE,
 				'_SESSION' => $_SESSION ?? [],
-				'_GET'     => $_GET ?? [],
-				'_POST'    => $_POST ?? [],
-				'_FILES'   => $_FILES ?? [],
+				'_GET'     => $_GET,
+				'_POST'    => $_POST,
+				'_FILES'   => $_FILES,
 			],
 		]);
 	}
