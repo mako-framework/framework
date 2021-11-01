@@ -57,8 +57,8 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Returns an instance of the chosen encrypter. Alias of CryptoManager::getInstance().
 	 *
-	 * @param  string|null                                        $configuration Configuration name
-	 * @return mako\security\crypto\encrypters\EncrypterInterface
+	 * @param  string|null                                         $configuration Configuration name
+	 * @return \mako\security\crypto\encrypters\EncrypterInterface
 	 */
 	public function getEncrypter(?string $configuration = null): EncrypterInterface
 	{

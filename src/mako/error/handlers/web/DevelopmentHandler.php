@@ -85,7 +85,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	 * @param \mako\http\Request            $request  Request
 	 * @param \mako\http\Response           $response Response
 	 * @param \mako\application\Application $app      Application
-	 * @param \array                        $keep     Cookies and headers to keep
+	 * @param array                         $keep     Cookies and headers to keep
 	 */
 	public function __construct(Request $request, Response $response, Application $app, array $keep = [])
 	{

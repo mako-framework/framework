@@ -45,7 +45,7 @@ class IP extends Rule implements RuleInterface
 	/**
 	 * Returns the filter flags.
 	 *
-	 * @return int|null
+	 * @return int
 	 */
 	protected function getFlags(): int
 	{

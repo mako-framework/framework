@@ -297,9 +297,9 @@ class ErrorHandler
 	/**
 	 * Handle the exception.
 	 *
-	 * @param  \Throwable      $exception Exceotion
-	 * @param  \Closure|string $handler   Exception handler
-	 * @param  array           $paramters Constructor parameters
+	 * @param  \Throwable      $exception  Exceotion
+	 * @param  \Closure|string $handler    Exception handler
+	 * @param  array           $parameters Constructor parameters
 	 * @return mixed
 	 */
 	protected function handleException(Throwable $exception, $handler, array $parameters)

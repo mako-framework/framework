@@ -7,8 +7,6 @@
 
 namespace mako\utility\ip;
 
-use Throwable;
-
 use function explode;
 use function inet_pton;
 use function pack;
@@ -59,15 +57,14 @@ class IPv6
 				break;
 		}
 
-		$binNetmask = pack('H*', str_pad($binNetmask, 32, '0'));
+		$ip    = inet_pton($ip);
+		$range = inet_pton($range);
 
-		try
-		{
-			return (inet_pton($ip) & $binNetmask) === inet_pton($range);
-		}
-		catch(Throwable $e)
+		if($ip === false || $range === false)
 		{
 			return false;
 		}
+
+		return ($ip & pack('H*', str_pad($binNetmask, 32, '0'))) === $range;
 	}
 }

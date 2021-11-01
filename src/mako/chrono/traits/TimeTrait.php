@@ -237,7 +237,7 @@ trait TimeTrait
 	 */
 	public function daysInMonth(): int
 	{
-		return $this->daysInMonths()[$this->format('n') - 1];
+		return $this->daysInMonths()[(int) $this->format('n') - 1];
 	}
 
 	/**

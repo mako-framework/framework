@@ -37,7 +37,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * Initialization vector size.
 	 *
-	 * @var string
+	 * @var int
 	 */
 	protected $ivSize;
 
