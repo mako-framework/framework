@@ -2,13 +2,13 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-enum Foo
+enum FooEnum
 {
 	case ONE;
 	case TWO;
 }
 
-enum Bar: int
+enum BarEnum: int
 {
 	case ONE = 1;
 	case TWO = 2;
