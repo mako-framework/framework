@@ -16,10 +16,10 @@ use mako\http\response\senders\Redirect;
 use mako\http\routing\URLBuilder;
 use mako\session\Session;
 use mako\tests\TestCase;
+use mako\validator\exceptions\ValidationException;
 use mako\validator\input\http\routing\middleware\InputValidation;
 use mako\validator\input\HttpInput;
 use mako\validator\input\HttpInputInterface;
-use mako\validator\ValidationException;
 use mako\view\ViewFactory;
 use Mockery;
 

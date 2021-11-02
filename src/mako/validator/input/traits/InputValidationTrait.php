@@ -7,8 +7,8 @@
 
 namespace mako\validator\input\traits;
 
+use mako\validator\exceptions\ValidationException;
 use mako\validator\input\InputInterface;
-use mako\validator\ValidationException;
 
 use function is_string;
 

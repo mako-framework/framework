@@ -7,9 +7,9 @@
 
 namespace mako\validator\rules\file;
 
+use mako\validator\exceptions\ValidatorException;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
-use RuntimeException;
 
 use function is_numeric;
 use function sprintf;
@@ -76,7 +76,7 @@ class MaxFileSize extends Rule implements RuleInterface
 				case 'YiB':
 					return $size * (1024 ** 8);
 				default:
-					throw new RuntimeException(vsprintf('Invalid unit type [ %s ].', [$unit]));
+					throw new ValidatorException(vsprintf('Invalid unit type [ %s ].', [$unit]));
 			}
 		}
 

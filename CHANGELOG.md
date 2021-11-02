@@ -28,6 +28,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Moved the `mako\security\crypto\CryptoException` exception to `mako\security\crypto\exceptions\CryptoException`.
 * Moved the `mako\security\password\HasherException` exception to `mako\security\password\exceptions\HasherException`.
 * Moved the `mako\view\ViewException` exception to `mako\view\exceptions\ViewException`.
+* Moved the `mako\validator\ValidationException` exception to `mako\validator\exceptions\ValidationException`.
 
 
 --------------------------------------------------------

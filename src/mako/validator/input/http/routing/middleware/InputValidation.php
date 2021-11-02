@@ -17,8 +17,8 @@ use mako\http\routing\middleware\MiddlewareInterface;
 use mako\http\routing\URLBuilder;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\session\Session;
+use mako\validator\exceptions\ValidationException;
 use mako\validator\input\HttpInputInterface;
-use mako\validator\ValidationException;
 use mako\view\ViewFactory;
 
 use function array_diff_key;

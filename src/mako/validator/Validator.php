@@ -12,6 +12,8 @@ use mako\common\traits\FunctionParserTrait;
 use mako\i18n\I18n;
 use mako\syringe\Container;
 use mako\utility\Arr;
+use mako\validator\exceptions\ValidationException;
+use mako\validator\exceptions\ValidatorException;
 use mako\validator\rules\After;
 use mako\validator\rules\Alpha;
 use mako\validator\rules\Alphanumeric;
@@ -65,7 +67,6 @@ use mako\validator\rules\session\Token;
 use mako\validator\rules\TimeZone;
 use mako\validator\rules\URL;
 use mako\validator\rules\UUID;
-use RuntimeException;
 
 use function array_fill_keys;
 use function array_keys;
@@ -378,7 +379,7 @@ class Validator
 	{
 		if(!isset($this->rules[$name]))
 		{
-			throw new RuntimeException(vsprintf('Call to undefined validation rule [ %s ].', [$name]));
+			throw new ValidatorException(vsprintf('Call to undefined validation rule [ %s ].', [$name]));
 		}
 
 		return $this->rules[$name];

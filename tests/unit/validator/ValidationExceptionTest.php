@@ -8,8 +8,8 @@
 namespace mako\tests\unit\validator;
 
 use mako\tests\TestCase;
+use mako\validator\exceptions\ValidationException;
 use mako\validator\input\InputInterface;
-use mako\validator\ValidationException;
 use Mockery;
 
 /**

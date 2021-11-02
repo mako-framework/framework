@@ -9,9 +9,9 @@ namespace mako\tests\unit\validator\input\traits;
 
 use mako\syringe\Container;
 use mako\tests\TestCase;
+use mako\validator\exceptions\ValidationException;
 use mako\validator\input\HttpInput;
 use mako\validator\input\traits\InputValidationTrait;
-use mako\validator\ValidationException;
 use mako\validator\Validator;
 use mako\validator\ValidatorFactory;
 use Mockery;

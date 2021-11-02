@@ -5,10 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\validator;
+namespace mako\validator\exceptions;
 
 use mako\validator\input\InputInterface;
-use RuntimeException;
 use Throwable;
 
 use function array_map;
@@ -20,7 +19,7 @@ use function rtrim;
 /**
  * Validation exception.
  */
-class ValidationException extends RuntimeException
+class ValidationException extends ValidatorException
 {
 	/**
 	 * Validation errors.
