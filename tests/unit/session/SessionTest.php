@@ -8,10 +8,10 @@
 namespace mako\tests\unit\session;
 
 use mako\http\response\Cookies as ResponseCookies;
+use mako\session\exceptions\SessionException;
 use mako\session\Session;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -126,7 +126,7 @@ class SessionTest extends TestCase
 	 */
 	public function testStartWithSecureCookieOverNonSecureConnection(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(SessionException::class);
 
 		$this->expectExceptionMessage('Attempted to set a secure cookie over a non-secure connection.');
 
