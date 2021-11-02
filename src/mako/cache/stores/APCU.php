@@ -7,7 +7,7 @@
 
 namespace mako\cache\stores;
 
-use RuntimeException;
+use mako\cache\exceptions\CacheException;
 
 use function apcu_add;
 use function apcu_clear_cache;
@@ -32,7 +32,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	{
 		if(function_exists('apcu_store') === false)
 		{
-			throw new RuntimeException('APCU is not available on your system.');
+			throw new CacheException('APCU is not available on your system.');
 		}
 	}
 

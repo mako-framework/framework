@@ -7,7 +7,7 @@
 
 namespace mako\cache\stores;
 
-use RuntimeException;
+use mako\cache\exceptions\CacheException;
 
 use function function_exists;
 use function wincache_ucache_add;
@@ -29,7 +29,7 @@ class WinCache extends Store
 	{
 		if(function_exists('wincache_ucache_set') === false)
 		{
-			throw new RuntimeException('WinCache is not available on your system.');
+			throw new CacheException('WinCache is not available on your system.');
 		}
 	}
 

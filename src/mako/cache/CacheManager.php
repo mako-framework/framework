@@ -7,6 +7,7 @@
 
 namespace mako\cache;
 
+use mako\cache\exceptions\CacheException;
 use mako\cache\stores\APCU;
 use mako\cache\stores\Database;
 use mako\cache\stores\File;
@@ -22,7 +23,6 @@ use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\FileSystem;
 use mako\redis\ConnectionManager as RedisConnectionManager;
 use mako\syringe\Container;
-use RuntimeException;
 
 use function vsprintf;
 
@@ -166,7 +166,7 @@ class CacheManager extends AdapterManager
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
-			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the cache configuration.', [$configuration]));
+			throw new CacheException(vsprintf('[ %s ] has not been defined in the cache configuration.', [$configuration]));
 		}
 
 		$configuration = $this->configurations[$configuration];
