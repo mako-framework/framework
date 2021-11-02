@@ -9,3 +9,13 @@ parameters:
 			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet\\:\\:including\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ResultSet.php
+
+		-
+			message: "#Used function enum_exists not found.#"
+			count: 1
+			path: src/mako/database/query/compilers/Compiler.php
+
+		-
+			message: "#Function enum_exists not found.#"
+			count: 1
+			path: src/mako/database/query/compilers/Compiler.php
