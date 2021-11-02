@@ -17,9 +17,11 @@ use mako\database\query\Subquery;
 use function array_keys;
 use function array_merge;
 use function array_shift;
+use function enum_exists;
 use function explode;
 use function implode;
 use function is_array;
+use function is_object;
 use function str_replace;
 use function stripos;
 use function strpos;
@@ -449,19 +451,26 @@ class Compiler
 	 */
 	protected function param($param, bool $enclose = true): string
 	{
-		if($param instanceof Raw)
+		if(is_object($param))
 		{
-			return $this->raw($param);
-		}
-		elseif($param instanceof Subquery)
-		{
-			return $this->subquery($param, $enclose);
-		}
-		elseif($param instanceof DateTimeInterface)
-		{
-			$this->params[] = $param->format(static::$dateFormat);
+			if($param instanceof Raw)
+			{
+				return $this->raw($param);
+			}
+			elseif($param instanceof Subquery)
+			{
+				return $this->subquery($param, $enclose);
+			}
+			elseif($param instanceof DateTimeInterface)
+			{
+				$this->params[] = $param->format(static::$dateFormat);
 
-			return '?';
+				return '?';
+			}
+			elseif(PHP_VERSION_ID >= 80100 && enum_exists($param::class))
+			{
+				$this->params[] = $param->value ?? $param->name;
+			}
 		}
 
 		$this->params[] = $param;

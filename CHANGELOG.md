@@ -6,6 +6,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 
 * Views can now be rendered by casting them to strings.
 * Added `WriterInterface::setStream()` method.
+* The query builder now supports enums (PHP 8.1+).
 
 #### Changes
 

@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
+use DateTime;
 use Exception;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\Query;
@@ -14,6 +15,11 @@ use mako\database\query\Raw;
 use mako\database\query\Subquery;
 use mako\tests\TestCase;
 use Mockery;
+
+if(PHP_VERSION_ID >= 80100)
+{
+	include __DIR__ . '/_Enums.php';
+}
 
 /**
  * @group unit
@@ -1951,5 +1957,60 @@ class BaseCompilerTest extends TestCase
 		$query2 = clone $query1;
 
 		$this->assertSame($query1->getCompiler()->select()['params'], $query2->getCompiler()->select()['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDateTimeParameter(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', new DateTime('2021-11-02 13:37:00'));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
+		$this->assertEquals(['2021-11-02 13:37:00'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testEnumParameter(): void
+	{
+		if(PHP_VERSION_ID < 80100)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.1+');
+		}
+
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', FooEnum::ONE);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
+		$this->assertEquals(['ONE'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBackedEnumParameter(): void
+	{
+		if(PHP_VERSION_ID < 80100)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.1+');
+		}
+
+		$query = $this->getBuilder();
+
+		$query->where('foo', '=', BarEnum::ONE);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
+		$this->assertEquals([1], $query['params']);
 	}
 }
