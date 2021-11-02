@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\security\password;
+namespace mako\security\exceptions;
 
 use RuntimeException;
 
 /**
- * Hasher exception.
+ * Security exception.
  */
-class HasherException extends RuntimeException
+class SecurityException extends RuntimeException
 {
 
 }

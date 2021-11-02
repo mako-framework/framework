@@ -25,6 +25,8 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Moved the `mako\i18n\I18nException` exception to `mako\i18n\exceptions\I18nException`.
 * Moved the `mako\i18n\loaders\LoaderException` exception to `mako\i18n\loaders\exceptions\LoaderException`.
 * Moved the `mako\onion\OnionException` exception to `mako\onion\exceptions\OnionException`.
+* Moved the `mako\security\crypto\CryptoException` exception to `mako\security\crypto\exceptions\CryptoException`.
+* Moved the `mako\security\password\HasherException` exception to `mako\security\password\exceptions\HasherException`.
 
 
 --------------------------------------------------------

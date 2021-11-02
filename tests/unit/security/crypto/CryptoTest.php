@@ -8,8 +8,8 @@
 namespace mako\tests\unit\security\crypto;
 
 use mako\security\crypto\Crypto;
-use mako\security\crypto\CryptoException;
 use mako\security\crypto\encrypters\EncrypterInterface;
+use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;

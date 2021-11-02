@@ -7,6 +7,8 @@
 
 namespace mako\security\password;
 
+use mako\security\password\exceptions\HasherException;
+
 use function password_hash;
 use function password_needs_rehash;
 use function password_verify;

@@ -10,9 +10,9 @@ namespace mako\security\crypto;
 use mako\common\AdapterManager;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\crypto\encrypters\OpenSSL;
+use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Key;
 use mako\security\Signer;
-use RuntimeException;
 
 use function vsprintf;
 
@@ -46,7 +46,7 @@ class CryptoManager extends AdapterManager
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
-			throw new RuntimeException(vsprintf('[ %s ] has not been defined in the crypto configuration.', [$configuration]));
+			throw new CryptoException(vsprintf('[ %s ] has not been defined in the crypto configuration.', [$configuration]));
 		}
 
 		$configuration = $this->configurations[$configuration];
