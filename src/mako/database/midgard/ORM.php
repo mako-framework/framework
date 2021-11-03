@@ -542,7 +542,7 @@ abstract class ORM implements JsonSerializable
 				case 'enum':
 					return is_object($value) ? $value : $extra::from($value);
 				default:
-					throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$this->cast[$name]]));
+					throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$type]));
 			}
 		}
 
