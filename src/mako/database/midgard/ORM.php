@@ -31,10 +31,12 @@ use function array_diff_key;
 use function array_flip;
 use function array_intersect_key;
 use function array_key_exists;
+use function array_key_first;
 use function array_merge_recursive;
 use function array_unique;
 use function count;
 use function in_array;
+use function is_object;
 use function json_encode;
 use function method_exists;
 use function strrpos;
@@ -517,7 +519,15 @@ abstract class ORM implements JsonSerializable
 	{
 		if(isset($this->cast[$name]) && $value !== null)
 		{
-			switch($this->cast[$name])
+			$type  = $this->cast[$name];
+			$extra = null;
+
+			if(is_array($type))
+			{
+				$extra = $this->cast[$name][$type = array_key_first($type)];
+			}
+
+			switch($type)
 			{
 				case 'int':
 					return (int) $value;
@@ -529,6 +539,8 @@ abstract class ORM implements JsonSerializable
 					return ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value);
 				case 'string':
 					return (string) $value;
+				case 'enum':
+					return is_object($value) ? $value : $extra::from($value);
 				default:
 					throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$this->cast[$name]]));
 			}

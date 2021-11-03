@@ -68,6 +68,16 @@ class Counter extends TestORM
 	protected $tableName = 'counters';
 }
 
+if(PHP_VERSION_ID >= 80100)
+{
+	include __DIR__ . '/_Enums.php';
+}
+
+class Enum extends TestORM
+{
+	protected $cast = ['value' => ['enum' => FooEnum::class]];
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -581,5 +591,31 @@ class ORMTest extends ORMTestCase
 		$array = $user->toArray();
 
 		$this->assertSame(['username' => 'foobar', 'relation_1' => null], $array);
+	}
+
+	/**
+	 *
+	 */
+	public function testEnumCasting(): void
+	{
+		$enum = Enum::get(1);
+
+		$this->assertIsObject($enum->value);
+
+		$this->assertInstanceOf(FooEnum::class, $enum->value);
+
+		$this->assertEquals(FooEnum::ONE, $enum->value);
+
+		$enum->value = FooEnum::TWO;
+
+		$enum->save();
+
+		$enum = Enum::get(1);
+
+		$this->assertIsObject($enum->value);
+
+		$this->assertInstanceOf(FooEnum::class, $enum->value);
+
+		$this->assertEquals(FooEnum::TWO, $enum->value);
 	}
 }

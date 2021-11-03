@@ -229,3 +229,17 @@ CREATE TABLE "nullables" (
 );
 
 INSERT INTO "nullables" ("id") VALUES (1);
+
+------------------------------------------------------------
+-- ENUMS
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "enums";
+CREATE TABLE "enums" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "value" integer DEFAULT NULL
+);
+
+INSERT INTO "enums" ("id", "value") VALUES (1, 1);
+INSERT INTO "enums" ("id", "value") VALUES (2, 2);
+
