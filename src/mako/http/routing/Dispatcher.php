@@ -336,7 +336,7 @@ class Dispatcher
 	{
 		$onion = new Onion($this->container, null, MiddlewareInterface::class);
 
-		$this->addMiddlewareToStack($onion, array_merge($this->globalMiddleware, $route->getMiddleware()));
+		$this->addMiddlewareToStack($onion, [...$this->globalMiddleware, ...$route->getMiddleware()]);
 
 		return $onion->peel(fn() => $this->executeAction($route), [$this->request, $this->response]);
 	}

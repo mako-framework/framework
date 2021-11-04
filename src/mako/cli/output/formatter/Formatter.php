@@ -9,7 +9,6 @@ namespace mako\cli\output\formatter;
 
 use mako\cli\output\formatter\exceptions\FormatterException;
 
-use function array_merge;
 use function array_pop;
 use function end;
 use function implode;
@@ -166,7 +165,7 @@ class Formatter implements FormatterInterface
 
 			foreach($this->userStyles[$tag] as $tag)
 			{
-				$codes = array_merge($codes, $this->getStyleCodes($tag));
+				$codes = [...$codes, ...$this->getStyleCodes($tag)];
 			}
 
 			return $codes;

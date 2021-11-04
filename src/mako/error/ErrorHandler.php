@@ -15,7 +15,6 @@ use mako\syringe\Container;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-use function array_merge;
 use function array_unique;
 use function array_unshift;
 use function error_get_last;
@@ -198,7 +197,7 @@ class ErrorHandler
 	 */
 	public function dontLog($exceptionType): void
 	{
-		$this->dontLog = array_unique(array_merge($this->dontLog, (array) $exceptionType));
+		$this->dontLog = array_unique([...$this->dontLog, ...(array) $exceptionType]);
 	}
 
 	/**

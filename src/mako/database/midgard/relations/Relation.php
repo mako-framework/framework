@@ -13,7 +13,6 @@ use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
 
 use function array_chunk;
-use function array_merge;
 use function array_shift;
 use function array_unique;
 use function count;
@@ -150,7 +149,7 @@ abstract class Relation extends Query
 			{
 				$query = clone $this;
 
-				$records = array_merge($records, $query->eagerCriterion($chunk)->all()->getItems());
+				$records = [...$records, ...$query->eagerCriterion($chunk)->all()->getItems()];
 			}
 
 			return $this->createResultSet($records);

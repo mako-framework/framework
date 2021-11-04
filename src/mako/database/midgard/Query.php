@@ -84,7 +84,7 @@ class Query extends QueryBuilder
 			return $this->columns;
 		}
 
-		return array_merge($this->columns, $this->relationCounters);
+		return [...$this->columns, ...$this->relationCounters];
 	}
 
 	/**
@@ -590,7 +590,7 @@ class Query extends QueryBuilder
 	 */
 	public function scope(string $scope, ...$arguments)
 	{
-		$this->model->{Str::underscored2camel($scope) . 'Scope'}(...array_merge([$this], $arguments));
+		$this->model->{Str::underscored2camel($scope) . 'Scope'}(...[$this, ...$arguments]);
 
 		return $this;
 	}

@@ -17,7 +17,6 @@ use mako\http\routing\constraints\ConstraintInterface;
 use mako\syringe\Container;
 use RuntimeException;
 
-use function array_merge;
 use function array_unique;
 use function http_build_query;
 use function implode;
@@ -160,7 +159,7 @@ class Router
 	 */
 	protected function constraintsAreSatisfied(Route $route): bool
 	{
-		foreach(array_merge($this->globalConstraints, $route->getConstraints()) as $constraint)
+		foreach([...$this->globalConstraints, ...$route->getConstraints()] as $constraint)
 		{
 			if($this->constraintFactory($constraint)->isSatisfied() === false)
 			{
@@ -208,7 +207,7 @@ class Router
 		{
 			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
 			{
-				$methods = array_merge($methods, $route->getMethods());
+				$methods = [...$methods, ...$route->getMethods()];
 			}
 		}
 

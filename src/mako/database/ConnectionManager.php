@@ -27,7 +27,6 @@ use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\Helper;
 use mako\database\query\helpers\Postgres as PostgresHelper;
 
-use function array_merge;
 use function explode;
 use function in_array;
 use function vsprintf;
@@ -260,7 +259,7 @@ class ConnectionManager extends BaseConnectionManager
 		{
 			foreach($this->connections as $connection)
 			{
-				$logs = array_merge($logs, $connection->getLog());
+				$logs = [...$logs, ...$connection->getLog()];
 			}
 		}
 

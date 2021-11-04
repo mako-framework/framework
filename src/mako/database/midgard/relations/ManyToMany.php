@@ -12,7 +12,6 @@ use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 
 use function array_diff;
-use function array_merge;
 use function array_shift;
 use function count;
 use function implode;
@@ -76,10 +75,10 @@ class ManyToMany extends Relation
 	{
 		if($this->lazy)
 		{
-			return array_merge(parent::getColumns(), $this->alongWith);
+			return [...parent::getColumns(), ...$this->alongWith];
 		}
 
-		return array_merge(parent::getColumns(), $this->alongWith, ["{$this->getJunctionTable()}.{$this->getForeignKey()}"]);
+		return [...parent::getColumns(), ...$this->alongWith, "{$this->getJunctionTable()}.{$this->getForeignKey()}"];
 	}
 
 	/**

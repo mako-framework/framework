@@ -11,7 +11,6 @@ use Closure;
 use mako\redis\exceptions\RedisException;
 use mako\utility\Str;
 
-use function array_merge;
 use function array_unique;
 use function count;
 use function explode;
@@ -887,7 +886,7 @@ class Redis
 			}
 		}
 
-		$pieces = array_merge($command, $arguments);
+		$pieces = [...$command, ...$arguments];
 
 		$command = '*' . count($pieces) . static::CRLF;
 

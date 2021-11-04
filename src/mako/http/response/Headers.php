@@ -15,7 +15,6 @@ use mako\http\response\traits\PatternMatcherTrait;
 use function array_column;
 use function array_filter;
 use function array_map;
-use function array_merge;
 use function count;
 use function in_array;
 use function strtolower;
@@ -87,7 +86,7 @@ class Headers implements Countable, IteratorAggregate
 		{
 			$headers = $this->headers[$normalizedName]['value'] ?? [];
 
-			$this->headers[$normalizedName]['value'] = array_merge($headers, [$value]);
+			$this->headers[$normalizedName]['value'] = [...$headers, $value];
 		}
 
 		return $this;

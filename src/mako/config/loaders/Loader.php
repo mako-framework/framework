@@ -11,7 +11,6 @@ use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\config\loaders\exceptions\LoaderException;
 use mako\file\FileSystem;
 
-use function array_merge;
 use function strpos;
 use function substr_replace;
 use function vsprintf;
@@ -58,7 +57,7 @@ class Loader implements LoaderInterface
 
 			$environmentFile = ($namespace === false) ? "{$environment}.{$file}" : substr_replace($file, "{$environment}.", $namespace + 2, 0);
 
-			$paths = array_merge($this->getCascadingFilePaths($environmentFile), $paths);
+			$paths = [...$this->getCascadingFilePaths($environmentFile), ...$paths];
 		}
 
 		// Include the first existing file or throw an exception if we don't find any config files

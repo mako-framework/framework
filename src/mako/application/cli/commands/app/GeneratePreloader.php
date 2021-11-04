@@ -15,7 +15,6 @@ use mako\cli\output\Output;
 use mako\file\FileSystem;
 use mako\reactor\Command;
 
-use function array_merge;
 use function array_unique;
 use function count;
 use function sprintf;
@@ -96,7 +95,7 @@ class GeneratePreloader extends Command
 
 		if($this->fileSystem->has("{$this->app->getPath()}/config/preload.php"))
 		{
-			$classes = array_merge($classes, $this->app->getConfig()->get('preload'));
+			$classes = [...$classes, ...$this->app->getConfig()->get('preload')];
 		}
 
 		return array_unique($classes);

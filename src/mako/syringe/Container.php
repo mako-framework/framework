@@ -19,7 +19,6 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 
-use function array_merge;
 use function array_replace;
 use function array_values;
 use function is_array;
@@ -429,7 +428,7 @@ class Container
 	{
 		// Pass the container as the first parameter followed by the the provided parameters
 
-		return $factory(...array_merge([$this], $parameters));
+		return $factory(...[$this, ...$parameters]);
 	}
 
 	/**

@@ -13,7 +13,6 @@ use mako\validator\rules\I18nAwareInterface;
 use function array_flip;
 use function array_intersect_key;
 use function array_map;
-use function array_merge;
 use function array_values;
 use function get_object_vars;
 use function implode;
@@ -88,7 +87,7 @@ trait I18nAwareTrait
 				}
 			}
 
-			return array_merge([$field], array_values($parameters));
+			return [$field, ...array_values($parameters)];
 		}
 
 		return [$field];

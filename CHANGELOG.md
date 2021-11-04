@@ -32,6 +32,11 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Moved the `mako\view\ViewException` exception to `mako\view\exceptions\ViewException`.
 * Moved the `mako\validator\ValidationException` exception to `mako\validator\exceptions\ValidationException`.
 
+#### Improvements
+
+* Various improvements and optimizations.
+
+> Check out the upgrade guide for details on how to upgrade from `7.3.*.`
 
 --------------------------------------------------------
 

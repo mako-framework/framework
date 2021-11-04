@@ -17,7 +17,6 @@ use PDO;
 
 use function array_diff_key;
 use function array_flip;
-use function array_merge;
 use function count;
 use function get_class_vars;
 use function is_array;
@@ -474,7 +473,7 @@ class Query
 
 		$previous->setOperations = [];
 
-		$setOperations = array_merge($this->setOperations, [['query' => $previous, 'operation' => $operation]]);
+		$setOperations = [...$this->setOperations, ...[['query' => $previous, 'operation' => $operation]]];
 
 		$this->reset();
 

@@ -15,7 +15,6 @@ use mako\database\query\Raw;
 use mako\database\query\Subquery;
 
 use function array_keys;
-use function array_merge;
 use function array_shift;
 use function enum_exists;
 use function explode;
@@ -103,7 +102,7 @@ class Compiler
 
 		if(!empty($parameters))
 		{
-			$this->params = array_merge($this->params, $parameters);
+			$this->params = [...$this->params, ...$parameters];
 		}
 
 		return $raw->getSql();
@@ -119,7 +118,7 @@ class Compiler
 	{
 		['sql' => $sql, 'params' => $params] = $query->getCompiler()->select();
 
-		$this->params = array_merge($this->params, $params);
+		$this->params = [...$this->params, ...$params];
 
 		return $sql;
 	}

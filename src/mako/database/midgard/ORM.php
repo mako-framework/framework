@@ -1080,7 +1080,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function protect($column)
 	{
-		$this->protected = $column === false ? [] : array_unique(array_merge($this->protected, (array) $column));
+		$this->protected = $column === false ? [] : array_unique([...$this->protected, ...(array) $column]);
 
 		return $this;
 	}

@@ -11,7 +11,6 @@ use Closure;
 use mako\onion\exceptions\OnionException;
 use mako\syringe\Container;
 
-use function array_merge;
 use function array_push;
 use function array_unshift;
 use function vsprintf;
@@ -136,7 +135,7 @@ class Onion
 	 */
 	protected function buildLayerClosure(object $layer, Closure $next): Closure
 	{
-		return fn(...$arguments) => $layer->execute(...array_merge($arguments, [$next]));
+		return fn(...$arguments) => $layer->execute(...[...$arguments, $next]);
 	}
 
 	/**

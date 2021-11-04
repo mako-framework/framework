@@ -7,7 +7,6 @@
 
 namespace mako\http\routing;
 
-use function array_merge;
 use function in_array;
 use function preg_replace;
 use function str_replace;
@@ -240,7 +239,7 @@ class Route
 	 */
 	public function middleware($middleware): Route
 	{
-		$this->middleware = array_merge($this->middleware, (array) $middleware);
+		$this->middleware = [...$this->middleware, ...(array) $middleware];
 
 		return $this;
 	}
@@ -253,7 +252,7 @@ class Route
 	 */
 	public function constraint($constraint): Route
 	{
-		$this->constraints = array_merge($this->constraints, (array) $constraint);
+		$this->constraints = [...$this->constraints, ...(array) $constraint];
 
 		return $this;
 	}
