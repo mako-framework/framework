@@ -9,8 +9,8 @@ namespace mako\pagination;
 
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
+use mako\pagination\exceptions\PaginationException;
 use mako\view\ViewFactory;
-use RuntimeException;
 
 use function ceil;
 use function json_encode;
@@ -284,12 +284,12 @@ class Pagination implements PaginationInterface
 		{
 			if(empty($this->request))
 			{
-				throw new RuntimeException('A [ Request ] instance is required to generate the pagination array.');
+				throw new PaginationException('A [ Request ] instance is required to generate the pagination array.');
 			}
 
 			if(empty($this->urlBuilder))
 			{
-				throw new RuntimeException('A [ URLBuilder ] instance is required to generate the pagination array.');
+				throw new PaginationException('A [ URLBuilder ] instance is required to generate the pagination array.');
 			}
 
 			$pagination = $this->toArray();
@@ -348,7 +348,7 @@ class Pagination implements PaginationInterface
 	{
 		if(empty($this->viewFactory))
 		{
-			throw new RuntimeException('A [ ViewFactory ] instance is required to render pagination views.');
+			throw new PaginationException('A [ ViewFactory ] instance is required to render pagination views.');
 		}
 
 		return $this->viewFactory->create($view, $this->pagination())->render();
