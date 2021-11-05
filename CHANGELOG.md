@@ -40,6 +40,14 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 
 --------------------------------------------------------
 
+### 7.3.2 <small>(2021-11-05)</small>
+
+#### Bugfixes
+
+* The `app.routes` command now works with route actions defined as arrays.
+
+--------------------------------------------------------
+
 ### 7.3.1 <small>(2021-10-25)</small>
 
 #### New

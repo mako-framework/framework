@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\app;
 
 use Closure;
+use mako\http\routing\Route;
 use mako\http\routing\Routes;
 use mako\reactor\Command;
 
@@ -24,6 +25,30 @@ class ListRoutes extends Command
 	protected $description = 'Lists all registered routes.';
 
 	/**
+	 * Returns a normalzed action name.
+	 *
+	 * @param  \mako\http\routing\Route $route Route
+	 * @return string
+	 */
+	protected function getNormalizedActionName(Route $route): string
+	{
+		$action = $route->getAction();
+
+		if($action instanceof Closure)
+		{
+			return 'Closure';
+		}
+		elseif(is_array($action))
+		{
+			[$class, $method] = $action;
+
+			return "[{$class}::class, '{$method}']";
+		}
+
+		return $action;
+	}
+
+	/**
 	 * Executes the command.
 	 *
 	 * @param \mako\http\routing\Routes $routes Route collection
@@ -36,17 +61,11 @@ class ListRoutes extends Command
 
 		foreach($routes->getRoutes() as $route)
 		{
-			// Normalize action name
-
-			$action = ($route->getAction() instanceof Closure) ? 'Closure' : $route->getAction();
-
-			// Build table row
-
 			$routeCollection[] =
 			[
 				$route->getRoute(),
 				implode(', ', $route->getMethods()),
-				$action,
+				$this->getNormalizedActionName($route),
 				implode(', ', $route->getMiddleware()),
 				implode(', ', $route->getConstraints()),
 				(string) $route->getName(),
