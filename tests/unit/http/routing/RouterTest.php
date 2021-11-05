@@ -7,13 +7,16 @@
 
 namespace mako\tests\unit\http\routing;
 
+use Closure;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\exceptions\NotFoundException;
 use mako\http\Request;
 use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\Headers;
+use mako\http\response\senders\Redirect;
 use mako\http\routing\constraints\ConstraintInterface;
+use mako\http\routing\Route;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\syringe\Container;
@@ -72,7 +75,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/bar', 'Foo::bar');
+		$routes->get('/bar', fn() => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -94,7 +97,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->post('/foo', 'Foo::bar');
+		$routes->post('/foo', fn() => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -123,7 +126,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo/', 'Foo::bar');
+		$routes->get('/foo/', fn() => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -135,7 +138,7 @@ class RouterTest extends TestCase
 
 		$routed = $router->route($request);
 
-		$this->assertInstanceOf('\mako\http\routing\Route', $routed);
+		$this->assertInstanceOf(Route::class, $routed);
 
 		$this->assertEmpty($routed->getRoute());
 
@@ -143,7 +146,7 @@ class RouterTest extends TestCase
 
 		$action = $routed->getAction();
 
-		$this->assertInstanceOf('Closure', $action);
+		$this->assertInstanceOf(Closure::class, $action);
 
 		//
 
@@ -161,7 +164,7 @@ class RouterTest extends TestCase
 
 		$returnValue = $action($request);
 
-		$this->assertInstanceOf('mako\http\response\senders\Redirect', $returnValue);
+		$this->assertInstanceOf(Redirect::class, $returnValue);
 
 		//
 
@@ -191,7 +194,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->post('/foo/', 'Foo::bar');
+		$routes->post('/foo/', fn() => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -201,7 +204,7 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
-		$routed = $router->route($request);
+		$router->route($request);
 	}
 
 	/**
@@ -211,7 +214,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo/', 'Foo::bar');
+		$routes->get('/foo/', fn() => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -223,7 +226,7 @@ class RouterTest extends TestCase
 
 		$routed = $router->route($request);
 
-		$this->assertInstanceOf('\mako\http\routing\Route', $routed);
+		$this->assertInstanceOf(Route::class, $routed);
 
 		$this->assertEmpty($routed->getRoute());
 
@@ -251,7 +254,7 @@ class RouterTest extends TestCase
 
 		$returnValue = $action($request);
 
-		$this->assertInstanceOf('mako\http\response\senders\Redirect', $returnValue);
+		$this->assertInstanceOf(Redirect::class, $returnValue);
 
 		//
 
@@ -259,7 +262,7 @@ class RouterTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org/index.php/en/foo/?foo=bar');
 
-		$response = Mockery::mock('mako\http\Response');
+		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(301);
 
@@ -277,7 +280,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->post('/foo', 'Foo::bar');
+		$routes->post('/foo', fn() => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -289,7 +292,7 @@ class RouterTest extends TestCase
 
 		$routed = $router->route($request);
 
-		$this->assertInstanceOf('mako\http\routing\Route', $routed);
+		$this->assertInstanceOf(Route::class, $routed);
 
 		$action = $routed->getAction();
 
@@ -301,7 +304,7 @@ class RouterTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->once()->with('Allow', 'POST,OPTIONS');
 
-		$response = Mockery::mock('mako\http\Response');
+		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
 
@@ -315,9 +318,9 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->post('/foo', 'Foo::bar', 'post.foo');
+		$routes->post('/foo', fn() => 'Hello, world!', 'post.foo');
 
-		$routes->get('/foo', 'Foo::bar', 'get.foo');
+		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo');
 
 		$router = new Router($routes);
 
@@ -341,9 +344,9 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->post('/foo/{id}', 'Foo::bar', 'post.foo');
+		$routes->post('/foo/{id}', fn() => 'Hello, world!', 'post.foo');
 
-		$routes->get('/foo/{id}', 'Foo::bar', 'get.foo');
+		$routes->get('/foo/{id}', fn() => 'Hello, world!', 'get.foo');
 
 		$router = new Router($routes);
 
@@ -369,9 +372,9 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('bar');
+		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo')->constraint('bar');
 
-		$container = Mockery::mock('\mako\syringe\Container');
+		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with(BarConstraint::class, [])->andReturn(new BarConstraint);
 
@@ -401,7 +404,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('foo');
+		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo')->constraint('foo');
 
 		$container = Mockery::mock(Container::class);
 
@@ -429,7 +432,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', 'Foo::bar', 'get.foo');
+		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo');
 
 		$container = Mockery::mock(Container::class);
 
@@ -461,7 +464,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', 'Foo::bar', 'get.foo')->constraint('foo');
+		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo')->constraint('foo');
 
 		$router = new Router($routes);
 

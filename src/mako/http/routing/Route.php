@@ -36,7 +36,7 @@ class Route
 	/**
 	 * Route action.
 	 *
-	 * @var \Closure|string
+	 * @var array|\Closure|string
 	 */
 	protected $action;
 
@@ -92,10 +92,10 @@ class Route
 	/**
 	 * Constructor.
 	 *
-	 * @param array          $methods Route methods
-	 * @param string         $route   Route
-	 * @param array|\Closure $action  Route action
-	 * @param string|null    $name    Route name
+	 * @param array                 $methods Route methods
+	 * @param string                $route   Route
+	 * @param array|\Closure|string $action  Route action
+	 * @param string|null           $name    Route name
 	 */
 	public function __construct(array $methods, string $route, $action, ?string $name = null)
 	{
@@ -133,7 +133,7 @@ class Route
 	/**
 	 * Returns the route action.
 	 *
-	 * @return array|\Closure
+	 * @return array|\Closure|string
 	 */
 	public function getAction()
 	{

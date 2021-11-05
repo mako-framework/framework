@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http\routing;
 
+use mako\http\routing\Route;
 use mako\http\routing\Routes;
 use mako\tests\TestCase;
 use RuntimeException;
@@ -23,11 +24,11 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->get('/foo', 'FooController::fooAction');
+		$routes->get('/foo', fn() => 'Hello, world!');
 
 		$this->assertCount(1, $routes->getRoutes());
 
-		$routes->get('/bar', 'FooController::barAction');
+		$routes->get('/bar', fn() => 'Hello, world!');
 
 		$this->assertCount(2, $routes->getRoutes());
 	}
@@ -39,19 +40,19 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->get('/foo', 'FooController::fooAction');
+		$routes->get('/foo', fn() => 'Hello, world!');
 
-		$routes->post('/foo', 'FooController::fooAction');
+		$routes->post('/foo', fn() => 'Hello, world!');
 
-		$routes->put('/foo', 'FooController::fooAction');
+		$routes->put('/foo', fn() => 'Hello, world!');
 
-		$routes->patch('/foo', 'FooController::fooAction');
+		$routes->patch('/foo', fn() => 'Hello, world!');
 
-		$routes->delete('/foo', 'FooController::fooAction');
+		$routes->delete('/foo', fn() => 'Hello, world!');
 
-		$routes->all('/foo', 'FooController::fooAction');
+		$routes->all('/foo', fn() => 'Hello, world!');
 
-		$routes->register(['OPTIONS', 'HEAD'], '/foo', 'FooController::fooAction');
+		$routes->register(['OPTIONS', 'HEAD'], '/foo', fn() => 'Hello, world!');
 
 		$routes = $routes->getRoutes();
 
@@ -77,13 +78,13 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->get('/foo', 'FooController::fooAction', 'foo');
+		$routes->get('/foo', fn() => 'Hello, world!', 'foo');
 
 		$this->assertTrue($routes->hasNamedRoute('foo'));
 
 		$this->assertFalse($routes->hasNamedRoute('bar'));
 
-		$this->assertInstanceOf('\mako\http\routing\Route', $routes->getNamedRoute('foo'));
+		$this->assertInstanceOf(Route::class, $routes->getNamedRoute('foo'));
 	}
 
 	/**
@@ -107,9 +108,9 @@ class RoutesTest extends TestCase
 
 		$routes->group(['prefix' => 'baz'], function($routes): void
 		{
-			$routes->get('/foo', 'FooController::fooAction');
+			$routes->get('/foo', fn() => 'Hello, world!');
 
-			$routes->get('/bar', 'FooController::barAction');
+			$routes->get('/bar', fn() => 'Hello, world!');
 		});
 
 		$routes = $routes->getRoutes();
@@ -130,9 +131,9 @@ class RoutesTest extends TestCase
 		{
 			$routes->group(['prefix' => 'bax'], function($routes): void
 			{
-				$routes->get('/foo', 'FooController::fooAction');
+				$routes->get('/foo', fn() => 'Hello, world!');
 
-				$routes->get('/bar', 'FooController::barAction');
+				$routes->get('/bar', fn() => 'Hello, world!');
 			});
 		});
 

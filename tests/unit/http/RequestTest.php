@@ -8,7 +8,9 @@
 namespace mako\tests\unit\http;
 
 use mako\http\Request;
+use mako\http\request\UploadedFile;
 use mako\http\routing\Route;
+use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;
 use RuntimeException;
@@ -681,7 +683,7 @@ class RequestTest extends TestCase
 	 */
 	public function testSignedCookie(): void
 	{
-		$signer = Mockery::mock('\mako\security\Signer');
+		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->withArgs(['bar'])->andReturn('bar');
 
@@ -914,7 +916,7 @@ class RequestTest extends TestCase
 
 		$this->assertNull($request->getRoute());
 
-		$route = Mockery::mock('mako\http\routing\Route');
+		$route = Mockery::mock(Route::class);
 
 		$request->setRoute($route);
 
@@ -965,7 +967,7 @@ class RequestTest extends TestCase
 
 		$file = $request->getFiles()->get('upload');
 
-		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
+		$this->assertInstanceOf(UploadedFile::class, $file);
 
 		$this->assertEquals('foo', $file->getReportedFilename());
 
@@ -1002,7 +1004,7 @@ class RequestTest extends TestCase
 
 		$file = $request->getFiles()->get('upload.0');
 
-		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
+		$this->assertInstanceOf(UploadedFile::class, $file);
 
 		$this->assertEquals('foo', $file->getReportedFilename());
 
@@ -1016,7 +1018,7 @@ class RequestTest extends TestCase
 
 		$file = $request->getFiles()->get('upload.1');
 
-		$this->assertInstanceOf('mako\http\request\UploadedFile', $file);
+		$this->assertInstanceOf(UploadedFile::class, $file);
 
 		$this->assertEquals('bar', $file->getReportedFilename());
 

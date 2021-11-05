@@ -8,6 +8,7 @@
 namespace mako\tests\unit\http\request;
 
 use mako\http\request\Cookies;
+use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -89,7 +90,7 @@ class CookiesTest extends TestCase
 	 */
 	public function testAddSigned(): void
 	{
-		$signer = Mockery::mock('mako\security\Signer');
+		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('sign')->once()->with('bar')->andReturn('signedbar');
 
@@ -133,7 +134,7 @@ class CookiesTest extends TestCase
 	 */
 	public function testGetSigned(): void
 	{
-		$signer = Mockery::mock('mako\security\Signer');
+		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->once()->with('signedbar')->andReturn('bar');
 

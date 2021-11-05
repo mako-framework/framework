@@ -86,7 +86,7 @@ class ResponseTest extends TestCase
 
 		$response->setBody(new Redirect('foobar'));
 
-		$this->assertInstanceOf('\mako\http\response\senders\Redirect', $response->getBody());
+		$this->assertInstanceOf(Redirect::class, $response->getBody());
 	}
 
 	/**
@@ -98,7 +98,7 @@ class ResponseTest extends TestCase
 
 		$response->setBody(new JSON('foobar'));
 
-		$this->assertInstanceOf('\mako\http\response\builders\JSON', $response->getBody());
+		$this->assertInstanceOf(JSON::class, $response->getBody());
 	}
 
 	/**
