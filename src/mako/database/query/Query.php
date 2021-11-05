@@ -473,7 +473,7 @@ class Query
 
 		$previous->setOperations = [];
 
-		$setOperations = [...$this->setOperations, ...[['query' => $previous, 'operation' => $operation]]];
+		$setOperations = [...$this->setOperations, ['query' => $previous, 'operation' => $operation]];
 
 		$this->reset();
 
