@@ -37,7 +37,10 @@ class StoreTest extends TestCase
 	 */
 	protected function getStore()
 	{
-		return Mockery::mock(TestStore::class . '[put,has,get,remove,clear]')->makePartial();
+		/** @var \Mockery\MockInterface $mock */
+		$mock =  Mockery::mock(TestStore::class . '[put,has,get,remove,clear]');
+
+		return $mock->makePartial();
 	}
 
 	/**
@@ -153,7 +156,7 @@ class StoreTest extends TestCase
 	 */
 	public function testGetOrElseExisting(): void
 	{
-		$closure = function() { return 'from closure'; };
+		$closure = fn() => 'from closure';
 
 		$store = $this->getStore();
 
@@ -170,7 +173,7 @@ class StoreTest extends TestCase
 	 */
 	public function testGetOrElseNonExisting(): void
 	{
-		$closure = function() { return 'from closure'; };
+		$closure = fn() => 'from closure';
 
 		$store = $this->getStore();
 

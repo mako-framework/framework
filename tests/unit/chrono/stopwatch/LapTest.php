@@ -24,7 +24,7 @@ class LapTest extends TestCase
 
 		$this->assertEquals(0.0, $lap->getStartTime());
 
-		$this->assertInstanceOf('mako\chrono\stopwatch\Lap', $lap->start());
+		$this->assertInstanceOf(Lap::class, $lap->start());
 	}
 
 	/**

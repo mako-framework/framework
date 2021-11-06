@@ -8,8 +8,10 @@
 namespace mako\tests\unit\cache\stores;
 
 use mako\cache\stores\File;
+use mako\file\FileSystem;
 use mako\tests\TestCase;
 use Mockery;
+use stdClass;
 
 /**
  * @group unit
@@ -17,19 +19,19 @@ use Mockery;
 class FileTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\file\FileSystem|\Mockery\MockInterface
 	 */
 	public function getFileSystem()
 	{
-		return Mockery::mock('mako\file\FileSystem');
+		return Mockery::mock(FileSystem::class);
 	}
 
 	/**
-	 *
+	 * @return \Mockery\MockInterface|\stdClass
 	 */
 	public function getSplFileObject()
 	{
-		return Mockery::mock('StdClass'); // ... because SplFileObject can't be mocked
+		return Mockery::mock(stdClass::class); // ... because SplFileObject can't be mocked
 	}
 
 	/**

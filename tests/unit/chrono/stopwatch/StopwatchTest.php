@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\chrono\stopwatch;
 
+use mako\chrono\stopwatch\Lap;
 use mako\chrono\stopwatch\Stopwatch;
 use mako\tests\TestCase;
 
@@ -22,7 +23,7 @@ class StopwatchTest extends TestCase
 	{
 		$stopwatch = new Stopwatch;
 
-		$this->assertInstanceOf('mako\chrono\stopwatch\Stopwatch', $stopwatch->start());
+		$this->assertInstanceOf(Stopwatch::class, $stopwatch->start());
 
 		$this->assertTrue($stopwatch->getLapCount() === 1);
 	}
@@ -54,7 +55,7 @@ class StopwatchTest extends TestCase
 
 		$stopwatch->start();
 
-		$this->assertContainsOnlyInstancesOf('mako\chrono\stopwatch\Lap', $stopwatch->getLaps());
+		$this->assertContainsOnlyInstancesOf(Lap::class, $stopwatch->getLaps());
 
 		$this->assertTrue(count($stopwatch->getLaps()) === 1);
 	}

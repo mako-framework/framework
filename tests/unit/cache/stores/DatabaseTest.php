@@ -8,6 +8,8 @@
 namespace mako\tests\unit\cache\stores;
 
 use mako\cache\stores\Database;
+use mako\database\connections\Connection;
+use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -17,19 +19,19 @@ use Mockery;
 class DatabaseTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\database\connections\Connection|\Mockery\MockInterface
 	 */
 	public function getDatabaseConnection()
 	{
-		return Mockery::mock('mako\database\connections\Connection');
+		return Mockery::mock(Connection::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\database\query\Query|\Mockery\MockInterface
 	 */
 	public function getQueryBuilder()
 	{
-		return Mockery::mock('mako\database\query\Query');
+		return Mockery::mock(Query::class);
 	}
 
 	/**
@@ -251,6 +253,6 @@ class DatabaseTest extends TestCase
 
 		$store = new Database($connection, 'mako_cache');
 
-		$deleted = $store->clear();
+		$store->clear();
 	}
 }

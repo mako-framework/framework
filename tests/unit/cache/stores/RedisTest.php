@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cache\stores;
 
 use mako\cache\stores\Redis;
+use mako\redis\Redis as RedisClient;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -17,11 +18,11 @@ use Mockery;
 class RedisTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\redis\Redis|\Mockery\MockInterface
 	 */
 	public function getRedisClient()
 	{
-		return Mockery::mock('mako\redis\Redis');
+		return Mockery::mock(RedisClient::class);
 	}
 
 	/**
