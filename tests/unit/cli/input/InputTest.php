@@ -19,7 +19,7 @@ use Mockery;
 class InputTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\cli\input\reader\ReaderInterface|\Mockery\MockInterface
 	 */
 	public function getReader()
 	{
@@ -35,6 +35,7 @@ class InputTest extends TestCase
 
 		$reader->shouldReceive('read')->once()->andReturn('user input');
 
+		/** @var \mako\cli\input\arguments\ArgvParser|\Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
@@ -49,6 +50,7 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
+		/** @var \mako\cli\input\arguments\ArgvParser|\Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
@@ -63,6 +65,7 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
+		/** @var \mako\cli\input\arguments\ArgvParser|\Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$arguments->shouldReceive('parse')->once()->andReturn(['foo' => 'bar']);
@@ -79,6 +82,7 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
+		/** @var \mako\cli\input\arguments\ArgvParser|\Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$arguments->shouldReceive('getArgumentValue')->once()->with('name', 'default')->andReturn('value');

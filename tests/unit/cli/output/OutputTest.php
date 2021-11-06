@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output;
 
 use mako\cli\Environment;
+use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 use mako\cli\output\writer\WriterInterface;
 use mako\tests\TestCase;
@@ -19,19 +20,19 @@ use Mockery;
 class OutputTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\cli\output\writer\WriterInterface|\Mockery\MockInterface
 	 */
 	public function getWriter()
 	{
-		return Mockery::mock('mako\cli\output\writer\WriterInterface');
+		return Mockery::mock(WriterInterface::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\cli\output\formatter\FormatterInterface|\Mockery\MockInterface
 	 */
 	public function getFormatter()
 	{
-		return Mockery::mock('mako\cli\output\formatter\FormatterInterface');
+		return Mockery::mock(FormatterInterface::class);
 	}
 
 	/**
@@ -172,6 +173,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with("\e[H\e[2J");
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -191,6 +193,7 @@ class OutputTest extends TestCase
 
  		$std->shouldReceive('write')->never();
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -210,6 +213,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with("\r\33[2K");
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -229,6 +233,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->never();
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -250,6 +255,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->times(2)->with("\r\33[2K");
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -269,6 +275,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->never();
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -346,7 +353,7 @@ class OutputTest extends TestCase
 
 		$output = new Output($std, $err, $formatter);
 
-		$this->assertInstanceOf('mako\cli\output\formatter\FormatterInterface', $output->getFormatter());
+		$this->assertInstanceOf(FormatterInterface::class, $output->getFormatter());
 	}
 
 	/**
@@ -364,7 +371,7 @@ class OutputTest extends TestCase
 
 		$output->setFormatter($formatter);
 
-		$this->assertInstanceOf('mako\cli\output\formatter\FormatterInterface', $output->getFormatter());
+		$this->assertInstanceOf(FormatterInterface::class, $output->getFormatter());
 	}
 
 	/**
@@ -382,6 +389,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('isDirect')->once()->andReturn(true);
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -408,6 +416,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with('formatted');
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);

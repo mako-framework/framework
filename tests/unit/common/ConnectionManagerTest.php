@@ -83,7 +83,7 @@ class ConnectionManagerTest extends TestCase
 			return $this->connections;
 		})->bindTo($manager, ConnectionManager::class);
 
-		$connection = $manager->getConnection();
+		$manager->getConnection();
 
 		$this->assertTrue(isset($getConnections()['foo']));
 
@@ -93,7 +93,7 @@ class ConnectionManagerTest extends TestCase
 
 		//
 
-		$connection = $manager->getConnection('foo');
+		$manager->getConnection('foo');
 
 		$this->assertTrue(isset($getConnections()['foo']));
 

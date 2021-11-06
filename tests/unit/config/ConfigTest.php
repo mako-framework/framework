@@ -8,6 +8,7 @@
 namespace mako\tests\unit\config;
 
 use mako\config\Config;
+use mako\config\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -17,11 +18,11 @@ use Mockery;
 class ConfigTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\config\loaders\LoaderInterface|\Mockery\MockInterface
 	 */
 	public function getLoader()
 	{
-		return Mockery::mock('mako\config\loaders\LoaderInterface');
+		return Mockery::mock(LoaderInterface::class);
 	}
 
 	/**
@@ -109,6 +110,6 @@ class ConfigTest extends TestCase
 
 		$config = new Config($loader);
 
-		$this->assertInstanceOf('mako\config\loaders\LoaderInterface', $config->getLoader());
+		$this->assertInstanceOf(LoaderInterface::class, $config->getLoader());
 	}
 }

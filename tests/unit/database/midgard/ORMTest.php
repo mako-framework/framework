@@ -8,6 +8,7 @@
 namespace mako\tests\unit\database\midgard;
 
 use DateTime;
+use mako\chrono\Time;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -158,7 +159,7 @@ class ORMTest extends TestCase
 	{
 		$user = new TestUser1();
 
-		$this->assertEquals('\mako\tests\unit\database\midgard\TestUser1', $user->getClass());
+		$this->assertEquals('\\' . TestUser1::class, $user->getClass());
 	}
 
 	/**
@@ -350,7 +351,7 @@ class ORMTest extends TestCase
 	{
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertInstanceOf('\mako\chrono\Time', $user->created_at);
+		$this->assertInstanceOf(Time::class, $user->created_at);
 	}
 
 	/**
@@ -510,7 +511,8 @@ class ORMTest extends TestCase
 
 		//
 
-		$cast = Mockery::mock('mako\tests\unit\database\midgard\TestCastingDate');
+		/** @var \mako\tests\unit\database\midgard\TestCastingDate|\Mockery\MockInterface $cast */
+		$cast = Mockery::mock(TestCastingDate::class);
 
 		$cast->shouldAllowMockingProtectedMethods();
 

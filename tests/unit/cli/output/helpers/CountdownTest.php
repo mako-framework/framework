@@ -22,6 +22,7 @@ class CountdownTest extends TestCase
 	 */
 	public function testCountdownFromDefault(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r5     ");
@@ -46,7 +47,10 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$countdown = Mockery::mock(Countdown::class, [$output])->shouldAllowMockingProtectedMethods();
+		/** @var \mako\cli\output\helpers\Countdown|\Mockery\MockInterface $countdown */
+		$countdown = Mockery::mock(Countdown::class, [$output]);
+
+		$countdown->shouldAllowMockingProtectedMethods();
 
 		$countdown->makePartial();
 
@@ -60,6 +64,7 @@ class CountdownTest extends TestCase
 	 */
 	public function testCountdownFrom2(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r2     ");
@@ -72,7 +77,10 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$countdown = Mockery::mock(Countdown::class, [$output])->shouldAllowMockingProtectedMethods();
+		/** @var \mako\cli\output\helpers\Countdown|\Mockery\MockInterface $countdown */
+		$countdown = Mockery::mock(Countdown::class, [$output]);
+
+		$countdown->shouldAllowMockingProtectedMethods();
 
 		$countdown->makePartial();
 

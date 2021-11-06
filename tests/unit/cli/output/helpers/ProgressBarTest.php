@@ -23,6 +23,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithZeroItems(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->never();
@@ -37,6 +38,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testBasicProgress(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
@@ -73,6 +75,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithCustomWidth(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ----------------------------------------   0% ");
@@ -111,6 +114,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithCustomTemplates(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ____________________   0% ");
@@ -151,6 +155,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWithPrefix(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 00/10 --------------------   0% ");
@@ -189,6 +194,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWith100ItemsAndDefaultMinTimeBetweenRedraw(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(102);
@@ -216,6 +222,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressTimeBetweenRedraw(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(3);
@@ -238,6 +245,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testProgressWith100ItemsAndCustomMinTimeBetweenRedraw(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write');
@@ -276,6 +284,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testRemoveIncomplete(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
@@ -294,6 +303,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testRemoveComplete(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
@@ -336,6 +346,7 @@ class ProgressBarTest extends TestCase
 	{
 		$this->expectException(CliException::class);
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(12);

@@ -8,6 +8,8 @@
 namespace mako\tests\unit\cli\input\helpers;
 
 use mako\cli\input\helpers\Confirmation;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,11 +23,13 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationYes(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('y');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [y/N] ');
 
@@ -39,11 +43,13 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationNo(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('n');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [y/N] ');
 
@@ -57,11 +63,13 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationDefaultNo(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [y/N] ');
 
@@ -75,11 +83,13 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationDefaultYes(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [Y/n] ');
 
@@ -93,11 +103,13 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationYesCustom(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('j');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [j/N] ');
 
@@ -111,12 +123,14 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationWithInvalidInput(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('x');
 		$input->shouldReceive('read')->once()->andReturn('y');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->twice()->with('Delete all files? [y/N] ');
 

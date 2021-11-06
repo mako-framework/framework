@@ -8,6 +8,8 @@
 namespace mako\tests\unit\cli\input\helpers;
 
 use mako\cli\input\helpers\Select;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,11 +23,13 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickFirstOption(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
 
@@ -41,11 +45,13 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickSecondOption(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('2');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
 
@@ -61,13 +67,15 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickFirstOptionAfterPickingInvalidOption(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('3');
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->twice()->with('Favorite food?');
 

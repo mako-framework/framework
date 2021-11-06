@@ -8,6 +8,8 @@
 namespace mako\tests\unit\cli\input\helpers;
 
 use mako\cli\input\helpers\Question;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -21,11 +23,13 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestion(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('foobar');
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username: ');
 
@@ -39,11 +43,13 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestionWithNoInputAndNullDefault(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username: ');
 
@@ -57,11 +63,13 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestionWithNoInputAndCustomDefault(): void
 	{
-		$input = Mockery::mock('mako\cli\input\Input');
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		$output = Mockery::mock('mako\cli\output\Output');
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username: ');
 

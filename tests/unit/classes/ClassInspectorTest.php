@@ -45,8 +45,8 @@ class ClassInspectorTest extends TestCase
 
 		$expectedParents =
 		[
-			'mako\tests\unit\classes\E' => 'mako\tests\unit\classes\E',
-			'mako\tests\unit\classes\D' => 'mako\tests\unit\classes\D',
+			E::class => E::class,
+			D::class => D::class,
 		];
 
 		$this->assertSame($expectedParents, $parents);
@@ -61,10 +61,10 @@ class ClassInspectorTest extends TestCase
 
 		$exptectedInterfaces =
 		[
-			'mako\tests\unit\classes\IC' => 'mako\tests\unit\classes\IC',
-			'mako\tests\unit\classes\ID' => 'mako\tests\unit\classes\ID',
-			'mako\tests\unit\classes\IA' => 'mako\tests\unit\classes\IA',
-			'mako\tests\unit\classes\IB' => 'mako\tests\unit\classes\IB',
+			IC::class => IC::class,
+			ID::class => ID::class,
+			IA::class => IA::class,
+			IB::class => IB::class,
 		];
 
 		// We are sorting the arrays since the order doesn't matter and it changed between PHP 7.3 and 7.4
@@ -80,15 +80,15 @@ class ClassInspectorTest extends TestCase
 	 */
 	public function testGetTraits(): void
 	{
-		$traitsD = ClassInspector::getTraits('mako\tests\unit\classes\D');
+		$traitsD = ClassInspector::getTraits(D::class);
 
-		$traitsE = ClassInspector::getTraits('mako\tests\unit\classes\E');
+		$traitsE = ClassInspector::getTraits(E::class);
 
 		$expectedTraits =
 		[
-			'mako\tests\unit\classes\C' => 'mako\tests\unit\classes\C',
-			'mako\tests\unit\classes\B' => 'mako\tests\unit\classes\B',
-			'mako\tests\unit\classes\A' => 'mako\tests\unit\classes\A',
+			C::class => C::class,
+			B::class => B::class,
+			A::class => A::class,
 		];
 
 		$this->assertEquals($expectedTraits, $traitsD);

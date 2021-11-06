@@ -8,7 +8,6 @@
 namespace mako\tests\unit\cli\output\helpers;
 
 use mako\cli\Environment;
-
 use mako\cli\output\helpers\Alert;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -24,8 +23,10 @@ class AlertTest extends TestCase
 	 */
 	public function testRender(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('getWidth')->once()->andReturn(15);
@@ -53,6 +54,7 @@ class AlertTest extends TestCase
 	 */
 	public function testRenderWithWidth(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
@@ -85,8 +87,10 @@ class AlertTest extends TestCase
 		. '               '
 		. PHP_EOL;
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('getWidth')->once()->andReturn(15);

@@ -22,6 +22,7 @@ class BellTest extends TestCase
 	 */
 	public function testRing(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\x07");
@@ -36,6 +37,7 @@ class BellTest extends TestCase
 	 */
 	public function testRingMultipleTimes(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\x07\x07\x07");
