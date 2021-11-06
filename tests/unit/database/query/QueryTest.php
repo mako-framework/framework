@@ -7,6 +7,9 @@
 
 namespace mako\tests\unit\database\query;
 
+use mako\database\connections\Connection;
+use mako\database\query\compilers\Compiler;
+use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
@@ -17,15 +20,16 @@ use Mockery;
 class QueryTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\database\query\Query
 	 */
 	public function getQuery()
 	{
-		$connection = Mockery::mock('mako\database\connections\Connection');
+		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
-		$connection->shouldReceive('getQueryCompiler')->andReturn(Mockery::mock('\mako\database\query\compilers\Compiler'));
+		$connection->shouldReceive('getQueryCompiler')->andReturn(Mockery::mock(Compiler::class));
 
 		return new Query($connection);
 	}

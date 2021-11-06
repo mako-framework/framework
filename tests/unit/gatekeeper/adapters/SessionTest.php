@@ -14,6 +14,7 @@ use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
+use mako\http\request\Cookies as RequestCookies;
 use mako\http\Response;
 use mako\http\response\Cookies as ResponseCookies;
 use mako\http\response\Headers as ResponseHeaders;
@@ -28,7 +29,7 @@ use RuntimeException;
 class SessionTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\http\Request|\Mockery\MockInterface
 	 */
 	public function getRequest()
 	{
@@ -36,7 +37,7 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\http\Response|\Mockery\MockInterface
 	 */
 	public function getResponse()
 	{
@@ -44,17 +45,15 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\session\Session|\Mockery\MockInterface
 	 */
 	public function getSession()
 	{
-		$session = Mockery::mock(HttpSession::class);
-
-		return $session;
+		return Mockery::mock(HttpSession::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\gatekeeper\repositories\user\UserRepositoryInterface|\Mockery\MockInterface
 	 */
 	public function getUserRepository()
 	{
@@ -62,7 +61,7 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface
 	 */
 	public function getUser()
 	{
@@ -70,7 +69,7 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\gatekeeper\repositories\group\GroupRepositoryInterface|\Mockery\MockInterface
 	 */
 	public function getGroupRepository()
 	{
@@ -78,7 +77,7 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface|\Mockery\MockInterface
 	 */
 	public function getGroup()
 	{
@@ -216,7 +215,8 @@ class SessionTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$cookies = Mockery::mock('\mako\http\request\Cookies');
+		/** @var \mako\http\request\Cookies|\Mockery\MockInterface $cookies */
+		$cookies = Mockery::mock(RequestCookies::class);
 
 		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key')->andReturn(null);
 
@@ -250,7 +250,8 @@ class SessionTest extends TestCase
 
 		$request = $this->getRequest();
 
-		$cookies = Mockery::mock('\mako\http\request\Cookies');
+		/** @var \mako\http\request\Cookies|\Mockery\MockInterface $cookies */
+		$cookies = Mockery::mock(RequestCookies::class);
 
 		$cookies->shouldReceive('getSigned')->times(1)->with('gatekeeper_auth_key')->andReturn('token');
 
@@ -262,6 +263,7 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('delete')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
@@ -438,6 +440,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
 
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('addSigned')->once()->with('gatekeeper_auth_key', 'token', 31536000, $this->getCookieOptions());
@@ -522,6 +525,7 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('isSecure')->once()->andReturn(true);
 
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('addSigned')->once()->with('gatekeeper_auth_key', 'token', 31536000, ['secure' => true] + $this->getCookieOptions());
@@ -660,6 +664,7 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('getPassword')->once()->andReturn(null);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('WWW-Authenticate', 'basic');
@@ -670,7 +675,10 @@ class SessionTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(401);
 
-		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()])->makePartial();
+		/** @var \mako\gatekeeper\adapters\Session|\Mockery\MockInterface $adapter */
+		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()]);
+
+		$adapter = $adapter->makePartial();
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
@@ -690,6 +698,7 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('getPassword')->once()->andReturn(null);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('WWW-Authenticate', 'basic');
@@ -702,7 +711,10 @@ class SessionTest extends TestCase
 
 		$response->shouldReceive('clear')->once();
 
-		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()])->makePartial();
+		/** @var \mako\gatekeeper\adapters\Session|\Mockery\MockInterface $adapter */
+		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()]);
+
+		$adapter = $adapter->makePartial();
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
@@ -716,7 +728,10 @@ class SessionTest extends TestCase
 	 */
 	public function testBasicAuthIsLoggedIn(): void
 	{
-		$adapter = Mockery::mock(Session::class . '[isLoggedIn]', [$this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession()])->makePartial();
+		/** @var \mako\gatekeeper\adapters\Session|\Mockery\MockInterface $adapter */
+		$adapter = Mockery::mock(Session::class . '[isLoggedIn]', [$this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession()]);
+
+		$adapter = $adapter->makePartial();
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(true);
 
@@ -734,7 +749,10 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('getPassword')->once()->andReturn('password');
 
-		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $this->getResponse(), $this->getSession()])->makePartial();
+		/** @var \mako\gatekeeper\adapters\Session|\Mockery\MockInterface $adapter */
+		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $this->getResponse(), $this->getSession()]);
+
+		$adapter = $adapter->makePartial();
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
@@ -756,6 +774,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('remove')->once()->with('gatekeeper_auth_key');
 
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('delete')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());

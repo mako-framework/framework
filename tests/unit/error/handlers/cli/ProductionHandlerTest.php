@@ -23,6 +23,7 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularError(): void
 	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('errorLn')->once()->with('<bg_red><white>An error has occurred while executing your command.</white></bg_red>' . PHP_EOL);

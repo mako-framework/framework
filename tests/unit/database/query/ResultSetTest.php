@@ -60,6 +60,7 @@ class ResultSetTest extends TestCase
 
 		$resultSet = new ResultSet([$result]);
 
+		/** @var \mako\pagination\PaginationInterface|\Mockery\MockInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('toArray')->once()->andReturn(['foo' => 'bar']);

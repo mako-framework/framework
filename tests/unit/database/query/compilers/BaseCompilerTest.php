@@ -9,7 +9,9 @@ namespace mako\tests\unit\database\query\compilers;
 
 use DateTime;
 use Exception;
+use mako\database\connections\Connection;
 use mako\database\query\compilers\Compiler;
+use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
@@ -41,13 +43,14 @@ class BaseCompilerTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\database\connections\Connection|\Mockery\MockInterface
 	 */
 	protected function getConnection()
 	{
-		$connection = Mockery::mock('\mako\database\connections\Connection');
+		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		$connection = Mockery::mock(Connection::class);
 
-		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock('\mako\database\query\helpers\HelperInterface'));
+		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function($query)
 		{
@@ -1766,7 +1769,8 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBatch(): void
 	{
-		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+		/** @var \mako\database\query\Query|\Mockery\MockInterface $builder */
+		$builder = Mockery::mock(Query::class . '[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
 
@@ -1793,7 +1797,8 @@ class BaseCompilerTest extends TestCase
 
 		//
 
-		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+		/** @var \mako\database\query\Query|\Mockery\MockInterface $builder */
+		$builder = Mockery::mock(Query::class . '[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
 
@@ -1820,7 +1825,8 @@ class BaseCompilerTest extends TestCase
 
 		//
 
-		$builder = Mockery::mock('\mako\database\query\Query[limit,offset,all]', [$this->getConnection()]);
+		/** @var \mako\database\query\Query|\Mockery\MockInterface $builder */
+		$builder = Mockery::mock(Query::class . '[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
 

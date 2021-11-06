@@ -9,6 +9,7 @@ namespace mako\tests\unit\event;
 
 use mako\event\Event;
 use mako\event\EventHandlerInterface;
+use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -84,11 +85,11 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function() { return 'foo'; });
+		$event->register('foo', fn() => 'foo');
 
-		$event->register('foo', function() { return 'bar'; });
+		$event->register('foo', fn() => 'bar');
 
-		$event->register('foo', function() { return 'baz'; });
+		$event->register('foo', fn() => 'baz');
 
 		$this->assertSame(['foo', 'bar', 'baz'], $event->trigger('foo'));
 	}
@@ -100,9 +101,9 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function($foo) { return 'one' . $foo; });
+		$event->register('foo', fn($foo) => 'one' . $foo);
 
-		$event->register('foo', function($foo) { return 'one' . $foo; });
+		$event->register('foo', fn($foo) => 'one' . $foo);
 
 		$this->assertSame(['onefoo', 'onefoo'], $event->trigger('foo', ['foo']));
 	}
@@ -114,9 +115,9 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function($foo, $bar) { return 'one' . $foo . $bar; });
+		$event->register('foo', fn($foo, $bar) => 'one' . $foo . $bar);
 
-		$event->register('foo', function($foo, $bar) { return 'two' . $foo . $bar; });
+		$event->register('foo', fn($foo, $bar) => 'two' . $foo . $bar);
 
 		$this->assertSame(['onefoobar', 'twofoobar'], $event->trigger('foo', ['bar' => 'bar', 'foo' => 'foo']));
 	}
@@ -128,11 +129,11 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function() { return 'foo'; });
+		$event->register('foo', fn() => 'foo');
 
-		$event->register('foo', function() { return false; });
+		$event->register('foo', fn() => false);
 
-		$event->register('foo', function() { return 'baz'; });
+		$event->register('foo', fn() => 'baz');
 
 		$this->assertSame(['foo', false], $event->trigger('foo', [], true));
 	}
@@ -144,11 +145,11 @@ class EventTest extends TestCase
 	{
 		$event = new Event;
 
-		$event->register('foo', function() { return 'foo'; });
+		$event->register('foo', fn() => 'foo');
 
 		$this->assertSame(['foo'], $event->trigger('foo'));
 
-		$event->override('foo', function() { return 'bar'; });
+		$event->override('foo', fn() => 'bar');
 
 		$this->assertSame(['bar'], $event->trigger('foo'));
 	}
@@ -158,9 +159,10 @@ class EventTest extends TestCase
 	 */
 	public function testContainerWithClosureHandler(): void
 	{
-		$container = Mockery::mock('mako\syringe\Container');
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		$container = Mockery::mock(Container::class);
 
-		$closure = function() { return 'foo'; };
+		$closure = fn() => 'foo';
 
 		$container->shouldReceive('call')->once()->with($closure, [])->andReturn('foo');
 
@@ -176,7 +178,8 @@ class EventTest extends TestCase
 	 */
 	public function testContainerWithClassHandler(): void
 	{
-		$container = Mockery::mock('mako\syringe\Container');
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		$container = Mockery::mock(Container::class);
 
 		$handler = new EventHanler;
 

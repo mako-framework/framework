@@ -39,6 +39,7 @@ class AuthorizableTest extends TestCase
 	{
 		$authorizable = new User;
 
+		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$authorizer->shouldReceive('can')->with($authorizable, 'action', 'entity')->andReturn(true);
@@ -55,6 +56,7 @@ class AuthorizableTest extends TestCase
 	{
 		$authorizable = new User;
 
+		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$authorizer->shouldReceive('can')->with($authorizable, 'action', 'entity', 'one', 'two', 'three')->andReturn(true);

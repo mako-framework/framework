@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\Connection;
+use mako\database\connections\MySQL;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -19,11 +19,12 @@ use Mockery;
 class MySQLCompilerTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\database\connections\MySQL|\Mockery\MockInterface
 	 */
 	protected function getConnection()
 	{
-		$connection = Mockery::mock(Connection::class);
+		/** @var \mako\database\connections\MySQL|\Mockery\MockInterface $connection */
+		$connection = Mockery::mock(MySQL::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 

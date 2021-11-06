@@ -37,6 +37,7 @@ class DevelopmentHandlerTest extends TestCase
 	 */
 	public function testErrorException(): void
 	{
+		/** @var \mako\cli\output\formatter\FormatterInterface|\Mockery\MockInterface $formatter */
 		$formatter = Mockery::mock(Formatter::class);
 
 		$formatter->shouldReceive('escape')->once()->with('Fatal Error')->andReturn('Fatal Error');
@@ -51,6 +52,7 @@ class DevelopmentHandlerTest extends TestCase
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->times(5)->andReturn($formatter);
@@ -69,6 +71,7 @@ class DevelopmentHandlerTest extends TestCase
 	 */
 	public function testRuntimeException(): void
 	{
+		/** @var \mako\cli\output\formatter\FormatterInterface|\Mockery\MockInterface $formatter */
 		$formatter = Mockery::mock(Formatter::class);
 
 		$formatter->shouldReceive('escape')->once()->with('RuntimeException')->andReturn('RuntimeException');
@@ -83,6 +86,7 @@ class DevelopmentHandlerTest extends TestCase
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->times(5)->andReturn($formatter);
