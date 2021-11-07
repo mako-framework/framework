@@ -49,7 +49,7 @@ class AutoEagerLoadingTest extends ORMTestCase
 	 */
 	public function testAutoEagerLoading(): void
 	{
-		$users = AutoEagerLoadingUser::ascending('id')->all();
+		$users = (new AutoEagerLoadingUser)->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -75,7 +75,7 @@ class AutoEagerLoadingTest extends ORMTestCase
 	 */
 	public function testDisableAutoEagerLoading(): void
 	{
-		$users = AutoEagerLoadingUser::excluding('articles')->ascending('id')->all();
+		$users = (new AutoEagerLoadingUser)->excluding('articles')->ascending('id')->all();
 
 		foreach($users as $user)
 		{

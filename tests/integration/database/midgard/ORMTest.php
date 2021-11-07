@@ -143,7 +143,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testFirst(): void
 	{
-		$users = TestUser::first();
+		$users = (new TestUser)->first();
 
 		$this->assertInstanceOf(TestUser::class, $users);
 	}
@@ -173,7 +173,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testAll(): void
 	{
-		$users = TestUser::all();
+		$users = (new TestUser)->all();
 
 		$this->assertInstanceOf(ResultSet::class, $users);
 
@@ -188,7 +188,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testYield(): void
 	{
-		$users = TestUser::yield();
+		$users = (new TestUser)->yield();
 
 		$this->assertInstanceOf('Generator', $users);
 
@@ -203,7 +203,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testLimitColumnsFirst(): void
 	{
-		$user = TestUser::select(['username', 'email'])->where('id', '=', 1)->first();
+		$user = (new TestUser)->select(['username', 'email'])->where('id', '=', 1)->first();
 
 		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $user->getRawColumnValues());
 	}
@@ -213,7 +213,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testLimitColumnsAll(): void
 	{
-		$users = TestUser::select(['username', 'email'])->all();
+		$users = (new TestUser)->select(['username', 'email'])->all();
 
 		$this->assertEquals(['username' => 'foo', 'email' => 'foo@example.org'], $users[0]->getRawColumnValues());
 	}
@@ -223,7 +223,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testJoin(): void
 	{
-		$users = TestUser::join('articles', 'articles.user_id', '=', 'users.id')->distinct()->all();
+		$users = (new TestUser)->join('articles', 'articles.user_id', '=', 'users.id')->distinct()->all();
 
 		$this->assertEquals(2, count($users));
 
@@ -313,11 +313,11 @@ class ORMTest extends ORMTestCase
 
 		$user = TestUser::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
 
-		$count = TestUser::count();
+		$count = (new TestUser)->count();
 
 		$user->delete();
 
-		$this->assertEquals(($count - 1), TestUser::count());
+		$this->assertEquals(($count - 1), (new TestUser)->count());
 	}
 
 	/**
@@ -349,18 +349,18 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testCloneResultSet(): void
 	{
-		$count = TestUser::count();
+		$count = (new TestUser)->count();
 
-		$clones = clone TestUser::ascending('id')->all();
+		$clones = clone (new TestUser)->ascending('id')->all();
 
 		foreach($clones as $clone)
 		{
 			$clone->save();
 		}
 
-		$this->assertEquals(($count * 2), TestUser::count());
+		$this->assertEquals(($count * 2), (new TestUser)->count());
 
-		$users = TestUser::ascending('id')->all();
+		$users = (new TestUser)->ascending('id')->all();
 
 		$chunkedUsers = $users->chunk(3);
 
@@ -381,7 +381,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testScoped(): void
 	{
-		$users = TestUserScoped::scope('withArticles')->all();
+		$users = (new TestUserScoped)->scope('withArticles')->all();
 
 		$this->assertEquals(2, count($users));
 	}
@@ -391,7 +391,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testScopedSnakeCase(): void
 	{
-		$users = TestUserScoped::scope('with_articles')->all();
+		$users = (new TestUserScoped)->scope('with_articles')->all();
 
 		$this->assertEquals(2, count($users));
 	}
@@ -415,7 +415,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertTrue(UUID::validate($uuid->id));
 
-		$uuid = UUIDKey::first();
+		$uuid = (new UUIDKey)->first();
 
 		$this->assertTrue(UUID::validate($uuid->id));
 	}
@@ -429,7 +429,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertEquals('foobarbax', $custom->id);
 
-		$custom = CustomKey::first();
+		$custom = (new CustomKey)->first();
 
 		$this->assertEquals('foobarbax', $custom->id);
 	}
@@ -445,7 +445,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertTrue(empty($columns['id']));
 
-		$none = NoKey::first();
+		$none = (new NoKey)->first();
 
 		$columns = $none->getRawColumnValues();
 
@@ -477,7 +477,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testQueryForwarding(): void
 	{
-		$user = TestUser::where('id', '=', 1)->first();
+		$user = (new TestUser)->where('id', '=', 1)->first();
 
 		$this->assertInstanceOf(TestUser::class, $user);
 	}
@@ -487,7 +487,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testIncrement(): void
 	{
-		Counter::increment('counter');
+		(new Counter)->increment('counter');
 
 		$counter = Counter::get(1);
 
@@ -511,7 +511,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testDecrement(): void
 	{
-		Counter::decrement('counter');
+		(new Counter)->decrement('counter');
 
 		$counter = Counter::get(1);
 
@@ -535,7 +535,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testIncrement10(): void
 	{
-		Counter::increment('counter', 10);
+		(new Counter)->increment('counter', 10);
 
 		$counter = Counter::get(1);
 
@@ -559,7 +559,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testDecrement10(): void
 	{
-		Counter::decrement('counter', 10);
+		(new Counter)->decrement('counter', 10);
 
 		$counter = Counter::get(1);
 

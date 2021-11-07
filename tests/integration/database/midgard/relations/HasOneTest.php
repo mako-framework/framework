@@ -98,7 +98,7 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testLazyHasOneRelation(): void
 	{
-		$users = HasOneUser::ascending('id')->all();
+		$users = (new HasOneUser)->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -123,7 +123,7 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelation(): void
 	{
-		$users = HasOneUser::including('profile')->ascending('id')->all();
+		$users = (new HasOneUser)->including('profile')->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -144,7 +144,7 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$users = HasOneUser::including(['profile' => function($query): void
+		$users = (new HasOneUser)->including(['profile' => function($query): void
 		{
 			$query->where('interests', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -200,7 +200,7 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$user = HasOneUser::withCountOf('profile')->get(1);
+		$user = (new HasOneUser)->withCountOf('profile')->get(1);
 
 		$this->assertEquals(1, $user->profile_count);
 

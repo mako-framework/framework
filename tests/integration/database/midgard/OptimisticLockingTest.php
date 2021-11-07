@@ -42,9 +42,9 @@ class OptimisticLockingTest extends ORMTestCase
 	{
 		$this->expectException(StaleRecordException::class);
 
-		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
+		$record1 = (new OptimisticLock)->ascending('id')->limit(1)->first();
 
-		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
+		$record2 = (new OptimisticLock)->ascending('id')->limit(1)->first();
 
 		$record1->value = 'bar';
 
@@ -62,9 +62,9 @@ class OptimisticLockingTest extends ORMTestCase
 	{
 		$this->expectException(StaleRecordException::class);
 
-		$record1 = OptimisticLock::ascending('id')->limit(1)->first();
+		$record1 = (new OptimisticLock)->ascending('id')->limit(1)->first();
 
-		$record2 = OptimisticLock::ascending('id')->limit(1)->first();
+		$record2 = (new OptimisticLock)->ascending('id')->limit(1)->first();
 
 		$record1->value = 'bar';
 

@@ -68,7 +68,7 @@ class LazyEagerLoadTest extends ORMTestCase
 	 */
 	public function testIncludeOnResultSet(): void
 	{
-		$users = LazyHasManyUser::where('id', '=', 1)->all();
+		$users = (new LazyHasManyUser)->where('id', '=', 1)->all();
 
 		$this->assertFalse($users[0]->includes('articles'));
 

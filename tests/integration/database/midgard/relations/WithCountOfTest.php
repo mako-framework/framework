@@ -56,7 +56,7 @@ class WithCountOfTest extends ORMTestCase
 	 */
 	public function testMultipleWithCountOf(): void
 	{
-		$user = WithCountOfUser::withCountOf(['articles', 'profile'])->get(1);
+		$user = (new WithCountOfUser)->withCountOf(['articles', 'profile'])->get(1);
 
 		$this->assertEquals(2, $user->articles_count);
 
@@ -70,7 +70,7 @@ class WithCountOfTest extends ORMTestCase
 	 */
 	public function testMultipleWithCountOfWithCriteria(): void
 	{
-		$user = WithCountOfUser::withCountOf
+		$user = (new WithCountOfUser)->withCountOf
 		([
 			'articles as no_articles_count' => function($query): void
 			{
@@ -94,7 +94,7 @@ class WithCountOfTest extends ORMTestCase
 	 */
 	public function testMultipleWithCountOfWithAggregate(): void
 	{
-		$user = WithCountOfUser::withCountOf('articles')->count();
+		(new WithCountOfUser)->withCountOf('articles')->count();
 
 		$this->assertEquals('SELECT COUNT(*) FROM "users"', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 	}

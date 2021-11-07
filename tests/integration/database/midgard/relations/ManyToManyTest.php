@@ -214,7 +214,7 @@ class ManyToManyTest extends ORMTestCase
 	 */
 	public function testLazyHasManyRelation(): void
 	{
-		$users = ManyToManyUser::ascending('id')->all();
+		$users = (new ManyToManyUser)->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -242,7 +242,7 @@ class ManyToManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelation(): void
 	{
-		$users = ManyToManyUser::including('groups')->ascending('id')->all();
+		$users = (new ManyToManyUser)->including('groups')->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -266,7 +266,7 @@ class ManyToManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = ManyToManyUser::including(['groups' => function($query): void
+		$users = (new ManyToManyUser)->including(['groups' => function($query): void
 		{
 			$query->where('name', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -555,7 +555,7 @@ class ManyToManyTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$user = ManyToManyUser::withCountOf('groups')->get(1);
+		$user = (new ManyToManyUser)->withCountOf('groups')->get(1);
 
 		$this->assertEquals(2, $user->groups_count);
 

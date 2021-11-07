@@ -57,7 +57,7 @@ class NestedEagerLoadingTest extends ORMTestCase
 	 */
 	public function testNestedEagerLoading(): void
 	{
-		$users = NestedEagerLoadingUser::including(['articles', 'articles.comments'])->ascending('id')->all();
+		$users = (new NestedEagerLoadingUser)->including(['articles', 'articles.comments'])->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -94,7 +94,7 @@ class NestedEagerLoadingTest extends ORMTestCase
 	 */
 	public function testNestedEagerLoadingWithConstraints(): void
 	{
-		$users = NestedEagerLoadingUser::including(['articles', 'articles.comments' => function($query): void
+		$users = (new NestedEagerLoadingUser)->including(['articles', 'articles.comments' => function($query): void
 		{
 			$query->where('comment', '=', 'does not exist');
 		}, ])->ascending('id')->all();

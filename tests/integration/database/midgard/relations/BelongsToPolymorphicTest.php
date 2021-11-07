@@ -66,7 +66,7 @@ class BelongsToPolymorphicTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$image = BelongsToPolymorphicImage::withCountOf('profile')->get(1);
+		$image = (new BelongsToPolymorphicImage)->withCountOf('profile')->get(1);
 
 		$this->assertEquals(1, $image->profile_count);
 

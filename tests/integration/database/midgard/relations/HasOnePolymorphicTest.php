@@ -102,7 +102,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	 */
 	public function testLazyHasOneRelation(): void
 	{
-		$profiles = HasOnePolymorphicProfile::ascending('id')->all();
+		$profiles = (new HasOnePolymorphicProfile)->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{
@@ -129,7 +129,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelation(): void
 	{
-		$profiles = HasOnePolymorphicProfile::including('image')->ascending('id')->all();
+		$profiles = (new HasOnePolymorphicProfile)->including('image')->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{
@@ -152,7 +152,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$profiles = HasOnePolymorphicProfile::including(['image' => function($query): void
+		$profiles = (new HasOnePolymorphicProfile)->including(['image' => function($query): void
 		{
 			$query->where('image', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -208,7 +208,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$profile = HasOnePolymorphicProfile::withCountOf('image')->get(1);
+		$profile = (new HasOnePolymorphicProfile)->withCountOf('image')->get(1);
 
 		$this->assertEquals(1, $profile->image_count);
 

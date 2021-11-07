@@ -99,7 +99,7 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testLazyBelongsToRelation(): void
 	{
-		$profiles = BelongsToProfile::ascending('id')->all();
+		$profiles = (new BelongsToProfile)->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{
@@ -124,7 +124,7 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testEagerBelongsToRelation(): void
 	{
-		$profiles = BelongsToProfile::including('user')->ascending('id')->all();
+		$profiles = (new BelongsToProfile)->including('user')->ascending('id')->all();
 
 		foreach($profiles as $profile)
 		{
@@ -145,7 +145,7 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testEagerBelongsToRelationWithConstraint(): void
 	{
-		$profiles = BelongsToProfile::including(['user' => function($query): void
+		$profiles = (new BelongsToProfile)->including(['user' => function($query): void
 		{
 			$query->where('username', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -167,7 +167,7 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$profile = BelongsToProfile::withCountOf('user')->get(1);
+		$profile = (new BelongsToProfile)->withCountOf('user')->get(1);
 
 		$this->assertEquals(1, $profile->user_count);
 

@@ -61,7 +61,7 @@ class ReadOnlyTest extends ORMTestCase
 
 		$dateTime = new DateTime;
 
-		$user = TestUserReadOnly::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
+		TestUserReadOnly::create(['username' => 'bax', 'email' => 'bax@example.org', 'created_at' => $dateTime]);
 	}
 
 	/**

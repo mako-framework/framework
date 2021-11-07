@@ -100,7 +100,7 @@ class HasManyTest extends ORMTestCase
 	 */
 	public function testLazyHasManyRelation(): void
 	{
-		$users = HasManyUser::ascending('id')->all();
+		$users = (new HasManyUser)->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -130,7 +130,7 @@ class HasManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelation(): void
 	{
-		$users = HasManyUser::including('articles')->ascending('id')->all();
+		$users = (new HasManyUser)->including('articles')->ascending('id')->all();
 
 		foreach($users as $user)
 		{
@@ -156,7 +156,7 @@ class HasManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = HasManyUser::including(['articles' => function($query): void
+		$users = (new HasManyUser)->including(['articles' => function($query): void
 		{
 			$query->where('title', '=', 'does not exist');
 		}, ])->ascending('id')->all();
@@ -208,7 +208,7 @@ class HasManyTest extends ORMTestCase
 	 */
 	public function testWithCountOf(): void
 	{
-		$user = HasManyUser::withCountOf('articles')->get(1);
+		$user = (new HasManyUser)->withCountOf('articles')->get(1);
 
 		$this->assertEquals(2, $user->articles_count);
 
