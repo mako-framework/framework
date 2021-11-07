@@ -57,6 +57,7 @@ class InputTest extends TestCase
 			public function getInput(): array { return []; }
 		};
 
+		/** @var \mako\validator\Validator|\Mockery\MockInterface $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('addRule')->never();

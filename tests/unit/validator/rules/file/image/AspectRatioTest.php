@@ -32,9 +32,13 @@ class AspectRatioTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
+		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(AspectRatio::class, [4, 3])->shouldAllowMockingProtectedMethods()->makePartial();
+		/** @var \mako\validator\rules\file\image\AspectRatio|\Mockery\MockInterface $rule */
+		$rule = Mockery::mock(AspectRatio::class, [4, 3]);
+
+		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 
@@ -46,9 +50,13 @@ class AspectRatioTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
+		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(AspectRatio::class, [14, 9])->shouldAllowMockingProtectedMethods()->makePartial();
+		/** @var \mako\validator\rules\file\image\AspectRatio|\Mockery\MockInterface $rule */
+		$rule = Mockery::mock(AspectRatio::class, [14, 9]);
+
+		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 

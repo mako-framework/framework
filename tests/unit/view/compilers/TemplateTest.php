@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\view\compilers;
 
+use mako\file\FileSystem;
 use mako\tests\TestCase;
 use mako\view\compilers\Template;
 use Mockery;
@@ -21,11 +22,12 @@ class TemplateTest extends TestCase
 	protected $templateName = 'template';
 
 	/**
-	 *
+	 * @return \mako\file\FileSystem|\Mockery\MockInterface
 	 */
 	public function getFileSystem($template, $compiled)
 	{
-		$fileSystem = Mockery::mock('mako\file\FileSystem');
+		/** @var \mako\file\FileSystem|\Mockery\MockInterface $fileSystem */
+		$fileSystem = Mockery::mock(FileSystem::class);
 
 		$fileSystem->shouldReceive('get')->with($this->templateName)->once()->andReturn($template);
 

@@ -34,6 +34,7 @@ class HmacTest extends TestCase
 	{
 		$rule = new Hmac('hash', 'key');
 
+		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
 		$fileInfo->shouldReceive('validateHmac')->once()->with('hash', 'key', 'sha256')->andReturn(true);
@@ -48,6 +49,7 @@ class HmacTest extends TestCase
 	{
 		$rule = new Hmac('hash', 'key');
 
+		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
 		$fileInfo->shouldReceive('validateHmac')->once()->with('hash', 'key', 'sha256')->andReturn(false);

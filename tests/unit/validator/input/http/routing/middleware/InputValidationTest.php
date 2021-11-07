@@ -33,14 +33,17 @@ class InputValidationTest extends TestCase
 	 */
 	public function testExecuteWithNoErrors(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		//
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
@@ -60,18 +63,22 @@ class InputValidationTest extends TestCase
 	 */
 	public function testExecuteWithNoErrorsAndWithSessionAndViewFactory(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		//
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('getFlash')->once()->with('mako.errors')->andReturn(null);
@@ -80,6 +87,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\view\ViewFactory|\Mockery\MockInterface $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('assign')->once()->with('_errors_', null);
@@ -103,6 +111,7 @@ class InputValidationTest extends TestCase
 	 */
 	public function testShouldRedirectWithoutSession(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//-------------
@@ -118,10 +127,12 @@ class InputValidationTest extends TestCase
 	 */
 	public function testShouldRedirectWithSessionWithoutViewFactory(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		//-------------
@@ -137,18 +148,22 @@ class InputValidationTest extends TestCase
 	 */
 	public function testShouldRedirectWithSessionAndViewFactory(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		//
 
+		/** @var \mako\view\ViewFactory|\Mockery\MockInterface $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		//-------------
@@ -246,10 +261,12 @@ class InputValidationTest extends TestCase
 	 */
 	public function testShouldIncludeOldInput(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInput|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInput::class);
 
 		$input->shouldReceive('shouldIncludeOldInput')->once()->andReturn(false);
@@ -263,6 +280,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInput|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInput::class);
 
 		$input->shouldReceive('shouldIncludeOldInput')->once()->andReturn(true);
@@ -295,16 +313,19 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//-------------
 
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $data */
 		$data = Mockery::mock(Parameters::class);
 
 		$data->shouldReceive('all')->once()->andReturn($formInput);
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->once()->andReturn($data);
@@ -318,6 +339,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInputInterface|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInputInterface::class);
 
 		$input->shouldReceive('getOldInput')->once()->andReturn($formInput);
@@ -331,6 +353,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInputInterface|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInputInterface::class);
 
 		$input->shouldReceive('getOldInput')->once()->andReturn($formInput);
@@ -357,6 +380,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//-------------
@@ -370,6 +394,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInputInterface|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInputInterface::class);
 
 		$input->shouldReceive('getRedirectUrl')->once()->andReturn($expected);
@@ -387,6 +412,7 @@ class InputValidationTest extends TestCase
 	 */
 	public function testGetErrorMessage(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//-------------
@@ -410,6 +436,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInputInterface|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInputInterface::class);
 
 		$input->shouldReceive('getErrorMessage')->once()->andReturn(null);
@@ -423,6 +450,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
+		/** @var \mako\validator\input\HttpInputInterface|\Mockery\MockInterface $input */
 		$input = Mockery::mock(HttpInputInterface::class);
 
 		$input->shouldReceive('getErrorMessage')->once()->andReturn('barfoo');
@@ -440,24 +468,28 @@ class InputValidationTest extends TestCase
 	 */
 	public function testHandleRedirectWithoutOldInput(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('putFlash')->once()->with('mako.errors', ['foo' => 'bar']);
 
 		//
 
+		/** @var \mako\validator\exceptions\ValidationException|\Mockery\MockInterface $exception */
 		$exception = Mockery::mock(ValidationException::class);
 
 		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->makePartial();
@@ -503,12 +535,14 @@ class InputValidationTest extends TestCase
 	 */
 	public function testHandleRedirectWithOldInput(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('putFlash')->once()->with('mako.errors', ['foo' => 'bar']);
@@ -517,12 +551,14 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\validator\exceptions\ValidationException|\Mockery\MockInterface $exception */
 		$exception = Mockery::mock(ValidationException::class);
 
 		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->makePartial();
@@ -588,6 +624,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(400);
@@ -596,6 +633,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\validator\exceptions\ValidationException|\Mockery\MockInterface $exception */
 		$exception = Mockery::mock(ValidationException::class);
 
 		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
@@ -632,7 +670,10 @@ class InputValidationTest extends TestCase
 			return;
 		}
 
-		$middleware = Mockery::mock(InputValidation::class)->shouldAllowMockingProtectedMethods();
+		/** @var \mako\validator\input\http\routing\middleware\InputValidation|\Mockery\MockInterface $middleware */
+		$middleware = Mockery::mock(InputValidation::class);
+
+		$middleware = $middleware->shouldAllowMockingProtectedMethods();
 
 		$middleware->shouldReceive('respondWithJson')->once()->andReturn(false);
 
@@ -642,6 +683,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(400);
@@ -654,6 +696,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\validator\exceptions\ValidationException|\Mockery\MockInterface $exception */
 		$exception = Mockery::mock(ValidationException::class);
 
 		$exception->shouldReceive('getErrors')->once()->andReturn(['foo' => 'bar']);
@@ -680,20 +723,24 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(400);
 
 		//
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		//-------------
@@ -734,14 +781,17 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clear')->once();
@@ -774,10 +824,12 @@ class InputValidationTest extends TestCase
 	 */
 	public function testExecuteWithErrorsWithRedirect(): void
 	{
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		//
 
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('getFlash')->once()->with('mako.errors')->andReturn(null);
@@ -786,6 +838,7 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\view\ViewFactory|\Mockery\MockInterface $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('assign')->once()->with('_errors_', null);
@@ -794,10 +847,12 @@ class InputValidationTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clear')->once();

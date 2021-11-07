@@ -24,8 +24,10 @@ class HttpInputTest extends TestCase
 	 */
 	public function testGetInput(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $data */
 		$data = Mockery::mock(Parameters::class);
 
 		$data->shouldReceive('all')->once()->andReturn(['input' => 'value']);
@@ -47,6 +49,7 @@ class HttpInputTest extends TestCase
 	 */
 	public function testShouldRedirect(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$urlBuilder = Mockery::mock(URLBuilder::class);
@@ -71,8 +74,10 @@ class HttpInputTest extends TestCase
 	 */
 	public function testGetRedirectUrl(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
@@ -90,8 +95,10 @@ class HttpInputTest extends TestCase
 	 */
 	public function testShouldIncludeOldInput(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$input = new class ($request, $urlBuilder) extends HttpInput
@@ -114,14 +121,17 @@ class HttpInputTest extends TestCase
 	 */
 	public function testGetOldInput(): void
 	{
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $data */
 		$data = Mockery::mock(Parameters::class);
 
 		$data->shouldReceive('all')->once()->andReturn(['field' => 'value']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->once()->andReturn($data);
 
+		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$input = new class ($request, $urlBuilder) extends HttpInput

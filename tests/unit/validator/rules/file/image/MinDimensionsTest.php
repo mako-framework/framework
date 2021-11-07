@@ -32,9 +32,13 @@ class MinDimensionsTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
+		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(MinDimensions::class, [800, 600])->shouldAllowMockingProtectedMethods()->makePartial();
+		/** @var \mako\validator\rules\file\image\MinDimensions|\Mockery\MockInterface $rule */
+		$rule = Mockery::mock(MinDimensions::class, [800, 600]);
+
+		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 
@@ -46,9 +50,13 @@ class MinDimensionsTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
+		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		$rule = Mockery::mock(MinDimensions::class, [800, 600])->shouldAllowMockingProtectedMethods()->makePartial();
+		/** @var \mako\validator\rules\file\image\MinDimensions|\Mockery\MockInterface $rule */
+		$rule = Mockery::mock(MinDimensions::class, [800, 600]);
+
+		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([799, 599]);
 

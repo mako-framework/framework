@@ -34,6 +34,7 @@ class IsUploadedTest extends TestCase
 	{
 		$rule = new IsUploaded;
 
+		/** @var \mako\http\request\UploadedFile|\Mockery\MockInterface $uploadedFile */
 		$uploadedFile = Mockery::mock(UploadedFile::class);
 
 		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnTrue();
@@ -56,6 +57,7 @@ class IsUploadedTest extends TestCase
 
 		$rule = new IsUploaded;
 
+		/** @var \mako\http\request\UploadedFile|\Mockery\MockInterface $uploadedFile */
 		$uploadedFile = Mockery::mock(UploadedFile::class);
 
 		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnFalse();
@@ -66,6 +68,7 @@ class IsUploadedTest extends TestCase
 
 		$rule = new IsUploaded;
 
+		/** @var \mako\http\request\UploadedFile|\Mockery\MockInterface $uploadedFile */
 		$uploadedFile = Mockery::mock(UploadedFile::class);
 
 		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnTrue();
