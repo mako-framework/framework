@@ -8,6 +8,7 @@
 namespace mako\tests\unit\pixl;
 
 use mako\pixl\Image;
+use mako\pixl\processors\ProcessorInterface;
 use mako\tests\TestCase;
 use Mockery;
 use RuntimeException;
@@ -18,11 +19,11 @@ use RuntimeException;
 class ImageTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\pixl\processors\ProcessorInterface|\Mockery\MockInterface
 	 */
 	public function getProcessor()
 	{
-		return Mockery::mock('mako\pixl\processors\ProcessorInterface');
+		return Mockery::mock(ProcessorInterface::class);
 	}
 
 	/**

@@ -10,6 +10,7 @@ namespace mako\tests\unit\http\request;
 use mako\http\request\exceptions\UploadException;
 use mako\http\request\UploadedFile;
 use mako\tests\TestCase;
+use Mockery;
 
 /**
  * @group unit
@@ -164,9 +165,9 @@ class UploadedFileTest extends TestCase
 		$file->moveTo(__FILE__);
 	}
 
-	/*public function testMoveToWithoutError()
+	/*public function testMoveToWithoutError(): void
 	{
-		$file = Mockery::mock('mako\http\UploadedFile[isUploaded|moveUploadedFile]', [__FILE__, 'foo.bar', 123, 'foo/bar', 0]);
+		$file = Mockery::mock(UploadedFile::class . '[isUploaded|moveUploadedFile]', [__FILE__, 'foo.bar', 123, 'foo/bar', 0]);
 
 		$file->shouldAllowMockingProtectedMethods();
 

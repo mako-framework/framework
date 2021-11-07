@@ -56,8 +56,10 @@ class CommandTest extends TestCase
 	 */
 	public function testGetDescription(): void
 	{
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$command = new Foo($input, $output);
@@ -83,8 +85,10 @@ class CommandTest extends TestCase
 	 */
 	public function testGetArguments(): void
 	{
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$command = new Foo($input, $output);

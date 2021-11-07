@@ -25,12 +25,16 @@ class SecurityHeadersTest extends TestCase
 	 */
 	public function testWithDefaultConfig(): void
 	{
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('X-Content-Type-Options', 'nosniff');

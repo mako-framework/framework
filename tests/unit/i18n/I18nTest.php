@@ -7,7 +7,6 @@
 
 namespace mako\tests\unit\i18n;
 
-use mako\cache\stores\StoreInterface;
 use mako\i18n\exceptions\I18nException;
 use mako\i18n\I18n;
 use mako\i18n\loaders\LoaderInterface;
@@ -32,19 +31,11 @@ class I18nTest extends TestCase
 	];
 
 	/**
-	 *
+	 * @return \mako\i18n\loaders\LoaderInterface|\Mockery\MockInterface
 	 */
 	public function getLoader()
 	{
 		return Mockery::mock(LoaderInterface::class);
-	}
-
-	/**
-	 *
-	 */
-	protected function getCache()
-	{
-		return Mockery::mock(StoreInterface::class);
 	}
 
 	/**

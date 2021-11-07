@@ -197,6 +197,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testClosureAction(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn(function()
@@ -208,6 +209,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -224,6 +226,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testClosureActionWithParams(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn(function(Response $response, $who)
@@ -237,8 +240,10 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
@@ -263,6 +268,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerAction(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([SimpleController::class, 'foo']);
@@ -271,8 +277,10 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
@@ -297,6 +305,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testInvokeControllerAction(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn(InvokeController::class);
@@ -305,8 +314,10 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
@@ -331,6 +342,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerActionWithParams(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([SimpleController::class, 'bar']);
@@ -339,6 +351,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -359,6 +372,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerWithNullBeforeFilter(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([ControllerWithNullBeforeFilter::class, 'foo']);
@@ -367,8 +381,10 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('X-Foo-Bar', 'Foo Bar');
@@ -393,6 +409,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerWithBeforeFilter(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([ControllerWithBeforeFilter::class, 'foo']);
@@ -401,6 +418,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -417,6 +435,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerActionWithAfterFilter(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([ControllerWithAfterFilter::class, 'foo']);
@@ -445,6 +464,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testMiddleware(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['test']);
@@ -456,6 +476,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getParameters')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -476,6 +497,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testGlobalMiddleware(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
@@ -487,6 +509,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getParameters')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -509,6 +532,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testMiddlewarePriority(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getMiddleware')->times(3)->andReturn(['a', 'b']);
@@ -520,6 +544,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getParameters')->times(3)->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -561,6 +586,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testMiddlewareRegistrationWithPriority(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getMiddleware')->times(1)->andReturn(['a', 'b']);
@@ -572,6 +598,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getParameters')->times(1)->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -601,6 +628,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['foobar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -617,6 +645,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testMiddlewareWithUnnamedArguments(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['test("~")']);
@@ -628,6 +657,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getParameters')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -648,6 +678,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testMiddlewareWithNamedArguments(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['test("separator":"~")']);
@@ -659,6 +690,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getParameters')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -679,6 +711,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerInjection(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([ControllerWithInjection::class, 'foo']);
@@ -687,6 +720,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -703,6 +737,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testClosureWithReversedParameterOrder(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn(function($world, $hello)
@@ -714,6 +749,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -730,6 +766,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testClosureParameterInjection(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn(function(Request $request)
@@ -741,6 +778,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();
@@ -761,6 +799,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testControllerActionParameterInjection(): void
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
 		$route->shouldReceive('getAction')->once()->andReturn([SimpleController::class, 'baz']);
@@ -769,6 +808,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$response = Mockery::mock(Response::class)->makePartial();

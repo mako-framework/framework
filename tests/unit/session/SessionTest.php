@@ -7,9 +7,13 @@
 
 namespace mako\tests\unit\session;
 
+use mako\http\Request;
+use mako\http\request\Cookies as RequestCookies;
+use mako\http\Response;
 use mako\http\response\Cookies as ResponseCookies;
 use mako\session\exceptions\SessionException;
 use mako\session\Session;
+use mako\session\stores\StoreInterface;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -35,13 +39,15 @@ class TestSession extends Session
 class SessionTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\http\Request|\Mockery\MockInterface
 	 */
 	protected function getRequest()
 	{
-		$request = Mockery::mock('\mako\http\Request');
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		$request = Mockery::mock(Request::class);
 
-		$cookies = Mockery::mock('\mako\http\request\Cookies');
+		/** @var \mako\http\request\Cookies|\Mockery\MockInterface $cookies */
+		$cookies = Mockery::mock(RequestCookies::class);
 
 		$request->shouldReceive('getCookies')->andReturn($cookies);
 
@@ -49,7 +55,7 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\http\Request|\Mockery\MockInterface
 	 */
 	protected function getRequestWithCookie()
 	{
@@ -61,18 +67,19 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\http\Response|\Mockery\MockInterface
 	 */
 	protected function getResponse()
 	{
-		return Mockery::mock('\mako\http\Response');
+		return Mockery::mock(Response::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\http\Response|\Mockery\MockInterface
 	 */
 	protected function getResponseSetCookie($getCookiesTimes = 1, &$responseCookies = null)
 	{
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
@@ -85,11 +92,12 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\session\stores\StoreInterface|\Mockery\MockInterface
 	 */
 	protected function getStore()
 	{
-		$store = Mockery::mock('\mako\session\stores\StoreInterface');
+		/** @var \mako\session\stores\StoreInterface|\Mockery\MockInterface $store */
+		$store = Mockery::mock(StoreInterface::class);
 
 		$store->shouldReceive('gc')->with(1800);
 
@@ -97,7 +105,7 @@ class SessionTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\session\stores\StoreInterface|\Mockery\MockInterface
 	 */
 	protected function getDefaultStore($sessionData = [], $commit = false)
 	{
@@ -146,6 +154,7 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('isSecure')->once()->andReturn(true);
 
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foo123', 0, ['path' => '/', 'domain' => '', 'secure' => true, 'httponly' => true]);
@@ -176,6 +185,7 @@ class SessionTest extends TestCase
 
 		$request->getCookies()->shouldReceive('getSigned')->once()->with('mako_session', false)->andReturn(false);
 
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
@@ -210,6 +220,7 @@ class SessionTest extends TestCase
 	 */
 	public function testRegenerateId(): void
 	{
+		/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
 		$responseCookies->shouldReceive('addSigned')->once()->with('mako_session', 'foobar', 0, ['path' => '/', 'domain' => '', 'secure' => false, 'httponly' => true]);
@@ -444,7 +455,8 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako.flashdata' => [], 'mako.token' => 'bar456'], 1800);
 
-		$session = Mockery::mock('\mako\session\Session[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false]);
+		/** @var \mako\session\Session|\Mockery\MockInterface $session */
+		$session = Mockery::mock(Session::class . '[generateId]', [$this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false]);
 
 		$session->shouldAllowMockingProtectedMethods();
 

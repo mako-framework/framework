@@ -34,6 +34,7 @@ class ReactorTest extends TestCase
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -44,6 +45,7 @@ class ReactorTest extends TestCase
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
@@ -86,18 +88,22 @@ EOF;
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
+		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
 		$command = Mockery::mock(CommandInterface::class);
 
 		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
+		/** @var \mako\reactor\Reactor|\Mockery\MockInterface $reactor */
 		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
@@ -122,6 +128,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -132,6 +139,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('mute')->once();
@@ -175,18 +183,22 @@ EOF;
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
+		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
 		$command = Mockery::mock(CommandInterface::class);
 
 		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
+		/** @var \mako\reactor\Reactor|\Mockery\MockInterface $reactor */
 		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
@@ -211,6 +223,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -221,6 +234,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
@@ -229,10 +243,12 @@ EOF;
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
@@ -253,6 +269,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -263,6 +280,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(3);
@@ -275,20 +293,24 @@ EOF;
 
 		//
 
+		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
 		$command = Mockery::mock(CommandInterface::class);
 
 		$command->shouldReceive('getDescription')->once()->andReturn('server description');
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
+		/** @var \mako\reactor\Reactor|\Mockery\MockInterface $reactor */
 		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
@@ -311,6 +333,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -321,6 +344,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->times(3);
@@ -333,20 +357,24 @@ EOF;
 
 		//
 
+		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
 		$command = Mockery::mock(CommandInterface::class);
 
 		$command->shouldReceive('getDescription')->once()->andReturn('server description');
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
+		/** @var \mako\reactor\Reactor|\Mockery\MockInterface $reactor */
 		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
@@ -369,6 +397,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -383,16 +412,19 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('errorLn')->once()->with('<red>Invalid argument [ bar ].</red>');
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', [])->andThrow(new InvalidArgumentException('Invalid argument [ bar ].'));
@@ -417,6 +449,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -431,16 +464,19 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('errorLn')->once()->with('<red>Unexpected value.</red>');
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', [])->andThrow(new UnexpectedValueException('Unexpected value.'));
@@ -465,6 +501,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -479,14 +516,17 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		$dispatcher->shouldReceive('dispatch')->once()->with('mako\tests\unit\reactor\Foo', ['test' => 'bar']);
@@ -511,6 +551,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
@@ -523,6 +564,7 @@ EOF;
 
 		//
 
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
@@ -554,6 +596,7 @@ EOF;
 
 		//
 
+		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
 		$command = Mockery::mock(CommandInterface::class);
 
 		$command->shouldReceive('getDescription')->once()->andReturn('Command description.');
@@ -567,14 +610,17 @@ EOF;
 
 		//
 
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		//
 
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
 		$dispatcher = Mockery::mock(Dispatcher::class);
 
 		//
 
+		/** @var \mako\reactor\Reactor|\Mockery\MockInterface $reactor */
 		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();

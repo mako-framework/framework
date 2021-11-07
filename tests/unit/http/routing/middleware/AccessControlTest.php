@@ -30,8 +30,11 @@ class AccessControlTest extends TestCase
 			protected $allowAllDomains = true;
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
@@ -57,9 +60,13 @@ class AccessControlTest extends TestCase
 			];
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
 		$requestHeaders  = Mockery::mock(RequestHeaders::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
@@ -91,8 +98,11 @@ class AccessControlTest extends TestCase
 			];
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
 		$requestHeaders  = Mockery::mock(RequestHeaders::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
@@ -118,8 +128,11 @@ class AccessControlTest extends TestCase
 			];
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
 		$requestHeaders  = Mockery::mock(RequestHeaders::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
@@ -143,8 +156,11 @@ class AccessControlTest extends TestCase
 			protected $allowCredentials = true;
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
@@ -170,8 +186,11 @@ class AccessControlTest extends TestCase
 			protected $allowedHeaders = ['X-Custom-Header1', 'X-Custom-Header2'];
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
@@ -197,8 +216,11 @@ class AccessControlTest extends TestCase
 			protected $allowedMethods = ['GET', 'POST'];
 		};
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request         = Mockery::mock(Request::class);
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response        = Mockery::mock(Response::class);
+		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);

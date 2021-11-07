@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\session\stores;
 
+use mako\file\FileSystem;
 use mako\session\stores\File;
 use mako\tests\TestCase;
 use Mockery;
@@ -17,11 +18,11 @@ use Mockery;
 class FileTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\file\FileSystem|\Mockery\MockInterface
 	 */
 	public function getFileSystem()
 	{
-		return Mockery::mock('mako\file\FileSystem');
+		return Mockery::mock(FileSystem::class);
 	}
 
 	/**

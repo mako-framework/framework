@@ -80,14 +80,17 @@ class ContentNegotiationTraitTest extends TestCase
 	{
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -96,14 +99,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -112,14 +118,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -134,14 +143,17 @@ class ContentNegotiationTraitTest extends TestCase
 	{
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -150,14 +162,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -166,14 +181,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -188,14 +206,17 @@ class ContentNegotiationTraitTest extends TestCase
 	{
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/xml']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -204,14 +225,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+xml']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -220,14 +244,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$test = $this->getTestClass($request, $response);
@@ -240,8 +267,10 @@ class ContentNegotiationTraitTest extends TestCase
 	 */
 	public function testRespondWithType(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('application/json');
@@ -252,8 +281,10 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('foo/bar+json');
@@ -264,14 +295,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('foo/bar');
@@ -282,14 +316,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -300,14 +337,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -318,14 +358,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -340,8 +383,10 @@ class ContentNegotiationTraitTest extends TestCase
 	 */
 	public function testRespondWithJson(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('application/json');
@@ -352,8 +397,10 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/json');
@@ -364,14 +411,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -382,14 +432,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['text/json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -400,14 +453,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+json']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -418,14 +474,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -440,8 +499,10 @@ class ContentNegotiationTraitTest extends TestCase
 	 */
 	public function testRespondWithXml(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('application/xml');
@@ -452,8 +513,10 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/xml');
@@ -464,14 +527,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['application/xml']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -482,14 +548,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['text/xml']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -500,14 +569,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar+xml']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');
@@ -518,14 +590,17 @@ class ContentNegotiationTraitTest extends TestCase
 
 		//
 
+		/** @var \mako\http\request\Headers|\Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('getAcceptableContentTypes')->once()->andReturn(['foo/bar']);
 
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
 
+		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('text/html');

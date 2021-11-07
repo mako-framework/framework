@@ -8,6 +8,7 @@
 namespace mako\tests\unit\utility;
 
 use DateTime;
+use mako\i18n\I18n;
 use mako\tests\TestCase;
 use mako\utility\Humanizer;
 use Mockery;
@@ -18,11 +19,12 @@ use Mockery;
 class HumanizerTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\i18n\I18n|\Mockery\MockInterface
 	 */
 	public function getI18n()
 	{
-		$i18n = Mockery::mock('\mako\i18n\I18n');
+		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('get')->andReturnUsing(function($key, $params = [])
 		{

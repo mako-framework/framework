@@ -21,10 +21,11 @@ use Mockery;
 class URLBuilderTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\http\Request|\Mockery\MockInterface
 	 */
 	public function getRequest($langPrefix = '')
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getPath')->andReturn('/foo/bar');
@@ -39,18 +40,21 @@ class URLBuilderTest extends TestCase
 	}
 
 	/**
-	 *
+	 * @return \mako\http\routing\Routes|\Mockery\MockInterface
 	 */
 	public function getRoutes()
 	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route1 */
 		$route1 = Mockery::mock(Route::class);
 
 		$route1->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}');
 
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route2 */
 		$route2 = Mockery::mock(Route::class);
 
 		$route2->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}?');
 
+		/** @var \mako\http\routing\Routes|\Mockery\MockInterface $routes */
 		$routes = Mockery::mock(Routes::class);
 
 		$routes->shouldReceive('getNamedRoute')->withArgs(['foo'])->andReturn($route1);
@@ -91,6 +95,7 @@ class URLBuilderTest extends TestCase
 	 */
 	public function testBaseWithConfiguredURL(): void
 	{
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('');
@@ -173,6 +178,7 @@ class URLBuilderTest extends TestCase
 	{
 		$request = $this->getRequest();
 
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->times(2)->andReturn([]);
@@ -197,6 +203,7 @@ class URLBuilderTest extends TestCase
 	{
 		$request = $this->getRequest();
 
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);

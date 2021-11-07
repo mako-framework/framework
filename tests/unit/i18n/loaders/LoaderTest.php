@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\i18n;
 
+use mako\file\FileSystem;
 use mako\i18n\loaders\exceptions\LoaderException;
 use mako\i18n\loaders\Loader;
 use mako\tests\TestCase;
@@ -18,11 +19,11 @@ use Mockery;
 class LoaderTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\file\FileSystem|\Mockery\MockInterface
 	 */
 	public function getFileSystem()
 	{
-		return Mockery::mock('mako\file\FileSystem');
+		return Mockery::mock(FileSystem::class);
 	}
 
 	/**

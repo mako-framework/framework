@@ -7,8 +7,13 @@
 
 namespace mako\tests\unit\pagination;
 
+use mako\http\Request;
+use mako\http\request\Parameters;
+use mako\http\routing\URLBuilder;
 use mako\pagination\Pagination;
 use mako\tests\TestCase;
+use mako\view\View;
+use mako\view\ViewFactory;
 use Mockery;
 use RuntimeException;
 
@@ -18,35 +23,35 @@ use RuntimeException;
 class PaginationTest extends TestCase
 {
 	/**
-	 *
+	 * @return \mako\http\Request|\Mockery\MockInterface
 	 */
 	public function getRequest()
 	{
-		return Mockery::mock('mako\http\Request');
+		return Mockery::mock(Request::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\view\ViewFactory|\Mockery\MockInterface
 	 */
 	public function getViewFactory()
 	{
-		return Mockery::mock('mako\view\ViewFactory');
+		return Mockery::mock(ViewFactory::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\view\View|\Mockery\MockInterface
 	 */
 	public function getView()
 	{
-		return Mockery::mock('mako\view\View');
+		return Mockery::mock(View::class);
 	}
 
 	/**
-	 *
+	 * @return \mako\http\routing\URLBuilder|\Mockery\MockInterface
 	 */
 	public function getURLBuilder()
 	{
-		return Mockery::mock('mako\http\routing\URLBuilder');
+		return Mockery::mock(URLBuilder::class);
 	}
 
 	/**
@@ -214,7 +219,8 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$query = Mockery::mock('mako\http\request\Parameters');
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 1]);
 
@@ -300,7 +306,8 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$query = Mockery::mock('mako\http\request\Parameters');
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 2]);
 
@@ -386,7 +393,8 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		$query = Mockery::mock('mako\http\request\Parameters');
+		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 10]);
 
