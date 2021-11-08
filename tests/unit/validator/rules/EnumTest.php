@@ -8,6 +8,7 @@
 namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
+use mako\validator\exceptions\ValidatorException;
 use mako\validator\rules\Enum;
 
 // --------------------------------------------------------------------------
@@ -81,5 +82,17 @@ class EnumTest extends TestCase
 		$this->assertFalse($rule->validate(4, []));
 
 		$this->assertSame('The foobar field must contain a valid enum value.', $rule->getErrorMessage('foobar'));
+	}
+
+	/**
+	 *
+	 */
+	public function testWithInvalidEnum(): void
+	{
+		$this->expectException(ValidatorException::class);
+
+		$this->expectExceptionMessage('[ mako\tests\unit\validator\rules\BazEnum ] is not a valid enum.');
+
+		new Enum(BazEnum::class);
 	}
 }

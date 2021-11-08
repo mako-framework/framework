@@ -7,6 +7,9 @@
 
 namespace mako\validator\rules;
 
+use mako\validator\exceptions\ValidatorException;
+
+use function enum_exists;
 use function method_exists;
 use function sprintf;
 
@@ -29,6 +32,11 @@ class Enum extends Rule implements RuleInterface
 	 */
 	public function __construct(string $enum)
 	{
+		if(enum_exists($enum) === false)
+		{
+			throw new ValidatorException(vsprintf('[ %s ] is not a valid enum.', [$enum]));
+		}
+
 		$this->enum = $enum;
 	}
 
