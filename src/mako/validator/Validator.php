@@ -58,6 +58,7 @@ use mako\validator\rules\MinLength;
 use mako\validator\rules\Natural;
 use mako\validator\rules\NaturalNonZero;
 use mako\validator\rules\NotIn;
+use mako\validator\rules\Numeric;
 use mako\validator\rules\Optional;
 use mako\validator\rules\Regex;
 use mako\validator\rules\Required;
@@ -164,6 +165,7 @@ class Validator
 		'natural_non_zero'         => NaturalNonZero::class,
 		'natural'                  => Natural::class,
 		'not_in'                   => NotIn::class,
+		'numeric'                  => Numeric::class,
 		'one_time_token'           => OneTimeToken::class,
 		'optional'                 => Optional::class,
 		'regex'                    => Regex::class,
