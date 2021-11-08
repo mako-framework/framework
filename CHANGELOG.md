@@ -8,6 +8,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Added `WriterInterface::setStream()` method.
 * The query builder now supports enums (PHP 8.1+).
 * The ORM can now cast values to enums (PHP 8.1+).
+* Added `enum` validation rule (PHP 8.1+).
 * Added `numeric` validation rule.
 
 #### Changes

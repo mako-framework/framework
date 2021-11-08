@@ -30,6 +30,7 @@ use mako\validator\rules\Date;
 use mako\validator\rules\Different;
 use mako\validator\rules\Email;
 use mako\validator\rules\EmailDomain;
+use mako\validator\rules\Enum;
 use mako\validator\rules\ExactLength;
 use mako\validator\rules\file\Hash;
 use mako\validator\rules\file\Hmac;
@@ -138,6 +139,7 @@ class Validator
 		'different'                => Different::class,
 		'email_domain'             => EmailDomain::class,
 		'email'                    => Email::class,
+		'enum'                     => Enum::class,
 		'exact_dimensions'         => ExactDimensions::class,
 		'exact_length'             => ExactLength::class,
 		'exists'                   => Exists::class,
