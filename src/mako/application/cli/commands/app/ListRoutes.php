@@ -13,6 +13,7 @@ use mako\http\routing\Routes;
 use mako\reactor\Command;
 
 use function implode;
+use function is_array;
 
 /**
  * Command that lists all registered routes.

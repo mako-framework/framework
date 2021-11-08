@@ -8,6 +8,7 @@
 namespace mako\validator\rules;
 
 use function is_numeric;
+use function sprintf;
 
 /**
  * Numeric rule.

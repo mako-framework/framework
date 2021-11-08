@@ -36,6 +36,7 @@ use function array_merge_recursive;
 use function array_unique;
 use function count;
 use function in_array;
+use function is_array;
 use function is_object;
 use function json_encode;
 use function method_exists;
