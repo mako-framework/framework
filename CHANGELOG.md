@@ -10,6 +10,9 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * The ORM can now cast values to enums (PHP 8.1+).
 * Added `enum` validation rule (PHP 8.1+).
 * Added `numeric` validation rule.
+* Added `boolean` validation rule.
+* Added `true` validation rule.
+* Added `false` validation rule.
 
 #### Changes
 

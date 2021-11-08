@@ -24,6 +24,9 @@ use mako\validator\rules\AlphaUnicode;
 use mako\validator\rules\Arr as ArrRule;
 use mako\validator\rules\Before;
 use mako\validator\rules\Between;
+use mako\validator\rules\Boolean;
+use mako\validator\rules\BooleanFalse;
+use mako\validator\rules\BooleanTrue;
 use mako\validator\rules\database\Exists;
 use mako\validator\rules\database\Unique;
 use mako\validator\rules\Date;
@@ -135,6 +138,7 @@ class Validator
 		'aspect_ratio'             => AspectRatio::class,
 		'before'                   => Before::class,
 		'between'                  => Between::class,
+		'boolean'                  => Boolean::class,
 		'date'                     => Date::class,
 		'different'                => Different::class,
 		'email_domain'             => EmailDomain::class,
@@ -143,6 +147,7 @@ class Validator
 		'exact_dimensions'         => ExactDimensions::class,
 		'exact_length'             => ExactLength::class,
 		'exists'                   => Exists::class,
+		'false'                    => BooleanFalse::class,
 		'float'                    => FloatingPoint::class,
 		'greater_than_or_equal_to' => GreaterThanOrEqualTo::class,
 		'greater_than'             => GreaterThan::class,
@@ -174,6 +179,7 @@ class Validator
 		'required'                 => Required::class,
 		'time_zone'                => TimeZone::class,
 		'token'                    => Token::class,
+		'true'                     => BooleanTrue::class,
 		'unique'                   => Unique::class,
 		'url'                      => URL::class,
 		'uuid'                     => UUID::class,
