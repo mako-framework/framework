@@ -36,6 +36,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Moved the `mako\security\password\HasherException` exception to `mako\security\password\exceptions\HasherException`.
 * Moved the `mako\view\ViewException` exception to `mako\view\exceptions\ViewException`.
 * Moved the `mako\validator\ValidationException` exception to `mako\validator\exceptions\ValidationException`.
+* Moved the `mako\gatekeeper\authorization\AuthorizerException` exception to `mako\gatekeeper\authorization\exceptions\AuthorizerException`.
 
 #### Improvements
 

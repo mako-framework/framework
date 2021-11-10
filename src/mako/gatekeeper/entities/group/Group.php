@@ -7,11 +7,11 @@
 
 namespace mako\gatekeeper\entities\group;
 
-use LogicException;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\entities\user\User;
+use mako\gatekeeper\exceptions\GatekeeperException;
 
 /**
  * Group.
@@ -80,12 +80,12 @@ class Group extends ORM implements GroupEntityInterface
 	{
 		if(!$this->isPersisted)
 		{
-			throw new LogicException('You can only add a user to a group that exist in the database.');
+			throw new GatekeeperException('You can only add a user to a group that exist in the database.');
 		}
 
 		if(!$user->isPersisted())
 		{
-			throw new LogicException('You can only add a user that exist in the database to a group.');
+			throw new GatekeeperException('You can only add a user that exist in the database to a group.');
 		}
 
 		return $this->users()->link($user);
@@ -101,12 +101,12 @@ class Group extends ORM implements GroupEntityInterface
 	{
 		if(!$this->isPersisted)
 		{
-			throw new LogicException('You can only remove a user from a group that exist in the database.');
+			throw new GatekeeperException('You can only remove a user from a group that exist in the database.');
 		}
 
 		if(!$user->isPersisted())
 		{
-			throw new LogicException('You can only remove a user that exist in the database from a group.');
+			throw new GatekeeperException('You can only remove a user that exist in the database from a group.');
 		}
 
 		return $this->users()->unlink($user);
@@ -122,12 +122,12 @@ class Group extends ORM implements GroupEntityInterface
 	{
 		if(!$this->isPersisted)
 		{
-			throw new LogicException('You can only check if a user is a member of a group that exist in the database.');
+			throw new GatekeeperException('You can only check if a user is a member of a group that exist in the database.');
 		}
 
 		if(!$user->isPersisted())
 		{
-			throw new LogicException('You can only check if a user that exist in the database is a member of a group.');
+			throw new GatekeeperException('You can only check if a user that exist in the database is a member of a group.');
 		}
 
 		return $this->users()->where($user->getPrimaryKey(), '=', $user->getPrimaryKeyValue())->count() > 0;

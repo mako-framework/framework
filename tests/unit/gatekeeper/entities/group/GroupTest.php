@@ -7,9 +7,9 @@
 
 namespace mako\tests\unit\gatekeeper\entities\group;
 
-use LogicException;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
+use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -47,7 +47,7 @@ class GroupTest extends TestCase
 	 */
 	public function testAddUserToNonExistingGroup(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only add a user to a group that exist in the database.');
 
@@ -64,7 +64,7 @@ class GroupTest extends TestCase
 	 */
 	public function testAddNonExistingUserToGroup(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only add a user that exist in the database to a group.');
 
@@ -83,7 +83,7 @@ class GroupTest extends TestCase
 	 */
 	public function testRemoveUserFromNonExistingGroup(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only remove a user from a group that exist in the database.');
 
@@ -100,7 +100,7 @@ class GroupTest extends TestCase
  	 */
  	public function testRemoveNonExistingUserFromGroup(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only remove a user that exist in the database from a group.');
 
@@ -119,7 +119,7 @@ class GroupTest extends TestCase
 	 */
 	public function testIsMemberWithNonExistingGroup(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only check if a user is a member of a group that exist in the database.');
 
@@ -136,7 +136,7 @@ class GroupTest extends TestCase
  	 */
  	public function testIsMemberWithNonExistingUser(): void
 	{
-		$this->expectException(LogicException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only check if a user that exist in the database is a member of a group.');
 

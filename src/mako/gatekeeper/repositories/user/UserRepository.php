@@ -7,9 +7,9 @@
 
 namespace mako\gatekeeper\repositories\user;
 
-use InvalidArgumentException;
 use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\AuthorizerInterface;
+use mako\gatekeeper\exceptions\GatekeeperException;
 
 use function in_array;
 use function vsprintf;
@@ -77,7 +77,7 @@ class UserRepository implements UserRepositoryInterface
 	{
 		if(!in_array($identifier, ['email', 'username', 'id']))
 		{
-			throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+			throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 
 		$this->identifier = $identifier;
@@ -191,7 +191,7 @@ class UserRepository implements UserRepositoryInterface
 			case 'id':
 				return $this->getById($identifier);
 			default:
-				throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+				throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 	}
 }

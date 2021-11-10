@@ -8,7 +8,6 @@
 namespace mako\gatekeeper\entities\user;
 
 use DateTimeInterface;
-use LogicException;
 use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
@@ -16,6 +15,7 @@ use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\traits\AuthorizableTrait;
 use mako\gatekeeper\entities\group\Group;
+use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\security\password\Bcrypt;
 use mako\security\password\HasherInterface;
 
@@ -318,7 +318,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	{
 		if(!$this->isPersisted)
 		{
-			throw new LogicException('You can only check memberships for users that exist in the database.');
+			throw new GatekeeperException('You can only check memberships for users that exist in the database.');
 		}
 
 		foreach((array) $group as $check)

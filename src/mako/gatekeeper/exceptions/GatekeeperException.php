@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\gatekeeper\authorization;
+namespace mako\gatekeeper\exceptions;
 
 use RuntimeException;
 
 /**
- * Authorizer exception.
+ * Gatekeeper exception.
  */
-class AuthorizerException extends RuntimeException
+class GatekeeperException extends RuntimeException
 {
 
 }

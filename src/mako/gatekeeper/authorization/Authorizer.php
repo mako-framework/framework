@@ -7,6 +7,7 @@
 
 namespace mako\gatekeeper\authorization;
 
+use mako\gatekeeper\authorization\exceptions\AuthorizerException;
 use mako\gatekeeper\authorization\policies\PolicyInterface;
 use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\syringe\Container;

@@ -8,7 +8,7 @@
 namespace mako\tests\unit\gatekeeper\authorization;
 
 use mako\gatekeeper\authorization\Authorizer;
-use mako\gatekeeper\authorization\AuthorizerException;
+use mako\gatekeeper\authorization\exceptions\AuthorizerException;
 use mako\gatekeeper\authorization\policies\Policy;
 use mako\gatekeeper\authorization\policies\PolicyInterface;
 use mako\gatekeeper\entities\user\UserEntityInterface;

@@ -8,9 +8,9 @@
 namespace mako\tests\unit\gatekeeper\repositories\user;
 
 use Closure;
-use InvalidArgumentException;
 use mako\gatekeeper\authorization\AuthorizerInterface;
 use mako\gatekeeper\entities\user\User;
+use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\tests\TestCase;
 use Mockery;
@@ -177,7 +177,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testSetInvalidIdentifier(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('Invalid identifier [ nope ].');
 

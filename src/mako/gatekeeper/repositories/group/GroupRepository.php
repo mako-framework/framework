@@ -7,7 +7,7 @@
 
 namespace mako\gatekeeper\repositories\group;
 
-use InvalidArgumentException;
+use mako\gatekeeper\exceptions\GatekeeperException;
 
 use function in_array;
 use function vsprintf;
@@ -82,7 +82,7 @@ class GroupRepository implements GroupRepositoryInterface
 	{
 		if(!in_array($identifier, ['name', 'id']))
 		{
-			throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+			throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 
 		$this->identifier = $identifier;
@@ -124,7 +124,7 @@ class GroupRepository implements GroupRepositoryInterface
 			case 'id':
 				return $this->getById($identifier);
 			default:
-				throw new InvalidArgumentException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+				throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 	}
 }
