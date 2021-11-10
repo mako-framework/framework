@@ -53,7 +53,7 @@ class Between extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value >= $this->minimum && (int) $value <= $this->maximum;
+		return $value >= $this->minimum && $value <= $this->maximum;
 	}
 
 	/**

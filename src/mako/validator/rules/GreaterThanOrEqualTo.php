@@ -43,7 +43,7 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value >= $this->greaterThanOrEqualTo;
+		return $value >= $this->greaterThanOrEqualTo;
 	}
 
 	/**

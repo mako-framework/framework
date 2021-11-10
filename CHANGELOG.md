@@ -11,8 +11,8 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Added `enum` validation rule (PHP 8.1+).
 * Added `numeric` validation rule.
 * Added `boolean` validation rule.
-* Added `true` validation rule.
-* Added `false` validation rule.
+* Added `boolean:true` validation rule.
+* Added `boolean:false` validation rule.
 
 #### Changes
 

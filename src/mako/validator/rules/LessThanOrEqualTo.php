@@ -43,7 +43,7 @@ class LessThanOrEqualTo extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value <= $this->lessThanOrEqualTo;
+		return $value <= $this->lessThanOrEqualTo;
 	}
 
 	/**

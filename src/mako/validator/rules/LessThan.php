@@ -43,7 +43,7 @@ class LessThan extends Rule implements RuleInterface
 	 */
 	public function validate($value, array $input): bool
 	{
-		return (int) $value < $this->lessThan;
+		return $value < $this->lessThan;
 	}
 
 	/**
