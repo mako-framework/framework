@@ -9,13 +9,13 @@ namespace mako\gatekeeper\adapters;
 
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\user\UserEntityInterface;
+use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
 use mako\http\Response;
 use mako\session\Session as HttpSession;
-use RuntimeException;
 
 use function array_replace_recursive;
 
@@ -222,7 +222,7 @@ class Session extends Adapter
 	{
 		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
 		{
-			throw new RuntimeException('Attempted to set a secure cookie over a non-secure connection.');
+			throw new GatekeeperException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
 		$this->response->getCookies()->addSigned($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);

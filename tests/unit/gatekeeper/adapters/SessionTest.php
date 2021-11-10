@@ -10,6 +10,7 @@ namespace mako\tests\unit\gatekeeper\adapters;
 use mako\gatekeeper\adapters\Session;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
+use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\gatekeeper\Gatekeeper;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
@@ -21,7 +22,6 @@ use mako\http\response\Headers as ResponseHeaders;
 use mako\session\Session as HttpSession;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 /**
  * @group unit
@@ -459,7 +459,7 @@ class SessionTest extends TestCase
 	 */
 	public function testSuccessfulLoginWithRememberMeWithSecureCookieOverNonSecureConnection(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('Attempted to set a secure cookie over a non-secure connection.');
 
