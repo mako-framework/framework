@@ -217,17 +217,17 @@ class Application extends BaseApplication
 
 		$commands =
 		[
-			'app.generate_key'       => GenerateKey::class,
-			'app.generate_secret'    => GenerateSecret::class,
-			'app.generate_preloader' => GeneratePreloader::class,
+			'app:generate-key'       => GenerateKey::class,
+			'app:generate-secret'    => GenerateSecret::class,
+			'app:generate-preloader' => GeneratePreloader::class,
 		];
 
 		if($this->container->has(Routes::class))
 		{
 			$commands = array_merge($commands,
 			[
-				'app.routes' => ListRoutes::class,
-				'server'     => Server::class,
+				'app:routes' => ListRoutes::class,
+				'app:server' => Server::class,
 			]);
 		}
 
@@ -235,8 +235,8 @@ class Application extends BaseApplication
 		{
 			$commands = array_merge($commands,
 			[
-				'cache.remove' => Remove::class,
-				'cache.clear'  => Clear::class,
+				'cache:remove' => Remove::class,
+				'cache:clear'  => Clear::class,
 			]);
 		}
 
@@ -244,11 +244,11 @@ class Application extends BaseApplication
 		{
 			$commands = array_merge($commands,
 			[
-				'migrate.create' => Create::class,
-				'migrate.status' => Status::class,
-				'migrate.up'     => Up::class,
-				'migrate.down'   => Down::class,
-				'migrate.reset'  => Reset::class,
+				'migration:create' => Create::class,
+				'migration:status' => Status::class,
+				'migration:up'     => Up::class,
+				'migration:down'   => Down::class,
+				'migration:reset'  => Reset::class,
 			]);
 		}
 

@@ -27,6 +27,19 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Removed the deprecated `Route::namespace()` method.
 * Removed support for defining method controller actions as strings.
 * Removed the deprecated `AccessControlAllowOrigin` middleware.
+* The following commands have been renamed:
+	- `app.generate-key` to `app:generate-key`
+	- `app.generate_secret` to `app:generate-secret`
+	- `app.generate_preloader` to `app:generate-preloader`
+	- `app.routes` to `app:routes`
+	- `server` to `app:server`
+	- `cache.remove` to `cache:remove`
+	- `cache.clear` to `cache:clear`
+	- `migrate.create` to `migration:create`
+	- `migrate.status` to `migration:status`
+	- `migrate.up` to `migration:up`
+	- `migrate.down` to `migration:down`
+	- `migrate.reset` to `migration:reset`
 * Moved the `mako\cli\output\formatter\FormatterException` exception to `mako\cli\output\formatter\exceptions\FormatterException`.
 * Moved the `mako\redis\RedisException` exception to `mako\redis\exceptions\RedisException`.
 * Moved the `mako\config\loaders\LoaderException` exception to `mako\config\loaders\exceptions\LoaderException`.
