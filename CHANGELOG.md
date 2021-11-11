@@ -40,17 +40,18 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 	- `migrate.up` to `migration:up`
 	- `migrate.down` to `migration:down`
 	- `migrate.reset` to `migration:reset`
-* Moved the `mako\cli\output\formatter\FormatterException` exception to `mako\cli\output\formatter\exceptions\FormatterException`.
-* Moved the `mako\redis\RedisException` exception to `mako\redis\exceptions\RedisException`.
-* Moved the `mako\config\loaders\LoaderException` exception to `mako\config\loaders\exceptions\LoaderException`.
-* Moved the `mako\i18n\I18nException` exception to `mako\i18n\exceptions\I18nException`.
-* Moved the `mako\i18n\loaders\LoaderException` exception to `mako\i18n\loaders\exceptions\LoaderException`.
-* Moved the `mako\onion\OnionException` exception to `mako\onion\exceptions\OnionException`.
-* Moved the `mako\security\crypto\CryptoException` exception to `mako\security\crypto\exceptions\CryptoException`.
-* Moved the `mako\security\password\HasherException` exception to `mako\security\password\exceptions\HasherException`.
-* Moved the `mako\view\ViewException` exception to `mako\view\exceptions\ViewException`.
-* Moved the `mako\validator\ValidationException` exception to `mako\validator\exceptions\ValidationException`.
-* Moved the `mako\gatekeeper\authorization\AuthorizerException` exception to `mako\gatekeeper\authorization\exceptions\AuthorizerException`.
+* The following exceptions have been renamed:
+	- `mako\cli\output\formatter\FormatterException` to `mako\cli\output\formatter\exceptions\FormatterException`
+	- `mako\redis\RedisException` to `mako\redis\exceptions\RedisException`
+	- `mako\config\loaders\LoaderException` to `mako\config\loaders\exceptions\LoaderException`
+	- `mako\i18n\I18nException` to `mako\i18n\exceptions\I18nException`
+	- `mako\i18n\loaders\LoaderException` to `mako\i18n\loaders\exceptions\LoaderException`
+	- `mako\onion\OnionException` to `mako\onion\exceptions\OnionException`
+	- `mako\security\crypto\CryptoException` to `mako\security\crypto\exceptions\CryptoException`
+	- `mako\security\password\HasherException` to `mako\security\password\exceptions\HasherException`
+	- `mako\view\ViewException` to `mako\view\exceptions\ViewException`
+	- `mako\validator\ValidationException` to `mako\validator\exceptions\ValidationException`
+	- `mako\gatekeeper\authorization\AuthorizerException` to `mako\gatekeeper\authorization\exceptions\AuthorizerException`
 
 #### Improvements
 
