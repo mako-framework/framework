@@ -13,6 +13,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Added `boolean` validation rule.
 * Added `boolean:true` validation rule.
 * Added `boolean:false` validation rule.
+* Added `string` validation rule.
 
 #### Changes
 
