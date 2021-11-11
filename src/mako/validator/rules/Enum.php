@@ -12,6 +12,7 @@ use mako\validator\exceptions\ValidatorException;
 use function enum_exists;
 use function method_exists;
 use function sprintf;
+use function vsprintf;
 
 /**
  * Enum rule.
