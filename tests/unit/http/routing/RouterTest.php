@@ -23,7 +23,6 @@ use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
 use RuntimeException;
-use Throwable;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -86,7 +85,11 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
-		$router->route($request);
+		$route = $router->route($request);
+
+		$this->assertSame('router:404', $route->getName());
+
+		$route->getAction()();
 	}
 
 	/**
@@ -110,9 +113,13 @@ class RouterTest extends TestCase
 
 		try
 		{
-			$router->route($request);
+			$route = $router->route($request);
+
+			$this->assertSame('router:405', $route->getName());
+
+			$route->getAction()();
 		}
-		catch(Throwable $e)
+		catch(MethodNotAllowedException $e)
 		{
 			$this->assertEquals(['POST', 'OPTIONS'], $e->getAllowedMethods());
 
@@ -208,7 +215,7 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
-		$router->route($request);
+		$router->route($request)->getAction()();
 	}
 
 	/**
@@ -300,6 +307,8 @@ class RouterTest extends TestCase
 		$routed = $router->route($request);
 
 		$this->assertInstanceOf(Route::class, $routed);
+
+		$this->assertSame('router:options', $routed->getName());
 
 		$action = $routed->getAction();
 
@@ -431,7 +440,7 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
-		$router->route($request);
+		$router->route($request)->getAction()();
 	}
 
 	/**
@@ -462,7 +471,7 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
-		$router->route($request);
+		$router->route($request)->getAction()();
 	}
 
 	/**

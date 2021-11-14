@@ -14,6 +14,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Added `boolean:true` validation rule.
 * Added `boolean:false` validation rule.
 * Added `string` validation rule.
+* Middleware will now be executed even when routing throws `NotFoundException` and `MethodNotAllowed` exceptions.
 
 #### Changes
 

@@ -227,7 +227,34 @@ class Router
 		return new Route([], '', static function(Response $response) use ($allowedMethods): void
 		{
 			$response->getHeaders()->add('Allow', implode(',', $allowedMethods));
-		});
+		}, 'router:options');
+	}
+
+	/**
+	 * Returns a route that throws a method not allowed exception.
+	 *
+	 * @param  array                    $allowedMethods Allowed methods
+	 * @return \mako\http\routing\Route
+	 */
+	protected function methodNotAllowedRoute(array $allowedMethods): Route
+	{
+		return new Route([], '', static function() use ($allowedMethods): void
+		{
+			throw new MethodNotAllowedException($allowedMethods);
+		}, 'router:405');
+	}
+
+	/**
+	 * Returns a route that throws a not found exception.
+	 *
+	 * @return \mako\http\routing\Route
+	 */
+	protected function notFoundRoute(): Route
+	{
+		return new Route([], '', static function(): void
+		{
+			throw new NotFoundException;
+		}, 'router:404');
 	}
 
 	/**
@@ -282,13 +309,13 @@ class Router
 
 		if(!empty(($allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath))))
 		{
-			throw new MethodNotAllowedException($allowedMethods);
+			return $this->methodNotAllowedRoute($allowedMethods);
 		}
 
 		// No routes matched so we'll throw a not found exception
 
 		notFound:
 
-		throw new NotFoundException;
+		return $this->notFoundRoute();
 	}
 }
