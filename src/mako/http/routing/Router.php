@@ -312,7 +312,7 @@ class Router
 			return $this->methodNotAllowedRoute($allowedMethods);
 		}
 
-		// No routes matched so we'll throw a not found exception
+		// No routes matched so we'll return a not found route
 
 		notFound:
 
