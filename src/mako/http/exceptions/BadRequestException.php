@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Bad request exception.
  */
-class BadRequestException extends HttpException
+class BadRequestException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

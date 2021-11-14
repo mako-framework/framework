@@ -10,8 +10,8 @@ namespace mako\http\request;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use mako\http\exceptions\HttpException;
 use mako\security\Signer;
-use RuntimeException;
 
 use function count;
 
@@ -88,7 +88,7 @@ class Cookies implements Countable, IteratorAggregate
 	{
 		if(empty($this->signer))
 		{
-			throw new RuntimeException('A [ Signer ] instance is required to add signed cookies.');
+			throw new HttpException('A [ Signer ] instance is required to add signed cookies.');
 		}
 
 		$this->cookies[$name] = $this->signer->sign($value);
@@ -128,7 +128,7 @@ class Cookies implements Countable, IteratorAggregate
 	{
 		if(empty($this->signer))
 		{
-			throw new RuntimeException('A [ Signer ] instance is required to read signed cookies.');
+			throw new HttpException('A [ Signer ] instance is required to read signed cookies.');
 		}
 
 		if(isset($this->cookies[$name]) && ($cookie = $this->signer->validate($this->cookies[$name])) !== false)

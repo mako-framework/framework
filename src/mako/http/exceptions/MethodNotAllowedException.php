@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Method not allowed exception.
  */
-class MethodNotAllowedException extends HttpException
+class MethodNotAllowedException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

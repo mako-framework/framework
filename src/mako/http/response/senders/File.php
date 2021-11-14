@@ -9,9 +9,9 @@ namespace mako\http\response\senders;
 
 use Closure;
 use mako\file\FileSystem;
+use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
-use RuntimeException;
 
 use function basename;
 use function connection_aborted;
@@ -96,7 +96,7 @@ class File implements ResponseSenderInterface
 
 		if($this->fileSystem->has($file) === false || $this->fileSystem->isReadable($file) === false)
 		{
-			throw new RuntimeException(vsprintf('File [ %s ] is not readable.', [$file]));
+			throw new HttpException(vsprintf('File [ %s ] is not readable.', [$file]));
 		}
 
 		$this->filePath = $file;

@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Gone exception.
  */
-class GoneException extends HttpException
+class GoneException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

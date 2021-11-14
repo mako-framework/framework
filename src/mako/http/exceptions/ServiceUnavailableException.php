@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Service unavailable exception.
  */
-class ServiceUnavailableException extends HttpException
+class ServiceUnavailableException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

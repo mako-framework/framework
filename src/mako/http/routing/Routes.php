@@ -9,7 +9,7 @@ namespace mako\http\routing;
 
 use Closure;
 use mako\common\traits\ExtendableTrait;
-use RuntimeException;
+use mako\http\routing\exceptions\RoutingException;
 
 use function array_pop;
 use function vsprintf;
@@ -91,7 +91,7 @@ class Routes
 	{
 		if(!isset($this->namedRoutes[$name]))
 		{
-			throw new RuntimeException(vsprintf('No route named [ %s ] has been defined.', [$name]));
+			throw new RoutingException(vsprintf('No route named [ %s ] has been defined.', [$name]));
 		}
 
 		return $this->namedRoutes[$name];

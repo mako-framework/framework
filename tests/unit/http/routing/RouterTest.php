@@ -16,13 +16,13 @@ use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\http\routing\constraints\ConstraintInterface;
+use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\Route;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -479,7 +479,7 @@ class RouterTest extends TestCase
 	 */
 	public function testUnregisteredConstraint(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(RoutingException::class);
 
 		$this->expectExceptionMessage('No constraint named [ foo ] has been registered.');
 

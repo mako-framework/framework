@@ -7,9 +7,9 @@
 
 namespace mako\http\response\senders;
 
+use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
-use RuntimeException;
 
 use function in_array;
 use function vsprintf;
@@ -105,7 +105,7 @@ class Redirect implements ResponseSenderInterface
 	{
 		if(!in_array($statusCode, self::SUPPORTED_STATUS_CODES))
 		{
-			throw new RuntimeException(vsprintf('Unsupported redirect status code [ %s ].', [$statusCode]));
+			throw new HttpException(vsprintf('Unsupported redirect status code [ %s ].', [$statusCode]));
 		}
 
 		$this->statusCode = $statusCode;

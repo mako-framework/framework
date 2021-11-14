@@ -14,8 +14,8 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\senders\Redirect;
 use mako\http\routing\constraints\ConstraintInterface;
+use mako\http\routing\exceptions\RoutingException;
 use mako\syringe\Container;
-use RuntimeException;
 
 use function array_unique;
 use function http_build_query;
@@ -143,7 +143,7 @@ class Router
 
 		if(!isset($this->constraints[$constraint]))
 		{
-			throw new RuntimeException(vsprintf('No constraint named [ %s ] has been registered.', [$constraint]));
+			throw new RoutingException(vsprintf('No constraint named [ %s ] has been registered.', [$constraint]));
 		}
 
 		$constraint = $this->container->get($this->constraints[$constraint], $parameters);

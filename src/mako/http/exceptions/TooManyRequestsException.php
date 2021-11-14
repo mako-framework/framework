@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Too many requests exception.
  */
-class TooManyRequestsException extends HttpException
+class TooManyRequestsException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

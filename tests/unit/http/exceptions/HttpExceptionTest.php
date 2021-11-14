@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\http\exceptions;
 
-use mako\http\exceptions\HttpException;
+use mako\http\exceptions\HttpStatusException;
 use mako\tests\TestCase;
 
 /**
@@ -20,7 +20,7 @@ class HttpExceptionTest extends TestCase
 	 */
 	public function testGetCodeAndGetMessage(): void
 	{
-		$exception = new HttpException(500);
+		$exception = new HttpStatusException(500);
 
 		$this->assertSame(500, $exception->getCode());
 
@@ -28,7 +28,7 @@ class HttpExceptionTest extends TestCase
 
 		//
 
-		$exception = new HttpException(500, 'Server Error');
+		$exception = new HttpStatusException(500, 'Server Error');
 
 		$this->assertSame(500, $exception->getCode());
 
@@ -40,13 +40,13 @@ class HttpExceptionTest extends TestCase
 	 */
 	public function testSetAndGetMetadata(): void
 	{
-		$exception = new HttpException(500);
+		$exception = new HttpStatusException(500);
 
 		$data = ['foo' => 'bar'];
 
 		$this->assertSame([], $exception->getMetadata());
 
-		$this->assertInstanceOf(HttpException::class, $exception->setMetadata($data));
+		$this->assertInstanceOf(HttpStatusException::class, $exception->setMetadata($data));
 
 		$this->assertSame($data, $exception->getMetadata());
 	}

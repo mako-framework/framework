@@ -7,11 +7,11 @@
 
 namespace mako\tests\unit\http;
 
+use mako\http\exceptions\HttpException;
 use mako\http\response\Cookies;
 use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 /**
  * @group unit
@@ -104,7 +104,7 @@ class CookiesTest extends TestCase
 	 */
 	public function testAddSignedWithoutSigner(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(HttpException::class);
 
 		$this->expectExceptionMessage('A [ Signer ] instance is required to sign cookies.');
 

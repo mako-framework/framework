@@ -13,12 +13,12 @@ use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\routing\Controller;
 use mako\http\routing\Dispatcher;
+use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\http\routing\Route;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -620,7 +620,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testUnregisteredMiddleware(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(RoutingException::class);
 
 		$this->expectExceptionMessage('No middleware named [ foobar ] has been registered.');
 

@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Invalid token exception.
  */
-class InvalidTokenException extends HttpException
+class InvalidTokenException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

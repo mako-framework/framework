@@ -12,7 +12,7 @@ use Throwable;
 /**
  * Not found exception.
  */
-class NotFoundException extends HttpException
+class NotFoundException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}

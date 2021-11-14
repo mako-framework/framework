@@ -29,30 +29,31 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Removed support for defining method controller actions as strings.
 * Removed the deprecated `AccessControlAllowOrigin` middleware.
 * The following commands have been renamed:
-	- `app.generate-key` to `app:generate-key`
-	- `app.generate_secret` to `app:generate-secret`
 	- `app.generate_preloader` to `app:generate-preloader`
+	- `app.generate_secret` to `app:generate-secret`
+	- `app.generate-key` to `app:generate-key`
 	- `app.routes` to `app:routes`
-	- `server` to `app:server`
-	- `cache.remove` to `cache:remove`
 	- `cache.clear` to `cache:clear`
+	- `cache.remove` to `cache:remove`
 	- `migrate.create` to `migration:create`
-	- `migrate.status` to `migration:status`
-	- `migrate.up` to `migration:up`
 	- `migrate.down` to `migration:down`
 	- `migrate.reset` to `migration:reset`
+	- `migrate.status` to `migration:status`
+	- `migrate.up` to `migration:up`
+	- `server` to `app:server`
 * The following exceptions have been renamed:
 	- `mako\cli\output\formatter\FormatterException` to `mako\cli\output\formatter\exceptions\FormatterException`
-	- `mako\redis\RedisException` to `mako\redis\exceptions\RedisException`
 	- `mako\config\loaders\LoaderException` to `mako\config\loaders\exceptions\LoaderException`
+	- `mako\gatekeeper\authorization\AuthorizerException` to `mako\gatekeeper\authorization\exceptions\AuthorizerException`
+	- `mako\http\exceptions\HttpException` to `mako\http\exceptions\HttpStatusException`
 	- `mako\i18n\I18nException` to `mako\i18n\exceptions\I18nException`
 	- `mako\i18n\loaders\LoaderException` to `mako\i18n\loaders\exceptions\LoaderException`
 	- `mako\onion\OnionException` to `mako\onion\exceptions\OnionException`
+	- `mako\redis\RedisException` to `mako\redis\exceptions\RedisException`
 	- `mako\security\crypto\CryptoException` to `mako\security\crypto\exceptions\CryptoException`
 	- `mako\security\password\HasherException` to `mako\security\password\exceptions\HasherException`
-	- `mako\view\ViewException` to `mako\view\exceptions\ViewException`
 	- `mako\validator\ValidationException` to `mako\validator\exceptions\ValidationException`
-	- `mako\gatekeeper\authorization\AuthorizerException` to `mako\gatekeeper\authorization\exceptions\AuthorizerException`
+	- `mako\view\ViewException` to `mako\view\exceptions\ViewException`
 
 #### Improvements
 

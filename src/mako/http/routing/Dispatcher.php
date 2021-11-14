@@ -11,10 +11,10 @@ use Closure;
 use mako\common\traits\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\onion\Onion;
 use mako\syringe\Container;
-use RuntimeException;
 
 use function array_diff_key;
 use function array_fill_keys;
@@ -168,7 +168,7 @@ class Dispatcher
 
 		if(!isset($this->middleware[$name]))
 		{
-			throw new RuntimeException(vsprintf('No middleware named [ %s ] has been registered.', [$middleware]));
+			throw new RoutingException(vsprintf('No middleware named [ %s ] has been registered.', [$middleware]));
 		}
 
 		return ['name' => $name, 'middleware' => $this->middleware[$name], 'parameters' => $parameters];

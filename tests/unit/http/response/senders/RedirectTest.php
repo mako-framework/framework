@@ -7,13 +7,13 @@
 
 namespace mako\tests\unit\http\response\builders;
 
+use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 /**
  * @group unit
@@ -285,7 +285,7 @@ class RedirectTest extends TestCase
 	 */
 	public function testInvalidStatusCode(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(HttpException::class);
 
 		$this->expectExceptionMessage('Unsupported redirect status code [ 306 ].');
 

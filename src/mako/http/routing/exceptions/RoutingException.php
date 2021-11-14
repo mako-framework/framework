@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\request\exceptions;
+namespace mako\http\routing\exceptions;
 
 use mako\http\exceptions\HttpException;
 
 /**
- * Upload exception.
+ * Routing exception.
  */
-class UploadException extends HttpException
+class RoutingException extends HttpException
 {
 
 }
