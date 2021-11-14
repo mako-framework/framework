@@ -8,7 +8,7 @@
 namespace mako\error\handlers\web;
 
 use mako\error\handlers\HandlerInterface;
-use mako\http\exceptions\HttpException;
+use mako\http\exceptions\HttpStatusException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\view\ViewFactory;
@@ -85,7 +85,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	protected function getStatusCodeMessageAndMetadata(Throwable $exception): array
 	{
-		if($exception instanceof HttpException)
+		if($exception instanceof HttpStatusException)
 		{
 			$message = $exception->getMessage();
 
@@ -160,7 +160,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	{
 		$view = 'error';
 
-		if($exception instanceof HttpException)
+		if($exception instanceof HttpStatusException)
 		{
 			$code = $exception->getCode();
 

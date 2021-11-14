@@ -7,7 +7,7 @@
 
 namespace mako\error\handlers\web;
 
-use mako\http\exceptions\HttpException;
+use mako\http\exceptions\HttpStatusException;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Response;
 use mako\http\traits\ContentNegotiationTrait;
@@ -30,7 +30,7 @@ abstract class Handler
 	 */
 	protected function getStatusCode(Throwable $exception): int
 	{
-		return ($exception instanceof HttpException) ? $exception->getCode() : 500;
+		return ($exception instanceof HttpStatusException) ? $exception->getCode() : 500;
 	}
 
 	/**

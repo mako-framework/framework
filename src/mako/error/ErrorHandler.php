@@ -10,7 +10,7 @@ namespace mako\error;
 use Closure;
 use ErrorException;
 use mako\error\handlers\HandlerInterface;
-use mako\http\exceptions\HttpException;
+use mako\http\exceptions\HttpStatusException;
 use mako\syringe\Container;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -363,7 +363,7 @@ class ErrorHandler
 			{
 				if(PHP_SAPI !== 'cli')
 				{
-					http_response_code($exception instanceof HttpException ? $exception->getCode() : 500);
+					http_response_code($exception instanceof HttpStatusException ? $exception->getCode() : 500);
 				}
 
 				// Empty output buffers
