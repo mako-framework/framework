@@ -44,7 +44,7 @@ class InputValidatorTraitTest extends TestCase
 		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
 		$validator = Mockery::mock(Validator::class);
 
-		$validator->shouldReceive('validate')->once()->andReturn($input);
+		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		//
 
@@ -108,7 +108,7 @@ class InputValidatorTraitTest extends TestCase
 		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
 		$validator = Mockery::mock(Validator::class);
 
-		$validator->shouldReceive('validate')->once()->andReturn($input);
+		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		//
 
@@ -171,7 +171,7 @@ class InputValidatorTraitTest extends TestCase
 		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
 		$validator = Mockery::mock(Validator::class);
 
-		$validator->shouldReceive('validate')->once()->andReturn($input);
+		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		$validator->shouldReceive('extend')->once()->with('rule', 'ruleClass');
 
@@ -243,7 +243,7 @@ class InputValidatorTraitTest extends TestCase
 		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
 		$validator = Mockery::mock(Validator::class);
 
-		$validator->shouldReceive('validate')->once()->andThrow($exception);
+		$validator->shouldReceive('getValidatedInput')->once()->andThrow($exception);
 
 		//
 
@@ -310,7 +310,7 @@ class InputValidatorTraitTest extends TestCase
 		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
 		$validator = Mockery::mock(Validator::class);
 
-		$validator->shouldReceive('validate')->once()->andReturn($input);
+		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		//
 

@@ -531,7 +531,7 @@ class Validator
 	 *
 	 * @return array
 	 */
-	public function validate(): array
+	public function getValidatedInput(): array
 	{
 		if($this->isInvalid())
 		{

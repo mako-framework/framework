@@ -44,7 +44,7 @@ trait InputValidationTrait
 
 			try
 			{
-				return $validator->validate();
+				return $validator->getValidatedInput();
 			}
 			catch(ValidationException $e)
 			{
@@ -54,6 +54,6 @@ trait InputValidationTrait
 			}
 		}
 
-		return $this->validator->create($input, $rules)->validate();
+		return $this->validator->create($input, $rules)->getValidatedInput();
 	}
 }

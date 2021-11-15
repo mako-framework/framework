@@ -437,7 +437,7 @@ class ValidatorTest extends TestCase
 
 		$validator = new Validator($input, $rules);
 
-		$this->assertSame(['username' => 'foo', 'password' => 'bar'], $validator->validate());
+		$this->assertSame(['username' => 'foo', 'password' => 'bar'], $validator->getValidatedInput());
 
 		//
 
@@ -445,7 +445,7 @@ class ValidatorTest extends TestCase
 
 		$validator = new Validator($input, $rules);
 
-		$this->assertSame($input, $validator->validate());
+		$this->assertSame($input, $validator->getValidatedInput());
 	}
 
 	/**
@@ -461,7 +461,7 @@ class ValidatorTest extends TestCase
 
 		try
 		{
-			$validator->validate();
+			$validator->getValidatedInput();
 		}
 		catch(Throwable $e)
 		{
