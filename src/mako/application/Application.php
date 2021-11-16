@@ -98,7 +98,7 @@ abstract class Application
 	 *
 	 * @param string $applicationPath Application path
 	 */
-	public function __construct(string $applicationPath)
+	protected function __construct(string $applicationPath)
 	{
 		$this->startTime = microtime(true);
 
