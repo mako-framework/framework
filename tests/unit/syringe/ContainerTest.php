@@ -212,9 +212,9 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$foo = $container->factory('mako\tests\unit\syringe\Foo');
+		$foo = $container->factory(Foo::class);
 
-		$this->assertInstanceOf('\StdClass', $foo->stdClass);
+		$this->assertInstanceOf(stdClass::class, $foo->stdClass);
 	}
 
 	/**
@@ -228,7 +228,7 @@ class ContainerTest extends TestCase
 
 		$container = new Container;
 
-		$foo = $container->factory('mako\tests\unit\syringe\Fox');
+		$foo = $container->factory(Fox::class);
 	}
 
 	/**
@@ -238,7 +238,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->factory('mako\tests\unit\syringe\Bar');
+		$bar = $container->factory(Bar::class);
 
 		$this->assertEquals(123, $bar->foo);
 		$this->assertEquals(456, $bar->bar);
@@ -251,7 +251,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->factory('mako\tests\unit\syringe\Bar', ['abc', 'def']);
+		$bar = $container->factory(Bar::class, ['abc', 'def']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
@@ -260,7 +260,7 @@ class ContainerTest extends TestCase
 
 		$container = new Container;
 
-		$bar = $container->factory('mako\tests\unit\syringe\Bar', [1 => 'def', 0 => 'abc']);
+		$bar = $container->factory(Bar::class, [1 => 'def', 0 => 'abc']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
@@ -273,7 +273,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->factory('mako\tests\unit\syringe\Bar', ['bar' => 789]);
+		$bar = $container->factory(Bar::class, ['bar' => 789]);
 
 		$this->assertEquals(123, $bar->foo);
 		$this->assertEquals(789, $bar->bar);
@@ -286,7 +286,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$bar = $container->factory('mako\tests\unit\syringe\Bar', ['bar' => 'def', 0 => 'abc']);
+		$bar = $container->factory(Bar::class, ['bar' => 'def', 0 => 'abc']);
 
 		$this->assertEquals('abc', $bar->foo);
 		$this->assertEquals('def', $bar->bar);
@@ -299,11 +299,11 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register('mako\tests\unit\syringe\StoreInterface', 'mako\tests\unit\syringe\Store');
+		$container->register(StoreInterface::class, Store::class);
 
-		$baz = $container->get('mako\tests\unit\syringe\Baz');
+		$baz = $container->get(Baz::class);
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Store', $baz->store);
+		$this->assertInstanceOf(Store::class, $baz->store);
 	}
 
 	/**
@@ -317,7 +317,7 @@ class ContainerTest extends TestCase
 
 		$container = new Container;
 
-		$baz = $container->factory('mako\tests\unit\syringe\StoreInterface');
+		$container->factory(StoreInterface::class);
 	}
 
 	/**
@@ -327,11 +327,11 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register(['mako\tests\unit\syringe\Foo', 'foo'], 'mako\tests\unit\syringe\Foo');
+		$container->register([Foo::class, 'foo'], Foo::class);
 
 		$foo = $container->get('foo');
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Foo', $foo);
+		$this->assertInstanceOf(Foo::class, $foo);
 	}
 
 	/**
@@ -341,14 +341,14 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register(['mako\tests\unit\syringe\Bar', 'bar'], function()
+		$container->register([Bar::class, 'bar'], function()
 		{
 			return new Bar('uvw', 'xyz');
 		});
 
 		$bar = $container->get('bar');
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $bar);
+		$this->assertInstanceOf(Bar::class, $bar);
 
 		$this->assertEquals('uvw', $bar->foo);
 		$this->assertEquals('xyz', $bar->bar);
@@ -365,11 +365,11 @@ class ContainerTest extends TestCase
 
 		$baq->setBaq('foobar');
 
-		$container->registerInstance(['mako\tests\unit\syringe\Baq', 'baq'], $baq);
+		$container->registerInstance([Baq::class, 'baq'], $baq);
 
 		$baq = $container->get('baq');
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Baq', $baq);
+		$this->assertInstanceOf(Baq::class, $baq);
 
 		$this->assertSame('foobar', $baq->baq);
 	}
@@ -381,13 +381,13 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register(['mako\tests\unit\syringe\Foo', 'foo'], 'mako\tests\unit\syringe\Foo');
+		$container->register([Foo::class, 'foo'], Foo::class);
 
-		$this->assertTrue($container->has('mako\tests\unit\syringe\Foo'));
+		$this->assertTrue($container->has(Foo::class));
 
 		$this->assertTrue($container->has('foo'));
 
-		$this->assertFalse($container->has('mako\tests\unit\syringe\Bar'));
+		$this->assertFalse($container->has(Bar::class));
 
 		$this->assertFalse($container->has('bar'));
 	}
@@ -420,7 +420,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->registerSingleton(['mako\tests\unit\syringe\Bar', 'bar'], function()
+		$container->registerSingleton([Bar::class, 'bar'], function()
 		{
 			return new Bar(uniqid(), uniqid());
 		});
@@ -444,7 +444,7 @@ class ContainerTest extends TestCase
 
 		$returnValue = $container->call($closure);
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $returnValue);
+		$this->assertInstanceOf(Bar::class, $returnValue);
 
 		//
 
@@ -457,7 +457,7 @@ class ContainerTest extends TestCase
 
 		$returnValue = $container->call($closure);
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $returnValue[0]);
+		$this->assertInstanceOf(Bar::class, $returnValue[0]);
 
 		$this->assertSame(123, $returnValue[1]);
 
@@ -472,7 +472,7 @@ class ContainerTest extends TestCase
 
 		$returnValue = $container->call($closure, ['foo' => 456]);
 
-		$this->assertInstanceOf('mako\tests\unit\syringe\Bar', $returnValue[0]);
+		$this->assertInstanceOf(Bar::class, $returnValue[0]);
 
 		$this->assertSame(456, $returnValue[1]);
 	}

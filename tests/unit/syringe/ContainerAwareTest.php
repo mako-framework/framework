@@ -45,9 +45,9 @@ class ContainerAwareTest extends TestCase
 	{
 		$container = new Container;
 
-		$bax = $container->get('mako\tests\unit\syringe\Bax');
+		$bax = $container->get(Bax::class);
 
-		$this->assertInstanceOf('mako\syringe\Container', $bax->getContainer());
+		$this->assertInstanceOf(Container::class, $bax->getContainer());
 	}
 
 	/**
@@ -57,8 +57,8 @@ class ContainerAwareTest extends TestCase
 	{
 		$container = new Container;
 
-		$bax = $container->get('mako\tests\unit\syringe\BaxChild');
+		$bax = $container->get(BaxChild::class);
 
-		$this->assertInstanceOf('mako\syringe\Container', $bax->getContainer());
+		$this->assertInstanceOf(Container::class, $bax->getContainer());
 	}
 }

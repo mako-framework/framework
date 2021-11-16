@@ -8,7 +8,7 @@
 namespace mako\syringe\traits;
 
 use mako\syringe\Container;
-use RuntimeException;
+use mako\syringe\exceptions\ContainerException;
 
 use function vsprintf;
 
@@ -83,7 +83,7 @@ trait ContainerAwareTrait
 
 		if($this->container->has($key) === false)
 		{
-			throw new RuntimeException(vsprintf('Unable to resolve [ %s ].', [$key]));
+			throw new ContainerException(vsprintf('Unable to resolve [ %s ].', [$key]));
 		}
 
 		$resolved = $this->container->get($key);
