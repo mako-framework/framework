@@ -8,11 +8,16 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Added `WriterInterface::setStream()` method.
 * The query builder now supports enums (PHP 8.1+).
 * The ORM can now cast values to enums (PHP 8.1+).
-* Added `enum` validation rule (PHP 8.1+).
-* Added `numeric` validation rule.
-* Added `boolean` validation rule.
-* Added `boolean:true` validation rule.
 * Added `boolean:false` validation rule.
+* Added `boolean:true` validation rule.
+* Added `boolean` validation rule.
+* Added `enum` validation rule (PHP 8.1+).
+* Added `number:float` validation rule.
+* Added `number:int` validation rule.
+* Added `number:natural_non_zero` validation rule.
+* Added `number:natural` validation rule.
+* Added `number` validation rule.
+* Added `numeric` validation rule.
 * Added `string` validation rule.
 * Middleware will now be executed even when routing throws `NotFoundException` and `MethodNotAllowed` exceptions.
 

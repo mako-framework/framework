@@ -62,6 +62,11 @@ use mako\validator\rules\MinLength;
 use mako\validator\rules\Natural;
 use mako\validator\rules\NaturalNonZero;
 use mako\validator\rules\NotIn;
+use mako\validator\rules\Number;
+use mako\validator\rules\NumberFloat;
+use mako\validator\rules\NumberInt;
+use mako\validator\rules\NumberNatural;
+use mako\validator\rules\NumberNaturalNonZero;
 use mako\validator\rules\Numeric;
 use mako\validator\rules\Optional;
 use mako\validator\rules\Regex;
@@ -174,6 +179,11 @@ class Validator
 		'natural_non_zero'         => NaturalNonZero::class,
 		'natural'                  => Natural::class,
 		'not_in'                   => NotIn::class,
+		'number:float'             => NumberFloat::class,
+		'number:int'               => NumberInt::class,
+		'number:natural_non_zero'  => NumberNaturalNonZero::class,
+		'number:natural'           => NumberNatural::class,
+		'number'                   => Number::class,
 		'numeric'                  => Numeric::class,
 		'one_time_token'           => OneTimeToken::class,
 		'optional'                 => Optional::class,
