@@ -208,7 +208,7 @@ class Connection
 		{
 			$chunk = fread($this->connection, min($bytesLeft, 4096));
 
-			if($chunk === false || $chunk === '')
+			if($chunk === false)
 			{
 				throw new RedisException($this->appendReadErrorReason('Failed to read data from the server.'));
 			}
@@ -238,7 +238,7 @@ class Connection
 		{
 			$totalBytesWritten += $bytesWritten = fwrite($this->connection, $data);
 
-			if($bytesWritten === false || $bytesWritten === 0)
+			if($bytesWritten === false)
 			{
 				throw new RedisException('Failed to write data to the server.');
 			}
