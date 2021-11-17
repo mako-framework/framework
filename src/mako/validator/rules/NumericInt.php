@@ -7,20 +7,20 @@
 
 namespace mako\validator\rules;
 
-use function preg_match;
+use function filter_var;
 use function sprintf;
 
 /**
- * Natural non-zero rule.
+ * Numeric integer rule.
  */
-class NaturalNonZero extends Rule implements RuleInterface
+class NumericInt extends Rule implements RuleInterface
 {
 	/**
 	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return preg_match('/(^[1-9]\d*$)/', $value) === 1;
+		return filter_var($value, FILTER_VALIDATE_INT) !== false;
 	}
 
 	/**
@@ -28,6 +28,6 @@ class NaturalNonZero extends Rule implements RuleInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain a non zero natural number.', $field);
+		return sprintf('The %1$s field must contain an integer.', $field);
 	}
 }

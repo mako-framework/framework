@@ -8,19 +8,19 @@
 namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
-use mako\validator\rules\Integer;
+use mako\validator\rules\NumericInt;
 
 /**
  * @group unit
  */
-class IntegerTest extends TestCase
+class NumericIntTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new Integer;
+		$rule = new NumericInt;
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,7 +30,7 @@ class IntegerTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new Integer;
+		$rule = new NumericInt;
 
 		$this->assertTrue($rule->validate(1, []));
 		$this->assertTrue($rule->validate('1', []));
@@ -41,7 +41,7 @@ class IntegerTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new Integer;
+		$rule = new NumericInt;
 
 		$this->assertFalse($rule->validate(1.1, []));
 		$this->assertFalse($rule->validate('1.1', []));

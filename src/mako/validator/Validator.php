@@ -45,13 +45,11 @@ use mako\validator\rules\file\IsUploaded;
 use mako\validator\rules\file\MaxFilenameLength;
 use mako\validator\rules\file\MaxFileSize;
 use mako\validator\rules\file\MimeType;
-use mako\validator\rules\FloatingPoint;
 use mako\validator\rules\GreaterThan;
 use mako\validator\rules\GreaterThanOrEqualTo;
 use mako\validator\rules\Hex;
 use mako\validator\rules\I18nAwareInterface;
 use mako\validator\rules\In;
-use mako\validator\rules\Integer;
 use mako\validator\rules\IP;
 use mako\validator\rules\JSON;
 use mako\validator\rules\LessThan;
@@ -59,8 +57,6 @@ use mako\validator\rules\LessThanOrEqualTo;
 use mako\validator\rules\MatchField;
 use mako\validator\rules\MaxLength;
 use mako\validator\rules\MinLength;
-use mako\validator\rules\Natural;
-use mako\validator\rules\NaturalNonZero;
 use mako\validator\rules\NotIn;
 use mako\validator\rules\Number;
 use mako\validator\rules\NumberFloat;
@@ -68,6 +64,10 @@ use mako\validator\rules\NumberInt;
 use mako\validator\rules\NumberNatural;
 use mako\validator\rules\NumberNaturalNonZero;
 use mako\validator\rules\Numeric;
+use mako\validator\rules\NumericFloat;
+use mako\validator\rules\NumericInt;
+use mako\validator\rules\NumericNatural;
+use mako\validator\rules\NumericNaturalNonZero;
 use mako\validator\rules\Optional;
 use mako\validator\rules\Regex;
 use mako\validator\rules\Required;
@@ -155,14 +155,12 @@ class Validator
 		'exact_dimensions'         => ExactDimensions::class,
 		'exact_length'             => ExactLength::class,
 		'exists'                   => Exists::class,
-		'float'                    => FloatingPoint::class,
 		'greater_than_or_equal_to' => GreaterThanOrEqualTo::class,
 		'greater_than'             => GreaterThan::class,
 		'hash'                     => Hash::class,
 		'hex'                      => Hex::class,
 		'hmac'                     => Hmac::class,
 		'in'                       => In::class,
-		'integer'                  => Integer::class,
 		'ip'                       => IP::class,
 		'is_uploaded'              => IsUploaded::class,
 		'json'                     => JSON::class,
@@ -176,14 +174,16 @@ class Validator
 		'mime_type'                => MimeType::class,
 		'min_dimensions'           => MinDimensions::class,
 		'min_length'               => MinLength::class,
-		'natural_non_zero'         => NaturalNonZero::class,
-		'natural'                  => Natural::class,
 		'not_in'                   => NotIn::class,
 		'number:float'             => NumberFloat::class,
 		'number:int'               => NumberInt::class,
 		'number:natural_non_zero'  => NumberNaturalNonZero::class,
 		'number:natural'           => NumberNatural::class,
 		'number'                   => Number::class,
+		'numeric:float'            => NumericFloat::class,
+		'numeric:int'              => NumericInt::class,
+		'numeric:natural_non_zero' => NumericNaturalNonZero::class,
+		'numeric:natural'          => NumericNatural::class,
 		'numeric'                  => Numeric::class,
 		'one_time_token'           => OneTimeToken::class,
 		'optional'                 => Optional::class,

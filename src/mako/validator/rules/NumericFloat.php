@@ -7,20 +7,21 @@
 
 namespace mako\validator\rules;
 
+use function filter_var;
 use function preg_match;
 use function sprintf;
 
 /**
- * Integer rule.
+ * Numberic float rule.
  */
-class Integer extends Rule implements RuleInterface
+class NumericFloat extends Rule implements RuleInterface
 {
 	/**
 	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/', $value) === 1;
+		return filter_var($value, FILTER_VALIDATE_FLOAT) !== false && preg_match('/(^(\-?)0$)|(^(\-?)[1-9]\d*$)/', $value) === 0;
 	}
 
 	/**
@@ -28,6 +29,6 @@ class Integer extends Rule implements RuleInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain an integer.', $field);
+		return sprintf('The %1$s field must contain a float.', $field);
 	}
 }

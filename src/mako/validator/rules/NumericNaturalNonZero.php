@@ -7,20 +7,20 @@
 
 namespace mako\validator\rules;
 
-use function preg_match;
+use function filter_var;
 use function sprintf;
 
 /**
- * Float rule.
+ * Numeric natural non-zero rule.
  */
-class FloatingPoint extends Rule implements RuleInterface
+class NumericNaturalNonZero extends Rule implements RuleInterface
 {
 	/**
 	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return preg_match('/(^(\-?)0\.\d+$)|(^(\-?)[1-9]\d*\.\d+$)/', $value) === 1;
+		return filter_var($value, FILTER_VALIDATE_INT) !== false && (int) $value > 0;
 	}
 
 	/**
@@ -28,6 +28,6 @@ class FloatingPoint extends Rule implements RuleInterface
 	 */
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain a float.', $field);
+		return sprintf('The %1$s field must contain a non zero natural number.', $field);
 	}
 }

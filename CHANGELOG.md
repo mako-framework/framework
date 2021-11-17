@@ -33,6 +33,11 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 * Removed the deprecated `Route::namespace()` method.
 * Removed support for defining method controller actions as strings.
 * Removed the deprecated `AccessControlAllowOrigin` middleware.
+* The following validation rules have been renamed:
+	- `float` to `numeric:float`
+	- `integer` to `numeric:int`
+	- `natural_non_zero` to `numeric:natural_non_zero`
+	- `natural` to `numeric:natural`
 * The following commands have been renamed:
 	- `app.generate_preloader` to `app:generate-preloader`
 	- `app.generate_secret` to `app:generate-secret`

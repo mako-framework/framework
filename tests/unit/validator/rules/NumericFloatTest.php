@@ -8,19 +8,19 @@
 namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
-use mako\validator\rules\FloatingPoint;
+use mako\validator\rules\NumericFloat;
 
 /**
  * @group unit
  */
-class FloatingPointTest extends TestCase
+class NumericFloatTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new FloatingPoint;
+		$rule = new NumericFloat;
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,10 +30,11 @@ class FloatingPointTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new FloatingPoint;
+		$rule = new NumericFloat;
 
 		$this->assertTrue($rule->validate(1.2, []));
 		$this->assertTrue($rule->validate('1.2', []));
+		$this->assertTrue($rule->validate('1.0E-15', []));
 	}
 
 	/**
@@ -41,7 +42,7 @@ class FloatingPointTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new FloatingPoint;
+		$rule = new NumericFloat;
 
 		$this->assertFalse($rule->validate('1', []));
 

@@ -7,20 +7,20 @@
 
 namespace mako\validator\rules;
 
-use function preg_match;
+use function filter_var;
 use function sprintf;
 
 /**
- * Natural rule.
+ * Numeric natural rule.
  */
-class Natural extends Rule implements RuleInterface
+class NumericNatural extends Rule implements RuleInterface
 {
 	/**
 	 * {@inheritDoc}
 	 */
 	public function validate($value, array $input): bool
 	{
-		return preg_match('/(^0$)|(^[1-9]\d*$)/', $value) === 1;
+		return filter_var($value, FILTER_VALIDATE_INT) !== false && (int) $value >= 0;
 	}
 
 	/**

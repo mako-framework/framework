@@ -8,19 +8,19 @@
 namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
-use mako\validator\rules\NaturalNonZero;
+use mako\validator\rules\NumericNatural;
 
 /**
  * @group unit
  */
-class NaturalNonZeroTest extends TestCase
+class NumericNaturalTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		$rule = new NaturalNonZero;
+		$rule = new NumericNatural;
 
 		$this->assertFalse($rule->validateWhenEmpty());
 	}
@@ -30,8 +30,9 @@ class NaturalNonZeroTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		$rule = new NaturalNonZero;
+		$rule = new NumericNatural;
 
+		$this->assertTrue($rule->validate(0, []));
 		$this->assertTrue($rule->validate(1, []));
 		$this->assertTrue($rule->validate('1', []));
 	}
@@ -41,12 +42,11 @@ class NaturalNonZeroTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		$rule = new NaturalNonZero;
+		$rule = new NumericNatural;
 
-		$this->assertFalse($rule->validate(0, []));
 		$this->assertFalse($rule->validate(1.1, []));
 		$this->assertFalse($rule->validate('1.1', []));
 
-		$this->assertSame('The foobar field must contain a non zero natural number.', $rule->getErrorMessage('foobar'));
+		$this->assertSame('The foobar field must contain a natural number.', $rule->getErrorMessage('foobar'));
 	}
 }
