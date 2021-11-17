@@ -11,7 +11,7 @@ use function is_int;
 use function sprintf;
 
 /**
- * Number int rule.
+ * Number integer rule.
  */
 class NumberInt extends Rule implements RuleInterface
 {
