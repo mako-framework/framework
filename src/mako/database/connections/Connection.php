@@ -258,11 +258,11 @@ class Connection
 	}
 
 	/**
-	 * Returns the PDO instance.
+	 * Returns the PDO instance or NULL if the connection has been closed.
 	 *
-	 * @return \PDO
+	 * @return \PDO|null
 	 */
-	public function getPDO(): PDO
+	public function getPDO(): ?PDO
 	{
 		return $this->pdo;
 	}
