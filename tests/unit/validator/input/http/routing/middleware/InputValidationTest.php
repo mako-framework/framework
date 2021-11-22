@@ -794,7 +794,7 @@ class InputValidationTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once();
+		$response->shouldReceive('clearExcept')->once()->with(['headers' => ['Access-Control-.*']]);
 
 		$response->shouldReceive('setStatus')->once()->with(400);
 
@@ -855,7 +855,7 @@ class InputValidationTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('clear')->once();
+		$response->shouldReceive('clearExcept')->once()->with(['headers' => ['Access-Control-.*']]);
 
 		//-------------
 

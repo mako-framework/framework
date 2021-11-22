@@ -73,6 +73,14 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 
 --------------------------------------------------------
 
+### 7.3.3 <small>(2021-11-22)</small>
+
+#### Changes
+
+* The `InputValidation` will now keep access control headers when clearing the response.
+
+--------------------------------------------------------
+
 ### 7.3.2 <small>(2021-11-05)</small>
 
 #### Bugfixes

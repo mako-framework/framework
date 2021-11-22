@@ -42,6 +42,13 @@ class InputValidation implements MiddlewareInterface
 	protected $httpStatusCode = 400;
 
 	/**
+	 * Headers and cookies to keep.
+	 *
+	 * @var array
+	 */
+	protected $keep = ['headers' => ['Access-Control-.*']];
+
+	/**
 	 * Session flash key for errors.
 	 *
 	 * @var string
@@ -330,7 +337,7 @@ class InputValidation implements MiddlewareInterface
 		{
 			$this->setInput($e->getInput());
 
-			$response->clear();
+			$response->clearExcept($this->keep);
 
 			if($this->shouldRedirect())
 			{
