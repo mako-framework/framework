@@ -77,7 +77,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 
 #### Changes
 
-* The `InputValidation` will now keep access control headers when clearing the response.
+* The `InputValidation` middleware will now keep access control headers when clearing the response.
 
 --------------------------------------------------------
 
