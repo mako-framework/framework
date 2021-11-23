@@ -7,11 +7,11 @@
 
 namespace mako\tests\unit\pixl;
 
+use mako\pixl\exceptions\PixlException;
 use mako\pixl\Image;
 use mako\pixl\processors\ProcessorInterface;
 use mako\tests\TestCase;
 use Mockery;
-use RuntimeException;
 
 /**
  * @group unit
@@ -43,7 +43,7 @@ class ImageTest extends TestCase
 	 */
 	public function testConstructorWithNonExistingFile(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(PixlException::class);
 
 		$processor = $this->getProcessor();
 
@@ -255,7 +255,7 @@ class ImageTest extends TestCase
 	 */
 	public function testWatermarkWithNonExistingFile(): void
 	{
-		$this->expectException(RuntimeException::class);
+		$this->expectException(PixlException::class);
 
 		$processor = $this->getProcessor();
 

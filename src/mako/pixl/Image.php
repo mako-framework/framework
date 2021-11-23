@@ -7,8 +7,8 @@
 
 namespace mako\pixl;
 
+use mako\pixl\exceptions\PixlException;
 use mako\pixl\processors\ProcessorInterface;
-use RuntimeException;
 
 use function file_exists;
 use function is_writable;
@@ -129,7 +129,7 @@ class Image
 
 		if(file_exists($this->image) === false)
 		{
-			throw new RuntimeException(vsprintf('The image [ %s ] does not exist.', [$this->image]));
+			throw new PixlException(vsprintf('The image [ %s ] does not exist.', [$this->image]));
 		}
 
 		// Set the image
@@ -265,7 +265,7 @@ class Image
 
 		if(file_exists($file) === false)
 		{
-			throw new RuntimeException(vsprintf('The watermark image [ %s ] does not exist.', [$file]));
+			throw new PixlException(vsprintf('The watermark image [ %s ] does not exist.', [$file]));
 		}
 
 		// Make sure that opacity is between 0 and 100
@@ -424,7 +424,7 @@ class Image
 		{
 			if(!is_writable($file))
 			{
-				throw new RuntimeException(vsprintf('The file [ %s ] isn\'t writable.', [$file]));
+				throw new PixlException(vsprintf('The file [ %s ] isn\'t writable.', [$file]));
 			}
 		}
 		else
@@ -433,7 +433,7 @@ class Image
 
 			if(!is_writable($pathInfo['dirname']))
 			{
-				throw new RuntimeException(vsprintf('The directory [ %s ] isn\'t writable.', [$pathInfo['dirname']]));
+				throw new PixlException(vsprintf('The directory [ %s ] isn\'t writable.', [$pathInfo['dirname']]));
 			}
 		}
 

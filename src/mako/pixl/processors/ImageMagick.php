@@ -9,10 +9,9 @@ namespace mako\pixl\processors;
 
 use Imagick;
 use ImagickPixel;
-use InvalidArgumentException;
 use mako\pixl\Image;
+use mako\pixl\processors\exceptions\ProcessorException;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
-use RuntimeException;
 
 use function preg_match;
 use function strpos;
@@ -65,7 +64,7 @@ class ImageMagick implements ProcessorInterface
 	{
 		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) !== 1)
 		{
-			throw new InvalidArgumentException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
+			throw new ProcessorException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}
 
 		return (strpos($hex, '#') !== 0) ? "#{$hex}" : $hex;
@@ -94,7 +93,7 @@ class ImageMagick implements ProcessorInterface
 	{
 		if(!($this->snapshot instanceof Imagick))
 		{
-			throw new RuntimeException('No snapshot to restore.');
+			throw new ProcessorException('No snapshot to restore.');
 		}
 
 		$this->image = $this->snapshot;
@@ -308,7 +307,7 @@ class ImageMagick implements ProcessorInterface
 		{
 			if(!$this->image->setImageFormat($type))
 			{
-				throw new RuntimeException(vsprintf('Unsupported image type [ %s ].', [$type]));
+				throw new ProcessorException(vsprintf('Unsupported image type [ %s ].', [$type]));
 			}
 		}
 
