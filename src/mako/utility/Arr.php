@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use RuntimeException;
+use mako\utility\exceptions\ArrException;
 
 use function array_filter;
 use function array_key_exists;
@@ -182,7 +182,7 @@ class Arr
 	{
 		if(strpos($key, '*') === false)
 		{
-			throw new RuntimeException('The key must contain at least one wildcard character.');
+			throw new ArrException('The key must contain at least one wildcard character.');
 		}
 
 		$keys = (array) $key;

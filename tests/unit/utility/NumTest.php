@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\utility;
 
-use InvalidArgumentException;
 use mako\tests\TestCase;
+use mako\utility\exceptions\NumException;
 use mako\utility\Num;
 
 /**
@@ -30,7 +30,7 @@ class NumTest extends TestCase
 	 */
 	public function testArabic2romanException(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(NumException::class);
 
 		Num::arabic2roman(9999);
 	}
@@ -49,7 +49,7 @@ class NumTest extends TestCase
 	 */
 	public function testRoman2arabicException(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(NumException::class);
 
 		Num::roman2arabic('XXXXXXXXXX');
 	}

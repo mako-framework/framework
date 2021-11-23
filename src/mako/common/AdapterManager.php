@@ -8,9 +8,9 @@
 namespace mako\common;
 
 use Closure;
+use mako\common\exceptions\AdapterManagerException;
 use mako\common\traits\ConfigurableTrait;
 use mako\syringe\Container;
-use RuntimeException;
 
 use function method_exists;
 use function vsprintf;
@@ -95,7 +95,7 @@ abstract class AdapterManager
 			return $this->container->get($adapter, $configuration);
 		}
 
-		throw new RuntimeException(vsprintf('A factory method for the [ %s ] adapter has not been defined.', [$adapterName]));
+		throw new AdapterManagerException(vsprintf('A factory method for the [ %s ] adapter has not been defined.', [$adapterName]));
 	}
 
 	/**

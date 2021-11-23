@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use InvalidArgumentException;
+use mako\utility\exceptions\NumException;
 
 use function preg_match;
 use function str_repeat;
@@ -30,7 +30,7 @@ class Num
 
 		if($int < 1 || $int > 3999)
 		{
-			throw new InvalidArgumentException('The number must be between 1 and 3999.');
+			throw new NumException('The number must be between 1 and 3999.');
 		}
 
 		$numerals =
@@ -84,7 +84,7 @@ class Num
 	{
 		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) !== 1)
 		{
-			throw new InvalidArgumentException('Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.');
+			throw new NumException('Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.');
 		}
 
 		$numerals =

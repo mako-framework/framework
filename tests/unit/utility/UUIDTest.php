@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\utility;
 
-use InvalidArgumentException;
 use mako\tests\TestCase;
+use mako\utility\exceptions\UUIDException;
 use mako\utility\UUID;
 
 /**
@@ -65,7 +65,7 @@ class UUIDTest extends TestCase
 	 */
 	public function testToBinaryWithInvalidInput(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(UUIDException::class);
 
 		UUID::toBinary('nope');
 	}
@@ -89,7 +89,7 @@ class UUIDTest extends TestCase
 	 */
 	public function testToHexadecimalWithInvalidInput(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(UUIDException::class);
 
 		UUID::toHexadecimal('nope');
 	}
@@ -117,7 +117,7 @@ class UUIDTest extends TestCase
 	 */
 	public function testV3WithInvalidNamespace(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(UUIDException::class);
 
 		UUID::v3('nope', 'foobar');
 	}
@@ -157,7 +157,7 @@ class UUIDTest extends TestCase
 	 */
 	public function testV5WithInvalidNamespace(): void
 	{
-		$this->expectException(InvalidArgumentException::class);
+		$this->expectException(UUIDException::class);
 
 		UUID::v5('nope', 'foobar');
 	}

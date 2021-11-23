@@ -7,7 +7,7 @@
 
 namespace mako\utility;
 
-use InvalidArgumentException;
+use mako\utility\exceptions\UUIDException;
 
 use function bin2hex;
 use function chr;
@@ -91,7 +91,7 @@ class UUID
 	{
 		if(!static::validate($uuid))
 		{
-			throw new InvalidArgumentException('The provided string is not a valid UUID.');
+			throw new UUIDException('The provided string is not a valid UUID.');
 		}
 
 		$hex = str_replace(['urn:uuid:', '{', '}', '-'], '', $uuid);
@@ -116,7 +116,7 @@ class UUID
 	{
 		if(strlen($bytes) !== 16)
 		{
-			throw new InvalidArgumentException('The input must be exactly 16 bytes.');
+			throw new UUIDException('The input must be exactly 16 bytes.');
 		}
 
 		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
