@@ -7,12 +7,11 @@
 
 namespace mako\application;
 
-use LogicException;
+use mako\application\exceptions\ApplicationException;
 use mako\config\Config;
 use mako\config\loaders\Loader;
 use mako\file\FileSystem;
 use mako\syringe\Container;
-use RuntimeException;
 
 use function basename;
 use function date_default_timezone_set;
@@ -116,7 +115,7 @@ abstract class Application
 	{
 		if(!empty(static::$instance))
 		{
-			throw new LogicException('The application has already been started.');
+			throw new ApplicationException('The application has already been started.');
 		}
 
 		static::$instance = new static($applicationPath);
@@ -133,7 +132,7 @@ abstract class Application
 	{
 		if(empty(static::$instance))
 		{
-			throw new LogicException('The application has not been started yet.');
+			throw new ApplicationException('The application has not been started yet.');
 		}
 
 		return static::$instance;
@@ -244,7 +243,7 @@ abstract class Application
 	{
 		if(!isset($this->packages[$package]))
 		{
-			throw new RuntimeException(vsprintf('Unknown package [ %s ].', [$package]));
+			throw new ApplicationException(vsprintf('Unknown package [ %s ].', [$package]));
 		}
 
 		return $this->packages[$package];
