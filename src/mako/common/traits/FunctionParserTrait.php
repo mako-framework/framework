@@ -7,7 +7,7 @@
 
 namespace mako\common\traits;
 
-use RuntimeException;
+use mako\common\traits\exceptions\FunctionParserTraitException;
 
 use function json_decode;
 use function json_last_error;
@@ -30,7 +30,7 @@ trait FunctionParserTrait
 	{
 		if(preg_match('/^([a-z0-9_:.]+)\((.*)\)$/i', $function, $matches) !== 1)
 		{
-			throw new RuntimeException(vsprintf('[ %s ] does not match the expected function pattern.', [$function]));
+			throw new FunctionParserTraitException(vsprintf('[ %s ] does not match the expected function pattern.', [$function]));
 		}
 
 		return [$matches[1], $matches[2]];
@@ -63,7 +63,7 @@ trait FunctionParserTrait
 
 		if($parameters === null && json_last_error() !== JSON_ERROR_NONE)
 		{
-			throw new RuntimeException('Failed to decode function parameters.');
+			throw new FunctionParserTraitException('Failed to decode function parameters.');
 		}
 
 		return [$function[0], $parameters];
