@@ -225,7 +225,7 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Add errors to flash data and redirect.
 	 *
-	 * @param  \mako\validator\ValidationException $exception Validation exception
+	 * @param  \mako\validator\exceptions\ValidationException $exception Validation exception
 	 * @return \mako\http\Response
 	 */
 	protected function handleRedirect(ValidationException $exception): Response
@@ -260,8 +260,8 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Builds XML based on the exception.
 	 *
-	 * @param  \mako\validator\ValidationException $exception Validation exception
-	 * @param  string                              $charset   Character set
+	 * @param  \mako\validator\exceptions\ValidationException $exception Validation exception
+	 * @param  string                                         $charset   Character set
 	 * @return string
 	 */
 	protected function buildXmlFromException(ValidationException $exception, string $charset): string
@@ -283,7 +283,7 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Output errors.
 	 *
-	 * @param  \mako\validator\ValidationException $exception Validation exception
+	 * @param  \mako\validator\exceptions\ValidationException $exception Validation exception
 	 * @return \mako\http\Response
 	 */
 	protected function handleOutput(ValidationException $exception): Response
