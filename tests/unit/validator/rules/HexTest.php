@@ -32,7 +32,7 @@ class HexTest extends TestCase
 	{
 		$rule = new Hex;
 
-		$this->assertTrue($rule->validate('FF0000', []));
+		$this->assertTrue($rule->validate('FF0000', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class HexTest extends TestCase
 	{
 		$rule = new Hex;
 
-		$this->assertFalse($rule->validate('XX0000', []));
+		$this->assertFalse($rule->validate('XX0000', '', []));
 
 		$this->assertSame('The foobar field must contain a valid hexadecimal value.', $rule->getErrorMessage('foobar'));
 	}

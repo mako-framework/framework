@@ -32,8 +32,8 @@ class GreaterThanTest extends TestCase
 	{
 		$rule = new GreaterThan(3);
 
-		$this->assertTrue($rule->validate(4, []));
-		$this->assertTrue($rule->validate('4', []));
+		$this->assertTrue($rule->validate(4, '', []));
+		$this->assertTrue($rule->validate('4', '', []));
 	}
 
 	/**
@@ -43,8 +43,8 @@ class GreaterThanTest extends TestCase
 	{
 		$rule = new GreaterThan(3);
 
-		$this->assertFalse($rule->validate(2, []));
-		$this->assertFalse($rule->validate('2', []));
+		$this->assertFalse($rule->validate(2, '', []));
+		$this->assertFalse($rule->validate('2', '', []));
 
 		$this->assertSame('The value of the foobar field must be greater than 3.', $rule->getErrorMessage('foobar'));
 	}

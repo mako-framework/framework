@@ -32,8 +32,8 @@ class MinLengthTest extends TestCase
 	{
 		$rule = new MinLength(3);
 
-		$this->assertTrue($rule->validate('foo', []));
-		$this->assertTrue($rule->validate('foobar', []));
+		$this->assertTrue($rule->validate('foo', '', []));
+		$this->assertTrue($rule->validate('foobar', '', []));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class MinLengthTest extends TestCase
 	{
 		$rule = new MinLength(9);
 
-		$this->assertFalse($rule->validate('foobar', []));
+		$this->assertFalse($rule->validate('foobar', '', []));
 
 		$this->assertSame('The value of the foobar field must be at least 9 characters long.', $rule->getErrorMessage('foobar'));
 	}

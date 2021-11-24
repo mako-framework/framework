@@ -33,8 +33,8 @@ class IPTest extends TestCase
 	{
 		$rule = new IP;
 
-		$this->assertTrue($rule->validate('::1', []));
-		$this->assertTrue($rule->validate('127.0.0.1', []));
+		$this->assertTrue($rule->validate('::1', '', []));
+		$this->assertTrue($rule->validate('127.0.0.1', '', []));
 	}
 
 	/**
@@ -44,7 +44,7 @@ class IPTest extends TestCase
 	{
 		$rule = new IP;
 
-		$this->assertFalse($rule->validate('127.0.0', []));
+		$this->assertFalse($rule->validate('127.0.0', '', []));
 
 		$this->assertSame('The foobar field must contain a valid IP address.', $rule->getErrorMessage('foobar'));
 	}
@@ -56,7 +56,7 @@ class IPTest extends TestCase
 	{
 		$rule = new IP('v4');
 
-		$this->assertTrue($rule->validate('127.0.0.1', []));
+		$this->assertTrue($rule->validate('127.0.0.1', '', []));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class IPTest extends TestCase
 	{
 		$rule = new IP('v4');
 
-		$this->assertFalse($rule->validate('::1', []));
+		$this->assertFalse($rule->validate('::1', '', []));
 
 		$this->assertSame('The foobar field must contain a valid IPv4 address.', $rule->getErrorMessage('foobar'));
 	}
@@ -78,7 +78,7 @@ class IPTest extends TestCase
 	{
 		$rule = new IP('v6');
 
-		$this->assertTrue($rule->validate('::1', []));
+		$this->assertTrue($rule->validate('::1', '', []));
 	}
 
 	/**
@@ -88,7 +88,7 @@ class IPTest extends TestCase
 	{
 		$rule = new IP('v6');
 
-		$this->assertFalse($rule->validate('127.0.0.1', []));
+		$this->assertFalse($rule->validate('127.0.0.1', '', []));
 
 		$this->assertSame('The foobar field must contain a valid IPv6 address.', $rule->getErrorMessage('foobar'));
 	}
@@ -104,6 +104,6 @@ class IPTest extends TestCase
 
 		$rule = new IP('v7');
 
-		$this->assertTrue($rule->validate('::1', []));
+		$this->assertTrue($rule->validate('::1', '', []));
 	}
 }

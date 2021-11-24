@@ -32,9 +32,9 @@ class InTest extends TestCase
 	{
 		$rule = new In([1, 2, 3]);
 
-		$this->assertTrue($rule->validate(1, []));
-		$this->assertTrue($rule->validate(2, []));
-		$this->assertTrue($rule->validate(3, []));
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate(2, '', []));
+		$this->assertTrue($rule->validate(3, '', []));
 	}
 
 	/**
@@ -44,7 +44,7 @@ class InTest extends TestCase
 	{
 		$rule = new In([1, 2, 3]);
 
-		$this->assertFalse($rule->validate(0, []));
+		$this->assertFalse($rule->validate(0, '', []));
 
 		$this->assertSame('The foobar field must contain one of available options.', $rule->getErrorMessage('foobar'));
 	}

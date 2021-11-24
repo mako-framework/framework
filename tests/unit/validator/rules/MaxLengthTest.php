@@ -32,8 +32,8 @@ class MaxLengthTest extends TestCase
 	{
 		$rule = new MaxLength(6);
 
-		$this->assertTrue($rule->validate('foo', []));
-		$this->assertTrue($rule->validate('foobar', []));
+		$this->assertTrue($rule->validate('foo', '', []));
+		$this->assertTrue($rule->validate('foobar', '', []));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class MaxLengthTest extends TestCase
 	{
 		$rule = new MaxLength(6);
 
-		$this->assertFalse($rule->validate('foobarbaz', []));
+		$this->assertFalse($rule->validate('foobarbaz', '', []));
 
 		$this->assertSame('The value of the foobar field must be at most 6 characters long.', $rule->getErrorMessage('foobar'));
 	}

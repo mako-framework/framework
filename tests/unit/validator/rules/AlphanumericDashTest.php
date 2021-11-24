@@ -32,7 +32,7 @@ class AlphanumericDashTest extends TestCase
 	{
 		$rule = new AlphanumericDash;
 
-		$this->assertTrue($rule->validate('foo-bar_1', []));
+		$this->assertTrue($rule->validate('foo-bar_1', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class AlphanumericDashTest extends TestCase
 	{
 		$rule = new AlphanumericDash;
 
-		$this->assertFalse($rule->validate('foo-bær_1', []));
+		$this->assertFalse($rule->validate('foo-bær_1', '', []));
 
 		$this->assertSame('The foobar field must contain only numbers, letters and dashes.', $rule->getErrorMessage('foobar'));
 	}

@@ -34,7 +34,7 @@ class TimeZoneTest extends TestCase
 	{
 		$rule = new TimeZone;
 
-		$this->assertTrue($rule->validate('Europe/Oslo', []));
+		$this->assertTrue($rule->validate('Europe/Oslo', '', []));
 	}
 
 	/**
@@ -44,7 +44,7 @@ class TimeZoneTest extends TestCase
 	{
 		$rule = new TimeZone(DateTimeZone::EUROPE);
 
-		$this->assertTrue($rule->validate('Europe/Oslo', []));
+		$this->assertTrue($rule->validate('Europe/Oslo', '', []));
 	}
 
 	/**
@@ -54,7 +54,7 @@ class TimeZoneTest extends TestCase
 	{
 		$rule = new TimeZone(DateTimeZone::PER_COUNTRY, 'NO');
 
-		$this->assertTrue($rule->validate('Europe/Oslo', []));
+		$this->assertTrue($rule->validate('Europe/Oslo', '', []));
 	}
 
 	/**
@@ -64,7 +64,7 @@ class TimeZoneTest extends TestCase
 	{
 		$rule = new TimeZone;
 
-		$this->assertFalse($rule->validate('Foo/bar', []));
+		$this->assertFalse($rule->validate('Foo/bar', '', []));
 
 		$this->assertSame('The foobar field must contain a valid time zone.', $rule->getErrorMessage('foobar'));
 	}
@@ -76,7 +76,7 @@ class TimeZoneTest extends TestCase
 	{
 		$rule = new TimeZone(DateTimeZone::AMERICA);
 
-		$this->assertFalse($rule->validate('Europe/Oslo', []));
+		$this->assertFalse($rule->validate('Europe/Oslo', '', []));
 
 		$this->assertSame('The foobar field must contain a valid time zone.', $rule->getErrorMessage('foobar'));
 	}
@@ -88,7 +88,7 @@ class TimeZoneTest extends TestCase
 	{
 		$rule = new TimeZone(DateTimeZone::PER_COUNTRY, 'NO');
 
-		$this->assertFalse($rule->validate('Europe/Paris', []));
+		$this->assertFalse($rule->validate('Europe/Paris', '', []));
 
 		$this->assertSame('The foobar field must contain a valid time zone.', $rule->getErrorMessage('foobar'));
 	}

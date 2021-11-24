@@ -18,7 +18,7 @@ class AlphanumericDash extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, array $input): bool
+	public function validate($value, string $field, array $input): bool
 	{
 		return preg_match('/^[a-z0-9_-]+$/i', $value) === 1;
 	}

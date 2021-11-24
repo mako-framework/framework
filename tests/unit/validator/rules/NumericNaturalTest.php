@@ -32,9 +32,9 @@ class NumericNaturalTest extends TestCase
 	{
 		$rule = new NumericNatural;
 
-		$this->assertTrue($rule->validate(0, []));
-		$this->assertTrue($rule->validate(1, []));
-		$this->assertTrue($rule->validate('1', []));
+		$this->assertTrue($rule->validate(0, '', []));
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate('1', '', []));
 	}
 
 	/**
@@ -44,8 +44,8 @@ class NumericNaturalTest extends TestCase
 	{
 		$rule = new NumericNatural;
 
-		$this->assertFalse($rule->validate(1.1, []));
-		$this->assertFalse($rule->validate('1.1', []));
+		$this->assertFalse($rule->validate(1.1, '', []));
+		$this->assertFalse($rule->validate('1.1', '', []));
 
 		$this->assertSame('The foobar field must contain a natural number.', $rule->getErrorMessage('foobar'));
 	}

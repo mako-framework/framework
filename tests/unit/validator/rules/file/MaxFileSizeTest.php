@@ -78,7 +78,7 @@ class MaxFileSizeTest extends TestCase
 	{
 		$rule = new MaxFileSize('1MiB');
 
-		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertTrue($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), '', []));
 	}
 
 	/**
@@ -88,7 +88,7 @@ class MaxFileSizeTest extends TestCase
 	{
 		$rule = new MaxFileSize('0.5KiB');
 
-		$this->assertFalse($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertFalse($rule->validate(new SplFileInfo(__DIR__ . '/fixtures/png.png'), '', []));
 
 		$this->assertSame('The foobar must be less than 0.5KiB in size.', $rule->getErrorMessage('foobar'));
 	}

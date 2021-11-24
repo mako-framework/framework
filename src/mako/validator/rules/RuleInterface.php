@@ -22,11 +22,12 @@ interface RuleInterface
 	/**
 	 * Returns TRUE if the rule succeeds and FALSE if not.
 	 *
-	 * @param  mixed $value Value to validate
-	 * @param  array $input Input
+	 * @param  mixed  $value Value to validate
+	 * @param  string $field Input field
+	 * @param  array  $input Input
 	 * @return bool
 	 */
-	public function validate($value, array $input): bool;
+	public function validate($value, string $field, array $input): bool;
 
 	/**
 	 * Returns an error message.

@@ -75,7 +75,7 @@ class Exists extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, array $input): bool
+	public function validate($value, string $field, array $input): bool
 	{
 		return $this->database->getConnection($this->connection)
 		->getQuery()

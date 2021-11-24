@@ -32,7 +32,7 @@ class UUIDTest extends TestCase
 	{
 		$rule = new UUID;
 
-		$this->assertTrue($rule->validate('7d4a7737-899c-436b-a8ac-14ac83850687', []));
+		$this->assertTrue($rule->validate('7d4a7737-899c-436b-a8ac-14ac83850687', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class UUIDTest extends TestCase
 	{
 		$rule = new UUID;
 
-		$this->assertFalse($rule->validate('foobar', []));
+		$this->assertFalse($rule->validate('foobar', '', []));
 
 		$this->assertSame('The foobar field must contain a valid UUID.', $rule->getErrorMessage('foobar'));
 	}

@@ -58,7 +58,7 @@ class ExistsTest extends TestCase
 
 		$rule = new Exists('users', 'email', 'foobar', $database);
 
-		$this->assertTrue($rule->validate('foo@example.org', []));
+		$this->assertTrue($rule->validate('foo@example.org', '', []));
 	}
 
 	/**
@@ -87,7 +87,7 @@ class ExistsTest extends TestCase
 
 		$rule = new Exists('users', 'email', 'foobar', $database);
 
-		$this->assertFalse($rule->validate('foo@example.org', []));
+		$this->assertFalse($rule->validate('foo@example.org', '', []));
 
 		$this->assertSame('The foobar doesn\'t exist.', $rule->getErrorMessage('foobar'));
 	}

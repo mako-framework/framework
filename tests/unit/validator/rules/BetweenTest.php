@@ -32,9 +32,9 @@ class BetweenTest extends TestCase
 	{
 		$rule = new Between(1, 3);
 
-		$this->assertTrue($rule->validate('1', []));
-		$this->assertTrue($rule->validate('2', []));
-		$this->assertTrue($rule->validate('3', []));
+		$this->assertTrue($rule->validate('1', '', []));
+		$this->assertTrue($rule->validate('2', '', []));
+		$this->assertTrue($rule->validate('3', '', []));
 	}
 
 	/**
@@ -44,8 +44,8 @@ class BetweenTest extends TestCase
 	{
 		$rule = new Between(1, 3);
 
-		$this->assertFalse($rule->validate('0', []));
-		$this->assertFalse($rule->validate('4', []));
+		$this->assertFalse($rule->validate('0', '', []));
+		$this->assertFalse($rule->validate('4', '', []));
 
 		$this->assertSame('The value of the foobar field must be between 1 and 3.', $rule->getErrorMessage('foobar'));
 	}

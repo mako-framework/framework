@@ -42,7 +42,7 @@ class ExactDimensionsTest extends TestCase
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 
-		$this->assertTrue($rule->validate($fileInfo, []));
+		$this->assertTrue($rule->validate($fileInfo, '', []));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class ExactDimensionsTest extends TestCase
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([799, 599]);
 
-		$this->assertFalse($rule->validate($fileInfo, []));
+		$this->assertFalse($rule->validate($fileInfo, '', []));
 
 		$this->assertSame('The foobar does not meet the required dimensions of 800x600 pixels.', $rule->getErrorMessage('foobar'));
 	}

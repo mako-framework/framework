@@ -32,9 +32,9 @@ class JSONTest extends TestCase
 	{
 		$rule = new JSON;
 
-		$this->assertTrue($rule->validate('"hello"', []));
-		$this->assertTrue($rule->validate('false', []));
-		$this->assertTrue($rule->validate('{"hello":"world"}', []));
+		$this->assertTrue($rule->validate('"hello"', '', []));
+		$this->assertTrue($rule->validate('false', '', []));
+		$this->assertTrue($rule->validate('{"hello":"world"}', '', []));
 	}
 
 	/**
@@ -44,7 +44,7 @@ class JSONTest extends TestCase
 	{
 		$rule = new JSON;
 
-		$this->assertFalse($rule->validate('{hello:"world"}', []));
+		$this->assertFalse($rule->validate('{hello:"world"}', '', []));
 
 		$this->assertSame('The foobar field must contain valid JSON.', $rule->getErrorMessage('foobar'));
 	}

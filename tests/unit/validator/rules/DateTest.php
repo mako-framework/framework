@@ -32,7 +32,7 @@ class DateTest extends TestCase
 	{
 		$rule = new Date('Y-m-d');
 
-		$this->assertTrue($rule->validate('2018-12-24', []));
+		$this->assertTrue($rule->validate('2018-12-24', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class DateTest extends TestCase
 	{
 		$rule = new Date('Y-m-d');
 
-		$this->assertFalse($rule->validate('2018-24-12', []));
+		$this->assertFalse($rule->validate('2018-24-12', '', []));
 
 		$this->assertSame('The foobar field must contain a valid date.', $rule->getErrorMessage('foobar'));
 	}

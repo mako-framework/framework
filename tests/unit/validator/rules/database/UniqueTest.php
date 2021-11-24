@@ -58,7 +58,7 @@ class UniqueTest extends TestCase
 
 		$rule = new Unique('users', 'email', null, 'foobar', $database);
 
-		$this->assertTrue($rule->validate('foo@example.org', []));
+		$this->assertTrue($rule->validate('foo@example.org', '', []));
 	}
 
 	/**
@@ -89,7 +89,7 @@ class UniqueTest extends TestCase
 
 		$rule = new Unique('users', 'email', 'bar@example.org', 'foobar', $database);
 
-		$this->assertTrue($rule->validate('foo@example.org', []));
+		$this->assertTrue($rule->validate('foo@example.org', '', []));
 	}
 
 	/**
@@ -102,7 +102,7 @@ class UniqueTest extends TestCase
 
 		$rule = new Unique('users', 'email', 'foo@example.org', 'foobar', $database);
 
-		$this->assertTrue($rule->validate('foo@example.org', []));
+		$this->assertTrue($rule->validate('foo@example.org', '', []));
 	}
 
 	/**
@@ -131,7 +131,7 @@ class UniqueTest extends TestCase
 
 		$rule = new Unique('users', 'email', null, 'foobar', $database);
 
-		$this->assertFalse($rule->validate('foo@example.org', []));
+		$this->assertFalse($rule->validate('foo@example.org', '', []));
 
 		$this->assertSame('The foobar must be unique.', $rule->getErrorMessage('foobar'));
 	}

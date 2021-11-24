@@ -32,8 +32,8 @@ class NumericIntTest extends TestCase
 	{
 		$rule = new NumericInt;
 
-		$this->assertTrue($rule->validate(1, []));
-		$this->assertTrue($rule->validate('1', []));
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate('1', '', []));
 	}
 
 	/**
@@ -43,8 +43,8 @@ class NumericIntTest extends TestCase
 	{
 		$rule = new NumericInt;
 
-		$this->assertFalse($rule->validate(1.1, []));
-		$this->assertFalse($rule->validate('1.1', []));
+		$this->assertFalse($rule->validate(1.1, '', []));
+		$this->assertFalse($rule->validate('1.1', '', []));
 
 		$this->assertSame('The foobar field must contain an integer.', $rule->getErrorMessage('foobar'));
 	}

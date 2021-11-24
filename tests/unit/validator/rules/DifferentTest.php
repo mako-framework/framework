@@ -32,7 +32,7 @@ class DifferentTest extends TestCase
 	{
 		$rule = new Different('barfoo');
 
-		$this->assertTrue($rule->validate('foo', ['barfoo' => 'bar']));
+		$this->assertTrue($rule->validate('foo', '', ['barfoo' => 'bar']));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class DifferentTest extends TestCase
 	{
 		$rule = new Different('barfoo');
 
-		$this->assertFalse($rule->validate('bar', ['barfoo' => 'bar']));
+		$this->assertFalse($rule->validate('bar', '', ['barfoo' => 'bar']));
 
 		$this->assertSame('The values of the foobar field and barfoo field must be different.', $rule->getErrorMessage('foobar'));
 	}

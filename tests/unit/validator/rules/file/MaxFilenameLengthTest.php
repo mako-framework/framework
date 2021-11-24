@@ -40,7 +40,7 @@ class MaxFilenameLengthTest extends TestCase
 
 		$fileInfo->shouldReceive('getFilename')->once()->andReturn('foo.txt');
 
-		$this->assertTrue($rule->validate($fileInfo, []));
+		$this->assertTrue($rule->validate($fileInfo, '', []));
 
 		//
 
@@ -51,7 +51,7 @@ class MaxFilenameLengthTest extends TestCase
 
 		$fileInfo->shouldReceive('getReportedFilename')->once()->andReturn('foo.txt');
 
-		$this->assertTrue($rule->validate($fileInfo, []));
+		$this->assertTrue($rule->validate($fileInfo, '', []));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class MaxFilenameLengthTest extends TestCase
 
 		$fileInfo->shouldReceive('getFilename')->once()->andReturn('foo.txt');
 
-		$this->assertFalse($rule->validate($fileInfo, []));
+		$this->assertFalse($rule->validate($fileInfo, '', []));
 
 		$this->assertSame('The foobar filename must be at most 5 characters long.', $rule->getErrorMessage('foobar'));
 
@@ -79,7 +79,7 @@ class MaxFilenameLengthTest extends TestCase
 
 		$fileInfo->shouldReceive('getReportedFilename')->once()->andReturn('foo.txt');
 
-		$this->assertFalse($rule->validate($fileInfo, []));
+		$this->assertFalse($rule->validate($fileInfo, '', []));
 
 		$this->assertSame('The foobar filename must be at most 5 characters long.', $rule->getErrorMessage('foobar'));
 	}

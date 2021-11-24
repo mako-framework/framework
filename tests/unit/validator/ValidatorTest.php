@@ -388,7 +388,7 @@ class ValidatorTest extends TestCase
 				return false;
 			}
 
-			public function validate($value, array $input): bool
+			public function validate($value, string $field, array $input): bool
 			{
 				return false;
 			}

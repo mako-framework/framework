@@ -32,10 +32,10 @@ class OptionalTest extends TestCase
 	{
 		$rule = new Optional;
 
-		$this->assertTrue($rule->validate('foobar', []));
-		$this->assertTrue($rule->validate('', []));
-		$this->assertTrue($rule->validate(null, []));
-		$this->assertTrue($rule->validate([], []));
+		$this->assertTrue($rule->validate('foobar', '', []));
+		$this->assertTrue($rule->validate('', '', []));
+		$this->assertTrue($rule->validate(null, '', []));
+		$this->assertTrue($rule->validate([], '', []));
 	}
 
 	/**

@@ -32,8 +32,8 @@ class LessThanOrEqualToTest extends TestCase
 	{
 		$rule = new LessThanOrEqualTo(3);
 
-		$this->assertTrue($rule->validate(3, []));
-		$this->assertTrue($rule->validate('3', []));
+		$this->assertTrue($rule->validate(3, '', []));
+		$this->assertTrue($rule->validate('3', '', []));
 	}
 
 	/**
@@ -43,8 +43,8 @@ class LessThanOrEqualToTest extends TestCase
 	{
 		$rule = new LessThanOrEqualTo(3);
 
-		$this->assertFalse($rule->validate(4, []));
-		$this->assertFalse($rule->validate('4', []));
+		$this->assertFalse($rule->validate(4, '', []));
+		$this->assertFalse($rule->validate('4', '', []));
 
 		$this->assertSame('The value of the foobar field must be less than or equal to 3.', $rule->getErrorMessage('foobar'));
 	}

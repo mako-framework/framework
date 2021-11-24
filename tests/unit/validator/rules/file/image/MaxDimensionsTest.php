@@ -42,7 +42,7 @@ class MaxDimensionsTest extends TestCase
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 
-		$this->assertTrue($rule->validate($fileInfo, []));
+		$this->assertTrue($rule->validate($fileInfo, '', []));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class MaxDimensionsTest extends TestCase
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([801, 401]);
 
-		$this->assertFalse($rule->validate($fileInfo, []));
+		$this->assertFalse($rule->validate($fileInfo, '', []));
 
 		$this->assertSame('The foobar exceeds the maximum dimensions of 800x600 pixels.', $rule->getErrorMessage('foobar'));
 	}

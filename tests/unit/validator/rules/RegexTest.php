@@ -32,7 +32,7 @@ class RegexTest extends TestCase
 	{
 		$rule = new Regex('/^[a-z]+$/i');
 
-		$this->assertTrue($rule->validate('foobar', []));
+		$this->assertTrue($rule->validate('foobar', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class RegexTest extends TestCase
 	{
 		$rule = new Regex('/^[a-z]+$/i');
 
-		$this->assertFalse($rule->validate('foobar1', []));
+		$this->assertFalse($rule->validate('foobar1', '', []));
 
 		$this->assertSame('The value of the foobar field does not match the required format.', $rule->getErrorMessage('foobar'));
 	}

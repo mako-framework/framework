@@ -32,7 +32,7 @@ class NumberNaturalNonZeroTest extends TestCase
 	{
 		$rule = new NumberNaturalNonZero;
 
-		$this->assertTrue($rule->validate(1, []));
+		$this->assertTrue($rule->validate(1, '', []));
 	}
 
 	/**
@@ -42,9 +42,9 @@ class NumberNaturalNonZeroTest extends TestCase
 	{
 		$rule = new NumberNaturalNonZero;
 
-		$this->assertFalse($rule->validate(0, []));
-		$this->assertFalse($rule->validate('0', []));
-		$this->assertFalse($rule->validate('1', []));
+		$this->assertFalse($rule->validate(0, '', []));
+		$this->assertFalse($rule->validate('0', '', []));
+		$this->assertFalse($rule->validate('1', '', []));
 
 		$this->assertSame('The foobar field must contain a natural non-zero number.', $rule->getErrorMessage('foobar'));
 	}

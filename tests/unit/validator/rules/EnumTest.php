@@ -57,13 +57,13 @@ class EnumTest extends TestCase
 	{
 		$rule = new Enum(FooEnum::class);
 
-		$this->assertTrue($rule->validate('ONE', []));
-		$this->assertTrue($rule->validate('TWO', []));
+		$this->assertTrue($rule->validate('ONE', '', []));
+		$this->assertTrue($rule->validate('TWO', '', []));
 
 		$rule = new Enum(BarEnum::class);
 
-		$this->assertTrue($rule->validate(1, []));
-		$this->assertTrue($rule->validate(2, []));
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate(2, '', []));
 	}
 
 	/**
@@ -73,13 +73,13 @@ class EnumTest extends TestCase
 	{
 		$rule = new Enum(FooEnum::class);
 
-		$this->assertFalse($rule->validate('THREE', []));
-		$this->assertFalse($rule->validate('FOUR', []));
+		$this->assertFalse($rule->validate('THREE', '', []));
+		$this->assertFalse($rule->validate('FOUR', '', []));
 
 		$rule = new Enum(BarEnum::class);
 
-		$this->assertFalse($rule->validate(3, []));
-		$this->assertFalse($rule->validate(4, []));
+		$this->assertFalse($rule->validate(3, '', []));
+		$this->assertFalse($rule->validate(4, '', []));
 
 		$this->assertSame('The foobar field must contain a valid enum value.', $rule->getErrorMessage('foobar'));
 	}

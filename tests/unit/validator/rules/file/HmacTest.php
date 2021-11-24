@@ -39,7 +39,7 @@ class HmacTest extends TestCase
 
 		$fileInfo->shouldReceive('validateHmac')->once()->with('hash', 'key', 'sha256')->andReturn(true);
 
-		$this->assertTrue($rule->validate($fileInfo, []));
+		$this->assertTrue($rule->validate($fileInfo, '', []));
 	}
 
 	/**
@@ -54,7 +54,7 @@ class HmacTest extends TestCase
 
 		$fileInfo->shouldReceive('validateHmac')->once()->with('hash', 'key', 'sha256')->andReturn(false);
 
-		$this->assertFalse($rule->validate($fileInfo, []));
+		$this->assertFalse($rule->validate($fileInfo, '', []));
 
 		$this->assertSame('The foobar does not match the expected hmac.', $rule->getErrorMessage('foobar'));
 	}

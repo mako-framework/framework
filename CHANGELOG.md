@@ -64,6 +64,7 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 	- `mako\security\password\HasherException` to `mako\security\password\exceptions\HasherException`
 	- `mako\validator\ValidationException` to `mako\validator\exceptions\ValidationException`
 	- `mako\view\ViewException` to `mako\view\exceptions\ViewException`
+* Added `$field` parameter to the `RuleInterface::validate()` method.
 
 #### Improvements
 

@@ -30,7 +30,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return ''; }
 		};
@@ -58,7 +58,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return ''; }
 		};
@@ -92,7 +92,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return ''; }
 		};
@@ -120,7 +120,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return ''; }
 		};
@@ -162,7 +162,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return ''; }
 		};
@@ -200,7 +200,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return ''; }
 		};
@@ -232,7 +232,7 @@ class I18nAwareTraitTest extends TestCase
 
 			public function validateWhenEmpty(): bool { return false; }
 
-			public function validate($value, array $input): bool { return true; }
+			public function validate($value, string $field, array $input): bool { return true; }
 
 			public function getErrorMessage(string $field): string { return 'fallback'; }
 		};

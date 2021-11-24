@@ -32,7 +32,7 @@ class BeforeTest extends TestCase
 	{
 		$rule = new Before('Y-m-d', '2018-03-11');
 
-		$this->assertTrue($rule->validate('2018-03-10', []));
+		$this->assertTrue($rule->validate('2018-03-10', '', []));
 	}
 
 	/**
@@ -42,9 +42,9 @@ class BeforeTest extends TestCase
 	{
 		$rule = new Before('Y-m-d', '2018-03-11');
 
-		$this->assertFalse($rule->validate('2018-03-12', []));
+		$this->assertFalse($rule->validate('2018-03-12', '', []));
 
-		$this->assertFalse($rule->validate('2017-24-12', []));
+		$this->assertFalse($rule->validate('2017-24-12', '', []));
 
 		$this->assertSame('The foobar field must contain a valid date before 2018-03-11.', $rule->getErrorMessage('foobar'));
 	}

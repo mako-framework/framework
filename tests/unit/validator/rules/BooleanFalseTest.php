@@ -32,7 +32,7 @@ class BooleanFalseTest extends TestCase
 	{
 		$rule = new BooleanFalse;
 
-		$this->assertTrue($rule->validate(false, []));
+		$this->assertTrue($rule->validate(false, '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class BooleanFalseTest extends TestCase
 	{
 		$rule = new BooleanFalse;
 
-		$this->assertFalse($rule->validate(true, []));
+		$this->assertFalse($rule->validate(true, '', []));
 
 		$this->assertSame('The foobar field must contain the boolean value FALSE.', $rule->getErrorMessage('foobar'));
 	}

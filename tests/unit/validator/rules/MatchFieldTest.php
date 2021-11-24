@@ -32,7 +32,7 @@ class MatchFieldTest extends TestCase
 	{
 		$rule = new MatchField('barfoo');
 
-		$this->assertTrue($rule->validate('bar', ['barfoo' => 'bar']));
+		$this->assertTrue($rule->validate('bar', '', ['barfoo' => 'bar']));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class MatchFieldTest extends TestCase
 	{
 		$rule = new MatchField('barfoo');
 
-		$this->assertFalse($rule->validate('foo', ['barfoo' => 'bar']));
+		$this->assertFalse($rule->validate('foo', '', ['barfoo' => 'bar']));
 
 		$this->assertSame('The values of the foobar field and barfoo field must match.', $rule->getErrorMessage('foobar'));
 	}

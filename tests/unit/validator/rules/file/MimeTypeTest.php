@@ -44,13 +44,13 @@ class MimeTypeTest extends TestCase
 	{
 		$rule = new MimeType('image/png');
 
-		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), '', []));
 
 		//
 
 		$rule = new MimeType(['image/jpeg', 'image/png']);
 
-		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertTrue($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), '', []));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class MimeTypeTest extends TestCase
 	{
 		$rule = new MimeType(['text/plain', 'application/json']);
 
-		$this->assertFalse($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), []));
+		$this->assertFalse($rule->validate(new FileInfo(__DIR__ . '/fixtures/png.png'), '', []));
 
 		$this->assertSame('The foobar must be a file of type: text/plain, application/json.', $rule->getErrorMessage('foobar'));
 	}

@@ -32,7 +32,7 @@ class StrTest extends TestCase
 	{
 		$rule = new Str;
 
-		$this->assertTrue($rule->validate('1', []));
+		$this->assertTrue($rule->validate('1', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class StrTest extends TestCase
 	{
 		$rule = new Str;
 
-		$this->assertFalse($rule->validate(1, []));
+		$this->assertFalse($rule->validate(1, '', []));
 
 		$this->assertSame('The foobar field must contain a string.', $rule->getErrorMessage('foobar'));
 	}

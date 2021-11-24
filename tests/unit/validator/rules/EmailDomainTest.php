@@ -37,7 +37,7 @@ class EmailDomainTest extends TestCase
 
 		$rule->shouldReceive('hasMXRecord')->once()->with('example.org')->andReturn(true);
 
-		$this->assertTrue($rule->validate('foo@example.org', []));
+		$this->assertTrue($rule->validate('foo@example.org', '', []));
 	}
 
 	/**
@@ -51,7 +51,7 @@ class EmailDomainTest extends TestCase
 
 		$rule->shouldReceive('hasMXRecord')->once()->with('example.org')->andReturn(false);
 
-		$this->assertFalse($rule->validate('foo@example.org', []));
+		$this->assertFalse($rule->validate('foo@example.org', '', []));
 
 		$this->assertSame('The foobar field must contain a valid e-mail address.', $rule->getErrorMessage('foobar'));
 	}

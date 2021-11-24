@@ -47,7 +47,7 @@ class TimeZone extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, array $input): bool
+	public function validate($value, string $field, array $input): bool
 	{
 		return in_array($value, DateTimeZone::listIdentifiers($this->group, $this->country));
 	}

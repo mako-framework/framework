@@ -42,7 +42,7 @@ class AspectRatioTest extends TestCase
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 
-		$this->assertTrue($rule->validate($fileInfo, []));
+		$this->assertTrue($rule->validate($fileInfo, '', []));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class AspectRatioTest extends TestCase
 
 		$rule->shouldReceive('getImageSize')->once()->with($fileInfo)->andReturn([800, 600]);
 
-		$this->assertFalse($rule->validate($fileInfo, []));
+		$this->assertFalse($rule->validate($fileInfo, '', []));
 
 		$this->assertSame('The foobar does not have the required aspect ratio of 14:9.', $rule->getErrorMessage('foobar'));
 	}

@@ -32,7 +32,7 @@ class AlphanumericTest extends TestCase
 	{
 		$rule = new Alphanumeric;
 
-		$this->assertTrue($rule->validate('foobar1', []));
+		$this->assertTrue($rule->validate('foobar1', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class AlphanumericTest extends TestCase
 	{
 		$rule = new Alphanumeric;
 
-		$this->assertFalse($rule->validate('foobær1', []));
+		$this->assertFalse($rule->validate('foobær1', '', []));
 
 		$this->assertSame('The foobar field must contain only letters and numbers.', $rule->getErrorMessage('foobar'));
 	}

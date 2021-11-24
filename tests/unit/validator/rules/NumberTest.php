@@ -32,8 +32,8 @@ class NumberTest extends TestCase
 	{
 		$rule = new Number;
 
-		$this->assertTrue($rule->validate(1, []));
-		$this->assertTrue($rule->validate(1.1, []));
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate(1.1, '', []));
 	}
 
 	/**
@@ -43,8 +43,8 @@ class NumberTest extends TestCase
 	{
 		$rule = new Number;
 
-		$this->assertFalse($rule->validate('1', []));
-		$this->assertFalse($rule->validate('1.1', []));
+		$this->assertFalse($rule->validate('1', '', []));
+		$this->assertFalse($rule->validate('1.1', '', []));
 
 		$this->assertSame('The foobar field must contain a float or an integer.', $rule->getErrorMessage('foobar'));
 	}

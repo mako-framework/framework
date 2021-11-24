@@ -41,7 +41,7 @@ class IsUploadedTest extends TestCase
 
 		$uploadedFile->shouldReceive('hasError')->once()->andReturnFalse();
 
-		$this->assertTrue($rule->validate($uploadedFile, []));
+		$this->assertTrue($rule->validate($uploadedFile, '', []));
 	}
 
 	/**
@@ -51,7 +51,7 @@ class IsUploadedTest extends TestCase
 	{
 		$rule = new IsUploaded;
 
-		$this->assertFalse($rule->validate(false, []));
+		$this->assertFalse($rule->validate(false, '', []));
 
 		//
 
@@ -62,7 +62,7 @@ class IsUploadedTest extends TestCase
 
 		$uploadedFile->shouldReceive('isUploaded')->once()->andReturnFalse();
 
-		$this->assertFalse($rule->validate($uploadedFile, []));
+		$this->assertFalse($rule->validate($uploadedFile, '', []));
 
 		//
 
@@ -75,7 +75,7 @@ class IsUploadedTest extends TestCase
 
 		$uploadedFile->shouldReceive('hasError')->once()->andReturnTrue();
 
-		$this->assertFalse($rule->validate($uploadedFile, []));
+		$this->assertFalse($rule->validate($uploadedFile, '', []));
 
 		$this->assertSame('The foobar must be an uploaded file.', $rule->getErrorMessage('foobar'));
 	}

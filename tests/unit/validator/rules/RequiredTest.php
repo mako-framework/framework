@@ -32,7 +32,7 @@ class RequiredTest extends TestCase
 	{
 		$rule = new Required;
 
-		$this->assertTrue($rule->validate('foobar', []));
+		$this->assertTrue($rule->validate('foobar', '', []));
 	}
 
 	/**
@@ -42,9 +42,9 @@ class RequiredTest extends TestCase
 	{
 		$rule = new Required;
 
-		$this->assertFalse($rule->validate('', []));
-		$this->assertFalse($rule->validate([], []));
-		$this->assertFalse($rule->validate(null, []));
+		$this->assertFalse($rule->validate('', '', []));
+		$this->assertFalse($rule->validate([], '', []));
+		$this->assertFalse($rule->validate(null, '', []));
 
 		$this->assertSame('The foobar field is required.', $rule->getErrorMessage('foobar'));
 	}

@@ -32,10 +32,10 @@ class NumericTest extends TestCase
 	{
 		$rule = new Numeric;
 
-		$this->assertTrue($rule->validate(1, []));
-		$this->assertTrue($rule->validate(1.1, []));
-		$this->assertTrue($rule->validate('1.1', []));
-		$this->assertTrue($rule->validate('0433242', []));
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate(1.1, '', []));
+		$this->assertTrue($rule->validate('1.1', '', []));
+		$this->assertTrue($rule->validate('0433242', '', []));
 	}
 
 	/**
@@ -45,8 +45,8 @@ class NumericTest extends TestCase
 	{
 		$rule = new Numeric;
 
-		$this->assertFalse($rule->validate('x', []));
-		$this->assertFalse($rule->validate('x343', []));
+		$this->assertFalse($rule->validate('x', '', []));
+		$this->assertFalse($rule->validate('x343', '', []));
 
 		$this->assertSame('The foobar field must contain a numeric value.', $rule->getErrorMessage('foobar'));
 	}

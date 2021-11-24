@@ -32,7 +32,7 @@ class URLTest extends TestCase
 	{
 		$rule = new URL;
 
-		$this->assertTrue($rule->validate('http://foobar', []));
+		$this->assertTrue($rule->validate('http://foobar', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class URLTest extends TestCase
 	{
 		$rule = new URL;
 
-		$this->assertFalse($rule->validate('foobar', []));
+		$this->assertFalse($rule->validate('foobar', '', []));
 
 		$this->assertSame('The foobar field must contain a valid URL.', $rule->getErrorMessage('foobar'));
 	}

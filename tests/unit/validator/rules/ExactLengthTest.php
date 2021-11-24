@@ -32,7 +32,7 @@ class ExactLengthTest extends TestCase
 	{
 		$rule = new ExactLength(3);
 
-		$this->assertTrue($rule->validate('foo', []));
+		$this->assertTrue($rule->validate('foo', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class ExactLengthTest extends TestCase
 	{
 		$rule = new ExactLength(3);
 
-		$this->assertFalse($rule->validate('foobar', []));
+		$this->assertFalse($rule->validate('foobar', '', []));
 
 		$this->assertSame('The value of the foobar field must be exactly 3 characters long.', $rule->getErrorMessage('foobar'));
 	}

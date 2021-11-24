@@ -472,7 +472,7 @@ class Validator
 
 		// Validate input
 
-		if($rule->validate($inputValue, $this->input) === false)
+		if($rule->validate($inputValue, $field, $this->input) === false)
 		{
 			$this->errors[$field] = $this->getErrorMessage($rule, $field, $parsedRule);
 

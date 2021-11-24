@@ -42,7 +42,7 @@ class TokenTest extends TestCase
 
 		$rule = new Token($session);
 
-		$this->assertTrue($rule->validate('foobar', []));
+		$this->assertTrue($rule->validate('foobar', '', []));
 	}
 
 	/**
@@ -57,7 +57,7 @@ class TokenTest extends TestCase
 
 		$rule = new Token($session);
 
-		$this->assertFalse($rule->validate('foobar', []));
+		$this->assertFalse($rule->validate('foobar', '', []));
 
 		$this->assertSame('Invalid security token.', $rule->getErrorMessage('foobar'));
 	}

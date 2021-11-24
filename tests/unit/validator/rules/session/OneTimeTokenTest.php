@@ -42,7 +42,7 @@ class OneTimeTokenTest extends TestCase
 
 		$rule = new OneTimeToken($session);
 
-		$this->assertTrue($rule->validate('foobar', []));
+		$this->assertTrue($rule->validate('foobar', '', []));
 	}
 
 	/**
@@ -57,7 +57,7 @@ class OneTimeTokenTest extends TestCase
 
 		$rule = new OneTimeToken($session);
 
-		$this->assertFalse($rule->validate('foobar', []));
+		$this->assertFalse($rule->validate('foobar', '', []));
 
 		$this->assertSame('Invalid security token.', $rule->getErrorMessage('foobar'));
 	}

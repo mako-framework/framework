@@ -32,7 +32,7 @@ class ArrTest extends TestCase
 	{
 		$rule = new Arr;
 
-		$this->assertTrue($rule->validate([], []));
+		$this->assertTrue($rule->validate([], '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class ArrTest extends TestCase
 	{
 		$rule = new Arr;
 
-		$this->assertFalse($rule->validate(1, []));
+		$this->assertFalse($rule->validate(1, '', []));
 
 		$this->assertSame('The foobar field must contain an array.', $rule->getErrorMessage('foobar'));
 	}

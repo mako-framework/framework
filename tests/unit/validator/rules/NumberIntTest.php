@@ -32,7 +32,7 @@ class NumberIntTest extends TestCase
 	{
 		$rule = new NumberInt;
 
-		$this->assertTrue($rule->validate(1, []));
+		$this->assertTrue($rule->validate(1, '', []));
 	}
 
 	/**
@@ -42,8 +42,8 @@ class NumberIntTest extends TestCase
 	{
 		$rule = new NumberInt;
 
-		$this->assertFalse($rule->validate(1.1, []));
-		$this->assertFalse($rule->validate('1', []));
+		$this->assertFalse($rule->validate(1.1, '', []));
+		$this->assertFalse($rule->validate('1', '', []));
 
 		$this->assertSame('The foobar field must contain a integer.', $rule->getErrorMessage('foobar'));
 	}

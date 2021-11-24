@@ -42,7 +42,7 @@ class Regex extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, array $input): bool
+	public function validate($value, string $field, array $input): bool
 	{
 		return preg_match($this->regex, $value) === 1;
 	}

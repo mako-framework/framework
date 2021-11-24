@@ -21,7 +21,7 @@ class IsUploaded extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, array $input): bool
+	public function validate($value, string $field, array $input): bool
 	{
 		return $value instanceof UploadedFile && $value->isUploaded() && $value->hasError() === false;
 	}

@@ -32,7 +32,7 @@ class EmailTest extends TestCase
 	{
 		$rule = new Email;
 
-		$this->assertTrue($rule->validate('foo@example.org', []));
+		$this->assertTrue($rule->validate('foo@example.org', '', []));
 	}
 
 	/**
@@ -42,7 +42,7 @@ class EmailTest extends TestCase
 	{
 		$rule = new Email;
 
-		$this->assertFalse($rule->validate('foo@example', []));
+		$this->assertFalse($rule->validate('foo@example', '', []));
 
 		$this->assertSame('The foobar field must contain a valid e-mail address.', $rule->getErrorMessage('foobar'));
 	}
