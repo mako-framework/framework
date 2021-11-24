@@ -24,10 +24,11 @@ jobs:
             - "7.3"
             - "7.4"
             - "8.0"
+            - "8.1"
           experimental:
             - false
           include:
-            - php-version: "8.1"
+            - php-version: "8.2"
               experimental: true
               composer-options: "--ignore-platform-reqs"
     steps:
