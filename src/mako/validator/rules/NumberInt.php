@@ -20,7 +20,7 @@ class NumberInt extends Rule implements RuleInterface
 	 */
 	public function validate($value, string $field, array $input): bool
 	{
-		return  is_int($value);
+		return is_int($value);
 	}
 
 	/**

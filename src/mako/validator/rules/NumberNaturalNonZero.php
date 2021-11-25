@@ -20,7 +20,7 @@ class NumberNaturalNonZero extends Rule implements RuleInterface
 	 */
 	public function validate($value, string $field, array $input): bool
 	{
-		return  is_int($value) && $value > 0;
+		return is_int($value) && $value > 0;
 	}
 
 	/**

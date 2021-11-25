@@ -20,7 +20,7 @@ class NumberFloat extends Rule implements RuleInterface
 	 */
 	public function validate($value, string $field, array $input): bool
 	{
-		return  is_float($value);
+		return is_float($value);
 	}
 
 	/**

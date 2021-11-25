@@ -21,7 +21,7 @@ class Number extends Rule implements RuleInterface
 	 */
 	public function validate($value, string $field, array $input): bool
 	{
-		return  is_float($value) || is_int($value);
+		return is_float($value) || is_int($value);
 	}
 
 	/**
