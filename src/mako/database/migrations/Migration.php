@@ -83,12 +83,7 @@ abstract class Migration
 	 */
 	public function useTransaction(): bool
 	{
-		if($this->useTransaction && $this->getConnection()->supportsTransactionalDDL())
-		{
-			return true;
-		}
-
-		return false;
+		return $this->useTransaction && $this->getConnection()->supportsTransactionalDDL();
 	}
 
 	/**
