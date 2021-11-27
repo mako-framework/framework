@@ -416,7 +416,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return array
 	 */
-	protected function parseIncludes()
+	protected function parseIncludes(): array
 	{
 		$includes = ['this' => [], 'forward' => []];
 
@@ -471,7 +471,7 @@ class Query extends QueryBuilder
 	 * @param  mixed $results Database results
 	 * @return array
 	 */
-	protected function hydrateModelsAndLoadIncludes($results)
+	protected function hydrateModelsAndLoadIncludes($results): array
 	{
 		$hydrated = [];
 
@@ -519,7 +519,7 @@ class Query extends QueryBuilder
 	 * @param  array                            $results Results
 	 * @return \mako\database\midgard\ResultSet
 	 */
-	protected function createResultSet(array $results)
+	protected function createResultSet(array $results): ResultSet
 	{
 		return new ResultSet($results);
 	}
@@ -529,7 +529,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return \mako\database\midgard\ResultSet
 	 */
-	public function all()
+	public function all(): ResultSet
 	{
 		$results = $this->fetchAll(false, PDO::FETCH_ASSOC);
 

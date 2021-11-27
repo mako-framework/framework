@@ -11,6 +11,7 @@ use mako\database\connections\Connection;
 use mako\database\exceptions\DatabaseException;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
+use mako\database\midgard\ResultSet;
 
 use function array_chunk;
 use function array_shift;
@@ -77,7 +78,7 @@ abstract class Relation extends Query
 	 *
 	 * @return string
 	 */
-	protected function getForeignKey()
+	protected function getForeignKey(): string
 	{
 		if($this->foreignKey === null)
 		{
@@ -93,7 +94,7 @@ abstract class Relation extends Query
 	 * @param  array $results Result set
 	 * @return array
 	 */
-	protected function keys(array $results)
+	protected function keys(array $results): array
 	{
 		$keys = [];
 
@@ -132,7 +133,7 @@ abstract class Relation extends Query
 	 * @param  array                            $keys Keys
 	 * @return \mako\database\midgard\ResultSet
 	 */
-	protected function eagerLoadChunked(array $keys)
+	protected function eagerLoadChunked(array $keys): ResultSet
 	{
 		// Tell the query builder that we're not lazy loading records
 
@@ -200,7 +201,7 @@ abstract class Relation extends Query
 	 *
 	 * @return \mako\database\midgard\ResultSet
 	 */
-	public function all()
+	public function all(): ResultSet
 	{
 		$this->adjustQuery();
 

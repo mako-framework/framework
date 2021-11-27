@@ -121,7 +121,7 @@ class ManyToMany extends Relation
 	 *
 	 * @return string
 	 */
-	protected function getJunctionTable()
+	protected function getJunctionTable(): string
 	{
 		if($this->junctionTable === null)
 		{
@@ -140,7 +140,7 @@ class ManyToMany extends Relation
 	 *
 	 * @return string
 	 */
-	protected function getJunctionKey()
+	protected function getJunctionKey(): string
 	{
 		if($this->junctionKey === null)
 		{

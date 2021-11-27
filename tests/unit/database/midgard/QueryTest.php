@@ -10,6 +10,7 @@ namespace mako\tests\unit\database\midgard;
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
+use mako\database\midgard\ResultSet;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\tests\TestCase;
@@ -399,7 +400,7 @@ class QueryTest extends TestCase
 		/** @var \mako\database\midgard\Query|\Mockery\MockInterface $query */
 		$query = Mockery::mock(Query::class . '[all]', [$this->getConnecion(), $model]);
 
-		$query->shouldReceive('all')->once()->andReturn([]);
+		$query->shouldReceive('all')->once()->andReturn(new ResultSet());
 
 		$query->batch(function($results): void
 		{
@@ -415,7 +416,7 @@ class QueryTest extends TestCase
 		/** @var \mako\database\midgard\Query|\Mockery\MockInterface $query */
 		$query = Mockery::mock(Query::class . '[all]', [$this->getConnecion(), $model]);
 
-		$query->shouldReceive('all')->once()->andReturn([]);
+		$query->shouldReceive('all')->once()->andReturn(new ResultSet());
 
 		$query->descending('barfoo')->batch(function($results): void
 		{

@@ -203,11 +203,11 @@ class Query
 	/**
 	 * Returns a new query builder instance.
 	 *
-	 * @return self
+	 * @return static
 	 */
-	public function newInstance(): self
+	public function newInstance()
 	{
-		return new self($this->connection);
+		return new static($this->connection);
 	}
 
 	/**
@@ -1431,7 +1431,7 @@ class Query
 	 * @param  array                          $results Results
 	 * @return \mako\database\query\ResultSet
 	 */
-	protected function createResultSet(array $results)
+	protected function createResultSet(array $results): ResultSet
 	{
 		return new ResultSet($results);
 	}
@@ -1457,7 +1457,7 @@ class Query
 	 *
 	 * @return \mako\database\query\ResultSet
 	 */
-	public function all()
+	public function all(): ResultSet
 	{
 		return $this->fetchAll(true, PDO::FETCH_CLASS, Result::class);
 	}

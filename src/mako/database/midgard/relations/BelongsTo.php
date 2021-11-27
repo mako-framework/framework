@@ -20,7 +20,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getForeignKey()
+	protected function getForeignKey(): string
 	{
 		if($this->foreignKey === null)
 		{
@@ -33,7 +33,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function keys(array $results)
+	protected function keys(array $results): array
 	{
 		$keys = [];
 

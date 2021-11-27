@@ -14,6 +14,7 @@ use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\database\query\Raw;
+use mako\database\query\ResultSet;
 use mako\database\query\Subquery;
 use mako\tests\TestCase;
 use Mockery;
@@ -1782,13 +1783,13 @@ class BaseCompilerTest extends TestCase
 
 		$builder->shouldReceive('offset')->once()->with(20);
 
-		$builder->shouldReceive('all')->times(5)->andReturn([5], [5], [5], [5], []);
+		$builder->shouldReceive('all')->times(5)->andReturn(new ResultSet([5]), new ResultSet([5]), new ResultSet([5]), new ResultSet([5]), new ResultSet([]));
 
 		$batches = 0;
 
 		$builder->ascending('id')->batch(function($results) use (&$batches): void
 		{
-			$this->assertEquals([5], $results);
+			$this->assertEquals([5], $results->getItems());
 
 			$batches++;
 		}, 5);
@@ -1810,13 +1811,13 @@ class BaseCompilerTest extends TestCase
 
 		$builder->shouldReceive('offset')->once()->with(20);
 
-		$builder->shouldReceive('all')->times(4)->andReturn([5], [5], [5], []);
+		$builder->shouldReceive('all')->times(4)->andReturn(new ResultSet([5]), new ResultSet([5]), new ResultSet([5]), new ResultSet([]));
 
 		$batches = 0;
 
 		$builder->ascending('id')->batch(function($results) use (&$batches): void
 		{
-			$this->assertEquals([5], $results);
+			$this->assertEquals([5], $results->getItems());
 
 			$batches++;
 		}, 5, 5);
@@ -1834,13 +1835,13 @@ class BaseCompilerTest extends TestCase
 
 		$builder->shouldReceive('offset')->once()->with(10);
 
-		$builder->shouldReceive('all')->times(2)->andReturn([5], [5]);
+		$builder->shouldReceive('all')->times(2)->andReturn(new ResultSet([5]), new ResultSet([5]));
 
 		$batches = 0;
 
 		$builder->ascending('id')->batch(function($results) use (&$batches): void
 		{
-			$this->assertEquals([5], $results);
+			$this->assertEquals([5], $results->getItems());
 
 			$batches++;
 		}, 5, 5, 15);
