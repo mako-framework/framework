@@ -872,9 +872,10 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param string                    $column Column name
-	 * @param \DateTimeInterface|string $date1  First date
-	 * @param \DateTimeInterface|string $date2  Second date
+	 * @param  string                    $column Column name
+	 * @param  \DateTimeInterface|string $date1  First date
+	 * @param  \DateTimeInterface|string $date2  Second date
+	 * @return $this
 	 */
 	public function orBetweenDate(string $column, $date1, $date2)
 	{
@@ -884,9 +885,10 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param string                    $column Column name
-	 * @param \DateTimeInterface|string $date1  First date
-	 * @param \DateTimeInterface|string $date2  Second date
+	 * @param  string                    $column Column name
+	 * @param  \DateTimeInterface|string $date1  First date
+	 * @param  \DateTimeInterface|string $date2  Second date
+	 * @return $this
 	 */
 	public function notBetweenDate(string $column, $date1, $date2)
 	{
@@ -896,9 +898,10 @@ class Query
 	/**
 	 * Adds a date range clause.
 	 *
-	 * @param string                    $column Column name
-	 * @param \DateTimeInterface|string $date1  First date
-	 * @param \DateTimeInterface|string $date2  Second date
+	 * @param  string                    $column Column name
+	 * @param  \DateTimeInterface|string $date1  First date
+	 * @param  \DateTimeInterface|string $date2  Second date
+	 * @return $this
 	 */
 	public function orNotBetweenDate(string $column, $date1, $date2)
 	{
@@ -1486,7 +1489,7 @@ class Query
 	 * @param  string $column The column to select
 	 * @return array
 	 */
-	public function columns($column = null)
+	public function columns($column = null): array
 	{
 		if($column !== null)
 		{
@@ -1505,7 +1508,7 @@ class Query
 	 * @param  string $value The column to use as values
 	 * @return array
 	 */
-	public function pairs($key, $value)
+	public function pairs($key, $value): array
 	{
 		$this->select([$key, $value]);
 
@@ -1564,7 +1567,7 @@ class Query
 	 * @param  array                          $options      Pagination options
 	 * @return \mako\database\query\ResultSet
 	 */
-	public function paginate(?int $itemsPerPage = null, array $options = [])
+	public function paginate(?int $itemsPerPage = null, array $options = []): ResultSet
 	{
 		$count = $this->paginationCount();
 
