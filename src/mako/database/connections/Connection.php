@@ -237,9 +237,9 @@ class Connection
 	 */
 	public function getQueryBuilderHelper(): HelperInterface
 	{
-		static $queryBuilderHelper;
+		static $queryBuilderHelper = [];
 
-		return $queryBuilderHelper ?? ($queryBuilderHelper = new $this->queryBuilderHelper);
+		return $queryBuilderHelper[static::class] ?? ($queryBuilderHelper[static::class] = new $this->queryBuilderHelper);
 	}
 
 	/**
