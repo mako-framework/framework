@@ -75,6 +75,14 @@ The major version bump is due to dropped support for PHP `7.3` and a several bre
 
 --------------------------------------------------------
 
+### 6.3.19, 7.0.9, 7.1.4, 7.2.2, 7.3.4 <small>(2021-11-28)</small>
+
+#### Bugfixes
+
+* PHP `8.1` compatibility.
+
+--------------------------------------------------------
+
 ### 7.3.3 <small>(2021-11-22)</small>
 
 #### Changes
