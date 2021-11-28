@@ -282,14 +282,9 @@ abstract class ORM implements JsonSerializable
 	 */
 	protected function getDateFormat(): string
 	{
-		static $dateFormat;
+		static $dateFormat = [];
 
-		if($dateFormat === null)
-		{
-			$dateFormat = $this->getQuery()->getCompiler()->getDateFormat();
-		}
-
-		return $dateFormat;
+		return $dateFormat[static::class] ?? ($dateFormat[static::class] = $this->getQuery()->getCompiler()->getDateFormat());
 	}
 
 	/**
