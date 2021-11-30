@@ -49,6 +49,11 @@ trait EscaperTrait
 	 */
 	public function escapeHTML(?string $string, string $charset, bool $doubleEncode = true): string
 	{
+		if($string === null)
+		{
+			return '';
+		}
+
 		return htmlspecialchars($string, ENT_QUOTES, $charset, $doubleEncode);
 	}
 
@@ -60,6 +65,11 @@ trait EscaperTrait
 	 */
 	public function escapeURL(?string $string): string
 	{
+		if($string === null)
+		{
+			return '';
+		}
+
 		return rawurlencode($string);
 	}
 
@@ -122,6 +132,11 @@ trait EscaperTrait
 	 */
 	public function escapeAttribute(?string $string, string $charset): string
 	{
+		if($string === null)
+		{
+			return '';
+		}
+
 		if($charset !== 'UTF-8')
 		{
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
@@ -172,7 +187,7 @@ trait EscaperTrait
 	 */
 	public function escapeCSS(?string $string, string $charset): string
 	{
-		if($string === '' || ctype_digit($string))
+		if($string === null || $string === '' || ctype_digit($string))
 		{
 			return $string;
 		}
@@ -223,6 +238,11 @@ trait EscaperTrait
 	 */
 	public function escapeJavascript(?string $string, string $charset): string
 	{
+		if($string === null)
+		{
+			return '';
+		}
+
 		if($charset !== 'UTF-8')
 		{
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
