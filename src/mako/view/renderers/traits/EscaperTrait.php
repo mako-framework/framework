@@ -187,7 +187,12 @@ trait EscaperTrait
 	 */
 	public function escapeCSS(?string $string, string $charset): string
 	{
-		if($string === null || $string === '' || ctype_digit($string))
+		if($string === null || $string === '')
+		{
+			return '';
+		}
+
+		if(ctype_digit($string))
 		{
 			return $string;
 		}
