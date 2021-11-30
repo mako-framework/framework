@@ -1,3 +1,11 @@
+### 6.3.20, 7.0.10, 7.1.5, 7.2.3, 7.3.5 <small>(2021-11-30)</small>
+
+#### Bugfixes
+
+* PHP `8.1` compatibility.
+
+--------------------------------------------------------
+
 ### 8.0.0 <small>(2021-11-30)</small>
 
 The major version bump is due to dropped support for PHP `7.3` and a several breaking changes. Most applications built using Mako `7.3.0` should run on Mako `8.0.0` with just a few simple adjustments.
