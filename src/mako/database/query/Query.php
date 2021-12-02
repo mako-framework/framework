@@ -203,9 +203,9 @@ class Query
 	/**
 	 * Returns a new query builder instance.
 	 *
-	 * @return \mako\database\query\Query
+	 * @return self
 	 */
-	public function newInstance()
+	public function newInstance(): self
 	{
 		return new self($this->connection);
 	}
