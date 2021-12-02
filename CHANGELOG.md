@@ -1,3 +1,11 @@
+### 8.0.2 <small>(2021-12-02)</small>
+
+#### Bugfixes
+
+* Fixed issue with subqueries when using the ORM ([#291](https://github.com/mako-framework/framework/issues/291)).
+
+--------------------------------------------------------
+
 ### 6.3.20, 7.0.10, 7.1.5, 7.2.3, 7.3.5, 8.0.1 <small>(2021-11-30)</small>
 
 #### Bugfixes

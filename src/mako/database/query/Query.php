@@ -203,11 +203,11 @@ class Query
 	/**
 	 * Returns a new query builder instance.
 	 *
-	 * @return static
+	 * @return \mako\database\query\Query
 	 */
 	public function newInstance()
 	{
-		return new static($this->connection);
+		return new self($this->connection);
 	}
 
 	/**
