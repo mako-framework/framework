@@ -38,5 +38,5 @@ class Mako
 	 *
 	 * @var int
 	 */
-	public const VERSION_PATCH = 1;
+	public const VERSION_PATCH = 0;
 }
