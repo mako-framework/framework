@@ -11,6 +11,7 @@ use DateTime;
 use LogicException;
 use mako\database\exceptions\NotFoundException;
 use mako\database\midgard\ResultSet;
+use mako\database\query\Subquery;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 use mako\utility\UUID;
@@ -622,5 +623,19 @@ class ORMTest extends ORMTestCase
 		$this->assertInstanceOf(FooEnum::class, $enum->value);
 
 		$this->assertEquals(FooEnum::TWO, $enum->value);
+	}
+
+	/**
+	 *
+	 */
+	public function testSubquery(): void
+	{
+		$counters = (new Counter)->in('id', new Subquery(function($query): void
+		{
+			$query->table('counters')->select(['id']);
+		}))
+		->all();
+
+		$this->assertSame(3, count($counters));
 	}
 }
