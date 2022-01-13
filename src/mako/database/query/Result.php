@@ -17,7 +17,7 @@ use function json_encode;
  *
  * @author Frederic G. Østby
  */
-#[AllowDynamicProperties]
+#[\AllowDynamicProperties]
 class Result implements JsonSerializable
 {
 	/**
