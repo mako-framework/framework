@@ -15,6 +15,7 @@ use function json_encode;
 /**
  * Result.
  */
+#[\AllowDynamicProperties]
 class Result implements JsonSerializable
 {
 	/**
