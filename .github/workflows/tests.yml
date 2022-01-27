@@ -27,6 +27,10 @@ jobs:
             - "8.1"
           experimental:
             - false
+          include:
+            - php-version: "8.2"
+              experimental: true
+              composer-options: "--ignore-platform-reqs"
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v2"
