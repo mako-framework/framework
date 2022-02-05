@@ -145,4 +145,14 @@ class FunctionParserTraitTest extends TestCase
 
 		$parser->parse('foo(bar)');
 	}
+
+	/**
+	 *
+	 */
+	public function testFunctionWithNamespace(): void
+	{
+		$parser = new Parser;
+
+		$this->assertSame(['foo\bar', ['a' => 1, 'b' => 2]], $parser->parse('foo\bar("a":1,"b":2)'));
+	}
 }

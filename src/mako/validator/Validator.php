@@ -83,6 +83,7 @@ use function array_fill_keys;
 use function array_keys;
 use function array_merge_recursive;
 use function array_unique;
+use function class_exists;
 use function compact;
 use function in_array;
 use function json_encode;
@@ -399,12 +400,17 @@ class Validator
 	 */
 	protected function getRuleClassName(string $name): string
 	{
-		if(!isset($this->rules[$name]))
+		if(isset($this->rules[$name]))
 		{
-			throw new ValidatorException(vsprintf('Call to undefined validation rule [ %s ].', [$name]));
+			return $this->rules[$name];
 		}
 
-		return $this->rules[$name];
+		if(class_exists($name))
+		{
+			return $name;
+		}
+
+		throw new ValidatorException(vsprintf('Call to undefined validation rule [ %s ].', [$name]));
 	}
 
 	/**
