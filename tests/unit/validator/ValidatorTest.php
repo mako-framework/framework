@@ -11,10 +11,24 @@ use mako\i18n\I18n;
 use mako\tests\TestCase;
 use mako\validator\exceptions\ValidationException;
 use mako\validator\rules\I18nAwareInterface;
+use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\Validator;
 use Mockery;
 use Throwable;
+
+class MyRule extends Rule implements RuleInterface
+{
+	public function validate($value, string $field, array $input): bool
+	{
+		return true;
+	}
+
+	public function getErrorMessage(string $field): string
+	{
+		return 'invalid input';
+	}
+}
 
 /**
  * @group unit
@@ -48,6 +62,8 @@ class ValidatorTest extends TestCase
 		$this->assertSame('foobar("hello\"world")', Validator::rule('foobar', 'hello"world'));
 
 		$this->assertSame('foobar([1,2,3])', Validator::rule('foobar', [1, 2, 3]));
+
+		$this->assertSame('mako\tests\unit\validator\MyRule([1,2,3])', Validator::rule(MyRule::class, [1, 2, 3]));
 	}
 
 	/**
@@ -395,7 +411,7 @@ class ValidatorTest extends TestCase
 
 			public function getErrorMessage(string $field): string
 			{
-
+				return 'invalid input';
 			}
 
 			public function setI18n(I18n $i18n): I18nAwareInterface
@@ -463,11 +479,35 @@ class ValidatorTest extends TestCase
 		{
 			$validator->getValidatedInput();
 		}
-		catch(Throwable $e)
+		catch(Throwable | ValidationException $e)
 		{
 			$this->assertInstanceOf(ValidationException::class, $e);
 
 			$this->assertSame(['password' => 'The password field is required.'], $e->getErrors());
 		}
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithCustomRuntimeRule(): void
+	{
+		$input = ['username' => 'foo'];
+
+		$rules = ['username' => [Validator::rule(MyRule::class)]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame($input, $validator->getValidatedInput());
+
+		//
+
+		$input = ['username' => 'foo'];
+
+		$rules = ['username' => [MyRule::class]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame($input, $validator->getValidatedInput());
 	}
 }

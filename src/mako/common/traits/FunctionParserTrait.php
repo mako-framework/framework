@@ -28,7 +28,7 @@ trait FunctionParserTrait
 	 */
 	protected function splitFunctionAndParameters(string $function): array
 	{
-		if(preg_match('/^([a-z0-9_:.]+)\((.*)\)$/i', $function, $matches) !== 1)
+		if(preg_match('/^([a-z0-9_:.\\\\]+)\((.*)\)$/i', $function, $matches) !== 1)
 		{
 			throw new FunctionParserTraitException(vsprintf('[ %s ] does not match the expected function pattern.', [$function]));
 		}
