@@ -1,8 +1,17 @@
-### 8.0.3 <small>(2022-??-??)</small>
+### 8.1.0 <small>(2022-??-??)</small>
 
 #### New
 
 * It it now possible to use custom validation rules without registering them first.
+
+--------------------------------------------------------
+
+### 7.3.6, 8.0.3 <small>(2022-02-08)</small>
+
+#### Bugfixes
+
+* PHP `8.2` compatibility.
+* Prevent errors with malformed request paths.
 
 --------------------------------------------------------
 

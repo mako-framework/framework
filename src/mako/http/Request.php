@@ -288,8 +288,10 @@ class Request
 		}
 		elseif(isset($server['REQUEST_URI']))
 		{
-			if($path = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
+			if($parsed = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
 			{
+				$path = $parsed;
+
 				// Remove base path from the request path
 
 				$basePath = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
