@@ -1,3 +1,12 @@
+### 7.3.6 <small>(2022-02-08)</small>
+
+#### Bugfixes
+
+* PHP `8.2` compatibility.
+* Prevent errors with malformed request paths.
+
+--------------------------------------------------------
+
 ### 6.3.20, 7.0.10, 7.1.5, 7.2.3, 7.3.5 <small>(2021-11-30)</small>
 
 #### Bugfixes
