@@ -1,3 +1,11 @@
+### 8.1.0 <small>(2022-??-??)</small>
+
+#### New
+
+* It it now possible to use custom validation rules without registering them first.
+
+--------------------------------------------------------
+
 ### 7.3.7, 8.0.4 <small>(2022-02-10)</small>
 
 #### Bugfixes
