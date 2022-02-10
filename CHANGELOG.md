@@ -1,8 +1,8 @@
-### 8.1.0 <small>(2022-??-??)</small>
+### 7.3.7, 8.0.4 <small>(2022-02-10)</small>
 
-#### New
+#### Bugfixes
 
-* It it now possible to use custom validation rules without registering them first.
+* Eager loading will now work as expected with `ORM::getOrThrow()` and `Query::getOrThrow()`.
 
 --------------------------------------------------------
 
