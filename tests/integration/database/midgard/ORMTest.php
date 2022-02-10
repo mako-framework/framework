@@ -10,6 +10,7 @@ namespace mako\tests\integration\database\midgard;
 use DateTime;
 use LogicException;
 use mako\database\exceptions\NotFoundException;
+use mako\database\midgard\relations\HasOne;
 use mako\database\midgard\ResultSet;
 use mako\database\query\Subquery;
 use mako\tests\integration\ORMTestCase;
@@ -23,6 +24,16 @@ use mako\utility\UUID;
 class TestUser extends TestORM
 {
 	protected $tableName = 'users';
+
+	public function profile(): HasOne
+	{
+		return $this->hasOne(Profile::class, 'user_id');
+	}
+}
+
+class Profile extends TestORM
+{
+	protected $tableName = 'profiles';
 }
 
 class TestUserScoped extends TestUser
@@ -127,6 +138,22 @@ class ORMTest extends ORMTestCase
 		$this->expectException(LogicException::class);
 
 		TestUser::getOrThrow(1000, [], LogicException::class);
+	}
+
+	/**
+	 *
+	 */
+	public function testGetOrThrowWithEagerLoading(): void
+	{
+		$user = (new TestUser)->including(['profile'])->getOrThrow(1);
+
+		$queries = $user->getConnection()->getLog();
+
+		$this->assertSame(2, count($queries));
+
+		$this->assertSame('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $queries[0]['query']);
+
+		$this->assertSame('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (\'1\')', $queries[1]['query']);
 	}
 
 	/**

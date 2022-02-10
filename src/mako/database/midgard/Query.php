@@ -510,7 +510,7 @@ class Query extends QueryBuilder
 	 */
 	public function firstOrThrow(string $exception = NotFoundException::class)
 	{
-		return $this->hydrateModel($this->fetchFirstOrThrow($exception, PDO::FETCH_ASSOC));
+		return $this->hydrateModelsAndLoadIncludes([$this->fetchFirstOrThrow($exception, PDO::FETCH_ASSOC)])[0];
 	}
 
 	/**
@@ -548,6 +548,7 @@ class Query extends QueryBuilder
 	 */
 	public function yield(): Generator
 	{
+		/** @var array $row */
 		foreach($this->fetchYield(PDO::FETCH_ASSOC) as $row)
 		{
 			yield $this->hydrateModel($row);
