@@ -1,3 +1,11 @@
+### 7.3.7 <small>(2022-02-10)</small>
+
+#### Bugfixes
+
+* Eager loading will now work as expected with `ORM::getOrThrow()` and `Query::getOrThrow()`.
+
+--------------------------------------------------------
+
 ### 7.3.6 <small>(2022-02-08)</small>
 
 #### Bugfixes
