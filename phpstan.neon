@@ -5,3 +5,5 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		- '#Attribute class AllowDynamicProperties does not exist\.#'
+		- '#unknown class GdImage as its type#"
+		- '#invalid return type GdImage#'
