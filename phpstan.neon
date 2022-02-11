@@ -4,4 +4,3 @@ parameters:
 	level: 1
 	ignoreErrors:
 		- '#Unsafe usage of new static\(\)\.#'
-		- '#Method mako\\redis\\Redis::[a-zA-z]+\(\) invoked with [0-9]+ parameters?, [0-9]+ required.#'
