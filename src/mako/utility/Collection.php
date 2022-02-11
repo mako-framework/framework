@@ -56,7 +56,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param array $items Collection items
 	 */
-	public function __construct(array $items = [])
+	final public function __construct(array $items = [])
 	{
 		$this->items = $items;
 	}

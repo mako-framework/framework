@@ -70,7 +70,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * Request instance.
 	 *
-	 * @var \mako\http\Request
+	 * @var \mako\http\Request|null
 	 */
 	protected $request;
 
@@ -84,14 +84,14 @@ class Pagination implements PaginationInterface
 	/**
 	 * URL builder instance.
 	 *
-	 * @var \mako\http\routing\URLBuilder
+	 * @var \mako\http\routing\URLBuilder|null
 	 */
 	protected $urlBuilder;
 
 	/**
 	 * View factory instance.
 	 *
-	 * @var \mako\view\ViewFactory
+	 * @var \mako\view\ViewFactory|null
 	 */
 	protected $viewFactory;
 

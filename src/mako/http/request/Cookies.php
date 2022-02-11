@@ -30,7 +30,7 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Signer.
 	 *
-	 * @var \mako\security\Signer
+	 * @var \mako\security\Signer|null
 	 */
 	protected $signer;
 

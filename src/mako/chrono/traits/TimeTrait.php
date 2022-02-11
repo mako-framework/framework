@@ -26,7 +26,7 @@ trait TimeTrait
 	 * @param string                    $time     A date/time string
 	 * @param \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 */
-	public function __construct(string $time = 'now', $timeZone = null)
+	final public function __construct(string $time = 'now', $timeZone = null)
 	{
 		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
 		{

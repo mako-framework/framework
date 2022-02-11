@@ -59,28 +59,28 @@ class File implements ResponseSenderInterface
 	/**
 	 * Filename.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $filename;
 
 	/**
 	 * Content disposition.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $disposition;
 
 	/**
 	 * Content type.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $contentType;
 
 	/**
 	 * Callback.
 	 *
-	 * @var \Closure
+	 * @var \Closure|null
 	 */
 	protected $callback;
 

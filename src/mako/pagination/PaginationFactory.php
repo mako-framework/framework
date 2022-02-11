@@ -35,14 +35,14 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * URL builder instance.
 	 *
-	 * @var \mako\http\routing\URLBuilder
+	 * @var \mako\http\routing\URLBuilder|null
 	 */
 	protected $urlBuilder;
 
 	/**
 	 * View factory instance.
 	 *
-	 * @var \mako\view\ViewFactory
+	 * @var \mako\view\ViewFactory|null
 	 */
 	protected $viewFactory;
 

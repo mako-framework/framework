@@ -35,14 +35,14 @@ abstract class Command implements CommandInterface
 	/**
 	 * Command.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $command;
 
 	/**
 	 * Command description.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected $description;
 

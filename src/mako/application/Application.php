@@ -32,7 +32,7 @@ abstract class Application
 	/**
 	 * Singleton instance of self.
 	 *
-	 * @var \mako\application\Application
+	 * @var static|null
 	 */
 	protected static $instance;
 
@@ -97,7 +97,7 @@ abstract class Application
 	 *
 	 * @param string $applicationPath Application path
 	 */
-	protected function __construct(string $applicationPath)
+	final protected function __construct(string $applicationPath)
 	{
 		$this->startTime = microtime(true);
 

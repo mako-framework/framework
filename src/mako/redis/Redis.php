@@ -405,7 +405,7 @@ class Redis
 	 * @param \mako\redis\Connection $connection Redis connection
 	 * @param array                  $options    Options
 	 */
-	public function __construct(Connection $connection, array $options = [])
+	final public function __construct(Connection $connection, array $options = [])
 	{
 		$this->connection = $connection;
 

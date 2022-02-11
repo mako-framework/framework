@@ -89,7 +89,7 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Connection manager instance.
 	 *
-	 * @var \mako\database\ConnectionManager
+	 * @var \mako\database\ConnectionManager|null
 	 */
 	protected static $connectionManager = null;
 
@@ -206,7 +206,7 @@ abstract class ORM implements JsonSerializable
 	 * @param bool  $whitelist   Remove columns that are not in the whitelist?
 	 * @param bool  $isPersisted Does the record come from a database?
 	 */
-	public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $isPersisted = false)
+	final public function __construct(array $columns = [], bool $raw = false, bool $whitelist = true, bool $isPersisted = false)
 	{
 		$this->registerHooksAndCasts();
 

@@ -19,6 +19,7 @@ use mako\file\FileSystem;
 use mako\reactor\Command as BaseCommand;
 use mako\syringe\Container;
 use ReflectionClass;
+use stdClass;
 
 use function basename;
 use function strcmp;
@@ -171,10 +172,10 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns the fully qualified class name of a migration.
 	 *
-	 * @param  object $migration Migration
+	 * @param  \stdClass $migration Migration
 	 * @return string
 	 */
-	protected function getFullyQualifiedMigration(object $migration): string
+	protected function getFullyQualifiedMigration(stdClass $migration): string
 	{
 		if(empty($migration->package))
 		{
