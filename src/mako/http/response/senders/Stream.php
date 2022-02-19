@@ -133,7 +133,7 @@ class Stream implements ResponseSenderInterface
 		{
 			if(!empty($chunk) || $flushEmpty === true)
 			{
-				printf("%x\r\n%s\r\n", strlen($chunk), $chunk);
+				printf("%x\r\n%s\r\n", strlen($chunk ?? ''), $chunk ?? '');
 
 				flush();
 			}
