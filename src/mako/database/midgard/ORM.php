@@ -375,7 +375,7 @@ abstract class ORM implements JsonSerializable
 	{
 		if(empty($this->tableName))
 		{
-			$this->tableName = Str::pluralize(Str::camel2underscored($this->getClassShortName()));
+			$this->tableName = Str::pluralize(Str::camelToSnake($this->getClassShortName()));
 		}
 
 		return $this->tableName;
@@ -420,7 +420,7 @@ abstract class ORM implements JsonSerializable
 	{
 		if(empty($this->foreignKeyName))
 		{
-			$this->foreignKeyName = Str::camel2underscored($this->getClassShortName()) . '_id';
+			$this->foreignKeyName = Str::camelToSnake($this->getClassShortName()) . '_id';
 		}
 
 		return $this->foreignKeyName;
@@ -746,7 +746,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $name Column or relation name
 	 * @return bool
 	 */
-	public function __isset(string $name)
+	public function __isset(string $name): bool
 	{
 		if(isset($this->columns[$name]) || isset($this->related[$name]))
 		{

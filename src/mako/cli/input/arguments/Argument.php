@@ -261,7 +261,7 @@ class Argument
 	 */
 	public function getNormalizedName(): string
 	{
-		return Str::underscored2camel(str_replace('-', '_', ltrim($this->name, '--')));
+		return Str::snakeToCamel(str_replace('-', '_', ltrim($this->name, '--')));
 	}
 
 	/**

@@ -104,23 +104,23 @@ class StrTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCamel2underscored(): void
+	public function testCamelToSnake(): void
 	{
-		$this->assertEquals('hello_world', Str::camel2underscored('helloWorld'));
-		$this->assertEquals('hello_world', Str::camel2underscored('HelloWorld'));
-		$this->assertEquals('this_is_camel_case', Str::camel2underscored('thisIsCamelCase'));
-		$this->assertEquals('this_is_camel_case', Str::camel2underscored('ThisIsCamelCase'));
+		$this->assertEquals('hello_world', Str::camelToSnake('helloWorld'));
+		$this->assertEquals('hello_world', Str::camelToSnake('HelloWorld'));
+		$this->assertEquals('this_is_camel_case', Str::camelToSnake('thisIsCamelCase'));
+		$this->assertEquals('this_is_camel_case', Str::camelToSnake('ThisIsCamelCase'));
 	}
 
 	/**
 	 *
 	 */
-	public function testUnderscored2camel(): void
+	public function testSnakeToCamel(): void
 	{
-		$this->assertEquals('helloWorld', Str::underscored2camel('hello_world'));
-		$this->assertEquals('HelloWorld', Str::underscored2camel('hello_world', true));
-		$this->assertEquals('thisIsUnderscored', Str::underscored2camel('this_is_underscored'));
-		$this->assertEquals('ThisIsUnderscored', Str::underscored2camel('this_is_underscored', true));
+		$this->assertEquals('helloWorld', Str::snakeToCamel('hello_world'));
+		$this->assertEquals('HelloWorld', Str::snakeToCamel('hello_world', true));
+		$this->assertEquals('thisIsUnderscored', Str::snakeToCamel('this_is_underscored'));
+		$this->assertEquals('ThisIsUnderscored', Str::snakeToCamel('this_is_underscored', true));
 	}
 
 	/**

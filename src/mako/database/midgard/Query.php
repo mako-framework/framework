@@ -591,7 +591,7 @@ class Query extends QueryBuilder
 	 */
 	public function scope(string $scope, ...$arguments)
 	{
-		$this->model->{Str::underscored2camel($scope) . 'Scope'}(...[$this, ...$arguments]);
+		$this->model->{Str::snakeToCamel($scope) . 'Scope'}(...[$this, ...$arguments]);
 
 		return $this;
 	}

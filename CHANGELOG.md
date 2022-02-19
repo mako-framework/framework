@@ -3,6 +3,14 @@
 #### New
 
 * It it now possible to use custom validation rules without registering them first.
+* Added `Str::camelToSnake()` method.
+* Added `Str::snakeToCamel()` method.
+* Added `CamelCasedTrait` ORM trait that enables camel cased interaction with ORM objects.
+
+#### Deprecations
+
+* Deprecated the `Str::camel2underscored` method.
+* Deprecated the `Str::underscored2camel` method.
 
 --------------------------------------------------------
 
