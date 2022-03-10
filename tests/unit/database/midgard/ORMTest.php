@@ -9,6 +9,8 @@ namespace mako\tests\unit\database\midgard;
 
 use DateTime;
 use mako\chrono\Time;
+use mako\database\midgard\ORM;
+use mako\database\midgard\traits\OptimisticLockingTrait;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -24,7 +26,7 @@ class FakeRelation
 	}
 }
 
-class TestUser1 extends \mako\database\midgard\ORM
+class TestUser1 extends ORM
 {
 	protected $including = ['profile'];
 
@@ -35,7 +37,7 @@ class TestUser1 extends \mako\database\midgard\ORM
 
 class TestUser2 extends TestUser1
 {
-	use \mako\database\midgard\traits\OptimisticLockingTrait;
+	use OptimisticLockingTrait;
 
 	protected function arrayMutator($array)
 	{
@@ -84,17 +86,17 @@ class Testuser5 extends TestUser1
 	}
 }
 
-class ORMTestApple extends \mako\database\midgard\ORM
+class ORMTestApple extends ORM
 {
 
 }
 
-class TestCastingScalars extends \mako\database\midgard\ORM
+class TestCastingScalars extends ORM
 {
 	protected $cast = ['boolean' => 'bool', 'integer' => 'int', 'float' => 'float'];
 }
 
-class TestCastingDate extends \mako\database\midgard\ORM
+class TestCastingDate extends ORM
 {
 	protected $cast = ['date' => 'date'];
 }

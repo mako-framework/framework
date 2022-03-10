@@ -183,9 +183,21 @@ class Str
 	 * @param  string $string The input string
 	 * @return string
 	 */
-	public static function camel2underscored(string $string): string
+	public static function camelToSnake(string $string): string
 	{
 		return mb_strtolower(preg_replace('/([^A-Z])([A-Z])/u', '$1_$2', $string));
+	}
+
+	/**
+	 * Converts camel case to underscored.
+	 *
+	 * @deprecated
+	 * @param  string $string The input string
+	 * @return string
+	 */
+	public static function camel2underscored(string $string): string
+	{
+		return static::camelToSnake($string);
 	}
 
 	/**
@@ -195,9 +207,22 @@ class Str
 	 * @param  bool   $upper  Return upper case camelCase?
 	 * @return string
 	 */
-	public static function underscored2camel(string $string, bool $upper = false): string
+	public static function snakeToCamel(string $string, bool $upper = false): string
 	{
 		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), static fn($matches) => mb_strtoupper($matches[1]), $string);
+	}
+
+	/**
+	 * Converts underscored to camel case.
+	 *
+	 * @deprecated
+	 * @param  string $string The input string
+	 * @param  bool   $upper  Return upper case camelCase?
+	 * @return string
+	 */
+	public static function underscored2camel(string $string, bool $upper = false): string
+	{
+		return static::snakeToCamel($string, $upper);
 	}
 
 	/**

@@ -20,7 +20,7 @@ use Mockery;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class ScopedModel extends \mako\database\midgard\ORM
+class ScopedModel extends ORM
 {
 	protected $tableName = 'foos';
 

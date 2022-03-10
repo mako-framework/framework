@@ -870,7 +870,7 @@ class Redis
 	 */
 	protected function buildCommand(string $name, array $arguments = []): string
 	{
-		$command = strtoupper(str_replace('_', ' ', Str::camel2underscored($name)));
+		$command = strtoupper(str_replace('_', ' ', Str::camelToSnake($name)));
 
 		if(strpos($command, ' ') === false)
 		{
