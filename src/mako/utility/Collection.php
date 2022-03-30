@@ -13,6 +13,8 @@ use Countable;
 use IteratorAggregate;
 use mako\common\traits\ExtendableTrait;
 use OutOfBoundsException;
+use ReflectionFunction;
+use ReflectionNamedType;
 
 use function array_chunk;
 use function array_combine;
@@ -387,9 +389,22 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function each(callable $callable)
 	{
+		$reflection = new ReflectionFunction($callable);
+
+		$callableHasVoidReturnType = $reflection->hasReturnType() &&
+			$reflection->getReturnType() instanceof ReflectionNamedType &&
+			$reflection->getReturnType()->getName() === 'void';
+
 		foreach($this->items as $key => $value)
 		{
-			$this->items[$key] = $callable($value, $key);
+			if($callableHasVoidReturnType)
+			{
+				$callable($value, $key);
+			}
+			else
+			{
+				$this->items[$key] = $callable($value, $key);
+			}
 		}
 
 		return $this;

@@ -485,6 +485,21 @@ class CollectionTest extends TestCase
 	/**
 	 *
 	 */
+	public function testEachWithCallableWithVoidReturnType(): void
+	{
+		$collection = new Collection([(object) ['foo' => 'bar']]);
+
+		$collection->each(function($object): void
+		{
+			$object->foo .= 'baz';
+		});
+
+		$this->assertSame('barbaz', $collection[0]->foo);
+	}
+
+	/**
+	 *
+	 */
 	public function testMap(): void
 	{
 		$collection = new Collection([1, 2, 3]);
