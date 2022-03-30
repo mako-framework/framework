@@ -6,6 +6,7 @@
 * Added `Str::camelToSnake()` method.
 * Added `Str::snakeToCamel()` method.
 * Added `CamelCasedTrait` ORM trait that enables camel cased interaction with ORM objects.
+* The `protect` and `expose` methods of the ORM `ResultSet` class are now chainable.
 
 #### Deprecations
 

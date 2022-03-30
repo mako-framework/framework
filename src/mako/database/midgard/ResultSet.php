@@ -28,27 +28,33 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Excludes the chosen columns and relations from array and json representations of the collection.
 	 *
-	 * @param array|false|string $column Column or relation to hide from the
+	 * @param  array|false|string $column Column or relation to hide from the
+	 * @return $this
 	 */
-	public function protect($column): void
+	public function protect($column)
 	{
 		foreach($this->items as $item)
 		{
 			$item->protect($column);
 		}
+
+		return $this;
 	}
 
 	/**
 	 * Exposes the chosen columns and relations in the array and json representations of the collection.
 	 *
-	 * @param array|string|true $column Column or relation to hide from the
+	 * @param  array|string|true $column Column or relation to hide from the
+	 * @return $this
 	 */
-	public function expose($column): void
+	public function expose($column)
 	{
 		foreach($this->items as $item)
 		{
 			$item->expose($column);
 		}
+
+		return $this;
 	}
 
 	/**
