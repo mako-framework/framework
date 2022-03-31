@@ -159,6 +159,26 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
+	public function testEagerLoadingAliasing(): void
+	{
+		$user = (new TestUser)->including(['profile as eliforp'])->getOrThrow(1);
+
+		$queries = $user->getConnection()->getLog();
+
+		$this->assertSame(2, count($queries));
+
+		$this->assertSame('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $queries[0]['query']);
+
+		$this->assertSame('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (\'1\')', $queries[1]['query']);
+
+		$this->assertTrue(empty($user->getRelated()['profile']));
+
+		$this->assertFalse(empty($user->getRelated()['eliforp']));
+	}
+
+	/**
+	 *
+	 */
 	public function testGetNonExistent(): void
 	{
 		$user = TestUser::get(999);

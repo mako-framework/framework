@@ -7,6 +7,7 @@
 * Added `Str::snakeToCamel()` method.
 * Added `CamelCasedTrait` ORM trait that enables camel cased interaction with ORM objects.
 * The `protect` and `expose` methods of the ORM `ResultSet` class are now chainable.
+* Eager loaded relations can now be aliased.
 
 #### Deprecations
 

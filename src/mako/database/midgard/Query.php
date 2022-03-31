@@ -449,6 +449,24 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Parses include names.
+	 *
+	 * @param  string $name Include name
+	 * @return array
+	 */
+	protected function parseIncludeName(string $name): array
+	{
+		if(stripos($name, ' AS ') === false)
+		{
+			return [$name, $name];
+		}
+
+		[$name, , $alias] = explode(' ', $name, 3);
+
+		return [$name, $alias];
+	}
+
+	/**
 	 * Load includes.
 	 *
 	 * @param array $results Loaded records
@@ -459,9 +477,11 @@ class Query extends QueryBuilder
 
 		foreach($includes['this'] as $include => $criteria)
 		{
-			$forward = $includes['forward'][$include] ?? [];
+			[$methodName, $propertyName] = $this->parseIncludeName($include);
 
-			$results[0]->$include()->eagerLoad($results, $include, $criteria, $forward);
+			$forward = $includes['forward'][$methodName] ?? [];
+
+			$results[0]->$methodName()->eagerLoad($results, $propertyName, $criteria, $forward);
 		}
 	}
 
