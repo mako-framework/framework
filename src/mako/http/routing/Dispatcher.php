@@ -246,32 +246,25 @@ class Dispatcher
 	/**
 	 * Executes a closure action.
 	 *
-	 * @param  \Closure            $closure    Closure
+	 * @param  \Closure            $action     Closure
 	 * @param  array               $parameters Parameters
 	 * @return \mako\http\Response
 	 */
-	protected function executeClosure(Closure $closure, array $parameters): Response
+	protected function executeClosure(Closure $action, array $parameters): Response
 	{
-		return $this->response->setBody($this->container->call($closure, $parameters));
+		return $this->response->setBody($this->container->call($action, $parameters));
 	}
 
 	/**
 	 * Executes a controller action.
 	 *
-	 * @param  array|string        $controller Controller
+	 * @param  array|string        $action     Controller
 	 * @param  array               $parameters Parameters
 	 * @return \mako\http\Response
 	 */
-	protected function executeController($controller, array $parameters): Response
+	protected function executeController($action, array $parameters): Response
 	{
-		if(is_array($controller))
-		{
-			[$controller, $method] = $controller;
-		}
-		else
-		{
-			$method = '__invoke';
-		}
+		[$controller, $method] = is_array($action) ? $action : [$action, '__invoke'];
 
 		$controller = $this->container->get($controller);
 
