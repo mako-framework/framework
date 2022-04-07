@@ -9,6 +9,7 @@ namespace mako\http\routing;
 
 use Closure;
 use mako\http\routing\attributes\Middleware;
+use ReflectionClass;
 use ReflectionMethod;
 
 use function in_array;
@@ -165,6 +166,14 @@ class Route
 		$middleware = [];
 
 		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
+
+		foreach((new ReflectionClass($class))->getAttributes(Middleware::class) as $attribute)
+		{
+			/** @var \mako\http\routing\attributes\Middleware $middlewareAttribute */
+			$middlewareAttribute = $attribute->newInstance();
+
+			$middleware = [...$middleware, ...$middlewareAttribute->getMiddleware()];
+		}
 
 		foreach((new ReflectionMethod($class, $method))->getAttributes(Middleware::class) as $attribute)
 		{

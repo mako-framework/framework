@@ -12,7 +12,7 @@ use Attribute;
 /**
  * Middleware attribute.
  */
-#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 class Middleware
 {
     /**
