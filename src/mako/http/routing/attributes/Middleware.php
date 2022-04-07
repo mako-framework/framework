@@ -1,13 +1,13 @@
 <?php
 
-namespace mako\http\routing\attributes;
-
-use Attribute;
-
 /**
  * @copyright Frederic G. Østby
  * @license   http://www.makoframework.com/license
  */
+
+namespace mako\http\routing\attributes;
+
+use Attribute;
 
 /**
  * Middleware attribute.

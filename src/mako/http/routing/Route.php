@@ -8,6 +8,7 @@
 namespace mako\http\routing;
 
 use Closure;
+use mako\http\routing\attributes\Middleware;
 use ReflectionMethod;
 
 use function in_array;
