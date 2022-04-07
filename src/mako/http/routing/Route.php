@@ -162,13 +162,11 @@ class Route
 	 */
 	protected function getActionAttributeMiddleware(): array
 	{
-		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
-
 		$middleware = [];
 
-		$reflection = new ReflectionMethod($class, $method);
+		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
 
-		foreach($reflection->getAttributes(Middleware::class) as $attribute)
+		foreach((new ReflectionMethod($class, $method))->getAttributes(Middleware::class) as $attribute)
 		{
 			/** @var \mako\http\routing\attributes\Middleware $middlewareAttribute */
 			$middlewareAttribute = $attribute->newInstance();
