@@ -8,6 +8,7 @@
 * Added `CamelCasedTrait` ORM trait that enables camel cased interaction with ORM objects.
 * The `protect` and `expose` methods of the ORM `ResultSet` class are now chainable.
 * Eager loaded relations can now be aliased.
+* Route middleware can now be registered using the `Middleware` attribute on controller methods (PHP 8.0+).
 
 #### Deprecations
 
