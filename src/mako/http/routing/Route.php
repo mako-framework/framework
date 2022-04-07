@@ -7,7 +7,11 @@
 
 namespace mako\http\routing;
 
+use Closure;
+use ReflectionMethod;
+
 use function in_array;
+use function is_array;
 use function preg_replace;
 use function str_replace;
 use function strpos;
@@ -151,13 +155,42 @@ class Route
 	}
 
 	/**
+	 * Returns action middleware.
+	 *
+	 * @return array
+	 */
+	protected function getActionAttributeMiddleware(): array
+	{
+		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
+
+		$middleware = [];
+
+		$reflection = new ReflectionMethod($class, $method);
+
+		foreach($reflection->getAttributes(Middleware::class) as $attribute)
+		{
+			/** @var \mako\http\routing\attributes\Middleware $middlewareAttribute */
+			$middlewareAttribute = $attribute->newInstance();
+
+			$middleware = [...$middleware, $middlewareAttribute->getMiddleware()];
+		}
+
+		return $middleware;
+	}
+
+	/**
 	 * Returns the middleware.
 	 *
 	 * @return array
 	 */
 	public function getMiddleware(): array
 	{
-		return $this->middleware;
+		if($this->action instanceof Closure || PHP_VERSION_ID < 80000)
+		{
+			return $this->middleware;
+		}
+
+		return [...$this->middleware, $this->getActionAttributeMiddleware()];
 	}
 
 	/**
