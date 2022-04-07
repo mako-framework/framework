@@ -173,7 +173,7 @@ class Route
 			/** @var \mako\http\routing\attributes\Middleware $middlewareAttribute */
 			$middlewareAttribute = $attribute->newInstance();
 
-			$middleware = [...$middleware, $middlewareAttribute->getMiddleware()];
+			$middleware = [...$middleware, ...$middlewareAttribute->getMiddleware()];
 		}
 
 		return $middleware;
