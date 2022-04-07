@@ -191,7 +191,7 @@ class Route
 			return $this->middleware;
 		}
 
-		return [...$this->middleware, $this->getActionAttributeMiddleware()];
+		return [...$this->middleware, ...$this->getActionAttributeMiddleware()];
 	}
 
 	/**
