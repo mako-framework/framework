@@ -235,11 +235,12 @@ class Route
 	/**
 	 * Returns the constraints.
 	 *
+	 * @param  bool  $useAttributes Should attributes be checked?
 	 * @return array
 	 */
-	public function getConstraints(): array
+	public function getConstraints(bool $useAttributes = true): array
 	{
-		if($this->action instanceof Closure || PHP_VERSION_ID < 80000)
+		if($this->action instanceof Closure || $useAttributes === false || PHP_VERSION_ID < 80000)
 		{
 			return $this->constraints;
 		}

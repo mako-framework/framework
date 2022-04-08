@@ -429,4 +429,29 @@ class RouteTest extends TestCase
 
 		$this->assertSame(['bar0', 'bar1', 'bar2', 'bar3', 'bar4'], $route->getConstraints());
 	}
+
+	/**
+	 *
+	 */
+	public function testDisabledAttributeConstraints(): void
+	{
+		if(PHP_VERSION_ID < 80000)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.0+');
+		}
+
+		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
+
+		$route->constraint('bar0');
+
+		$this->assertSame(['bar0'], $route->getConstraints(false));
+
+		//
+
+		$route = new Route(['GET'], '/', AttributeController::class);
+
+		$route->constraint('bar0');
+
+		$this->assertSame(['bar0'], $route->getConstraints(false));
+	}
 }
