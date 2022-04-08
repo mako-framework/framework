@@ -16,6 +16,17 @@ use mako\tests\TestCase;
 class MiddlewareTest extends TestCase
 {
 	/**
+	 *{@inheritDoc}
+	 */
+	public function setup(): void
+	{
+		if(PHP_VERSION_ID < 80000)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.0+');
+		}
+	}
+
+	/**
 	 *
 	 */
 	public function testWithArray(): void
@@ -35,7 +46,3 @@ class MiddlewareTest extends TestCase
 		$this->assertSame(['foobar'], $middleware->getMiddleware());
 	}
 }
-
-/*
- *
- */
