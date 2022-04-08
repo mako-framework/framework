@@ -15,6 +15,7 @@ use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
+use mako\http\routing\attributes\Constraint;
 use mako\http\routing\constraints\ConstraintInterface;
 use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\Route;
@@ -41,6 +42,15 @@ class BarConstraint implements ConstraintInterface
 	public function isSatisfied(): bool
 	{
 		return true;
+	}
+}
+
+#[Constraint('foo')]
+class RouterAttributeController
+{
+	public function helloWorld(): void
+	{
+
 	}
 }
 
@@ -431,6 +441,68 @@ class RouterTest extends TestCase
 		$container->shouldReceive('get')->times(2)->with(FooConstraint::class, [])->andReturn(new FooConstraint);
 
 		$router = new Router($routes, $container);
+
+		$router->registerConstraint('foo', FooConstraint::class);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('getMethod')->andReturn('GET');
+
+		$request->shouldReceive('getPath')->andReturn('/foo');
+
+		$router->route($request)->getAction()();
+	}
+
+	/**
+	 *
+	 */
+	public function testFailingConstraintWithAttributesDisabled(): void
+	{
+		$routes = new Routes;
+
+		$routes->get('/foo', [RouterAttributeController::class, 'helloWorld'], 'get.foo');
+
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->never()->with(FooConstraint::class, [])->andReturn(new FooConstraint);
+
+		$router = new Router($routes, $container);
+
+		$router->registerConstraint('foo', FooConstraint::class);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('getMethod')->andReturn('GET');
+
+		$request->shouldReceive('getPath')->andReturn('/foo');
+
+		$routed = $router->route($request);
+
+		$this->assertSame('get.foo', $routed->getName());
+
+		$this->assertSame($routed, $request->getRoute());
+	}
+
+	/**
+	 *
+	 */
+	public function testFailingConstraintWithAttributesEnabled(): void
+	{
+		$this->expectException(NotFoundException::class);
+
+		$routes = new Routes;
+
+		$routes->get('/foo', [RouterAttributeController::class, 'helloWorld'], 'get.foo');
+
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->times(2)->with(FooConstraint::class, [])->andReturn(new FooConstraint);
+
+		$router = new Router($routes, $container);
+
+		$router->useConstraintAttributes(true);
 
 		$router->registerConstraint('foo', FooConstraint::class);
 
