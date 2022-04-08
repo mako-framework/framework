@@ -9,6 +9,7 @@
 * The `protect` and `expose` methods of the ORM `ResultSet` class are now chainable.
 * Eager loaded relations can now be aliased.
 * Route middleware can now be registered using the new `Middleware` attribute (PHP 8.0+).
+* Route constraints can now be registered using the new `Constraint` attribute (PHP 8.0+).
 
 #### Deprecations
 
