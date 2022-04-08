@@ -502,7 +502,7 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->useConstraintAttributes(true);
+		$router->enableConstraintAttributes(true);
 
 		$router->registerConstraint('foo', FooConstraint::class);
 

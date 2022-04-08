@@ -63,11 +63,11 @@ class Router
 	protected $globalConstraints = [];
 
 	/**
-	 * Should constraint attributes be used?
+	 * Are constraint attributes enabled?
 	 *
 	 * @var bool
 	 */
-	protected $useConstraintAttributes = false;
+	protected $enableConstraintAttributes = false;
 
 	/**
 	 * Constructor.
@@ -83,14 +83,14 @@ class Router
 	}
 
 	/**
-	 * Should constraint attributes be used?
+	 * Should constraint attributes be enabled?
 	 *
-	 * @param  bool                      $use TRUE to enable and FALSE to disable
+	 * @param  bool                      $enable TRUE to enable and FALSE to disable
 	 * @return \mako\http\routing\Router
 	 */
-	public function useConstraintAttributes(bool $use): Router
+	public function enableConstraintAttributes(bool $enable): Router
 	{
-		$this->useConstraintAttributes = $use;
+		$this->enableConstraintAttributes = $enable;
 
 		return $this;
 	}
@@ -179,7 +179,7 @@ class Router
 	 */
 	protected function constraintsAreSatisfied(Route $route): bool
 	{
-		foreach([...$this->globalConstraints, ...$route->getConstraints($this->useConstraintAttributes)] as $constraint)
+		foreach([...$this->globalConstraints, ...$route->getConstraints($this->enableConstraintAttributes)] as $constraint)
 		{
 			if($this->constraintFactory($constraint)->isSatisfied() === false)
 			{
