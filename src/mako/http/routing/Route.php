@@ -8,6 +8,7 @@
 namespace mako\http\routing;
 
 use Closure;
+use mako\http\routing\attributes\Constraint;
 use mako\http\routing\attributes\Middleware;
 use ReflectionClass;
 use ReflectionMethod;
@@ -161,7 +162,7 @@ class Route
 	 *
 	 * @return array
 	 */
-	protected function getActionAttributeMiddleware(): array
+	protected function getActionMiddleware(): array
 	{
 		$middleware = [];
 
@@ -198,7 +199,37 @@ class Route
 			return $this->middleware;
 		}
 
-		return [...$this->middleware, ...$this->getActionAttributeMiddleware()];
+		return [...$this->middleware, ...$this->getActionMiddleware()];
+	}
+
+	/**
+	 * Returns action constraints.
+	 *
+	 * @return array
+	 */
+	protected function getActionConstraints(): array
+	{
+		$constraints = [];
+
+		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
+
+		foreach((new ReflectionClass($class))->getAttributes(Constraint::class) as $attribute)
+		{
+			/** @var \mako\http\routing\attributes\Constraint $constraintAttribute */
+			$constraintAttribute = $attribute->newInstance();
+
+			$constraints = [...$constraints, ...$constraintAttribute->getConstraints()];
+		}
+
+		foreach((new ReflectionMethod($class, $method))->getAttributes(Constraint::class) as $attribute)
+		{
+			/** @var \mako\http\routing\attributes\Constraint $constraintAttribute */
+			$constraintAttribute = $attribute->newInstance();
+
+			$constraints = [...$constraints, ...$constraintAttribute->getConstraints()];
+		}
+
+		return $constraints;
 	}
 
 	/**
@@ -208,7 +239,12 @@ class Route
 	 */
 	public function getConstraints(): array
 	{
-		return $this->constraints;
+		if($this->action instanceof Closure || PHP_VERSION_ID < 80000)
+		{
+			return $this->constraints;
+		}
+
+		return [...$this->constraints, ...$this->getActionConstraints()];
 	}
 
 	/**

@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http\routing;
 
+use mako\http\routing\attributes\Constraint;
 use mako\http\routing\attributes\Middleware;
 use mako\http\routing\Route;
 use mako\tests\TestCase;
@@ -17,10 +18,14 @@ use mako\tests\TestCase;
 
 #[Middleware('foo1')]
 #[Middleware('foo2')]
+#[Constraint('bar1')]
+#[Constraint('bar2')]
 class AttributeController
 {
 	#[Middleware('foo3')]
 	#[Middleware('foo4')]
+	#[Constraint('bar3')]
+	#[Constraint('bar4')]
 	public function method(): void
 	{
 
@@ -28,6 +33,8 @@ class AttributeController
 
 	#[Middleware('foo3')]
 	#[Middleware('foo4')]
+	#[Constraint('bar3')]
+	#[Constraint('bar4')]
 	public function __invoke(): void
 	{
 
@@ -396,5 +403,30 @@ class RouteTest extends TestCase
 		$route->middleware('foo0');
 
 		$this->assertSame(['foo0', 'foo1', 'foo2', 'foo3', 'foo4'], $route->getMiddleware());
+	}
+
+	/**
+	 *
+	 */
+	public function testAttributeConstraints(): void
+	{
+		if(PHP_VERSION_ID < 80000)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.0+');
+		}
+
+		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
+
+		$route->constraint('bar0');
+
+		$this->assertSame(['bar0', 'bar1', 'bar2', 'bar3', 'bar4'], $route->getConstraints());
+
+		//
+
+		$route = new Route(['GET'], '/', AttributeController::class);
+
+		$route->constraint('bar0');
+
+		$this->assertSame(['bar0', 'bar1', 'bar2', 'bar3', 'bar4'], $route->getConstraints());
 	}
 }
