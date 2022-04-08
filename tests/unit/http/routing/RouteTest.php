@@ -7,8 +7,36 @@
 
 namespace mako\tests\unit\http\routing;
 
+use mako\http\routing\attributes\Middleware;
 use mako\http\routing\Route;
 use mako\tests\TestCase;
+
+// --------------------------------------------------------------------------
+// START CLASSES
+// --------------------------------------------------------------------------
+
+#[Middleware('foo1')]
+#[Middleware('foo2')]
+class AttributeController
+{
+	#[Middleware('foo3')]
+	#[Middleware('foo4')]
+	public function method(): void
+	{
+
+	}
+
+	#[Middleware('foo3')]
+	#[Middleware('foo4')]
+	public function __invoke(): void
+	{
+
+	}
+}
+
+// --------------------------------------------------------------------------
+// END CLASSES
+// --------------------------------------------------------------------------
 
 /**
  * @group unit
@@ -343,5 +371,30 @@ class RouteTest extends TestCase
 		$this->assertTrue($route->getParameter('nope', true));
 
 		$this->assertSame($parameters, $route->getParameters());
+	}
+
+	/**
+	 *
+	 */
+	public function testAttributeMiddleware(): void
+	{
+		if(PHP_VERSION_ID < 80000)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.0+');
+		}
+
+		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
+
+		$route->middleware('foo0');
+
+		$this->assertSame(['foo0', 'foo1', 'foo2', 'foo3', 'foo4'], $route->getMiddleware());
+
+		//
+
+		$route = new Route(['GET'], '/', AttributeController::class);
+
+		$route->middleware('foo0');
+
+		$this->assertSame(['foo0', 'foo1', 'foo2', 'foo3', 'foo4'], $route->getMiddleware());
 	}
 }
