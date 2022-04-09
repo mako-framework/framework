@@ -12,6 +12,7 @@ use mako\utility\Str;
 
 use function array_key_exists;
 use function method_exists;
+use function vsprintf;
 
 /**
  * Camel cased data interaction trait.
