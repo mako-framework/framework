@@ -15,7 +15,6 @@ use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
-use mako\http\routing\attributes\Constraint;
 use mako\http\routing\constraints\ConstraintInterface;
 use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\Route;
@@ -42,15 +41,6 @@ class BarConstraint implements ConstraintInterface
 	public function isSatisfied(): bool
 	{
 		return true;
-	}
-}
-
-#[Constraint('foo')]
-class RouterAttributeController
-{
-	public function helloWorld(): void
-	{
-
 	}
 }
 
