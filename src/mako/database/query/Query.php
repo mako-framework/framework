@@ -196,7 +196,7 @@ class Query
 
 		foreach(array_diff_key(get_class_vars(self::class), array_flip($leave)) as $property => $default)
 		{
-			$this->{$property} = $default;
+			$this->$property = $default;
 		}
 	}
 

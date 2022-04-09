@@ -158,33 +158,23 @@ class Route
 	}
 
 	/**
-	 * Returns action middleware.
+	 * Returns attribute values.
 	 *
+	 * @param  array  $attributes An array of reflection attributes
+	 * @param  string $method     Attribute method
 	 * @return array
 	 */
-	protected function getActionMiddleware(): array
+	protected function getAttributeValues($attributes, string $method): array
 	{
-		$middleware = [];
+		$attributeValues = [];
 
-		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
-
-		foreach((new ReflectionClass($class))->getAttributes(Middleware::class) as $attribute)
+		/** @var \ReflectionAttribute $attribute */
+		foreach($attributes as $attribute)
 		{
-			/** @var \mako\http\routing\attributes\Middleware $middlewareAttribute */
-			$middlewareAttribute = $attribute->newInstance();
-
-			$middleware = [...$middleware, ...$middlewareAttribute->getMiddleware()];
+			$attributeValues = [...$attributeValues, ...$attribute->newInstance()->$method()];
 		}
 
-		foreach((new ReflectionMethod($class, $method))->getAttributes(Middleware::class) as $attribute)
-		{
-			/** @var \mako\http\routing\attributes\Middleware $middlewareAttribute */
-			$middlewareAttribute = $attribute->newInstance();
-
-			$middleware = [...$middleware, ...$middlewareAttribute->getMiddleware()];
-		}
-
-		return $middleware;
+		return $attributeValues;
 	}
 
 	/**
@@ -199,37 +189,13 @@ class Route
 			return $this->middleware;
 		}
 
-		return [...$this->middleware, ...$this->getActionMiddleware()];
-	}
-
-	/**
-	 * Returns action constraints.
-	 *
-	 * @return array
-	 */
-	protected function getActionConstraints(): array
-	{
-		$constraints = [];
-
 		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
 
-		foreach((new ReflectionClass($class))->getAttributes(Constraint::class) as $attribute)
-		{
-			/** @var \mako\http\routing\attributes\Constraint $constraintAttribute */
-			$constraintAttribute = $attribute->newInstance();
-
-			$constraints = [...$constraints, ...$constraintAttribute->getConstraints()];
-		}
-
-		foreach((new ReflectionMethod($class, $method))->getAttributes(Constraint::class) as $attribute)
-		{
-			/** @var \mako\http\routing\attributes\Constraint $constraintAttribute */
-			$constraintAttribute = $attribute->newInstance();
-
-			$constraints = [...$constraints, ...$constraintAttribute->getConstraints()];
-		}
-
-		return $constraints;
+		return [
+			...$this->middleware,
+			...$this->getAttributeValues((new ReflectionClass($class))->getAttributes(Middleware::class), 'getMiddleware'),
+			...$this->getAttributeValues((new ReflectionMethod($class, $method))->getAttributes(Middleware::class), 'getMiddleware'),
+		];
 	}
 
 	/**
@@ -244,7 +210,13 @@ class Route
 			return $this->constraints;
 		}
 
-		return [...$this->constraints, ...$this->getActionConstraints()];
+		[$class, $method] = is_array($this->action) ? $this->action : [$this->action, '__invoke'];
+
+		return [
+			...$this->constraints,
+			...$this->getAttributeValues((new ReflectionClass($class))->getAttributes(Constraint::class), 'getConstraints'),
+			...$this->getAttributeValues((new ReflectionMethod($class, $method))->getAttributes(Constraint::class), 'getConstraints'),
+		];
 	}
 
 	/**
