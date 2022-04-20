@@ -178,7 +178,7 @@ class Router
 	 */
 	protected function redirectRoute(string $requestPath): Route
 	{
-		return new Route([], '', static function(Request $request) use ($requestPath)
+		return new Route([], '', static function (Request $request) use ($requestPath)
 		{
 			$url = $request->getBaseURL() . ($request->isClean() ? '' : "/{$request->getScriptName()}") . rtrim("/{$request->getLanguagePrefix()}", '/') . "{$requestPath}/";
 
@@ -224,7 +224,7 @@ class Router
 	{
 		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
 
-		return new Route([], '', static function(Response $response) use ($allowedMethods): void
+		return new Route([], '', static function (Response $response) use ($allowedMethods): void
 		{
 			$response->getHeaders()->add('Allow', implode(',', $allowedMethods));
 		}, 'router:options');
@@ -238,7 +238,7 @@ class Router
 	 */
 	protected function methodNotAllowedRoute(array $allowedMethods): Route
 	{
-		return new Route([], '', static function() use ($allowedMethods): void
+		return new Route([], '', static function () use ($allowedMethods): void
 		{
 			throw new MethodNotAllowedException($allowedMethods);
 		}, 'router:405');
@@ -251,7 +251,7 @@ class Router
 	 */
 	protected function notFoundRoute(): Route
 	{
-		return new Route([], '', static function(): void
+		return new Route([], '', static function (): void
 		{
 			throw new NotFoundException;
 		}, 'router:404');

@@ -176,6 +176,6 @@ class CommandBus implements CommandBusInterface
 	{
 		$command = $this->resolveCommand($command, $parameters);
 
-		return $this->resolveOnion($middleware)->peel(fn($command) => $this->handle($command), [$command]);
+		return $this->resolveOnion($middleware)->peel(fn ($command) => $this->handle($command), [$command]);
 	}
 }

@@ -31,7 +31,7 @@ class GatekeeperService extends Service
 
 		// Register the authorizer
 
-		$this->container->registerSingleton([AuthorizerInterface::class, 'authorizer'], static function($container) use ($config)
+		$this->container->registerSingleton([AuthorizerInterface::class, 'authorizer'], static function ($container) use ($config)
 		{
 			$authorizer = new Authorizer($container);
 
@@ -45,11 +45,11 @@ class GatekeeperService extends Service
 
 		// Register gatekeeper
 
-		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], static function($container) use ($config)
+		$this->container->registerSingleton([Gatekeeper::class, 'gatekeeper'], static function ($container) use ($config)
 		{
 			// Adapter factory
 
-			$factory = static function() use ($container, $config)
+			$factory = static function () use ($container, $config)
 			{
 				$userRepository = new UserRepository($config['user_model'], $container->get(AuthorizerInterface::class));
 

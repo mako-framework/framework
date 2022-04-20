@@ -29,7 +29,7 @@ trait TimestampedTrait
 		[
 			'beforeInsert' =>
 			[
-				function(array $values, $query): array
+				function (array $values, $query): array
 				{
 					$dateTime = new DateTime;
 
@@ -46,7 +46,7 @@ trait TimestampedTrait
 			],
 			'afterInsert' =>
 			[
-				function($inserted): void
+				function ($inserted): void
 				{
 					if($this->shouldTouchOnInsert() && $inserted && $this->isPersisted)
 					{
@@ -56,7 +56,7 @@ trait TimestampedTrait
 			],
 			'beforeUpdate' =>
 			[
-				function(array $values, $query): array
+				function (array $values, $query): array
 				{
 					$dateTime = new DateTime;
 
@@ -69,7 +69,7 @@ trait TimestampedTrait
 			],
 			'afterUpdate' =>
 			[
-				function($updated): void
+				function ($updated): void
 				{
 					if($this->shouldTouchOnUpdate() && $updated > 0 && $this->isPersisted)
 					{
@@ -79,7 +79,7 @@ trait TimestampedTrait
 			],
 			'afterDelete' =>
 			[
-				function($deleted): void
+				function ($deleted): void
 				{
 					if($this->shouldTouchOnDelete() && $deleted > 0 && $this->isPersisted)
 					{

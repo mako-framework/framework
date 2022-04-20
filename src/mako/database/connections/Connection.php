@@ -366,7 +366,7 @@ class Connection
 	 */
 	protected function prepareQueryForLog(string $query, array $params): string
 	{
-		return preg_replace_callback('/\?/', function() use (&$params)
+		return preg_replace_callback('/\?/', function () use (&$params)
 		{
 			$param = array_shift($params);
 

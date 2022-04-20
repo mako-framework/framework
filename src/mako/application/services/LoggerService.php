@@ -134,7 +134,7 @@ class LoggerService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function()
+		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function ()
 		{
 			$logger = new Logger($this->config->get('application.logger.channel', 'mako'));
 

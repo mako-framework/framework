@@ -132,7 +132,7 @@ class ErrorHandler
 	 */
 	protected function getFallbackHandler(): Closure
 	{
-		return function(Throwable $e): void
+		return function (Throwable $e): void
 		{
 			if($this->displayErrors())
 			{
@@ -150,7 +150,7 @@ class ErrorHandler
 	{
 		// Allows us to handle "fatal" errors
 
-		register_shutdown_function(function(): void
+		register_shutdown_function(function (): void
 		{
 			$e = error_get_last();
 

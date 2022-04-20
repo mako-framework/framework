@@ -147,9 +147,9 @@ class Application extends BaseApplication
 	 */
 	protected function startReactor(): void
 	{
-		$this->container->registerSingleton([Input::class, 'input'], fn() => $this->inputFactory());
+		$this->container->registerSingleton([Input::class, 'input'], fn () => $this->inputFactory());
 
-		$this->container->registerSingleton([Output::class, 'output'], fn() => $this->outputFactory());
+		$this->container->registerSingleton([Output::class, 'output'], fn () => $this->outputFactory());
 
 		$this->reactor = $this->reactorFactory();
 

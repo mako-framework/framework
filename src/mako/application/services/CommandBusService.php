@@ -20,6 +20,6 @@ class CommandBusService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([CommandBusInterface::class, 'commander'], static fn($container) => new CommandBus($container));
+		$this->container->registerSingleton([CommandBusInterface::class, 'commander'], static fn ($container) => new CommandBus($container));
 	}
 }

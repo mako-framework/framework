@@ -209,7 +209,7 @@ class Str
 	 */
 	public static function snakeToCamel(string $string, bool $upper = false): string
 	{
-		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), static fn($matches) => mb_strtoupper($matches[1]), $string);
+		return preg_replace_callback(($upper ? '/(?:^|_)(.?)/u' : '/_(.?)/u'), static fn ($matches) => mb_strtoupper($matches[1]), $string);
 	}
 
 	/**
@@ -300,7 +300,7 @@ class Str
 	 */
 	public static function autolink(string $string, array $attributes = []): string
 	{
-		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', static fn($matches) => (new HTML())->tag('a', ['href' => $matches[0]] + $attributes, $matches[0]), $string);
+		return preg_replace_callback('#\b(?<!href="|">)[a-z]+://\S+(?:/|\b)#i', static fn ($matches) => (new HTML())->tag('a', ['href' => $matches[0]] + $attributes, $matches[0]), $string);
 	}
 
 	/**

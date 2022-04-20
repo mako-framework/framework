@@ -353,7 +353,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			}
 		};
 
-		return static function($value) use ($dumper, $cloner, $callable): ?string
+		return static function ($value) use ($dumper, $cloner, $callable): ?string
 		{
 			$dumper->dump($cloner->cloneVar($value, Caster::EXCLUDE_VERBOSE), $callable);
 
@@ -408,7 +408,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 
 		$factory = new ViewFactory($fileSystem, '', $this->app->getCharset());
 
-		$factory->extend('.tpl.php', static fn() => new Template($fileSystem, sys_get_temp_dir()));
+		$factory->extend('.tpl.php', static fn () => new Template($fileSystem, sys_get_temp_dir()));
 
 		$factory->registerNamespace('mako-error', __DIR__ . '/views');
 

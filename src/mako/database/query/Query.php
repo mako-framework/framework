@@ -1554,7 +1554,7 @@ class Query
 			return $clone->count();
 		}
 
-		return $this->newInstance()->table(new Subquery(static function(&$query) use ($clone): void
+		return $this->newInstance()->table(new Subquery(static function (&$query) use ($clone): void
 		{
 			$query = $clone->inSubqueryContext();
 		}, 'count', true))->count();

@@ -24,7 +24,7 @@ class RedisService extends Service
 
 		// Register the connection manager
 
-		$this->container->registerSingleton([ConnectionManager::class, 'redis'], static function() use ($config)
+		$this->container->registerSingleton([ConnectionManager::class, 'redis'], static function () use ($config)
 		{
 			$config = $config->get('redis');
 
@@ -33,6 +33,6 @@ class RedisService extends Service
 
 		// Register the default connection
 
-		$this->container->registerSingleton(Redis::class, static fn($container) => $container->get(ConnectionManager::class)->getConnection());
+		$this->container->registerSingleton(Redis::class, static fn ($container) => $container->get(ConnectionManager::class)->getConnection());
 	}
 }

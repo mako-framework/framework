@@ -337,7 +337,7 @@ class Query extends QueryBuilder
 				}
 			}
 
-			$this->model->setIncludes(array_udiff($includes, $excludes, static fn($a, $b) => $a === $b ? 0 : -1));
+			$this->model->setIncludes(array_udiff($includes, $excludes, static fn ($a, $b) => $a === $b ? 0 : -1));
 		}
 
 		return $this;
@@ -387,7 +387,7 @@ class Query extends QueryBuilder
 				$criteria($countQuery);
 			}
 
-			$this->relationCounters[] = new Subquery(static function(&$query) use ($countQuery): void
+			$this->relationCounters[] = new Subquery(static function (&$query) use ($countQuery): void
 			{
 				$query = $countQuery;
 

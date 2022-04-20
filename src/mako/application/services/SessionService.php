@@ -97,7 +97,7 @@ class SessionService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([Session::class, 'session'], function($container)
+		$this->container->registerSingleton([Session::class, 'session'], function ($container)
 		{
 			// Get configuration
 

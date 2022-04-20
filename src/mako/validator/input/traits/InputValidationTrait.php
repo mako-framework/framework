@@ -31,7 +31,7 @@ trait InputValidationTrait
 	{
 		if(is_string($input))
 		{
-			$input = (fn(string $input): InputInterface => $this->container->get($input))($input);
+			$input = (fn (string $input): InputInterface => $this->container->get($input))($input);
 
 			$validator = $this->validator->create($input->getInput(), $rules + $input->getRules());
 

@@ -16,7 +16,7 @@ return (new Config)->setRules
 	'elseif' => true,
 	'encoding' => true,
 	'full_opening_tag' => true,
-	'function_declaration' => ['closure_function_spacing' => 'none'],
+	'function_declaration' => true,
 	'function_to_constant' => true,
 	'function_typehint_space' => true,
 	'heredoc_to_nowdoc' => true,

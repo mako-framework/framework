@@ -20,6 +20,6 @@ class ValidatorFactoryService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([ValidatorFactory::class, 'validator'], static fn($container) => new ValidatorFactory($container->has(I18n::class) ? $container->get(I18n::class) : null, $container));
+		$this->container->registerSingleton([ValidatorFactory::class, 'validator'], static fn ($container) => new ValidatorFactory($container->has(I18n::class) ? $container->get(I18n::class) : null, $container));
 	}
 }

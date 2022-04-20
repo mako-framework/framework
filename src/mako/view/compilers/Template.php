@@ -102,7 +102,7 @@ class Template
 	 */
 	protected function collectVerbatims(string $template): string
 	{
-		return preg_replace_callback('/{%\s*verbatim\s*%}(.*?){%\s*endverbatim\s*%}/is', function($matches)
+		return preg_replace_callback('/{%\s*verbatim\s*%}(.*?){%\s*endverbatim\s*%}/is', function ($matches)
 		{
 			$this->verbatims[] = $matches[1];
 
@@ -172,7 +172,7 @@ class Template
 	{
 		// Compile regular nospace blocks
 
-		$template = preg_replace_callback('/{%\s*nospace\s*%}(.*?){%\s*endnospace\s*%}/is', static function($matches)
+		$template = preg_replace_callback('/{%\s*nospace\s*%}(.*?){%\s*endnospace\s*%}/is', static function ($matches)
 		{
 			return trim(preg_replace('/>\s+</', '><', $matches[1]));
 		}, $template);
@@ -209,7 +209,7 @@ class Template
 	 */
 	protected function captures(string $template): string
 	{
-		return preg_replace_callback('/{%\s*capture:(\$?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', static function($matches)
+		return preg_replace_callback('/{%\s*capture:(\$?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', static function ($matches)
 		{
 			return '<?php ob_start(); ?>' . $matches[2] . '<?php $' . ltrim($matches[1], '$') . ' = ob_get_clean(); ?>';
 		}, $template);
@@ -259,11 +259,11 @@ class Template
 	{
 		// Closure that matches the "empty else" syntax
 
-		$emptyElse = static function($matches)
+		$emptyElse = static function ($matches)
 		{
 			if(preg_match('/(.*)((,\s*default:\s*))(.+)/', $matches) === 1)
 			{
-				return preg_replace_callback('/(.*)(,\s*default:\s*)(.+)/', static function($matches)
+				return preg_replace_callback('/(.*)(,\s*default:\s*)(.+)/', static function ($matches)
 				{
 					return '(empty(' . trim($matches[1]) . ') ? (isset(' . trim($matches[1]) . ') && (' . trim($matches[1]) . ' === 0 || ' . trim($matches[1]) . ' === 0.0 || ' . trim($matches[1]) . ' === \'0\') ? ' . trim($matches[1]) . ' : ' . trim($matches[3]) . ') : ' . trim($matches[1]) . ')';
 				}, $matches);
@@ -274,7 +274,7 @@ class Template
 
 		// Compiles echo tags
 
-		return preg_replace_callback('/{{\s*(.*?)\s*}}/', static function($matches) use ($emptyElse)
+		return preg_replace_callback('/{{\s*(.*?)\s*}}/', static function ($matches) use ($emptyElse)
 		{
 			if(preg_match('/raw\s*:(.*)/i', $matches[1]) === 1)
 			{

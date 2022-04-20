@@ -31,7 +31,7 @@ class HTTPService extends Service
 
 		// Request
 
-		$this->container->registerSingleton([Request::class, 'request'], static function($container) use ($config)
+		$this->container->registerSingleton([Request::class, 'request'], static function ($container) use ($config)
 		{
 			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class), $config['script_name'] ?? null);
 
@@ -45,15 +45,15 @@ class HTTPService extends Service
 
 		// Response
 
-		$this->container->registerSingleton([Response::class, 'response'], static fn($container) => new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class)));
+		$this->container->registerSingleton([Response::class, 'response'], static fn ($container) => new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class)));
 
 		// Routes
 
-		$this->container->registerSingleton([Routes::class, 'routes'], static function($container) use ($app)
+		$this->container->registerSingleton([Routes::class, 'routes'], static function ($container) use ($app)
 		{
 			$routes = new Routes;
 
-			(function($app, $container, $routes): void
+			(function ($app, $container, $routes): void
 			{
 				include "{$app->getPath()}/routing/routes.php";
 			})
@@ -64,11 +64,11 @@ class HTTPService extends Service
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, static function($container) use ($app)
+		$this->container->registerSingleton(Router::class, static function ($container) use ($app)
 		{
 			$router = new Router($container->get(Routes::class), $container);
 
-			(function($app, $container, $router): void
+			(function ($app, $container, $router): void
 			{
 				include "{$app->getPath()}/routing/constraints.php";
 			})
@@ -79,11 +79,11 @@ class HTTPService extends Service
 
 		// Dispatcher
 
-		$this->container->registerSingleton(Dispatcher::class, static function($container) use ($app)
+		$this->container->registerSingleton(Dispatcher::class, static function ($container) use ($app)
 		{
 			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
-			(function($app, $container, $dispatcher): void
+			(function ($app, $container, $dispatcher): void
 			{
 				include "{$app->getPath()}/routing/middleware.php";
 			})
@@ -94,6 +94,6 @@ class HTTPService extends Service
 
 		// URLBuilder
 
-		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static fn($container) => new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']));
+		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static fn ($container) => new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']));
 	}
 }

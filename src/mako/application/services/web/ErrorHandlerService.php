@@ -30,7 +30,7 @@ class ErrorHandlerService extends Service
 
 		if($config['log_errors'])
 		{
-			$errorHandler->setLogger(fn() => $this->container->get(LoggerInterface::class));
+			$errorHandler->setLogger(fn () => $this->container->get(LoggerInterface::class));
 
 			if(!empty($config['dont_log']))
 			{

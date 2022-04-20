@@ -490,7 +490,7 @@ abstract class ORM implements JsonSerializable
 	 */
 	public function include($includes)
 	{
-		(function($includes, $model): void
+		(function ($includes, $model): void
 		{
 			$this->including($includes)->loadIncludes([$model]);
 		})->bindTo($this->getQuery(), Query::class)($includes, $this);
@@ -1147,8 +1147,8 @@ abstract class ORM implements JsonSerializable
 
 			if(!empty($this->protected))
 			{
-				$protect = array_map(static fn($value) => substr($value, strlen($relation) + 1),
-					array_filter($this->protected, static fn($value) => strpos($value, "{$relation}.") === 0)
+				$protect = array_map(static fn ($value) => substr($value, strlen($relation) + 1),
+					array_filter($this->protected, static fn ($value) => strpos($value, "{$relation}.") === 0)
 				);
 
 				if(!empty($protect))

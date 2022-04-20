@@ -20,6 +20,6 @@ class HumanizerService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([Humanizer::class, 'humanizer'], static fn($container) => new Humanizer($container->has(I18n::class) ? $container->get(I18n::class) : null));
+		$this->container->registerSingleton([Humanizer::class, 'humanizer'], static fn ($container) => new Humanizer($container->has(I18n::class) ? $container->get(I18n::class) : null));
 	}
 }

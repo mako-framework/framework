@@ -242,7 +242,7 @@ class I18n
 	 */
 	protected function parsePluralizationTags(string $string): string
 	{
-		return preg_replace_callback(static::PLURALIZATION_TAG_REGEX, fn($matches) => $this->pluralize($matches[2], (int) $matches[1]), $string);
+		return preg_replace_callback(static::PLURALIZATION_TAG_REGEX, fn ($matches) => $this->pluralize($matches[2], (int) $matches[1]), $string);
 	}
 
 	/**
@@ -253,7 +253,7 @@ class I18n
 	 */
 	protected function parseNumberTags(string $string): string
 	{
-		return preg_replace_callback(static::NUMBER_TAG_REGEX, fn($matches) => $this->number((float) $matches[7], ($matches[2] ?: 0), $matches[4], $matches[6]), $string);
+		return preg_replace_callback(static::NUMBER_TAG_REGEX, fn ($matches) => $this->number((float) $matches[7], ($matches[2] ?: 0), $matches[4], $matches[6]), $string);
 	}
 
 	/**

@@ -372,7 +372,7 @@ abstract class Application
 	 */
 	protected function bootstrap(): void
 	{
-		(function($app, $container): void
+		(function ($app, $container): void
 		{
 			include "{$this->applicationPath}/bootstrap.php";
 		})($this, $this->container);

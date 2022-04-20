@@ -253,7 +253,7 @@ abstract class Command extends BaseCommand
 				}
 			}
 
-			usort($migrations, static fn($a, $b) => strcmp($a->version, $b->version));
+			usort($migrations, static fn ($a, $b) => strcmp($a->version, $b->version));
 		}
 
 		return $migrations;
@@ -307,7 +307,7 @@ abstract class Command extends BaseCommand
 	 */
 	protected function buildMigrationWrapper(object $migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
 	{
-		return function() use ($migration, $migrationInstance, $method, $batch): void
+		return function () use ($migration, $migrationInstance, $method, $batch): void
 		{
 			$this->container->call([$migrationInstance, $method]);
 
@@ -339,7 +339,7 @@ abstract class Command extends BaseCommand
 
 		if($migrationInstance->useTransaction())
 		{
-			$migrationInstance->getConnection()->transaction(function() use ($migrationWrapper): void
+			$migrationInstance->getConnection()->transaction(function () use ($migrationWrapper): void
 			{
 				$migrationWrapper();
 			});

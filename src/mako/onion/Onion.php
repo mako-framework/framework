@@ -118,7 +118,7 @@ class Onion
 	 */
 	protected function buildCoreClosure(object $object): Closure
 	{
-		return function(...$arguments) use ($object)
+		return function (...$arguments) use ($object)
 		{
 			$callable = $object instanceof Closure ? $object : [$object, $this->method];
 
@@ -135,7 +135,7 @@ class Onion
 	 */
 	protected function buildLayerClosure(object $layer, Closure $next): Closure
 	{
-		return fn(...$arguments) => $layer->execute(...[...$arguments, $next]);
+		return fn (...$arguments) => $layer->execute(...[...$arguments, $next]);
 	}
 
 	/**
