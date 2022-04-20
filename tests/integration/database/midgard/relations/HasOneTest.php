@@ -144,7 +144,7 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$users = (new HasOneUser)->including(['profile' => function($query): void
+		$users = (new HasOneUser)->including(['profile' => function ($query): void
 		{
 			$query->where('interests', '=', 'does not exist');
 		}, ])->ascending('id')->all();

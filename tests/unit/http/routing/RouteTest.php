@@ -55,13 +55,13 @@ class RouteTest extends TestCase
 	 */
 	public function testBasicMatch(): void
 	{
-		$route = new Route(['GET'], '/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/'));
 
 		//
 
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo'));
 
@@ -69,7 +69,7 @@ class RouteTest extends TestCase
 
 		//
 
-		$route = new Route(['GET'], '/foo/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo'));
 
@@ -81,7 +81,7 @@ class RouteTest extends TestCase
 	 */
 	public function testMatchWithParameter(): void
 	{
-		$route = new Route(['GET'], '/foo/{id}', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
@@ -91,7 +91,7 @@ class RouteTest extends TestCase
 
 		//
 
-		$route = new Route(['GET'], '/foo/{id}/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/'));
 
@@ -105,7 +105,7 @@ class RouteTest extends TestCase
 	 */
 	public function testMatchWithParameters(): void
 	{
-		$route = new Route(['GET'], '/foo/{id}/{slug}', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/{slug}', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar'));
 
@@ -115,7 +115,7 @@ class RouteTest extends TestCase
 
 		//
 
-		$route = new Route(['GET'], '/foo/{id}/{slug}/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/{slug}/', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar/'));
 
@@ -129,7 +129,7 @@ class RouteTest extends TestCase
 	 */
 	public function testMatchWithOptionalParameters(): void
 	{
-		$route = new Route(['GET'], '/foo/{id}/{slug}?', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/{slug}?', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar'));
 
@@ -139,7 +139,7 @@ class RouteTest extends TestCase
 
 		//
 
-		$route = new Route(['GET'], '/foo/{id}/{slug}?/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/{slug}?/', fn () => 'Hello, world!');
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/foo-bar/'));
 
@@ -153,7 +153,7 @@ class RouteTest extends TestCase
 	 */
 	public function testMatchWithParameterConstraints(): void
 	{
-		$route = (new Route(['GET'], '/foo/{id}', fn() => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
+		$route = (new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
@@ -163,7 +163,7 @@ class RouteTest extends TestCase
 
 		//
 
-		$route = (new Route(['GET'], '/foo/{id}/', fn() => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
+		$route = (new Route(['GET'], '/foo/{id}/', fn () => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
 
@@ -179,13 +179,13 @@ class RouteTest extends TestCase
 	 */
 	public function testHasTrailingSlash(): void
 	{
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertFalse($route->hasTrailingSlash());
 
 		//
 
-		$route = new Route(['GET'], '/foo/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/', fn () => 'Hello, world!');
 
 		$this->assertTrue($route->hasTrailingSlash());
 	}
@@ -195,7 +195,7 @@ class RouteTest extends TestCase
 	 */
 	public function testAllows(): void
 	{
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertTrue($route->allowsMethod('GET'));
 
@@ -203,7 +203,7 @@ class RouteTest extends TestCase
 
 		//
 
-		$route = new Route(['GET', 'POST'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET', 'POST'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertTrue($route->allowsMethod('GET'));
 
@@ -215,13 +215,13 @@ class RouteTest extends TestCase
 	 */
 	public function testGetMethods(): void
 	{
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertEquals(['GET'], $route->getMethods());
 
 		//
 
-		$route = new Route(['GET', 'POST'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET', 'POST'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertEquals(['GET', 'POST'], $route->getMethods());
 	}
@@ -231,7 +231,7 @@ class RouteTest extends TestCase
 	 */
 	public function testGetRoute(): void
 	{
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertEquals('/foo', $route->getRoute());
 	}
@@ -251,7 +251,7 @@ class RouteTest extends TestCase
 	 */
 	public function testGetName(): void
 	{
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!', 'foo');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!', 'foo');
 
 		$this->assertEquals('foo', $route->getName());
 	}
@@ -261,19 +261,19 @@ class RouteTest extends TestCase
 	 */
 	public function testPrefix(): void
 	{
-		$route = (new Route(['GET'], '/foo', fn() => 'Hello, world!'))->prefix('bar');
+		$route = (new Route(['GET'], '/foo', fn () => 'Hello, world!'))->prefix('bar');
 
 		$this->assertEquals('/bar/foo', $route->getRoute());
 
 		//
 
-		$route = (new Route(['GET'], '/foo', fn() => 'Hello, world!'))->prefix('/bar');
+		$route = (new Route(['GET'], '/foo', fn () => 'Hello, world!'))->prefix('/bar');
 
 		$this->assertEquals('/bar/foo', $route->getRoute());
 
 		//
 
-		$route = (new Route(['GET'], '/foo', fn() => 'Hello, world!'))->prefix('bar')->prefix('baz');
+		$route = (new Route(['GET'], '/foo', fn () => 'Hello, world!'))->prefix('bar')->prefix('baz');
 
 		$this->assertEquals('/bar/baz/foo', $route->getRoute());
 	}
@@ -283,55 +283,55 @@ class RouteTest extends TestCase
 	 */
 	public function testGetRegex(): void
 	{
-		$route = new Route(['GET'], '/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/?$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/foo', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/foo$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/foo/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/foo/?$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/foo/bar', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/bar', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/foo/bar$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/{id}', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/{id}', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/(?P<id>[^/]++)$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/foo/{id}', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/foo/(?P<id>[^/]++)$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/foo/{id}/bar', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/bar', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/foo/(?P<id>[^/]++)/bar$#su', $route->getRegex());
 
 		//
 
-		$route = new Route(['GET'], '/foo/{id}/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/foo/{id}/', fn () => 'Hello, world!');
 
 		$this->assertSame('#^/foo/(?P<id>[^/]++)/?$#su', $route->getRegex());
 
 		//
 
-		$route = (new Route(['GET'], '/foo/{id}', fn() => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
+		$route = (new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#su', $route->getRegex());
 	}
@@ -341,19 +341,19 @@ class RouteTest extends TestCase
 	 */
 	public function testMiddleware(): void
 	{
-		$route = (new Route(['GET'], '/', fn() => 'Hello, world!'))->middleware('foo');
+		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware('foo');
 
 		$this->assertSame(['foo'], $route->getMiddleware());
 
 		//
 
-		$route = (new Route(['GET'], '/', fn() => 'Hello, world!'))->middleware(['foo', 'bar']);
+		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware(['foo', 'bar']);
 
 		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
 
 		//
 
-		$route = (new Route(['GET'], '/', fn() => 'Hello, world!'))->middleware('foo')->middleware('bar');
+		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware('foo')->middleware('bar');
 
 		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
 	}
@@ -363,7 +363,7 @@ class RouteTest extends TestCase
 	 */
 	public function testSetAndGetParameters(): void
 	{
-		$route = new Route(['GET'], '/', fn() => 'Hello, world!');
+		$route = new Route(['GET'], '/', fn () => 'Hello, world!');
 
 		$parameters = ['foo' => 'bar', 'baz' => 'bax'];
 

@@ -28,7 +28,7 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	protected function attributeSpy(Validator $validator, string $attribute): array
 	{
-		return (function() use ($attribute)
+		return (function () use ($attribute)
 		{
 			return $this->$attribute;
 		})->bindTo($validator, Validator::class)();

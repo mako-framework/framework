@@ -52,7 +52,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testCreateUser(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('save')->once();
 
@@ -71,7 +71,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByUsername(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('where')->once()->with('username', '=', 'foobar')->andReturn($user);
 
@@ -86,7 +86,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetById(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('where')->once()->with('id', '=', 1)->andReturn($user);
 
@@ -101,7 +101,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByEmail(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('where')->once()->with('email', '=', 'foobar')->andReturn($user);
 
@@ -116,7 +116,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByAccessToken(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('where')->once()->with('access_token', '=', 'foobar')->andReturn($user);
 
@@ -131,7 +131,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByActionToken(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('where')->once()->with('action_token', '=', 'foobar')->andReturn($user);
 
@@ -146,7 +146,7 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByIdentifier(): void
 	{
-		$repository = $this->getRepository(function($user): void
+		$repository = $this->getRepository(function ($user): void
 		{
 			$user->shouldReceive('where')->once()->with('email', '=', 'foobar')->andReturn($user);
 
@@ -192,7 +192,7 @@ class UserRepositoryTest extends TestCase
 		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
-		$repository = $this->getRepository(function($user) use ($authorizer): void
+		$repository = $this->getRepository(function ($user) use ($authorizer): void
 		{
 			$user->shouldReceive('save')->once();
 
@@ -216,7 +216,7 @@ class UserRepositoryTest extends TestCase
 		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
-		$repository = $this->getRepository(function($user) use ($authorizer): void
+		$repository = $this->getRepository(function ($user) use ($authorizer): void
 		{
 			$user->shouldReceive('where')->once()->with('username', '=', 'foobar')->andReturn($user);
 
@@ -236,7 +236,7 @@ class UserRepositoryTest extends TestCase
 		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
-		$repository = $this->getRepository(function($user) use ($authorizer): void
+		$repository = $this->getRepository(function ($user) use ($authorizer): void
 		{
 			$user->shouldReceive('where')->once()->with('id', '=', 1)->andReturn($user);
 
@@ -256,7 +256,7 @@ class UserRepositoryTest extends TestCase
 		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
-		$repository = $this->getRepository(function($user) use ($authorizer): void
+		$repository = $this->getRepository(function ($user) use ($authorizer): void
 		{
 			$user->shouldReceive('where')->once()->with('access_token', '=', 'foobar')->andReturn($user);
 
@@ -276,7 +276,7 @@ class UserRepositoryTest extends TestCase
 		/** @var \mako\gatekeeper\authorization\AuthorizerInterface|\Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
-		$repository = $this->getRepository(function($user) use ($authorizer): void
+		$repository = $this->getRepository(function ($user) use ($authorizer): void
 		{
 			$user->shouldReceive('where')->once()->with('action_token', '=', 'foobar')->andReturn($user);
 

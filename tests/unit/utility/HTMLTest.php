@@ -161,7 +161,7 @@ class HTMLTest extends TestCase
 	 */
 	public function testExtending(): void
 	{
-		HTML::addMethod('foo', function($content = null, $attributes = [])
+		HTML::addMethod('foo', function ($content = null, $attributes = [])
 		{
 			return $this->tag('foo', $attributes, $content);
 		});

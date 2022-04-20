@@ -175,7 +175,7 @@ class I18nTest extends TestCase
 		(
 			[
 				'rules' => '',
-				'pluralize' => function($string)
+				'pluralize' => function ($string)
 				{
 					return str_replace('apple', 'apples', $string);
 				},
@@ -234,7 +234,7 @@ class I18nTest extends TestCase
 		(
 			[
 				'rules'     => '',
-				'pluralize' => function($string)
+				'pluralize' => function ($string)
 				{
 					return str_replace('apple', 'apples', $string);
 				},

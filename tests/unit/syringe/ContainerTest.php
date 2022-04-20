@@ -341,7 +341,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register([Bar::class, 'bar'], function()
+		$container->register([Bar::class, 'bar'], function ()
 		{
 			return new Bar('uvw', 'xyz');
 		});
@@ -399,7 +399,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->registerSingleton([Bar::class, 'bar'], function()
+		$container->registerSingleton([Bar::class, 'bar'], function ()
 		{
 			return new Bar(uniqid(), uniqid());
 		});
@@ -420,7 +420,7 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->registerSingleton([Bar::class, 'bar'], function()
+		$container->registerSingleton([Bar::class, 'bar'], function ()
 		{
 			return new Bar(uniqid(), uniqid());
 		});
@@ -435,7 +435,7 @@ class ContainerTest extends TestCase
 	 */
 	public function testCallClosure(): void
 	{
-		$closure = function(Bar $bar)
+		$closure = function (Bar $bar)
 		{
 			return $bar;
 		};
@@ -448,7 +448,7 @@ class ContainerTest extends TestCase
 
 		//
 
-		$closure = function(Bar $bar, $foo = 123)
+		$closure = function (Bar $bar, $foo = 123)
 		{
 			return [$bar, $foo];
 		};
@@ -463,7 +463,7 @@ class ContainerTest extends TestCase
 
 		//
 
-		$closure = function(Bar $bar, $foo = 123)
+		$closure = function (Bar $bar, $foo = 123)
 		{
 			return [$bar, $foo];
 		};
@@ -534,7 +534,7 @@ class ContainerTest extends TestCase
 
 		$container = new Container;
 
-		$container->call(function($foo): void {});
+		$container->call(function ($foo): void {});
 	}
 
 	/**
@@ -599,7 +599,7 @@ class ContainerTest extends TestCase
 
 		$this->assertFalse($container->isSingleton(stdClass::class));
 
-		$container->registerSingleton([stdClass::class, 'foo'], function($container)
+		$container->registerSingleton([stdClass::class, 'foo'], function ($container)
 		{
 			return new stdClass;
 		});
@@ -616,16 +616,16 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register(ReplaceA::class, function($container)
+		$container->register(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('original');
 		});
 
-		$container->register(ReplaceB::class, function($container)
+		$container->register(ReplaceB::class, function ($container)
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
-			$container->onReplace(ReplaceA::class, (function($replaceA): void
+			$container->onReplace(ReplaceA::class, (function ($replaceA): void
 			{
 				$this->replaceA = $replaceA;
 			})->bindTo($replaceB, ReplaceB::class));
@@ -637,7 +637,7 @@ class ContainerTest extends TestCase
 
 		$this->assertSame('original', $replaceB->getReplaceAValue());
 
-		$container->replace(ReplaceA::class, function($container)
+		$container->replace(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('replacement');
 		});
@@ -652,12 +652,12 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->register(ReplaceA::class, function($container)
+		$container->register(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('original');
 		});
 
-		$container->register(ReplaceB::class, function($container)
+		$container->register(ReplaceB::class, function ($container)
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
@@ -670,7 +670,7 @@ class ContainerTest extends TestCase
 
 		$this->assertSame('original', $replaceB->getReplaceAValue());
 
-		$container->replace(ReplaceA::class, function($container)
+		$container->replace(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('replacement');
 		});
@@ -685,16 +685,16 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->registerSingleton(ReplaceA::class, function($container)
+		$container->registerSingleton(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('original');
 		});
 
-		$container->register(ReplaceB::class, function($container)
+		$container->register(ReplaceB::class, function ($container)
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
-			$container->onReplace(ReplaceA::class, (function($replaceA): void
+			$container->onReplace(ReplaceA::class, (function ($replaceA): void
 			{
 				$this->replaceA = $replaceA;
 			})->bindTo($replaceB, ReplaceB::class));
@@ -706,7 +706,7 @@ class ContainerTest extends TestCase
 
 		$this->assertSame('original', $replaceB->getReplaceAValue());
 
-		$container->replaceSingleton(ReplaceA::class, function($container)
+		$container->replaceSingleton(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('replacement');
 		});
@@ -721,12 +721,12 @@ class ContainerTest extends TestCase
 	{
 		$container = new Container;
 
-		$container->registerSingleton(ReplaceA::class, function($container)
+		$container->registerSingleton(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('original');
 		});
 
-		$container->register(ReplaceB::class, function($container)
+		$container->register(ReplaceB::class, function ($container)
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
@@ -739,7 +739,7 @@ class ContainerTest extends TestCase
 
 		$this->assertSame('original', $replaceB->getReplaceAValue());
 
-		$container->replaceSingleton(ReplaceA::class, function($container)
+		$container->replaceSingleton(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('replacement');
 		});
@@ -756,11 +756,11 @@ class ContainerTest extends TestCase
 
 		$container->registerInstance(ReplaceA::class, new ReplaceA('original'));
 
-		$container->register(ReplaceB::class, function($container)
+		$container->register(ReplaceB::class, function ($container)
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
-			$container->onReplace(ReplaceA::class, (function($replaceA): void
+			$container->onReplace(ReplaceA::class, (function ($replaceA): void
 			{
 				$this->replaceA = $replaceA;
 			})->bindTo($replaceB, ReplaceB::class));
@@ -786,7 +786,7 @@ class ContainerTest extends TestCase
 
 		$container->registerInstance(ReplaceA::class, new ReplaceA('original'));
 
-		$container->register(ReplaceB::class, function($container)
+		$container->register(ReplaceB::class, function ($container)
 		{
 			$replaceB = new ReplaceB($container->get(ReplaceA::class));
 
@@ -815,7 +815,7 @@ class ContainerTest extends TestCase
 
 		$container = new Container;
 
-		$container->replace(ReplaceA::class, function($container)
+		$container->replace(ReplaceA::class, function ($container)
 		{
 			return new ReplaceA('replacement');
 		});

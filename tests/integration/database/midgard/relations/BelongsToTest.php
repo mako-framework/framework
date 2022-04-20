@@ -145,7 +145,7 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testEagerBelongsToRelationWithConstraint(): void
 	{
-		$profiles = (new BelongsToProfile)->including(['user' => function($query): void
+		$profiles = (new BelongsToProfile)->including(['user' => function ($query): void
 		{
 			$query->where('username', '=', 'does not exist');
 		}, ])->ascending('id')->all();

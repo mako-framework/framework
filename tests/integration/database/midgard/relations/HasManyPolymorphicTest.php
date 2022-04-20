@@ -164,7 +164,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$articles = (new HasManyPolymorphicArticle)->including(['comments' => function($query): void
+		$articles = (new HasManyPolymorphicArticle)->including(['comments' => function ($query): void
 		{
 			$query->where('comment', '=', 'does not exist');
 		}, ])->ascending('id')->all();

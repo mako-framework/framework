@@ -152,7 +152,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$profiles = (new HasOnePolymorphicProfile)->including(['image' => function($query): void
+		$profiles = (new HasOnePolymorphicProfile)->including(['image' => function ($query): void
 		{
 			$query->where('image', '=', 'does not exist');
 		}, ])->ascending('id')->all();

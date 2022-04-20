@@ -41,7 +41,7 @@ class AccessControlTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});
@@ -79,7 +79,7 @@ class AccessControlTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->with('Vary', 'Origin', false)->once();
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});
@@ -109,7 +109,7 @@ class AccessControlTest extends TestCase
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn('https://example.com');
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});
@@ -139,7 +139,7 @@ class AccessControlTest extends TestCase
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});
@@ -169,7 +169,7 @@ class AccessControlTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Credentials', 'true')->once();
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});
@@ -199,7 +199,7 @@ class AccessControlTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Headers', 'X-Custom-Header1, X-Custom-Header2')->once();
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});
@@ -229,7 +229,7 @@ class AccessControlTest extends TestCase
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Methods', 'GET, POST')->once();
 
-		$middleware->execute($request, $response, function($request, $response)
+		$middleware->execute($request, $response, function ($request, $response)
 		{
 			return $response;
 		});

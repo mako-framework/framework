@@ -26,7 +26,7 @@ class HumanizerTest extends TestCase
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		$i18n->shouldReceive('get')->andReturnUsing(function($key, $params = [])
+		$i18n->shouldReceive('get')->andReturnUsing(function ($key, $params = [])
 		{
 			if(!empty($params))
 			{

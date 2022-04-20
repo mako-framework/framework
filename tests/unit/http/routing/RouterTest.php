@@ -75,7 +75,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/bar', fn() => 'Hello, world!');
+		$routes->get('/bar', fn () => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -101,7 +101,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->post('/foo', fn() => 'Hello, world!');
+		$routes->post('/foo', fn () => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -134,7 +134,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo/', fn() => 'Hello, world!');
+		$routes->get('/foo/', fn () => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -205,7 +205,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->post('/foo/', fn() => 'Hello, world!');
+		$routes->post('/foo/', fn () => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -225,7 +225,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo/', fn() => 'Hello, world!');
+		$routes->get('/foo/', fn () => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -294,7 +294,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->post('/foo', fn() => 'Hello, world!');
+		$routes->post('/foo', fn () => 'Hello, world!');
 
 		$router = new Router($routes);
 
@@ -336,9 +336,9 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->post('/foo', fn() => 'Hello, world!', 'post.foo');
+		$routes->post('/foo', fn () => 'Hello, world!', 'post.foo');
 
-		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo');
 
 		$router = new Router($routes);
 
@@ -362,9 +362,9 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->post('/foo/{id}', fn() => 'Hello, world!', 'post.foo');
+		$routes->post('/foo/{id}', fn () => 'Hello, world!', 'post.foo');
 
-		$routes->get('/foo/{id}', fn() => 'Hello, world!', 'get.foo');
+		$routes->get('/foo/{id}', fn () => 'Hello, world!', 'get.foo');
 
 		$router = new Router($routes);
 
@@ -390,7 +390,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo')->constraint('bar');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint('bar');
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
@@ -423,7 +423,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo')->constraint('foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint('foo');
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
@@ -452,7 +452,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo');
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
@@ -485,7 +485,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', fn() => 'Hello, world!', 'get.foo')->constraint('foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint('foo');
 
 		$router = new Router($routes);
 

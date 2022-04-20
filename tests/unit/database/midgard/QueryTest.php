@@ -202,7 +202,7 @@ class QueryTest extends TestCase
 	 */
 	public function testIncludesWithCriterion(): void
 	{
-		$closure1 = function(): void {};
+		$closure1 = function (): void {};
 
 		$model = $this->getModel();
 
@@ -216,7 +216,7 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(): void {};
+		$closure1 = function (): void {};
 
 		$model = $this->getModel();
 
@@ -230,8 +230,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(): void {};
-		$closure2 = function(): void {};
+		$closure1 = function (): void {};
+		$closure2 = function (): void {};
 
 		$model = $this->getModel();
 
@@ -309,7 +309,7 @@ class QueryTest extends TestCase
 	{
 		$model = $this->getModel();
 
-		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(): void {}]);
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function (): void {}]);
 
 		$model->shouldReceive('setIncludes')->once()->with([])->andReturn($model);
 
@@ -321,7 +321,7 @@ class QueryTest extends TestCase
 
 		$model = $this->getModel();
 
-		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function(): void {}, 'baz']);
+		$model->shouldReceive('getIncludes')->once()->andReturn(['foo', 'bar' => function (): void {}, 'baz']);
 
 		$model->shouldReceive('setIncludes')->once()->with([1 => 'baz'])->andReturn($model);
 
@@ -331,8 +331,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(): void {};
-		$closure2 = function(): void {};
+		$closure1 = function (): void {};
+		$closure2 = function (): void {};
 
 		$model = $this->getModel();
 
@@ -346,8 +346,8 @@ class QueryTest extends TestCase
 
 		//
 
-		$closure1 = function(): void {};
-		$closure2 = function(): void {};
+		$closure1 = function (): void {};
+		$closure2 = function (): void {};
 
 		$model = $this->getModel();
 
@@ -402,7 +402,7 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(new ResultSet());
 
-		$query->batch(function($results): void
+		$query->batch(function ($results): void
 		{
 
 		});
@@ -418,7 +418,7 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(new ResultSet());
 
-		$query->descending('barfoo')->batch(function($results): void
+		$query->descending('barfoo')->batch(function ($results): void
 		{
 
 		});

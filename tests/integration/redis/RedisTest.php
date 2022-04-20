@@ -120,7 +120,7 @@ class RedisTest extends TestCase
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 0));
 
-		$this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], $this->redis->pipeline(function($redis): void
+		$this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], $this->redis->pipeline(function ($redis): void
 		{
 			for($i = 0; $i < 10; $i++)
 			{

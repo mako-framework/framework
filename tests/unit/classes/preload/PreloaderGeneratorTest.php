@@ -65,7 +65,7 @@ class PreloaderGeneratorTest extends TestCase
 
 		EOF;
 
-		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader((function()
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader((function ()
 		{
 			yield CA::class;
 		})()));

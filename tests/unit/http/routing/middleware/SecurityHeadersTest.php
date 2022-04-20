@@ -45,7 +45,7 @@ class SecurityHeadersTest extends TestCase
 
 		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
 
-		$next = function($request, $response)
+		$next = function ($request, $response)
 		{
 			$this->assertInstanceOf(Request::class, $request);
 

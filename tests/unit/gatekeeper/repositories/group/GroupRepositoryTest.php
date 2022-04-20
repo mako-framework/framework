@@ -51,7 +51,7 @@ class GroupRepositoryTest extends TestCase
 	 */
 	public function testCreateGroup(): void
 	{
-		$repository = $this->getRepository(function($group): void
+		$repository = $this->getRepository(function ($group): void
 		{
 			$group->shouldReceive('save')->once();
 		});
@@ -66,7 +66,7 @@ class GroupRepositoryTest extends TestCase
 	 */
 	public function testGetByName(): void
 	{
-		$repository = $this->getRepository(function($group): void
+		$repository = $this->getRepository(function ($group): void
 		{
 			$group->shouldReceive('where')->once()->with('name', '=', 'foobar')->andReturn($group);
 
@@ -81,7 +81,7 @@ class GroupRepositoryTest extends TestCase
 	 */
 	public function testGetById(): void
 	{
-		$repository = $this->getRepository(function($group): void
+		$repository = $this->getRepository(function ($group): void
 		{
 			$group->shouldReceive('where')->once()->with('id', '=', 1)->andReturn($group);
 
@@ -96,7 +96,7 @@ class GroupRepositoryTest extends TestCase
 	 */
 	public function testGetByIdentifier(): void
 	{
-		$repository = $this->getRepository(function($group): void
+		$repository = $this->getRepository(function ($group): void
 		{
 			$group->shouldReceive('where')->once()->with('name', '=', 'foobar')->andReturn($group);
 

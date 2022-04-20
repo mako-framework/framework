@@ -200,7 +200,7 @@ class DispatcherTest extends TestCase
 		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function()
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
 		{
 			return 'Hello, world!';
 		});
@@ -229,7 +229,7 @@ class DispatcherTest extends TestCase
 		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function(Response $response, $who)
+		$route->shouldReceive('getAction')->once()->andReturn(function (Response $response, $who)
 		{
 			$response->getHeaders()->add('X-Foo-Bar', 'Foo Bar');
 
@@ -469,7 +469,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['test']);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function()
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
 		{
 			return 'hello, world!';
 		});
@@ -502,7 +502,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function()
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
 		{
 			return 'hello, world!';
 		});
@@ -537,7 +537,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->times(3)->andReturn(['a', 'b']);
 
-		$route->shouldReceive('getAction')->times(3)->andReturn(function()
+		$route->shouldReceive('getAction')->times(3)->andReturn(function ()
 		{
 			return 'hello, world!';
 		});
@@ -591,7 +591,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->times(1)->andReturn(['a', 'b']);
 
-		$route->shouldReceive('getAction')->times(1)->andReturn(function()
+		$route->shouldReceive('getAction')->times(1)->andReturn(function ()
 		{
 			return 'hello, world!';
 		});
@@ -650,7 +650,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['test("~")']);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function()
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
 		{
 			return 'hello, world!';
 		});
@@ -683,7 +683,7 @@ class DispatcherTest extends TestCase
 
 		$route->shouldReceive('getMiddleware')->once()->andReturn(['test("separator":"~")']);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function()
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
 		{
 			return 'hello, world!';
 		});
@@ -740,7 +740,7 @@ class DispatcherTest extends TestCase
 		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function($world, $hello)
+		$route->shouldReceive('getAction')->once()->andReturn(function ($world, $hello)
 		{
 			return $hello . ', ' . $world . '!';
 		});
@@ -769,7 +769,7 @@ class DispatcherTest extends TestCase
 		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
 		$route = Mockery::mock(Route::class);
 
-		$route->shouldReceive('getAction')->once()->andReturn(function(Request $request)
+		$route->shouldReceive('getAction')->once()->andReturn(function (Request $request)
 		{
 			return $request;
 		});

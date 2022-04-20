@@ -44,7 +44,7 @@ class ValidatorTest extends TestCase
 	 */
 	protected function attributeSpy(Validator $validator, string $attribute): array
 	{
-		return (function() use ($attribute)
+		return (function () use ($attribute)
 		{
 			return $this->$attribute;
 		})->bindTo($validator, Validator::class)();
@@ -133,10 +133,10 @@ class ValidatorTest extends TestCase
 		$this->assertSame([], $this->attributeSpy($validator, 'ruleSets'));
 
 		$validator->addRulesIf('foo', ['required', 'min_length(10)'], true);
-		$validator->addRulesIf('foo', ['max_length(20)'], function() { return true; });
+		$validator->addRulesIf('foo', ['max_length(20)'], function () { return true; });
 
 		$validator->addRulesIf('foo', ['required', 'min_length(10)'], false);
-		$validator->addRulesIf('foo', ['max_length(20)'], function() { return false; });
+		$validator->addRulesIf('foo', ['max_length(20)'], function () { return false; });
 
 		$this->assertSame(['foo' => ['required', 'min_length(10)', 'max_length(20)']], $this->attributeSpy($validator, 'ruleSets'));
 	}

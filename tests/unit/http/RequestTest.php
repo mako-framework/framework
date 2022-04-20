@@ -901,7 +901,7 @@ class RequestTest extends TestCase
 
 		$request->setRoute($route);
 
-		$route = (function()
+		$route = (function ()
 		{
 			return $this->route;
 		})->bindTo($request, Request::class)();

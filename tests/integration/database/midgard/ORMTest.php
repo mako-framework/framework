@@ -677,7 +677,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testSubquery(): void
 	{
-		$counters = (new Counter)->in('id', new Subquery(function($query): void
+		$counters = (new Counter)->in('id', new Subquery(function ($query): void
 		{
 			$query->table('counters')->select(['id']);
 		}))

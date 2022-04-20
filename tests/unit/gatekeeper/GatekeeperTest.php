@@ -22,7 +22,7 @@ class GatekeeperTest extends TestCase
 	 */
 	public function testConstructorWithFactory(): void
 	{
-		$factory = function()
+		$factory = function ()
 		{
 			/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
 			$adapter = Mockery::mock(AdapterInterface::class);
@@ -66,7 +66,7 @@ class GatekeeperTest extends TestCase
 
 		$gatekeeper = new Gatekeeper($adapter);
 
-		$factory = function()
+		$factory = function ()
 		{
 			/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
 			$adapter = Mockery::mock(AdapterInterface::class);

@@ -24,11 +24,11 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->get('/foo', fn() => 'Hello, world!');
+		$routes->get('/foo', fn () => 'Hello, world!');
 
 		$this->assertCount(1, $routes->getRoutes());
 
-		$routes->get('/bar', fn() => 'Hello, world!');
+		$routes->get('/bar', fn () => 'Hello, world!');
 
 		$this->assertCount(2, $routes->getRoutes());
 	}
@@ -40,19 +40,19 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->get('/foo', fn() => 'Hello, world!');
+		$routes->get('/foo', fn () => 'Hello, world!');
 
-		$routes->post('/foo', fn() => 'Hello, world!');
+		$routes->post('/foo', fn () => 'Hello, world!');
 
-		$routes->put('/foo', fn() => 'Hello, world!');
+		$routes->put('/foo', fn () => 'Hello, world!');
 
-		$routes->patch('/foo', fn() => 'Hello, world!');
+		$routes->patch('/foo', fn () => 'Hello, world!');
 
-		$routes->delete('/foo', fn() => 'Hello, world!');
+		$routes->delete('/foo', fn () => 'Hello, world!');
 
-		$routes->all('/foo', fn() => 'Hello, world!');
+		$routes->all('/foo', fn () => 'Hello, world!');
 
-		$routes->register(['OPTIONS', 'HEAD'], '/foo', fn() => 'Hello, world!');
+		$routes->register(['OPTIONS', 'HEAD'], '/foo', fn () => 'Hello, world!');
 
 		$routes = $routes->getRoutes();
 
@@ -78,7 +78,7 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->get('/foo', fn() => 'Hello, world!', 'foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'foo');
 
 		$this->assertTrue($routes->hasNamedRoute('foo'));
 
@@ -106,11 +106,11 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->group(['prefix' => 'baz'], function($routes): void
+		$routes->group(['prefix' => 'baz'], function ($routes): void
 		{
-			$routes->get('/foo', fn() => 'Hello, world!');
+			$routes->get('/foo', fn () => 'Hello, world!');
 
-			$routes->get('/bar', fn() => 'Hello, world!');
+			$routes->get('/bar', fn () => 'Hello, world!');
 		});
 
 		$routes = $routes->getRoutes();
@@ -127,13 +127,13 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->group(['prefix' => 'baz'], function($routes): void
+		$routes->group(['prefix' => 'baz'], function ($routes): void
 		{
-			$routes->group(['prefix' => 'bax'], function($routes): void
+			$routes->group(['prefix' => 'bax'], function ($routes): void
 			{
-				$routes->get('/foo', fn() => 'Hello, world!');
+				$routes->get('/foo', fn () => 'Hello, world!');
 
-				$routes->get('/bar', fn() => 'Hello, world!');
+				$routes->get('/bar', fn () => 'Hello, world!');
 			});
 		});
 

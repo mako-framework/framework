@@ -266,7 +266,7 @@ class ManyToManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = (new ManyToManyUser)->including(['groups' => function($query): void
+		$users = (new ManyToManyUser)->including(['groups' => function ($query): void
 		{
 			$query->where('name', '=', 'does not exist');
 		}, ])->ascending('id')->all();

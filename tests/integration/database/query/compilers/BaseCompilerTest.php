@@ -333,7 +333,7 @@ class BaseCompilerTest extends BuilderTestCase
 	{
 		$query = new Query($this->connectionManager->getConnection());
 
-		$results = $query->table('users')->batch(function($results): void
+		$results = $query->table('users')->batch(function ($results): void
 		{
 
 		});
@@ -350,7 +350,7 @@ class BaseCompilerTest extends BuilderTestCase
 	{
 		$query = new Query($this->connectionManager->getConnection());
 
-		$results = $query->table('users')->where('id', '!=', 'foobar')->batch(function($results): void
+		$results = $query->table('users')->where('id', '!=', 'foobar')->batch(function ($results): void
 		{
 
 		});
@@ -367,7 +367,7 @@ class BaseCompilerTest extends BuilderTestCase
 	{
 		$query = new Query($this->connectionManager->getConnection());
 
-		$result = $query->table('users')->select([new Subquery(function($query): void
+		$result = $query->table('users')->select([new Subquery(function ($query): void
 		{
 			$query->table('users')->count();
 		}, 'count')])->first();

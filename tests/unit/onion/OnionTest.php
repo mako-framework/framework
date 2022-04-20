@@ -148,7 +148,7 @@ class OnionTest extends TestCase
 		$onion->addLayer(BarMiddleware1::class);
 		$onion->addLayer(BarMiddleware2::class);
 
-		$result = $onion->peel(function($baz)
+		$result = $onion->peel(function ($baz)
 		{
 			return $baz;
 		}, ['baz']);
@@ -197,7 +197,7 @@ class OnionTest extends TestCase
 
 		$onion->addLayer(BazMiddleware1::class, ['separator' => '_']);
 
-		$result = $onion->peel(function()
+		$result = $onion->peel(function ()
 		{
 			return 'hello, world!';
 		});
@@ -214,7 +214,7 @@ class OnionTest extends TestCase
 
 		$onion->addLayer(BazMiddleware1::class);
 
-		$result = $onion->peel(function()
+		$result = $onion->peel(function ()
 		{
 			return 'hello, world!';
 		}, [], [BazMiddleware1::class => ['separator' => '_']]);

@@ -156,7 +156,7 @@ class HasManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = (new HasManyUser)->including(['articles' => function($query): void
+		$users = (new HasManyUser)->including(['articles' => function ($query): void
 		{
 			$query->where('title', '=', 'does not exist');
 		}, ])->ascending('id')->all();
