@@ -10,6 +10,7 @@
 * Eager loaded relations can now be aliased.
 * Route middleware can now be registered using the new `Middleware` attribute (PHP 8.0+).
 * Route constraints can now be registered using the new `Constraint` attribute (PHP 8.0+).
+* The ORM `$protected` property and `protect` method now supports nested fields.
 
 #### Deprecations
 

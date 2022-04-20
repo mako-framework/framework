@@ -28,10 +28,12 @@ use mako\utility\UUID;
 
 use function array_diff;
 use function array_diff_key;
+use function array_filter;
 use function array_flip;
 use function array_intersect_key;
 use function array_key_exists;
 use function array_key_first;
+use function array_map;
 use function array_merge_recursive;
 use function array_unique;
 use function count;
@@ -40,6 +42,8 @@ use function is_array;
 use function is_object;
 use function json_encode;
 use function method_exists;
+use function strlen;
+use function strpos;
 use function strrpos;
 use function substr;
 use function vsprintf;
@@ -1125,7 +1129,7 @@ abstract class ORM implements JsonSerializable
 			$columns[$name] = $value;
 		}
 
-		// Merge in related records
+		// Merge related records
 
 		foreach($this->related as $relation => $related)
 		{
@@ -1134,7 +1138,26 @@ abstract class ORM implements JsonSerializable
 				continue;
 			}
 
-			$columns += [$relation => ($related === null ? $related : $related->toArray())];
+			if($related === null)
+			{
+				$columns += [$relation => null];
+
+				continue;
+			}
+
+			if(!empty($this->protected))
+			{
+				$protect = array_map(static fn($value) => substr($value, strlen($relation) + 1),
+					array_filter($this->protected, static fn($value) => strpos($value, "{$relation}.") === 0)
+				);
+
+				if(!empty($protect))
+				{
+					$related->protect($protect);
+				}
+			}
+
+			$columns += [$relation => $related->toArray()];
 		}
 
 		// Returns array representation of the record
