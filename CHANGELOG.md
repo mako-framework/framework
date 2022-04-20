@@ -1,8 +1,8 @@
-### 8.1.0 <small>(2022-??-??)</small>
+### 8.1.0 <small>(2022-04-??)</small>
 
 #### New
 
-* It it now possible to use custom validation rules without registering them first.
+* It is now possible to use custom validation rules without registering them first.
 * Added `Str::camelToSnake()` method.
 * Added `Str::snakeToCamel()` method.
 * Added `CamelCasedTrait` ORM trait that enables camel cased interaction with ORM objects.
