@@ -14,7 +14,13 @@ use Psr\Log\LoggerInterface;
  */
 class Logger implements LoggerInterface
 {
+	/**
+	 * Logger instaance.
+	 *
+	 * @var \Psr\Log\LoggerInterface
+	 */
 	protected $logger;
+
 	/**
 	 * Global logger context.
 	 *
