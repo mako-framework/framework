@@ -1,3 +1,11 @@
+### 7.3.9, 8.0.6 <small>(2022-06-12)</small>
+
+#### Bugfixes
+
+* Fixed issue caused by breaking changes in Monolog.
+
+--------------------------------------------------------
+
 ### 7.3.8, 8.0.5 <small>(2022-02-19)</small>
 
 #### Bugfixes
