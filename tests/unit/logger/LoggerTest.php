@@ -9,6 +9,8 @@ namespace mako\tests\unit\logger;
 
 use mako\logger\Logger;
 use mako\tests\TestCase;
+use Mockery;
+use Psr\Log\LoggerInterface;
 
 /**
  * @group unit
@@ -20,7 +22,7 @@ class LoggerTest extends TestCase
 	 */
 	public function testGetAndSetContext(): void
 	{
-		$logger = new Logger('test');
+		$logger = new Logger(Mockery::mock(LoggerInterface::class));
 
 		$this->assertSame([], $logger->getContext());
 
