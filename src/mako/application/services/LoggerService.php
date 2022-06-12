@@ -15,6 +15,7 @@ use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogHandler;
+use Monolog\Logger as MonoLogger;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -136,16 +137,14 @@ class LoggerService extends Service
 	{
 		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function()
 		{
-			$logger = new Logger($this->config->get('application.logger.channel', 'mako'));
-
-			$logger->setContext($this->getContext());
+			$monolog = new MonoLogger($this->config->get('application.logger.channel', 'mako'));
 
 			foreach($this->config->get('application.logger.handler') as $handler)
 			{
-				$logger->pushHandler($this->getHandler($handler));
+				$monolog->pushHandler($this->getHandler($handler));
 			}
 
-			return $logger;
+			return (new Logger($monolog))->setContext($this->getContext());
 		});
 	}
 }
