@@ -17,26 +17,26 @@ class Mako
 	 *
 	 * @var string
 	 */
-	public const VERSION = '8.1.1';
+	public const VERSION = '9.0.0';
 
 	/**
 	 * Mako major version.
 	 *
 	 * @var int
 	 */
-	public const VERSION_MAJOR = 8;
+	public const VERSION_MAJOR = 9;
 
 	/**
 	 * Mako minor version.
 	 *
 	 * @var int
 	 */
-	public const VERSION_MINOR = 1;
+	public const VERSION_MINOR = 0;
 
 	/**
 	 * Mako patch version.
 	 *
 	 * @var int
 	 */
-	public const VERSION_PATCH = 1;
+	public const VERSION_PATCH = 0;
 }

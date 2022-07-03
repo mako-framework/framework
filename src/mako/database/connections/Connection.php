@@ -23,7 +23,6 @@ use Throwable;
 use function array_shift;
 use function array_splice;
 use function count;
-use function get_class;
 use function is_array;
 use function is_bool;
 use function is_float;
@@ -384,7 +383,7 @@ class Connection
 			}
 			elseif(is_object($param))
 			{
-				return get_class($param);
+				return $param::class;
 			}
 			else
 			{

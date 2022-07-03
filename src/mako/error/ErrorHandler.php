@@ -22,7 +22,6 @@ use function error_log;
 use function error_reporting;
 use function filter_var;
 use function fwrite;
-use function get_class;
 use function headers_sent;
 use function http_response_code;
 use function in_array;
@@ -136,7 +135,7 @@ class ErrorHandler
 		{
 			if($this->displayErrors())
 			{
-				$this->write('[ ' . get_class($e) . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL);
+				$this->write('[ ' . $e::class . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL);
 
 				$this->write($e->getTraceAsString() . PHP_EOL);
 			}

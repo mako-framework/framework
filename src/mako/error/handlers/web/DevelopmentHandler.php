@@ -31,7 +31,6 @@ use function feof;
 use function fgets;
 use function fopen;
 use function function_exists;
-use function get_class;
 use function is_readable;
 use function json_encode;
 use function simplexml_load_string;
@@ -108,7 +107,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	{
 		if($exception instanceof ErrorException)
 		{
-			$type = get_class($exception);
+			$type = $exception::class;
 
 			switch($exception->getCode())
 			{
@@ -132,7 +131,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			return $type;
 		}
 
-		return get_class($exception);
+		return $exception::class;
 	}
 
 	/**
@@ -261,7 +260,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 		[
 			'-' =>
 			[
-				'class'       => get_class($exception),
+				'class'       => $exception::class,
 				'file'        => $exception->getFile(),
 				'line'        => $exception->getLine(),
 				'is_error'    => true,

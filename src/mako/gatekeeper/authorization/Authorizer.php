@@ -12,7 +12,6 @@ use mako\gatekeeper\authorization\policies\PolicyInterface;
 use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\syringe\Container;
 
-use function get_class;
 use function is_object;
 use function vsprintf;
 
@@ -61,7 +60,7 @@ class Authorizer implements AuthorizerInterface
 	 */
 	protected function policyFactory($entity): PolicyInterface
 	{
-		$entityClass = is_object($entity) ? get_class($entity) : $entity;
+		$entityClass = is_object($entity) ? $entity::class : $entity;
 
 		if(!isset($this->policies[$entityClass]))
 		{

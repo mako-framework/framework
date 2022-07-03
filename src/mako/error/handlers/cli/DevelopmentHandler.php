@@ -13,7 +13,6 @@ use mako\error\handlers\HandlerInterface;
 use Throwable;
 
 use function array_keys;
-use function get_class;
 use function in_array;
 
 /**
@@ -86,7 +85,7 @@ class DevelopmentHandler implements HandlerInterface
 			return in_array($code, array_keys($codes)) ? $codes[$code] : 'ErrorException';
 		}
 
-		return get_class($exception);
+		return $exception::class;
 	}
 
 	/**

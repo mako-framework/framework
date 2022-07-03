@@ -10,7 +10,6 @@ namespace mako\commander;
 use mako\onion\Onion;
 use mako\syringe\Container;
 
-use function get_class;
 use function strlen;
 use function strrpos;
 use function substr;
@@ -96,7 +95,7 @@ class CommandBus implements CommandBusInterface
 	 */
 	protected function resolveCommandHandler(CommandInterface $command): CommandHandlerInterface
 	{
-		$class = get_class($command);
+		$class = $command::class;
 
 		// Build handler class name
 

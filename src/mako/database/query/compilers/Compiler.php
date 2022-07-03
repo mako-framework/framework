@@ -18,7 +18,6 @@ use function array_keys;
 use function array_shift;
 use function enum_exists;
 use function explode;
-use function get_class;
 use function implode;
 use function is_array;
 use function is_object;
@@ -467,7 +466,7 @@ class Compiler
 
 				return '?';
 			}
-			elseif(PHP_VERSION_ID >= 80100 && enum_exists(get_class($param)))
+			elseif(PHP_VERSION_ID >= 80100 && enum_exists($param::class))
 			{
 				$this->params[] = $param->value ?? $param->name;
 

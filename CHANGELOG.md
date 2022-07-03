@@ -1,3 +1,15 @@
+### 9.0.0 <small>(2022-??-??)</small>
+
+The major version bump is due to dropped support for PHP `7.4` and a several breaking changes. Most applications built using Mako `8` should run on Mako `9` with just a few simple adjustments.
+
+#### Improvements
+
+* Various improvements and optimizations.
+
+> Check out the upgrade guide for details on how to upgrade from `8.1.*.`
+
+--------------------------------------------------------
+
 ### 7.3.9, 8.0.6, 8.1.1 <small>(2022-06-12)</small>
 
 #### Bugfixes
