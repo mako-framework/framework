@@ -7,12 +7,14 @@
 
 namespace mako\utility\str;
 
+use Stringable;
+
 use function count;
 
 /**
  * String alternator.
  */
-class Alternator
+class Alternator implements Stringable
 {
 	/**
 	 * Strings.

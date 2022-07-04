@@ -11,13 +11,14 @@ use JsonSerializable;
 use mako\pagination\PaginationInterface;
 use mako\utility\Arr;
 use mako\utility\Collection;
+use Stringable;
 
 use function json_encode;
 
 /**
  * Result set.
  */
-class ResultSet extends Collection implements JsonSerializable
+class ResultSet extends Collection implements JsonSerializable, Stringable
 {
 	/**
 	 * Pagination.

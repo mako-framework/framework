@@ -8,13 +8,14 @@
 namespace mako\redis;
 
 use mako\redis\exceptions\RedisException;
+use Stringable;
 
 use function vsprintf;
 
 /**
  * Redis pub/sub message.
  */
-class Message
+class Message implements Stringable
 {
 	/**
 	 * Message type.

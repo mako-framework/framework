@@ -25,6 +25,7 @@ use mako\database\midgard\relations\HasOnePolymorphic;
 use mako\database\midgard\relations\ManyToMany;
 use mako\utility\Str;
 use mako\utility\UUID;
+use Stringable;
 
 use function array_diff;
 use function array_diff_key;
@@ -53,7 +54,7 @@ use function vsprintf;
  *
  * @mixin \mako\database\midgard\Query
  */
-abstract class ORM implements JsonSerializable
+abstract class ORM implements JsonSerializable, Stringable
 {
 	/**
 	 * Incrementing primary key.

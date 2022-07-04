@@ -8,11 +8,12 @@
 namespace mako\view;
 
 use mako\view\renderers\RendererInterface;
+use Stringable;
 
 /**
  * View.
  */
-class View
+class View implements Stringable
 {
 	/**
 	 * View path.
