@@ -117,7 +117,7 @@ class URLBuilder
 	 * @param  mixed  $language    Request language
 	 * @return string
 	 */
-	public function to(string $path, array $queryParams = [], string $separator = '&', $language = true): string
+	public function to(string $path, array $queryParams = [], string $separator = '&', mixed $language = true): string
 	{
 		$url = $this->baseURL . ($this->cleanURLs ? '' : "/{$this->scriptName}") . ($language === true ? $this->languagePrefix : (!$language ? '' : "/{$language}")) . $path;
 
@@ -139,7 +139,7 @@ class URLBuilder
 	 * @param  mixed  $language    Request language
 	 * @return string
 	 */
-	public function toRoute(string $routeName, array $routeParams = [], array $queryParams = [], string $separator = '&', $language = true): string
+	public function toRoute(string $routeName, array $routeParams = [], array $queryParams = [], string $separator = '&', mixed $language = true): string
 	{
 		$route = $this->routes->getNamedRoute($routeName)->getRoute();
 
@@ -169,7 +169,7 @@ class URLBuilder
 	 * @param  mixed      $language    Request language
 	 * @return string
 	 */
-	public function current(?array $queryParams = [], string $separator = '&', $language = true): string
+	public function current(?array $queryParams = [], string $separator = '&', mixed $language = true): string
 	{
 		$queryParams = $queryParams === null ? [] : ($queryParams ?: $this->request->getQuery()->all());
 
@@ -185,7 +185,7 @@ class URLBuilder
 	 * @param  string $separator   Argument separator
 	 * @return string
 	 */
-	public function toLanguage(string $route, $language, array $queryParams = [], string $separator = '&'): string
+	public function toLanguage(string $route, mixed $language, array $queryParams = [], string $separator = '&'): string
 	{
 		return $this->to($route, $queryParams, $separator, $language);
 	}

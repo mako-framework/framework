@@ -74,7 +74,7 @@ abstract class Store implements StoreInterface
 	 * @param  int    $ttl  Time to live
 	 * @return mixed
 	 */
-	public function getAndPut(string $key, $data, int $ttl = 0): mixed
+	public function getAndPut(string $key, mixed $data, int $ttl = 0): mixed
 	{
 		$storedValue = $this->get($key);
 

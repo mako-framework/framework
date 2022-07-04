@@ -24,7 +24,7 @@ abstract class Type implements TypeInterface
 	 *
 	 * @param mixed $value Value
 	 */
-	public function __construct($value)
+	public function __construct(mixed $value)
 	{
 		$this->value = $value;
 	}

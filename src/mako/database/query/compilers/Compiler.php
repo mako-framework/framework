@@ -448,7 +448,7 @@ class Compiler
 	 * @param  bool   $enclose Should subqueries be enclosed in parentheses?
 	 * @return string
 	 */
-	protected function param($param, bool $enclose = true): string
+	protected function param(mixed $param, bool $enclose = true): string
 	{
 		if(is_object($param))
 		{
@@ -504,7 +504,7 @@ class Compiler
 	 * @param  mixed  $param Parameter
 	 * @return string
 	 */
-	protected function simpleParam($param): string
+	protected function simpleParam(mixed $param): string
 	{
 		$this->params[] = $param;
 

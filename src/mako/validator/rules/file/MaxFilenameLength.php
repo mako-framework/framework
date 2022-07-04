@@ -46,7 +46,7 @@ class MaxFilenameLength extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		$filename = $value instanceof UploadedFile ? $value->getReportedFilename() : $value->getFilename();
 

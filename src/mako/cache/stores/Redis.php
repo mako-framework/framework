@@ -48,7 +48,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$key = $this->getPrefixedKey($key);
 
@@ -65,7 +65,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$key = $this->getPrefixedKey($key);
 

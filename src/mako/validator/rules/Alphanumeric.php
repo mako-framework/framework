@@ -19,7 +19,7 @@ class Alphanumeric extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return preg_match('/^[a-z0-9]+$/i', $value) === 1;
 	}

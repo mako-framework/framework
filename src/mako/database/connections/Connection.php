@@ -476,7 +476,7 @@ class Connection
 	 * @param int           $key       Parameter key
 	 * @param mixed         $value     Parameter value
 	 */
-	protected function bindParameter(PDOStatement $statement, int $key, $value): void
+	protected function bindParameter(PDOStatement $statement, int $key, mixed $value): void
 	{
 		if(is_string($value))
 		{
@@ -600,7 +600,7 @@ class Connection
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	public function first(string $query, array $params = [], ...$fetchMode): mixed
+	public function first(string $query, array $params = [], mixed ...$fetchMode): mixed
 	{
 		$statement = $this->prepareAndExecute($query, $params);
 
@@ -621,7 +621,7 @@ class Connection
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, ...$fetchMode): mixed
+	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, mixed ...$fetchMode): mixed
 	{
 		if(($row = $this->first($query, $params, ...$fetchMode)) === null)
 		{
@@ -639,7 +639,7 @@ class Connection
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return array
 	 */
-	public function all(string $query, array $params = [], ...$fetchMode): array
+	public function all(string $query, array $params = [], mixed ...$fetchMode): array
 	{
 		return $this->prepareAndExecute($query, $params)->fetchAll(...$fetchMode);
 	}
@@ -688,7 +688,7 @@ class Connection
 	 * @param  mixed      ...$fetchMode Fetch mode
 	 * @return \Generator
 	 */
-	public function yield(string $query, array $params = [], ...$fetchMode): Generator
+	public function yield(string $query, array $params = [], mixed ...$fetchMode): Generator
 	{
 		$statement = $this->prepareAndExecute($query, $params);
 

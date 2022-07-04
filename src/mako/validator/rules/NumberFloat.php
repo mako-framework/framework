@@ -18,7 +18,7 @@ class NumberFloat extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return is_float($value);
 	}

@@ -20,7 +20,7 @@ interface StoreInterface
 	 * @param  int    $ttl  Time to live
 	 * @return bool
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool;
+	public function put(string $key, mixed $data, int $ttl = 0): bool;
 
 	/**
 	 * Store data in the cache if it doesn't already exist.
@@ -30,7 +30,7 @@ interface StoreInterface
 	 * @param  int    $ttl  Time to live
 	 * @return bool
 	 */
-	public function putIfNotExists(string $key, $data, int $ttl = 0): bool;
+	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool;
 
 	/**
 	 * Returns TRUE if the cache key exists and FALSE if not.

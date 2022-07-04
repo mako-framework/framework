@@ -69,7 +69,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 

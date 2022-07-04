@@ -42,7 +42,7 @@ trait ControllerHelperTrait
 	 * @param  mixed                                $language    Request language
 	 * @return \mako\http\response\senders\Redirect
 	 */
-	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', $language = true): Redirect
+	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', mixed $language = true): Redirect
 	{
 		if($this->routes->hasNamedRoute($location))
 		{
@@ -74,7 +74,7 @@ trait ControllerHelperTrait
 	 * @param  string|null                       $charset Character set
 	 * @return \mako\http\response\builders\JSON
 	 */
-	protected function jsonResponse($data, int $options = 0, ?int $status = null, ?string $charset = null): JSON
+	protected function jsonResponse(mixed $data, int $options = 0, ?int $status = null, ?string $charset = null): JSON
 	{
 		return new JSON($data, $options, $status ?? $this->response->getStatus(), $charset ?? $this->response->getCharset());
 	}

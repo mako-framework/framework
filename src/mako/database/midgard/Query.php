@@ -491,7 +491,7 @@ class Query extends QueryBuilder
 	 * @param  mixed $results Database results
 	 * @return array
 	 */
-	protected function hydrateModelsAndLoadIncludes($results): array
+	protected function hydrateModelsAndLoadIncludes(mixed $results): array
 	{
 		$hydrated = [];
 
@@ -609,7 +609,7 @@ class Query extends QueryBuilder
 	 * @param  mixed  ...$arguments Arguments
 	 * @return $this
 	 */
-	public function scope(string $scope, ...$arguments)
+	public function scope(string $scope, mixed ...$arguments)
 	{
 		$this->model->{Str::snakeToCamel($scope) . 'Scope'}(...[$this, ...$arguments]);
 

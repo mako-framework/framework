@@ -102,7 +102,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed      $value Value
 	 * @return $this
 	 */
-	public function put($key, $value)
+	public function put($key, mixed $value)
 	{
 		$this->items[$key] = $value;
 
@@ -127,7 +127,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed      $default Default value
 	 * @return mixed
 	 */
-	public function get($key, $default = null): mixed
+	public function get($key, mixed $default = null): mixed
 	{
 		if(array_key_exists($key, $this->items))
 		{
@@ -168,7 +168,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed $offset The offset to check for
 	 * @return bool
 	 */
-	public function offsetExists($offset): bool
+	public function offsetExists(mixed $offset): bool
 	{
 		return isset($this->items[$offset]);
 	}
@@ -179,7 +179,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed $offset The offset to retrieve
 	 * @return mixed
 	 */
-	public function offsetGet($offset): mixed
+	public function offsetGet(mixed $offset): mixed
 	{
 		if(array_key_exists($offset, $this->items))
 		{
@@ -195,7 +195,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param mixed $offset The offset to assign the value to
 	 * @param mixed $value  The value to set
 	 */
-	public function offsetSet($offset, $value): void
+	public function offsetSet(mixed $offset, mixed $value): void
 	{
 		if($offset === null)
 		{
@@ -212,7 +212,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param mixed $offset The offset to unset
 	 */
-	public function offsetUnset($offset): void
+	public function offsetUnset(mixed $offset): void
 	{
 		unset($this->items[$offset]);
 	}
@@ -254,7 +254,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed $item Collection item
 	 * @return int
 	 */
-	public function unshift($item): int
+	public function unshift(mixed $item): int
 	{
 		return array_unshift($this->items, $item);
 	}
@@ -277,7 +277,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed $item Collection item
 	 * @return int
 	 */
-	public function push($item): int
+	public function push(mixed $item): int
 	{
 		return array_push($this->items, $item);
 	}

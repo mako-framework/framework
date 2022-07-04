@@ -625,7 +625,7 @@ class Query
 	 * @param  string                $separator Clause separator
 	 * @return $this
 	 */
-	public function where($column, ?string $operator = null, $value = null, string $separator = 'AND')
+	public function where($column, ?string $operator = null, mixed $value = null, string $separator = 'AND')
 	{
 		if($column instanceof Closure)
 		{
@@ -689,7 +689,7 @@ class Query
 	 * @param  mixed                 $value    Value
 	 * @return $this
 	 */
-	public function orWhere($column, ?string $operator = null, $value = null)
+	public function orWhere($column, ?string $operator = null, mixed $value = null)
 	{
 		return $this->where($column, $operator, $value, 'OR');
 	}
@@ -790,7 +790,7 @@ class Query
 	 * @param  bool   $not       Not between?
 	 * @return $this
 	 */
-	public function between($column, $value1, $value2, string $separator = 'AND', bool $not = false)
+	public function between(mixed $column, mixed $value1, mixed $value2, string $separator = 'AND', bool $not = false)
 	{
 		$this->wheres[] =
 		[
@@ -813,7 +813,7 @@ class Query
 	 * @param  mixed $value2 Second value
 	 * @return $this
 	 */
-	public function orBetween($column, $value1, $value2)
+	public function orBetween(mixed $column, mixed $value1, mixed $value2)
 	{
 		return $this->between($column, $value1, $value2, 'OR');
 	}
@@ -826,7 +826,7 @@ class Query
 	 * @param  mixed $value2 Second value
 	 * @return $this
 	 */
-	public function notBetween($column, $value1, $value2)
+	public function notBetween(mixed $column, mixed $value1, mixed $value2)
 	{
 		return $this->between($column, $value1, $value2, 'AND', true);
 	}
@@ -839,7 +839,7 @@ class Query
 	 * @param  mixed $value2 Second value
 	 * @return $this
 	 */
-	public function orNotBetween($column, $value1, $value2)
+	public function orNotBetween(mixed $column, mixed $value1, mixed $value2)
 	{
 		return $this->between($column, $value1, $value2, 'OR', true);
 	}
@@ -917,7 +917,7 @@ class Query
 	 * @param  bool                                                         $not       Not in?
 	 * @return $this
 	 */
-	public function in($column, $values, string $separator = 'AND', bool $not = false)
+	public function in(mixed $column, $values, string $separator = 'AND', bool $not = false)
 	{
 		$this->wheres[] =
 		[
@@ -938,7 +938,7 @@ class Query
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
-	public function orIn($column, $values)
+	public function orIn(mixed $column, $values)
 	{
 		return $this->in($column, $values, 'OR');
 	}
@@ -950,7 +950,7 @@ class Query
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
-	public function notIn($column, $values)
+	public function notIn(mixed $column, $values)
 	{
 		return $this->in($column, $values, 'AND', true);
 	}
@@ -962,7 +962,7 @@ class Query
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery $values Array of values or Subquery
 	 * @return $this
 	 */
-	public function orNotIn($column, $values)
+	public function orNotIn(mixed $column, $values)
 	{
 		return $this->in($column, $values, 'OR', true);
 	}
@@ -975,7 +975,7 @@ class Query
 	 * @param  bool   $not       Not in?
 	 * @return $this
 	 */
-	public function isNull($column, string $separator = 'AND', bool $not = false)
+	public function isNull(mixed $column, string $separator = 'AND', bool $not = false)
 	{
 		$this->wheres[] =
 		[
@@ -994,7 +994,7 @@ class Query
 	 * @param  mixed $column Column name
 	 * @return $this
 	 */
-	public function orIsNull($column)
+	public function orIsNull(mixed $column)
 	{
 		return $this->isNull($column, 'OR');
 	}
@@ -1005,7 +1005,7 @@ class Query
 	 * @param  mixed $column Column name
 	 * @return $this
 	 */
-	public function isNotNull($column)
+	public function isNotNull(mixed $column)
 	{
 		return $this->isNull($column, 'AND', true);
 	}
@@ -1016,7 +1016,7 @@ class Query
 	 * @param  mixed $column Column name
 	 * @return $this
 	 */
-	public function orIsNotNull($column)
+	public function orIsNotNull(mixed $column)
 	{
 		return $this->isNull($column, 'OR', true);
 	}
@@ -1176,7 +1176,7 @@ class Query
 	 * @param  string                          $separator Clause separator
 	 * @return $this
 	 */
-	public function having($column, $operator, $value, string $separator = 'AND')
+	public function having($column, $operator, mixed $value, string $separator = 'AND')
 	{
 		$this->havings[] =
 		[
@@ -1198,7 +1198,7 @@ class Query
 	 * @param  string $separator Clause separator
 	 * @return $this
 	 */
-	public function havingRaw($raw, $operator, $value, string $separator = 'AND')
+	public function havingRaw($raw, $operator, mixed $value, string $separator = 'AND')
 	{
 		return $this->having(new Raw($raw), $operator, $value, $separator);
 	}
@@ -1211,7 +1211,7 @@ class Query
 	 * @param  mixed  $value    Value
 	 * @return $this
 	 */
-	public function orHaving($column, $operator, $value)
+	public function orHaving($column, $operator, mixed $value)
 	{
 		return $this->having($column, $operator, $value, 'OR');
 	}
@@ -1224,7 +1224,7 @@ class Query
 	 * @param  mixed  $value    Value
 	 * @return $this
 	 */
-	public function orHavingRaw($raw, $operator, $value)
+	public function orHavingRaw($raw, $operator, mixed $value)
 	{
 		return $this->havingRaw($raw, $operator, $value, 'OR');
 	}
@@ -1386,7 +1386,7 @@ class Query
 	 * @param  mixed ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	protected function fetchFirst(...$fetchMode): mixed
+	protected function fetchFirst(mixed ...$fetchMode): mixed
 	{
 		$query = $this->limit(1)->compiler->select();
 
@@ -1410,7 +1410,7 @@ class Query
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	protected function fetchFirstOrThrow(string $exception, ...$fetchMode): mixed
+	protected function fetchFirstOrThrow(string $exception, mixed ...$fetchMode): mixed
 	{
 		$query = $this->limit(1)->compiler->select();
 
@@ -1446,7 +1446,7 @@ class Query
 	 * @param  mixed                                ...$fetchMode    Fetch mode
 	 * @return array|\mako\database\query\ResultSet
 	 */
-	protected function fetchAll(bool $returnResultSet, ...$fetchMode)
+	protected function fetchAll(bool $returnResultSet, mixed ...$fetchMode)
 	{
 		$query = $this->compiler->select();
 
@@ -1523,7 +1523,7 @@ class Query
 	 * @param  mixed      ...$fetchMode Fetch mode
 	 * @return \Generator
 	 */
-	protected function fetchYield(...$fetchMode): Generator
+	protected function fetchYield(mixed ...$fetchMode): Generator
 	{
 		$query = $this->compiler->select();
 

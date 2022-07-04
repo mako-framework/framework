@@ -25,7 +25,7 @@ trait CamelCasedDataInteractionTrait
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setRawColumnValue(string $name, $value): void
+	public function setRawColumnValue(string $name, mixed $value): void
 	{
 		parent::setRawColumnValue(Str::camelToSnake($name), $value);
 	}
@@ -36,7 +36,7 @@ trait CamelCasedDataInteractionTrait
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setColumnValue(string $name, $value): void
+	public function setColumnValue(string $name, mixed $value): void
 	{
 		$snakeCased = Str::camelToSnake($name);
 

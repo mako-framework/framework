@@ -245,7 +245,7 @@ class Validator
 	 * @param  mixed  ...$parameters Rule parameters
 	 * @return string
 	 */
-	public static function rule(string $ruleName, ...$parameters): string
+	public static function rule(string $ruleName, mixed ...$parameters): string
 	{
 		if(empty($parameters))
 		{
@@ -431,7 +431,7 @@ class Validator
 	 * @param  mixed $value Value
 	 * @return bool
 	 */
-	protected function isInputFieldEmpty($value): bool
+	protected function isInputFieldEmpty(mixed $value): bool
 	{
 		return in_array($value, ['', null, []], true);
 	}

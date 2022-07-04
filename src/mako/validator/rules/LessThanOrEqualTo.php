@@ -26,7 +26,7 @@ class LessThanOrEqualTo extends Rule implements RuleInterface
 	 *
 	 * @param mixed $lessThanOrEqualTo Less than or equal to
 	 */
-	public function __construct($lessThanOrEqualTo)
+	public function __construct(mixed $lessThanOrEqualTo)
 	{
 		$this->lessThanOrEqualTo = $lessThanOrEqualTo;
 	}
@@ -41,7 +41,7 @@ class LessThanOrEqualTo extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value <= $this->lessThanOrEqualTo;
 	}

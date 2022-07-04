@@ -121,7 +121,7 @@ class Argument
 	 * @param int    $options     Argument options
 	 * @param mixed  $default     Default return value (only used by optional arguments)
 	 */
-	public function __construct(string $name, string $description = '', int $options = 0, $default = null)
+	public function __construct(string $name, string $description = '', int $options = 0, mixed $default = null)
 	{
 		[$name, $alias, $isPositional] = $this->parseName($name);
 

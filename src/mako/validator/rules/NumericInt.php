@@ -18,7 +18,7 @@ class NumericInt extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return filter_var($value, FILTER_VALIDATE_INT) !== false;
 	}

@@ -466,7 +466,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $relation Relation name
 	 * @param mixed  $related  Related record(s)
 	 */
-	public function setRelated(string $relation, $related): void
+	public function setRelated(string $relation, mixed $related): void
 	{
 		$this->related[$relation] = $related;
 	}
@@ -515,7 +515,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  mixed  $value Column value
 	 * @return mixed
 	 */
-	protected function cast(string $name, $value): mixed
+	protected function cast(string $name, mixed $value): mixed
 	{
 		if(isset($this->cast[$name]) && $value !== null)
 		{
@@ -555,7 +555,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setRawColumnValue(string $name, $value): void
+	public function setRawColumnValue(string $name, mixed $value): void
 	{
 		$this->columns[$name] = $this->cast($name, $value);
 	}
@@ -566,7 +566,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function setColumnValue(string $name, $value): void
+	public function setColumnValue(string $name, mixed $value): void
 	{
 		$value = $this->cast($name, $value);
 
@@ -728,7 +728,7 @@ abstract class ORM implements JsonSerializable
 	 * @param string $name  Column name
 	 * @param mixed  $value Column value
 	 */
-	public function __set(string $name, $value): void
+	public function __set(string $name, mixed $value): void
 	{
 		$this->setColumnValue($name, $value);
 	}
@@ -787,7 +787,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  array       $columns Columns to select
 	 * @return static|null
 	 */
-	public static function get($id, array $columns = [])
+	public static function get(mixed $id, array $columns = [])
 	{
 		return (new static)->getQuery()->get($id, $columns);
 	}
@@ -800,7 +800,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $exception Exception class
 	 * @return static
 	 */
-	public static function getOrThrow($id, array $columns = [], string $exception = NotFoundException::class)
+	public static function getOrThrow(mixed $id, array $columns = [], string $exception = NotFoundException::class)
 	{
 		return (new static)->getQuery()->getOrThrow($id, $columns, $exception);
 	}

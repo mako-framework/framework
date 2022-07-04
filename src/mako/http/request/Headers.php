@@ -133,7 +133,7 @@ class Headers implements Countable, IteratorAggregate
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function get(string $name, $default = null): mixed
+	public function get(string $name, mixed $default = null): mixed
 	{
 		return $this->headers[$this->normalizeName($name)] ?? $default;
 	}

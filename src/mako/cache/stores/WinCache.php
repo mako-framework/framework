@@ -36,7 +36,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return wincache_ucache_set($this->getPrefixedKey($key), $data, $ttl);
 	}
@@ -44,7 +44,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return wincache_ucache_add($this->getPrefixedKey($key), $data, $ttl);
 	}

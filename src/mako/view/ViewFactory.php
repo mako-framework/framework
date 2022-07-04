@@ -152,7 +152,7 @@ class ViewFactory
 	 * @param  mixed                  $value View variable
 	 * @return \mako\view\ViewFactory
 	 */
-	public function assign(string $name, $value): ViewFactory
+	public function assign(string $name, mixed $value): ViewFactory
 	{
 		$this->globalVariables[$name] = $value;
 

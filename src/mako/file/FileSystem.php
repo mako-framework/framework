@@ -229,7 +229,7 @@ class FileSystem
 	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
-	public static function put(string $file, $data, bool $lock = false)
+	public static function put(string $file, mixed $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data, $lock ? LOCK_EX : 0);
 	}
@@ -242,7 +242,7 @@ class FileSystem
 	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
-	public static function prepend(string $file, $data, bool $lock = false)
+	public static function prepend(string $file, mixed $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data . file_get_contents($file), $lock ? LOCK_EX : 0);
 	}
@@ -255,7 +255,7 @@ class FileSystem
 	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
-	public static function append(string $file, $data, bool $lock = false)
+	public static function append(string $file, mixed $data, bool $lock = false)
 	{
 		return file_put_contents($file, $data, $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}

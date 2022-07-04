@@ -15,7 +15,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return true;
 	}

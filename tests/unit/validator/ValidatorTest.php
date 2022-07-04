@@ -19,7 +19,7 @@ use Throwable;
 
 class MyRule extends Rule implements RuleInterface
 {
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return true;
 	}
@@ -404,7 +404,7 @@ class ValidatorTest extends TestCase
 				return false;
 			}
 
-			public function validate($value, string $field, array $input): bool
+			public function validate(mixed $value, string $field, array $input): bool
 			{
 				return false;
 			}

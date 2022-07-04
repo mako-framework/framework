@@ -27,5 +27,5 @@ interface AuthorizableInterface
 	 * @param  mixed         ...$parameters Additional parameters
 	 * @return bool
 	 */
-	public function can(string $action, $entity, ...$parameters): bool;
+	public function can(string $action, $entity, mixed ...$parameters): bool;
 }

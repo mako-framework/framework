@@ -227,7 +227,7 @@ class Response
 	 * @param  mixed               $body Response body
 	 * @return \mako\http\Response
 	 */
-	public function setBody($body): Response
+	public function setBody(mixed $body): Response
 	{
 		$this->body = $body;
 

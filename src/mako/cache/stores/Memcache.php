@@ -57,7 +57,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		if($ttl !== 0)
 		{
@@ -77,7 +77,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		if($ttl !== 0)
 		{

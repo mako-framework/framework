@@ -26,7 +26,7 @@ class LessThan extends Rule implements RuleInterface
 	 *
 	 * @param mixed $lessThan Less than
 	 */
-	public function __construct($lessThan)
+	public function __construct(mixed $lessThan)
 	{
 		$this->lessThan = $lessThan;
 	}
@@ -41,7 +41,7 @@ class LessThan extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value < $this->lessThan;
 	}

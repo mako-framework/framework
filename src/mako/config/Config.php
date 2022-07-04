@@ -110,7 +110,7 @@ class Config
 	 * @param  mixed  $default Default value to return if config value doesn't exist
 	 * @return mixed
 	 */
-	public function get(string $key, $default = null): mixed
+	public function get(string $key, mixed $default = null): mixed
 	{
 		[$file, $path] = $this->parseKey($key);
 
@@ -128,7 +128,7 @@ class Config
 	 * @param string $key   Config key
 	 * @param mixed  $value Config value
 	 */
-	public function set(string $key, $value): void
+	public function set(string $key, mixed $value): void
 	{
 		[$file] = $this->parseKey($key);
 

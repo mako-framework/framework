@@ -26,7 +26,7 @@ class GreaterThan extends Rule implements RuleInterface
 	 *
 	 * @param mixed $greaterThan Greater than
 	 */
-	public function __construct($greaterThan)
+	public function __construct(mixed $greaterThan)
 	{
 		$this->greaterThan = $greaterThan;
 	}
@@ -41,7 +41,7 @@ class GreaterThan extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value > $this->greaterThan;
 	}

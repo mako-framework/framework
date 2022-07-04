@@ -27,7 +27,7 @@ interface RuleInterface
 	 * @param  array  $input Input
 	 * @return bool
 	 */
-	public function validate($value, string $field, array $input): bool;
+	public function validate(mixed $value, string $field, array $input): bool;
 
 	/**
 	 * Returns an error message.

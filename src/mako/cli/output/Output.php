@@ -218,7 +218,7 @@ class Output
 	 * @param mixed $value  Value
 	 * @param int   $writer Output type
 	 */
-	public function dump($value, int $writer = Output::STANDARD): void
+	public function dump(mixed $value, int $writer = Output::STANDARD): void
 	{
 		$this->getWriter($writer)->write(var_export($value, true) . PHP_EOL);
 	}

@@ -65,11 +65,11 @@ class Unique extends Rule implements RuleInterface
 	 *
 	 * @param string                           $table      Table
 	 * @param string                           $column     Column
-	 * @param string|null                      $allowed    Allowed value
+	 * @param mixed                            $allowed    Allowed value
 	 * @param string|null                      $connection Connection
 	 * @param \mako\database\ConnectionManager $database   Connection manager
 	 */
-	public function __construct(string $table, string $column, ?string $allowed, ?string $connection, ConnectionManager $database)
+	public function __construct(string $table, string $column, mixed $allowed, ?string $connection, ConnectionManager $database)
 	{
 		$this->table = $table;
 
@@ -85,7 +85,7 @@ class Unique extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		if($this->allowed !== null && $this->allowed === $value)
 		{

@@ -34,7 +34,7 @@ class Between extends Rule implements RuleInterface
 	 * @param mixed $minimum Minimum value
 	 * @param mixed $maximum Maximum value
 	 */
-	public function __construct($minimum, $maximum)
+	public function __construct(mixed $minimum, mixed $maximum)
 	{
 		$this->minimum = $minimum;
 
@@ -51,7 +51,7 @@ class Between extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value >= $this->minimum && $value <= $this->maximum;
 	}

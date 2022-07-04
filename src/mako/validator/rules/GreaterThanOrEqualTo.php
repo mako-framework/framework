@@ -26,7 +26,7 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 	 *
 	 * @param mixed $greaterThanOrEqualTo Greater than or equal to
 	 */
-	public function __construct($greaterThanOrEqualTo)
+	public function __construct(mixed $greaterThanOrEqualTo)
 	{
 		$this->greaterThanOrEqualTo = $greaterThanOrEqualTo;
 	}
@@ -41,7 +41,7 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate($value, string $field, array $input): bool
+	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value >= $this->greaterThanOrEqualTo;
 	}

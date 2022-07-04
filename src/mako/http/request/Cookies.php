@@ -112,7 +112,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function get(string $name, $default = null): mixed
+	public function get(string $name, mixed $default = null): mixed
 	{
 		return $this->cookies[$name] ?? $default;
 	}
@@ -124,7 +124,7 @@ class Cookies implements Countable, IteratorAggregate
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function getSigned(string $name, $default = null): mixed
+	public function getSigned(string $name, mixed $default = null): mixed
 	{
 		if(empty($this->signer))
 		{

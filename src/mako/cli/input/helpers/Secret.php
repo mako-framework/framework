@@ -51,7 +51,7 @@ class Secret extends Question
 	 * @param  bool   $fallback Fall back to non-hidden input?
 	 * @return mixed
 	 */
-	public function ask(string $question, $default = null, bool $fallback = false): mixed
+	public function ask(string $question, mixed $default = null, bool $fallback = false): mixed
 	{
 		if(PHP_OS_FAMILY === 'Windows' || $this->hasStty())
 		{

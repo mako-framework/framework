@@ -39,7 +39,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function put(string $key, $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return apcu_store($this->getPrefixedKey($key), $data, $ttl);
 	}
@@ -47,7 +47,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return apcu_add($this->getPrefixedKey($key), $data, $ttl);
 	}

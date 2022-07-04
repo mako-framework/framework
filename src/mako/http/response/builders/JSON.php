@@ -61,7 +61,7 @@ class JSON implements ResponseBuilderInterface
 	 * @param int|null    $statusCode Status code
 	 * @param string|null $charset    Character set
 	 */
-	public function __construct($data, int $options = 0, ?int $statusCode = null, ?string $charset = null)
+	public function __construct(mixed $data, int $options = 0, ?int $statusCode = null, ?string $charset = null)
 	{
 		$this->data = $data;
 

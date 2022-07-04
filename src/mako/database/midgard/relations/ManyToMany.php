@@ -256,7 +256,7 @@ class ManyToMany extends Relation
 	 * @param  mixed $id Id, model or an array of ids and/or models
 	 * @return array
 	 */
-	protected function getJunctionKeys($id): array
+	protected function getJunctionKeys(mixed $id): array
 	{
 		$ids = [];
 
@@ -280,7 +280,7 @@ class ManyToMany extends Relation
 	 * @param  array $attributes Attributes
 	 * @return array
 	 */
-	protected function getJunctionAttributes($key, array $attributes): array
+	protected function getJunctionAttributes(mixed $key, array $attributes): array
 	{
 		if(isset($attributes[$key]))
 		{
@@ -297,7 +297,7 @@ class ManyToMany extends Relation
 	 * @param  array $attributes Junction attributes
 	 * @return bool
 	 */
-	public function link($id, array $attributes = []): bool
+	public function link(mixed $id, array $attributes = []): bool
 	{
 		$success = true;
 
@@ -324,7 +324,7 @@ class ManyToMany extends Relation
 	 * @param  array $attributes Junction attributes
 	 * @return bool
 	 */
-	public function updateLink($id, array $attributes): bool
+	public function updateLink(mixed $id, array $attributes): bool
 	{
 		$success = true;
 
@@ -348,7 +348,7 @@ class ManyToMany extends Relation
 	 * @param  mixed $id Id, model or an array of ids and/or models
 	 * @return bool
 	 */
-	public function unlink($id = null): bool
+	public function unlink(mixed $id = null): bool
 	{
 		$query = $this->junction(true)->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue());
 

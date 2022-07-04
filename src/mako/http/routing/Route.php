@@ -246,7 +246,7 @@ class Route
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function getParameter(string $name, $default = null): mixed
+	public function getParameter(string $name, mixed $default = null): mixed
 	{
 		return $this->parameters[$name] ?? $default;
 	}

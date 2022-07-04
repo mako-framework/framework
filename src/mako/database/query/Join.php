@@ -41,7 +41,7 @@ class Join
 	 * @param string|null $type  Join type
 	 * @param mixed       $table Table we are joining
 	 */
-	public function __construct(?string $type = null, $table = null)
+	public function __construct(?string $type = null, mixed $table = null)
 	{
 		$this->type  = $type;
 		$this->table = $table;
