@@ -224,7 +224,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function handle(Throwable $exception)
+	public function handle(Throwable $exception): mixed
 	{
 		['type' => $type, 'body' => $body] = $this->buildResponse($exception);
 

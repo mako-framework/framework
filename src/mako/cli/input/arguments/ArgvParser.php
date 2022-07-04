@@ -463,7 +463,7 @@ class ArgvParser
 	 * @param  bool   $ignoreUnknownArguments Should unknown arguments be ignored?
 	 * @return mixed
 	 */
-	public function getArgumentValue(string $argument, $default = null, bool $ignoreUnknownArguments = false)
+	public function getArgumentValue(string $argument, $default = null, bool $ignoreUnknownArguments = false): mixed
 	{
 		$parsed = $this->parse($ignoreUnknownArguments);
 

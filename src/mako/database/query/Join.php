@@ -62,7 +62,7 @@ class Join
 	 *
 	 * @return mixed
 	 */
-	public function getTable()
+	public function getTable(): mixed
 	{
 		return $this->table;
 	}

@@ -320,7 +320,7 @@ class Container
 	 * @param  string|null           $method    Metod name
 	 * @return mixed
 	 */
-	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null)
+	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null): mixed
 	{
 		$parameterType = $parameter->getType();
 
@@ -588,7 +588,7 @@ class Container
 	 * @param  array    $parameters Parameters
 	 * @return mixed
 	 */
-	public function call(callable $callable, array $parameters = [])
+	public function call(callable $callable, array $parameters = []): mixed
 	{
 		if(is_array($callable))
 		{

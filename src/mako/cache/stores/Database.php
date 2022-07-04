@@ -91,7 +91,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		$key = $this->getPrefixedKey($key);
 

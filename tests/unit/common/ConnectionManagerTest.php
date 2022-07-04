@@ -36,7 +36,7 @@ class Connection
 
 class ConnectionManager extends ConnectionManagerAbstract
 {
-	public function connect(string $connection)
+	public function connect(string $connection): mixed
 	{
 		return new Connection($connection);
 	}

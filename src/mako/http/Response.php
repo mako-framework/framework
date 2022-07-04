@@ -239,7 +239,7 @@ class Response
 	 *
 	 * @return mixed
 	 */
-	public function getBody()
+	public function getBody(): mixed
 	{
 		return $this->body;
 	}

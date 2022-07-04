@@ -148,7 +148,7 @@ class Argument
 	 *
 	 * @return mixed
 	 */
-	public function getDefaultValue()
+	public function getDefaultValue(): mixed
 	{
 		return $this->default;
 	}

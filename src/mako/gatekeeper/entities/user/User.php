@@ -106,7 +106,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getId()
+	public function getId(): mixed
 	{
 		return $this->id;
 	}

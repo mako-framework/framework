@@ -320,7 +320,7 @@ class Session
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function get(string $key, $default = null)
+	public function get(string $key, $default = null): mixed
 	{
 		return $this->sessionData[$key] ?? $default;
 	}
@@ -333,7 +333,7 @@ class Session
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function getAndPut(string $key, $value, $default = null)
+	public function getAndPut(string $key, $value, $default = null): mixed
 	{
 		$storedValue = $this->get($key, $default);
 
@@ -349,7 +349,7 @@ class Session
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function getAndRemove(string $key, $default = null)
+	public function getAndRemove(string $key, $default = null): mixed
 	{
 		$storedValue = $this->get($key, $default);
 
@@ -371,11 +371,10 @@ class Session
 	/**
 	 * Store a flash value in the session.
 	 *
-	 * @param  string $key   Flash key
-	 * @param  mixed  $value Flash data
-	 * @return mixed
+	 * @param string $key   Flash key
+	 * @param mixed  $value Flash data
 	 */
-	public function putFlash(string $key, $value)
+	public function putFlash(string $key, $value): void
 	{
 		$this->flashData[$key] = $value;
 	}
@@ -398,7 +397,7 @@ class Session
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function getFlash(string $key, $default = null)
+	public function getFlash(string $key, $default = null): mixed
 	{
 		return $this->sessionData['mako.flashdata'][$key] ?? $default;
 	}

@@ -36,7 +36,7 @@ class ProductionHandler implements HandlerInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function handle(Throwable $exception)
+	public function handle(Throwable $exception): mixed
 	{
 		$this->output->errorLn('<bg_red><white>An error has occurred while executing your command.</white></bg_red>' . PHP_EOL);
 

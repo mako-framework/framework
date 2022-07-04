@@ -63,7 +63,7 @@ class Dispatcher
 	 * @param  array                          $arguments Command arguments
 	 * @return mixed
 	 */
-	protected function execute(CommandInterface $command, array $arguments)
+	protected function execute(CommandInterface $command, array $arguments): mixed
 	{
 		return $this->container->call([$command, 'execute'], $arguments);
 	}

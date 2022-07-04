@@ -80,7 +80,7 @@ trait CamelCasedDataInteractionTrait
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getRawColumnValue(string $name)
+	public function getRawColumnValue(string $name): mixed
 	{
 		return $this->columns[Str::camelToSnake($name)];
 	}
@@ -91,7 +91,7 @@ trait CamelCasedDataInteractionTrait
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getColumnValue(string $name)
+	public function getColumnValue(string $name): mixed
 	{
 		$camelCased = Str::snakeToCamel($name);
 
@@ -109,7 +109,7 @@ trait CamelCasedDataInteractionTrait
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getValue(string $name)
+	public function getValue(string $name): mixed
 	{
 		if(array_key_exists(Str::camelToSnake($name), $this->columns))
 		{

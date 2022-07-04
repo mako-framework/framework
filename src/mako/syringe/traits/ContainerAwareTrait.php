@@ -74,7 +74,7 @@ trait ContainerAwareTrait
 	 * @param  string $key Key
 	 * @return mixed
 	 */
-	public function __get(string $key)
+	public function __get(string $key): mixed
 	{
 		if(isset($this->resolved[$key]))
 		{

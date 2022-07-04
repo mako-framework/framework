@@ -46,7 +46,7 @@ interface StoreInterface
 	 * @param  string $key Cache key
 	 * @return mixed
 	 */
-	public function get(string $key);
+	public function get(string $key): mixed;
 
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
@@ -56,7 +56,7 @@ interface StoreInterface
 	 * @param  int      $ttl      Time to live
 	 * @return mixed
 	 */
-	public function getOrElse(string $key, callable $callable, int $ttl = 0);
+	public function getOrElse(string $key, callable $callable, int $ttl = 0): mixed;
 
 	/**
 	 * Delete data from the cache.

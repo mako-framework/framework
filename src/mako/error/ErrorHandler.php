@@ -300,7 +300,7 @@ class ErrorHandler
 	 * @param  array           $parameters Constructor parameters
 	 * @return mixed
 	 */
-	protected function handleException(Throwable $exception, $handler, array $parameters)
+	protected function handleException(Throwable $exception, $handler, array $parameters): mixed
 	{
 		if($handler instanceof Closure)
 		{

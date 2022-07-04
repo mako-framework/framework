@@ -17,7 +17,7 @@ interface UserEntityInterface
 	 *
 	 * @return mixed
 	 */
-	public function getId();
+	public function getId(): mixed;
 
 	/**
 	 * Returns the user username.

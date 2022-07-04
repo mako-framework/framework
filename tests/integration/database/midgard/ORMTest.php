@@ -62,7 +62,7 @@ class CustomKey extends TestORM
 
 	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_CUSTOM;
 
-	protected function generatePrimaryKey()
+	protected function generatePrimaryKey(): mixed
 	{
 		return 'foobarbax';
 	}

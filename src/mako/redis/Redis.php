@@ -746,7 +746,7 @@ class Redis
 	 * @param  string $response Redis response
 	 * @return mixed
 	 */
-	protected function handleAttributeResponse(string $response)
+	protected function handleAttributeResponse(string $response): mixed
 	{
 		// Fetch and store the response attributes
 
@@ -783,7 +783,7 @@ class Redis
 	 * @param  string $response Redis response
 	 * @return mixed
 	 */
-	protected function handleSimpleErrorResponse(string $response)
+	protected function handleSimpleErrorResponse(string $response): mixed
 	{
 		$response = substr($response, 1);
 
@@ -818,7 +818,7 @@ class Redis
 	 *
 	 * @return mixed
 	 */
-	protected function getResponse()
+	protected function getResponse(): mixed
 	{
 		$response = trim($this->connection->readLine());
 
@@ -916,7 +916,7 @@ class Redis
 	 * @param  string $command Command
 	 * @return mixed
 	 */
-	protected function sendCommandAndGetResponse(string $command)
+	protected function sendCommandAndGetResponse(string $command): mixed
 	{
 		$this->sendCommand($command);
 
@@ -1050,7 +1050,7 @@ class Redis
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $name, array $arguments)
+	public function __call(string $name, array $arguments): mixed
 	{
 		$command = $this->buildCommand($name, $arguments);
 

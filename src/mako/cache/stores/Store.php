@@ -74,7 +74,7 @@ abstract class Store implements StoreInterface
 	 * @param  int    $ttl  Time to live
 	 * @return mixed
 	 */
-	public function getAndPut(string $key, $data, int $ttl = 0)
+	public function getAndPut(string $key, $data, int $ttl = 0): mixed
 	{
 		$storedValue = $this->get($key);
 
@@ -89,7 +89,7 @@ abstract class Store implements StoreInterface
 	 * @param  string $key Cache key
 	 * @return mixed
 	 */
-	public function getAndRemove(string $key)
+	public function getAndRemove(string $key): mixed
 	{
 		$storedValue = $this->get($key);
 
@@ -104,7 +104,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getOrElse(string $key, callable $data, int $ttl = 0)
+	public function getOrElse(string $key, callable $data, int $ttl = 0): mixed
 	{
 		$cached = $this->get($key);
 

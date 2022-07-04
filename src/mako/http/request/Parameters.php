@@ -88,7 +88,7 @@ class Parameters implements Countable, IteratorAggregate
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function get(string $name, $default = null)
+	public function get(string $name, $default = null): mixed
 	{
 		return Arr::get($this->parameters, $name, $default);
 	}

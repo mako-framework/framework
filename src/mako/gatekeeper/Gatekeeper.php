@@ -180,7 +180,7 @@ class Gatekeeper
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $name, array $arguments)
+	public function __call(string $name, array $arguments): mixed
 	{
 		return $this->adapter()->$name(...$arguments);
 	}

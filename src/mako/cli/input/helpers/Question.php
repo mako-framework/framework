@@ -51,7 +51,7 @@ class Question
 	 * @param  mixed  $default  Default if no input is entered
 	 * @return mixed
 	 */
-	public function ask(string $question, $default = null)
+	public function ask(string $question, $default = null): mixed
 	{
 		$this->output->write(trim($question) . ' ');
 

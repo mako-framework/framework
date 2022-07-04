@@ -91,7 +91,7 @@ class DevelopmentHandler implements HandlerInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function handle(Throwable $exception)
+	public function handle(Throwable $exception): mixed
 	{
 		$type = $this->escape($this->determineExceptionType($exception));
 

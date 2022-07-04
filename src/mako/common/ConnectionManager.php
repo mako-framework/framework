@@ -34,7 +34,7 @@ abstract class ConnectionManager
 	 * @param  string $connection Connection name
 	 * @return mixed
 	 */
-	abstract protected function connect(string $connection);
+	abstract protected function connect(string $connection): mixed;
 
 	/**
 	 * Returns the chosen connection.
@@ -42,7 +42,7 @@ abstract class ConnectionManager
 	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */
-	public function getConnection(?string $connection = null)
+	public function getConnection(?string $connection = null): mixed
 	{
 		$connection ??= $this->default;
 
@@ -84,7 +84,7 @@ abstract class ConnectionManager
 	 * @param  string|null $connection Connection name
 	 * @return mixed
 	 */
-	public function executeAndClose(Closure $closure, ?string $connection = null)
+	public function executeAndClose(Closure $closure, ?string $connection = null): mixed
 	{
 		$returnValue = $closure($this->getConnection($connection));
 
@@ -113,7 +113,7 @@ abstract class ConnectionManager
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $name, array $arguments)
+	public function __call(string $name, array $arguments): mixed
 	{
 		return $this->getConnection()->$name(...$arguments);
 	}

@@ -17,7 +17,7 @@ interface GroupEntityInterface
 	 *
 	 * @return mixed
 	 */
-	public function getId();
+	public function getId(): mixed;
 
 	/**
 	 * Returns the group name.

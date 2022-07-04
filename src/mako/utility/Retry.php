@@ -145,7 +145,7 @@ class Retry
 	 *
 	 * @return mixed
 	 */
-	public function execute()
+	public function execute(): mixed
 	{
 		$attempts = 0;
 
@@ -173,7 +173,7 @@ class Retry
 	 *
 	 * @return mixed
 	 */
-	public function __invoke()
+	public function __invoke(): mixed
 	{
 		return $this->execute();
 	}

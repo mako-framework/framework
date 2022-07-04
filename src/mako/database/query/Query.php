@@ -294,7 +294,7 @@ class Query
 	 *
 	 * @return mixed
 	 */
-	public function getTable()
+	public function getTable(): mixed
 	{
 		return $this->table;
 	}
@@ -1386,7 +1386,7 @@ class Query
 	 * @param  mixed ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	protected function fetchFirst(...$fetchMode)
+	protected function fetchFirst(...$fetchMode): mixed
 	{
 		$query = $this->limit(1)->compiler->select();
 
@@ -1398,7 +1398,7 @@ class Query
 	 *
 	 * @return mixed
 	 */
-	public function first()
+	public function first(): mixed
 	{
 		return $this->fetchFirst(PDO::FETCH_CLASS, Result::class);
 	}
@@ -1410,7 +1410,7 @@ class Query
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	protected function fetchFirstOrThrow(string $exception, ...$fetchMode)
+	protected function fetchFirstOrThrow(string $exception, ...$fetchMode): mixed
 	{
 		$query = $this->limit(1)->compiler->select();
 
@@ -1423,7 +1423,7 @@ class Query
 	 * @param  string $exception Exception class
 	 * @return mixed
 	 */
-	public function firstOrThrow(string $exception = NotFoundException::class)
+	public function firstOrThrow(string $exception = NotFoundException::class): mixed
 	{
 		return $this->fetchFirstOrThrow($exception, PDO::FETCH_CLASS, Result::class);
 	}
@@ -1471,7 +1471,7 @@ class Query
 	 * @param  string $column The column to select
 	 * @return mixed
 	 */
-	public function column($column = null)
+	public function column($column = null): mixed
 	{
 		if($column !== null)
 		{
@@ -1634,7 +1634,7 @@ class Query
 	 *
 	 * @param  string       $function Aggregate function
 	 * @param  array|string $column   Column name or array of column names
-	 * @return mixed
+	 * @return mixed|void
 	 */
 	protected function aggregate(string $function, $column)
 	{
@@ -1654,7 +1654,7 @@ class Query
 	 * @param  string $column Column name
 	 * @return mixed
 	 */
-	public function min($column)
+	public function min($column): mixed
 	{
 		return $this->aggregate('MIN(%s)', $column);
 	}
@@ -1665,7 +1665,7 @@ class Query
 	 * @param  string $column Column name
 	 * @return mixed
 	 */
-	public function max($column)
+	public function max($column): mixed
 	{
 		return $this->aggregate('MAX(%s)', $column);
 	}
@@ -1676,7 +1676,7 @@ class Query
 	 * @param  string $column Column name
 	 * @return mixed
 	 */
-	public function sum($column)
+	public function sum($column): mixed
 	{
 		return $this->aggregate('SUM(%s)', $column);
 	}
@@ -1687,7 +1687,7 @@ class Query
 	 * @param  string $column Column name
 	 * @return mixed
 	 */
-	public function avg($column)
+	public function avg($column): mixed
 	{
 		return $this->aggregate('AVG(%s)', $column);
 	}

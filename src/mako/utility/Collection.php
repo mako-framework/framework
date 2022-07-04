@@ -127,7 +127,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed      $default Default value
 	 * @return mixed
 	 */
-	public function get($key, $default = null)
+	public function get($key, $default = null): mixed
 	{
 		if(array_key_exists($key, $this->items))
 		{
@@ -179,8 +179,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed $offset The offset to retrieve
 	 * @return mixed
 	 */
-	#[\ReturnTypeWillChange]
-	public function offsetGet($offset)
+	public function offsetGet($offset): mixed
 	{
 		if(array_key_exists($offset, $this->items))
 		{
@@ -266,7 +265,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return mixed
 	 */
-	public function shift()
+	public function shift(): mixed
 	{
 		return array_shift($this->items);
 	}
@@ -289,7 +288,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return mixed
 	 */
-	public function pop()
+	public function pop(): mixed
 	{
 		return array_pop($this->items);
 	}
@@ -299,7 +298,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return mixed
 	 */
-	public function first()
+	public function first(): mixed
 	{
 		$key = array_key_first($this->items);
 
@@ -316,7 +315,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return mixed
 	 */
-	public function last()
+	public function last(): mixed
 	{
 		$key = array_key_last($this->items);
 

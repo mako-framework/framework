@@ -189,7 +189,7 @@ abstract class Relation extends Query
 	 *
 	 * @return \mako\database\midgard\ORM|null
 	 */
-	public function first()
+	public function first(): mixed
 	{
 		$this->adjustQuery();
 

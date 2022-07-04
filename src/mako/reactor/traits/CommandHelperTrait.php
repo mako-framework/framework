@@ -185,7 +185,7 @@ trait CommandHelperTrait
 	 * @param  mixed  $default  Default if no input is entered
 	 * @return mixed
 	 */
-	protected function question(string $question, $default = null)
+	protected function question(string $question, $default = null): mixed
 	{
 		return (new Question($this->input, $this->output))->ask($question, $default);
 	}
@@ -210,7 +210,7 @@ trait CommandHelperTrait
 	 * @param  bool   $fallback Fall back to non-hidden input?
 	 * @return mixed
 	 */
-	protected function secret(string $question, $default = null, bool $fallback = false)
+	protected function secret(string $question, $default = null, bool $fallback = false): mixed
 	{
 		return (new Secret($this->input, $this->output))->ask($question, $default, $fallback);
 	}

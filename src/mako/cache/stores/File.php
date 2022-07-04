@@ -104,7 +104,7 @@ class File extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		if($this->fileSystem->has($this->cacheFile($key)))
 		{

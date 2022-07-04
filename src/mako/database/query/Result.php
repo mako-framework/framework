@@ -31,10 +31,9 @@ class Result implements JsonSerializable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 *
-	 * @return array
+	 * @return mixed
 	 */
-	#[\ReturnTypeWillChange]
-	public function jsonSerialize(): array
+	public function jsonSerialize(): mixed
 	{
 		return $this->toArray();
 	}

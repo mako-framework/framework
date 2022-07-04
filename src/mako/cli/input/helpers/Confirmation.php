@@ -63,7 +63,7 @@ class Confirmation extends Question
 	 * @param  array|null $options  Answer options
 	 * @return bool
 	 */
-	public function ask(string $question, $default = 'n', ?array $options = null)
+	public function ask(string $question, $default = 'n', ?array $options = null): mixed
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);
 

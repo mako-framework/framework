@@ -103,7 +103,7 @@ class Event
 	 * @param  array    $parameters Parameters
 	 * @return mixed
 	 */
-	protected function executeClosureHandler(Closure $handler, array $parameters)
+	protected function executeClosureHandler(Closure $handler, array $parameters): mixed
 	{
 		return $this->container->call($handler, $parameters);
 	}
@@ -126,7 +126,7 @@ class Event
 	 * @param  array                             $parameters Parameters
 	 * @return mixed
 	 */
-	protected function executeClassHandler(EventHandlerInterface $handler, array $parameters)
+	protected function executeClassHandler(EventHandlerInterface $handler, array $parameters): mixed
 	{
 		return $this->container->call([$handler, 'handle'], $parameters);
 	}
@@ -138,7 +138,7 @@ class Event
 	 * @param  array           $parameters Parameters
 	 * @return mixed
 	 */
-	protected function executeHandler($handler, array $parameters)
+	protected function executeHandler($handler, array $parameters): mixed
 	{
 		if($handler instanceof Closure)
 		{

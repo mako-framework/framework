@@ -77,7 +77,7 @@ abstract class AdapterManager
 	 * @param  array  $configuration Adapter configuration
 	 * @return mixed
 	 */
-	protected function factory(string $adapterName, array $configuration = [])
+	protected function factory(string $adapterName, array $configuration = []): mixed
 	{
 		if(method_exists($this, ($method = "{$adapterName}Factory")))
 		{
@@ -104,7 +104,7 @@ abstract class AdapterManager
 	 * @param  string $configuration Configuration name
 	 * @return mixed
 	 */
-	abstract protected function instantiate(string $configuration);
+	abstract protected function instantiate(string $configuration): mixed;
 
 	/**
 	 * Returns an instance of the chosen adapter configuration.
@@ -112,7 +112,7 @@ abstract class AdapterManager
 	 * @param  string|null $configuration Configuration name
 	 * @return mixed
 	 */
-	public function getInstance(?string $configuration = null)
+	public function getInstance(?string $configuration = null): mixed
 	{
 		$configuration ??= $this->default;
 
@@ -131,7 +131,7 @@ abstract class AdapterManager
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $name, array $arguments)
+	public function __call(string $name, array $arguments): mixed
 	{
 		return $this->getInstance()->$name(...$arguments);
 	}

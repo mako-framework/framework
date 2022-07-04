@@ -85,7 +85,7 @@ class Arr
 	 * @param  mixed  $default Default return value
 	 * @return mixed
 	 */
-	public static function get(array $array, string $path, $default = null)
+	public static function get(array $array, string $path, $default = null): mixed
 	{
 		$segments = explode('.', $path);
 
@@ -136,7 +136,7 @@ class Arr
 	 * @param  array $array Array you want to pick a random value from
 	 * @return mixed
 	 */
-	public static function random(array $array)
+	public static function random(array $array): mixed
 	{
 		return $array[array_rand($array)];
 	}

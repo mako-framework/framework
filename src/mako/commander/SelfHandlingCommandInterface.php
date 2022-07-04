@@ -17,5 +17,5 @@ interface SelfHandlingCommandInterface
 	 *
 	 * @return mixed
 	 */
-	public function handle();
+	public function handle(): mixed;
 }

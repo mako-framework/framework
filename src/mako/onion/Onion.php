@@ -187,7 +187,7 @@ class Onion
 	 * @param  array  $middlewareParameters Middleware parameters
 	 * @return mixed
 	 */
-	public function peel(object $object, array $parameters = [], array $middlewareParameters = [])
+	public function peel(object $object, array $parameters = [], array $middlewareParameters = []): mixed
 	{
 		$next = $this->buildCoreClosure($object);
 

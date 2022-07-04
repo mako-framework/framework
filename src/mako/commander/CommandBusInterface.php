@@ -31,5 +31,5 @@ interface CommandBusInterface
 	 * @param  array                                   $middleware Middleware
 	 * @return mixed
 	 */
-	public function dispatch($command, array $parameters = [], array $middleware = []);
+	public function dispatch($command, array $parameters = [], array $middleware = []): mixed;
 }

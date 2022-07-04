@@ -79,7 +79,7 @@ class Input
 	 * @param  mixed      $default Default value
 	 * @return mixed
 	 */
-	public function getArgument($name, $default = null)
+	public function getArgument($name, $default = null): mixed
 	{
 		return $this->arguments->getArgumentValue($name, $default);
 	}

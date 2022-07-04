@@ -510,7 +510,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return \mako\database\midgard\ORM|null
 	 */
-	public function first()
+	public function first(): mixed
 	{
 		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
 
@@ -528,7 +528,7 @@ class Query extends QueryBuilder
 	 * @param  string                     $exception Exception class
 	 * @return \mako\database\midgard\ORM
 	 */
-	public function firstOrThrow(string $exception = NotFoundException::class)
+	public function firstOrThrow(string $exception = NotFoundException::class): mixed
 	{
 		return $this->hydrateModelsAndLoadIncludes([$this->fetchFirstOrThrow($exception, PDO::FETCH_ASSOC)])[0];
 	}

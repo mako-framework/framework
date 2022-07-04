@@ -410,7 +410,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @return mixed
 	 */
-	public function getPrimaryKeyValue()
+	public function getPrimaryKeyValue(): mixed
 	{
 		return $this->columns[$this->primaryKey];
 	}
@@ -515,7 +515,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  mixed  $value Column value
 	 * @return mixed
 	 */
-	protected function cast(string $name, $value)
+	protected function cast(string $name, $value): mixed
 	{
 		if(isset($this->cast[$name]) && $value !== null)
 		{
@@ -586,7 +586,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getRawColumnValue(string $name)
+	public function getRawColumnValue(string $name): mixed
 	{
 		return $this->columns[$name];
 	}
@@ -597,7 +597,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getColumnValue(string $name)
+	public function getColumnValue(string $name): mixed
 	{
 		if(method_exists($this, "{$name}Accessor"))
 		{
@@ -624,7 +624,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function getValue(string $name)
+	public function getValue(string $name): mixed
 	{
 		if(array_key_exists($name, $this->columns))
 		{
@@ -739,7 +739,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $name Column name
 	 * @return mixed
 	 */
-	public function __get(string $name)
+	public function __get(string $name): mixed
 	{
 		return $this->getValue($name);
 	}
@@ -957,7 +957,7 @@ abstract class ORM implements JsonSerializable
 	 *
 	 * @return mixed
 	 */
-	protected function generatePrimaryKey()
+	protected function generatePrimaryKey(): mixed
 	{
 		throw new DatabaseException(vsprintf('The [ %s::generatePrimaryKey() ] method must be implemented.', [static::class]));
 	}
@@ -1168,10 +1168,9 @@ abstract class ORM implements JsonSerializable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 *
-	 * @return array
+	 * @return mixed
 	 */
-	#[\ReturnTypeWillChange]
-	public function jsonSerialize(): array
+	public function jsonSerialize(): mixed
 	{
 		return $this->toArray();
 	}
@@ -1204,7 +1203,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public function __call(string $name, array $arguments)
+	public function __call(string $name, array $arguments): mixed
 	{
 		return $this->getQuery()->$name(...$arguments);
 	}
@@ -1216,7 +1215,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  array  $arguments Method arguments
 	 * @return mixed
 	 */
-	public static function __callStatic(string $name, array $arguments)
+	public static function __callStatic(string $name, array $arguments): mixed
 	{
 		return (new static)->getQuery()->$name(...$arguments);
 	}

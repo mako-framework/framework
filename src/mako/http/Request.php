@@ -396,7 +396,7 @@ class Request
 	 * @param  mixed  $default Default value
 	 * @return mixed
 	 */
-	public function getAttribute(string $name, $default = null)
+	public function getAttribute(string $name, $default = null): mixed
 	{
 		return Arr::get($this->attributes, $name, $default);
 	}
@@ -823,7 +823,7 @@ class Request
 	 * @param  mixed $default Value to return if no referrer is set
 	 * @return mixed
 	 */
-	public function getReferrer($default = null)
+	public function getReferrer($default = null): mixed
 	{
 		return $this->headers->get('referer', $default); // Referrer should be left misspelled here as it's a part of the HTTP spec
 	}

@@ -28,7 +28,7 @@ class SelfHandlingCommand implements CommandInterface, SelfHandlingCommandInterf
 		$this->bar = $bar;
 	}
 
-	public function handle()
+	public function handle(): mixed
 	{
 		return [$this->foo, $this->bar];
 	}
@@ -48,7 +48,7 @@ class FooCommand implements CommandInterface
 
 class FooHandler implements CommandHandlerInterface
 {
-	public function handle(CommandInterface $command)
+	public function handle(CommandInterface $command): mixed
 	{
 		return [$command->foo, $command->bar];
 	}
@@ -66,7 +66,7 @@ class BarCommand implements CommandInterface
 
 class BarHandler implements CommandHandlerInterface
 {
-	public function handle(CommandInterface $command)
+	public function handle(CommandInterface $command): mixed
 	{
 		return $command->foo;
 	}
@@ -95,7 +95,7 @@ class Baz implements CommandInterface
 
 class BazHandler implements CommandHandlerInterface
 {
-	public function handle(CommandInterface $command)
+	public function handle(CommandInterface $command): mixed
 	{
 		return $command->baz;
 	}

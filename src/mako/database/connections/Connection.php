@@ -600,7 +600,7 @@ class Connection
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	public function first(string $query, array $params = [], ...$fetchMode)
+	public function first(string $query, array $params = [], ...$fetchMode): mixed
 	{
 		$statement = $this->prepareAndExecute($query, $params);
 
@@ -621,7 +621,7 @@ class Connection
 	 * @param  mixed  ...$fetchMode Fetch mode
 	 * @return mixed
 	 */
-	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, ...$fetchMode)
+	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, ...$fetchMode): mixed
 	{
 		if(($row = $this->first($query, $params, ...$fetchMode)) === null)
 		{
@@ -651,7 +651,7 @@ class Connection
 	 * @param  array  $params Query parameters
 	 * @return mixed
 	 */
-	public function column(string $query, array $params = [])
+	public function column(string $query, array $params = []): mixed
 	{
 		return $this->prepareAndExecute($query, $params)->fetch(PDO::FETCH_NUM)[0] ?? null;
 	}
@@ -822,7 +822,7 @@ class Connection
 	 * @param  \Closure $queries Queries
 	 * @return mixed
 	 */
-	public function transaction(Closure $queries)
+	public function transaction(Closure $queries): mixed
 	{
 		try
 		{

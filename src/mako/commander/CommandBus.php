@@ -122,7 +122,7 @@ class CommandBus implements CommandBusInterface
 	 * @param  \mako\commander\CommandInterface        $command Command
 	 * @return mixed
 	 */
-	protected function executeCommandHandler(CommandHandlerInterface $handler, CommandInterface $command)
+	protected function executeCommandHandler(CommandHandlerInterface $handler, CommandInterface $command): mixed
 	{
 		return $handler->handle($command);
 	}
@@ -133,7 +133,7 @@ class CommandBus implements CommandBusInterface
 	 * @param  \mako\commander\CommandInterface $command Command
 	 * @return mixed
 	 */
-	protected function handle(CommandInterface $command)
+	protected function handle(CommandInterface $command): mixed
 	{
 		if($command instanceof SelfHandlingCommandInterface)
 		{
@@ -171,7 +171,7 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function dispatch($command, array $parameters = [], array $middleware = [])
+	public function dispatch($command, array $parameters = [], array $middleware = []): mixed
 	{
 		$command = $this->resolveCommand($command, $parameters);
 
