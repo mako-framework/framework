@@ -184,7 +184,7 @@ class Route
 	 */
 	public function getMiddleware(): array
 	{
-		if($this->action instanceof Closure || PHP_VERSION_ID < 80000)
+		if($this->action instanceof Closure)
 		{
 			return $this->middleware;
 		}
@@ -205,7 +205,7 @@ class Route
 	 */
 	public function getConstraints(): array
 	{
-		if($this->action instanceof Closure || PHP_VERSION_ID < 80000)
+		if($this->action instanceof Closure)
 		{
 			return $this->constraints;
 		}

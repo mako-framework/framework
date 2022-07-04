@@ -385,11 +385,6 @@ class RouteTest extends TestCase
 	 */
 	public function testAttributeMiddleware(): void
 	{
-		if(PHP_VERSION_ID < 80000)
-		{
-			$this->markTestSkipped('This feature requires PHP 8.0+');
-		}
-
 		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
 
 		$route->middleware('foo0');
@@ -410,11 +405,6 @@ class RouteTest extends TestCase
 	 */
 	public function testAttributeConstraints(): void
 	{
-		if(PHP_VERSION_ID < 80000)
-		{
-			$this->markTestSkipped('This feature requires PHP 8.0+');
-		}
-
 		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
 
 		$route->constraint('bar0');

@@ -204,21 +204,6 @@ class ClassFinder
 	}
 
 	/**
-	 * Returns tokens that should be used to match namespace names.
-	 *
-	 * @return array
-	 */
-	protected function getNamespaceTokens(): array
-	{
-		if(PHP_VERSION_ID < 80000)
-		{
-			return [T_STRING, T_NS_SEPARATOR];
-		}
-
-		return [T_STRING, T_NAME_QUALIFIED];
-	}
-
-	/**
 	 * Finds the class in a PHP file.
 	 *
 	 * @param  string      $path Path to PHP file
@@ -226,8 +211,6 @@ class ClassFinder
 	 */
 	protected function findClassInFile(string $path): ?string
 	{
-		$namespaceTokens = $this->getNamespaceTokens();
-
 		$allowedClasslikeTokens = $this->getAllowedClasslikeTokens();
 
 		$tokens = token_get_all(php_strip_whitespace($path));
@@ -247,7 +230,7 @@ class ClassFinder
 			{
 				while(isset($tokens[++$i]) && is_array($tokens[$i]))
 				{
-					if(in_array($tokens[$i][0], $namespaceTokens))
+					if(in_array($tokens[$i][0], [T_STRING, T_NAME_QUALIFIED]))
 					{
 						$namespace .= $tokens[$i][1];
 					}
@@ -277,6 +260,7 @@ class ClassFinder
 	 */
 	protected function findClasses(): Generator
 	{
+		/** @var string $file */
 		foreach($this->finder->find() as $file)
 		{
 			if(($class = $this->findClassInFile($file)) !== null)
