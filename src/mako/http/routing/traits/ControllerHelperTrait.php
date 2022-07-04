@@ -39,10 +39,10 @@ trait ControllerHelperTrait
 	 * @param  array                                $routeParams Route parameters
 	 * @param  array                                $queryParams Associative array used to build URL-encoded query string
 	 * @param  string                               $separator   Argument separator
-	 * @param  mixed                                $language    Request language
+	 * @param  bool|string                          $language    Request language
 	 * @return \mako\http\response\senders\Redirect
 	 */
-	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', mixed $language = true): Redirect
+	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', bool|string $language = true): Redirect
 	{
 		if($this->routes->hasNamedRoute($location))
 		{
