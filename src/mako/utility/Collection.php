@@ -355,7 +355,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  int    $size Chunk size
 	 * @return static
 	 */
-	public function chunk(int $size)
+	public function chunk(int $size): static
 	{
 		$collections = [];
 
@@ -416,7 +416,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  callable $callable Callable
 	 * @return static
 	 */
-	public function map(callable $callable)
+	public function map(callable $callable): static
 	{
 		$keys = array_keys($this->items);
 
@@ -431,7 +431,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  callable|null $callable Filter
 	 * @return static
 	 */
-	public function filter(?callable $callable = null)
+	public function filter(?callable $callable = null): static
 	{
 		if($callable === null)
 		{
@@ -447,7 +447,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  array  $keys Keys
 	 * @return static
 	 */
-	public function with(array $keys)
+	public function with(array $keys): static
 	{
 		return new static(array_intersect_key($this->items, array_flip($keys)));
 	}
@@ -458,7 +458,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  array  $keys Keys
 	 * @return static
 	 */
-	public function without(array $keys)
+	public function without(array $keys): static
 	{
 		return new static(array_diff_key($this->items, array_flip($keys)));
 	}
@@ -469,7 +469,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  \mako\utility\Collection $collection Collection to merge
 	 * @return static
 	 */
-	public function merge(Collection $collection)
+	public function merge(Collection $collection): static
 	{
 		return new static(array_merge($this->items, $collection->getItems()));
 	}

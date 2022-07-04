@@ -62,7 +62,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return static
 	 */
-	public static function now($timeZone = null);
+	public static function now($timeZone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified date.

@@ -111,7 +111,7 @@ abstract class Application
 	 * @param  string $applicationPath Application path
 	 * @return static
 	 */
-	public static function start(string $applicationPath)
+	public static function start(string $applicationPath): static
 	{
 		if(!empty(static::$instance))
 		{
@@ -128,7 +128,7 @@ abstract class Application
 	 *
 	 * @return static
 	 */
-	public static function instance()
+	public static function instance(): static
 	{
 		if(empty(static::$instance))
 		{

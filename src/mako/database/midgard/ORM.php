@@ -787,7 +787,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  array       $columns Columns to select
 	 * @return static|null
 	 */
-	public static function get(mixed $id, array $columns = [])
+	public static function get(mixed $id, array $columns = []): ?static
 	{
 		return (new static)->getQuery()->get($id, $columns);
 	}
@@ -800,7 +800,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  string $exception Exception class
 	 * @return static
 	 */
-	public static function getOrThrow(mixed $id, array $columns = [], string $exception = NotFoundException::class)
+	public static function getOrThrow(mixed $id, array $columns = [], string $exception = NotFoundException::class): static
 	{
 		return (new static)->getQuery()->getOrThrow($id, $columns, $exception);
 	}
@@ -813,7 +813,7 @@ abstract class ORM implements JsonSerializable
 	 * @param  bool   $whitelist Remove columns that are not in the whitelist?
 	 * @return static
 	 */
-	public static function create(array $columns = [], bool $raw = false, bool $whitelist = true)
+	public static function create(array $columns = [], bool $raw = false, bool $whitelist = true): static
 	{
 		$model = new static($columns, $raw, $whitelist);
 

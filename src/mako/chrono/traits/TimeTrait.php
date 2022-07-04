@@ -42,7 +42,7 @@ trait TimeTrait
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return static
 	 */
-	public static function now($timeZone = null)
+	public static function now($timeZone = null): static
 	{
 		return new static('now', $timeZone);
 	}
