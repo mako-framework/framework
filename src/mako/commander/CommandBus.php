@@ -77,7 +77,7 @@ class CommandBus implements CommandBusInterface
 	 * @param  array                                   $parameters Parameters
 	 * @return \mako\commander\CommandInterface
 	 */
-	protected function resolveCommand($command, array $parameters): CommandInterface
+	protected function resolveCommand(CommandInterface|string $command, array $parameters): CommandInterface
 	{
 		if($command instanceof CommandInterface)
 		{

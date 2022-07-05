@@ -33,7 +33,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	 *
 	 * @param int|string $maxSize Max size
 	 */
-	public function __construct($maxSize)
+	public function __construct(int|string $maxSize)
 	{
 		$this->maxSize = $maxSize;
 	}
@@ -51,7 +51,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	 * @param  int|string $size Size
 	 * @return float|int
 	 */
-	protected function convertToBytes($size)
+	protected function convertToBytes(int|string $size): float|int
 	{
 		if(is_numeric($unit = substr($size, -3)) === false)
 		{

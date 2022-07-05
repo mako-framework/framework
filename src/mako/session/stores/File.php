@@ -47,7 +47,7 @@ class File implements StoreInterface
 	 * @param string                $sessionPath    Session path
 	 * @param array|bool            $classWhitelist Class whitelist
 	 */
-	public function __construct(FileSystem $fileSystem, $sessionPath, $classWhitelist = false)
+	public function __construct(FileSystem $fileSystem, string $sessionPath, array|bool $classWhitelist = false)
 	{
 		$this->fileSystem = $fileSystem;
 

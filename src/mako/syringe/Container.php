@@ -71,7 +71,7 @@ class Container
 	 * @param  array|string $hint Type hint or array contaning both type hint and alias
 	 * @return string
 	 */
-	protected function parseHint($hint): string
+	protected function parseHint(array|string $hint): string
 	{
 		if(is_array($hint))
 		{
@@ -90,7 +90,7 @@ class Container
 	 * @param \Closure|string $class     Class name or closure
 	 * @param bool            $singleton Should we return the same instance every time?
 	 */
-	public function register($hint, $class, bool $singleton = false): void
+	public function register(array|string $hint, Closure|string $class, bool $singleton = false): void
 	{
 		$this->hints[$this->parseHint($hint)] = ['class' => $class, 'singleton' => $singleton];
 	}
@@ -101,7 +101,7 @@ class Container
 	 * @param array|string    $hint  Type hint or array contaning both type hint and alias
 	 * @param \Closure|string $class Class name or closure
 	 */
-	public function registerSingleton($hint, $class): void
+	public function registerSingleton(array|string $hint, Closure|string $class): void
 	{
 		$this->register($hint, $class, true);
 	}
@@ -112,7 +112,7 @@ class Container
 	 * @param array|string $hint     Type hint or array contaning both type hint and alias
 	 * @param object       $instance Class instance
 	 */
-	public function registerInstance($hint, object $instance): void
+	public function registerInstance(array|string $hint, object $instance): void
 	{
 		$this->instances[$this->parseHint($hint)] = $instance;
 	}
@@ -124,7 +124,7 @@ class Container
 	 * @param string       $interface      Interface name
 	 * @param string       $implementation Implementation name
 	 */
-	public function registerContextualDependency($dependent, string $interface, string $implementation): void
+	public function registerContextualDependency(array|string $dependent, string $interface, string $implementation): void
 	{
 		if(is_array($dependent))
 		{
@@ -184,7 +184,7 @@ class Container
 	 * @param \Closure|string $class     Class name or closure
 	 * @param bool            $singleton Are we replacing a singleton?
 	 */
-	public function replace(string $hint, $class, bool $singleton = false): void
+	public function replace(string $hint, Closure|string $class, bool $singleton = false): void
 	{
 		$hint = $this->resolveAlias($hint);
 
@@ -209,7 +209,7 @@ class Container
 	 * @param string          $hint  Type hint
 	 * @param \Closure|string $class Class name or closure
 	 */
-	public function replaceSingleton(string $hint, $class): void
+	public function replaceSingleton(string $hint, Closure|string $class): void
 	{
 		$this->replace($hint, $class, true);
 	}
@@ -240,7 +240,7 @@ class Container
 	 * @param  string          $hint Type hint
 	 * @return \Closure|string
 	 */
-	protected function resolveHint(string $hint)
+	protected function resolveHint(string $hint): Closure|string
 	{
 		return $this->hints[$hint]['class'] ?? $hint;
 	}
@@ -472,7 +472,7 @@ class Container
 	 * @param  array           $parameters Constructor parameters
 	 * @return object
 	 */
-	public function factory($class, array $parameters = []): object
+	public function factory(Closure|string $class, array $parameters = []): object
 	{
 		// Instantiate class
 

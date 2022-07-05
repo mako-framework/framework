@@ -58,7 +58,7 @@ class Authorizer implements AuthorizerInterface
 	 * @param  object|string                                           $entity Entity instance or class name
 	 * @return \mako\gatekeeper\authorization\policies\PolicyInterface
 	 */
-	protected function policyFactory($entity): PolicyInterface
+	protected function policyFactory(object|string $entity): PolicyInterface
 	{
 		$entityClass = is_object($entity) ? $entity::class : $entity;
 

@@ -489,7 +489,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 * @param  array|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
-	public function include($includes)
+	public function include(array|string $includes)
 	{
 		(function ($includes, $model): void
 		{

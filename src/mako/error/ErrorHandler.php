@@ -169,7 +169,7 @@ class ErrorHandler
 	 *
 	 * @param \Closure|\Psr\Log\LoggerInterface $logger Logger
 	 */
-	public function setLogger($logger): void
+	public function setLogger(Closure|LoggerInterface $logger): void
 	{
 		$this->logger = $logger;
 	}
@@ -194,7 +194,7 @@ class ErrorHandler
 	 *
 	 * @param array|string $exceptionType Exception type or array of exception types
 	 */
-	public function dontLog($exceptionType): void
+	public function dontLog(array|string $exceptionType): void
 	{
 		$this->dontLog = array_unique([...$this->dontLog, ...(array) $exceptionType]);
 	}
@@ -214,7 +214,7 @@ class ErrorHandler
 	 * @param \Closure|string $handler       Exception handler
 	 * @param array           $parameters    Constructor parameters
 	 */
-	public function handle(string $exceptionType, $handler, array $parameters = []): void
+	public function handle(string $exceptionType, Closure|string $handler, array $parameters = []): void
 	{
 		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler, 'parameters' => $parameters]);
 	}
@@ -300,7 +300,7 @@ class ErrorHandler
 	 * @param  array           $parameters Constructor parameters
 	 * @return mixed
 	 */
-	protected function handleException(Throwable $exception, $handler, array $parameters): mixed
+	protected function handleException(Throwable $exception, Closure|string $handler, array $parameters): mixed
 	{
 		if($handler instanceof Closure)
 		{

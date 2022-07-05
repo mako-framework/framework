@@ -25,7 +25,7 @@ class ClassInspector
 	 * @param  bool          $autoload Should the class be autoloaded?
 	 * @return array
 	 */
-	public static function getParents($class, bool $autoload = true): array
+	public static function getParents(object|string $class, bool $autoload = true): array
 	{
 		return class_parents($class, $autoload);
 	}
@@ -37,7 +37,7 @@ class ClassInspector
 	 * @param  bool          $autoload Should the class be autoloaded?
 	 * @return array
 	 */
-	public static function getInterfaces($class, bool $autoload = true): array
+	public static function getInterfaces(object|string $class, bool $autoload = true): array
 	{
 		return class_implements($class, $autoload);
 	}
@@ -49,7 +49,7 @@ class ClassInspector
 	 * @param  bool          $autoload Should the class be autoloaded?
 	 * @return array
 	 */
-	public static function getTraits($class, bool $autoload = true): array
+	public static function getTraits(object|string $class, bool $autoload = true): array
 	{
 		// Fetch all traits used by a class and its parents
 

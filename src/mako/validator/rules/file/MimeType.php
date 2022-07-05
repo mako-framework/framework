@@ -31,7 +31,7 @@ class MimeType extends Rule implements RuleInterface
 	 *
 	 * @param array|string $mimeType Mime type or array of mime types
 	 */
-	public function __construct($mimeType)
+	public function __construct(array|string $mimeType)
 	{
 		$this->mimeTypes = (array) $mimeType;
 	}

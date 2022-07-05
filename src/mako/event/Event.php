@@ -47,7 +47,7 @@ class Event
 	 * @param string          $name    Event name
 	 * @param \Closure|string $handler Event handler
 	 */
-	public function register(string $name, $handler): void
+	public function register(string $name, Closure|string $handler): void
 	{
 		$this->events[$name][] = $handler;
 	}
@@ -89,7 +89,7 @@ class Event
 	 * @param string          $name    Event name
 	 * @param \Closure|string $handler Event handler
 	 */
-	public function override(string $name, $handler): void
+	public function override(string $name, Closure|string $handler): void
 	{
 		$this->clear($name);
 
@@ -138,7 +138,7 @@ class Event
 	 * @param  array           $parameters Parameters
 	 * @return mixed
 	 */
-	protected function executeHandler($handler, array $parameters): mixed
+	protected function executeHandler(Closure|string $handler, array $parameters): mixed
 	{
 		if($handler instanceof Closure)
 		{

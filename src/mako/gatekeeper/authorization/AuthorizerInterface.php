@@ -31,5 +31,5 @@ interface AuthorizerInterface
 	 * @param  mixed                                                   ...$parameters Additional parameters
 	 * @return bool
 	 */
-	public function can(?UserEntityInterface $user, string $action, $entity, mixed ...$parameters): bool;
+	public function can(?UserEntityInterface $user, string $action, object|string $entity, mixed ...$parameters): bool;
 }

@@ -362,7 +362,7 @@ class Validator
 	 * @param  bool|\Closure             $condition Condition
 	 * @return \mako\validator\Validator
 	 */
-	public function addRulesIf(string $field, array $ruleSet, $condition): Validator
+	public function addRulesIf(string $field, array $ruleSet, bool|Closure $condition): Validator
 	{
 		if($condition instanceof Closure)
 		{

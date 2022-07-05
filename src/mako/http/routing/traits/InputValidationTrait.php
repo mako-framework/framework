@@ -28,7 +28,7 @@ trait InputValidationTrait
 	 * @param  array|string $inputOrRules Input class name or an array of validation rules
 	 * @return array
 	 */
-	protected function getValidatedInput($inputOrRules): array
+	protected function getValidatedInput(array|string $inputOrRules): array
 	{
 		if(is_string($inputOrRules))
 		{
@@ -44,7 +44,7 @@ trait InputValidationTrait
 	 * @param  array|string $inputOrRules Input class name or an array of validation rules
 	 * @return array
 	 */
-	protected function getValidatedFiles($inputOrRules): array
+	protected function getValidatedFiles(array|string $inputOrRules): array
 	{
 		if(is_string($inputOrRules))
 		{

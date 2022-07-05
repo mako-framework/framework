@@ -39,7 +39,7 @@ trait AuthorizableTrait
 	 * @param  mixed         ...$parameters Additional parameters
 	 * @return bool
 	 */
-	public function can(string $action, $entity, mixed ...$parameters): bool
+	public function can(string $action, object|string $entity, mixed ...$parameters): bool
 	{
 		return $this->authorizer->can($this, $action, $entity, ...$parameters);
 	}

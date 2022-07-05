@@ -171,7 +171,7 @@ class Session extends Adapter
 	 * @param  bool        $force      Skip the password check?
 	 * @return int|true
 	 */
-	protected function authenticate($identifier, ?string $password, bool $force = false)
+	protected function authenticate(int|string $identifier, ?string $password, bool $force = false)
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
@@ -233,13 +233,13 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  int|string  $identifier User identifier
-	 * @param  string|null $password   User password
-	 * @param  bool        $remember   Set a remember me cookie?
-	 * @param  bool        $force      Login the user without checking the password?
+	 * @param  int|string|null $identifier User identifier
+	 * @param  string|null     $password   User password
+	 * @param  bool            $remember   Set a remember me cookie?
+	 * @param  bool            $force      Login the user without checking the password?
 	 * @return int|true
 	 */
-	public function login($identifier, ?string $password, bool $remember = false, bool $force = false)
+	public function login(int|string|null $identifier, ?string $password, bool $remember = false, bool $force = false)
 	{
 		if(empty($identifier))
 		{
@@ -276,7 +276,7 @@ class Session extends Adapter
 	 * @param  bool       $remember   Set a remember me cookie?
 	 * @return int|true
 	 */
-	public function forceLogin($identifier, bool $remember = false)
+	public function forceLogin(int|string $identifier, bool $remember = false)
 	{
 		return $this->login($identifier, null, $remember, true);
 	}

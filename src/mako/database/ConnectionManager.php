@@ -150,7 +150,7 @@ class ConnectionManager extends BaseConnectionManager
 	 * @param string       $driver Driver name
 	 * @param array|string $alias  Alias or array of aliases
 	 */
-	public function setDriverAlias(string $driver, $alias): void
+	public function setDriverAlias(string $driver, array|string $alias): void
 	{
 		$this->driverAliases[$driver] = (array) $alias;
 	}

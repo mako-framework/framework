@@ -63,7 +63,7 @@ class ResultSet extends BaseResultSet
 	 * @param  array|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
-	public function include($includes)
+	public function include(array|string $includes)
 	{
 		(function ($includes, $items): void
 		{

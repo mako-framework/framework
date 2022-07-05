@@ -138,7 +138,7 @@ class ViewFactory
 	 * @param  \Closure|string        $renderer  Renderer class or closure that creates a renderer instance
 	 * @return \mako\view\ViewFactory
 	 */
-	public function extend(string $extension, $renderer): ViewFactory
+	public function extend(string $extension, Closure|string $renderer): ViewFactory
 	{
 		$this->renderers = [$extension => $renderer] + $this->renderers;
 
@@ -233,7 +233,7 @@ class ViewFactory
 	 * @param  \Closure|string                        $renderer Renderer class or closure
 	 * @return \mako\view\renderers\RendererInterface
 	 */
-	protected function rendererFactory($renderer): RendererInterface
+	protected function rendererFactory(Closure|string $renderer): RendererInterface
 	{
 		return $renderer instanceof Closure ? $this->container->call($renderer) : $this->container->get($renderer);
 	}

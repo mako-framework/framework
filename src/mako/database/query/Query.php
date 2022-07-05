@@ -1446,7 +1446,7 @@ class Query
 	 * @param  mixed                                ...$fetchMode    Fetch mode
 	 * @return array|\mako\database\query\ResultSet
 	 */
-	protected function fetchAll(bool $returnResultSet, mixed ...$fetchMode)
+	protected function fetchAll(bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
 	{
 		$query = $this->compiler->select();
 

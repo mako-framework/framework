@@ -50,7 +50,7 @@ class CacheManager extends AdapterManager
 	 * @param \mako\syringe\Container $container      Container
 	 * @param array|bool              $classWhitelist Class whitelist
 	 */
-	public function __construct(string $default, array $configurations, Container $container, $classWhitelist = false)
+	public function __construct(string $default, array $configurations, Container $container, array|bool $classWhitelist = false)
 	{
 		parent::__construct($default, $configurations, $container);
 

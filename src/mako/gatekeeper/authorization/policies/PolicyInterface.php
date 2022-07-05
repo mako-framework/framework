@@ -22,5 +22,5 @@ interface PolicyInterface
 	 * @param  object|string                                           $entity Entity instance or class name
 	 * @return bool|null
 	 */
-	public function before(?UserEntityInterface $user, string $action, $entity): ?bool;
+	public function before(?UserEntityInterface $user, string $action, object|string $entity): ?bool;
 }

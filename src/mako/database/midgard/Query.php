@@ -241,7 +241,7 @@ class Query extends QueryBuilder
 	 * @param  array                           $columns Columns to select
 	 * @return \mako\database\midgard\ORM|null
 	 */
-	public function get($id, array $columns = [])
+	public function get(int|string $id, array $columns = [])
 	{
 		if(!empty($columns))
 		{
@@ -259,7 +259,7 @@ class Query extends QueryBuilder
 	 * @param  string                     $exception Exception class
 	 * @return \mako\database\midgard\ORM
 	 */
-	public function getOrThrow($id, array $columns = [], string $exception = NotFoundException::class)
+	public function getOrThrow(int|string $id, array $columns = [], string $exception = NotFoundException::class)
 	{
 		if(!empty($columns))
 		{
@@ -367,7 +367,7 @@ class Query extends QueryBuilder
 	 * @param  array|string $relations Relation or array of relations to count
 	 * @return $this
 	 */
-	public function withCountOf($relations)
+	public function withCountOf(array|string $relations)
 	{
 		foreach((array) $relations as $relation => $criteria)
 		{

@@ -86,7 +86,7 @@ class Join
 	 * @param  string                               $separator Condition separator
 	 * @return \mako\database\query\Join
 	 */
-	public function on($column1, ?string $operator = null, $column2 = null, string $separator = 'AND'): Join
+	public function on(Closure|string $column1, ?string $operator = null, Raw|string|null $column2 = null, string $separator = 'AND'): Join
 	{
 		if($column1 instanceof Closure)
 		{
@@ -126,7 +126,7 @@ class Join
 	 * @param  string                    $separator  Condition separator
 	 * @return \mako\database\query\Join
 	 */
-	public function onRaw($column1, string $operator, string $raw, array $parameters = [], string $separator = 'AND'): Join
+	public function onRaw(string $column1, string $operator, string $raw, array $parameters = [], string $separator = 'AND'): Join
 	{
 		return $this->on($column1, $operator, new Raw($raw, $parameters), $separator);
 	}
@@ -139,7 +139,7 @@ class Join
 	 * @param  \mako\database\query\Raw|string|null $column2  Column name
 	 * @return \mako\database\query\Join
 	 */
-	public function orOn($column1, ?string $operator = null, $column2 = null): Join
+	public function orOn(Closure|string $column1, ?string $operator = null, Raw|string|null $column2 = null): Join
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
 	}
@@ -153,7 +153,7 @@ class Join
 	 * @param  array                     $parameters Parameters
 	 * @return \mako\database\query\Join
 	 */
-	public function orOnRaw($column1, string $operator, string $raw, array $parameters = []): Join
+	public function orOnRaw(string $column1, string $operator, string $raw, array $parameters = []): Join
 	{
 		return $this->onRaw($column1, $operator, $raw, $parameters, 'OR');
 	}

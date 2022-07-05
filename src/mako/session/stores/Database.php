@@ -47,7 +47,7 @@ class Database implements StoreInterface
 	 * @param string                                $table          Database table
 	 * @param array|bool                            $classWhitelist Class whitelist
 	 */
-	public function __construct(Connection $connection, string $table, $classWhitelist = false)
+	public function __construct(Connection $connection, string $table, array|bool $classWhitelist = false)
 	{
 		$this->connection = $connection;
 

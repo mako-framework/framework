@@ -110,7 +110,7 @@ class Formatter implements FormatterInterface
 	 * @param string       $name  Style name
 	 * @param array|string $style Style or array of styles
 	 */
-	public function addStyle(string $name, $style): void
+	public function addStyle(string $name, array|string $style): void
 	{
 		$this->userStyles[$name] = (array) $style;
 	}

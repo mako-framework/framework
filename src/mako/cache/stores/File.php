@@ -50,7 +50,7 @@ class File extends Store
 	 * @param string                $cachePath      Cache path
 	 * @param array|bool            $classWhitelist Class whitelist
 	 */
-	public function __construct(FileSystem $fileSystem, string $cachePath, $classWhitelist = false)
+	public function __construct(FileSystem $fileSystem, string $cachePath, array|bool $classWhitelist = false)
 	{
 		$this->fileSystem = $fileSystem;
 

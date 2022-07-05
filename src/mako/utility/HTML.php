@@ -80,7 +80,7 @@ class HTML
 	 * @param  array        $attributes Tag attributes
 	 * @return string
 	 */
-	protected function buildMedia(string $type, $files, array $attributes): string
+	protected function buildMedia(string $type, array|string $files, array $attributes): string
 	{
 		$sources = '';
 
@@ -99,7 +99,7 @@ class HTML
 	 * @param  array        $attributes Tag attributes
 	 * @return string
 	 */
-	public function audio($files, array $attributes = []): string
+	public function audio(array|string $files, array $attributes = []): string
 	{
 		return $this->buildMedia('audio', $files, $attributes);
 	}
@@ -111,7 +111,7 @@ class HTML
 	 * @param  array        $attributes Tag attributes
 	 * @return string
 	 */
-	public function video($files, array $attributes = []): string
+	public function video(array|string $files, array $attributes = []): string
 	{
 		return $this->buildMedia('video', $files, $attributes);
 	}

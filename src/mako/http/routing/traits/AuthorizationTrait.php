@@ -24,7 +24,7 @@ trait AuthorizationTrait
 	 * @param object|string $entity        Entity instance or class name
 	 * @param mixed         ...$parameters Additional parameters
 	 */
-	protected function authorize(string $action, $entity, mixed ...$parameters): void
+	protected function authorize(string $action, object|string $entity, mixed ...$parameters): void
 	{
 		if($this->authorizer->can($this->gatekeeper->getUser(), $action, $entity, ...$parameters) === false)
 		{

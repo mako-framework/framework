@@ -26,5 +26,5 @@ interface GroupRepositoryInterface
 	 * @param  int|string                                                $identifier Group identifier
 	 * @return \mako\gatekeeper\entities\group\GroupEntityInterface|null
 	 */
-	public function getByIdentifier($identifier);
+	public function getByIdentifier(int|string $identifier);
 }

@@ -104,7 +104,7 @@ class Route
 	 * @param array|\Closure|string $action  Route action
 	 * @param string|null           $name    Route name
 	 */
-	public function __construct(array $methods, string $route, $action, ?string $name = null)
+	public function __construct(array $methods, string $route, array|Closure|string $action, ?string $name = null)
 	{
 		$this->methods = $methods;
 
@@ -142,7 +142,7 @@ class Route
 	 *
 	 * @return array|\Closure|string
 	 */
-	public function getAction()
+	public function getAction(): array|Closure|string
 	{
 		return $this->action;
 	}
@@ -286,7 +286,7 @@ class Route
 	 * @param  array|string             $middleware Middleware
 	 * @return \mako\http\routing\Route
 	 */
-	public function middleware($middleware): Route
+	public function middleware(array|string $middleware): Route
 	{
 		$this->middleware = [...$this->middleware, ...(array) $middleware];
 
@@ -299,7 +299,7 @@ class Route
 	 * @param  array|string             $constraint Constraint
 	 * @return \mako\http\routing\Route
 	 */
-	public function constraint($constraint): Route
+	public function constraint(array|string $constraint): Route
 	{
 		$this->constraints = [...$this->constraints, ...(array) $constraint];
 

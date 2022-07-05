@@ -27,7 +27,7 @@ trait InputValidationTrait
 	 * @param  array        $rules Validation rules
 	 * @return array
 	 */
-	protected function getValidatedInput($input, array $rules = []): array
+	protected function getValidatedInput(array|string $input, array $rules = []): array
 	{
 		if(is_string($input))
 		{

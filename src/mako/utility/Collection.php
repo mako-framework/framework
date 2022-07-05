@@ -102,7 +102,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed      $value Value
 	 * @return $this
 	 */
-	public function put($key, mixed $value)
+	public function put(int|string $key, mixed $value)
 	{
 		$this->items[$key] = $value;
 
@@ -115,7 +115,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  int|string $key Key
 	 * @return bool
 	 */
-	public function has($key): bool
+	public function has(int|string $key): bool
 	{
 		return array_key_exists($key, $this->items);
 	}
@@ -127,7 +127,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  mixed      $default Default value
 	 * @return mixed
 	 */
-	public function get($key, mixed $default = null): mixed
+	public function get(int|string $key, mixed $default = null): mixed
 	{
 		if(array_key_exists($key, $this->items))
 		{
@@ -143,7 +143,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param  int|string $key Key
 	 * @return $this
 	 */
-	public function remove($key)
+	public function remove(int|string $key)
 	{
 		unset($this->items[$key]);
 

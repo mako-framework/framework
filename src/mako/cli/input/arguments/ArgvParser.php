@@ -222,7 +222,7 @@ class ArgvParser
 	 * @param  bool|string                        $value    Value
 	 * @return bool|float|int|string
 	 */
-	protected function castValue(Argument $argument, ?string $token, $value)
+	protected function castValue(Argument $argument, ?string $token, bool|string $value): bool|float|int|string
 	{
 		if($argument->isInt())
 		{
@@ -253,7 +253,7 @@ class ArgvParser
 	 * @param string|null                        $token    Token
 	 * @param bool|string|null                   $value    Value
 	 */
-	protected function storeValue(Argument $argument, ?string $token, $value): void
+	protected function storeValue(Argument $argument, ?string $token, bool|string|null $value): void
 	{
 		if($value === null)
 		{

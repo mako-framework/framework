@@ -71,7 +71,7 @@ class Gatekeeper
 	 *
 	 * @param array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
 	 */
-	public function __construct($adapter)
+	public function __construct(array|AdapterInterface $adapter)
 	{
 		$this->defaultAdapter = $this->registerAdapter($adapter);
 	}
@@ -109,7 +109,7 @@ class Gatekeeper
 	 * @param  array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
 	 * @return string
 	 */
-	protected function registerAdapter($adapter): string
+	protected function registerAdapter(array|AdapterInterface $adapter): string
 	{
 		if($adapter instanceof AdapterInterface)
 		{
@@ -127,7 +127,7 @@ class Gatekeeper
 	 * @param  array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
 	 * @return \mako\gatekeeper\Gatekeeper
 	 */
-	public function extend($adapter): Gatekeeper
+	public function extend(array|AdapterInterface $adapter): Gatekeeper
 	{
 		$this->registerAdapter($adapter);
 

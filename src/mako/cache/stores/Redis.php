@@ -38,7 +38,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	 * @param \mako\redis\Redis $redis          Redis client
 	 * @param array|bool        $classWhitelist Class whitelist
 	 */
-	public function __construct(RedisClient $redis, $classWhitelist = false)
+	public function __construct(RedisClient $redis, array|bool $classWhitelist = false)
 	{
 		$this->redis = $redis;
 

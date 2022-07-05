@@ -262,7 +262,7 @@ class Dispatcher
 	 * @param  array               $parameters Parameters
 	 * @return \mako\http\Response
 	 */
-	protected function executeController($action, array $parameters): Response
+	protected function executeController(array|string $action, array $parameters): Response
 	{
 		[$controller, $method] = is_array($action) ? $action : [$action, '__invoke'];
 

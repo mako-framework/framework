@@ -33,7 +33,7 @@ class SessionService extends Service
 	 * @param  array|bool                    $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Database
 	 */
-	protected function getDatabaseStore(Container $container, array $config, $classWhitelist)
+	protected function getDatabaseStore(Container $container, array $config, array|bool $classWhitelist)
 	{
 		return new Database($container->get(DatabaseConnectionManager::class)->getConnection($config['configuration']), $config['table'], $classWhitelist);
 	}
@@ -46,7 +46,7 @@ class SessionService extends Service
 	 * @param  array|bool                $classWhitelist Class whitelist
 	 * @return \mako\session\stores\File
 	 */
-	protected function getFileStore(Container $container, array $config, $classWhitelist): File
+	protected function getFileStore(Container $container, array $config, array|bool $classWhitelist): File
 	{
 		return new File($container->get(FileSystem::class), $config['path'], $classWhitelist);
 	}
@@ -59,7 +59,7 @@ class SessionService extends Service
 	 * @param  array|bool                     $classWhitelist Class whitelist
 	 * @return \mako\session\stores\NullStore
 	 */
-	protected function getNullStore(Container $container, array $config, $classWhitelist): NullStore
+	protected function getNullStore(Container $container, array $config, array|bool $classWhitelist): NullStore
 	{
 		return new NullStore;
 	}
@@ -72,7 +72,7 @@ class SessionService extends Service
 	 * @param  array|bool                 $classWhitelist Class whitelist
 	 * @return \mako\session\stores\Redis
 	 */
-	protected function getRedisStore(Container $container, array $config, $classWhitelist): Redis
+	protected function getRedisStore(Container $container, array $config, array|bool $classWhitelist): Redis
 	{
 		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist);
 	}
@@ -85,7 +85,7 @@ class SessionService extends Service
 	 * @param  array|bool                          $classWhitelist Class whitelist
 	 * @return \mako\session\stores\StoreInterface
 	 */
-	protected function getStore(Container $container, array $config, $classWhitelist): StoreInterface
+	protected function getStore(Container $container, array $config, array|bool $classWhitelist): StoreInterface
 	{
 		$config = $config['configurations'][$config['configuration']];
 
