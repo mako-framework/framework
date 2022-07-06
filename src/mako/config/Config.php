@@ -19,20 +19,6 @@ use function strpos;
 class Config
 {
 	/**
-	 * Loader.
-	 *
-	 * @var \mako\config\loaders\LoaderInterface
-	 */
-	protected $loader;
-
-	/**
-	 * Environment name.
-	 *
-	 * @var string
-	 */
-	protected $environment;
-
-	/**
 	 * Configuration.
 	 *
 	 * @var array
@@ -45,12 +31,11 @@ class Config
 	 * @param \mako\config\loaders\LoaderInterface $loader      Config loader
 	 * @param string|null                          $environment Environment name
 	 */
-	public function __construct(LoaderInterface $loader, ?string $environment = null)
-	{
-		$this->loader = $loader;
-
-		$this->environment = $environment;
-	}
+	public function __construct(
+		protected LoaderInterface $loader,
+		protected ?string $environment = null
+	)
+	{}
 
 	/**
 	 * Returns the config loader.

@@ -26,34 +26,6 @@ use function simplexml_load_string;
 class ProductionHandler extends Handler implements HandlerInterface
 {
 	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Response instance.
-	 *
-	 * @var \mako\http\Response
-	 */
-	protected $response;
-
-	/**
-	 * View factory instance.
-	 *
-	 * @var \mako\view\ViewFactory|null
-	 */
-	protected $view;
-
-	/**
-	 * Cookies and headers to keep.
-	 *
-	 * @var array
-	 */
-	protected $keep;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\http\Request          $request  Request
@@ -61,20 +33,17 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 * @param \mako\view\ViewFactory|null $view     View factory
 	 * @param array                       $keep     Cookies and headers to keep
 	 */
-	public function __construct(Request $request, Response $response, ?ViewFactory $view = null, array $keep = [])
+	public function __construct(
+		protected Request $request,
+		protected Response $response,
+		protected ?ViewFactory $view = null,
+		protected array $keep = []
+	)
 	{
-		$this->request = $request;
-
-		$this->response = $response;
-
-		if($view !== null)
+		if($this->view !== null)
 		{
-			$this->view = $view;
-
 			$this->view->registerNamespace('mako-error', __DIR__ . '/views');
 		}
-
-		$this->keep = $keep;
 	}
 
 	/**

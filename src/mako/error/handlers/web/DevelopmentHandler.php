@@ -51,34 +51,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	public const SOURCE_PADDING = 6;
 
 	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Response instance.
-	 *
-	 * @var \mako\http\Response
-	 */
-	protected $response;
-
-	/**
-	 * Application instance.
-	 *
-	 * @var \mako\application\Application
-	 */
-	protected $app;
-
-	/**
-	 * Cookies and headers to keep.
-	 *
-	 * @var array
-	 */
-	protected $keep;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\http\Request            $request  Request
@@ -86,16 +58,13 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	 * @param \mako\application\Application $app      Application
 	 * @param array                         $keep     Cookies and headers to keep
 	 */
-	public function __construct(Request $request, Response $response, Application $app, array $keep = [])
-	{
-		$this->request = $request;
-
-		$this->response = $response;
-
-		$this->app = $app;
-
-		$this->keep = $keep;
-	}
+	public function __construct(
+		protected Request $request,
+		protected Response $response,
+		protected Application $app,
+		protected array $keep = []
+	)
+	{}
 
 	/**
 	 * Returns the exception type.

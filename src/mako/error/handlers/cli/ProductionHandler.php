@@ -17,21 +17,14 @@ use Throwable;
 class ProductionHandler implements HandlerInterface
 {
 	/**
-	 * Output.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output Output
 	 */
-	public function __construct(Output $output)
-	{
-		$this->output = $output;
-	}
+	public function __construct(
+		protected Output $output
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}
