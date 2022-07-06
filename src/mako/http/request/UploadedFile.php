@@ -20,53 +20,23 @@ use function vsprintf;
 class UploadedFile extends FileInfo
 {
 	/**
-	 * Filename.
-	 *
-	 * @var string
-	 */
-	protected $filename;
-
-	/**
-	 * File size.
-	 *
-	 * @var int
-	 */
-	protected $size;
-
-	/**
-	 * File mime type.
-	 *
-	 * @var string
-	 */
-	protected $type;
-
-	/**
-	 * File error code.
-	 *
-	 * @var int
-	 */
-	protected $errorCode;
-
-	/**
 	 * Constuctor.
 	 *
 	 * @param string $path      File path
-	 * @param string $name      Filename
+	 * @param string $filename  Filename
 	 * @param int    $size      File size
 	 * @param string $type      File mime type
 	 * @param int    $errorCode File error code
 	 */
-	public function __construct(string $path, string $name, int $size, string $type, int $errorCode)
+	public function __construct(
+		string $path,
+		protected string $filename,
+		protected int $size,
+		protected string $type,
+		protected int $errorCode
+	)
 	{
 		parent::__construct($path);
-
-		$this->filename = $name;
-
-		$this->size = $size;
-
-		$this->type = $type;
-
-		$this->errorCode = $errorCode;
 	}
 
 	/**

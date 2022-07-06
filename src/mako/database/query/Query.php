@@ -28,13 +28,6 @@ use function sprintf;
 class Query
 {
 	/**
-	 * Database connection.
-	 *
-	 * @var \mako\database\connections\Connection
-	 */
-	protected $connection;
-
-	/**
 	 * Query helper.
 	 *
 	 * @var \mako\database\query\helpers\HelperInterface
@@ -165,10 +158,10 @@ class Query
 	 *
 	 * @param \mako\database\connections\Connection $connection Database connection
 	 */
-	public function __construct(Connection $connection)
+	public function __construct(
+		protected Connection $connection
+	)
 	{
-		$this->connection = $connection;
-
 		$this->helper = $connection->getQueryBuilderHelper();
 
 		$this->compiler = $connection->getQueryCompiler($this);

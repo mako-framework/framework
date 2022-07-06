@@ -27,34 +27,6 @@ use function trim;
 class Route
 {
 	/**
-	 * Methods.
-	 *
-	 * @var array
-	 */
-	protected $methods;
-
-	/**
-	 * Route.
-	 *
-	 * @var string
-	 */
-	protected $route;
-
-	/**
-	 * Route action.
-	 *
-	 * @var array|\Closure|string
-	 */
-	protected $action;
-
-	/**
-	 * Route name.
-	 *
-	 * @var string
-	 */
-	protected $name;
-
-	/**
 	 * Route prefix.
 	 *
 	 * @var string
@@ -104,17 +76,14 @@ class Route
 	 * @param array|\Closure|string $action  Route action
 	 * @param string|null           $name    Route name
 	 */
-	public function __construct(array $methods, string $route, array|Closure|string $action, ?string $name = null)
+	public function __construct(
+		protected array $methods,
+		protected string $route,
+		protected array|Closure|string $action,
+		protected ?string $name = null
+	)
 	{
-		$this->methods = $methods;
-
-		$this->route = $route;
-
-		$this->action = $action;
-
-		$this->name = $name;
-
-		$this->hasTrailingSlash = (substr($route, -1) === '/');
+		$this->hasTrailingSlash = (substr($this->route, -1) === '/');
 	}
 
 	/**

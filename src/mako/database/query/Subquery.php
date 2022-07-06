@@ -15,39 +15,18 @@ use Closure;
 class Subquery
 {
 	/**
-	 * Builder closure.
-	 *
-	 * @var \Closure
-	 */
-	protected $query;
-
-	/**
-	 * Alias.
-	 *
-	 * @var string|null
-	 */
-	protected $alias = null;
-
-	/**
-	 * Does the subquery provide its own query builder instance?
-	 *
-	 * @var bool
-	 */
-	protected $providesBuilderInstance;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \Closure    $query                   Builder closure
 	 * @param string|null $alias                   Subquery alias
 	 * @param bool        $providesBuilderInstance Does the subquery provide its own query builder instance?
 	 */
-	public function __construct(Closure $query, ?string $alias = null, bool $providesBuilderInstance = false)
-	{
-		$this->query                   = $query;
-		$this->alias                   = $alias;
-		$this->providesBuilderInstance = $providesBuilderInstance;
-	}
+	public function __construct(
+		protected Closure $query,
+		protected ?string $alias = null,
+		protected bool $providesBuilderInstance = false
+	)
+	{}
 
 	/**
 	 * Sets the subquery alias.

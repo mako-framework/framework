@@ -16,31 +16,16 @@ use mako\cli\input\reader\ReaderInterface;
 class Input
 {
 	/**
-	 * Reader.
-	 *
-	 * @var \mako\cli\input\reader\ReaderInterface
-	 */
-	protected $reader;
-
-	/**
-	 * Arguments.
-	 *
-	 * @var \mako\cli\input\arguments\ArgvParser
-	 */
-	protected $arguments;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\reader\ReaderInterface $reader    Reader instance
 	 * @param \mako\cli\input\arguments\ArgvParser   $arguments Argument parser
 	 */
-	public function __construct(ReaderInterface $reader, ArgvParser $arguments)
-	{
-		$this->reader = $reader;
-
-		$this->arguments = $arguments;
-	}
+	public function __construct(
+		protected ReaderInterface $reader,
+		protected ArgvParser $arguments
+	)
+	{}
 
 	/**
 	 * Reads and returns user input.

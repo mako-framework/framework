@@ -16,21 +16,14 @@ use function sprintf;
 class In extends Rule implements RuleInterface
 {
 	/**
-	 * Allowed values.
-	 *
-	 * @var array
-	 */
-	protected $values;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array $values Allowed values
 	 */
-	public function __construct(array $values)
-	{
-		$this->values = $values;
-	}
+	public function __construct(
+		protected array $values
+	)
+	{}
 
 	/**
 	 * I18n parameters.

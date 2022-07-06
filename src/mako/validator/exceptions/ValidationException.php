@@ -22,13 +22,6 @@ use function rtrim;
 class ValidationException extends ValidatorException
 {
 	/**
-	 * Validation errors.
-	 *
-	 * @var array
-	 */
-	protected $errors;
-
-	/**
 	 * Input.
 	 *
 	 * @var \mako\validator\input\InputInterface|null
@@ -43,11 +36,13 @@ class ValidationException extends ValidatorException
 	 * @param int             $code     Exception message
 	 * @param \Throwable|null $previous Previous exception
 	 */
-	public function __construct(array $errors, string $message = '', int $code = 0, ?Throwable $previous = null)
+	public function __construct(
+		protected array $errors,
+		string $message = '',
+		int $code = 0, ?Throwable $previous = null
+	)
 	{
 		parent::__construct($message, $code, $previous);
-
-		$this->errors = $errors;
 	}
 
 	/**

@@ -17,31 +17,16 @@ use mako\security\Signer;
 class Crypto
 {
 	/**
-	 * Crypto adapter.
-	 *
-	 * @var \mako\security\crypto\encrypters\EncrypterInterface
-	 */
-	protected $adapter;
-
-	/**
-	 * Signer.
-	 *
-	 * @var \mako\security\Signer
-	 */
-	protected $signer;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\security\crypto\encrypters\EncrypterInterface $adapter Crypto adapter
 	 * @param \mako\security\Signer                               $signer  signer instance
 	 */
-	public function __construct(EncrypterInterface $adapter, Signer $signer)
-	{
-		$this->adapter = $adapter;
-
-		$this->signer = $signer;
-	}
+	public function __construct(
+		protected EncrypterInterface $adapter,
+		protected Signer $signer
+	)
+	{}
 
 	/**
 	 * Encrypts string.

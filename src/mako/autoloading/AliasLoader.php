@@ -16,21 +16,14 @@ use function class_alias;
 class AliasLoader
 {
 	/**
-	 * Class aliases.
-	 *
-	 * @var array
-	 */
-	protected $aliases;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array $aliases Class aliases
 	 */
-	public function __construct(array $aliases)
-	{
-		$this->aliases = $aliases;
-	}
+	public function __construct(
+		protected array $aliases
+	)
+	{}
 
 	/**
 	 * Autoloads aliased classes.

@@ -20,27 +20,6 @@ use function strpos;
 class URLBuilder
 {
 	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Route collection.
-	 *
-	 * @var \mako\http\routing\Routes
-	 */
-	protected $routes;
-
-	/**
-	 * Create "clean" URLs?
-	 *
-	 * @var bool
-	 */
-	protected $cleanURLs;
-
-	/**
 	 * Base URL.
 	 *
 	 * @var string
@@ -69,14 +48,13 @@ class URLBuilder
 	 * @param bool                      $cleanURLs Create "clean" URLs?
 	 * @param string|null               $baseURL   Base URL
 	 */
-	public function __construct(Request $request, Routes $routes, bool $cleanURLs = false, ?string $baseURL = null)
+	public function __construct(
+		protected Request $request,
+		protected Routes $routes,
+		protected bool $cleanURLs = false,
+		?string $baseURL = null
+	)
 	{
-		$this->request = $request;
-
-		$this->routes = $routes;
-
-		$this->cleanURLs = $cleanURLs;
-
 		$this->baseURL = $baseURL ?? $this->request->getBaseURL();
 
 		$this->scriptName = $request->getScriptName();

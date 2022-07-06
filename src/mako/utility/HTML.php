@@ -20,21 +20,14 @@ class HTML
 	use ExtendableTrait;
 
 	/**
-	 * Should we return XHTML?
-	 *
-	 * @var bool
-	 */
-	protected $xhtml;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param bool $xhtml Should we return HXML?
 	 */
-	public function __construct(bool $xhtml = false)
-	{
-		$this->xhtml = $xhtml;
-	}
+	public function __construct(
+		protected bool $xhtml = false
+	)
+	{}
 
 	/**
 	 * Takes an array of attributes and turns it into a string.

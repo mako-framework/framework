@@ -18,31 +18,16 @@ use function sprintf;
 class Hash extends Rule implements RuleInterface
 {
 	/**
-	 * Hash.
-	 *
-	 * @var string
-	 */
-	protected $hash;
-
-	/**
-	 * Algorithm.
-	 *
-	 * @var string
-	 */
-	protected $algorithm;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $hash      Hash
 	 * @param string $algorithm Algorithm
 	 */
-	public function __construct(string $hash, string $algorithm = 'sha256')
-	{
-		$this->hash = $hash;
-
-		$this->algorithm = $algorithm;
-	}
+	public function __construct(
+		protected string $hash,
+		protected string $algorithm = 'sha256'
+	)
+	{}
 
 	/**
 	 * I18n parameters.

@@ -44,27 +44,6 @@ use function vsprintf;
 class Connection
 {
 	/**
-	 * Connection name.
-	 *
-	 * @var string
-	 */
-	protected $name;
-
-	/**
-	 * Query compiler.
-	 *
-	 * @var string
-	 */
-	protected $queryCompiler;
-
-	/**
-	 * Query builder helper.
-	 *
-	 * @var string
-	 */
-	protected $queryBuilderHelper;
-
-	/**
 	 * Connection DSN.
 	 *
 	 * @var string
@@ -156,16 +135,13 @@ class Connection
 	 * @param string $queryBuilderHelper Query builder helper
 	 * @param array  $config             Connection configuration
 	 */
-	public function __construct(string $name, string $queryCompiler, string $queryBuilderHelper, array $config)
+	public function __construct(
+		protected string $name,
+		protected string $queryCompiler,
+		protected string $queryBuilderHelper,
+		array $config
+	)
 	{
-		$this->name = $name;
-
-		// Set the query compiler and query builder helper
-
-		$this->queryCompiler = $queryCompiler;
-
-		$this->queryBuilderHelper = $queryBuilderHelper;
-
 		// Configure the connection
 
 		$this->dsn = $config['dsn'];

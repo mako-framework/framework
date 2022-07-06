@@ -40,21 +40,14 @@ abstract class Migration
 	protected $description;
 
 	/**
-	 * Connection manager instance.
-	 *
-	 * @var \mako\database\ConnectionManager
-	 */
-	protected $database;
-
-	/**
 	 * Constructor.
 	 *
-	 * @param \mako\database\ConnectionManager $connectionManager Connection manager instance
+	 * @param \mako\database\ConnectionManager $database Connection manager instance
 	 */
-	public function __construct(ConnectionManager $connectionManager)
-	{
-		$this->database = $connectionManager;
-	}
+	public function __construct(
+		protected ConnectionManager $database
+	)
+	{}
 
 	/**
 	 * Returns the connection name.

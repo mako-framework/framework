@@ -21,13 +21,6 @@ use function vsprintf;
 class GroupRepository implements GroupRepositoryInterface
 {
 	/**
-	 * Model name.
-	 *
-	 * @var string
-	 */
-	protected $model;
-
-	/**
 	 * Group identifier.
 	 *
 	 * @var string
@@ -39,10 +32,10 @@ class GroupRepository implements GroupRepositoryInterface
 	 *
 	 * @param string $model Model name
 	 */
-	public function __construct(string $model)
-	{
-		$this->model = $model;
-	}
+	public function __construct(
+		protected string $model
+	)
+	{}
 
 	/**
 	 * Returns a model instance.

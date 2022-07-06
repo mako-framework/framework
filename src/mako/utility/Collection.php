@@ -47,21 +47,14 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	use ExtendableTrait;
 
 	/**
-	 * Collection items.
-	 *
-	 * @var array
-	 */
-	protected $items = [];
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array $items Collection items
 	 */
-	final public function __construct(array $items = [])
-	{
-		$this->items = $items;
-	}
+	final public function __construct(
+		protected array $items = []
+	)
+	{}
 
 	/**
 	 * Returns all the items in the collection.

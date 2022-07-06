@@ -13,21 +13,14 @@ namespace mako\database\types;
 abstract class Type implements TypeInterface
 {
 	/**
-	 * Value.
-	 *
-	 * @var mixed
-	 */
-	protected $value;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param mixed $value Value
 	 */
-	public function __construct(mixed $value)
-	{
-		$this->value = $value;
-	}
+	public function __construct(
+		protected mixed $value
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

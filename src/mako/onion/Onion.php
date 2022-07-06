@@ -35,13 +35,6 @@ class Onion
 	protected $method;
 
 	/**
-	 * Expected middleware interface.
-	 *
-	 * @var string|null
-	 */
-	protected $expectedInterface;
-
-	/**
 	 * Middleware layers.
 	 *
 	 * @var array
@@ -62,13 +55,15 @@ class Onion
 	 * @param string|null                  $method            Method to call on the decoracted class
 	 * @param string|null                  $expectedInterface Expected middleware interface
 	 */
-	public function __construct(?Container $container = null, ?string $method = null, ?string $expectedInterface = null)
+	public function __construct(
+		?Container $container = null,
+		?string $method = null,
+		protected ?string $expectedInterface = null
+	)
 	{
 		$this->container = $container ?? new Container;
 
 		$this->method = $method ?? 'handle';
-
-		$this->expectedInterface = $expectedInterface;
 	}
 
 	/**

@@ -30,16 +30,6 @@ class GeneratePreloader extends Command
 	protected $description = 'Generates a opcache preloader script.';
 
 	/**
-	 * @var \mako\application\Application
-	 */
-	protected $app;
-
-	/**
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\Input         $input      Input
@@ -47,13 +37,14 @@ class GeneratePreloader extends Command
 	 * @param \mako\application\Application $app        Application
 	 * @param \mako\file\FileSystem         $fileSystem File system
 	 */
-	public function __construct(Input $input, Output $output, Application $app, FileSystem $fileSystem)
+	public function __construct(
+		Input $input,
+		Output $output,
+		protected Application $app,
+		protected FileSystem $fileSystem
+	)
 	{
 		parent::__construct($input, $output);
-
-		$this->app = $app;
-
-		$this->fileSystem = $fileSystem;
 	}
 
 	/**

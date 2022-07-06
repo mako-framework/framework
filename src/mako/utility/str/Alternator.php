@@ -17,13 +17,6 @@ use function count;
 class Alternator implements Stringable
 {
 	/**
-	 * Strings.
-	 *
-	 * @var array
-	 */
-	protected $strings;
-
-	/**
 	 * String count.
 	 *
 	 * @var int
@@ -42,10 +35,10 @@ class Alternator implements Stringable
 	 *
 	 * @param array $strings Strings
 	 */
-	public function __construct(array $strings)
+	public function __construct(
+		protected array $strings
+	)
 	{
-		$this->strings = $strings;
-
 		$this->stringCount = count($strings);
 	}
 

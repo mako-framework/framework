@@ -372,13 +372,6 @@ class Redis
 	protected $commands = [];
 
 	/**
-	 * Redis connection.
-	 *
-	 * @var \mako\redis\Connection
-	 */
-	protected $connection;
-
-	/**
 	 * Cluster clients.
 	 *
 	 * @var array
@@ -405,10 +398,11 @@ class Redis
 	 * @param \mako\redis\Connection $connection Redis connection
 	 * @param array                  $options    Options
 	 */
-	final public function __construct(Connection $connection, array $options = [])
+	final public function __construct(
+		protected Connection $connection,
+		array $options = []
+	)
 	{
-		$this->connection = $connection;
-
 		// Switch protocol to RESP3
 
 		if(!empty($options['resp']) && $options['resp'] === static::RESP3)

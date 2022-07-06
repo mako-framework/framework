@@ -24,13 +24,6 @@ use function random_bytes;
 class ContentSecurityPolicy implements MiddlewareInterface
 {
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container;
-	 */
-	protected $container;
-
-	/**
 	 * Report to.
 	 *
 	 * @var array|null
@@ -75,10 +68,10 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 *
 	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(Container $container)
-	{
-		$this->container = $container;
-	}
+	public function __construct(
+		protected Container $container
+	)
+	{}
 
 	/**
 	 * Builds the "Report-To" header value.

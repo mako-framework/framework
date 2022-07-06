@@ -91,27 +91,6 @@ class InputValidation implements MiddlewareInterface
 	protected $dontInclude = ['password', 'password_confirmation'];
 
 	/**
-	 * URL builder.
-	 *
-	 * @var \mako\http\routing\URLBuilder
-	 */
-	protected $urlBuilder;
-
-	/**
-	 * Session.
-	 *
-	 * @var \mako\session\Session|null
-	 */
-	protected $session;
-
-	/**
-	 * View factory.
-	 *
-	 * @var \mako\view\ViewFactory|null
-	 */
-	protected $viewFactory;
-
-	/**
 	 * Request.
 	 *
 	 * @var \mako\http\Request
@@ -139,14 +118,12 @@ class InputValidation implements MiddlewareInterface
 	 * @param \mako\session\Session|null    $session     Session
 	 * @param \mako\view\ViewFactory|null   $viewFactory View factory
 	 */
-	public function __construct(URLBuilder $urlBuilder, ?Session $session = null, ?ViewFactory $viewFactory = null)
-	{
-		$this->urlBuilder = $urlBuilder;
-
-		$this->session = $session;
-
-		$this->viewFactory = $viewFactory;
-	}
+	public function __construct(
+		protected URLBuilder $urlBuilder,
+		protected ?Session $session = null,
+		protected ?ViewFactory $viewFactory = null
+	)
+	{}
 
 	/**
 	 * Set the input.

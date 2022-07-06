@@ -69,13 +69,6 @@ class Redirect implements ResponseSenderInterface
 	];
 
 	/**
-	 * Location.
-	 *
-	 * @var string
-	 */
-	protected $location;
-
-	/**
 	 * Status code.
 	 *
 	 * @var int
@@ -88,10 +81,11 @@ class Redirect implements ResponseSenderInterface
 	 * @param string $location   Location
 	 * @param int    $statusCode Status code
 	 */
-	public function __construct(string $location, int $statusCode = self::FOUND)
+	public function __construct(
+		protected string $location,
+		int $statusCode = self::FOUND
+	)
 	{
-		$this->location = $location;
-
 		$this->setStatus($statusCode);
 	}
 

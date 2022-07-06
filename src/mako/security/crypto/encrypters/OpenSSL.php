@@ -21,13 +21,6 @@ use function openssl_random_pseudo_bytes;
 class OpenSSL extends Encrypter implements EncrypterInterface
 {
 	/**
-	 * Key used to encrypt/decrypt string.
-	 *
-	 * @var string
-	 */
-	protected $key;
-
-	/**
 	 * The cipher method to use for encryption.
 	 *
 	 * @var string
@@ -47,10 +40,11 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 * @param string      $key    Encryption key
 	 * @param string|null $cipher Cipher
 	 */
-	public function __construct(string $key, ?string $cipher = null)
+	public function __construct(
+		protected string $key,
+		?string $cipher = null
+	)
 	{
-		$this->key = $key;
-
 		$this->cipher = $cipher ?? 'AES-256-CTR';
 
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);

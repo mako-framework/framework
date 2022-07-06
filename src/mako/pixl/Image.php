@@ -100,31 +100,16 @@ class Image
 	public const FLIP_HORIZONTAL = 31;
 
 	/**
-	 * Processor instance.
-	 *
-	 * @var \mako\pixl\processors\ProcessorInterface
-	 */
-	protected $processor;
-
-	/**
-	 * Path to image file.
-	 *
-	 * @var string
-	 */
-	protected $image;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string                                   $image     Path to image file
 	 * @param \mako\pixl\processors\ProcessorInterface $processor Processor instance
 	 */
-	public function __construct($image, ProcessorInterface $processor)
+	public function __construct(
+		protected $image,
+		protected ProcessorInterface $processor
+	)
 	{
-		$this->image = $image;
-
-		$this->processor = $processor;
-
 		// Make sure that the image exists
 
 		if(file_exists($this->image) === false)

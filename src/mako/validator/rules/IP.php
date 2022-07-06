@@ -19,21 +19,14 @@ use function vsprintf;
 class IP extends Rule implements RuleInterface
 {
 	/**
-	 * IP version.
-	 *
-	 * @var string|null
-	 */
-	protected $version;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string|null $version IP version
 	 */
-	public function __construct(?string $version = null)
-	{
-		$this->version = $version;
-	}
+	public function __construct(
+		protected ?string $version = null
+	)
+	{}
 
 	/**
 	 * I18n parameters.

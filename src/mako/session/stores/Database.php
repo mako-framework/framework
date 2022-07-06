@@ -20,41 +20,18 @@ use function unserialize;
 class Database implements StoreInterface
 {
 	/**
-	 * Database connection.
-	 *
-	 * @var \mako\database\connections\Connection
-	 */
-	protected $connection;
-
-	/**
-	 * Database table.
-	 *
-	 * @var string
-	 */
-	protected $table;
-
-	/**
-	 * Class whitelist.
-	 *
-	 * @var array|bool
-	 */
-	protected $classWhitelist;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\database\connections\Connection $connection     Database connection
 	 * @param string                                $table          Database table
 	 * @param array|bool                            $classWhitelist Class whitelist
 	 */
-	public function __construct(Connection $connection, string $table, array|bool $classWhitelist = false)
-	{
-		$this->connection = $connection;
-
-		$this->table = $table;
-
-		$this->classWhitelist = $classWhitelist;
-	}
+	public function __construct(
+		protected Connection $connection,
+		protected string $table,
+		protected array|bool $classWhitelist = false
+	)
+	{}
 
 	/**
 	 * Returns a query builder instance.

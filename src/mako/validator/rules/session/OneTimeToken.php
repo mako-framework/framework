@@ -20,21 +20,14 @@ class OneTimeToken extends Rule implements RuleInterface
 	use ValidatesWhenEmptyTrait;
 
 	/**
-	 * Session.
-	 *
-	 * @var \mako\session\Session
-	 */
-	protected $session;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\session\Session $session Session
 	 */
-	public function __construct(Session $session)
-	{
-		$this->session = $session;
-	}
+	public function __construct(
+		protected Session $session
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

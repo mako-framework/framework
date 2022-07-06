@@ -16,41 +16,18 @@ use Stringable;
 class View implements Stringable
 {
 	/**
-	 * View path.
-	 *
-	 * @var string
-	 */
-	protected $path;
-
-	/**
-	 * View variables.
-	 *
-	 * @var array
-	 */
-	protected $variables;
-
-	/**
-	 * View renderer instance.
-	 *
-	 * @var \mako\view\renderers\RendererInterface
-	 */
-	protected $renderer;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string                                 $path      View path
 	 * @param array                                  $variables View variables
 	 * @param \mako\view\renderers\RendererInterface $renderer  Renderer instance
 	 */
-	public function __construct(string $path, array $variables, RendererInterface $renderer)
-	{
-		$this->path = $path;
-
-		$this->variables = $variables;
-
-		$this->renderer = $renderer;
-	}
+	public function __construct(
+		protected string $path,
+		protected array $variables,
+		protected RendererInterface $renderer
+	)
+	{}
 
 	/**
 	 * Returns the assigned view variables.

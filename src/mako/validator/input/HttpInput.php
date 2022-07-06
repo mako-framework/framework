@@ -16,20 +16,6 @@ use mako\http\routing\URLBuilder;
 abstract class HttpInput extends Input implements HttpInputInterface
 {
 	/**
-	 * Request.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * URL builder.
-	 *
-	 * @var \mako\http\routing\URLBuilder
-	 */
-	protected $urlBuilder;
-
-	/**
 	 * Should we redirect the client if possible?
 	 *
 	 * @var bool
@@ -49,12 +35,11 @@ abstract class HttpInput extends Input implements HttpInputInterface
 	 * @param \mako\http\Request            $request    Request
 	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder
 	 */
-	public function __construct(Request $request, URLBuilder $urlBuilder)
-	{
-		$this->request = $request;
-
-		$this->urlBuilder = $urlBuilder;
-	}
+	public function __construct(
+		protected Request $request,
+		protected URLBuilder $urlBuilder
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

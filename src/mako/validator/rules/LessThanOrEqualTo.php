@@ -15,21 +15,14 @@ use function sprintf;
 class LessThanOrEqualTo extends Rule implements RuleInterface
 {
 	/**
-	 * Less than or equal to.
-	 *
-	 * @var mixed
-	 */
-	protected $lessThanOrEqualTo;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param mixed $lessThanOrEqualTo Less than or equal to
 	 */
-	public function __construct(mixed $lessThanOrEqualTo)
-	{
-		$this->lessThanOrEqualTo = $lessThanOrEqualTo;
-	}
+	public function __construct(
+		protected mixed $lessThanOrEqualTo
+	)
+	{}
 
 	/**
 	 * I18n parameters.

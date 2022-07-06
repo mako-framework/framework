@@ -32,27 +32,6 @@ class Template
 	public const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
 
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Path to compiled template.
-	 *
-	 * @var string
-	 */
-	protected $cachePath;
-
-	/**
-	 * Path to raw template.
-	 *
-	 * @var string
-	 */
-	protected $template;
-
-	/**
 	 * Verbatims.
 	 *
 	 * @var array
@@ -85,14 +64,12 @@ class Template
 	 * @param string                $cachePath  Cache path
 	 * @param string                $template   Path to template
 	 */
-	public function __construct(FileSystem $fileSystem, string $cachePath, string $template)
-	{
-		$this->fileSystem = $fileSystem;
-
-		$this->cachePath = $cachePath;
-
-		$this->template = $template;
-	}
+	public function __construct(
+		protected FileSystem $fileSystem,
+		protected string $cachePath,
+		protected string $template
+	)
+	{}
 
 	/**
 	 * Collects verbatim blocks and replaces them with a palceholder.

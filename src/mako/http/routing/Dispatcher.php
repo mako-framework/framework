@@ -41,20 +41,6 @@ class Dispatcher
 	public const MIDDLEWARE_DEFAULT_PRIORITY = 100;
 
 	/**
-	 * Request.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Response.
-	 *
-	 * @var \mako\http\Response
-	 */
-	protected $response;
-
-	/**
 	 * Container.
 	 *
 	 * @var \mako\syringe\Container
@@ -89,12 +75,12 @@ class Dispatcher
 	 * @param \mako\http\Response          $response  Response instance
 	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(Request $request, Response $response, ?Container $container = null)
+	public function __construct(
+		protected Request $request,
+		protected Response $response,
+		?Container $container = null
+	)
 	{
-		$this->request = $request;
-
-		$this->response = $response;
-
 		$this->container = $container ?? new Container;
 	}
 

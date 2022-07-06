@@ -18,21 +18,14 @@ use function is_int;
 class Dispatcher
 {
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(Container $container)
-	{
-		$this->container = $container;
-	}
+	public function __construct(
+		protected Container $container
+	)
+	{}
 
 	/**
 	 * Resolves the command.

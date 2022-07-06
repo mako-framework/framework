@@ -13,31 +13,16 @@ namespace mako\common\traits;
 trait ConfigurableTrait
 {
 	/**
-	 * Name of the default connection.
-	 *
-	 * @var string
-	 */
-	protected $default;
-
-	/**
-	 * Configurations.
-	 *
-	 * @var array
-	 */
-	protected $configurations;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $default        Default connection name
 	 * @param array  $configurations Configurations
 	 */
-	public function __construct(string $default, array $configurations)
-	{
-		$this->default = $default;
-
-		$this->configurations = $configurations;
-	}
+	public function __construct(
+		protected string $default,
+		protected array $configurations
+	)
+	{}
 
 	/**
 	 * Adds a configuration.

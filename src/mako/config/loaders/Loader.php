@@ -23,22 +23,16 @@ class Loader implements LoaderInterface
 	use NamespacedFileLoaderTrait;
 
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\file\FileSystem $fileSystem File system instance
 	 * @param string                $path       Default path
 	 */
-	public function __construct(FileSystem $fileSystem, string $path)
+	public function __construct(
+		protected FileSystem $fileSystem,
+		string $path
+	)
 	{
-		$this->fileSystem = $fileSystem;
-
 		$this->path = $path;
 	}
 

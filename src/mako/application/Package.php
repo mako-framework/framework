@@ -29,13 +29,6 @@ use function substr;
 abstract class Package
 {
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Package name.
 	 *
 	 * @var string
@@ -75,10 +68,10 @@ abstract class Package
 	 *
 	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(Container $container)
-	{
-		$this->container = $container;
-	}
+	public function __construct(
+		protected Container $container
+	)
+	{}
 
 	/**
 	 * Returns the package name.

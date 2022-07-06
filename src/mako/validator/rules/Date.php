@@ -17,21 +17,14 @@ use function sprintf;
 class Date extends Rule implements RuleInterface
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
-	 */
-	protected $format;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $format Date format
 	 */
-	public function __construct(string $format)
-	{
-		$this->format = $format;
-	}
+	public function __construct(
+		protected string $format
+	)
+	{}
 
 	/**
 	 * I18n parameters.

@@ -18,41 +18,18 @@ use function sprintf;
 class Hmac extends Rule implements RuleInterface
 {
 	/**
-	 * HMAC.
-	 *
-	 * @var string
-	 */
-	protected $hmac;
-
-	/**
-	 * Key.
-	 *
-	 * @var string
-	 */
-	protected $key;
-
-	/**
-	 * Algorithm.
-	 *
-	 * @var string
-	 */
-	protected $algorithm;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $hmac      Hmac
 	 * @param string $key       Key
 	 * @param string $algorithm Algorithm
 	 */
-	public function __construct(string $hmac, string $key, string $algorithm = 'sha256')
-	{
-		$this->hmac = $hmac;
-
-		$this->key = $key;
-
-		$this->algorithm = $algorithm;
-	}
+	public function __construct(
+		protected string $hmac,
+		protected string $key,
+		protected string $algorithm = 'sha256'
+	)
+	{}
 
 	/**
 	 * I18n parameters.

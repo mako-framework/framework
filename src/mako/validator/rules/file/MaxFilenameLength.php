@@ -20,21 +20,14 @@ use function sprintf;
 class MaxFilenameLength extends Rule implements RuleInterface
 {
 	/**
-	 * Max filename length.
-	 *
-	 * @var int
-	 */
-	protected $maxLength;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int $maxLength Max filename length
 	 */
-	public function __construct(int $maxLength)
-	{
-		$this->maxLength = $maxLength;
-	}
+	public function __construct(
+		protected int $maxLength
+	)
+	{}
 
 	/**
 	 * I18n parameters.

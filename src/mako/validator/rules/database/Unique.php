@@ -19,41 +19,6 @@ use function sprintf;
 class Unique extends Rule implements RuleInterface
 {
 	/**
-	 * Table.
-	 *
-	 * @var string
-	 */
-	protected $table;
-
-	/**
-	 * Column.
-	 *
-	 * @var string
-	 */
-	protected $column;
-
-	/**
-	 * Allowed value.
-	 *
-	 * @var mixed
-	 */
-	protected $allowed;
-
-	/**
-	 * Connection.
-	 *
-	 * @var string|null
-	 */
-	protected $connection;
-
-	/**
-	 * Connection manager.
-	 *
-	 * @var \mako\database\ConnectionManager
-	 */
-	protected $database;
-
-	/**
 	 * I18n parameters.
 	 *
 	 * @var array
@@ -69,18 +34,14 @@ class Unique extends Rule implements RuleInterface
 	 * @param string|null                      $connection Connection
 	 * @param \mako\database\ConnectionManager $database   Connection manager
 	 */
-	public function __construct(string $table, string $column, mixed $allowed, ?string $connection, ConnectionManager $database)
-	{
-		$this->table = $table;
-
-		$this->column = $column;
-
-		$this->allowed = $allowed;
-
-		$this->connection = $connection;
-
-		$this->database = $database;
-	}
+	public function __construct(
+		protected string $table,
+		protected string $column,
+		protected mixed $allowed,
+		protected ?string $connection,
+		protected ConnectionManager $database
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

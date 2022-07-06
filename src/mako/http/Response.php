@@ -38,13 +38,6 @@ class Response
 	public const DEFAULT_STATUS = 200;
 
 	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
 	 * Response body.
 	 *
 	 * @var mixed
@@ -57,13 +50,6 @@ class Response
 	 * @var string
 	 */
 	protected $contentType = 'text/html';
-
-	/**
-	 * Response character set.
-	 *
-	 * @var string
-	 */
-	protected $charset;
 
 	/**
 	 * Status code.
@@ -200,12 +186,12 @@ class Response
 	 * @param string                     $charset Response character set
 	 * @param \mako\security\Signer|null $signer  Signer instance used to sign cookies
 	 */
-	public function __construct(Request $request, string $charset = 'UTF-8', ?Signer $signer = null)
+	public function __construct(
+		protected Request $request,
+		protected string $charset = 'UTF-8',
+		?Signer $signer = null
+	)
 	{
-		$this->request = $request;
-
-		$this->charset = $charset;
-
 		$this->headers = new Headers;
 
 		$this->cookies = new Cookies($signer);

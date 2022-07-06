@@ -40,20 +40,6 @@ class I18n
 	public const NUMBER_TAG_REGEX = '/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu';
 
 	/**
-	 * Language loader.
-	 *
-	 * @var \mako\i18n\loaders\LoaderInterface
-	 */
-	protected $loader;
-
-	/**
-	 * Current language.
-	 *
-	 * @var string
-	 */
-	protected $language;
-
-	/**
 	 * Loaded language strings.
 	 *
 	 * @var array
@@ -73,12 +59,11 @@ class I18n
 	 * @param \mako\i18n\loaders\LoaderInterface $loader   Loader instance
 	 * @param string                             $language Default language pack name
 	 */
-	public function __construct(LoaderInterface $loader, string $language)
-	{
-		$this->loader = $loader;
-
-		$this->language = $language;
-	}
+	public function __construct(
+		protected LoaderInterface $loader,
+		protected string $language
+	)
+	{}
 
 	/**
 	 * Returns the language loader.

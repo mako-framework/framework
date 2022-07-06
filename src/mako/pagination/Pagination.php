@@ -22,27 +22,6 @@ use function max;
 class Pagination implements PaginationInterface
 {
 	/**
-	 * Number of items.
-	 *
-	 * @var int
-	 */
-	protected $items;
-
-	/**
-	 * Number of items per page.
-	 *
-	 * @var int
-	 */
-	protected $itemsPerPage;
-
-	/**
-	 * Current page.
-	 *
-	 * @var int
-	 */
-	protected $currentPage;
-
-	/**
 	 * Options.
 	 *
 	 * @var array
@@ -105,14 +84,13 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function __construct(int $items, int $itemsPerPage, int $currentPage, array $options = [])
+	public function __construct(
+		protected int $items,
+		protected int $itemsPerPage,
+		protected int $currentPage,
+		array $options = []
+	)
 	{
-		$this->items = $items;
-
-		$this->itemsPerPage = $itemsPerPage;
-
-		$this->currentPage = $currentPage;
-
 		$this->options = $options + $this->options;
 
 		// Calculate the number of pages

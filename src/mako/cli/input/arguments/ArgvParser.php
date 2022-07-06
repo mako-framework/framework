@@ -45,13 +45,6 @@ class ArgvParser
 	public const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
 
 	/**
-	 * Argv.
-	 *
-	 * @var array
-	 */
-	protected $argv;
-
-	/**
 	 * Arguments.
 	 *
 	 * @var array
@@ -92,10 +85,11 @@ class ArgvParser
 	 * @param array $argv      Argv
 	 * @param array $arguments Array of arguments
 	 */
-	public function __construct(array $argv, array $arguments = [])
+	public function __construct(
+		protected array $argv,
+		array $arguments = []
+	)
 	{
-		$this->argv = $argv;
-
 	   $this->addArguments($arguments);
 	}
 

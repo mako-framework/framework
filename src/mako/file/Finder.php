@@ -20,13 +20,6 @@ use RegexIterator;
 class Finder
 {
 	/**
-	 * The paths that we should search.
-	 *
-	 * @var array
-	 */
-	protected $paths;
-
-	/**
 	 * The pattern that the files should match.
 	 *
 	 * @var string
@@ -45,10 +38,10 @@ class Finder
 	 *
 	 * @param array $paths The paths that we should search
 	 */
-	public function __construct(array $paths)
-	{
-		$this->paths = $paths;
-	}
+	public function __construct(
+		protected array $paths
+	)
+	{}
 
 	/**
 	 * Sets a pattern that the files should match.

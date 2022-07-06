@@ -16,21 +16,14 @@ use function sprintf;
 class Regex extends Rule implements RuleInterface
 {
 	/**
-	 * Regex.
-	 *
-	 * @var string
-	 */
-	protected $regex;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $regex Regex
 	 */
-	public function __construct(string $regex)
-	{
-		$this->regex = $regex;
-	}
+	public function __construct(
+		protected string $regex
+	)
+	{}
 
 	/**
 	 * I18n parameters.

@@ -15,21 +15,14 @@ use function sprintf;
 class GreaterThan extends Rule implements RuleInterface
 {
 	/**
-	 * Greater than.
-	 *
-	 * @var mixed
-	 */
-	protected $greaterThan;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param mixed $greaterThan Greater than
 	 */
-	public function __construct(mixed $greaterThan)
-	{
-		$this->greaterThan = $greaterThan;
-	}
+	public function __construct(
+		protected mixed $greaterThan
+	)
+	{}
 
 	/**
 	 * I18n parameters.

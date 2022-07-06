@@ -23,13 +23,6 @@ abstract class AdapterManager
 	use ConfigurableTrait;
 
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Extensions.
 	 *
 	 * @var array
@@ -50,14 +43,12 @@ abstract class AdapterManager
 	 * @param array                   $configurations Configurations
 	 * @param \mako\syringe\Container $container      Container
 	 */
-	public function __construct(string $default, array $configurations, Container $container)
-	{
-		$this->default = $default;
-
-		$this->configurations = $configurations;
-
-		$this->container = $container;
-	}
+	public function __construct(
+		protected string $default,
+		protected array $configurations,
+		protected Container $container
+	)
+	{}
 
 	/**
 	 * Adds extension.

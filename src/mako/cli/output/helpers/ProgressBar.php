@@ -45,13 +45,6 @@ class ProgressBar
 	protected $filledTemplate = '=';
 
 	/**
-	 * Number of items.
-	 *
-	 * @var int
-	 */
-	protected $items;
-
-	/**
 	 * Minimum time between redraw in seconds.
 	 *
 	 * @var float
@@ -73,13 +66,6 @@ class ProgressBar
 	protected $progress = 0;
 
 	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Progress bar prefix.
 	 *
 	 * @var string
@@ -93,12 +79,12 @@ class ProgressBar
 	 * @param int                     $items                Total number of items
 	 * @param float                   $minTimeBetweenRedraw Minimum time between redraw in seconds
 	 */
-	public function __construct(Output $output, int $items, float $minTimeBetweenRedraw = 0.1)
+	public function __construct(
+		protected Output $output,
+		protected int $items,
+		float $minTimeBetweenRedraw = 0.1
+	)
 	{
-		$this->output = $output;
-
-		$this->items = $items;
-
 		$this->minTimeBetweenRedraw = max(min($minTimeBetweenRedraw, 1), 0.1);
 	}
 

@@ -21,31 +21,16 @@ class AspectRatio extends Rule implements RuleInterface
 	use GetImageSizeTrait;
 
 	/**
-	 * Width.
-	 *
-	 * @var int
-	 */
-	protected $width;
-
-	/**
-	 * Height.
-	 *
-	 * @var int
-	 */
-	protected $height;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int $width  Width
 	 * @param int $height Height
 	 */
-	public function __construct(int $width, int $height)
-	{
-		$this->width = $width;
-
-		$this->height = $height;
-	}
+	public function __construct(
+		protected int $width,
+		protected int $height
+	)
+	{}
 
 	/**
 	 * I18n parameters.

@@ -20,25 +20,18 @@ use function vsprintf;
 class Enum extends Rule implements RuleInterface
 {
 	/**
-	 * Enum.
-	 *
-	 * @var string
-	 */
-	protected $enum;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $enum Enum class
 	 */
-	public function __construct(string $enum)
+	public function __construct(
+		protected string $enum
+	)
 	{
-		if(enum_exists($enum) === false)
+		if(enum_exists($this->enum) === false)
 		{
-			throw new ValidatorException(vsprintf('[ %s ] is not a valid enum.', [$enum]));
+			throw new ValidatorException(vsprintf('[ %s ] is not a valid enum.', [$this->enum]));
 		}
-
-		$this->enum = $enum;
 	}
 
 	/**

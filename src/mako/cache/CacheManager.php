@@ -36,13 +36,6 @@ use function vsprintf;
 class CacheManager extends AdapterManager
 {
 	/**
-	 * Class whitelist.
-	 *
-	 * @var array|bool
-	 */
-	protected $classWhitelist;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string                  $default        Default connection name
@@ -50,11 +43,14 @@ class CacheManager extends AdapterManager
 	 * @param \mako\syringe\Container $container      Container
 	 * @param array|bool              $classWhitelist Class whitelist
 	 */
-	public function __construct(string $default, array $configurations, Container $container, array|bool $classWhitelist = false)
+	public function __construct(
+		string $default,
+		array $configurations,
+		Container $container,
+		protected array|bool $classWhitelist = false
+	)
 	{
 		parent::__construct($default, $configurations, $container);
-
-		$this->classWhitelist = $classWhitelist;
 	}
 
 	/**

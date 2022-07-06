@@ -19,31 +19,16 @@ use function trim;
 class Select
 {
 	/**
-	 * Input instance.
-	 *
-	 * @var \mako\cli\input\Input
-	 */
-	protected $input;
-
-	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\Input   $input  Input instance
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
-	public function __construct(Input $input, Output $output)
-	{
-		$this->input = $input;
-
-		$this->output = $output;
-	}
+	public function __construct(
+		protected Input $input,
+		protected Output $output
+	)
+	{}
 
 	/**
 	 * Returns a list of options.

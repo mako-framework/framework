@@ -23,41 +23,18 @@ use function unserialize;
 class File extends Store
 {
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Cache path.
-	 *
-	 * @var string
-	 */
-	protected $cachePath;
-
-	/**
-	 * Class whitelist.
-	 *
-	 * @var array|bool
-	 */
-	protected $classWhitelist;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\file\FileSystem $fileSystem     File system instance
 	 * @param string                $cachePath      Cache path
 	 * @param array|bool            $classWhitelist Class whitelist
 	 */
-	public function __construct(FileSystem $fileSystem, string $cachePath, array|bool $classWhitelist = false)
-	{
-		$this->fileSystem = $fileSystem;
-
-		$this->cachePath = $cachePath;
-
-		$this->classWhitelist = $classWhitelist;
-	}
+	public function __construct(
+		protected FileSystem $fileSystem,
+		protected string $cachePath,
+		protected array|bool $classWhitelist = false
+	)
+	{}
 
 	/**
 	 * Returns the path to the cache file.

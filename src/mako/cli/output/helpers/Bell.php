@@ -17,21 +17,14 @@ use function str_repeat;
 class Bell
 {
 	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
-	public function __construct(Output $output)
-	{
-		$this->output = $output;
-	}
+	public function __construct(
+		protected Output $output
+	)
+	{}
 
 	/**
 	 * Rings the terminal bell n times.

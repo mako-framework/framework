@@ -16,21 +16,14 @@ use function sprintf;
 class NotIn extends Rule implements RuleInterface
 {
 	/**
-	 * Disallowed values.
-	 *
-	 * @var array
-	 */
-	protected $values;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array $values Disallowed values
 	 */
-	public function __construct(array $values)
-	{
-		$this->values = $values;
-	}
+	public function __construct(
+		protected array $values
+	)
+	{}
 
 	/**
 	 * I18n parameters.

@@ -15,31 +15,16 @@ use function sprintf;
 class Between extends Rule implements RuleInterface
 {
 	/**
-	 * Minimum value.
-	 *
-	 * @var mixed
-	 */
-	protected $minimum;
-
-	/**
-	 * Maximum value.
-	 *
-	 * @var mixed
-	 */
-	protected $maximum;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param mixed $minimum Minimum value
 	 * @param mixed $maximum Maximum value
 	 */
-	public function __construct(mixed $minimum, mixed $maximum)
-	{
-		$this->minimum = $minimum;
-
-		$this->maximum = $maximum;
-	}
+	public function __construct(
+		protected mixed $minimum,
+		protected mixed $maximum
+	)
+	{}
 
 	/**
 	 * I18n parameters.

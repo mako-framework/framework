@@ -24,27 +24,6 @@ class Retry
 	protected $callable;
 
 	/**
-	 * The number of attempts.
-	 *
-	 * @var int
-	 */
-	protected $attempts;
-
-	/**
-	 * The time we want to want to wait between each attempt in microseconds.
-	 *
-	 * @var int
-	 */
-	protected $wait;
-
-	/**
-	 * Should the time between each attempt increase exponentially?
-	 *
-	 * @var bool
-	 */
-	protected $exponentialWait;
-
-	/**
 	 * Callable that decides whether or not we should retry.
 	 *
 	 * @var callable|null
@@ -60,15 +39,15 @@ class Retry
 	 * @param bool          $exponentialWait Should the time between each attempt increase exponentially?
 	 * @param callable|null $decider         Callable that decides whether or not we should retry
 	 */
-	public function __construct(callable $callable, $attempts = 5, $wait = 50000, bool $exponentialWait = false, ?callable $decider = null)
+	public function __construct(
+		callable $callable,
+		protected int $attempts = 5,
+		protected int $wait = 50000,
+		protected bool $exponentialWait = false,
+		?callable $decider = null
+	)
 	{
 		$this->callable = $callable;
-
-		$this->attempts = $attempts;
-
-		$this->wait = $wait;
-
-		$this->exponentialWait = $exponentialWait;
 
 		$this->decider = $decider;
 	}

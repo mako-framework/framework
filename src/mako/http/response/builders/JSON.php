@@ -19,39 +19,11 @@ use function preg_match;
 class JSON implements ResponseBuilderInterface
 {
 	/**
-	 * Data.
-	 *
-	 * @var mixed
-	 */
-	protected $data;
-
-	/**
-	 * JSON encode options.
-	 *
-	 * @var int
-	 */
-	protected $options;
-
-	/**
 	 * Callback.
 	 *
 	 * @var string|null
 	 */
 	protected $callback;
-
-	/**
-	 * Status code.
-	 *
-	 * @var int|null
-	 */
-	protected $statusCode;
-
-	/**
-	 * Character set.
-	 *
-	 * @var string|null
-	 */
-	protected $charset;
 
 	/**
 	 * Constructor.
@@ -61,16 +33,13 @@ class JSON implements ResponseBuilderInterface
 	 * @param int|null    $statusCode Status code
 	 * @param string|null $charset    Character set
 	 */
-	public function __construct(mixed $data, int $options = 0, ?int $statusCode = null, ?string $charset = null)
-	{
-		$this->data = $data;
-
-		$this->options = $options;
-
-		$this->statusCode = $statusCode;
-
-		$this->charset = $charset;
-	}
+	public function __construct(
+		protected mixed $data,
+		protected int $options = 0,
+		protected ?int $statusCode = null,
+		protected ?string $charset = null
+	)
+	{}
 
 	/**
 	 * Enables JSONP support.

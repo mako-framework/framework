@@ -23,20 +23,6 @@ use function vsprintf;
 class UserRepository implements UserRepositoryInterface
 {
 	/**
-	 * Model name.
-	 *
-	 * @var string
-	 */
-	protected $model;
-
-	/**
-	 * Authorizer.
-	 *
-	 * @var \mako\gatekeeper\authorization\AuthorizerInterface|null
-	 */
-	protected $authorizer;
-
-	/**
 	 * User identifier.
 	 *
 	 * @var string
@@ -49,12 +35,11 @@ class UserRepository implements UserRepositoryInterface
 	 * @param string                                                  $model      Model name
 	 * @param \mako\gatekeeper\authorization\AuthorizerInterface|null $authorizer Authorizer
 	 */
-	public function __construct(string $model, ?AuthorizerInterface $authorizer = null)
-	{
-		$this->model = $model;
-
-		$this->authorizer = $authorizer;
-	}
+	public function __construct(
+		protected string $model,
+		protected ?AuthorizerInterface $authorizer = null
+	)
+	{}
 
 	/**
 	 * Returns a model instance.

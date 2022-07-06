@@ -33,20 +33,6 @@ class Reactor
 	use SuggestionTrait;
 
 	/**
-	 * Input.
-	 *
-	 * @var \mako\cli\input\Input
-	 */
-	protected $input;
-
-	/**
-	 * Output.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Container.
 	 *
 	 * @var \mako\syringe\Container
@@ -82,12 +68,13 @@ class Reactor
 	 * @param \mako\syringe\Container|null  $container  Container
 	 * @param \mako\reactor\Dispatcher|null $dispatcher Command dispatcher
 	 */
-	public function __construct(Input $input, Output $output, ?Container $container = null, ?Dispatcher $dispatcher = null)
+	public function __construct(
+		protected Input $input,
+		protected Output $output,
+		?Container $container = null,
+		?Dispatcher $dispatcher = null
+	)
 	{
-		$this->input = $input;
-
-		$this->output = $output;
-
 		$this->container = $container ?? new Container;
 
 		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);

@@ -22,21 +22,14 @@ use function vsprintf;
 class MaxFileSize extends Rule implements RuleInterface
 {
 	/**
-	 * Max size.
-	 *
-	 * @var int|string
-	 */
-	protected $maxSize;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int|string $maxSize Max size
 	 */
-	public function __construct(int|string $maxSize)
-	{
-		$this->maxSize = $maxSize;
-	}
+	public function __construct(
+		protected int|string $maxSize
+	)
+	{}
 
 	/**
 	 * I18n parameters.

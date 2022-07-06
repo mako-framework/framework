@@ -25,20 +25,6 @@ class ViewFactory
 	use NamespacedFileLoaderTrait;
 
 	/**
-	 * File sytem.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Path.
-	 *
-	 * @var string
-	 */
-	protected $path;
-
-	/**
 	 * Charset.
 	 *
 	 * @var string
@@ -95,10 +81,13 @@ class ViewFactory
 	 * @param string                       $charset    Charset
 	 * @param \mako\syringe\Container|null $container  Container
 	 */
-	public function __construct(FileSystem $fileSystem, string $path, string $charset = 'UTF-8', ?Container $container = null)
+	public function __construct(
+		protected FileSystem $fileSystem,
+		string $path,
+		string $charset = 'UTF-8',
+		?Container $container = null
+	)
 	{
-		$this->fileSystem = $fileSystem;
-
 		$this->path = $path;
 
 		$this->globalVariables['__viewfactory__'] = $this;

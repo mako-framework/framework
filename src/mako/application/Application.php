@@ -72,13 +72,6 @@ abstract class Application
 	protected $language;
 
 	/**
-	 * Application path.
-	 *
-	 * @var string
-	 */
-	protected $applicationPath;
-
-	/**
 	 * Application storage path.
 	 *
 	 * @var string
@@ -97,11 +90,11 @@ abstract class Application
 	 *
 	 * @param string $applicationPath Application path
 	 */
-	final protected function __construct(string $applicationPath)
+	final protected function __construct(
+		protected string $applicationPath
+	)
 	{
 		$this->startTime = microtime(true);
-
-		$this->applicationPath = $applicationPath;
 	}
 
 	/**

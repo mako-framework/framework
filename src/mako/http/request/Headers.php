@@ -29,13 +29,6 @@ use function trim;
 class Headers implements Countable, IteratorAggregate
 {
 	/**
-	 * Headers.
-	 *
-	 * @var array
-	 */
-	protected $headers;
-
-	/**
 	 * Acceptable content types.
 	 *
 	 * @var array|null
@@ -68,10 +61,10 @@ class Headers implements Countable, IteratorAggregate
 	 *
 	 * @param array $headers Headers
 	 */
-	public function __construct(array $headers = [])
-	{
-		$this->headers = $headers;
-	}
+	public function __construct(
+		protected array $headers = []
+	)
+	{}
 
 	/**
 	 * Returns the numner of headers.

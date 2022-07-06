@@ -30,41 +30,18 @@ class Stream implements ResponseSenderInterface
 	protected $isCGI;
 
 	/**
-	 * Stream.
-	 *
-	 * @var \Closure
-	 */
-	protected $stream;
-
-	/**
-	 * Content type.
-	 *
-	 * @var string|null
-	 */
-	protected $contentType;
-
-	/**
-	 * Character set.
-	 *
-	 * @var string|null
-	 */
-	protected $charset;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \Closure    $stream      Stream
 	 * @param string|null $contentType Content type
 	 * @param string|null $charset     Character set
 	 */
-	public function __construct(Closure $stream, ?string $contentType = null, ?string $charset = null)
-	{
-		$this->stream = $stream;
-
-		$this->contentType = $contentType;
-
-		$this->charset = $charset;
-	}
+	public function __construct(
+		protected Closure $stream,
+		protected ?string $contentType = null,
+		protected ?string $charset = null
+	)
+	{}
 
 	/**
 	 * Sets the response content type.

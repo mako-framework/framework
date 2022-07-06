@@ -21,31 +21,16 @@ use function count;
 class Cookies implements Countable, IteratorAggregate
 {
 	/**
-	 * Cookies.
-	 *
-	 * @var array
-	 */
-	protected $cookies;
-
-	/**
-	 * Signer.
-	 *
-	 * @var \mako\security\Signer|null
-	 */
-	protected $signer;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array                      $cookies Cookies
 	 * @param \mako\security\Signer|null $signer  Signer
 	 */
-	public function __construct(array $cookies = [], ?Signer $signer = null)
-	{
-		$this->cookies = $cookies;
-
-		$this->signer = $signer;
-	}
+	public function __construct(
+		protected array $cookies = [],
+		protected ?Signer $signer = null
+	)
+	{}
 
 	/**
 	 * Returns the numner of cookies.

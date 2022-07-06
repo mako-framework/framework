@@ -16,21 +16,14 @@ use function sprintf;
 class ExactLength extends Rule implements RuleInterface
 {
 	/**
-	 * Length.
-	 *
-	 * @var int
-	 */
-	protected $length;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int $length Length
 	 */
-	public function __construct(int $length)
-	{
-		$this->length = $length;
-	}
+	public function __construct(
+		protected int $length
+	)
+	{}
 
 	/**
 	 * I18 parameters.

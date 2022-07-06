@@ -36,20 +36,6 @@ use function vsprintf;
 class File implements ResponseSenderInterface
 {
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * File path.
-	 *
-	 * @var string
-	 */
-	protected $filePath;
-
-	/**
 	 * File size.
 	 *
 	 * @var int
@@ -88,20 +74,19 @@ class File implements ResponseSenderInterface
 	 * Constructor.
 	 *
 	 * @param \mako\file\FileSystem $fileSystem FileSytem instance
-	 * @param string                $file       File path
+	 * @param string                $filePath   File path
 	 */
-	public function __construct(FileSystem $fileSystem, string $file)
+	public function __construct(
+		protected FileSystem $fileSystem,
+		protected string $filePath
+	)
 	{
-		$this->fileSystem = $fileSystem;
-
-		if($this->fileSystem->has($file) === false || $this->fileSystem->isReadable($file) === false)
+		if($this->fileSystem->has($this->filePath) === false || $this->fileSystem->isReadable($this->filePath) === false)
 		{
-			throw new HttpException(vsprintf('File [ %s ] is not readable.', [$file]));
+			throw new HttpException(vsprintf('File [ %s ] is not readable.', [$this->filePath]));
 		}
 
-		$this->filePath = $file;
-
-		$this->fileSize = $this->fileSystem->size($file);
+		$this->fileSize = $this->fileSystem->size($this->filePath);
 	}
 
 	/**

@@ -17,20 +17,6 @@ use function sprintf;
 class Before extends Rule implements RuleInterface
 {
 	/**
-	 * Date format.
-	 *
-	 * @var string
-	 */
-	protected $format;
-
-	/**
-	 * Date.
-	 *
-	 * @var string
-	 */
-	protected $date;
-
-	/**
 	 * I18n parameters.
 	 *
 	 * @var array
@@ -43,12 +29,11 @@ class Before extends Rule implements RuleInterface
 	 * @param string $format Date format
 	 * @param string $date   Date
 	 */
-	public function __construct(string $format, string $date)
-	{
-		$this->format = $format;
-
-		$this->date = $date;
-	}
+	public function __construct(
+		protected string $format,
+		protected string $date
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

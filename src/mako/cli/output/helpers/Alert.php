@@ -65,13 +65,6 @@ class Alert
 	public const DANGER = '<bg_red><white>%s</white></bg_red>';
 
 	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Alert width.
 	 *
 	 * @var int
@@ -91,10 +84,11 @@ class Alert
 	 * @param \mako\cli\output\Output $output Output instance
 	 * @param int|null                $width  Alert width
 	 */
-	public function __construct(Output $output, ?int $width = null)
+	public function __construct(
+		protected Output $output,
+		?int $width = null
+	)
 	{
-		$this->output = $output;
-
 		$this->width = $width ?? $output->getEnvironment()->getWidth();
 
 		$this->formatter = $output->getFormatter();

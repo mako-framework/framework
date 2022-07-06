@@ -24,24 +24,19 @@ abstract class Command extends BaseCommand
 	use SuggestionTrait;
 
 	/**
-	 * Configuration.
-	 *
-	 * @var \mako\config\Config
-	 */
-	protected $config;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\Input   $input  Input
 	 * @param \mako\cli\output\Output $output Output
 	 * @param \mako\config\Config     $config Config
 	 */
-	public function __construct(Input $input, Output $output, Config $config)
+	public function __construct(
+		Input $input,
+		Output $output,
+		protected Config $config
+	)
 	{
 		parent::__construct($input, $output);
-
-		$this->config = $config;
 	}
 
 	/**

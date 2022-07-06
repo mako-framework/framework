@@ -19,20 +19,6 @@ use function max;
 class PaginationFactory implements PaginationFactoryInterface
 {
 	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	protected $options;
-
-	/**
 	 * URL builder instance.
 	 *
 	 * @var \mako\http\routing\URLBuilder|null
@@ -52,12 +38,11 @@ class PaginationFactory implements PaginationFactoryInterface
 	 * @param \mako\http\Request $request Request
 	 * @param array              $options Options
 	 */
-	public function __construct(Request $request, array $options = [])
-	{
-		$this->request = $request;
-
-		$this->options = $options;
-	}
+	public function __construct(
+		protected Request $request,
+		protected array $options = []
+	)
+	{}
 
 	/**
 	 * Sets the URL builder instance.

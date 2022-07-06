@@ -24,21 +24,14 @@ class Signer
 	public const MAC_LENGTH = 64;
 
 	/**
-	 * Secret used to sign and validate strings.
-	 *
-	 * @var string
-	 */
-	protected $secret;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $secret Secret used to sign and validate strings
 	 */
-	public function __construct(string $secret)
-	{
-		$this->secret = $secret;
-	}
+	public function __construct(
+		protected string $secret
+	)
+	{}
 
 	/**
 	 * Returns the signature.

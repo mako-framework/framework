@@ -18,31 +18,16 @@ use function sprintf;
 class TimeZone extends Rule implements RuleInterface
 {
 	/**
-	 * Time zone group.
-	 *
-	 * @var int
-	 */
-	protected $group;
-
-	/**
-	 * Country code.
-	 *
-	 * @var string|null
-	 */
-	protected $country;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int         $group   Time zone group
 	 * @param string|null $country Country code
 	 */
-	public function __construct(int $group = DateTimeZone::ALL, ?string $country = null)
-	{
-		$this->group = $group;
-
-		$this->country = $country;
-	}
+	public function __construct(
+		protected int $group = DateTimeZone::ALL,
+		protected ?string $country = null
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

@@ -37,13 +37,6 @@ use function substr;
 class Query extends QueryBuilder
 {
 	/**
-	 * Instance of the model to hydrate.
-	 *
-	 * @var \mako\database\midgard\ORM
-	 */
-	protected $model;
-
-	/**
 	 * Class name of the model we're hydrating.
 	 *
 	 * @var string
@@ -63,11 +56,12 @@ class Query extends QueryBuilder
 	 * @param \mako\database\connections\Connection $connection Database connection
 	 * @param \mako\database\midgard\ORM            $model      Model to hydrate
 	 */
-	public function __construct(Connection $connection, ORM $model)
+	public function __construct(
+		Connection $connection,
+		protected ORM $model
+	)
 	{
 		parent::__construct($connection);
-
-		$this->model = $model;
 
 		$this->modelClass = $model->getClass();
 

@@ -43,34 +43,6 @@ class Session
 	protected $destroyed = false;
 
 	/**
-	 * Request.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Response.
-	 *
-	 * @var \mako\http\Response
-	 */
-	protected $response;
-
-	/**
-	 * Session store.
-	 *
-	 * @var \mako\session\stores\StoreInterface
-	 */
-	protected $store;
-
-	/**
-	 * Should the session data be commited automatically?
-	 *
-	 * @var bool
-	 */
-	protected $autoCommit;
-
-	/**
 	 * Session options.
 	 *
 	 * @var array
@@ -126,16 +98,14 @@ class Session
 	 * @param array                               $options    Session options
 	 * @param bool                                $autoCommit Should the session data be commited automatically?
 	 */
-	public function __construct(Request $request, Response $response, StoreInterface $store, array $options = [], $autoCommit = true)
+	public function __construct(
+		protected Request $request,
+		protected Response $response,
+		protected StoreInterface $store,
+		array $options = [],
+		protected $autoCommit = true
+	)
 	{
-		$this->request = $request;
-
-		$this->response = $response;
-
-		$this->store = $store;
-
-		$this->autoCommit = $autoCommit;
-
 		$this->options = array_replace_recursive($this->options, $options);
 
 		$this->gc();

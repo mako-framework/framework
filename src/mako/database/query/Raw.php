@@ -13,31 +13,16 @@ namespace mako\database\query;
 class Raw
 {
 	/**
-	 * Raw SQL.
-	 *
-	 * @var string
-	 */
-	protected $sql;
-
-	/**
-	 * Parameters.
-	 *
-	 * @var array
-	 */
-	protected $parameters = [];
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $sql        Raw SQL
 	 * @param array  $parameters Parameters
 	 */
-	public function __construct(string $sql, array $parameters = [])
-	{
-		$this->sql = $sql;
-
-		$this->parameters = $parameters;
-	}
+	public function __construct(
+		protected string $sql,
+		protected array $parameters = []
+	)
+	{}
 
 	/**
 	 * Returns the raw SQL.

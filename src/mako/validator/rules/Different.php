@@ -17,21 +17,14 @@ use function sprintf;
 class Different extends Rule implements RuleInterface
 {
 	/**
-	 * Field name.
-	 *
-	 * @var string
-	 */
-	protected $field;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $field Field name
 	 */
-	public function __construct(string $field)
-	{
-		$this->field = $field;
-	}
+	public function __construct(
+		protected string $field
+	)
+	{}
 
 	/**
 	 * I18n parameters.

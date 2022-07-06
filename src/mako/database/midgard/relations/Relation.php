@@ -31,20 +31,6 @@ abstract class Relation extends Query
 	public const EAGER_LOAD_CHUNK_SIZE = 900;
 
 	/**
-	 * Originating record.
-	 *
-	 * @var \mako\database\midgard\ORM
-	 */
-	protected $origin;
-
-	/**
-	 * Foreign key.
-	 *
-	 * @var string
-	 */
-	protected $foreignKey = null;
-
-	/**
 	 * Are we lazy load related records?
 	 *
 	 * @var bool
@@ -59,13 +45,14 @@ abstract class Relation extends Query
 	 * @param \mako\database\midgard\ORM            $model      Related model
 	 * @param string|null                           $foreignKey Foreign key name
 	 */
-	public function __construct(Connection $connection, ORM $origin, ORM $model, ?string $foreignKey = null)
+	public function __construct(
+		Connection $connection,
+		protected ORM $origin,
+		ORM $model,
+		protected ?string $foreignKey = null
+	)
 	{
 		parent::__construct($connection, $model);
-
-		$this->origin = $origin;
-
-		$this->foreignKey = $foreignKey;
 
 		if($origin->isPersisted())
 		{

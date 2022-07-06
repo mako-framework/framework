@@ -16,21 +16,14 @@ use function sprintf;
 class MaxLength extends Rule implements RuleInterface
 {
 	/**
-	 * Max length.
-	 *
-	 * @var int
-	 */
-	protected $maxLength;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int $maxLength Max length
 	 */
-	public function __construct(int $maxLength)
-	{
-		$this->maxLength = $maxLength;
-	}
+	public function __construct(
+		protected int $maxLength
+	)
+	{}
 
 	/**
 	 * I18n parameters.

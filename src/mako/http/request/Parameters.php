@@ -23,21 +23,14 @@ use function count;
 class Parameters implements Countable, IteratorAggregate
 {
 	/**
-	 * Parameters.
-	 *
-	 * @var array
-	 */
-	protected $parameters;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param array $parameters Parameters
 	 */
-	public function __construct(array $parameters = [])
-	{
-		$this->parameters = $parameters;
-	}
+	public function __construct(
+		protected array $parameters = []
+	)
+	{}
 
 	/**
 	 * Returns the numner of items in the collection.

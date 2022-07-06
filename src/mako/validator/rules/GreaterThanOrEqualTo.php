@@ -15,21 +15,14 @@ use function sprintf;
 class GreaterThanOrEqualTo extends Rule implements RuleInterface
 {
 	/**
-	 * Greater than or equal to.
-	 *
-	 * @var mixed
-	 */
-	protected $greaterThanOrEqualTo;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param mixed $greaterThanOrEqualTo Greater than or equal to
 	 */
-	public function __construct(mixed $greaterThanOrEqualTo)
-	{
-		$this->greaterThanOrEqualTo = $greaterThanOrEqualTo;
-	}
+	public function __construct(
+		protected mixed $greaterThanOrEqualTo
+	)
+	{}
 
 	/**
 	 * I18n parameters.

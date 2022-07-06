@@ -27,21 +27,14 @@ class Countdown
 	public const SLEEP_TIME = 250000;
 
 	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
-	public function __construct(Output $output)
-	{
-		$this->output = $output;
-	}
+	public function __construct(
+		protected Output $output
+	)
+	{}
 
 	/**
 	 * Delay execution by SLEEP_TIME microseconds.

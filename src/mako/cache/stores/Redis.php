@@ -19,31 +19,16 @@ use function unserialize;
 class Redis extends Store implements IncrementDecrementInterface
 {
 	/**
-	 * Redis client.
-	 *
-	 * @var \mako\redis\Redis
-	 */
-	protected $redis;
-
-	/**
-	 * Class whitelist.
-	 *
-	 * @var array|bool
-	 */
-	protected $classWhitelist;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\redis\Redis $redis          Redis client
 	 * @param array|bool        $classWhitelist Class whitelist
 	 */
-	public function __construct(RedisClient $redis, array|bool $classWhitelist = false)
-	{
-		$this->redis = $redis;
-
-		$this->classWhitelist = $classWhitelist;
-	}
+	public function __construct(
+		protected RedisClient $redis,
+		protected array|bool $classWhitelist = false
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

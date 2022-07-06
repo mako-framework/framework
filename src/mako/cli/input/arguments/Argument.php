@@ -72,13 +72,6 @@ class Argument
 	public const ALIAS_REGEX = '/^-[a-z]$/i';
 
 	/**
-	 * Argument name.
-	 *
-	 * @var string
-	 */
-	protected $name;
-
-	/**
 	 * Argument alias.
 	 *
 	 * @var string|null
@@ -91,13 +84,6 @@ class Argument
 	 * @var bool
 	 */
 	protected $isPositional;
-
-	/**
-	 * Argument description.
-	 *
-	 * @var string
-	 */
-	protected $description;
 
 	/**
 	 * Argument options.
@@ -121,9 +107,14 @@ class Argument
 	 * @param int    $options     Argument options
 	 * @param mixed  $default     Default return value (only used by optional arguments)
 	 */
-	public function __construct(string $name, string $description = '', int $options = 0, mixed $default = null)
+	public function __construct(
+		protected string $name,
+		protected string $description = '',
+		int $options = 0,
+		mixed $default = null
+	)
 	{
-		[$name, $alias, $isPositional] = $this->parseName($name);
+		[$name, $alias, $isPositional] = $this->parseName($this->name);
 
 		$this->name = $name;
 

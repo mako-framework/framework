@@ -24,20 +24,6 @@ use function str_replace;
 class Template extends PHP
 {
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Cache path.
-	 *
-	 * @var string
-	 */
-	protected $cachePath;
-
-	/**
 	 * Template blocks.
 	 *
 	 * @var array
@@ -57,12 +43,11 @@ class Template extends PHP
 	 * @param \mako\file\FileSystem $fileSystem File system instance
 	 * @param string                $cachePath  Cache path
 	 */
-	public function __construct(FileSystem $fileSystem, string $cachePath)
-	{
-		$this->fileSystem = $fileSystem;
-
-		$this->cachePath = $cachePath;
-	}
+	public function __construct(
+		protected FileSystem $fileSystem,
+		protected string $cachePath
+	)
+	{}
 
 	/**
 	 * Returns the path to the compiled template.

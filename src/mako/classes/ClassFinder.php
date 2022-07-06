@@ -31,13 +31,6 @@ class ClassFinder
 	public const PHP_FILENAME_PATTERN = '/\.php$/';
 
 	/**
-	 * Finder instance.
-	 *
-	 * @var \mako\file\Finder
-	 */
-	protected $finder;
-
-	/**
 	 * Should classes be included?
 	 *
 	 * @var bool
@@ -70,14 +63,14 @@ class ClassFinder
 	 *
 	 * @param \mako\file\Finder $finder Finder instance
 	 */
-	public function __construct(Finder $finder)
+	public function __construct(
+		protected Finder $finder
+	)
 	{
-		if($finder->getPattern() === null)
+		if($this->finder->getPattern() === null)
 		{
-			$finder->setPattern(static::PHP_FILENAME_PATTERN);
+			$this->finder->setPattern(static::PHP_FILENAME_PATTERN);
 		}
-
-		$this->finder = $finder;
 	}
 
 	/**

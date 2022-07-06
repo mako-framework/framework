@@ -16,20 +16,6 @@ use mako\syringe\Container;
 class ValidatorFactory
 {
 	/**
-	 * I18n instance.
-	 *
-	 * @var \mako\i18n\I18n|null
-	 */
-	protected $i18n;
-
-	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container|null
-	 */
-	protected $container;
-
-	/**
 	 * Custom rules.
 	 *
 	 * @var array
@@ -42,12 +28,11 @@ class ValidatorFactory
 	 * @param \mako\i18n\I18n|null         $i18n      I18n instance
 	 * @param \mako\syringe\Container|null $container Container
 	 */
-	public function __construct(?I18n $i18n = null, ?Container $container = null)
-	{
-		$this->i18n = $i18n;
-
-		$this->container = $container;
-	}
+	public function __construct(
+		protected ?I18n $i18n = null,
+		protected ?Container $container = null
+	)
+	{}
 
 	/**
 	 * Registers a custom validation rule.

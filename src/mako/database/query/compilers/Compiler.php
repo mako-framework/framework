@@ -46,13 +46,6 @@ class Compiler
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * Query builder.
-	 *
-	 * @var \mako\database\query\Query
-	 */
-	protected $query;
-
-	/**
 	 * Query parameters.
 	 *
 	 * @var array
@@ -64,10 +57,10 @@ class Compiler
 	 *
 	 * @param \mako\database\query\Query $query Query builder
 	 */
-	public function __construct(Query $query)
-	{
-		$this->query = $query;
-	}
+	public function __construct(
+		protected Query $query
+	)
+	{}
 
 	/**
 	 * Sets the date format.

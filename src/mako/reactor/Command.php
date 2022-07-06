@@ -19,20 +19,6 @@ abstract class Command implements CommandInterface
 	use CommandHelperTrait;
 
 	/**
-	 * Input.
-	 *
-	 * @var \mako\cli\input\Input
-	 */
-	protected $input;
-
-	/**
-	 * Output.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Command.
 	 *
 	 * @var string|null
@@ -52,12 +38,11 @@ abstract class Command implements CommandInterface
 	 * @param \mako\cli\input\Input   $input  Input
 	 * @param \mako\cli\output\Output $output Output
 	 */
-	public function __construct(Input $input, Output $output)
-	{
-		$this->input = $input;
-
-		$this->output = $output;
-	}
+	public function __construct(
+		protected Input $input,
+		protected Output $output
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

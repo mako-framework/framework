@@ -31,34 +31,6 @@ use function usort;
 abstract class Command extends BaseCommand
 {
 	/**
-	 * Application.
-	 *
-	 * @var \mako\application\Application
-	 */
-	protected $application;
-
-	/**
-	 * File system.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Connection manager.
-	 *
-	 * @var \mako\database\ConnectionManager
-	 */
-	protected $database;
-
-	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\cli\input\Input            $input       Input
@@ -68,15 +40,16 @@ abstract class Command extends BaseCommand
 	 * @param \mako\database\ConnectionManager $database    Connection manager
 	 * @param \mako\syringe\Container          $container   Container
 	 */
-	public function __construct(Input $input, Output $output, Application $application, FileSystem $fileSystem, ConnectionManager $database, Container $container)
+	public function __construct(
+		Input $input,
+		Output $output,
+		protected Application $application,
+		protected FileSystem $fileSystem,
+		protected ConnectionManager $database,
+		Container $container
+	)
 	{
 		parent::__construct($input, $output);
-
-		$this->application = $application;
-
-		$this->fileSystem = $fileSystem;
-
-		$this->database = $database;
 
 		$this->container = $container;
 	}

@@ -27,13 +27,6 @@ class OrderedList
 	protected $padding = '  ';
 
 	/**
-	 * Output instance.
-	 *
-	 * @var \mako\cli\output\Output
-	 */
-	protected $output;
-
-	/**
 	 * Formatter instance.
 	 *
 	 * @var \mako\cli\output\formatter\FormatterInterface|null
@@ -45,10 +38,10 @@ class OrderedList
 	 *
 	 * @param \mako\cli\output\Output $output Output instance
 	 */
-	public function __construct(Output $output)
+	public function __construct(
+		protected Output $output
+	)
 	{
-		$this->output = $output;
-
 		$this->formatter = $output->getFormatter();
 	}
 

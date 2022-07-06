@@ -33,27 +33,6 @@ class Output
 	public const ERROR = 2;
 
 	/**
-	 * Standard writer.
-	 *
-	 * @var \mako\cli\output\writer\WriterInterface
-	 */
-	protected $standard;
-
-	/**
-	 * Error writer.
-	 *
-	 * @var \mako\cli\output\writer\WriterInterface
-	 */
-	protected $error;
-
-	/**
-	 * Formatter.
-	 *
-	 * @var \mako\cli\output\formatter\FormatterInterface|null
-	 */
-	protected $formatter;
-
-	/**
 	 * Environment.
 	 *
 	 * @var \mako\cli\Environment
@@ -75,14 +54,13 @@ class Output
 	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter   Formatter
 	 * @param \mako\cli\Environment|null                         $environment Environment
 	 */
-	public function __construct(WriterInterface $standard, WriterInterface $error, ?FormatterInterface $formatter = null, ?Environment $environment = null)
+	public function __construct(
+		protected WriterInterface $standard,
+		protected WriterInterface $error,
+		protected ?FormatterInterface $formatter = null,
+		?Environment $environment = null
+	)
 	{
-		$this->standard = $standard;
-
-		$this->error = $error;
-
-		$this->formatter = $formatter;
-
 		$this->environment = $environment ?? new Environment;
 	}
 

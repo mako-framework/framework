@@ -25,20 +25,6 @@ use function strpos;
 class ManyToMany extends Relation
 {
 	/**
-	 * Junction table.
-	 *
-	 * @var string
-	 */
-	protected $junctionTable = null;
-
-	/**
-	 * Junction key.
-	 *
-	 * @var string
-	 */
-	protected $junctionKey = null;
-
-	/**
 	 * Junction columns to include in the result.
 	 *
 	 * @var array
@@ -55,12 +41,15 @@ class ManyToMany extends Relation
 	 * @param string|null                           $junctionTable Junction table name
 	 * @param string|null                           $junctionKey   Junction key name
 	 */
-	public function __construct(Connection $connection, ORM $origin, ORM $model, ?string $foreignKey = null, ?string $junctionTable = null, ?string $junctionKey = null)
+	public function __construct(
+		Connection $connection,
+		ORM $origin,
+		ORM $model,
+		?string $foreignKey = null,
+		protected ?string $junctionTable = null,
+		protected ?string $junctionKey = null
+	)
 	{
-		$this->junctionTable = $junctionTable;
-
-		$this->junctionKey = $junctionKey;
-
 		parent::__construct($connection, $origin, $model, $foreignKey);
 
 		$this->junctionJoin();

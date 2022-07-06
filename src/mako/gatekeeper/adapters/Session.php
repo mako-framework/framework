@@ -27,27 +27,6 @@ use function array_replace_recursive;
 class Session extends Adapter
 {
 	/**
-	 * Request instance.
-	 *
-	 * @var \mako\http\Request
-	 */
-	protected $request;
-
-	/**
-	 * Response instance.
-	 *
-	 * @var \mako\http\Response
-	 */
-	protected $response;
-
-	/**
-	 * Session instance.
-	 *
-	 * @var \mako\session\Session
-	 */
-	protected $session;
-
-	/**
 	 * Adapter options.
 	 *
 	 * @var array
@@ -87,17 +66,18 @@ class Session extends Adapter
 	 * @param \mako\session\Session                               $session         Session instance
 	 * @param array                                               $options         Options
 	 */
-	public function __construct(UserRepository $userRepository, GroupRepository $groupRepository, Request $request, Response $response, HttpSession $session, array $options = [])
+	public function __construct(
+		UserRepository $userRepository,
+		GroupRepository $groupRepository,
+		protected Request $request,
+		protected Response $response,
+		protected HttpSession $session,
+		array $options = []
+	)
 	{
 		$this->setUserRepository($userRepository);
 
 		$this->setGroupRepository($groupRepository);
-
-		$this->request = $request;
-
-		$this->response = $response;
-
-		$this->session = $session;
 
 		$this->options = array_replace_recursive($this->options, $options);
 	}

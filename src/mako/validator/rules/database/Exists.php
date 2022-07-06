@@ -19,34 +19,6 @@ use function sprintf;
 class Exists extends Rule implements RuleInterface
 {
 	/**
-	 * Table.
-	 *
-	 * @var string
-	 */
-	protected $table;
-
-	/**
-	 * Column.
-	 *
-	 * @var string
-	 */
-	protected $column;
-
-	/**
-	 * Connection.
-	 *
-	 * @var string|null
-	 */
-	protected $connection;
-
-	/**
-	 * Connection manager.
-	 *
-	 * @var \mako\database\ConnectionManager
-	 */
-	protected $database;
-
-	/**
 	 * I18n parameters.
 	 *
 	 * @var array
@@ -61,16 +33,13 @@ class Exists extends Rule implements RuleInterface
 	 * @param string|null                      $connection Connection
 	 * @param \mako\database\ConnectionManager $database   Connection manager
 	 */
-	public function __construct(string $table, string $column, ?string $connection, ConnectionManager $database)
-	{
-		$this->table = $table;
-
-		$this->column = $column;
-
-		$this->connection = $connection;
-
-		$this->database = $database;
-	}
+	public function __construct(
+		protected string $table,
+		protected string $column,
+		protected ?string $connection,
+		protected ConnectionManager $database
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

@@ -20,41 +20,18 @@ use function unserialize;
 class File implements StoreInterface
 {
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Session path.
-	 *
-	 * @var string
-	 */
-	protected $sessionPath;
-
-	/**
-	 * Class whitelist.
-	 *
-	 * @var array|bool
-	 */
-	protected $classWhitelist;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\file\FileSystem $fileSystem     File system instance
 	 * @param string                $sessionPath    Session path
 	 * @param array|bool            $classWhitelist Class whitelist
 	 */
-	public function __construct(FileSystem $fileSystem, string $sessionPath, array|bool $classWhitelist = false)
-	{
-		$this->fileSystem = $fileSystem;
-
-		$this->sessionPath = $sessionPath;
-
-		$this->classWhitelist = $classWhitelist;
-	}
+	public function __construct(
+		protected FileSystem $fileSystem,
+		protected string $sessionPath,
+		protected array|bool $classWhitelist = false
+	)
+	{}
 
 	/**
 	 * Returns the path to the session file.

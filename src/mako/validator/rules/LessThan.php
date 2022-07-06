@@ -15,21 +15,14 @@ use function sprintf;
 class LessThan extends Rule implements RuleInterface
 {
 	/**
-	 * Less than.
-	 *
-	 * @var mixed
-	 */
-	protected $lessThan;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param mixed $lessThan Less than
 	 */
-	public function __construct(mixed $lessThan)
-	{
-		$this->lessThan = $lessThan;
-	}
+	public function __construct(
+		protected mixed $lessThan
+	)
+	{}
 
 	/**
 	 * I18n parameters.

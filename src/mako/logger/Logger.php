@@ -15,13 +15,6 @@ use Psr\Log\LoggerInterface;
 class Logger implements LoggerInterface
 {
 	/**
-	 * Logger instaance.
-	 *
-	 * @var \Psr\Log\LoggerInterface
-	 */
-	protected $logger;
-
-	/**
 	 * Global logger context.
 	 *
 	 * @var array
@@ -33,10 +26,10 @@ class Logger implements LoggerInterface
 	 *
 	 * @param \Psr\Log\LoggerInterface $logger Logger instance
 	 */
-	public function __construct(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
-	}
+	public function __construct(
+		protected LoggerInterface $logger
+	)
+	{}
 
 	/**
 	 * Returns the underlying logger instance.

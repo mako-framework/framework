@@ -16,21 +16,14 @@ use function sprintf;
 class MinLength extends Rule implements RuleInterface
 {
 	/**
-	 * Min length.
-	 *
-	 * @var int
-	 */
-	protected $minLength;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param int $minLength Min length
 	 */
-	public function __construct(int $minLength)
-	{
-		$this->minLength = $minLength;
-	}
+	public function __construct(
+		protected int $minLength
+	)
+	{}
 
 	/**
 	 * I18n parameters.
