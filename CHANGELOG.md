@@ -2,6 +2,12 @@
 
 The major version bump is due to dropped support for PHP `7.4` and a several breaking changes. Most applications built using Mako `8` should run on Mako `9` with just a few simple adjustments.
 
+#### Changes
+
+* Removed the following deprecated methods from the `Str` class:
+	- `Str::camel2underscored()`
+	- `Str::underscored2camel()`
+
 #### Improvements
 
 * Various improvements and optimizations.
