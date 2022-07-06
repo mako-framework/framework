@@ -7,6 +7,9 @@
 
 namespace mako\database\query\compilers;
 
+use mako\database\query\Raw;
+use mako\database\query\Subquery;
+
 /**
  * Compiles Firebird queries.
  */
@@ -20,7 +23,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function from($table): string
+	protected function from(array|Raw|Subquery|string|null $table): string
 	{
 		return $table === null ? ' FROM RDB$DATABASE' : parent::from($table);
 	}
@@ -64,7 +67,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function lock($lock): string
+	public function lock(bool|string|null $lock): string
 	{
 		if($lock === null)
 		{

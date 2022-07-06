@@ -239,7 +239,7 @@ class Compiler
 	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table Table
 	 * @return string
 	 */
-	public function table($table): string
+	public function table(Raw|Subquery|string $table): string
 	{
 		if($table instanceof Raw)
 		{
@@ -347,7 +347,7 @@ class Compiler
 	 * @param  bool                                                          $allowAlias Allow aliases?
 	 * @return string
 	 */
-	public function column($column, bool $allowAlias = false): string
+	public function column(Raw|Subquery|string $column, bool $allowAlias = false): string
 	{
 		if($column instanceof Raw)
 		{
@@ -535,7 +535,7 @@ class Compiler
 	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Table
 	 * @return string
 	 */
-	protected function from($table): string
+	protected function from(array|Raw|Subquery|string|null $table): string
 	{
 		if($table === null)
 		{
@@ -882,7 +882,7 @@ class Compiler
 	 * @param  bool|string|null $lock Lock
 	 * @return string
 	 */
-	protected function lock($lock): string
+	protected function lock(bool|string|null $lock): string
 	{
 		return '';
 	}

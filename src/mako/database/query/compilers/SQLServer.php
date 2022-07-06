@@ -8,6 +8,8 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
+use mako\database\query\Raw;
+use mako\database\query\Subquery;
 
 use function str_replace;
 
@@ -50,7 +52,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function from($from): string
+	public function from(array|Raw|Subquery|string|null $from): string
 	{
 		$from = parent::from($from);
 

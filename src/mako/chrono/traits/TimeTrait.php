@@ -26,7 +26,7 @@ trait TimeTrait
 	 * @param string                    $time     A date/time string
 	 * @param \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 */
-	final public function __construct(string $time = 'now', $timeZone = null)
+	final public function __construct(string $time = 'now', DateTimeZone|string|null $timeZone = null)
 	{
 		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
 		{
@@ -42,7 +42,7 @@ trait TimeTrait
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return static
 	 */
-	public static function now($timeZone = null): static
+	public static function now(DateTimeZone|string|null $timeZone = null): static
 	{
 		return new static('now', $timeZone);
 	}
@@ -56,7 +56,7 @@ trait TimeTrait
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, $timeZone = null)
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, DateTimeZone|string|null $timeZone = null)
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
@@ -74,7 +74,7 @@ trait TimeTrait
 	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(int $timestamp, $timeZone = null)
+	public static function createFromTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null)
 	{
 		return (new static('now', $timeZone))->setTimestamp($timestamp);
 	}
@@ -86,7 +86,7 @@ trait TimeTrait
 	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null)
+	public static function createFromDOSTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -109,7 +109,7 @@ trait TimeTrait
 	 * @return false|static
 	 */
 	#[\ReturnTypeWillChange]
-	public static function createFromFormat($format, $time, $timeZone = null)
+	public static function createFromFormat(string $format, string $time, DateTimeZone|string|null $timeZone = null)
 	{
 		if($timeZone !== null)
 		{
@@ -135,7 +135,7 @@ trait TimeTrait
 	 * @return $this|false|static
 	 */
 	#[\ReturnTypeWillChange]
-	public function setTimezone($timeZone)
+	public function setTimezone(DateTimeZone|string $timeZone)
 	{
 		if(($timeZone instanceof DateTimeZone) === false)
 		{

@@ -8,6 +8,7 @@
 namespace mako\chrono;
 
 use DateTimeInterface;
+use DateTimeZone;
 
 /**
  * Time interface.
@@ -62,7 +63,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return static
 	 */
-	public static function now($timeZone = null): static;
+	public static function now(DateTimeZone|string|null $timeZone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified date.
@@ -73,7 +74,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, $timeZone = null);
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, DateTimeZone|string|null $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
@@ -82,7 +83,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(int $timestamp, $timeZone = null);
+	public static function createFromTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
@@ -91,7 +92,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, $timeZone = null);
+	public static function createFromDOSTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified time string.
@@ -101,7 +102,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
-	public static function createFromFormat($format, $time, $timeZone = null);
+	public static function createFromFormat(string $format, string $time, DateTimeZone|string|null $timeZone = null);
 
 	/**
 	 * Returns a copy of the current instance.
@@ -116,7 +117,7 @@ interface TimeInterface extends DateTimeInterface
 	 * @param  \DateTimeZone|string $timeZone A valid time zone or a DateTimeZone object
 	 * @return $this|false|static
 	 */
-	public function setTimezone($timeZone);
+	public function setTimezone(DateTimeZone|string $timeZone);
 
 	/**
 	 * Move forward in time by x seconds.

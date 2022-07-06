@@ -8,6 +8,8 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
+use mako\database\query\Raw;
+use mako\database\query\Subquery;
 
 /**
  * Compiles Oracle queries.
@@ -32,7 +34,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function from($table): string
+	protected function from(array|Raw|Subquery|string|null $table): string
 	{
 		return $table === null ? ' FROM "DUAL"' : parent::from($table);
 	}
@@ -56,7 +58,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function lock($lock): string
+	public function lock(bool|string|null $lock): string
 	{
 		if($lock === null)
 		{
