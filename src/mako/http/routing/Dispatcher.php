@@ -21,9 +21,9 @@ use function array_fill_keys;
 use function array_intersect_key;
 use function array_keys;
 use function array_merge;
+use function asort;
 use function is_array;
 use function method_exists;
-use function uasort;
 use function vsprintf;
 
 /**
@@ -175,23 +175,7 @@ class Dispatcher
 
 		$priority = array_intersect_key($this->middlewarePriority, $middleware) + array_fill_keys(array_keys(array_diff_key($middleware, $this->middlewarePriority)), static::MIDDLEWARE_DEFAULT_PRIORITY);
 
-		// Sort the priority map using stable sorting
-
-		$position = 0;
-
-		foreach($priority as $key => $value)
-		{
-			$priority[$key] = [$position++, $value];
-		}
-
-		uasort($priority, static fn ($a, $b) => $a[1] === $b[1] ? ($a[0] > $b[0] ? 1 : -1) : ($a[1] > $b[1] ? 1 : -1));
-
-		foreach($priority as $key => $value)
-		{
-			$priority[$key] = $value[1];
-		}
-
-		// Return sorted middleware list
+		asort($priority);
 
 		return array_merge($priority, $middleware);
 	}
