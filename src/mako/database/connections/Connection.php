@@ -290,7 +290,7 @@ class Connection
 		}
 		catch(PDOException $e)
 		{
-			throw new DatabaseException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), 0, $e);
+			throw new DatabaseException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), previous: $e);
 		}
 
 		// Run queries
@@ -812,7 +812,7 @@ class Connection
 		{
 			$this->rollBackTransaction();
 
-			throw new DatabaseException('Exception caught. The transaction has been rolled back.', 0, $e);
+			throw new DatabaseException('Exception caught. The transaction has been rolled back.', previous: $e);
 		}
 
 		return $returnValue;

@@ -8,6 +8,7 @@
 namespace mako\security\password;
 
 use mako\security\password\exceptions\HasherException;
+use Throwable;
 
 use function password_hash;
 use function password_needs_rehash;
@@ -58,14 +59,14 @@ abstract class Hasher implements HasherInterface
 	 */
 	public function create(string $password): string
 	{
-		$hash = password_hash($password, $this->getAlgorithm(), $this->options);
-
-		if($hash === false)
+		try
 		{
-			throw new HasherException('Failed to generate hash.');
+			return password_hash($password, $this->getAlgorithm(), $this->options);
 		}
-
-		return $hash;
+		catch(Throwable $e)
+		{
+			throw new HasherException('Failed to generate hash.', previous: $e);
+		}
 	}
 
 	/**
