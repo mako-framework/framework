@@ -783,14 +783,11 @@ class Redis
 
 		[$type, $error] = explode(' ', $response, 2);
 
-		switch($type)
+		return match($type)
 		{
-			case 'MOVED':
-			case 'ASK':
-				return $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand);
-			default:
-				throw new RedisException(vsprintf('%s.', [$response]));
-		}
+			'MOVED', 'ASK' => $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand),
+			default        => throw new RedisException(vsprintf('%s.', [$response])),
+		};
 	}
 
 	/**
@@ -816,43 +813,26 @@ class Redis
 	{
 		$response = trim($this->connection->readLine());
 
-		switch(substr($response, 0, 1))
+		return match(substr($response, 0, 1))
 		{
-			case '+': // simple string response
-				return $this->handleSimpleStringResponse($response);
-			case '$': // blob string response
-				return $this->handleBlobStringResponse($response);
-			case '=': // verbatim string response
-				return $this->handleVerbatimStringResponse($response);
-			case ':': // number response
-				return $this->handleNumberResponse($response);
-			case ',': // double reponse
-				return $this->handleDoubleResponse($response);
-			case '(': // big number response
-				return $this->handleBigNumberResponse($response);
-			case '#': // boolean response
-				return $this->handleBooleanResponse($response);
-			case '*': // array response
-				return $this->handleArrayResponse($response);
-			case '%': // map response
-				return $this->handleMapResponse($response);
-			case '~': // set response
-				return $this->handleSetResponse($response);
-			case '|': // attribute response
-				return $this->handleAttributeResponse($response);
-			case '>': // push response
-				return $this->handlePushResponse($response);
-			case '-': // simple error response
-				return $this->handleSimpleErrorResponse($response);
-			case '!': // blob error response
-				$this->handleBlobErrorResponse($response);
-			case '_': // null response
-				return null;
-			case '.': // end response (internal type used to represent the end of a streamed aggregate response)
-				return static::END;
-			default:
-				throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response]));
-		}
+			'+'     => $this->handleSimpleStringResponse($response),
+			'$'     => $this->handleBlobStringResponse($response),
+			'='     => $this->handleVerbatimStringResponse($response),
+			':'     => $this->handleNumberResponse($response),
+			','     => $this->handleDoubleResponse($response),
+			'('     => $this->handleBigNumberResponse($response),
+			'#'     => $this->handleBooleanResponse($response),
+			'*'     => $this->handleArrayResponse($response),
+			'%'     => $this->handleMapResponse($response),
+			'~'     => $this->handleSetResponse($response),
+			'|'     => $this->handleAttributeResponse($response),
+			'>'     => $this->handlePushResponse($response),
+			'-'     => $this->handleSimpleErrorResponse($response),
+			'!'     => $this->handleBlobErrorResponse($response),
+			'_'     => null,
+			'.'     => static::END,
+			default => throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response])),
+		};
 	}
 
 	/**

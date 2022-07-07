@@ -110,14 +110,11 @@ class GroupRepository implements GroupRepositoryInterface
 	 */
 	public function getByIdentifier($identifier)
 	{
-		switch($this->identifier)
+		return match($this->identifier)
 		{
-			case 'name':
-				return $this->getByName($identifier);
-			case 'id':
-				return $this->getById($identifier);
-			default:
-				throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
-		}
+			'name'  => $this->getByName($identifier),
+			'id'    => $this->getById($identifier),
+			default => throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier])),
+ 		};
 	}
 }

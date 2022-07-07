@@ -167,16 +167,12 @@ class UserRepository implements UserRepositoryInterface
 	 */
 	public function getByIdentifier($identifier)
 	{
-		switch($this->identifier)
+		return match($this->identifier)
 		{
-			case 'email':
-				return $this->getByEmail($identifier);
-			case 'username':
-				return $this->getByUsername($identifier);
-			case 'id':
-				return $this->getById($identifier);
-			default:
-				throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
-		}
+			'email'    => $this->getByEmail($identifier),
+			'username' => $this->getByUsername($identifier),
+			'id'       => $this->getById($identifier),
+			default    => throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier])),
+		};
 	}
 }

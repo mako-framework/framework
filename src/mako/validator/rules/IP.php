@@ -42,20 +42,13 @@ class IP extends Rule implements RuleInterface
 	 */
 	protected function getFlags(): int
 	{
-		if($this->version === null)
+		return match($this->version)
 		{
-			return 0;
-		}
-
-		switch($this->version)
-		{
-			case 'v4':
-				return FILTER_FLAG_IPV4;
-			case 'v6':
-				return FILTER_FLAG_IPV6;
-			default:
-				throw new ValidatorException(vsprintf('Invalid IP version [ %s ]. The accepted versions are v4 and v6.', [$this->version]));
-		}
+			'v4'    => FILTER_FLAG_IPV4,
+			'v6'    => FILTER_FLAG_IPV6,
+			null    => 0,
+			default => throw new ValidatorException(vsprintf('Invalid IP version [ %s ]. The accepted versions are v4 and v6.', [$this->version])),
+		};
 	}
 
 	/**
@@ -65,15 +58,12 @@ class IP extends Rule implements RuleInterface
 	 */
 	protected function getVersion(): string
 	{
-		switch($this->version)
+		return match($this->version)
 		{
-			case 'v4':
-				return 'IPv4';
-			case 'v6':
-				return 'IPv6';
-			default:
-				return 'IP';
-		}
+			'v4'    => 'IPv4',
+			'v6'    => 'IPv6',
+			default => 'IP',
+		};
 	}
 
 	/**

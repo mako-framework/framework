@@ -44,18 +44,13 @@ class IPv6
 
 		$binNetmask = str_repeat('f', (int) ($netmask / 4));
 
-		switch($netmask % 4)
+		$binNetmask .= match($netmask % 4)
 		{
-			case 1:
-				$binNetmask .= '8';
-				break;
-			case 2:
-				$binNetmask .= 'c';
-				break;
-			case 3:
-				$binNetmask .= 'e';
-				break;
-		}
+			1       => '8',
+			2       => 'c',
+			3       => 'e',
+			default => '',
+ 		};
 
 		$ip    = inet_pton($ip);
 		$range = inet_pton($range);

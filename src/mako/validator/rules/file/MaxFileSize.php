@@ -50,27 +50,18 @@ class MaxFileSize extends Rule implements RuleInterface
 		{
 			$size = (int) substr($size, 0, -3);
 
-			switch($unit)
+			return match(strtolower($unit))
 			{
-				case 'KiB':
-					return $size * 1024;
-				case 'MiB':
-					return $size * (1024 ** 2);
-				case 'GiB':
-					return $size * (1024 ** 3);
-				case 'TiB':
-					return $size * (1024 ** 4);
-				case 'PiB':
-					return $size * (1024 ** 5);
-				case 'EiB':
-					return $size * (1024 ** 6);
-				case 'ZiB':
-					return $size * (1024 ** 7);
-				case 'YiB':
-					return $size * (1024 ** 8);
-				default:
-					throw new ValidatorException(vsprintf('Invalid unit type [ %s ].', [$unit]));
-			}
+				'kib'   => $size * 1024,
+				'mib'   => $size * (1024 ** 2),
+				'gib'   => $size * (1024 ** 3),
+				'tib'   => $size * (1024 ** 4),
+				'pib'   => $size * (1024 ** 5),
+				'eib'   => $size * (1024 ** 6),
+				'zib'   => $size * (1024 ** 7),
+				'yib'   => $size * (1024 ** 8),
+				default => throw new ValidatorException(vsprintf('Invalid unit type [ %s ].', [$unit])),
+			};
 		}
 
 		return (int) $size;

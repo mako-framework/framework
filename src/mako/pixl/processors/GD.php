@@ -145,17 +145,13 @@ class GD implements ProcessorInterface
 	 */
 	protected function createImageResource($image, $imageInfo)
 	{
-		switch($imageInfo[2])
+		return match($imageInfo[2])
 		{
-			case IMAGETYPE_JPEG:
-				return imagecreatefromjpeg($image);
-			case IMAGETYPE_GIF:
-				return imagecreatefromgif($image);
-			case IMAGETYPE_PNG:
-				return imagecreatefrompng($image);
-			default:
-				throw new ProcessorException(vsprintf('Unable to open [ %s ]. Unsupported image type.', [pathinfo($image, PATHINFO_EXTENSION)]));
-		}
+			IMAGETYPE_JPEG => imagecreatefromjpeg($image),
+			IMAGETYPE_GIF  => imagecreatefromgif($image),
+			IMAGETYPE_PNG  => imagecreatefrompng($image),
+			default        => throw new ProcessorException(vsprintf('Unable to open [ %s ]. Unsupported image type.', [pathinfo($image, PATHINFO_EXTENSION)])),
+		};
 	}
 
 	/**

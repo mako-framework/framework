@@ -528,23 +528,16 @@ abstract class ORM implements JsonSerializable, Stringable
 				$extra = $this->cast[$name][$type = array_key_first($type)];
 			}
 
-			switch($type)
+			return match($type)
 			{
-				case 'int':
-					return (int) $value;
-				case 'float':
-					return (float) $value;
-				case 'bool':
-					return $value === 'f' ? false : (bool) $value;
-				case 'date':
-					return ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value);
-				case 'string':
-					return (string) $value;
-				case 'enum':
-					return is_object($value) ? $value : $extra::from($value);
-				default:
-					throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$type]));
-			}
+				'int'    => (int) $value,
+				'float'  => (float) $value,
+				'bool'   => $value === 'f' ? false : (bool) $value,
+				'date'   => ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value),
+				'string' => (string) $value,
+				'enum'   => is_object($value) ? $value : $extra::from($value),
+				default  => throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$type])),
+			};
 		}
 
 		return $value;
@@ -973,21 +966,20 @@ abstract class ORM implements JsonSerializable, Stringable
 		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
 		{
 			$this->columns[$this->primaryKey] = $query->insertAndGetId($this->columns, $this->primaryKey);
-		}
-		else
-		{
-			switch($this->primaryKeyType)
-			{
-				case static::PRIMARY_KEY_TYPE_UUID:
-					$this->columns[$this->primaryKey] = UUID::v4();
-					break;
-				case static::PRIMARY_KEY_TYPE_CUSTOM:
-					$this->columns[$this->primaryKey] = $this->generatePrimaryKey();
-					break;
-			}
 
-			$query->insert($this->columns);
+			return;
 		}
+
+		if($this->primaryKeyType !== static::PRIMARY_KEY_TYPE_NONE)
+		{
+			$this->columns[$this->primaryKey] = match($this->primaryKeyType)
+			{
+				static::PRIMARY_KEY_TYPE_UUID   => UUID::v4(),
+				static::PRIMARY_KEY_TYPE_CUSTOM => $this->generatePrimaryKey(),
+			};
+		}
+
+		$query->insert($this->columns);
 	}
 
 	/**
