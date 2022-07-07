@@ -15,7 +15,6 @@ use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
 use function abs;
 use function array_map;
 use function array_sum;
-use function class_exists;
 use function function_exists;
 use function getimagesize;
 use function hexdec;
@@ -45,7 +44,6 @@ use function imagesavealpha;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
-use function is_resource;
 use function min;
 use function ob_get_clean;
 use function ob_start;
@@ -107,15 +105,9 @@ class GD implements ProcessorInterface
 	 */
 	public function __destruct()
 	{
-		if(is_resource($this->image))
-		{
-			imagedestroy($this->image);
-		}
+		$this->image = null;
 
-		if(is_resource($this->snapshot))
-		{
-			imagedestroy($this->snapshot);
-		}
+		$this->snapshot = null;
 	}
 
 	/**
@@ -213,7 +205,7 @@ class GD implements ProcessorInterface
 	 */
 	public function restore(): void
 	{
-		if(is_resource($this->snapshot) === false || (class_exists(GdImage::class, false) && ($this->snapshot instanceof GdImage) === false))
+		if(($this->snapshot instanceof GdImage) === false)
 		{
 			throw new ProcessorException('No snapshot to restore.');
 		}
