@@ -42,16 +42,6 @@ class IPv6
 			}
 		}
 
-		$binNetmask = str_repeat('f', (int) ($netmask / 4));
-
-		$binNetmask .= match($netmask % 4)
-		{
-			1       => '8',
-			2       => 'c',
-			3       => 'e',
-			default => '',
- 		};
-
 		$ip    = inet_pton($ip);
 		$range = inet_pton($range);
 
@@ -59,6 +49,14 @@ class IPv6
 		{
 			return false;
 		}
+
+		$binNetmask = str_repeat('f', (int) ($netmask / 4)) . match($netmask % 4)
+		{
+			1       => '8',
+			2       => 'c',
+			3       => 'e',
+			default => '',
+ 		};
 
 		return ($ip & pack('H*', str_pad($binNetmask, 32, '0'))) === $range;
 	}
