@@ -63,7 +63,7 @@ class Signer
 	 */
 	public function validate(string $string)
 	{
-		$validated = mb_substr($string, static::MAC_LENGTH, null, '8bit');
+		$validated = mb_substr($string, static::MAC_LENGTH, encoding: '8bit');
 
 		if(hash_equals($this->getSignature($validated), mb_substr($string, 0, static::MAC_LENGTH, '8bit')))
 		{

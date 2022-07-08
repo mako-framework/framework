@@ -59,7 +59,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 
 		$key = $this->deriveKey($this->key, $iv, 32);
 
-		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $key, 0, $iv));
+		return base64_encode($iv . openssl_encrypt($string, $this->cipher, $key, iv: $iv));
 	}
 
 	/**
@@ -76,10 +76,10 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 
 		$iv = mb_substr($string, 0, $this->ivSize, '8bit');
 
-		$string = mb_substr($string, $this->ivSize, null, '8bit');
+		$string = mb_substr($string, $this->ivSize, encoding: '8bit');
 
 		$key = $this->deriveKey($this->key, $iv, 32);
 
-		return openssl_decrypt($string, $this->cipher, $key, 0, $iv);
+		return openssl_decrypt($string, $this->cipher, $key, iv: $iv);
 	}
 }

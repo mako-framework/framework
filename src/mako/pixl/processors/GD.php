@@ -741,13 +741,13 @@ class GD implements ProcessorInterface
 			case 'jpg':
 			case 'jpeg':
 			case 'image/jpeg':
-				imagejpeg($this->image, null, $quality);
+				imagejpeg($this->image, quality: $quality);
 				break;
 			case 'png':
 			case 'image/png':
 				imagealphablending($this->image, true);
 				imagesavealpha($this->image, true);
-				imagepng($this->image, null, (9 - (round(($quality / 100) * 9))));
+				imagepng($this->image, quality: (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
 				throw new ProcessorException(vsprintf('Unsupported image type [ %s ].', [$type]));

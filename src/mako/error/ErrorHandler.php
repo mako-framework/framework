@@ -155,7 +155,7 @@ class ErrorHandler
 
 			if($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler)
 			{
-				$this->handler(new ErrorException($e['message'], $e['type'], 0, $e['file'], $e['line']));
+				$this->handler(new ErrorException($e['message'], code: $e['type'], filename: $e['file'], line: $e['line']));
 			}
 		});
 

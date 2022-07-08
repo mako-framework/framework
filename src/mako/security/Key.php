@@ -39,7 +39,7 @@ class Key
 	{
 		if(strpos($key, 'hex:') === 0)
 		{
-			return hex2bin(mb_substr($key, 4, null, '8bit'));
+			return hex2bin(mb_substr($key, 4, encoding: '8bit'));
 		}
 
 		return $key;

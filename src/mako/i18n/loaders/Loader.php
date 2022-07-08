@@ -39,7 +39,7 @@ class Loader implements LoaderInterface
 	 */
 	public function loadInflection(string $language): ?array
 	{
-		$path = $this->getFilePath('inflection', null, $language);
+		$path = $this->getFilePath('inflection', suffix: $language);
 
 		if($this->fileSystem->has($path))
 		{
@@ -56,7 +56,7 @@ class Loader implements LoaderInterface
 	{
 		$strings = false;
 
-		foreach($this->getCascadingFilePaths($file, null, "{$language}/strings") as $file)
+		foreach($this->getCascadingFilePaths($file, suffix: "{$language}/strings") as $file)
 		{
 			if($this->fileSystem->has($file))
 			{
