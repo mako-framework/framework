@@ -19,7 +19,7 @@ use function vsprintf;
  * User repository.
  *
  * @method \mako\gatekeeper\entities\user\User      createUser(array $properties = [])
- * @method \mako\gatekeeper\entities\user\User|null getByIdentifier($identifier)
+ * @method \mako\gatekeeper\entities\user\User|null getByIdentifier(int|string $identifier)
  */
 class UserRepository implements UserRepositoryInterface
 {
@@ -164,7 +164,7 @@ class UserRepository implements UserRepositoryInterface
 	 *
 	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
-	public function getByIdentifier($identifier): ?User
+	public function getByIdentifier(int|string $identifier): ?User
 	{
 		return match($this->identifier)
 		{

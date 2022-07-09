@@ -107,7 +107,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 *
 	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
-	public function getByIdentifier($identifier): ?Group
+	public function getByIdentifier(int|string $identifier): ?Group
 	{
 		return match($this->identifier)
 		{
