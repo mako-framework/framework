@@ -32,9 +32,9 @@ interface AdapterInterface
 	/**
 	 * Returns the user repository.
 	 *
-	 * @return \mako\gatekeeper\repositories\user\UserRepositoryInterface
+	 * @return \mako\gatekeeper\repositories\user\UserRepositoryInterface|null
 	 */
-	public function getUserRepository();
+	public function getUserRepository(): ?UserRepositoryInterface;
 
 	/**
 	 * Sets the active user.

@@ -24,14 +24,14 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * User repository.
 	 *
-	 * @var \mako\gatekeeper\repositories\user\UserRepository
+	 * @var \mako\gatekeeper\repositories\user\UserRepository|null
 	 */
 	protected $userRepository;
 
 	/**
 	 * Group repository.
 	 *
-	 * @var \mako\gatekeeper\repositories\group\GroupRepository
+	 * @var \mako\gatekeeper\repositories\group\GroupRepository|null
 	 */
 	protected $groupRepository;
 
@@ -53,7 +53,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getUserRepository()
+	public function getUserRepository(): ?UserRepositoryInterface
 	{
 		return $this->userRepository;
 	}
@@ -69,7 +69,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getGroupRepository()
+	public function getGroupRepository(): ?GroupRepositoryInterface
 	{
 		return $this->groupRepository;
 	}

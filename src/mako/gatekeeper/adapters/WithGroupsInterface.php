@@ -24,7 +24,7 @@ interface WithGroupsInterface
 	/**
 	 * Returns the group repository.
 	 *
-	 * @return \mako\gatekeeper\repositories\group\GroupRepositoryInterface
+	 * @return \mako\gatekeeper\repositories\group\GroupRepositoryInterface|null
 	 */
-	public function getGroupRepository();
+	public function getGroupRepository(): ?GroupRepositoryInterface;
 }

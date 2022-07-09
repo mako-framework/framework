@@ -7,6 +7,7 @@
 
 namespace mako\gatekeeper\repositories\group;
 
+use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\exceptions\GatekeeperException;
 
 use function in_array;
@@ -42,7 +43,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 *
 	 * @return \mako\gatekeeper\entities\group\Group
 	 */
-	protected function getModel()
+	protected function getModel(): Group
 	{
 		return new $this->model;
 	}
@@ -50,7 +51,7 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function createGroup(array $properties = [])
+	public function createGroup(array $properties = []): Group
 	{
 		$group = $this->getModel();
 
@@ -85,7 +86,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 * @param  string                                     $name Group name
 	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
-	public function getByName(string $name)
+	public function getByName(string $name): ?Group
 	{
 		return $this->getModel()->where('name', '=', $name)->first();
 	}
@@ -96,7 +97,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 * @param  int                                        $id Group id
 	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
-	public function getById(int $id)
+	public function getById(int $id): ?Group
 	{
 		return $this->getModel()->where('id', '=', $id)->first();
 	}
@@ -106,7 +107,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 *
 	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
-	public function getByIdentifier($identifier)
+	public function getByIdentifier($identifier): ?Group
 	{
 		return match($this->identifier)
 		{

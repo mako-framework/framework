@@ -252,13 +252,13 @@ class ConnectionManager extends BaseConnectionManager
 			{
 				$logs[$connection->getName()] = $connection->getLog();
 			}
+
+			return $logs;
 		}
-		else
+
+		foreach($this->connections as $connection)
 		{
-			foreach($this->connections as $connection)
-			{
-				$logs = [...$logs, ...$connection->getLog()];
-			}
+			$logs = [...$logs, ...$connection->getLog()];
 		}
 
 		return $logs;
