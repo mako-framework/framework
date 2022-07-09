@@ -188,7 +188,7 @@ class Argument
 	{
 		if(($isArray = is_array($name)) || strpos($name, '|') !== false)
 		{
-			[$name, $alias] = $isArray? $name : array_reverse(explode('|', $name, 2));
+			[$name, $alias] = $isArray ? $name : array_reverse(explode('|', $name, 2));
 
 			return [$this->getValidatedName($name), $this->getValidatedAlias($alias), false];
 		}
