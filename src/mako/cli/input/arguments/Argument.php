@@ -193,12 +193,7 @@ class Argument
 			return [$this->getValidatedName($name), $this->getValidatedAlias($alias), false];
 		}
 
-		if(strpos($name, '|') === false && strpos($name, '-') === false)
-		{
-			return [$this->getValidatedName($name), null, true];
-		}
-
-		return [$this->getValidatedName($name), null, false];
+		return [$this->getValidatedName($name), null, strpos($name, '-') === false];
 	}
 
 	/**
