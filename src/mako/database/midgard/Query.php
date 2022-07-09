@@ -400,9 +400,7 @@ class Query extends QueryBuilder
 	 */
 	protected function hydrateModel(array $result)
 	{
-		$model = $this->modelClass;
-
-		return new $model($result, true, false, true);
+		return new ($this->modelClass)($result, true, false, true);
 	}
 
 	/**

@@ -48,9 +48,7 @@ class UserRepository implements UserRepositoryInterface
 	 */
 	protected function getModel()
 	{
-		$model = $this->model;
-
-		return new $model;
+		return new $this->model;
 	}
 
 	/**

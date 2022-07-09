@@ -209,9 +209,7 @@ class ConnectionManager extends BaseConnectionManager
 
 		$helper = $this->getQueryBuilderHelperClass($driver);
 
-		$connection = $this->getConnectionClass($driver);
-
-		return new $connection($connectionName, $compiler, $helper, $config);
+		return new ($this->getConnectionClass($driver))($connectionName, $compiler, $helper, $config);
 	}
 
 	/**

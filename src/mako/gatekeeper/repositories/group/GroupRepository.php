@@ -44,9 +44,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 */
 	protected function getModel()
 	{
-		$model = $this->model;
-
-		return new $model;
+		return new $this->model;
 	}
 
 	/**

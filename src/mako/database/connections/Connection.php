@@ -227,9 +227,7 @@ class Connection
 	 */
 	public function getQueryCompiler(Query $query): Compiler
 	{
-		$compiler = $this->queryCompiler;
-
-		return new $compiler($query);
+		return new ($this->queryCompiler)($query);
 	}
 
 	/**
