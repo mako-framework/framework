@@ -2,6 +2,10 @@
 
 The major version bump is due to dropped support for PHP `7.4` and a several breaking changes. Most applications built using Mako `8` should run on Mako `9` with just a few simple adjustments.
 
+#### New
+
+* The name of CLI arguments with aliases can now be defined using an array instead of a string.
+
 #### Changes
 
 * Removed the following deprecated methods from the `Str` class:
