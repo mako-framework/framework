@@ -51,6 +51,22 @@ class ArgumentTest extends TestCase
 	/**
 	 *
 	 */
+	public function testArgumentWithArrayAlias(): void
+	{
+		$argument = new Argument(['--test-argument', '-t'], 'Test argument');
+
+		$this->assertSame('--test-argument', $argument->getName());
+
+		$this->assertSame('Test argument', $argument->getDescription());
+
+		$this->assertSame('testArgument', $argument->getNormalizedName());
+
+		$this->assertSame('-t', $argument->getAlias());
+	}
+
+	/**
+	 *
+	 */
 	public function testArgumentWithInvalidName(): void
 	{
 		$this->expectException(ArgumentException::class);

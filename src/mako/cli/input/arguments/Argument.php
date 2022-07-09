@@ -10,7 +10,9 @@ namespace mako\cli\input\arguments;
 use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\utility\Str;
 
+use function array_reverse;
 use function explode;
+use function is_array;
 use function ltrim;
 use function preg_match;
 use function str_replace;
@@ -102,13 +104,13 @@ class Argument
 	/**
 	 * Constructor.
 	 *
-	 * @param string $name        Argument name
-	 * @param string $description Argument description
-	 * @param int    $options     Argument options
-	 * @param mixed  $default     Default return value (only used by optional arguments)
+	 * @param array|string $name        Argument name
+	 * @param string       $description Argument description
+	 * @param int          $options     Argument options
+	 * @param mixed        $default     Default return value (only used by optional arguments)
 	 */
 	public function __construct(
-		protected string $name,
+		protected array|string $name,
 		protected string $description = '',
 		int $options = 0,
 		mixed $default = null
@@ -179,21 +181,21 @@ class Argument
 	/**
 	 * Parse the argument name.
 	 *
-	 * @param  string $name Argument name
+	 * @param  array|string $name Argument name
 	 * @return array
 	 */
-	protected function parseName(string $name): array
+	protected function parseName(array|string $name): array
 	{
+		if(($isArray = is_array($name)) || strpos($name, '|') !== false)
+		{
+			[$name, $alias] = $isArray? $name : array_reverse(explode('|', $name, 2));
+
+			return [$this->getValidatedName($name), $this->getValidatedAlias($alias), false];
+		}
+
 		if(strpos($name, '|') === false && strpos($name, '-') === false)
 		{
 			return [$this->getValidatedName($name), null, true];
-		}
-
-		if(strpos($name, '|') !== false)
-		{
-			[$alias, $name] = explode('|', $name, 2);
-
-			return [$this->getValidatedName($name), $this->getValidatedAlias($alias), false];
 		}
 
 		return [$this->getValidatedName($name), null, false];
