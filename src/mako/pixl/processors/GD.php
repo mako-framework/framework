@@ -131,11 +131,11 @@ class GD implements ProcessorInterface
 	/**
 	 * Creates an image resource that we can work with.
 	 *
-	 * @param  string            $image     Path to image file
-	 * @param  array             $imageInfo Image info
-	 * @return \GdImage|resource
+	 * @param  string   $image     Path to image file
+	 * @param  array    $imageInfo Image info
+	 * @return \GdImage
 	 */
-	protected function createImageResource($image, $imageInfo)
+	protected function createImageResource($image, $imageInfo): GdImage
 	{
 		return match($imageInfo[2])
 		{
