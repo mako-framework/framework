@@ -27,7 +27,7 @@ interface AdapterInterface
 	 *
 	 * @param \mako\gatekeeper\repositories\user\UserRepositoryInterface $userRepository User repository
 	 */
-	public function setUserRepository(UserRepositoryInterface $userRepository);
+	public function setUserRepository(UserRepositoryInterface $userRepository): void;
 
 	/**
 	 * Returns the user repository.
@@ -41,7 +41,7 @@ interface AdapterInterface
 	 *
 	 * @param \mako\gatekeeper\entities\user\UserEntityInterface $user User entity
 	 */
-	public function setUser(UserEntityInterface $user);
+	public function setUser(UserEntityInterface $user): void;
 
 	/**
 	 * Returns the active user or null if there isn't one.

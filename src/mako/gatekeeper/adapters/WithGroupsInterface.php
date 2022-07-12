@@ -19,7 +19,7 @@ interface WithGroupsInterface
 	 *
 	 * @param \mako\gatekeeper\repositories\group\GroupRepositoryInterface $groupRepository Group repository
 	 */
-	public function setGroupRepository(GroupRepositoryInterface $groupRepository);
+	public function setGroupRepository(GroupRepositoryInterface $groupRepository): void;
 
 	/**
 	 * Returns the group repository.
