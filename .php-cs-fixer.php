@@ -83,7 +83,7 @@ return (new Config)->setRules
 	'standardize_not_equals' => true,
 	'switch_case_semicolon_to_colon' => true,
 	'switch_case_space' => true,
-	'trailing_comma_in_multiline' => ['elements' => ['arrays']],
+	'trailing_comma_in_multiline' => ['elements' => ['arrays', 'match']],
 	'trim_array_spaces' => true,
 	'visibility_required' => true,
 	'void_return' => true,
