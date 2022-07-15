@@ -439,11 +439,11 @@ class Response
 			if($raw)
 			{
 				setrawcookie($name, $value, $options);
+
+				continue;
 			}
-			else
-			{
-				setcookie($name, $value, $options);
-			}
+
+			setcookie($name, $value, $options);
 		}
 	}
 
@@ -525,81 +525,83 @@ class Response
 	 */
 	public function send(): void
 	{
+		// If this the body is a response sender then we'll just pass it the
+		// request and response instances and let it handle the rest itself
+
 		if($this->body instanceof ResponseSenderInterface)
 		{
-			// This is a response sender so we'll just pass it the
-			// request and response instances and let it handle the rest itself
-
 			$this->body->send($this->request, $this);
+
+			return;
 		}
-		else
+
+		// If this the body is a response builder then we'll let it build the response
+
+		if($this->body instanceof ResponseBuilderInterface)
 		{
-			if($this->body instanceof ResponseBuilderInterface)
-			{
-				$this->body->build($this->request, $this);
-			}
-
-			$sendBody = true;
-
-			// Make sure that output buffering is enabled
-
-			if(ob_get_level() === 0)
-			{
-				ob_start();
-			}
-
-			// Cast body to string in case it's an obect implementing __toString
-
-			$this->body = (string) $this->body;
-
-			// Check ETag if response cache is enabled
-
-			if($this->responseCache === true && $this->isCacheable())
-			{
-				$hash = '"' . hash('sha256', $this->body) . '"';
-
-				$this->headers->add('ETag', $hash);
-
-				if(str_replace('-gzip', '', $this->request->getHeaders()->get('If-None-Match')) === $hash)
-				{
-					$this->setStatus(304);
-
-					$sendBody = false;
-				}
-			}
-
-			if($sendBody && in_array($this->statusCode, [100, 101, 102, 103, 204, 304]) === false)
-			{
-				// Start compressed output buffering if output compression is enabled
-
-				if($this->outputCompression)
-				{
-					ob_start('ob_gzhandler');
-				}
-
-				echo $this->body;
-
-				// If output compression is enabled then we'll have to flush the compressed buffer
-				// so that we can get the compressed content length when setting the content-length header
-
-				if($this->outputCompression)
-				{
-					ob_end_flush();
-				}
-
-				// Add the content-length header
-
-				if(!$this->headers->has('Transfer-Encoding'))
-				{
-					$this->headers->add('Content-Length', ob_get_length());
-				}
-			}
-
-			// Send the headers and flush the output buffer
-
-			$this->sendHeaders();
-
-			ob_end_flush();
+			$this->body->build($this->request, $this);
 		}
+
+		$sendBody = true;
+
+		// Make sure that output buffering is enabled
+
+		if(ob_get_level() === 0)
+		{
+			ob_start();
+		}
+
+		// Cast body to string in case it's an obect implementing __toString
+
+		$this->body = (string) $this->body;
+
+		// Check ETag if response cache is enabled
+
+		if($this->responseCache === true && $this->isCacheable())
+		{
+			$hash = '"' . hash('sha256', $this->body) . '"';
+
+			$this->headers->add('ETag', $hash);
+
+			if(str_replace('-gzip', '', $this->request->getHeaders()->get('If-None-Match')) === $hash)
+			{
+				$this->setStatus(304);
+
+				$sendBody = false;
+			}
+		}
+
+		if($sendBody && in_array($this->statusCode, [100, 101, 102, 103, 204, 304]) === false)
+		{
+			// Start compressed output buffering if output compression is enabled
+
+			if($this->outputCompression)
+			{
+				ob_start('ob_gzhandler');
+			}
+
+			echo $this->body;
+
+			// If output compression is enabled then we'll have to flush the compressed buffer
+			// so that we can get the compressed content length when setting the content-length header
+
+			if($this->outputCompression)
+			{
+				ob_end_flush();
+			}
+
+			// Add the content-length header
+
+			if(!$this->headers->has('Transfer-Encoding'))
+			{
+				$this->headers->add('Content-Length', ob_get_length());
+			}
+		}
+
+		// Send the headers and flush the output buffer
+
+		$this->sendHeaders();
+
+		ob_end_flush();
 	}
 }
