@@ -13,6 +13,7 @@ use mako\validator\rules\RuleInterface;
 
 use function is_numeric;
 use function sprintf;
+use function strtolower;
 use function substr;
 use function vsprintf;
 
