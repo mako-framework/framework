@@ -9,9 +9,15 @@ namespace mako\classes\preload;
 
 use mako\classes\ClassInspector;
 use ReflectionClass;
+use ReflectionIntersectionType;
+use ReflectionNamedType;
+use ReflectionType;
+use ReflectionUnionType;
 
 use function array_map;
 use function array_unique;
+use function class_exists;
+use function interface_exists;
 use function sort;
 use function sprintf;
 use function var_export;
@@ -39,6 +45,57 @@ class PreloaderGenerator
 	EOF;
 
 	/**
+	 * Get class names from reflection type.
+	 *
+	 * @param  \ReflectionType $type Reflection type
+	 * @return array
+	 */
+	protected function getTypeClasses(ReflectionType $type): array
+	{
+		$classes = [];
+
+		if($type instanceof ReflectionNamedType)
+		{
+			$class = $type->getName();
+
+			if(!$type->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
+			{
+				$classes[] = $class;
+			}
+		}
+		elseif(PHP_VERSION_ID >= 80100 && $type instanceof ReflectionIntersectionType)
+		{
+			/** @var \ReflectionNamedType|\ReflectionType $intersectionType */
+			foreach($type->getTypes() as $intersectionType)
+			{
+				$class = $intersectionType->getName();
+
+				if((class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
+				{
+					$classes[] = $class;
+				}
+			}
+
+			return $classes;
+		}
+		elseif($type instanceof ReflectionUnionType)
+		{
+			/** @var \ReflectionNamedType|\ReflectionType $unionType */
+			foreach($type->getTypes() as $unionType)
+			{
+				$class = $unionType->getName();
+
+				if(!$unionType->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
+				{
+					$classes[] = $class;
+				}
+			}
+		}
+
+		return $classes;
+	}
+
+	/**
 	 * Adds missing user defined dependencies to the class array.
 	 *
 	 * @param  iterable $classes An iterable of class names
@@ -46,38 +103,91 @@ class PreloaderGenerator
 	 */
 	protected function addMissingDependencies(iterable $classes): array
 	{
-		$merged = [];
-
-		foreach($classes as $class)
+		do
 		{
-			$merged[] = $class;
+			$previous = $classes;
 
-			foreach(ClassInspector::getParents($class) as $parent)
+			// Add missing parent classes, interfaces and traits
+
+			$merged = [];
+
+			foreach($classes as $class)
 			{
-				if((new ReflectionClass($parent))->isUserDefined())
+				$merged[] = $class;
+
+				foreach(ClassInspector::getParents($class) as $parent)
 				{
-					$merged[] = $parent;
+					if((new ReflectionClass($parent))->isUserDefined())
+					{
+						$merged[] = $parent;
+					}
+				}
+
+				foreach(ClassInspector::getInterfaces($class) as $interface)
+				{
+					if((new ReflectionClass($interface))->isUserDefined())
+					{
+						$merged[] = $interface;
+					}
+				}
+
+				foreach(ClassInspector::getTraits($class) as $trait)
+				{
+					if((new ReflectionClass($trait))->isUserDefined())
+					{
+						$merged[] = $trait;
+					}
 				}
 			}
 
-			foreach(ClassInspector::getInterfaces($class) as $interface)
+			$classes = array_unique($merged);
+
+			// Add missing classes from typed properties, method arguments and return types
+
+			$merged = [];
+
+			foreach($classes as $class)
 			{
-				if((new ReflectionClass($interface))->isUserDefined())
+				$merged[] = $class;
+
+				$reflection = new ReflectionClass($class);
+
+				foreach($reflection->getProperties() as $property)
 				{
-					$merged[] = $interface;
+					if(($type = $property->getType()) === null)
+					{
+						continue;
+					}
+
+					$merged = [...$merged, ...$this->getTypeClasses($type)];
+				}
+
+				foreach($reflection->getMethods() as $method)
+				{
+					foreach($method->getParameters() as $parameter)
+					{
+						if(($type = $parameter->getType()) === null)
+						{
+							continue;
+						}
+
+						$merged = [...$merged, ...$this->getTypeClasses($type)];
+					}
+
+					if(($type = $method->getReturnType()) !== null)
+					{
+						$merged = [...$merged, ...$this->getTypeClasses($type)];
+					}
 				}
 			}
 
-			foreach(ClassInspector::getTraits($class) as $trait)
-			{
-				if((new ReflectionClass($trait))->isUserDefined())
-				{
-					$merged[] = $trait;
-				}
-			}
+			$classes = array_unique($merged);
 		}
+		while($classes !== $previous);
 
-		return array_unique($merged);
+		// Return the complete list of classes to preload
+
+		return $classes;
 	}
 
 	/**

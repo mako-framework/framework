@@ -14,6 +14,11 @@ use mako\tests\unit\classes\preload\classes\CB;
 use mako\tests\unit\classes\preload\classes\CC;
 use mako\tests\unit\classes\preload\classes\CD;
 use mako\tests\unit\classes\preload\classes\CE;
+use mako\tests\unit\classes\preload\classes\CF;
+use mako\tests\unit\classes\preload\classes\CG;
+use mako\tests\unit\classes\preload\classes\CH;
+use mako\tests\unit\classes\preload\classes\CI;
+use mako\tests\unit\classes\preload\classes\CJ;
 
 /**
  * @group unit
@@ -170,4 +175,138 @@ class PreloaderGeneratorTest extends TestCase
 		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CE::class]));
 	}
 
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassWithTypedMethodArguments(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/CA.php',
+		  1 => '$classPath/classes/CB.php',
+		  2 => '$classPath/classes/CF.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CF::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassWithMethodReturnTypes(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/CA.php',
+		  1 => '$classPath/classes/CB.php',
+		  2 => '$classPath/classes/CG.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CG::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassWithTypedProperties(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/CA.php',
+		  1 => '$classPath/classes/CB.php',
+		  2 => '$classPath/classes/CH.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CH::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassWithTypedUnionProperties(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/CI.php',
+		  1 => '$classPath/classes/IA.php',
+		  2 => '$classPath/classes/IB.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CI::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassWithTypedIntersectionProperties(): void
+	{
+		if(PHP_VERSION_ID < 80100)
+		{
+			$this->markTestSkipped('This feature requires PHP 8.1+');
+		}
+
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/CJ.php',
+		  1 => '$classPath/classes/IA.php',
+		  2 => '$classPath/classes/IB.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CJ::class]));
+	}
 }
