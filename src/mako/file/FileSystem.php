@@ -188,11 +188,11 @@ class FileSystem
 			if($item->isDir())
 			{
 				$this->removeDirectory($item->getPathname());
+
+				continue;
 			}
-			else
-			{
-				unlink($item->getPathname());
-			}
+
+			unlink($item->getPathname());
 		}
 
 		return rmdir($path);
