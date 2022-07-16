@@ -158,7 +158,7 @@ class CacheManager extends AdapterManager
 	 * @param  string                            $configuration Configuration name
 	 * @return \mako\cache\stores\StoreInterface
 	 */
-	protected function instantiate(string $configuration)
+	protected function instantiate(string $configuration): mixed
 	{
 		if(!isset($this->configurations[$configuration]))
 		{
