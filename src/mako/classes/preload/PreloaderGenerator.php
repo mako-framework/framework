@@ -75,14 +75,19 @@ class PreloaderGenerator
 					$classes[] = $class;
 				}
 			}
-
-			return $classes;
 		}
 		elseif($type instanceof ReflectionUnionType)
 		{
 			/** @var \ReflectionNamedType $unionType */
 			foreach($type->getTypes() as $unionType)
 			{
+				if(PHP_VERSION_ID >= 80200 && $unionType instanceof ReflectionIntersectionType)
+				{
+					$classes = [...$classes, ...$this->getTypeClasses($unionType)];
+
+					continue;
+				}
+
 				$class = $unionType->getName();
 
 				if(!$unionType->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
@@ -154,24 +159,20 @@ class PreloaderGenerator
 
 				foreach($reflection->getProperties() as $property)
 				{
-					if(($type = $property->getType()) === null)
+					if(($type = $property->getType()) !== null)
 					{
-						continue;
+						$merged = [...$merged, ...$this->getTypeClasses($type)];
 					}
-
-					$merged = [...$merged, ...$this->getTypeClasses($type)];
 				}
 
 				foreach($reflection->getMethods() as $method)
 				{
 					foreach($method->getParameters() as $parameter)
 					{
-						if(($type = $parameter->getType()) === null)
+						if(($type = $parameter->getType()) !== null)
 						{
-							continue;
+							$merged = [...$merged, ...$this->getTypeClasses($type)];
 						}
-
-						$merged = [...$merged, ...$this->getTypeClasses($type)];
 					}
 
 					if(($type = $method->getReturnType()) !== null)
