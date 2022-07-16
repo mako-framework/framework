@@ -67,14 +67,14 @@ class GD implements ProcessorInterface
 	/**
 	 * Image resource.
 	 *
-	 * @var \GdImage|resource
+	 * @var \GdImage|null
 	 */
 	protected $image;
 
 	/**
 	 * Image resource.
 	 *
-	 * @var \GdImage|resource|null
+	 * @var \GdImage|null
 	 */
 	protected $snapshot;
 
