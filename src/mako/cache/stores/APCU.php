@@ -79,7 +79,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		$value = apcu_fetch($this->getPrefixedKey($key), $success);
 
