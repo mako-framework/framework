@@ -706,16 +706,8 @@ class GD implements ProcessorInterface
 
 		for($i = 0; $i < $thickness; $i++)
 		{
-			if($i < 0)
-			{
-				$x = $width + 1;
-				$y = $height + 1;
-			}
-			else
-			{
-				$x = --$width;
-				$y = --$height;
-			}
+			$x = --$width;
+			$y = --$height;
 
 			imagerectangle($this->image, $i, $i, $x, $y, $color);
 		}
@@ -747,7 +739,7 @@ class GD implements ProcessorInterface
 			case 'image/png':
 				imagealphablending($this->image, true);
 				imagesavealpha($this->image, true);
-				imagepng($this->image, quality: (9 - (round(($quality / 100) * 9))));
+				imagepng($this->image, quality: (int) (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
 				throw new ProcessorException(vsprintf('Unsupported image type [ %s ].', [$type]));
@@ -780,7 +772,7 @@ class GD implements ProcessorInterface
 			case 'png':
 				imagealphablending($this->image, true);
 				imagesavealpha($this->image, true);
-				imagepng($this->image, $file, (9 - (round(($quality / 100) * 9))));
+				imagepng($this->image, $file, (int) (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
 				throw new ProcessorException(vsprintf('Unable to save as [ %s ]. Unsupported image format.', [$extension]));

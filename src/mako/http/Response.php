@@ -594,7 +594,7 @@ class Response
 
 			if(!$this->headers->has('Transfer-Encoding'))
 			{
-				$this->headers->add('Content-Length', ob_get_length());
+				$this->headers->add('Content-Length', (string) (int) ob_get_length());
 			}
 		}
 

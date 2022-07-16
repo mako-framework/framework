@@ -78,7 +78,7 @@ class PreloaderGenerator
 		}
 		elseif($type instanceof ReflectionUnionType)
 		{
-			/** @var \ReflectionNamedType $unionType */
+			/** @var \ReflectionIntersectionType|\ReflectionNamedType $unionType */
 			foreach($type->getTypes() as $unionType)
 			{
 				if(PHP_VERSION_ID >= 80200 && $unionType instanceof ReflectionIntersectionType)
