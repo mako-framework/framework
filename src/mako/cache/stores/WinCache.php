@@ -60,7 +60,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		$value = wincache_ucache_get($this->getPrefixedKey($key), $success);
 

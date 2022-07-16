@@ -114,7 +114,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		$value = $this->memcached->get($this->getPrefixedKey($key));
 

@@ -47,7 +47,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		return null;
 	}

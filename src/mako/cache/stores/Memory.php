@@ -74,7 +74,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		if(isset($this->cache[$key]))
 		{

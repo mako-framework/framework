@@ -98,7 +98,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get(string $key)
+	public function get(string $key): mixed
 	{
 		$success = false;
 
