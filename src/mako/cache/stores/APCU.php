@@ -89,7 +89,7 @@ class APCU extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getOrElse(string $key, callable $data, int $ttl = 0)
+	public function getOrElse(string $key, callable $data, int $ttl = 0): mixed
 	{
 		return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
 	}
