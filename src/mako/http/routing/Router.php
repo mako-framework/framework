@@ -180,7 +180,7 @@ class Router
 
 			if(!empty($query))
 			{
-				$url .= '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986);
+				$url .= '?' . http_build_query($query, arg_separator: '&', encoding_type: PHP_QUERY_RFC3986);
 			}
 
 			return new Redirect($url, Redirect::MOVED_PERMANENTLY);
