@@ -525,7 +525,7 @@ class Response
 	 */
 	public function send(): void
 	{
-		// If this the body is a response sender then we'll just pass it the
+		// If the body is a response sender then we'll just pass it the
 		// request and response instances and let it handle the rest itself
 
 		if($this->body instanceof ResponseSenderInterface)
@@ -535,7 +535,7 @@ class Response
 			return;
 		}
 
-		// If this the body is a response builder then we'll let it build the response
+		// If the body is a response builder then we'll let it build the response
 
 		if($this->body instanceof ResponseBuilderInterface)
 		{
