@@ -14,6 +14,8 @@ use mako\database\midgard\ORM;
 use function array_diff;
 use function array_shift;
 use function count;
+use function end;
+use function explode;
 use function implode;
 use function is_array;
 use function sort;
@@ -117,6 +119,13 @@ class ManyToMany extends Relation
 			$tables = [$this->origin->getTable(), $this->model->getTable()];
 
 			sort($tables);
+
+			if(strpos($tables[1], '.') !== false)
+			{
+				$table = explode('.', $tables[1]);
+
+				$tables[1] = end($table);
+			}
 
 			$this->junctionTable = implode('_', $tables);
 		}
