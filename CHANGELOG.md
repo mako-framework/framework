@@ -1,3 +1,11 @@
+### 8.1.2 <small>(2022-10-12)</small>
+
+#### Bugfixes
+
+* Junction tables will now be named correctly even when table names are prefixed by the database name.
+
+--------------------------------------------------------
+
 ### 7.3.9, 8.0.6, 8.1.1 <small>(2022-06-12)</small>
 
 #### Bugfixes
