@@ -71,7 +71,7 @@ class Create extends Command
 
 		// Create migration
 
-		$description = str_replace("'", "\'", $description);
+		$description = str_replace("'", "\'", $description ?? '');
 
 		$search = ['{{namespace}}', '{{version}}', '{{description}}'];
 
