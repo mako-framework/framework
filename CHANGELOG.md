@@ -21,6 +21,15 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 
 --------------------------------------------------------
 
+### 8.1.3 <small>(2022-10-13)</small>
+
+#### Bugfixes
+
+* PHP `8.1` compatibility:
+	- Creating a migration without a description will no longer fail.
+
+--------------------------------------------------------
+
 ### 8.1.2 <small>(2022-10-12)</small>
 
 #### Bugfixes
