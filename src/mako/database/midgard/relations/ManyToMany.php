@@ -16,7 +16,6 @@ use function array_shift;
 use function count;
 use function end;
 use function explode;
-use function implode;
 use function is_array;
 use function sort;
 use function strpos;
@@ -127,7 +126,7 @@ class ManyToMany extends Relation
 				$tables[1] = end($table);
 			}
 
-			$this->junctionTable = implode('_', $tables);
+			$this->junctionTable = "{$tables[0]}_{$tables[1]}";
 		}
 
 		return $this->junctionTable;
