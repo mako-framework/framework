@@ -12,4 +12,4 @@ We support fixing security issues on the following releases:
 
 ## Reporting a Vulnerability
 
-Found a security vulnerability? Please send a report to security[at]makoframework.com.
+Found a security vulnerability? Please report it [here](https://github.com/mako-framework/framework/security/advisories/new).
