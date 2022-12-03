@@ -12,6 +12,7 @@ use Generator;
 use mako\database\connections\Connection;
 use mako\database\exceptions\NotFoundException;
 use mako\database\query\Query as QueryBuilder;
+use mako\database\query\Raw;
 use mako\database\query\Subquery;
 use mako\utility\Str;
 use PDO;
@@ -94,14 +95,14 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function join($table, $column1 = null, $operator = null, $column2 = null, $type = 'INNER', $raw = false)
+	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER', bool $lateral = false)
 	{
 		if(empty($this->joins) && $this->columns === ['*'])
 		{
 			$this->select(["{$this->table}.*"]);
 		}
 
-		return parent::join($table, $column1, $operator, $column2, $type, $raw);
+		return parent::join($table, $column1, $operator, $column2, $type, $lateral);
 	}
 
 	/**
@@ -163,7 +164,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment($column, int $increment = 1): int
+	public function increment(string $column, int $increment = 1): int
 	{
 		if($this->model->isPersisted())
 		{
@@ -185,7 +186,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrement($column, int $decrement = 1): int
+	public function decrement(string $column, int $decrement = 1): int
 	{
 		if($this->model->isPersisted())
 		{
@@ -570,7 +571,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function batch(Closure $processor, $batchSize = 1000, $offsetStart = 0, $offsetEnd = null): void
+	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null): void
 	{
 		if(empty($this->orderings))
 		{
@@ -583,7 +584,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function aggregate($function, $column)
+	protected function aggregate(string $function, array|Raw|string $column)
 	{
 		// Empty "relationCounters" when performing aggregate queries
 

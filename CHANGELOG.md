@@ -6,6 +6,7 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 
 * The name of CLI arguments with aliases can now be defined using an array instead of a string.
 * The preloader generator will now attempt to preload typed properties, method arguments and return types.
+* The query builder now supports lateral joins.
 
 #### Changes
 

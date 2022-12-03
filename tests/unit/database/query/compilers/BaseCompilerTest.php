@@ -1094,6 +1094,28 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithLateralJoin(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->table('customers')
+		->leftJoin(new Subquery(function (Query $query): void
+		{
+			$query->table('sales')
+			->whereRaw('sales.customer_id', '=', '"customers"."id"')
+			->descending('created_at')
+			->limit(3);
+		}, 'recent_sales'), new Raw('TRUE'), lateral: true)
+		->select(['customers.*', 'recent_sales.*']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT "customers".*, "recent_sales".* FROM "customers" LEFT OUTER JOIN LATERAL (SELECT * FROM "sales" WHERE "sales"."customer_id" = "customers"."id" ORDER BY "created_at" DESC LIMIT 3) AS "recent_sales" ON TRUE', $query['sql']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithGroupBy(): void
 	{
 		$query = $this->getBuilder('orders');

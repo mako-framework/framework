@@ -24,12 +24,14 @@ class Join
 	/**
 	 * Constructor.
 	 *
-	 * @param string|null $type  Join type
-	 * @param mixed       $table Table we are joining
+	 * @param string|null                                                        $type    Join type
+	 * @param \mako\database\query\Raw|\mako\database\query\Subquery|string|null $table   Table we are joining
+	 * @param bool                                                               $lateral Is it a lateral join?
 	 */
 	public function __construct(
 		protected ?string $type = null,
-		protected mixed $table = null
+		protected Raw|Subquery|string|null $table = null,
+		protected bool $lateral = false
 	)
 	{}
 
@@ -54,6 +56,16 @@ class Join
 	}
 
 	/**
+	 * Is it a lateral join?
+	 *
+	 * @return bool
+	 */
+	public function isLateral(): bool
+	{
+		return $this->lateral;
+	}
+
+	/**
 	 * Returns ON conditions.
 	 *
 	 * @return array
@@ -66,13 +78,13 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 *
-	 * @param  \Closure|string                      $column1   Column name
-	 * @param  string|null                          $operator  Operator
-	 * @param  \mako\database\query\Raw|string|null $column2   Column name
-	 * @param  string                               $separator Condition separator
+	 * @param  \Closure|\mako\database\query\Raw|string $column1   Column name
+	 * @param  string|null                              $operator  Operator
+	 * @param  \mako\database\query\Raw|string|null     $column2   Column name
+	 * @param  string                                   $separator Condition separator
 	 * @return \mako\database\query\Join
 	 */
-	public function on(Closure|string $column1, ?string $operator = null, Raw|string|null $column2 = null, string $separator = 'AND'): Join
+	public function on(Closure|Raw|string $column1, ?string $operator = null, Raw|string|null $column2 = null, string $separator = 'AND'): Join
 	{
 		if($column1 instanceof Closure)
 		{
@@ -105,14 +117,14 @@ class Join
 	/**
 	 * Adds a raw ON condition to the join.
 	 *
-	 * @param  string                    $column1    Column name
-	 * @param  string                    $operator   Operator
-	 * @param  string                    $raw        Raw SQL
-	 * @param  array                     $parameters Parameters
-	 * @param  string                    $separator  Condition separator
+	 * @param  \mako\database\query\Raw|string $column1    Column name
+	 * @param  string                          $operator   Operator
+	 * @param  string                          $raw        Raw SQL
+	 * @param  array                           $parameters Parameters
+	 * @param  string                          $separator  Condition separator
 	 * @return \mako\database\query\Join
 	 */
-	public function onRaw(string $column1, string $operator, string $raw, array $parameters = [], string $separator = 'AND'): Join
+	public function onRaw(Raw|string $column1, string $operator, string $raw, array $parameters = [], string $separator = 'AND'): Join
 	{
 		return $this->on($column1, $operator, new Raw($raw, $parameters), $separator);
 	}
@@ -120,12 +132,12 @@ class Join
 	/**
 	 * Adds a OR ON condition to the join.
 	 *
-	 * @param  \Closure|string                      $column1  Column name
-	 * @param  string|null                          $operator Operator
-	 * @param  \mako\database\query\Raw|string|null $column2  Column name
+	 * @param  \Closure|\mako\database\query\Raw|string $column1  Column name
+	 * @param  string|null                              $operator Operator
+	 * @param  \mako\database\query\Raw|string|null     $column2  Column name
 	 * @return \mako\database\query\Join
 	 */
-	public function orOn(Closure|string $column1, ?string $operator = null, Raw|string|null $column2 = null): Join
+	public function orOn(Closure|Raw|string $column1, ?string $operator = null, Raw|string|null $column2 = null): Join
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
 	}
@@ -133,13 +145,13 @@ class Join
 	/**
 	 * Adds a raw OR ON condition to the join.
 	 *
-	 * @param  string                    $column1    Column name
-	 * @param  string                    $operator   Operator
-	 * @param  string                    $raw        Raw SQL
-	 * @param  array                     $parameters Parameters
+	 * @param  \mako\database\query\Raw|string $column1    Column name
+	 * @param  string                          $operator   Operator
+	 * @param  string                          $raw        Raw SQL
+	 * @param  array                           $parameters Parameters
 	 * @return \mako\database\query\Join
 	 */
-	public function orOnRaw(string $column1, string $operator, string $raw, array $parameters = []): Join
+	public function orOnRaw(Raw|string $column1, string $operator, string $raw, array $parameters = []): Join
 	{
 		return $this->onRaw($column1, $operator, $raw, $parameters, 'OR');
 	}

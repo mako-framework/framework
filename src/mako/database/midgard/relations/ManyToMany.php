@@ -10,6 +10,7 @@ namespace mako\database\midgard\relations;
 use Closure;
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
+use mako\database\query\Raw;
 
 use function array_diff;
 use function array_shift;
@@ -74,7 +75,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function aggregate($function, $column)
+	protected function aggregate(string $function, array|Raw|string $column)
 	{
 		// Empty "alongWith" when performing aggregate queries
 

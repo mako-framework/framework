@@ -714,6 +714,11 @@ class Compiler
 	 */
 	protected function joinCondition(array $condition): string
 	{
+		if($condition['operator'] === null)
+		{
+			return $this->column($condition['column1']);
+		}
+
 		return "{$this->column($condition['column1'])} {$condition['operator']} {$this->column($condition['column2'])}";
 	}
 
@@ -769,7 +774,9 @@ class Compiler
 
 		foreach($joins as $join)
 		{
-			$sql[] = "{$join->getType()} JOIN {$this->table($join->getTable())} ON {$this->joinConditions($join)}";
+			$sql[] = "{$join->getType()} JOIN"
+			. ($join->isLateral() ? ' LATERAL' : '')
+			. " {$this->table($join->getTable())} ON {$this->joinConditions($join)}";
 		}
 
 		return ' ' . implode(' ', $sql);
