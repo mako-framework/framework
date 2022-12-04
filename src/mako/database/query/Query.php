@@ -44,7 +44,7 @@ class Query
 	/**
 	 * Database table.
 	 *
-	 * @var mixed
+	 * @var array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null
 	 */
 	protected $table;
 
@@ -285,9 +285,9 @@ class Query
 	/**
 	 * Returns the database table.
 	 *
-	 * @return mixed
+	 * @return array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null
 	 */
-	public function getTable(): mixed
+	public function getTable(): array|Raw|Subquery|string|null
 	{
 		return $this->table;
 	}
@@ -387,7 +387,7 @@ class Query
 	 *
 	 * @return bool|string|null
 	 */
-	public function getLock()
+	public function getLock(): bool|string|null
 	{
 		return $this->lock;
 	}
