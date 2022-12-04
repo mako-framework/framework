@@ -774,9 +774,9 @@ class Compiler
 
 		foreach($joins as $join)
 		{
-			$sql[] = "{$join->getType()} JOIN"
-			. ($join->isLateral() ? ' LATERAL' : '')
-			. " {$this->table($join->getTable())} ON {$this->joinConditions($join)}";
+			$sql[] = "{$join->getType()}"
+			. " {$this->table($join->getTable())}"
+			. ($join->hasConditions() ? " ON {$this->joinConditions($join)}" : '');
 		}
 
 		return ' ' . implode(' ', $sql);

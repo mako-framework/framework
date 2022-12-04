@@ -95,14 +95,14 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER', bool $lateral = false)
+	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN')
 	{
 		if(empty($this->joins) && $this->columns === ['*'])
 		{
 			$this->select(["{$this->table}.*"]);
 		}
 
-		return parent::join($table, $column1, $operator, $column2, $type, $lateral);
+		return parent::join($table, $column1, $operator, $column2, $type);
 	}
 
 	/**

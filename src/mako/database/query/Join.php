@@ -24,14 +24,12 @@ class Join
 	/**
 	 * Constructor.
 	 *
-	 * @param string|null                                                        $type    Join type
-	 * @param \mako\database\query\Raw|\mako\database\query\Subquery|string|null $table   Table we are joining
-	 * @param bool                                                               $lateral Is it a lateral join?
+	 * @param string|null                                                        $type  Join type
+	 * @param \mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Table we are joining
 	 */
 	public function __construct(
 		protected ?string $type = null,
 		protected Raw|Subquery|string|null $table = null,
-		protected bool $lateral = false
 	)
 	{}
 
@@ -56,13 +54,13 @@ class Join
 	}
 
 	/**
-	 * Is it a lateral join?
+	 * Does this join have conditions?
 	 *
 	 * @return bool
 	 */
-	public function isLateral(): bool
+	public function hasConditions(): bool
 	{
-		return $this->lateral;
+		return !empty($this->conditions);
 	}
 
 	/**

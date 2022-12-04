@@ -981,6 +981,51 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSelectWithRightJoin(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->rightJoin('barfoo', 'barfoo.foobar_id', '=', 'foobar.id');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" RIGHT OUTER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithRightJoinRaw(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->rightJoinRaw('barfoo', 'barfoo.foobar_id', '=', 'SUBSTRING("foo", 1, 2)');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" RIGHT OUTER JOIN "barfoo" ON "barfoo"."foobar_id" = SUBSTRING("foo", 1, 2)', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectWithCrossJoin(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->crossJoin('barfoo');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" CROSS JOIN "barfoo"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testSelectWithComplexJoin(): void
 	{
 		$query = $this->getBuilder();
@@ -1099,13 +1144,13 @@ class BaseCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query->table('customers')
-		->leftJoin(new Subquery(function (Query $query): void
+		->lateralJoin(new Subquery(function (Query $query): void
 		{
 			$query->table('sales')
 			->whereRaw('sales.customer_id', '=', '"customers"."id"')
 			->descending('created_at')
 			->limit(3);
-		}, 'recent_sales'), new Raw('TRUE'), lateral: true)
+		}, 'recent_sales'))
 		->select(['customers.*', 'recent_sales.*']);
 
 		$query = $query->getCompiler()->select();

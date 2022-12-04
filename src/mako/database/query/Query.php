@@ -1076,18 +1076,17 @@ class Query
 	 * @param  string|null                                                   $operator Operator
 	 * @param  \mako\database\query\Raw|string|null                          $column2  Column name
 	 * @param  string                                                        $type     Join type
-	 * @param  bool                                                          $lateral  Is it a lateral join?
 	 * @return $this
 	 */
-	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER', bool $lateral = false)
+	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN')
 	{
-		$join = new Join($type, $table, $lateral);
+		$join = new Join($type, $table);
 
 		if($column1 instanceof Closure)
 		{
 			$column1($join);
 		}
-		else
+		elseif($column1 !== null)
 		{
 			$join->on($column1, $operator, $column2);
 		}
@@ -1105,12 +1104,11 @@ class Query
 	 * @param  string                                                        $operator Operator
 	 * @param  string                                                        $raw      Raw SQL
 	 * @param  string                                                        $type     Join type
-	 * @param  bool                                                          $lateral  Is it a lateral join?
 	 * @return $this
 	 */
-	public function joinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw, string $type = 'INNER', bool $lateral = false)
+	public function joinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw, string $type = 'INNER JOIN')
 	{
-		return $this->join($table, $column1, $operator, new Raw($raw), $type, $lateral);
+		return $this->join($table, $column1, $operator, new Raw($raw), $type);
 	}
 
 	/**
@@ -1120,27 +1118,76 @@ class Query
 	 * @param  \Closure|\mako\database\query\Raw|string|null                 $column1  Column name
 	 * @param  string|null                                                   $operator Operator
 	 * @param  \mako\database\query\Raw|string|null                          $column2  Column name
-	 * @param  bool                                                          $lateral  Is it a lateral join?
 	 * @return $this
 	 */
-	public function leftJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, bool $lateral = false)
+	public function leftJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null)
 	{
-		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER', $lateral);
+		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER JOIN');
 	}
 
 	/**
 	 * Adds a raw LEFT OUTER JOIN clause.
 	 *
-	 * @param \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
-	 * @param \mako\database\query\Raw|string                               $column1  Column name
-	 * @param string                                                        $operator Operator
-	 * @param string                                                        $raw      Raw SQL
-	 * @param $lateral Is it a lateral join?
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  \mako\database\query\Raw|string                               $column1  Column name
+	 * @param  string                                                        $operator Operator
+	 * @param  string                                                        $raw      Raw SQL
 	 * @return $this
 	 */
-	public function leftJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw, bool $lateral = false)
+	public function leftJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw)
 	{
-		return $this->joinRaw($table, $column1, $operator, $raw, 'LEFT OUTER', $lateral);
+		return $this->joinRaw($table, $column1, $operator, $raw, 'LEFT OUTER JOIN');
+	}
+
+	/**
+	 * Adds a RIGHT OUTER JOIN clause.
+	 *
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  \Closure|\mako\database\query\Raw|string|null                 $column1  Column name
+	 * @param  string|null                                                   $operator Operator
+	 * @param  \mako\database\query\Raw|string|null                          $column2  Column name
+	 * @return $this
+	 */
+	public function rightJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null)
+	{
+		return $this->join($table, $column1, $operator, $column2, 'RIGHT OUTER JOIN');
+	}
+
+	/**
+	 * Adds a raw RIGHT OUTER JOIN clause.
+	 *
+	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table    Table name
+	 * @param  \mako\database\query\Raw|string                               $column1  Column name
+	 * @param  string                                                        $operator Operator
+	 * @param  string                                                        $raw      Raw SQL
+	 * @return $this
+	 */
+	public function rightJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw)
+	{
+		return $this->joinRaw($table, $column1, $operator, $raw, 'RIGHT OUTER JOIN');
+	}
+
+	/**
+	 * Adds a CROSS JOIN clause.
+	 *
+	 * @param  \mako\database\query\Subquery|string $table Table name or subquery
+	 * @return $this
+	 */
+	public function crossJoin(Raw|Subquery|string $table)
+	{
+		return $this->join($table, type: 'CROSS JOIN');
+	}
+
+	/**
+	 * Adds a LATERAL JOIN clause.
+	 *
+	 * @param  \mako\database\query\Subquery $subquery Subquery
+	 * @param  string                        $type     Join type
+	 * @return $this
+	 */
+	public function lateralJoin(Subquery $subquery, string $type = 'LEFT OUTER JOIN')
+	{
+		return $this->join($subquery, new Raw('TRUE'), type: "{$type} LATERAL");
 	}
 
 	/**
