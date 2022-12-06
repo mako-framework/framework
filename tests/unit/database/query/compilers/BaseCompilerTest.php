@@ -1505,6 +1505,19 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicInsertWithMultipleRows(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultiple(['foo' => 'bar', 'baz' => 'bax'], ['foo' => 'bar', 'baz' => 'bax']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo", "baz") VALUES (?, ?), (?, ?)', $query['sql']);
+		$this->assertEquals(['bar', 'bax', 'bar', 'bax'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicUpdate(): void
 	{
 		$query = $this->getBuilder();

@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\midgard;
 
+use DateTime;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
@@ -48,69 +49,95 @@ class TimestampedBar extends TestORM
  */
 class TimestampedTest extends ORMTestCase
 {
-	 /**
-	  *
-	  */
-	 public function testCreate(): void
-	 {
-	 	$timestamped = new TimestampedFoo;
+	/**
+	 *
+	 */
+	public function testCreate(): void
+	{
+		$timestamped = new TimestampedFoo;
 
-	 	$timestamped->value = 'baz';
+		$timestamped->value = 'baz';
 
-	 	$timestamped->save();
+		$timestamped->save();
 
-	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
-	 }
+		$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
+	}
 
-	 /**
-	  *
-	  */
-	 public function testUpate(): void
-	 {
-	 	$timestamped = TimestampedFoo::get(2);
+	/**
+	 *
+	 */
+	public function testUpate(): void
+	{
+		$timestamped = TimestampedFoo::get(2);
 
-	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
+		$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 
-	 	// Save without making changes
+		// Save without making changes
 
-	 	$timestamped->save();
+		$timestamped->save();
 
-	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
+		$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 
-	 	// Save after making a change
+		// Save after making a change
 
-	 	$timestamped->value = 'bax';
+		$timestamped->value = 'bax';
 
-	 	$timestamped->save();
+		$timestamped->save();
 
-	 	$this->assertNotEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
-	 }
+		$this->assertNotEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
+	}
 
-	 /**
-	  *
-	  */
-	 public function testTouch(): void
-	 {
-	 	$timestamped = TimestampedFoo::get(3);
+	/**
+	 *
+	 */
+	public function testTouch(): void
+	{
+		$timestamped = TimestampedFoo::get(3);
 
-	 	$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
+		$this->assertEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
 
-	 	$timestamped->touch();
+		$timestamped->touch();
 
-	 	$this->assertNotEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
-	 }
+		$this->assertNotEquals($timestamped->created_at->getTimestamp(), $timestamped->updated_at->getTimestamp());
+	}
 
-	 /**
-	  *
-	  */
-	 public function testTouchRelation(): void
-	 {
-	 	$timestamped = TimestampedBar::get(1);
+	/**
+	 *
+	 */
+	public function testTouchRelation(): void
+	{
+		$timestamped = TimestampedBar::get(1);
 
-	 	$this->assertNotEquals($timestamped->updated_at->getTimestamp(), $timestamped->foo()->first()->updated_at->getTimestamp());
+		$this->assertNotEquals($timestamped->updated_at->getTimestamp(), $timestamped->foo()->first()->updated_at->getTimestamp());
 
-	 	$timestamped->touch();
+		$timestamped->touch();
 
-	 	$this->assertEquals($timestamped->updated_at->getTimestamp(), $timestamped->foo()->first()->updated_at->getTimestamp());
-	 }
+		$this->assertEquals($timestamped->updated_at->getTimestamp(), $timestamped->foo()->first()->updated_at->getTimestamp());
+	}
+
+	/**
+	 *
+	 */
+	public function testInsert(): void
+	{
+		$now = new DateTime;
+
+		(new TimestampedFoo)->insert(['value' => 'test_insert1']);
+
+		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert1')->first()->created_at->format('Y-m-d'));
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultiple(): void
+	{
+		$now = new DateTime;
+
+		(new TimestampedFoo)->insertMultiple(['value' => 'test_insert2'], ['value' => 'test_insert3']);
+
+		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert2')->first()->created_at->format('Y-m-d'));
+
+		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert3')->first()->created_at->format('Y-m-d'));
+	}
 }

@@ -961,6 +961,30 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a INSERT query with multiple row inserts.
+	 *
+	 * @param  array ...$values Array of values
+	 * @return array
+	 */
+	public function insertMultiple(array ...$values): array
+	{
+		$sql = "INSERT INTO {$this->escapeTableName($this->query->getTable())} "
+		. "({$this->escapeIdentifiers(array_keys($values[0]))})"
+		. ' VALUES ';
+
+		$rows = [];
+
+		foreach($values as $rowValues)
+		{
+			$rows[] =  "({$this->params($rowValues)})";
+		}
+
+		$sql .= implode(', ', $rows);
+
+		return ['sql' => $sql, 'params' => $this->params];
+	}
+
+	/**
 	 * Compiles update columns.
 	 *
 	 * @param  array  $columns Associative array of columns and values

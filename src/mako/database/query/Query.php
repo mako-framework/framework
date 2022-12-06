@@ -1751,7 +1751,7 @@ class Query
 	}
 
 	/**
-	 * Inserts data into the chosen table.
+	 * Inserts a single row of data into the chosen table.
 	 *
 	 * @param  array $values Associative array of column values
 	 * @return bool
@@ -1764,7 +1764,7 @@ class Query
 	}
 
 	/**
-	 * Inserts data into the chosen table and returns the auto increment id.
+	 * Inserts a single row of data into the chosen table and returns the auto increment id.
 	 *
 	 * @param  array     $values     Associative array of column values
 	 * @param  string    $primaryKey Primary key
@@ -1773,6 +1773,19 @@ class Query
 	public function insertAndGetId(array $values, string $primaryKey = 'id')
 	{
 		return $this->helper->insertAndGetId($this, $values, $primaryKey);
+	}
+
+	/**
+	 * Inserts multiple rows of data into the chosen table.
+	 *
+	 * @param  array ...$values Associative array of column values
+	 * @return bool
+	 */
+	public function insertMultiple(array ...$values): bool
+	{
+		$query = $this->compiler->insertMultiple(...$values);
+
+		return $this->connection->query($query['sql'], $query['params']);
 	}
 
 	/**

@@ -11,6 +11,7 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 	- `Query::rightJoinRaw()`
 	- `Query::crossJoin()`
 	- `Query::lateralJoin()`
+	- `Query::insertMultiple()`
 
 
 #### Changes

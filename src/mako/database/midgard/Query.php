@@ -136,6 +136,37 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	public function insertMultiple(array ...$values): bool
+	{
+		// Execute "beforeInsert" hooks
+
+		foreach($values as $key => $rowValues)
+		{
+			foreach($this->model->getHooks('beforeInsert') as $hook)
+			{
+				$values[$key] = $hook($rowValues, $this);
+			}
+		}
+
+		// Insert record
+
+		$inserted = parent::insertMultiple(...$values);
+
+		// Execute "afterInsert" hooks
+
+		foreach($this->model->getHooks('afterInsert') as $hook)
+		{
+			$hook($inserted);
+		}
+
+		// Return insert status
+
+		return $inserted;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function update(array $values): int
 	{
 		// Execute "beforeUpdate" hooks
