@@ -913,6 +913,16 @@ class Compiler
 	}
 
 	/**
+	 * Returns a INSERT query without values.
+	 *
+	 * @return string
+	 */
+	protected function insertWithoutValues(): string
+	{
+		return "INSERT INTO {$this->escapeTableName($this->query->getTable())} DEFAULT VALUES";
+	}
+
+	/**
 	 * Returns a INSERT query with values.
 	 *
 	 * @param  array  $values Array of values
@@ -926,16 +936,6 @@ class Compiler
 		. "({$this->params($values)})";
 
 		return $sql;
-	}
-
-	/**
-	 * Returns a INSERT query without values.
-	 *
-	 * @return string
-	 */
-	protected function insertWithoutValues(): string
-	{
-		return "INSERT INTO {$this->escapeTableName($this->query->getTable())} DEFAULT VALUES";
 	}
 
 	/**
@@ -968,7 +968,8 @@ class Compiler
 	 */
 	public function insertMultiple(array ...$values): array
 	{
-		$sql = "INSERT INTO {$this->escapeTableName($this->query->getTable())} "
+		$sql = $this->query->getPrefix()
+		. "INSERT INTO {$this->escapeTableName($this->query->getTable())} "
 		. "({$this->escapeIdentifiers(array_keys($values[0]))})"
 		. ' VALUES ';
 
