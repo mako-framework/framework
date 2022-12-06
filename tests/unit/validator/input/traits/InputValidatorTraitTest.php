@@ -30,6 +30,8 @@ class InputValidatorTraitTest extends TestCase
 		{
 			use InputValidationTrait;
 
+			public $container, $validator;
+
 			public function validateInput($input, array $rules = []): array
 			{
 				return $this->getValidatedInput($input, $rules);
@@ -92,6 +94,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class
 		{
 			use InputValidationTrait;
+
+			public $container, $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -156,6 +160,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class
 		{
 			use InputValidationTrait;
+
+			public $container, $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -223,6 +229,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class
 		{
 			use InputValidationTrait;
+
+			public $container, $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -295,6 +303,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class
 		{
 			use InputValidationTrait;
+
+			public $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{

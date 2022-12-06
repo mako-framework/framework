@@ -38,6 +38,8 @@ class InputValidationTraitTest extends TestCase
 		{
 			use InputValidationTrait;
 
+			public $request;
+
 			public function test(): array
 			{
 				return $this->getValidatedInput(['foo' => ['required']]);
@@ -66,6 +68,8 @@ class InputValidationTraitTest extends TestCase
 
 		$class = new class
 		{
+			public $request;
+
 			use InputValidationTrait;
 
 			public function test(): array
@@ -103,6 +107,8 @@ class InputValidationTraitTest extends TestCase
 		{
 			use InputValidationTrait;
 
+			public $request;
+
 			public function test(): array
 			{
 				return $this->getValidatedFiles(['foo' => ['required']]);
@@ -132,6 +138,8 @@ class InputValidationTraitTest extends TestCase
 		$class = new class
 		{
 			use InputValidationTrait;
+
+			public $request;
 
 			public function test(): array
 			{

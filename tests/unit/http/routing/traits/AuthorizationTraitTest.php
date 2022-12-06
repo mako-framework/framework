@@ -28,6 +28,8 @@ class AuthorizationTraitTest extends TestCase
 		{
 			use AuthorizationTrait;
 
+			public $gatekeeper, $authorizer;
+
 			public function test(): void
 			{
 				$this->authorize('action', 'entity');
@@ -53,6 +55,8 @@ class AuthorizationTraitTest extends TestCase
 		$class = new class
 		{
 			use AuthorizationTrait;
+
+			public $gatekeeper, $authorizer;
 
 			public function test(): void
 			{
@@ -81,6 +85,8 @@ class AuthorizationTraitTest extends TestCase
 		$class = new class
 		{
 			use AuthorizationTrait;
+
+			public $gatekeeper, $authorizer;
 
 			public function test(): void
 			{
