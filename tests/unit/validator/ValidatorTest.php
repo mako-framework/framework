@@ -394,7 +394,7 @@ class ValidatorTest extends TestCase
 
 		$rule = new class($this) implements RuleInterface, I18nAwareInterface
 		{
-			protected $test;
+			protected $test, $i18n;
 
 			public function __construct($test)
 			{
