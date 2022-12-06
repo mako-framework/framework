@@ -148,7 +148,7 @@ class Query extends QueryBuilder
 			}
 		}
 
-		// Insert record
+		// Insert records
 
 		$inserted = parent::insertMultiple(...$values);
 
