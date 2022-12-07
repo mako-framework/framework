@@ -210,7 +210,7 @@ class Arr
 			}
 		}
 
-		if(isset($remaining) && strpos($remaining, '*') !== false)
+		if(strpos($remaining, '*') !== false)
 		{
 			$keys = $expanded;
 
