@@ -65,7 +65,7 @@ return (new Config)->setRules
 	'phpdoc_single_line_var_spacing' => true,
 	'phpdoc_summary' => true,
 	'phpdoc_tag_casing' => true,
-	'phpdoc_to_comment' => true,
+	'phpdoc_to_comment' => ['ignored_tags' => ['var']],
 	'phpdoc_trim' => true,
 	'phpdoc_types_order' => ['sort_algorithm' => 'alpha', 'null_adjustment' => 'always_last'],
 	'phpdoc_types' => true,
