@@ -1,3 +1,11 @@
+### 8.1.4 <small>(2022-12-07)</small>
+
+#### Bugfixes
+
+* Don't set the Content-Encoding header when sending a chunked data stream.
+
+--------------------------------------------------------
+
 ### 8.1.3 <small>(2022-10-13)</small>
 
 #### Bugfixes
