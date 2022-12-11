@@ -36,7 +36,7 @@ class RedisTest extends TestCase
 	{
 		if(PHP_VERSION_ID >= 80300)
 		{
-			$this->markTestSkipped('Tests currently fail on tue PHP 8.3 preview.');
+			$this->markTestSkipped('Skipping since the tests currently fail on the PHP 8.3 preview.');
 		}
 
 		try
