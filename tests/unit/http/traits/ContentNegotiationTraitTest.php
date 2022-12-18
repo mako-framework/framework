@@ -30,16 +30,11 @@ class ContentNegotiationTraitTest extends TestCase
 		{
 			use ContentNegotiationTrait;
 
-			protected $request;
-
-			protected $response;
-
-			public function __construct(Request $request, Response $response)
-			{
-				$this->request = $request;
-
-				$this->response = $response;
-			}
+			public function __construct(
+				protected Request $request,
+				protected Response $response
+			)
+			{}
 
 			public function testExpectsType(array $mimeTypes, ?string $suffix = null): bool
 			{

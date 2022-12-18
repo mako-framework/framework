@@ -28,13 +28,6 @@ class Onion
 	protected $container;
 
 	/**
-	 * Method to call on the decoracted class.
-	 *
-	 * @var string
-	 */
-	protected $method;
-
-	/**
 	 * Middleware layers.
 	 *
 	 * @var array
@@ -52,18 +45,16 @@ class Onion
 	 * Constructor.
 	 *
 	 * @param \mako\syringe\Container|null $container         Container
-	 * @param string|null                  $method            Method to call on the decoracted class
+	 * @param string                       $method            Method to call on the decoracted class
 	 * @param string|null                  $expectedInterface Expected middleware interface
 	 */
 	public function __construct(
 		?Container $container = null,
-		?string $method = null,
+		protected string $method = 'handle',
 		protected ?string $expectedInterface = null
 	)
 	{
 		$this->container = $container ?? new Container;
-
-		$this->method = $method ?? 'handle';
 	}
 
 	/**

@@ -34,12 +34,10 @@ class InjectMe
 
 class SimpleController extends Controller
 {
-	protected $response;
-
-	public function __construct(Response $response)
-	{
-		$this->response = $response;
-	}
+	public function __construct(
+		protected Response $response
+	)
+	{}
 
 	public function foo()
 	{
@@ -61,12 +59,10 @@ class SimpleController extends Controller
 
 class InvokeController extends Controller
 {
-	protected $response;
-
-	public function __construct(Response $response)
-	{
-		$this->response = $response;
-	}
+	public function __construct(
+		protected Response $response
+	)
+	{}
 
 	public function __invoke()
 	{
@@ -91,12 +87,10 @@ class ControllerWithBeforeFilter extends Controller
 
 class ControllerWithNullBeforeFilter extends Controller
 {
-	protected $response;
-
-	public function __construct(Response $response)
-	{
-		$this->response = $response;
-	}
+	public function __construct(
+		protected Response $response
+	)
+	{}
 
 	public function beforeAction(): void
 	{
@@ -111,12 +105,10 @@ class ControllerWithNullBeforeFilter extends Controller
 
 class ControllerWithAfterFilter extends Controller
 {
-	protected $response;
-
-	public function __construct(Response $response)
-	{
-		$this->response = $response;
-	}
+	public function __construct(
+		protected Response $response
+	)
+	{}
 
 	public function afterAction(): void
 	{
@@ -131,12 +123,10 @@ class ControllerWithAfterFilter extends Controller
 
 class ControllerWithInjection extends Controller
 {
-	protected $injectMe;
-
-	public function __construct(InjectMe $injectMe)
-	{
-		$this->injectMe = $injectMe;
-	}
+	public function __construct(
+		protected InjectMe $injectMe
+	)
+	{}
 
 	public function foo()
 	{
@@ -146,12 +136,10 @@ class ControllerWithInjection extends Controller
 
 class FooMiddleware implements MiddlewareInterface
 {
-	protected $separator;
-
-	public function __construct($separator = '_')
-	{
-		$this->separator = $separator;
-	}
+	public function __construct(
+		protected $separator = '_'
+	)
+	{}
 
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{

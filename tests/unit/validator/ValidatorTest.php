@@ -394,12 +394,12 @@ class ValidatorTest extends TestCase
 
 		$rule = new class($this) implements RuleInterface, I18nAwareInterface
 		{
-			protected $test, $i18n;
+			protected $i18n;
 
-			public function __construct($test)
-			{
-				$this->test = $test;
-			}
+			public function __construct(
+				protected $test
+			)
+			{}
 
 			public function validateWhenEmpty(): bool
 			{

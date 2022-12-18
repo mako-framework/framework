@@ -16,12 +16,10 @@ use mako\tests\TestCase;
 
 class Connection
 {
-	protected $name;
-
-	public function __construct($name)
-	{
-		$this->name = $name;
-	}
+	public function __construct(
+		protected $name
+	)
+	{}
 
 	public function getName()
 	{

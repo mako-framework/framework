@@ -75,12 +75,10 @@ class BarMiddleware2
 
 class BazMiddleware1
 {
-	protected $separator;
-
-	public function __construct($separator)
-	{
-		$this->separator = $separator;
-	}
+	public function __construct(
+		protected $separator
+	)
+	{}
 
 	public function execute($next)
 	{
@@ -231,7 +229,7 @@ class OnionTest extends TestCase
 
 		$this->expectExceptionMessage('The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].');
 
-		$onion = new Onion(null, null, FooMiddleware2Interface::class);
+		$onion = new Onion(null, expectedInterface: FooMiddleware2Interface::class);
 
 		$onion->addLayer(FooMiddleware1::class);
 
@@ -243,7 +241,7 @@ class OnionTest extends TestCase
 	 */
 	public function testMiddlewareWithValidMiddlewareInterfaceExpectation(): void
 	{
-		$onion = new Onion(null, null, FooMiddleware1Interface::class);
+		$onion = new Onion(null, expectedInterface: FooMiddleware1Interface::class);
 
 		$onion->addLayer(FooMiddleware1::class);
 

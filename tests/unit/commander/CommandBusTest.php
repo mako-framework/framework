@@ -19,14 +19,11 @@ use mako\tests\TestCase;
 
 class SelfHandlingCommand implements CommandInterface, SelfHandlingCommandInterface
 {
-	protected $foo;
-	protected $bar;
-
-	public function __construct($foo, $bar)
-	{
-		$this->foo = $foo;
-		$this->bar = $bar;
-	}
+	public function __construct(
+		protected $foo,
+		protected $bar
+	)
+	{}
 
 	public function handle(): mixed
 	{
@@ -36,14 +33,11 @@ class SelfHandlingCommand implements CommandInterface, SelfHandlingCommandInterf
 
 class FooCommand implements CommandInterface
 {
-	public $foo;
-	public $bar;
-
-	public function __construct($foo, $bar)
-	{
-		$this->foo = $foo;
-		$this->bar = $bar;
-	}
+	public function __construct(
+		public $foo,
+		public $bar
+	)
+	{}
 }
 
 class FooHandler implements CommandHandlerInterface
@@ -56,12 +50,10 @@ class FooHandler implements CommandHandlerInterface
 
 class BarCommand implements CommandInterface
 {
-	public $foo;
-
-	public function __construct($foo)
-	{
-		$this->foo = $foo;
-	}
+	public function __construct(
+		public $foo
+	)
+	{}
 }
 
 class BarHandler implements CommandHandlerInterface

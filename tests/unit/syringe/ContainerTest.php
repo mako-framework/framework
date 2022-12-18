@@ -20,24 +20,19 @@ use stdClass;
 
 class Foo
 {
-	public $stdClass;
-
-	public function __construct(\StdClass $stdClass)
-	{
-		$this->stdClass = $stdClass;
-	}
+	public function __construct(
+		public \StdClass $stdClass
+	)
+	{}
 }
 
 class Bar
 {
-	public $foo;
-	public $bar;
-
-	public function __construct($foo = 123, $bar = 456)
-	{
-		$this->foo = $foo;
-		$this->bar = $bar;
-	}
+	public function __construct(
+		public $foo = 123,
+		public $bar = 456
+	)
+	{}
 }
 
 interface StoreInterface
@@ -52,12 +47,10 @@ class Store implements StoreInterface
 
 class Baz
 {
-	public $store;
-
-	public function __construct(StoreInterface $store)
-	{
-		$this->store = $store;
-	}
+	public function __construct(
+		public StoreInterface $store
+	)
+	{}
 }
 
 class Baq
@@ -72,10 +65,10 @@ class Baq
 
 class Fox
 {
-	public function __construct($bax)
-	{
-
-	}
+	public function __construct(
+		public $bax
+	)
+	{}
 }
 
 interface ContextualInterface
@@ -95,22 +88,18 @@ class ContextualImplementationB implements ContextualInterface
 
 class ContextClassA
 {
-	public $implementation;
-
-	public function __construct(ContextualInterface $implementation)
-	{
-		$this->implementation = $implementation;
-	}
+	public function __construct(
+		public ContextualInterface $implementation
+	)
+	{}
 }
 
 class ContextClassB
 {
-	public $implementation;
-
-	public function __construct(ContextualInterface $implementation)
-	{
-		$this->implementation = $implementation;
-	}
+	public function __construct(
+		public ContextualInterface $implementation
+	)
+	{}
 }
 
 class ContextualMethods
@@ -128,12 +117,10 @@ class ContextualMethods
 
 class ReplaceA
 {
-	protected $value;
-
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+	public function __construct(
+		protected $value
+	)
+	{}
 
 	public function getValue()
 	{
@@ -143,12 +130,10 @@ class ReplaceA
 
 class ReplaceB
 {
-	protected $replaceA;
-
-	public function __construct(ReplaceA $replaceA)
-	{
-		$this->replaceA = $replaceA;
-	}
+	public function __construct(
+		protected ReplaceA $replaceA
+	)
+	{}
 
 	public function setReplaceA(ReplaceA $replaceA): void
 	{
@@ -168,32 +153,26 @@ function syringeFunction($foo = 123, $bar = 456)
 
 class ImpossibleToResolveDependencyA
 {
-	public $store;
-
-	public function __construct(?StoreInterface $store = null)
-	{
-		$this->store = $store;
-	}
+	public function __construct(
+		public ?StoreInterface $store = null
+	)
+	{}
 }
 
 class ImpossibleToResolveDependencyB
 {
-	public $store;
-
-	public function __construct(?StoreInterface $store = null)
-	{
-		$this->store = $store;
-	}
+	public function __construct(
+		public ?StoreInterface $store = null
+	)
+	{}
 }
 
 class ImpossibleToResolveDependencyC
 {
-	public $store;
-
-	public function __construct(?StoreInterface $store)
-	{
-		$this->store = $store;
-	}
+	public function __construct(
+		public ?StoreInterface $store
+	)
+	{}
 }
 
 // --------------------------------------------------------------------------

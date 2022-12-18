@@ -4,33 +4,35 @@ parameters:
 			message: "#^Variable \\$start might not be defined\\.$#"
 			count: 1
 			path: src/mako/database/connections/Connection.php
-
 		-
 			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet\\:\\:including\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ResultSet.php
-
 		-
 			message: "#^Call to protected method loadIncludes\\(\\) of class mako\\\\database\\\\midgard\\\\Query\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ORM.php
-
 		-
 			message: "#Used function enum_exists not found.#"
 			count: 1
 			path: src/mako/database/query/compilers/Compiler.php
-
 		-
 			message: "#Function enum_exists not found.#"
 			count: 1
 			path: src/mako/database/query/compilers/Compiler.php
-
 		-
 			message: "#Used function enum_exists not found.#"
 			count: 1
 			path: src/mako/validator/rules/Enum.php
-
 		-
 			message: "#Function enum_exists not found.#"
 			count: 1
 			path: src/mako/validator/rules/Enum.php
+		-
+			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$request\\.#"
+			count: 1
+			path: src/mako/http/traits/ContentNegotiationTrait.php
+		-
+			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$response\\.#"
+			count: 1
+			path: src/mako/http/traits/ContentNegotiationTrait.php
