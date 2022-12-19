@@ -11,7 +11,6 @@ use FilesystemIterator;
 use SplFileObject;
 
 use function copy;
-use function dirname;
 use function disk_free_space;
 use function disk_total_space;
 use function file_exists;
@@ -293,7 +292,7 @@ class FileSystem
 	 */
 	public function getDiskSize(?string $directory = null): float
 	{
-		return disk_total_space($directory ?? (getcwd() ?: dirname(__FILE__)));
+		return disk_total_space($directory ?? (getcwd() ?: __DIR__));
 	}
 
 	/**
@@ -304,7 +303,7 @@ class FileSystem
 	 */
 	public function getFreeSpaceOnDisk(?string $directory = null): float
 	{
-		return disk_free_space($directory ?? (getcwd() ?: dirname(__FILE__)));
+		return disk_free_space($directory ?? (getcwd() ?: __DIR__));
 	}
 
 	/**
