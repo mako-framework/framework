@@ -61,28 +61,28 @@ abstract class ORM implements JsonSerializable, Stringable
 	 *
 	 * @var int
 	 */
-	public const PRIMARY_KEY_TYPE_INCREMENTING = 1000;
+	protected const PRIMARY_KEY_TYPE_INCREMENTING = 1000;
 
 	/**
 	 * UUID primary key.
 	 *
 	 * @var int
 	 */
-	public const PRIMARY_KEY_TYPE_UUID = 1001;
+	protected const PRIMARY_KEY_TYPE_UUID = 1001;
 
 	/**
 	 * Custom primary key.
 	 *
 	 * @var int
 	 */
-	public const PRIMARY_KEY_TYPE_CUSTOM = 1002;
+	protected const PRIMARY_KEY_TYPE_CUSTOM = 1002;
 
 	/**
 	 * No primary key.
 	 *
 	 * @var int
 	 */
-	public const PRIMARY_KEY_TYPE_NONE = 1003;
+	protected const PRIMARY_KEY_TYPE_NONE = 1003;
 
 	/**
 	 * Connection name to use for the model.

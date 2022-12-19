@@ -21,7 +21,7 @@ class Signer
 	 *
 	 * @var int
 	 */
-	public const MAC_LENGTH = 64;
+	protected const MAC_LENGTH = 64;
 
 	/**
 	 * Constructor.

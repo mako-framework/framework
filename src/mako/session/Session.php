@@ -33,7 +33,7 @@ class Session
 	 *
 	 * @var int
 	 */
-	public const MAX_TOKENS = 20;
+	protected const MAX_TOKENS = 20;
 
 	/**
 	 * Has the session been destroyed?

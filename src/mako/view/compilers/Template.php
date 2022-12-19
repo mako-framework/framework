@@ -29,7 +29,7 @@ class Template
 	 *
 	 * @var string
 	 */
-	public const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
+	protected const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
 
 	/**
 	 * Verbatims.

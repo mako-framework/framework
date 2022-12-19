@@ -38,7 +38,7 @@ class Dispatcher
 	 *
 	 * @var int
 	 */
-	public const MIDDLEWARE_DEFAULT_PRIORITY = 100;
+	protected const MIDDLEWARE_DEFAULT_PRIORITY = 100;
 
 	/**
 	 * Container.

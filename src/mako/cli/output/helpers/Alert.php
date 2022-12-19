@@ -27,7 +27,7 @@ class Alert
 	 *
 	 * @var int
 	 */
-	public const PADDING = 1;
+	protected const PADDING = 1;
 
 	/**
 	 * Default template.

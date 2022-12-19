@@ -35,14 +35,14 @@ class ArgvParser
 	 *
 	 * @var string
 	 */
-	public const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
+	protected const INT_REGEX = '/^([+-]?[1-9]\d*|0)$/';
 
 	/**
 	 * Regex that matches floats.
 	 *
 	 * @var string
 	 */
-	public const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
+	protected const FLOAT_REGEX = '/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/';
 
 	/**
 	 * Arguments.

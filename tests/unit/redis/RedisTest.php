@@ -18,6 +18,8 @@ use Mockery;
  */
 class RedisTest extends TestCase
 {
+	protected const CRLF_LENGTH = 2;
+
 	/**
 	 *
 	 */
@@ -173,7 +175,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('readLine')->once()->andReturn("$6\r\n");
 
-		$connection->shouldReceive('read')->once()->with(6 + Redis::CRLF_LENGTH)->andReturn("foobar\r\n");
+		$connection->shouldReceive('read')->once()->with(6 + static::CRLF_LENGTH)->andReturn("foobar\r\n");
 
 		$redis = new Redis($connection);
 
@@ -211,15 +213,15 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('readLine')->once()->andReturn(";4\r\n");
 
-		$connection->shouldReceive('read')->once()->with(4 + Redis::CRLF_LENGTH)->andReturn("Hell\r\n");
+		$connection->shouldReceive('read')->once()->with(4 + static::CRLF_LENGTH)->andReturn("Hell\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn(";6\r\n");
 
-		$connection->shouldReceive('read')->once()->with(6 + Redis::CRLF_LENGTH)->andReturn("o worl\r\n");
+		$connection->shouldReceive('read')->once()->with(6 + static::CRLF_LENGTH)->andReturn("o worl\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn(";1\r\n");
 
-		$connection->shouldReceive('read')->once()->with(1 + Redis::CRLF_LENGTH)->andReturn("d\r\n");
+		$connection->shouldReceive('read')->once()->with(1 + static::CRLF_LENGTH)->andReturn("d\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn(";0\r\n");
 
@@ -240,7 +242,7 @@ class RedisTest extends TestCase
 
 		$connection->shouldReceive('readLine')->once()->andReturn("=10\r\n");
 
-		$connection->shouldReceive('read')->once()->with(10 + Redis::CRLF_LENGTH)->andReturn("txt:foobar\r\n");
+		$connection->shouldReceive('read')->once()->with(10 + static::CRLF_LENGTH)->andReturn("txt:foobar\r\n");
 
 		$redis = new Redis($connection);
 

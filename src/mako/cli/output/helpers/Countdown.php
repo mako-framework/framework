@@ -24,7 +24,7 @@ class Countdown
 	 *
 	 * @var int
 	 */
-	public const SLEEP_TIME = 250000;
+	protected const SLEEP_TIME = 250000;
 
 	/**
 	 * Constructor.

@@ -292,28 +292,28 @@ class Redis
 	 *
 	 * @var string
 	 */
-	public const CRLF = "\r\n";
+	protected const CRLF = "\r\n";
 
 	/**
 	 * Command terminator length.
 	 *
 	 * @var int
 	 */
-	public const CRLF_LENGTH = 2;
+	protected const CRLF_LENGTH = 2;
 
 	/**
 	 * Verbatim string prefix length.
 	 *
 	 * @var int
 	 */
-	public const VERBATIM_PREFIX_LENGTH = 4;
+	protected const VERBATIM_PREFIX_LENGTH = 4;
 
 	/**
 	 * UUID representing a "end" response.
 	 *
 	 * @var string
 	 */
-	public const END = 'dd0edad3-61d3-415b-aeab-61b14841cda3';
+	protected const END = 'dd0edad3-61d3-415b-aeab-61b14841cda3';
 
 	/**
 	 * RESP version 2.

@@ -19,6 +19,61 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 * Removed the following deprecated methods from the `Str` class:
 	- `Str::camel2underscored()`
 	- `Str::underscored2camel()`
+* The following class constants have been made protected:
+	- mako\application\cli\commands\server\Server:
+		- MAX_PORTS_TO_TRY
+	- mako\classes\ClassFinder:
+		- PHP_FILENAME_PATTERN
+	- mako\cli\input\arguments\Argument:
+		- NAME_REGEX
+		- ALIAS_REGEX
+	- mako\cli\input\arguments\ArgvParser:
+		- INT_REGEX
+		- FLOAT_REGEX
+	- mako\cli\output\formatter\Formatter:
+		- TAG_REGEX
+		- ESCAPED_TAG_REGEX
+		- ANSI_SGR_SEQUENCE_REGEX
+	- mako\cli\output\helpers\Alert:
+		- PADDING
+	- mako\cli\output\helpers\Countdown:
+		- SLEEP_TIME
+	- mako\commander\CommandBus:
+		- COMMAND_SUFFIX
+		- HANDLER_SUFFIX
+	- mako\database\midgard\ORM:
+		- PRIMARY_KEY_TYPE_INCREMENTING
+		- PRIMARY_KEY_TYPE_UUID
+		- PRIMARY_KEY_TYPE_CUSTOM
+		- PRIMARY_KEY_TYPE_NONE
+	- mako\database\midgard\relations\Relation:
+		- EAGER_LOAD_CHUNK_SIZE
+	- mako\database\query\compilers\Compiler:
+		- JSON_PATH_SEPARATOR
+	- mako\error\handlers\web\DevelopmentHandler:
+		- SOURCE_PADDING
+	- mako\http\Response:
+		- DEFAULT_STATUS
+	- mako\http\routing\Dispatcher:
+		- MIDDLEWARE_DEFAULT_PRIORITY
+	- mako\i18n\I18n:
+		- PLURALIZATION_TAG_REGEX
+		- NUMBER_TAG_REGEX
+	- mako\redis\Redis:
+		- CRLF
+		- CRLF_LENGTH
+		- VERBATIM_PREFIX_LENGTH
+		- END
+	- mako\security\crypto\encrypters\Encrypter:
+		- DERIVATION_HASH
+		- DERIVATION_ITERATIONS
+	- mako\security\Signer:
+		- MAC_LENGTH
+	- mako\session\Session:
+		- MAX_TOKENS
+	- mako\view\compilers\Template:
+		- VERBATIM_PLACEHOLDER
+	-
 
 #### Improvements
 

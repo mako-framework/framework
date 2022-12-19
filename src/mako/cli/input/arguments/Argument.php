@@ -64,14 +64,14 @@ class Argument
 	 *
 	 * @var string
 	 */
-	public const NAME_REGEX = '/^(--)?(?!.*(--|__|-_|_-))[a-z][a-z0-9-_]+(?<!(-|_))$/i';
+	protected const NAME_REGEX = '/^(--)?(?!.*(--|__|-_|_-))[a-z][a-z0-9-_]+(?<!(-|_))$/i';
 
 	/**
 	 * Regex that matches allowed aliases.
 	 *
 	 * @var string
 	 */
-	public const ALIAS_REGEX = '/^-[a-z]$/i';
+	protected const ALIAS_REGEX = '/^-[a-z]$/i';
 
 	/**
 	 * Argument alias.
