@@ -73,7 +73,6 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 		- MAX_TOKENS
 	- mako\view\compilers\Template:
 		- VERBATIM_PLACEHOLDER
-	-
 
 #### Improvements
 
