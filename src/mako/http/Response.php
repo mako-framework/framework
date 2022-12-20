@@ -35,7 +35,7 @@ class Response
 	 *
 	 * @var int
 	 */
-	protected const DEFAULT_STATUS = 200;
+	public const DEFAULT_STATUS = 200;
 
 	/**
 	 * Response body.
