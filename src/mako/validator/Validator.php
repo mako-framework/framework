@@ -86,10 +86,8 @@ use function array_unique;
 use function class_exists;
 use function compact;
 use function in_array;
-use function json_encode;
 use function preg_match;
 use function strpos;
-use function substr;
 use function vsprintf;
 
 /**
@@ -223,23 +221,6 @@ class Validator
 		$this->ruleSets = $this->expandFields($ruleSets);
 
 		$this->container = $container ?? new Container;
-	}
-
-	/**
-	 * Rule builder.
-	 *
-	 * @param  string $ruleName      Rule name
-	 * @param  mixed  ...$parameters Rule parameters
-	 * @return string
-	 */
-	public static function rule(string $ruleName, mixed ...$parameters): string
-	{
-		if(empty($parameters))
-		{
-			return $ruleName;
-		}
-
-		return "{$ruleName}(" . substr(json_encode($parameters), 1, -1) . ')';
 	}
 
 	/**

@@ -12,10 +12,12 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 	- `Query::crossJoin()`
 	- `Query::lateralJoin()`
 	- `Query::insertMultiple()`
+* Added the `mako\f` "function builder" helper function.
 
 
 #### Changes
 
+* Removed the `Validator::rule()` helper method in favor of the new `mako\f` helper function.
 * Removed the following deprecated methods from the `Str` class:
 	- `Str::camel2underscored()`
 	- `Str::underscored2camel()`

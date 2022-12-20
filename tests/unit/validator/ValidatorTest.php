@@ -17,6 +17,8 @@ use mako\validator\Validator;
 use Mockery;
 use Throwable;
 
+use function mako\f;
+
 class MyRule extends Rule implements RuleInterface
 {
 	public function validate(mixed $value, string $field, array $input): bool
@@ -48,22 +50,6 @@ class ValidatorTest extends TestCase
 		{
 			return $this->$attribute;
 		})->bindTo($validator, Validator::class)();
-	}
-
-	/**
-	 *
-	 */
-	public function testRule(): void
-	{
-		$this->assertSame('foobar', Validator::rule('foobar'));
-
-		$this->assertSame('foobar(1,2,3)', Validator::rule('foobar', 1, 2, 3));
-
-		$this->assertSame('foobar("hello\"world")', Validator::rule('foobar', 'hello"world'));
-
-		$this->assertSame('foobar([1,2,3])', Validator::rule('foobar', [1, 2, 3]));
-
-		$this->assertSame('mako\tests\unit\validator\MyRule([1,2,3])', Validator::rule(MyRule::class, [1, 2, 3]));
 	}
 
 	/**
@@ -496,7 +482,7 @@ class ValidatorTest extends TestCase
 	{
 		$input = ['username' => 'foo'];
 
-		$rules = ['username' => [Validator::rule(MyRule::class)]];
+		$rules = ['username' => [f(MyRule::class)]];
 
 		$validator = new Validator($input, $rules);
 

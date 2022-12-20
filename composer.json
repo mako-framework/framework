@@ -21,7 +21,10 @@
     "autoload": {
         "psr-4": {
             "mako\\": "src/mako"
-        }
+        },
+        "files": [
+            "src/mako/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
