@@ -72,13 +72,13 @@ class Router
 	/**
 	 * Registers constraint.
 	 *
-	 * @param  string                    $name       Constraint name
-	 * @param  string                    $constraint Constraint class name
+	 * @param  string                    $name       Constraint name or class name
+	 * @param  string|null               $constraint Constraint class name
 	 * @return \mako\http\routing\Router
 	 */
-	public function registerConstraint(string $name, string $constraint): Router
+	public function registerConstraint(string $name, ?string $constraint = null): Router
 	{
-		$this->constraints[$name] = $constraint;
+		$this->constraints[$name] = $constraint ?? $name;
 
 		return $this;
 	}

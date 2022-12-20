@@ -6,6 +6,8 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 
 * The name of CLI arguments with aliases can now be defined using an array instead of a string.
 * The preloader generator will now attempt to preload typed properties, method arguments and return types.
+* Route middleware can now be registered using only the class name.
+* Route constraints can now be registered using only the class name.
 * Added the following join methods to the query builder:
 	- `Query::rightJoin()`
 	- `Query::rightJoinRaw()`

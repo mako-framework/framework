@@ -417,6 +417,37 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSatisfiedConstraintUsingOnlyClassName(): void
+	{
+		$routes = new Routes;
+
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(BarConstraint::class);
+
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->once()->with(BarConstraint::class, [])->andReturn(new BarConstraint);
+
+		$router = new Router($routes, $container);
+
+		$router->registerConstraint(BarConstraint::class);
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('getMethod')->andReturn('GET');
+
+		$request->shouldReceive('getPath')->andReturn('/foo');
+
+		$routed = $router->route($request);
+
+		$this->assertSame('get.foo', $routed->getName());
+
+		$this->assertSame($routed, $request->getRoute());
+	}
+
+	/**
+	 *
+	 */
 	public function testFailingConstraint(): void
 	{
 		$this->expectException(NotFoundException::class);

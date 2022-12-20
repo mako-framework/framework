@@ -483,6 +483,39 @@ class DispatcherTest extends TestCase
 	/**
 	 *
 	 */
+	public function testMiddlewareUsingOnlyClassName(): void
+	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
+		$route = Mockery::mock(Route::class);
+
+		$route->shouldReceive('getMiddleware')->once()->andReturn([FooMiddleware::class]);
+
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
+		{
+			return 'hello, world!';
+		});
+
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		$request = Mockery::mock(Request::class);
+
+		$response = Mockery::mock(Response::class)->makePartial();
+
+		$container = Mockery::mock(Container::class)->makePartial();
+
+		$dispatcher = new Dispatcher($request, $response, $container);
+
+		$dispatcher->registerMiddleware(FooMiddleware::class);
+
+		$response = $dispatcher->dispatch($route);
+
+		$this->assertEquals('hello,_world!', $response->getBody());
+	}
+
+	/**
+	 *
+	 */
 	public function testGlobalMiddleware(): void
 	{
 		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
@@ -509,6 +542,41 @@ class DispatcherTest extends TestCase
 		$dispatcher->registerMiddleware('test', BazMiddleware::class);
 
 		$dispatcher->setMiddlewareAsGlobal(['test']);
+
+		$response = $dispatcher->dispatch($route);
+
+		$this->assertEquals('AA hello, world! AA', $response->getBody());
+	}
+
+	/**
+	 *
+	 */
+	public function testGlobalMiddlewareUsingOnlyClassName(): void
+	{
+		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
+		$route = Mockery::mock(Route::class);
+
+		$route->shouldReceive('getMiddleware')->once()->andReturn([]);
+
+		$route->shouldReceive('getAction')->once()->andReturn(function ()
+		{
+			return 'hello, world!';
+		});
+
+		$route->shouldReceive('getParameters')->once()->andReturn([]);
+
+		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		$request = Mockery::mock(Request::class);
+
+		$response = Mockery::mock(Response::class)->makePartial();
+
+		$container = Mockery::mock(Container::class)->makePartial();
+
+		$dispatcher = new Dispatcher($request, $response, $container);
+
+		$dispatcher->registerMiddleware(BazMiddleware::class);
+
+		$dispatcher->setMiddlewareAsGlobal([BazMiddleware::class]);
 
 		$response = $dispatcher->dispatch($route);
 
