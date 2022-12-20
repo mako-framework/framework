@@ -23,6 +23,10 @@ The major version bump is due to dropped support for PHP `7.4` and a several bre
 * Removed the following deprecated methods from the `Str` class:
 	- `Str::camel2underscored()`
 	- `Str::underscored2camel()`
+* Renamed the following classes:
+	- `mako\http\routing\traits\InputValidationTrait` to `mako\validator\input\http\routing\traits\InputValidationTrait`.
+	- `mako\validator\input\HttpInput` to `mako\validator\input\http\Input`.
+	- `mako\validator\input\HttpInputInterface` to `mako\validator\input\http\InputInterface`.
 * The following class constants have been made protected:
 	- mako\application\cli\commands\server\Server:
 		- MAX_PORTS_TO_TRY

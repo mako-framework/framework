@@ -10,7 +10,7 @@ namespace mako\tests\unit\validator\input\traits;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use mako\validator\exceptions\ValidationException;
-use mako\validator\input\HttpInput;
+use mako\validator\input\http\Input;
 use mako\validator\input\traits\InputValidationTrait;
 use mako\validator\Validator;
 use mako\validator\ValidatorFactory;
@@ -50,8 +50,8 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\input\HttpInput|\Mockery\MockInterface $fooInput */
-		$fooInput = Mockery::mock(HttpInput::class);
+		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
 
@@ -116,8 +116,8 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\input\HttpInput|\Mockery\MockInterface $fooInput */
-		$fooInput = Mockery::mock(HttpInput::class);
+		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
 
@@ -183,8 +183,8 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\input\HttpInput|\Mockery\MockInterface $fooInput */
-		$fooInput = Mockery::mock(HttpInput::class);
+		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
 
@@ -255,8 +255,8 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\input\HttpInput|\Mockery\MockInterface $fooInput */
-		$fooInput = Mockery::mock(HttpInput::class);
+		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
 

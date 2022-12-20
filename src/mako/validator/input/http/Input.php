@@ -5,15 +5,16 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\validator\input;
+namespace mako\validator\input\http;
 
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
+use mako\validator\input\Input as BaseInput;
 
 /**
  * HTTP input.
  */
-abstract class HttpInput extends Input implements HttpInputInterface
+abstract class Input extends BaseInput implements InputInterface
 {
 	/**
 	 * Should we redirect the client if possible?

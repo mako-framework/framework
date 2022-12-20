@@ -5,13 +5,13 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\http\routing\traits;
+namespace mako\tests\unit\validator\input\http\routing\traits;
 
 use mako\http\Request;
 use mako\http\request\Files;
 use mako\http\request\Parameters;
-use mako\http\routing\traits\InputValidationTrait;
 use mako\tests\TestCase;
+use mako\validator\input\http\routing\traits\InputValidationTrait;
 use Mockery;
 
 /**

@@ -18,7 +18,7 @@ use mako\http\routing\URLBuilder;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\session\Session;
 use mako\validator\exceptions\ValidationException;
-use mako\validator\input\HttpInputInterface;
+use mako\validator\input\http\InputInterface;
 use mako\view\ViewFactory;
 
 use function array_diff_key;
@@ -107,7 +107,7 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Input.
 	 *
-	 * @var \mako\validator\input\HttpInputInterface|null
+	 * @var \mako\validator\input\http\InputInterface|null
 	 */
 	protected $input;
 
@@ -128,9 +128,9 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Set the input.
 	 *
-	 * @param \mako\validator\input\HttpInputInterface|null $input Input
+	 * @param \mako\validator\input\http\InputInterface|null $input Input
 	 */
-	protected function setInput(?HttpInputInterface $input): void
+	protected function setInput(?InputInterface $input): void
 	{
 		$this->input = $input;
 	}

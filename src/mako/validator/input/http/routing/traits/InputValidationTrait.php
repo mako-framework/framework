@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\routing\traits;
+namespace mako\validator\input\http\routing\traits;
 
 use mako\validator\input\traits\InputValidationTrait as BaseInputValidationTrait;
 
