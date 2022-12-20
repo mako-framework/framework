@@ -31,6 +31,6 @@ class FunctionsTest extends TestCase
 
 		$this->assertSame('mako\tests\unit\FooBar([1,2,3])', f(FooBar::class, [1, 2, 3]));
 
-		$this->assertSame('foobar("a":"value","b":123,"c":true,"d":null,"e":[1,2,3])', f('foobar', a: 'value', b: 123, c: true, d: null, e: [1,2,3]));
+		$this->assertSame('foobar("a":"value","b":123,"c":true,"d":null,"e":[1,2,3])', f('foobar', a: 'value', b: 123, c: true, d: null, e: [1, 2, 3]));
 	}
 }
