@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\routing\traits;
+namespace mako\gatekeeper\authorization\http\routing\traits;
 
 use mako\http\exceptions\ForbiddenException;
 

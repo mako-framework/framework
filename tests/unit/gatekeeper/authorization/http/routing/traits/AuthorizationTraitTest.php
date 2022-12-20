@@ -5,12 +5,12 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\http\routing\traits;
+namespace mako\tests\unit\gatekeeper\authorization\http\routing\traits;
 
 use mako\gatekeeper\authorization\AuthorizerInterface;
+use mako\gatekeeper\authorization\http\routing\traits\AuthorizationTrait;
 use mako\gatekeeper\Gatekeeper;
 use mako\http\exceptions\ForbiddenException;
-use mako\http\routing\traits\AuthorizationTrait;
 use mako\tests\TestCase;
 use Mockery;
 
