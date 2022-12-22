@@ -6,9 +6,9 @@ We support fixing security issues on the following releases:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 8.x.x   | :white_check_mark: |
-| 7.3.x   | :white_check_mark: |
-| < 7.3   | :x:                |
+| 9.x.x   | :white_check_mark: |
+| 8.1.x   | :white_check_mark: |
+| < 8.1   | :x:                |
 
 ## Reporting a Vulnerability
 
