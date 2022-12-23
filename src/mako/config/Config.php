@@ -68,9 +68,9 @@ class Config
 	}
 
 	/**
-	 * Parses the language key.
+	 * Parses the config key.
 	 *
-	 * @param  string $key Language key
+	 * @param  string $key Config key
 	 * @return array
 	 */
 	protected function parseKey(string $key): array
