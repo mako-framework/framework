@@ -18,5 +18,5 @@ interface CommandHandlerInterface
 	 * @param  \mako\commander\CommandInterface $command Command
 	 * @return mixed
 	 */
-	public function handle(CommandInterface $command): mixed;
+	public function handle(CommandInterface $command);
 }

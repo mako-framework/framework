@@ -31,12 +31,12 @@ class Mako
 	 *
 	 * @var int
 	 */
-	public const VERSION_MINOR = 1;
+	public const VERSION_MINOR = 0;
 
 	/**
 	 * Mako patch version.
 	 *
 	 * @var int
 	 */
-	public const VERSION_PATCH = 0;
+	public const VERSION_PATCH = 1;
 }

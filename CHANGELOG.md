@@ -1,3 +1,11 @@
+### 9.0.1 <small>(2022-12-26)</small>
+
+#### Bugfixes
+
+* The `CommandInterface::handle()` and `SelfHandlingCommandInterface::handle()` methods no longer enforce a `mixed` return type.
+
+--------------------------------------------------------
+
 ### 9.0.0 <small>(2022-12-22)</small>
 
 The major version bump is due to dropped support for PHP `7.4` and a several breaking changes. Most applications built using Mako `8` should run on Mako `9` with just a few simple adjustments.
