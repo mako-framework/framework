@@ -88,6 +88,8 @@ class ViewFactory
 		?Container $container = null
 	)
 	{
+		$this->path = $path;
+
 		$this->globalVariables['__viewfactory__'] = $this;
 
 		$this->setCharset($charset);
