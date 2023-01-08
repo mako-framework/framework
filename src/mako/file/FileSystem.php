@@ -25,10 +25,13 @@ use function is_file;
 use function is_link;
 use function is_readable;
 use function is_writable;
+use function link;
 use function mkdir;
 use function pathinfo;
+use function readlink;
 use function rename;
 use function rmdir;
+use function symlink;
 use function unlink;
 
 /**
