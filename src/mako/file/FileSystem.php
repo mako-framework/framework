@@ -22,6 +22,7 @@ use function getcwd;
 use function glob;
 use function is_dir;
 use function is_file;
+use function is_link;
 use function is_readable;
 use function is_writable;
 use function mkdir;
@@ -36,36 +37,36 @@ use function unlink;
 class FileSystem
 {
 	/**
-	 * Returns TRUE if a file exists and FALSE if not.
+	 * Returns TRUE if a resource exists and FALSE if not.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return bool
 	 */
-	public function has(string $file): bool
+	public function has(string $path): bool
 	{
-		return file_exists($file);
+		return file_exists($path);
 	}
 
 	/**
 	 * Returns TRUE if the provided path is a file and FALSE if not.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path
 	 * @return bool
 	 */
-	public function isFile(string $file): bool
+	public function isFile(string $path): bool
 	{
-		return is_file($file);
+		return is_file($path);
 	}
 
 	/**
 	 * Returns TRUE if the provided path is a directory and FALSE if not.
 	 *
-	 * @param  string $directory Path to directory
+	 * @param  string $path Path to directory
 	 * @return bool
 	 */
-	public function isDirectory(string $directory): bool
+	public function isDirectory(string $path): bool
 	{
-		return is_dir($directory);
+		return is_dir($path);
 	}
 
 	/**
@@ -87,56 +88,102 @@ class FileSystem
 	/**
 	 * Returns TRUE if the file is readable and FALSE if not.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return bool
 	 */
-	public function isReadable(string $file): bool
+	public function isReadable(string $path): bool
 	{
-		return is_readable($file);
+		return is_readable($path);
 	}
 
 	/**
 	 * Returns TRUE if the file or directory is writable and FALSE if not.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return bool
 	 */
-	public function isWritable(string $file): bool
+	public function isWritable(string $path): bool
 	{
-		return is_writable($file);
+		return is_writable($path);
+	}
+
+	/**
+	 * Returns TRUE if the provided path is a link and FALSE if not.
+	 *
+	 * @param  string $path Path
+	 * @return bool
+	 */
+	public function isLink(string $path): bool
+	{
+		return is_link($path);
+	}
+
+	/**
+	 * Returns the target of a link.
+	 *
+	 * @param  string       $path Path
+	 * @return false|string
+	 */
+	public function getLinkTarget(string $path)
+	{
+		return readlink($path);
+	}
+
+	/**
+	 * Creates a symbolic link.
+	 *
+	 * @param  string $path     Path
+	 * @param  string $linkName Link name
+	 * @return bool
+	 */
+	public function createSymbolicLink(string $path, string $linkName): bool
+	{
+		return symlink($path, $linkName);
+	}
+
+	/**
+	 * Creates a hard link.
+	 *
+	 * @param  string $path     Path
+	 * @param  string $linkName Link name
+	 * @return bool
+	 */
+	public function createHardLink(string $path, string $linkName): bool
+	{
+		return link($path, $linkName);
 	}
 
 	/**
 	 * Returns the time (unix timestamp) the file was last modified.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return int
 	 */
-	public function lastModified(string $file): int
+	public function lastModified(string $path): int
 	{
-		return filemtime($file);
+		return filemtime($path);
 	}
 
 	/**
 	 * Returns the fize of the file in bytes.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return int
 	 */
-	public function size(string $file): int
+	public function size(string $path): int
 	{
-		return filesize($file);
+		return filesize($path);
 	}
 
 	/**
 	 * Returns the extension of the file.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return string
 	 */
-	public function extension(string $file): string
+	public function extension(string $path): string
 	{
-		return pathinfo($file, PATHINFO_EXTENSION);
+		return pathinfo($path, PATHINFO_EXTENSION);
 	}
 
 	/**
@@ -166,12 +213,12 @@ class FileSystem
 	/**
 	 * Deletes the file from disk.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return bool
 	 */
-	public function remove(string $file): bool
+	public function remove(string $path): bool
 	{
-		return unlink($file);
+		return unlink($path);
 	}
 
 	/**
@@ -212,63 +259,63 @@ class FileSystem
 	/**
 	 * Returns the contents of the file.
 	 *
-	 * @param  string       $file File path
+	 * @param  string       $path File path
 	 * @return false|string
 	 */
-	public function get(string $file)
+	public function get(string $path)
 	{
-		return file_get_contents($file);
+		return file_get_contents($path);
 	}
 
 	/**
 	 * Writes the supplied data to a file.
 	 *
-	 * @param  string    $file File path
+	 * @param  string    $path File path
 	 * @param  mixed     $data File data
 	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
-	public static function put(string $file, mixed $data, bool $lock = false)
+	public static function put(string $path, mixed $data, bool $lock = false)
 	{
-		return file_put_contents($file, $data, $lock ? LOCK_EX : 0);
+		return file_put_contents($path, $data, $lock ? LOCK_EX : 0);
 	}
 
 	/**
 	 * Prepends the supplied data to a file.
 	 *
-	 * @param  string    $file File path
+	 * @param  string    $path File path
 	 * @param  mixed     $data File data
 	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
-	public static function prepend(string $file, mixed $data, bool $lock = false)
+	public static function prepend(string $path, mixed $data, bool $lock = false)
 	{
-		return file_put_contents($file, $data . file_get_contents($file), $lock ? LOCK_EX : 0);
+		return file_put_contents($path, $data . file_get_contents($path), $lock ? LOCK_EX : 0);
 	}
 
 	/**
 	 * Appends the supplied data to a file.
 	 *
-	 * @param  string    $file File path
+	 * @param  string    $path File path
 	 * @param  mixed     $data File data
 	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
-	public static function append(string $file, mixed $data, bool $lock = false)
+	public static function append(string $path, mixed $data, bool $lock = false)
 	{
-		return file_put_contents($file, $data, $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
+		return file_put_contents($path, $data, $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}
 
 	/**
 	 * Truncates a file.
 	 *
-	 * @param  string $file File path
+	 * @param  string $path File path
 	 * @param  bool   $lock Acquire an exclusive write lock?
 	 * @return bool
 	 */
-	public static function truncate(string $file, bool $lock = false): bool
+	public static function truncate(string $path, bool $lock = false): bool
 	{
-		return (0 === file_put_contents($file, null, $lock ? LOCK_EX : 0));
+		return (0 === file_put_contents($path, null, $lock ? LOCK_EX : 0));
 	}
 
 	/**
@@ -287,90 +334,90 @@ class FileSystem
 	/**
 	 * Returns the total size of a filesystem or disk partition in bytes.
 	 *
-	 * @param  string|null $directory A directory of the filesystem or disk partition
+	 * @param  string|null $path A directory of the filesystem or disk partition
 	 * @return float
 	 */
-	public function getDiskSize(?string $directory = null): float
+	public function getDiskSize(?string $path = null): float
 	{
-		return disk_total_space($directory ?? (getcwd() ?: __DIR__));
+		return disk_total_space($path ?? (getcwd() ?: __DIR__));
 	}
 
 	/**
 	 * Returns the total number of available bytes on the filesystem or disk partition.
 	 *
-	 * @param  string|null $directory A directory of the filesystem or disk partition
+	 * @param  string|null $path A directory of the filesystem or disk partition
 	 * @return float
 	 */
-	public function getFreeSpaceOnDisk(?string $directory = null): float
+	public function getFreeSpaceOnDisk(?string $path = null): float
 	{
-		return disk_free_space($directory ?? (getcwd() ?: __DIR__));
+		return disk_free_space($path ?? (getcwd() ?: __DIR__));
 	}
 
 	/**
 	 * Includes a file.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return mixed
 	 */
-	public function include(string $file): mixed
+	public function include(string $path): mixed
 	{
-		return include $file;
+		return include $path;
 	}
 
 	/**
 	 * Includes a file it hasn't already been included.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return mixed
 	 */
-	public function includeOnce(string $file): mixed
+	public function includeOnce(string $path): mixed
 	{
-		return include_once $file;
+		return include_once $path;
 	}
 
 	/**
 	 * Requires a file.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return mixed
 	 */
-	public function require(string $file): mixed
+	public function require(string $path): mixed
 	{
-		return require $file;
+		return require $path;
 	}
 
 	/**
 	 * Requires a file if it hasn't already been required.
 	 *
-	 * @param  string $file Path to file
+	 * @param  string $path Path to file
 	 * @return mixed
 	 */
-	public function requireOnce(string $file): mixed
+	public function requireOnce(string $path): mixed
 	{
-		return require_once $file;
+		return require_once $path;
 	}
 
 	/**
 	 * Returns a FileInfo object.
 	 *
-	 * @param  string              $file Path to file
+	 * @param  string              $path Path to file
 	 * @return \mako\file\FileInfo
 	 */
-	public function info(string $file): FileInfo
+	public function info(string $path): FileInfo
 	{
-		return new FileInfo($file);
+		return new FileInfo($path);
 	}
 
 	/**
 	 * Returns a SplFileObject.
 	 *
-	 * @param  string         $file           Path to file
+	 * @param  string         $path           Path to file
 	 * @param  string         $openMode       Open mode
 	 * @param  bool           $useIncludePath Use include path?
 	 * @return \SplFileObject
 	 */
-	public function file(string $file, string $openMode = 'r', bool $useIncludePath = false)
+	public function file(string $path, string $openMode = 'r', bool $useIncludePath = false)
 	{
-		return new SplFileObject($file, $openMode, $useIncludePath);
+		return new SplFileObject($path, $openMode, $useIncludePath);
 	}
 }

@@ -1,3 +1,15 @@
+### 9.1.0 <small>(2023-??-??)</small>
+
+#### New
+
+* Added the following methods to the `mako\file\FileSystem` class:
+	- `FileSystem::isLink()`
+	- `FileSystem::getLinkTarget()`
+	- `FileSystem::createSymbolicLink()`
+	- `FileSystem::createHardLink()`
+
+--------------------------------------------------------
+
 ### 9.0.1 <small>(2022-12-26)</small>
 
 #### Bugfixes
