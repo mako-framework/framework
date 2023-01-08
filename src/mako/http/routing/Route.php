@@ -133,7 +133,7 @@ class Route
 	 * @param  string $method     Attribute method
 	 * @return array
 	 */
-	protected function getAttributeValues($attributes, string $method): array
+	protected function getAttributeValues(array $attributes, string $method): array
 	{
 		$attributeValues = [];
 
