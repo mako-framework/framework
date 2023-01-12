@@ -10,6 +10,14 @@
 
 --------------------------------------------------------
 
+### 9.0.2 <small>(2023-01-12)</small>
+
+#### Bugfixes
+
+* Fixed autoloading of the `RangeNotSatisfiableException` exception.
+
+--------------------------------------------------------
+
 ### 9.0.1 <small>(2022-12-26)</small>
 
 #### Bugfixes
