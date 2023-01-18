@@ -530,7 +530,23 @@ class Connection
 			$start = microtime(true);
 		}
 
-		$success = $statement->execute();
+		try
+		{
+			execute:
+
+			$success = $statement->execute();
+		}
+		catch(PDOException $e)
+		{
+			if($this->isConnectionLostAndShouldItBeReestablished())
+			{
+				$this->reconnect();
+
+				goto execute;
+			}
+
+			throw new DatabaseException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e);
+		}
 
 		if($this->enableLog)
 		{
