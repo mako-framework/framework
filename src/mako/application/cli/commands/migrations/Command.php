@@ -14,11 +14,13 @@ use mako\cli\output\Output;
 use mako\database\ConnectionManager;
 use mako\database\migrations\Migration;
 use mako\database\query\Query;
+use mako\database\query\Result;
 use mako\database\query\ResultSet;
 use mako\file\FileSystem;
 use mako\reactor\Command as BaseCommand;
 use mako\syringe\Container;
 use ReflectionClass;
+use stdClass;
 
 use function basename;
 use function strcmp;
@@ -171,10 +173,10 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns the fully qualified class name of a migration.
 	 *
-	 * @param  object $migration Migration
+	 * @param  \mako\database\query\Result|\stdClass $migration Migration
 	 * @return string
 	 */
-	protected function getFullyQualifiedMigration(object $migration): string
+	protected function getFullyQualifiedMigration(stdClass|Result $migration): string
 	{
 		if(empty($migration->package))
 		{

@@ -2,7 +2,7 @@
 
 #### Bugfixes
 
-* Don't set the Content-Encoding header when sending a chunked data stream.
+* Fixed migration rollbacks.
 
 --------------------------------------------------------
 

@@ -43,7 +43,7 @@ abstract class Handler
 	{
 		if($exception instanceof MethodNotAllowedException)
 		{
-			$this->response->getHeaders()->add('Allow', implode(',', $exception->getAllowedMethods()));
+			$response->getHeaders()->add('Allow', implode(',', $exception->getAllowedMethods()));
 		}
 
 		$response->send();

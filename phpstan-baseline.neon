@@ -34,3 +34,11 @@ parameters:
 			message: "#Function enum_exists not found.#"
 			count: 1
 			path: src/mako/validator/rules/Enum.php
+		-
+			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$request\\.#"
+			count: 1
+			path: src/mako/http/traits/ContentNegotiationTrait.php
+		-
+			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$response\\.#"
+			count: 1
+			path: src/mako/http/traits/ContentNegotiationTrait.php
