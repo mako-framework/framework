@@ -17,7 +17,7 @@ use Mockery;
 /**
  * @group unit
  */
-class AuthorizableTest extends TestCase
+class AuthorizableTraitTest extends TestCase
 {
 	/**
 	 *

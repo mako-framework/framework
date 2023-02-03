@@ -16,7 +16,7 @@ use Mockery;
 /**
  * @group unit
  */
-class ConfigTest extends TestCase
+class LoaderTest extends TestCase
 {
 	/**
 	 * @return \mako\file\FileSystem|\Mockery\MockInterface
