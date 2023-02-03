@@ -14,7 +14,7 @@ use mako\tests\TestCase;
 /**
  * @group unit
  */
-class OutputTest extends TestCase
+class FormatterTest extends TestCase
 {
 	/**
 	 *

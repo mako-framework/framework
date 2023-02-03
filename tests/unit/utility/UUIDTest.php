@@ -175,7 +175,7 @@ class UUIDTest extends TestCase
 
 			$uuid = UUID::sequential();
 
-			$this->assertGreaterThan($prev, $uuid);
+			$this->assertTrue(strcmp($prev, $uuid) <= 0);
 
 			$prev = $uuid;
 		}

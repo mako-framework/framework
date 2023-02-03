@@ -37,7 +37,7 @@ class NamespacedFileLoader
 /**
  * @group unit
  */
-class NamespacedFileLoaderTest extends TestCase
+class NamespacedFileLoaderTraitTest extends TestCase
 {
 	/**
 	 *

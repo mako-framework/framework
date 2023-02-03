@@ -20,14 +20,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-          php-version:
-            - "8.0"
-            - "8.1"
-            - "8.2"
-          experimental:
-            - false
           include:
+            - php-version: "8.0"
+              phpunit-options: "--verbose"
+              experimental: false
+            - php-version: "8.1"
+              phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
+              experimental: false
+            - php-version: "8.2"
+              phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
+              experimental: false
             - php-version: "8.3"
+              phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
               experimental: true
               composer-options: "--ignore-platform-reqs"
     steps:
@@ -48,4 +52,4 @@ jobs:
           max_attempts: 5
           command: composer install --prefer-dist --no-interaction --no-progress ${{ matrix.composer-options }}
       - name: "Run tests"
-        run: "./vendor/bin/phpunit --verbose"
+        run: "./vendor/bin/phpunit ${{ matrix.phpunit-options }}"
