@@ -243,6 +243,8 @@ trait TimeTrait
 	/**
 	 * Returns a formatted date string according to current locale settings.
 	 *
+	 * @deprecated
+	 *
 	 * @param  string $format Date format
 	 * @return string
 	 */
