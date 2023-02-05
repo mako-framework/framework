@@ -13,7 +13,7 @@
 
 #### Deprecations
 
-* Deprecated the `TimeInterface::formatLocalized()` method.
+* Deprecated the `mako\chrono\TimeInterface::formatLocalized()` method.
 
 --------------------------------------------------------
 
