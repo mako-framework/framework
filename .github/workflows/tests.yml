@@ -20,20 +20,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-          include:
-            - php-version: "8.0"
-              phpunit-options: "--verbose"
-              experimental: false
-            - php-version: "8.1"
-              phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
-              experimental: false
-            - php-version: "8.2"
-              phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
-              experimental: false
-            - php-version: "8.3"
-              phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
-              experimental: true
-              composer-options: "--ignore-platform-reqs"
+        include:
+          - php-version: "8.0"
+            phpunit-options: "--verbose"
+            experimental: false
+          - php-version: "8.1"
+            phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
+            experimental: false
+          - php-version: "8.2"
+            phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
+            experimental: false
+          - php-version: "8.3"
+            phpunit-options: "--display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning"
+            experimental: true
+            composer-options: "--ignore-platform-reqs"
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v3"
