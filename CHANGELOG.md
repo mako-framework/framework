@@ -8,6 +8,9 @@
 	- `FileSystem::createSymbolicLink()`
 	- `FileSystem::createHardLink()`
 
+* Added the following methods to the `mako\utility\Arr` class:
+	- `Arr::toObject()`
+
 --------------------------------------------------------
 
 ### 8.1.5, 9.0.3 <small>(2023-01-21)</small>

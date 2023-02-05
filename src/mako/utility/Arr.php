@@ -8,6 +8,7 @@
 namespace mako\utility;
 
 use mako\utility\exceptions\ArrException;
+use stdClass;
 
 use function array_filter;
 use function array_key_exists;
@@ -18,7 +19,9 @@ use function array_shift;
 use function count;
 use function explode;
 use function is_array;
+use function is_int;
 use function is_object;
+use function is_string;
 use function strpos;
 use function trim;
 
@@ -219,4 +222,48 @@ class Arr
 
 		return $expanded;
 	}
+
+	/**
+	 * Converts arrays to objects.
+	 *
+	 * @param  array        $array Array to convert
+	 * @return array|object
+	 */
+	public static function toObject(array $array): array|object
+    {
+        $resultArray = [];
+
+        $resultObject = new stdClass;
+
+        $isNumeric = $isAssociative = false;
+
+        foreach($array as $key => $value)
+        {
+            if(!$isNumeric)
+            {
+                $isNumeric = is_int($key);
+            }
+
+            if(!$isAssociative)
+            {
+                $isAssociative = is_string($key);
+            }
+
+            if($isNumeric && $isAssociative)
+            {
+                throw new ArrException('Unable to convert an array containing a mix of integer and string keys to an object.');
+            }
+
+            if($isNumeric)
+            {
+                $resultArray[$key] = is_array($value) ? static::toObject($value) : $value;
+            }
+            else
+            {
+                $resultObject->{$key} = is_array($value) ? static::toObject($value) : $value;
+            }
+        }
+
+        return $isNumeric ? $resultArray : $resultObject;
+    }
 }

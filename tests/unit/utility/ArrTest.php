@@ -9,6 +9,7 @@ namespace mako\tests\unit\utility;
 
 use mako\tests\TestCase;
 use mako\utility\Arr;
+use mako\utility\exceptions\ArrException;
 use stdClass;
 
 /**
@@ -174,5 +175,63 @@ class ArrTest extends TestCase
 		$this->assertSame([], Arr::expandKey($arr, 'bax.*'));
 
 		$this->assertSame([], Arr::expandKey($arr, 'foo.bax.*'));
+	}
+
+	/**
+	 *
+	 */
+	public function testAssociativeArrayToObject(): void
+	{
+		$converted = Arr::toObject(['foo' => 1, 'bar' => 2]);
+
+		$this->assertIsObject($converted);
+
+		$this->assertSame(1, $converted->foo);
+
+		$this->assertSame(2, $converted->bar);
+	}
+
+	/**
+	 *
+	 */
+	public function testNumericArrayToObject(): void
+	{
+		$converted = Arr::toObject([1, 2]);
+
+		$this->assertIsArray($converted);
+
+		$this->assertSame(1, $converted[0]);
+
+		$this->assertSame(2, $converted[1]);
+	}
+
+	/**
+	 *
+	 */
+	public function testNestdArrayToObject(): void
+	{
+		$converted = Arr::toObject(['foo' => 1, 'bar' => 2, 'baz' => [3]]);
+
+		$this->assertIsObject($converted);
+
+		$this->assertSame(1, $converted->foo);
+
+		$this->assertSame(2, $converted->bar);
+
+		$this->assertIsArray($converted->baz);
+
+		$this->assertSame(3, $converted->baz[0]);
+	}
+
+	/**
+	 *
+	 */
+	public function testMixedArrayToObject(): void
+	{
+		$this->expectException(ArrException::class);
+
+		$this->expectExceptionMessage('Unable to convert an array containing a mix of integer and string keys to an object.');
+
+		$converted = Arr::toObject([1, 'foo' => 2]);
 	}
 }
