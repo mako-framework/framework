@@ -7,6 +7,7 @@
 	- `FileSystem::getLinkTarget()`
 	- `FileSystem::createSymbolicLink()`
 	- `FileSystem::createHardLink()`
+* Added `HTTPService::getRoutingPath()` method to make it easier to reorganize the application structure.
 
 * Added the following methods to the `mako\utility\Arr` class:
 	- `Arr::toObject()`
