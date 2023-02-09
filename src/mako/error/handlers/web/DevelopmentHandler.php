@@ -14,6 +14,7 @@ use ErrorException;
 use mako\application\Application;
 use mako\database\ConnectionManager;
 use mako\error\handlers\HandlerInterface;
+use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\file\FileSystem;
 use mako\http\Request;
 use mako\http\Response;
@@ -41,7 +42,7 @@ use function sys_get_temp_dir;
 /**
  * Development handler.
  */
-class DevelopmentHandler extends Handler implements HandlerInterface
+class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesExceptionIdInterface
 {
 	/**
 	 * Source padding.
@@ -64,7 +65,9 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 		protected Application $app,
 		protected array $keep = []
 	)
-	{}
+	{
+		$this->exceptionId = $this->generateExceptionId();
+	}
 
 	/**
 	 * Returns the exception type.
@@ -99,11 +102,12 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 	{
 		$details =
 		[
-			'type'    => $this->getExceptionType($exception),
-			'code'    => $exception->getCode(),
-			'message' => $exception->getMessage(),
-			'file'    => $exception->getFile(),
-			'line'    => $exception->getLine(),
+			'type'         => $this->getExceptionType($exception),
+			'code'         => $exception->getCode(),
+			'message'      => $exception->getMessage(),
+			'file'         => $exception->getFile(),
+			'line'         => $exception->getLine(),
+			'exception_id' => $this->exceptionId,
 		];
 
 		return json_encode(['error' => $details]);
@@ -128,6 +132,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 		$xml->addChild('file', $exception->getFile());
 
 		$xml->addChild('line', $exception->getLine());
+
+		$xml->addChild('exception_id', $this->exceptionId);
 
 		return $xml->asXML();
 	}
@@ -388,6 +394,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface
 			'previous'     => $this->getPreviousExceptions($exception),
 			'dump'         => $this->getDumper(),
 			'queries'      => $this->getQueries(),
+			'exception_id' => $this->exceptionId,
 			'superglobals' =>
 			[
 				'_ENV'     => $_ENV,

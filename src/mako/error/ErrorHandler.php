@@ -10,6 +10,7 @@ namespace mako\error;
 use Closure;
 use ErrorException;
 use mako\error\handlers\HandlerInterface;
+use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\http\exceptions\HttpStatusException;
 use mako\syringe\Container;
 use Psr\Log\LoggerInterface;
@@ -71,6 +72,13 @@ class ErrorHandler
 	 * @var array
 	 */
 	protected $dontLog = [];
+
+	/**
+	 * Exception id.
+	 *
+	 * @var string|null
+	 */
+	protected $exceptionId = null;
 
 	/**
 	 * Constructor.
@@ -307,7 +315,14 @@ class ErrorHandler
 			return $handler($exception);
 		}
 
-		return $this->handlerFactory($handler, $parameters)->handle($exception);
+		$handler = $this->handlerFactory($handler, $parameters);
+
+		if($handler instanceof ProvidesExceptionIdInterface)
+		{
+			$this->exceptionId = $handler->getExceptionId();
+		}
+
+		return $handler->handle($exception);
 	}
 
 	/**
@@ -321,7 +336,14 @@ class ErrorHandler
 		{
 			try
 			{
-				$this->getLogger()->error($exception->getMessage(), ['exception' => $exception]);
+				$context = ['exception' => $exception];
+
+				if($this->exceptionId !== null)
+				{
+					$context['extra']['exception_id'] = $this->exceptionId;
+				}
+
+				$this->getLogger()->error($exception->getMessage(), $context);
 			}
 			catch(Throwable $e)
 			{

@@ -70,11 +70,19 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
 
+		$viewFactory->shouldReceive('assign')->once()->with('exception_id', 'exception_id');
+
 		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['_metadata_' => []])->andReturn('rendered');
 
 		//
 
-		$handler = new ProductionHandler($request, $response, $viewFactory);
+		$handler = new class($request, $response, $viewFactory) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}
@@ -88,6 +96,8 @@ class ProductionHandlerTest extends TestCase
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
+
+		$viewFactory->shouldReceive('assign')->once()->with('exception_id', 'exception_id');
 
 		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['_metadata_' => []])->andThrow(RuntimeException::class);
 
@@ -132,7 +142,13 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($request, $response, $viewFactory);
+		$handler = new class($request, $response, $viewFactory) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}
@@ -191,13 +207,21 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
 
+		$viewFactory->shouldReceive('assign')->once()->with('exception_id', 'exception_id');
+
 		$viewFactory->shouldReceive('exists')->once()->with('mako-error::405')->andReturn(true);
 
 		$viewFactory->shouldReceive('render')->once()->with('mako-error::405', ['_metadata_' => []])->andReturn('rendered');
 
 		//
 
-		$handler = new ProductionHandler($request, $response, $viewFactory);
+		$handler = new class($request, $response, $viewFactory) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle(new MethodNotAllowedException(['GET', 'POST'])));
 	}
@@ -322,7 +346,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setType')->once()->with('application/json')->andReturn($response);
 
-		$response->shouldReceive('setBody')->once()->with('{"error":{"code":500,"message":"An error has occurred while processing your request."}}')->andReturn($response);
+		$response->shouldReceive('setBody')->once()->with('{"error":{"code":500,"message":"An error has occurred while processing your request.","exception_id":"exception_id"}}')->andReturn($response);
 
 		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
 
@@ -330,7 +354,13 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($request, $response);
+		$handler = new class($request, $response) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}
@@ -365,7 +395,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setType')->once()->with('application/json')->andReturn($response);
 
-		$response->shouldReceive('setBody')->once()->with('{"error":{"code":403,"message":"You don\'t have permission to access the requested resource.","metadata":{"foo":"bar"}}}')->andReturn($response);
+		$response->shouldReceive('setBody')->once()->with('{"error":{"code":403,"message":"You don\'t have permission to access the requested resource.","exception_id":"exception_id","metadata":{"foo":"bar"}}}')->andReturn($response);
 
 		$response->shouldReceive('setStatus')->once()->with(403)->andReturn($response);
 
@@ -373,7 +403,13 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($request, $response);
+		$handler = new class($request, $response) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle((new ForbiddenException)->setMetadata(['foo' => 'bar'])));
 	}
@@ -418,7 +454,7 @@ class ProductionHandlerTest extends TestCase
 		$response->shouldReceive('setType')->once()->with('application/xml')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('<?xml version="1.0" encoding="utf-8"?>
-<error><code>500</code><message>An error has occurred while processing your request.</message></error>
+<error><code>500</code><message>An error has occurred while processing your request.</message><exception_id>exception_id</exception_id></error>
 ')->andReturn($response);
 
 		$response->shouldReceive('setStatus')->once()->with(500)->andReturn($response);
@@ -427,7 +463,13 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($request, $response);
+		$handler = new class($request, $response) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle(new ErrorException));
 	}
@@ -472,7 +514,7 @@ class ProductionHandlerTest extends TestCase
 		$response->shouldReceive('setType')->once()->with('application/xml')->andReturn($response);
 
 		$response->shouldReceive('setBody')->once()->with('<?xml version="1.0" encoding="utf-8"?>
-<error><code>403</code><message>You don\'t have permission to access the requested resource.</message><metadata><foo>bar</foo></metadata></error>
+<error><code>403</code><message>You don\'t have permission to access the requested resource.</message><exception_id>exception_id</exception_id><metadata><foo>bar</foo></metadata></error>
 ')->andReturn($response);
 
 		$response->shouldReceive('setStatus')->once()->with(403)->andReturn($response);
@@ -481,7 +523,13 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new ProductionHandler($request, $response);
+		$handler = new class($request, $response) extends ProductionHandler
+		{
+			protected function generateExceptionId(): string
+			{
+				return 'exception_id';
+			}
+		};
 
 		$this->assertFalse($handler->handle((new ForbiddenException)->setMetadata(['foo' => 'bar'])));
 	}

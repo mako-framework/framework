@@ -37,10 +37,21 @@
 		.container .message p {
 			font-size: 1.1em;
 		}
+		.exception_id {
+			color: #CCCCCC;
+			font-size: .9em;
+			padding: 1em;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
 		@media (prefers-color-scheme: dark) {
 			body {
 				background: #222222;
 				color: #EDEDED;
+			}
+			.exception_id {
+				color: #444444;
 			}
 		}
 		</style>
@@ -54,5 +65,6 @@
 				{{endblock}}
 			</div>
 		</div>
+		<div class="exception_id">{{$exception_id}}</div>
 	</body>
 </html>

@@ -44,6 +44,8 @@ class ProductionHandler extends Handler implements HandlerInterface
 		{
 			$this->view->registerNamespace('mako-error', __DIR__ . '/views');
 		}
+
+		$this->exceptionId = $this->generateExceptionId();
 	}
 
 	/**
@@ -66,7 +68,12 @@ class ProductionHandler extends Handler implements HandlerInterface
 			$message = 'An error has occurred while processing your request.';
 		}
 
-		return ['code' => $this->getStatusCode($exception), 'message' => $message, 'metadata' => $metadata ?? []];
+		return [
+			'code'         => $this->getStatusCode($exception),
+			'message'      => $message,
+			'exception_id' => $this->exceptionId,
+			'metadata'     => $metadata ?? [],
+		];
 	}
 
 	/**
@@ -95,6 +102,8 @@ class ProductionHandler extends Handler implements HandlerInterface
 		$xml->addChild('code', $code);
 
 		$xml->addChild('message', $message);
+
+		$xml->addChild('exception_id', $this->exceptionId);
 
 		if(!empty($metadata))
 		{
@@ -140,6 +149,8 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 			$metadata = $exception->getMetadata();
 		}
+
+		$this->view->assign('exception_id', $this->exceptionId);
 
 		try
 		{

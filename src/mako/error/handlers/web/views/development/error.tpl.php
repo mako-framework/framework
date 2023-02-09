@@ -33,6 +33,11 @@
 				align-items: center;
 				justify-content: space-between;
 			}
+			.exception > .header > div > .exception_id {
+				color: #999999;
+				font-size: 0.9rem;
+				margin-bottom: 0;
+			}
 			.exception > .header > .environment {
 				color: #999999;
 				font-size: 1rem;
@@ -229,19 +234,22 @@
 	<body>
 		<div class="exception">
 			<div class="header">
-				<div>Error</div>
+				<div>
+					Error
+					<p class="exception_id">Exception id: {{$exception_id}}</p>
+				</div>
 				<div class="environment">Mako: {{\mako\Mako::VERSION}}, PHP: {{PHP_VERSION}}</div>
 			</div>
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
-				<p>{{$message}}</p>
+				<p>{{rtrim($message, '.')}}.</p>
 				{% if(!empty($previous)) %}
 					<h2>Previous Exceptions</h2>
 					<ol>
 						{% foreach($previous as $exception) %}
 							<li>
 								<em>{{$exception['type']}}{% if(!empty($exception['code'])) %} ({{$exception['code']}}){% endif %}</em> in {{$exception['file']}} on line {{$exception['line']}}.
-								{% if(!empty($exception['message'])) %}<small><p>{{$exception['message']}}</p></small>{% endif %}
+								{% if(!empty($exception['message'])) %}<small><p>{{rtrim($exception['message'], '.')}}.</p></small>{% endif %}
 							</li>
 						{% endforeach %}
 					</ol>

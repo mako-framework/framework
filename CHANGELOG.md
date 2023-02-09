@@ -11,6 +11,7 @@
 
 * Added the following methods to the `mako\utility\Arr` class:
 	- `Arr::toObject()`
+* Exceptions handled by the Mako exception handlers will be assigned a unique id that makes it easier to find the corresponding log entry.
 
 #### Deprecations
 

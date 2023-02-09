@@ -7,10 +7,12 @@
 
 namespace mako\error\handlers\web;
 
+use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\http\exceptions\HttpStatusException;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Response;
 use mako\http\traits\ContentNegotiationTrait;
+use mako\utility\UUID;
 use Throwable;
 
 use function implode;
@@ -18,9 +20,34 @@ use function implode;
 /**
  * Base handler.
  */
-abstract class Handler
+abstract class Handler implements ProvidesExceptionIdInterface
 {
 	use ContentNegotiationTrait;
+
+	/**
+	 * Exception id.
+	 *
+	 * @var string
+	 */
+	protected $exceptionId;
+
+	/**
+	 * Generates an exception id.
+	 *
+	 * @return string
+	 */
+	protected function generateExceptionId(): string
+	{
+		return UUID::v4();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getExceptionId(): string
+	{
+		return $this->exceptionId;
+	}
 
 	/**
 	 * Returns the status code that we should send.
