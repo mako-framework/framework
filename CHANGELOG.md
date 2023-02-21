@@ -8,15 +8,18 @@
 	- `FileSystem::createSymbolicLink()`
 	- `FileSystem::createHardLink()`
 * Added `HTTPService::getRoutingPath()` method to make it easier to reorganize the application structure.
-
 * Added the following methods to the `mako\utility\Arr` class:
 	- `Arr::toObject()`
 * Added `mako\http\exceptions\UnauthorizedException` exception.
 * Exceptions handled by the Mako exception handlers will be assigned a unique id that makes it easier to find the corresponding log entry.
+* Added a new bus library with command, event and query buses.
+* New and improved output for the `app:routes` command.
 
 #### Deprecations
 
 * Deprecated the `mako\chrono\TimeInterface::formatLocalized()` method.
+* Deprecated the old command bus library (see the new command and query buses).
+* Deprecated the old event library (see the new event bus).
 
 --------------------------------------------------------
 
