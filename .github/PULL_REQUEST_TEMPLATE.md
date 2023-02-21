@@ -11,7 +11,7 @@ Please use the provided template when creating pull requests 🙂
 | New feature? | -      |
 | Other?       | -      |
 
-##### Additional information
+### Additional information
 
 |                                     | Yes/No |
 |-------------------------------------|--------|
