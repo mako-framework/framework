@@ -11,6 +11,8 @@ use mako\event\Event;
 
 /**
  * Event service.
+ *
+ * @deprecated
  */
 class EventService extends Service
 {

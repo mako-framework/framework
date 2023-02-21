@@ -12,6 +12,8 @@ use mako\syringe\Container;
 
 /**
  * Command bus interface.
+ *
+ * @deprecated
  */
 interface CommandBusInterface
 {

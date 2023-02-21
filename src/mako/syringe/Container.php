@@ -26,7 +26,7 @@ use function is_int;
 use function vsprintf;
 
 /**
- * Inversion of control container.
+ * Dependecy injection container.
  */
 class Container
 {
