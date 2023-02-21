@@ -17,7 +17,7 @@ use Mockery;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-readonly class GetUserQuery
+class GetUserQuery
 {
 	public function __construct(
 		public string $username

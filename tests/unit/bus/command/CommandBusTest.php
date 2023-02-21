@@ -22,7 +22,7 @@ class Spy
 	public $peek;
 }
 
-readonly class CreateUserCommand
+class CreateUserCommand
 {
 	public function __construct(
 		public string $username
