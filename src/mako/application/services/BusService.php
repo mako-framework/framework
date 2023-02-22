@@ -39,21 +39,30 @@ abstract class BusService extends Service
 	 *
 	 * @return array<string, callable|string>
 	 */
-	abstract protected function getCommandHandlers(): array;
+	protected function getCommandHandlers(): array
+	{
+		return [];
+	}
 
 	/**
 	 * Returns an array of event handlers.
 	 *
 	 * @return array<string, callable|string>
 	 */
-	abstract protected function getEventHandlers(): array;
+	protected function getEventHandlers(): array
+	{
+		return [];
+	}
 
 	/**
 	 * Returns an array of query handlers.
 	 *
 	 * @return array<string, callable|string>
 	 */
-	abstract protected function getQueryHandlers(): array;
+	protected function getQueryHandlers(): array
+	{
+		return [];
+	}
 
 	/**
 	 * {@inheritDoc}
