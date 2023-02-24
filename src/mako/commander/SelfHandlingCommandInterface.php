@@ -9,6 +9,8 @@ namespace mako\commander;
 
 /**
  * Self handling command interface.
+ *
+ * @deprecated
  */
 interface SelfHandlingCommandInterface
 {

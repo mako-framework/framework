@@ -9,6 +9,8 @@ namespace mako\event;
 
 /**
  * Event handler interface.
+ *
+ * @deprecated
  */
 interface EventHandlerInterface
 {

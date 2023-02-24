@@ -14,6 +14,8 @@ use function array_keys;
 
 /**
  * Event listener.
+ *
+ * @deprecated
  */
 class Event
 {

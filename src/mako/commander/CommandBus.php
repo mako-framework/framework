@@ -17,6 +17,8 @@ use function substr_replace;
 
 /**
  * Command bus.
+ *
+ * @deprecated
  */
 class CommandBus implements CommandBusInterface
 {

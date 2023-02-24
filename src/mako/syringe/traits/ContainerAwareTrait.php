@@ -16,6 +16,9 @@ use function vsprintf;
  * Container aware trait.
  *
  * @property \mako\application\Application                      $app
+ * @property \mako\bus\command\CommandBusInterface              $commandBus
+ * @property \mako\bus\event\EventBusInterface                  $eventBus
+ * @property \mako\bus\query\QueryBusInterface                  $querydBus
  * @property \mako\cache\CacheManager                           $cache
  * @property \mako\cli\input\Input                              $input
  * @property \mako\cli\output\Output                            $output
@@ -32,6 +35,7 @@ use function vsprintf;
  * @property \mako\http\routing\Routes                          $routes
  * @property \mako\http\routing\URLBuilder                      $urlBuilder
  * @property \mako\i18n\I18n                                    $i18n
+ * @property \mako\logger\Logger                                $logger
  * @property \mako\pagination\PaginationFactoryInterface        $pagination
  * @property \mako\redis\ConnectionManager                      $redis
  * @property \mako\security\crypto\CryptoManager                $crypto
@@ -40,7 +44,6 @@ use function vsprintf;
  * @property \mako\utility\Humanizer                            $humanizer
  * @property \mako\validator\ValidatorFactory                   $validator
  * @property \mako\view\ViewFactory                             $view
- * @property \mako\logger\Logger                                $logger
  */
 trait ContainerAwareTrait
 {

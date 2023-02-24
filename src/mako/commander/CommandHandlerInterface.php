@@ -9,6 +9,8 @@ namespace mako\commander;
 
 /**
  * Command handler interface.
+ *
+ * @deprecated
  */
 interface CommandHandlerInterface
 {
