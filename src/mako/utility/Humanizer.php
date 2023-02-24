@@ -35,11 +35,11 @@ class Humanizer
 	/**
 	 * Returns a human friendly file size.
 	 *
-	 * @param  int    $size   File size in bytes
-	 * @param  bool   $binary True to use binary suffixes and FALSE to use decimal suffixes
+	 * @param  float|int $size   File size in bytes
+	 * @param  bool      $binary True to use binary suffixes and FALSE to use decimal suffixes
 	 * @return string
 	 */
-	public function fileSize($size, bool $binary = true): string
+	public function fileSize(float|int $size, bool $binary = true): string
 	{
 		if($size > 0)
 		{

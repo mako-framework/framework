@@ -11,6 +11,8 @@ use mako\bus\query\exceptions\QueryBusException;
 use mako\bus\traits\SingleHandlerTrait;
 use mako\syringe\Container;
 
+use function vsprintf;
+
 /**
  * Query bus.
  */

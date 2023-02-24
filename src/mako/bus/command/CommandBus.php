@@ -11,6 +11,8 @@ use mako\bus\command\exceptions\CommandBusException;
 use mako\bus\traits\SingleHandlerTrait;
 use mako\syringe\Container;
 
+use function vsprintf;
+
 /**
  * Command bus.
  */
