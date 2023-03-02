@@ -132,20 +132,17 @@ abstract class AccessControl implements MiddlewareInterface
 			$response->getHeaders()->add('Access-Control-Allow-Credentials', 'true');
 		}
 
-		if($this->allowsAllDomains())
+		$origin = $this->getOrigin($request);
+
+		if($origin !== null && $this->isDomainAllowed($origin))
+		{
+			$response->getHeaders()->add('Access-Control-Allow-Origin', $origin);
+
+			$response->getHeaders()->add('Vary', 'Origin', false);
+		}
+		elseif($this->allowsAllDomains())
 		{
 			$response->getHeaders()->add('Access-Control-Allow-Origin', '*');
-		}
-		else
-		{
-			$origin = $this->getOrigin($request);
-
-			if($origin !== null && $this->isDomainAllowed($origin))
-			{
-				$response->getHeaders()->add('Access-Control-Allow-Origin', $origin);
-
-				$response->getHeaders()->add('Vary', 'Origin', false);
-			}
 		}
 
 		if(!empty($allowedHeaders = $this->getAllowedHeaders()))
