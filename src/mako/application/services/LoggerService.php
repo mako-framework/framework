@@ -16,6 +16,7 @@ use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogHandler;
 use Monolog\Logger as MonoLogger;
+use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -135,11 +136,15 @@ class LoggerService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function ()
-		{
-			$monolog = new MonoLogger($this->config->get('application.logger.channel', 'mako'));
+		$config = $this->config->get('application.logger');
 
-			foreach($this->config->get('application.logger.handler') as $handler)
+		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function () use ($config)
+		{
+			$processors = ($config['replace_placeholders'] ?? true) === false ? [] : [new PsrLogMessageProcessor];
+
+			$monolog = new MonoLogger($config['channel'] ?? 'mako', processors: $processors);
+
+			foreach($config['handler'] as $handler)
 			{
 				$monolog->pushHandler($this->getHandler($handler));
 			}
