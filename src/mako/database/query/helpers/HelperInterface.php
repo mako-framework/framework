@@ -22,5 +22,5 @@ interface HelperInterface
 	 * @param  string|null                $primaryKey Primary key name
 	 * @return false|int
 	 */
-	public function insertAndGetId(Query $query, array $values, ?string $primaryKey = null);
+	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null);
 }

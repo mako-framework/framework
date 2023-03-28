@@ -14,6 +14,7 @@
 * Exceptions handled by the Mako exception handlers will be assigned a unique id that makes it easier to find the corresponding log entry.
 * Added a new bus library with command, event and query buses.
 * New and improved output for the `app:routes` command.
+* The `Query::insertAndGetId()` method allows inserting empty rows just like the `Query::insert()` method.
 
 #### Deprecations
 

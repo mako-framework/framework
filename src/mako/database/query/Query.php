@@ -1770,7 +1770,7 @@ class Query
 	 * @param  string    $primaryKey Primary key
 	 * @return false|int
 	 */
-	public function insertAndGetId(array $values, string $primaryKey = 'id')
+	public function insertAndGetId(array $values = [], string $primaryKey = 'id')
 	{
 		return $this->helper->insertAndGetId($this, $values, $primaryKey);
 	}
