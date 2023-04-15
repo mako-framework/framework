@@ -1,4 +1,4 @@
-### 9.1.0 <small>(2023-??-??)</small>
+### 9.1.0 <small>(2023-04-??)</small>
 
 #### New
 
@@ -14,7 +14,8 @@
 * Exceptions handled by the Mako exception handlers will be assigned a unique id that makes it easier to find the corresponding log entry.
 * Added a new bus library with command, event and query buses.
 * New and improved output for the `app:routes` command.
-* The `Query::insertAndGetId()` method allows inserting empty rows just like the `Query::insert()` method.
+* The `Query::insertAndGetId()` method now allows inserting empty rows just like the `Query::insert()` method.
+* Added `mako\env()` helper function.
 
 #### Deprecations
 
