@@ -40,6 +40,7 @@ class ListRoutes extends Command
 		return
 		[
 			new Argument('-f|--filter', 'Filter routes using the route action, name or path', Argument::IS_OPTIONAL),
+			new Argument('-d|--detailed', 'Show more information about the route', Argument::IS_BOOL | Argument::IS_OPTIONAL),
 		];
 	}
 
@@ -100,7 +101,7 @@ class ListRoutes extends Command
 	 * @param \mako\http\routing\Routes $routes Route collection
 	 * @param string|null               $filter Route filter
 	 */
-	public function execute(Routes $routes, ?string $filter = null): void
+	public function execute(Routes $routes, bool $detailed = false, ?string $filter = null): void
 	{
 		$this->clear();
 
@@ -146,6 +147,11 @@ class ListRoutes extends Command
 			if(!empty($name))
 			{
 				$labelAndValues['Name'] = $name;
+			}
+
+			if($detailed)
+			{
+				$labelAndValues['Pattern'] = $this->output->getFormatter()->escape($route->getRegex());
 			}
 
 			$maxLabelLength = max(array_map('mb_strwidth', array_keys($labelAndValues)));
