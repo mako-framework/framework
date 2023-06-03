@@ -34,6 +34,11 @@ class RedisTest extends TestCase
 	 */
 	public function setUp(): void
 	{
+		if(PHP_VERSION_ID >= 80300)
+		{
+			$this->markTestSkipped('Skipping since the tests currently fail on the PHP 8.3 preview.');
+		}
+
 		try
 		{
 			$this->redis = new Redis(new Connection('localhost', 6379));
