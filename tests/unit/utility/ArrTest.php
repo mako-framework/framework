@@ -36,6 +36,22 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
+	public function testAppend(): void
+	{
+		$arr = ['foo' => ['bar' => []]];
+
+		Arr::append($arr, 'foo.bar', 'a');
+
+		Arr::append($arr, 'foo.bar', 'b');
+
+		Arr::append($arr, 'foo.bar', 'c');
+
+		$this->assertEquals(['a', 'b', 'c'], $arr['foo']['bar']);
+	}
+
+	/**
+	 *
+	 */
 	public function testHas(): void
 	{
 		$arr = ['foo' => '123', 'bar' => ['baz' => '456', 'bax' => ['789']]];
