@@ -57,6 +57,32 @@ class Arr
 	}
 
 	/**
+	 * Appends an array value using "dot notation".
+	 *
+	 * @param array  &$array Array you want to modify
+	 * @param string $path   Array path
+	 * @param mixed  $value  Value to append
+	 */
+	public static function append(array &$array, string $path, mixed $value): void
+	{
+		$segments = explode('.', $path);
+
+		while(count($segments) > 1)
+		{
+			$segment = array_shift($segments);
+
+			if(!isset($array[$segment]) || !is_array($array[$segment]))
+			{
+				$array[$segment] = [];
+			}
+
+			$array =& $array[$segment];
+		}
+
+		$array[array_shift($segments)][] = $value;
+	}
+
+	/**
 	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
 	 *
 	 * @param  array  $array Array we're goint to search
