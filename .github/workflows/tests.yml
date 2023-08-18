@@ -21,9 +21,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php-version: "8.0"
-            phpunit-options: "--verbose"
-            experimental: false
           - php-version: "8.1"
             phpunit-options: >-
               --display-incomplete
