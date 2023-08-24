@@ -271,7 +271,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritDoc}
 	 */
-	public function run(): void
+	public function run(): never
 	{
 		ob_start();
 

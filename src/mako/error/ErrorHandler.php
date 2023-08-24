@@ -357,7 +357,7 @@ class ErrorHandler
 	 *
 	 * @param \Throwable $exception An exception object
 	 */
-	public function handler(Throwable $exception): void
+	public function handler(Throwable $exception): never
 	{
 		try
 		{
