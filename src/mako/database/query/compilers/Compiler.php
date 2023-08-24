@@ -459,7 +459,7 @@ class Compiler
 
 				return '?';
 			}
-			elseif(PHP_VERSION_ID >= 80100 && enum_exists($param::class))
+			elseif(enum_exists($param::class))
 			{
 				$this->params[] = $param->value ?? $param->name;
 

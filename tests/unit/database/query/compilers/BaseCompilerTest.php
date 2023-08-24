@@ -19,10 +19,25 @@ use mako\database\query\Subquery;
 use mako\tests\TestCase;
 use Mockery;
 
-if(PHP_VERSION_ID >= 80100)
+// --------------------------------------------------------------------------
+// START CLASSES
+// --------------------------------------------------------------------------
+
+enum FooEnum
 {
-	include __DIR__ . '/_Enums.php';
+	case ONE;
+	case TWO;
 }
+
+enum BarEnum: int
+{
+	case ONE = 1;
+	case TWO = 2;
+}
+
+// --------------------------------------------------------------------------
+// END CLASSES
+// --------------------------------------------------------------------------
 
 /**
  * @group unit

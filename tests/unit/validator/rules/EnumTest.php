@@ -15,9 +15,16 @@ use mako\validator\rules\Enum;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-if(PHP_VERSION_ID >= 80100)
+enum FooEnum
 {
-	include __DIR__ . '/_Enums.php';
+	case ONE;
+	case TWO;
+}
+
+enum BarEnum: int
+{
+	case ONE = 1;
+	case TWO = 2;
 }
 
 // --------------------------------------------------------------------------

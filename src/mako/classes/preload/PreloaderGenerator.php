@@ -63,7 +63,7 @@ class PreloaderGenerator
 				$classes[] = $class;
 			}
 		}
-		elseif(PHP_VERSION_ID >= 80100 && $type instanceof ReflectionIntersectionType)
+		elseif($type instanceof ReflectionIntersectionType)
 		{
 			/** @var \ReflectionNamedType $intersectionType */
 			foreach($type->getTypes() as $intersectionType)

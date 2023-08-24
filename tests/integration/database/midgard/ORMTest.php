@@ -80,9 +80,10 @@ class Counter extends TestORM
 	protected $tableName = 'counters';
 }
 
-if(PHP_VERSION_ID >= 80100)
+enum FooEnum: int
 {
-	include __DIR__ . '/_Enums.php';
+	case ONE = 1;
+	case TWO = 2;
 }
 
 class Enum extends TestORM
