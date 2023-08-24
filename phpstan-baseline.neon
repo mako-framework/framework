@@ -13,22 +13,6 @@ parameters:
 			count: 1
 			path: src/mako/database/midgard/ORM.php
 		-
-			message: "#Used function enum_exists not found.#"
-			count: 1
-			path: src/mako/database/query/compilers/Compiler.php
-		-
-			message: "#Function enum_exists not found.#"
-			count: 1
-			path: src/mako/database/query/compilers/Compiler.php
-		-
-			message: "#Used function enum_exists not found.#"
-			count: 1
-			path: src/mako/validator/rules/Enum.php
-		-
-			message: "#Function enum_exists not found.#"
-			count: 1
-			path: src/mako/validator/rules/Enum.php
-		-
 			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$request\\.#"
 			count: 1
 			path: src/mako/http/traits/ContentNegotiationTrait.php
