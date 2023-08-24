@@ -19,7 +19,6 @@ use mako\database\exceptions\DatabaseException;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\compilers\Firebird as FirebirdCompiler;
 use mako\database\query\compilers\MySQL as MySQLCompiler;
-use mako\database\query\compilers\NuoDB as NuoDBCompiler;
 use mako\database\query\compilers\Oracle as OracleCompiler;
 use mako\database\query\compilers\Postgres as PostgresCompiler;
 use mako\database\query\compilers\SQLite as SQLiteCompiler;
@@ -75,7 +74,6 @@ class ConnectionManager extends BaseConnectionManager
 	[
 		'firebird' => FirebirdCompiler::class,
 		'mysql'    => MySQLCompiler::class,
-		'nuodb'    => NuoDBCompiler::class,
 		'oracle'   => OracleCompiler::class,
 		'pgsql'    => PostgresCompiler::class,
 		'sqlite'   => SQLiteCompiler::class,
