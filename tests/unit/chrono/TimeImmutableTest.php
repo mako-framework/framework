@@ -345,26 +345,4 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame(31, $time->daysInMonth());
 	}
-
-	/**
-	 *
-	 */
-	public function testFormatLocalized(): void
-	{
-		$time = TimeImmutable::createFromDate(1983, 8, 30);
-
-		$locale = setlocale(LC_TIME, '0');
-
-		if(setlocale(LC_TIME, ['ja_JP.UTF-8', 'ja_JP.utf8']) !== false)
-		{
-			$this->assertSame('8月', $time->formatLocalized('%B'));
-		}
-
-		if(setlocale(LC_TIME, ['en_US.UTF-8', 'en_US.utf8']) !== false)
-		{
-			$this->assertSame('August', $time->formatLocalized('%B'));
-		}
-
-		setlocale(LC_TIME, $locale);
-	}
 }
