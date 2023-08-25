@@ -5,6 +5,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 #### Changes
 
 * Removed the NuoDB query compiler.
+* Removed the deprecated command bus library (use the bus library instead).
 
 --------------------------------------------------------
 
