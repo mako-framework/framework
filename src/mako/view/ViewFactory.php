@@ -69,10 +69,10 @@ class ViewFactory
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\file\FileSystem        $fileSystem File system instance
-	 * @param string                       $path       Default path
-	 * @param string                       $charset    Charset
-	 * @param \mako\syringe\Container|null $container  Container
+	 * @param \mako\file\FileSystem   $fileSystem File system instance
+	 * @param string                  $path       Default path
+	 * @param string                  $charset    Charset
+	 * @param \mako\syringe\Container $container  Container
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
