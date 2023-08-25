@@ -28,7 +28,7 @@ return
 	mako\bus\HandlerInterface::class,
 	mako\bus\query\QueryBus::class,
 	mako\bus\query\QueryBusInterface::class,
-	mako\bus\traits\ReolveHandlerTrait::class,
+	mako\bus\traits\ResolveHandlerTrait::class,
 	mako\bus\traits\SingleHandlerTrait::class,
 	mako\cache\CacheManager::class,
 	mako\cache\stores\IncrementDecrementInterface::class,
