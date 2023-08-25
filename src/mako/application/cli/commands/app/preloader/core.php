@@ -3,6 +3,7 @@
 return
 [
 	mako\application\Application::class,
+	mako\application\services\BusService::class,
 	mako\application\services\CacheService::class,
 	mako\application\services\CryptoService::class,
 	mako\application\services\DatabaseService::class,
@@ -21,6 +22,15 @@ return
 	mako\application\services\ViewFactoryService::class,
 	mako\application\services\web\ErrorHandlerService::class,
 	mako\application\web\Application::class,
+	mako\bus\command\CommandBus::class,
+	mako\bus\command\CommandBusInterface::class,
+	mako\bus\event\EventBus::class,
+	mako\bus\event\EventBusInterface::class,
+	mako\bus\HandlerInterface::class,
+	mako\bus\query\QueryBus::class,
+	mako\bus\query\QueryBusInterface::class,
+	mako\bus\traits\ReolveHandlerTrait::class,
+	mako\bus\traits\SingleHandlerTrait::class,
 	mako\cache\CacheManager::class,
 	mako\cache\stores\IncrementDecrementInterface::class,
 	mako\cache\stores\Store::class,
