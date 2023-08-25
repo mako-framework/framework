@@ -7,7 +7,6 @@ return
 	mako\application\services\CacheService::class,
 	mako\application\services\CryptoService::class,
 	mako\application\services\DatabaseService::class,
-	mako\application\services\EventService::class,
 	mako\application\services\GatekeeperService::class,
 	mako\application\services\HTTPService::class,
 	mako\application\services\HumanizerService::class,
