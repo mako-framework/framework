@@ -9,11 +9,9 @@ namespace mako\chrono\traits;
 
 use DateTimeZone;
 
-use function error_reporting;
 use function getdate;
 use function min;
 use function mktime;
-use function strftime;
 
 /**
  * Time trait.
@@ -238,24 +236,5 @@ trait TimeTrait
 	public function daysInMonth(): int
 	{
 		return $this->daysInMonths()[(int) $this->format('n') - 1];
-	}
-
-	/**
-	 * Returns a formatted date string according to current locale settings.
-	 *
-	 * @deprecated
-	 *
-	 * @param  string $format Date format
-	 * @return string
-	 */
-	public function formatLocalized(string $format): string
-	{
-		$errorLevel = error_reporting(error_reporting() ^ E_DEPRECATED); // Disable deprecation warning for PHP 8.1
-
-		$formatted = strftime($format, $this->getTimestamp());
-
-		error_reporting($errorLevel); // Restore error level
-
-		return $formatted;
 	}
 }
