@@ -41,13 +41,6 @@ class Dispatcher
 	public const MIDDLEWARE_DEFAULT_PRIORITY = 100;
 
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Route middleware.
 	 *
 	 * @var array
@@ -71,18 +64,16 @@ class Dispatcher
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\http\Request           $request   Request instance
-	 * @param \mako\http\Response          $response  Response instance
-	 * @param \mako\syringe\Container|null $container Container
+	 * @param \mako\http\Request      $request   Request instance
+	 * @param \mako\http\Response     $response  Response instance
+	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Request $request,
 		protected Response $response,
-		?Container $container = null
+		protected Container $container = new Container
 	)
-	{
-		$this->container = $container ?? new Container;
-	}
+	{}
 
 	/**
 	 * Sets the middleware priority.

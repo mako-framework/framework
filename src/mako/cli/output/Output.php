@@ -33,13 +33,6 @@ class Output
 	public const ERROR = 2;
 
 	/**
-	 * Environment.
-	 *
-	 * @var \mako\cli\Environment
-	 */
-	protected $environment;
-
-	/**
 	 * Is the output muted?
 	 *
 	 * @var bool
@@ -52,17 +45,15 @@ class Output
 	 * @param \mako\cli\output\writer\WriterInterface            $standard    Standard writer
 	 * @param \mako\cli\output\writer\WriterInterface            $error       Error writer
 	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter   Formatter
-	 * @param \mako\cli\Environment|null                         $environment Environment
+	 * @param \mako\cli\Environment                              $environment Environment
 	 */
 	public function __construct(
 		protected WriterInterface $standard,
 		protected WriterInterface $error,
 		protected ?FormatterInterface $formatter = null,
-		?Environment $environment = null
+		protected Environment $environment = new Environment
 	)
-	{
-		$this->environment = $environment ?? new Environment;
-	}
+	{}
 
 	/**
 	 * Returns the chosen writer.

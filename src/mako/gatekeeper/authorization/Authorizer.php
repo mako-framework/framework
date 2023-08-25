@@ -21,13 +21,6 @@ use function vsprintf;
 class Authorizer implements AuthorizerInterface
 {
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Policies.
 	 *
 	 * @var array
@@ -37,12 +30,12 @@ class Authorizer implements AuthorizerInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\syringe\Container|null $container Container
+	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(?Container $container = null)
-	{
-		$this->container = $container ?? new Container;
-	}
+	public function __construct(
+		protected Container $container = new Container
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

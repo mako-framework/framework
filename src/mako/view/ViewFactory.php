@@ -32,13 +32,6 @@ class ViewFactory
 	protected $charset;
 
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * View renderers.
 	 *
 	 * @var array
@@ -85,7 +78,7 @@ class ViewFactory
 		protected FileSystem $fileSystem,
 		string $path,
 		string $charset = 'UTF-8',
-		?Container $container = null
+		protected Container $container = new Container
 	)
 	{
 		$this->path = $path;
@@ -93,8 +86,6 @@ class ViewFactory
 		$this->globalVariables['__viewfactory__'] = $this;
 
 		$this->setCharset($charset);
-
-		$this->container = $container ?? new Container;
 	}
 
 	/**

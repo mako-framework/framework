@@ -35,13 +35,6 @@ class Router
 	use FunctionParserTrait;
 
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Constraints.
 	 *
 	 * @var array
@@ -58,16 +51,14 @@ class Router
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\http\routing\Routes    $routes    Routes
-	 * @param \mako\syringe\Container|null $container Container
+	 * @param \mako\http\routing\Routes $routes    Routes
+	 * @param \mako\syringe\Container   $container Container
 	 */
 	public function __construct(
 		protected Routes $routes,
-		?Container $container = null
+		protected Container $container = new Container
 	)
-	{
-		$this->container = $container ?? new Container;
-	}
+	{}
 
 	/**
 	 * Registers constraint.

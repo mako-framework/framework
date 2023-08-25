@@ -105,13 +105,6 @@ class Validator
 	protected $ruleSets;
 
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Rules.
 	 *
 	 * @var array
@@ -206,21 +199,19 @@ class Validator
 	/**
 	 * Constructor.
 	 *
-	 * @param array                        $input     Input
-	 * @param array                        $ruleSets  Rule sets
-	 * @param \mako\i18n\I18n|null         $i18n      I18n
-	 * @param \mako\syringe\Container|null $container Container
+	 * @param array                   $input     Input
+	 * @param array                   $ruleSets  Rule sets
+	 * @param \mako\i18n\I18n|null    $i18n      I18n
+	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected array $input,
 		array $ruleSets = [],
 		protected ?I18n $i18n = null,
-		?Container $container = null
+		protected Container $container = new Container
 	)
 	{
 		$this->ruleSets = $this->expandFields($ruleSets);
-
-		$this->container = $container ?? new Container;
 	}
 
 	/**

@@ -39,13 +39,6 @@ use function sprintf;
 class ErrorHandler
 {
 	/**
-	 * Container.
-	 *
-	 * @var \mako\syringe\Container
-	 */
-	protected $container;
-
-	/**
 	 * Is the shutdown handler disabled?
 	 *
 	 * @var bool
@@ -83,12 +76,12 @@ class ErrorHandler
 	/**
 	 * Constructor.
 	 *
-	 * @param \mako\syringe\Container|null $container Container
+	 * @param \mako\syringe\Container $container Container
 	 */
-	public function __construct(?Container $container = null)
+	public function __construct(
+		protected Container $container = new Container
+	)
 	{
-		$this->container = $container ?? new Container;
-
 		// Add a basic exception handler to the stack
 
 		$this->handle(Throwable::class, $this->getFallbackHandler());
