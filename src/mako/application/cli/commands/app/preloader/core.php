@@ -4,7 +4,6 @@ return
 [
 	mako\application\Application::class,
 	mako\application\services\CacheService::class,
-	mako\application\services\CommandBusService::class,
 	mako\application\services\CryptoService::class,
 	mako\application\services\DatabaseService::class,
 	mako\application\services\EventService::class,
