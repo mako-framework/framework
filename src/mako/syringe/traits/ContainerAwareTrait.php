@@ -18,7 +18,7 @@ use function vsprintf;
  * @property \mako\application\Application                      $app
  * @property \mako\bus\command\CommandBusInterface              $commandBus
  * @property \mako\bus\event\EventBusInterface                  $eventBus
- * @property \mako\bus\query\QueryBusInterface                  $querydBus
+ * @property \mako\bus\query\QueryBusInterface                  $queryBus
  * @property \mako\cache\CacheManager                           $cache
  * @property \mako\cli\input\Input                              $input
  * @property \mako\cli\output\Output                            $output
