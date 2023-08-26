@@ -41,9 +41,9 @@
         "psr/log": "^1.0|^2.0|^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.6|^10.1",
-        "mockery/mockery": "^1.5.0",
-        "phpstan/phpstan": "^1.10.0"
+        "phpunit/phpunit": "^10.3",
+        "mockery/mockery": "^1.6.6",
+        "phpstan/phpstan": "^1.10.32"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",

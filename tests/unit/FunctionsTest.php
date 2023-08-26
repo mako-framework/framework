@@ -37,8 +37,9 @@ class FunctionsTest extends TestCase
 	}
 
 	/**
-	 * @runInSeparateProcess
+	 *
 	 */
+	#[RunInSeparateProcess]
 	public function testEnvWithMissingVariable(): void
 	{
 		$this->assertNull(env('MAKO_MISSING'));
@@ -47,8 +48,9 @@ class FunctionsTest extends TestCase
 	}
 
 	/**
-	 * @runInSeparateProcess
+	 *
 	 */
+	#[RunInSeparateProcess]
 	public function testEnvWithVariableFromEnvSuperglobal(): void
 	{
 		$_ENV['MAKO_FOOBAR'] = 'hello';
@@ -57,8 +59,9 @@ class FunctionsTest extends TestCase
 	}
 
 	/**
-	 * @runInSeparateProcess
+	 *
 	 */
+	#[RunInSeparateProcess]
 	public function testEnvWithVariableFromGetenv(): void
 	{
 		putenv('MAKO_FOOBAR=hello');
@@ -67,8 +70,9 @@ class FunctionsTest extends TestCase
 	}
 
 	/**
-	 * @runInSeparateProcess
+	 *
 	 */
+	#[RunInSeparateProcess]
 	public function testEnvWithBooleanValues(): void
 	{
 		$_ENV['MAKO_TRUE'] = 'true';
