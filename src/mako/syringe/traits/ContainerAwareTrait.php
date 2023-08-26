@@ -22,11 +22,9 @@ use function vsprintf;
  * @property \mako\cache\CacheManager                           $cache
  * @property \mako\cli\input\Input                              $input
  * @property \mako\cli\output\Output                            $output
- * @property \mako\commander\CommandBusInterface                $bus
  * @property \mako\config\Config                                $config
  * @property \mako\database\ConnectionManager                   $database
  * @property \mako\error\ErrorHandler                           $errorHandler
- * @property \mako\event\Event                                  $event
  * @property \mako\file\FileSystem                              $fileSystem
  * @property \mako\gatekeeper\authorization\AuthorizerInterface $authorizer
  * @property \mako\gatekeeper\Gatekeeper                        $gatekeeper
