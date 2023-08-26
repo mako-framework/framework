@@ -10,7 +10,6 @@ namespace mako\view\renderers;
 use mako\file\FileSystem;
 use mako\view\compilers\Template as Compiler;
 
-use function array_merge;
 use function array_pop;
 use function current;
 use function md5;
@@ -134,6 +133,6 @@ class Template extends PHP
 			$this->compile($__view__);
 		}
 
-		return parent::render($compiled, array_merge($__variables__, ['__renderer__' => $this]));
+		return parent::render($compiled, [...$__variables__, ...['__renderer__' => $this]]);
 	}
 }

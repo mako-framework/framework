@@ -33,7 +33,7 @@ class ViewTest extends TestCase
 			'initial' => 'variables',
 		];
 
-		$total = array_merge($variables, $initial);
+		$total = [...$variables, ...$initial];
 
 		/** @var \mako\view\renderers\RendererInterface|\Mockery\MockInterface $renderer */
 		$renderer = Mockery::mock(RendererInterface::class);
@@ -66,7 +66,7 @@ class ViewTest extends TestCase
 			'initial' => 'variables',
 		];
 
-		$total = array_merge($variables, $initial);
+		$total = [...$variables, ...$initial];
 
 		/** @var \mako\view\renderers\RendererInterface|\Mockery\MockInterface $renderer */
 		$renderer = Mockery::mock(RendererInterface::class);

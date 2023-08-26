@@ -40,7 +40,6 @@ use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
 use ReflectionClass;
 
-use function array_merge;
 use function array_shift;
 use function file_get_contents;
 use function ob_start;
@@ -224,32 +223,32 @@ class Application extends BaseApplication
 
 		if($this->container->has(Routes::class))
 		{
-			$commands = array_merge($commands,
+			$commands = [...$commands, ...
 			[
 				'app:routes' => ListRoutes::class,
 				'app:server' => Server::class,
-			]);
+			]];
 		}
 
 		if($this->container->has(CacheManager::class))
 		{
-			$commands = array_merge($commands,
+			$commands = [...$commands, ...
 			[
 				'cache:remove' => Remove::class,
 				'cache:clear'  => Clear::class,
-			]);
+			]];
 		}
 
 		if($this->container->has(DatabaseConnectionManager::class))
 		{
-			$commands = array_merge($commands,
+			$commands = [...$commands, ...
 			[
 				'migration:create' => Create::class,
 				'migration:status' => Status::class,
 				'migration:up'     => Up::class,
 				'migration:down'   => Down::class,
 				'migration:reset'  => Reset::class,
-			]);
+			]];
 		}
 
 		// Add application commands

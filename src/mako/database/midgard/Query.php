@@ -19,7 +19,6 @@ use PDO;
 
 use function array_filter;
 use function array_keys;
-use function array_merge;
 use function array_udiff;
 use function array_unique;
 use function explode;
@@ -328,7 +327,7 @@ class Query extends QueryBuilder
 					}
 				}
 
-				$includes = array_merge($currentIncludes, $includes);
+				$includes = [...$currentIncludes, ...$includes];
 			}
 
 			$this->model->setIncludes(array_unique($includes, SORT_REGULAR));

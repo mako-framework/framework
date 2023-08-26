@@ -14,7 +14,6 @@ use mako\session\stores\StoreInterface;
 
 use function array_flip;
 use function array_intersect_key;
-use function array_merge;
 use function array_replace_recursive;
 use function array_slice;
 use function array_unshift;
@@ -393,7 +392,7 @@ class Session
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
 
-		$this->flashData = array_merge($this->flashData, $flashData);
+		$this->flashData = [...$this->flashData, ...$flashData];
 	}
 
 	/**

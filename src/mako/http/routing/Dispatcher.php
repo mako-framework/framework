@@ -20,7 +20,6 @@ use function array_diff_key;
 use function array_fill_keys;
 use function array_intersect_key;
 use function array_keys;
-use function array_merge;
 use function asort;
 use function is_array;
 use function method_exists;
@@ -168,7 +167,7 @@ class Dispatcher
 
 		asort($priority);
 
-		return array_merge($priority, $middleware);
+		return [...$priority, ...$middleware];
 	}
 
 	/**

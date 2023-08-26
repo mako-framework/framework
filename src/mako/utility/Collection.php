@@ -27,7 +27,6 @@ use function array_key_first;
 use function array_key_last;
 use function array_keys;
 use function array_map;
-use function array_merge;
 use function array_pop;
 use function array_push;
 use function array_shift;
@@ -464,6 +463,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function merge(Collection $collection): static
 	{
-		return new static(array_merge($this->items, $collection->getItems()));
+		return new static([...$this->items, ...$collection->getItems()]);
 	}
 }
