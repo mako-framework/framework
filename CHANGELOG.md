@@ -9,6 +9,12 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 * Removed the deprecated command bus library (use the bus library instead).
 * Removed the deprecated TimeInterface::formatLocalized() method.
 
+#### Improvements
+
+* Various improvements and optimizations.
+
+> Check out the upgrade guide for details on how to upgrade from `9.1.*.`
+
 --------------------------------------------------------
 
 ### 9.1.1 <small>(2023-06-23)</small>
