@@ -2,12 +2,17 @@
 
 The major version bump is due to dropped support for PHP `8.0` and a several breaking changes. Most applications built using Mako `9` should run on Mako `10` with just a few simple adjustments.
 
+#### New
+
+* Added `Session::disableAutoCommit()` method.
+* Added `Session::enableAutoCommit()` method.
+
 #### Changes
 
 * Removed the NuoDB query compiler.
 * Removed the deprecated event library (use the bus library instead).
 * Removed the deprecated command bus library (use the bus library instead).
-* Removed the deprecated TimeInterface::formatLocalized() method.
+* Removed the deprecated `TimeInterface::formatLocalized()` method.
 
 #### Improvements
 
