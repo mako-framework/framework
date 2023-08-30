@@ -232,7 +232,7 @@ class Dispatcher
 
 		if(method_exists($controller, 'beforeAction'))
 		{
-			$returnValue = $this->container->call([$controller, 'beforeAction']);
+			$returnValue = $this->container->call($controller->beforeAction(...));
 		}
 
 		if(empty($returnValue))
@@ -246,7 +246,7 @@ class Dispatcher
 
 			if(method_exists($controller, 'afterAction'))
 			{
-				$this->container->call([$controller, 'afterAction']);
+				$this->container->call($controller->afterAction(...));
 			}
 		}
 		else

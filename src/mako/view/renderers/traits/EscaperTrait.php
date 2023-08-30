@@ -142,7 +142,7 @@ trait EscaperTrait
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
 		}
 
-		$string = preg_replace_callback('/[^a-z0-9,\.\-_]/iSu', [$this, 'attributeEscaper'], $string);
+		$string = preg_replace_callback('/[^a-z0-9,\.\-_]/iSu', $this->attributeEscaper(...), $string);
 
 		if($charset !== 'UTF-8')
 		{
@@ -202,7 +202,7 @@ trait EscaperTrait
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
 		}
 
-		$string = preg_replace_callback('/[^a-z0-9]/iSu', [$this, 'cssEscaper'], $string);
+		$string = preg_replace_callback('/[^a-z0-9]/iSu', $this->cssEscaper(...), $string);
 
 		if($charset !== 'UTF-8')
 		{
@@ -253,7 +253,7 @@ trait EscaperTrait
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
 		}
 
-		$string = preg_replace_callback('/[^a-z0-9,\._]/iSu', [$this, 'javascriptEscaper'], $string);
+		$string = preg_replace_callback('/[^a-z0-9,\._]/iSu', $this->javascriptEscaper(...), $string);
 
 		if($charset !== 'UTF-8')
 		{

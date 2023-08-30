@@ -20,3 +20,7 @@ parameters:
 			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$response\\.#"
 			count: 1
 			path: src/mako/http/traits/ContentNegotiationTrait.php
+		-
+			message: "#^Creating callable from a non-native method stdClass::(beforeAction|afterAction)()#"
+			count: 2
+			path: src/mako/http/routing/Dispatcher.php

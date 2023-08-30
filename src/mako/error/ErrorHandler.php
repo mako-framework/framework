@@ -162,7 +162,7 @@ class ErrorHandler
 
 		// Set the exception handler
 
-		set_exception_handler([$this, 'handler']);
+		set_exception_handler($this->handler(...));
 	}
 
 	/**
