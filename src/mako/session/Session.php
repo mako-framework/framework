@@ -157,26 +157,18 @@ class Session
 
 	/**
 	 * Disables auto commit.
-	 *
-	 * @return $this
 	 */
-	public function disableAutoCommit()
+	public function disableAutoCommit(): void
 	{
 		$this->autoCommit = false;
-
-		return $this;
 	}
 
 	/**
 	 * Enables auto commit.
-	 *
-	 * @return $this
 	 */
-	public function enableAutoCommit()
+	public function enableAutoCommit(): void
 	{
 		$this->autoCommit = true;
-
-		return $this;
 	}
 
 	/**
@@ -199,9 +191,9 @@ class Session
 	/**
 	 * Calls the session store garbage collector.
 	 */
-	protected function gc(): void
+	public function gc(bool $force = false): void
 	{
-		if(mt_rand(1, 100) === 100)
+		if($force || mt_rand(1, 100) === 100)
 		{
 			$this->store->gc($this->options['data_ttl']);
 		}

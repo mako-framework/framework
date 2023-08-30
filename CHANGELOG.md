@@ -6,6 +6,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 
 * Added `Session::disableAutoCommit()` method.
 * Added `Session::enableAutoCommit()` method.
+* Made the `Session::gc()` method public and added a `$force` parameter.
 
 #### Changes
 
