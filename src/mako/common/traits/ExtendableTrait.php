@@ -19,16 +19,11 @@ trait ExtendableTrait
 {
 	/**
 	 * Class extensions.
-	 *
-	 * @var array
 	 */
-	protected static $_extensions;
+	protected static array $_extensions = [];
 
 	/**
 	 * Adds a method to the class.
-	 *
-	 * @param string   $methodName Method name
-	 * @param \Closure $closure    Closure
 	 */
 	public static function addMethod(string $methodName, Closure $closure): void
 	{
@@ -37,10 +32,6 @@ trait ExtendableTrait
 
 	/**
 	 * Executes class extensions.
-	 *
-	 * @param  string $name      Method name
-	 * @param  array  $arguments Method arguments
-	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{
@@ -54,10 +45,6 @@ trait ExtendableTrait
 
 	/**
 	 * Executes class extensions.
-	 *
-	 * @param  string $name      Method name
-	 * @param  array  $arguments Method arguments
-	 * @return mixed
 	 */
 	public static function __callStatic(string $name, array $arguments): mixed
 	{

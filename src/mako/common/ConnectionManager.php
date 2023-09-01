@@ -23,24 +23,16 @@ abstract class ConnectionManager
 
 	/**
 	 * Connections.
-	 *
-	 * @var array
 	 */
-	protected $connections = [];
+	protected array $connections = [];
 
 	/**
 	 * Connects to the chosen configuration and returns the connection.
-	 *
-	 * @param  string $connection Connection name
-	 * @return mixed
 	 */
 	abstract protected function connect(string $connection): mixed;
 
 	/**
 	 * Returns the chosen connection.
-	 *
-	 * @param  string|null $connection Connection name
-	 * @return mixed
 	 */
 	public function getConnection(?string $connection = null): mixed
 	{
@@ -56,8 +48,6 @@ abstract class ConnectionManager
 
 	/**
 	 * Closes the chosen connection.
-	 *
-	 * @param string|null $connection Connection name
 	 */
 	public function close(?string $connection = null): void
 	{
@@ -79,10 +69,6 @@ abstract class ConnectionManager
 
 	/**
 	 * Executes the passed closure using the chosen connection before closing it.
-	 *
-	 * @param  \Closure    $closure    Closure to execute
-	 * @param  string|null $connection Connection name
-	 * @return mixed
 	 */
 	public function executeAndClose(Closure $closure, ?string $connection = null): mixed
 	{
@@ -96,8 +82,6 @@ abstract class ConnectionManager
 	/**
 	 * Removes a configuration.
 	 * It will also close and remove any active connection linked to the configuration.
-	 *
-	 * @param string $name Connection name
 	 */
 	public function removeConfiguration(string $name): void
 	{
@@ -108,10 +92,6 @@ abstract class ConnectionManager
 
 	/**
 	 * Magic shortcut to the default connection.
-	 *
-	 * @param  string $name      Method name
-	 * @param  array  $arguments Method arguments
-	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{

@@ -18,10 +18,8 @@ class SecurityHeaders implements MiddlewareInterface
 {
 	/**
 	 * Security headers.
-	 *
-	 * @var array
 	 */
-	protected $headers =
+	protected array $headers =
 	[
 		'X-Content-Type-Options' => 'nosniff',
 		'X-Frame-Options'        => 'sameorigin',
@@ -30,8 +28,6 @@ class SecurityHeaders implements MiddlewareInterface
 
 	/**
 	 * Returns an array containing the security headers we want to set.
-	 *
-	 * @return array
 	 */
 	protected function getHeaders(): array
 	{

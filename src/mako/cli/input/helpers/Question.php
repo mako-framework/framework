@@ -19,9 +19,6 @@ class Question
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input   $input  Input instance
-	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(
 		protected Input $input,
@@ -31,10 +28,6 @@ class Question
 
 	/**
 	 * Writes question to output and returns user input.
-	 *
-	 * @param  string $question Question to ask
-	 * @param  mixed  $default  Default if no input is entered
-	 * @return mixed
 	 */
 	public function ask(string $question, mixed $default = null): mixed
 	{

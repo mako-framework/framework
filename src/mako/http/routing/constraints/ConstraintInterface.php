@@ -14,8 +14,6 @@ interface ConstraintInterface
 {
 	/**
 	 * Returns TRUE if the constraint is satisfied and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isSatisfied(): bool;
 }

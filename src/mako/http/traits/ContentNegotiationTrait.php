@@ -20,10 +20,6 @@ trait ContentNegotiationTrait
 {
 	/**
 	 * Does the client expect the provided mime type?
-	 *
-	 * @param  array       $mimeTypes Mime types
-	 * @param  string|null $suffix    Mime type suffix
-	 * @return bool
 	 */
 	protected function expectsType(array $mimeTypes, ?string $suffix = null): bool
 	{
@@ -39,8 +35,6 @@ trait ContentNegotiationTrait
 
 	/**
 	 * Does the client expect JSON?
-	 *
-	 * @return bool
 	 */
 	protected function expectsJson(): bool
 	{
@@ -49,8 +43,6 @@ trait ContentNegotiationTrait
 
 	/**
 	 * Does the client expect XML?
-	 *
-	 * @return bool
 	 */
 	protected function expectsXml(): bool
 	{
@@ -59,10 +51,6 @@ trait ContentNegotiationTrait
 
 	/**
 	 * Should we respond with the provided mime type?
-	 *
-	 * @param  array       $mimeTypes Mime types
-	 * @param  string|null $suffix    Mime type suffix
-	 * @return bool
 	 */
 	protected function respondWithType(array $mimeTypes, ?string $suffix = null): bool
 	{
@@ -78,8 +66,6 @@ trait ContentNegotiationTrait
 
 	/**
 	 * Should we respond with JSON?
-	 *
-	 * @return bool
 	 */
 	protected function respondWithJson(): bool
 	{
@@ -88,8 +74,6 @@ trait ContentNegotiationTrait
 
 	/**
 	 * Should we respond with XML?
-	 *
-	 * @return bool
 	 */
 	protected function respondWithXml(): bool
 	{

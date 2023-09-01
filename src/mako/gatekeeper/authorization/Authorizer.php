@@ -22,15 +22,11 @@ class Authorizer implements AuthorizerInterface
 {
 	/**
 	 * Policies.
-	 *
-	 * @var array
 	 */
-	protected $policies = [];
+	protected array $policies = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Container $container = new Container
@@ -47,9 +43,6 @@ class Authorizer implements AuthorizerInterface
 
 	/**
 	 * Policy factory.
-	 *
-	 * @param  object|string                                           $entity Entity instance or class name
-	 * @return \mako\gatekeeper\authorization\policies\PolicyInterface
 	 */
 	protected function policyFactory(object|string $entity): PolicyInterface
 	{

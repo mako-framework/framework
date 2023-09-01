@@ -23,15 +23,11 @@ class GroupRepository implements GroupRepositoryInterface
 {
 	/**
 	 * Group identifier.
-	 *
-	 * @var string
 	 */
-	protected $identifier = 'name';
+	protected string $identifier = 'name';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $model Model name
 	 */
 	public function __construct(
 		protected string $model
@@ -40,8 +36,6 @@ class GroupRepository implements GroupRepositoryInterface
 
 	/**
 	 * Returns a model instance.
-	 *
-	 * @return \mako\gatekeeper\entities\group\Group
 	 */
 	protected function getModel(): Group
 	{
@@ -67,8 +61,6 @@ class GroupRepository implements GroupRepositoryInterface
 
 	/**
 	 * Sets the user identifier.
-	 *
-	 * @param string $identifier User identifier
 	 */
 	public function setIdentifier(string $identifier): void
 	{
@@ -82,9 +74,6 @@ class GroupRepository implements GroupRepositoryInterface
 
 	/**
 	 * Fetches a group by its name.
-	 *
-	 * @param  string                                     $name Group name
-	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
 	public function getByName(string $name): ?Group
 	{
@@ -93,9 +82,6 @@ class GroupRepository implements GroupRepositoryInterface
 
 	/**
 	 * Fetches a group by its id.
-	 *
-	 * @param  int                                        $id Group id
-	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
 	public function getById(int $id): ?Group
 	{
@@ -104,8 +90,6 @@ class GroupRepository implements GroupRepositoryInterface
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @return \mako\gatekeeper\entities\group\Group|null
 	 */
 	public function getByIdentifier(int|string $identifier): ?Group
 	{

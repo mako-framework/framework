@@ -19,13 +19,6 @@ trait CalculateNewDimensionsTrait
 {
 	/**
 	 * Calculates new image dimensions.
-	 *
-	 * @param  int      $width       Desired image width
-	 * @param  int|null $height      Desired image height
-	 * @param  int      $oldWidth    Old image width
-	 * @param  int      $oldHeight   Old image height
-	 * @param  int      $aspectRatio Aspect ratio
-	 * @return array
 	 */
 	protected function calculateNewDimensions(int $width, ?int $height, int $oldWidth, int $oldHeight, int $aspectRatio): array
 	{

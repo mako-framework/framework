@@ -17,13 +17,10 @@ class ServiceUnavailableException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $defaultMessage = 'The service is currently unavailable.';
+	protected string|null $defaultMessage = 'The service is currently unavailable.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string          $message  Exception message
-	 * @param \Throwable|null $previous Previous exception
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{

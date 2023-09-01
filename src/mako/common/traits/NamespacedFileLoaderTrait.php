@@ -22,29 +22,21 @@ trait NamespacedFileLoaderTrait
 {
 	/**
 	 * Default path.
-	 *
-	 * @var string
 	 */
-	protected $path;
+	protected string $path = '';
 
 	/**
 	 * File extension.
-	 *
-	 * @var string
 	 */
-	protected $extension = '.php';
+	protected string $extension = '.php';
 
 	/**
 	 * Namespaces.
-	 *
-	 * @var array
 	 */
-	protected $namespaces = [];
+	protected array $namespaces = [];
 
 	/**
 	 * Sets the default path.
-	 *
-	 * @param string $path Path
 	 */
 	public function setPath(string $path): void
 	{
@@ -53,8 +45,6 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Sets the extension.
-	 *
-	 * @param string $extension Extension
 	 */
 	public function setExtension(string $extension): void
 	{
@@ -63,9 +53,6 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Registers a namespace.
-	 *
-	 * @param string $namespace Namespace name
-	 * @param string $path      Namespace path
 	 */
 	public function registerNamespace(string $namespace, string $path): void
 	{
@@ -74,11 +61,6 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Returns the path to the file.
-	 *
-	 * @param  string      $file      Filename
-	 * @param  string|null $extension File extension
-	 * @param  string|null $suffix    Path suffix
-	 * @return string
 	 */
 	protected function getFilePath(string $file, ?string $extension = null, ?string $suffix = null): string
 	{
@@ -116,11 +98,6 @@ trait NamespacedFileLoaderTrait
 
 	/**
 	 * Returns an array of cascading file paths.
-	 *
-	 * @param  string      $file      Filename
-	 * @param  string|null $extension File extension
-	 * @param  string|null $suffix    Path suffix
-	 * @return array
 	 */
 	protected function getCascadingFilePaths(string $file, ?string $extension = null, ?string $suffix = null): array
 	{

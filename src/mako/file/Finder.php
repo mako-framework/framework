@@ -21,22 +21,16 @@ class Finder
 {
 	/**
 	 * The pattern that the files should match.
-	 *
-	 * @var string
 	 */
-	protected $pattern;
+	protected string|null $pattern = null;
 
 	/**
 	 * Maximum search depth.
-	 *
-	 * @var int
 	 */
-	protected $maxDepth;
+	protected int|null $maxDepth = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $paths The paths that we should search
 	 */
 	public function __construct(
 		protected array $paths
@@ -46,7 +40,6 @@ class Finder
 	/**
 	 * Sets a pattern that the files should match.
 	 *
-	 * @param  string $pattern
 	 * @return $this
 	 */
 	public function setPattern(string $pattern)
@@ -58,8 +51,6 @@ class Finder
 
 	/**
 	 * Returns the pattern that the files should match.
-	 *
-	 * @return string|null
 	 */
 	public function getPattern(): ?string
 	{
@@ -69,7 +60,6 @@ class Finder
 	/**
 	 * Sets the maximum search depth.
 	 *
-	 * @param  int   $maxDepth
 	 * @return $this
 	 */
 	public function setMaxDepth(int $maxDepth)
@@ -81,8 +71,6 @@ class Finder
 
 	/**
 	 * Returns the the maximum search depth.
-	 *
-	 * @return int|null
 	 */
 	public function getMaxDepth(): ?int
 	{
@@ -91,9 +79,6 @@ class Finder
 
 	/**
 	 * Creates an iterator instance.
-	 *
-	 * @param  string    $path
-	 * @return \Iterator
 	 */
 	protected function createIterator(string $path): Iterator
 	{
@@ -114,8 +99,6 @@ class Finder
 
 	/**
 	 * Finds all files in the given paths.
-	 *
-	 * @return \Generator
 	 */
 	public function find(): Generator
 	{
@@ -127,9 +110,6 @@ class Finder
 
 	/**
 	 * Finds all files in the given paths.
-	 *
-	 * @param  string     $className Class name
-	 * @return \Generator
 	 */
 	public function findAs(string $className): Generator
 	{

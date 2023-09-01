@@ -18,8 +18,6 @@ class ProductionHandler implements HandlerInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output
 	 */
 	public function __construct(
 		protected Output $output

@@ -20,10 +20,6 @@ class ClassInspector
 {
 	/**
 	 * Returns an array of all the parent classes of the class.
-	 *
-	 * @param  object|string $class    Class name or class instance
-	 * @param  bool          $autoload Should the class be autoloaded?
-	 * @return array
 	 */
 	public static function getParents(object|string $class, bool $autoload = true): array
 	{
@@ -32,10 +28,6 @@ class ClassInspector
 
 	/**
 	 * Returns an array of all the interfaces that the class implements.
-	 *
-	 * @param  object|string $class    Class name or class instance
-	 * @param  bool          $autoload Should the class be autoloaded?
-	 * @return array
 	 */
 	public static function getInterfaces(object|string $class, bool $autoload = true): array
 	{
@@ -44,10 +36,6 @@ class ClassInspector
 
 	/**
 	 * Returns an array of all traits used by the class.
-	 *
-	 * @param  object|string $class    Class name or class instance
-	 * @param  bool          $autoload Should the class be autoloaded?
-	 * @return array
 	 */
 	public static function getTraits(object|string $class, bool $autoload = true): array
 	{

@@ -52,12 +52,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	protected const SOURCE_PADDING = 6;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param \mako\http\Request            $request  Request
-	 * @param \mako\http\Response           $response Response
-	 * @param \mako\application\Application $app      Application
-	 * @param array                         $keep     Cookies and headers to keep
+	 * Constructor.                        $keep     Cookies and headers to keep.
 	 */
 	public function __construct(
 		protected Request $request,
@@ -71,9 +66,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns the exception type.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionType(Throwable $exception): string
 	{
@@ -94,9 +86,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Return a JSON representation of the exception.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsJson(Throwable $exception): string
 	{
@@ -115,9 +104,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Return a XML representation of the exception.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsXml(Throwable $exception): string
 	{
@@ -140,10 +126,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns the source code surrounding the error.
-	 *
-	 * @param  string     $file File path
-	 * @param  int        $line Error line
-	 * @return array|null
 	 */
 	protected function getSourceCode(string $file, int $line): ?array
 	{
@@ -178,9 +160,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns an enhanced stack trace.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return array
 	 */
 	protected function getEnhancedStackTrace(Throwable $exception): array
 	{
@@ -235,9 +214,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns the previous exceptions.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return array
 	 */
 	protected function getPreviousExceptions(Throwable $exception): array
 	{
@@ -260,8 +236,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns a Symfony var-dumper closure.
-	 *
-	 * @return \Closure
 	 */
 	protected function getDumper(): Closure
 	{
@@ -323,8 +297,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns the database queries.
-	 *
-	 * @return array|null
 	 */
 	protected function getQueries(): ?array
 	{
@@ -359,8 +331,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns a view factory.
-	 *
-	 * @return \mako\view\ViewFactory
 	 */
 	protected function getViewFactory(): ViewFactory
 	{
@@ -377,9 +347,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Returns a rendered error view.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsHtml(Throwable $exception): string
 	{
@@ -410,9 +377,6 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Builds a response.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return array
 	 */
 	protected function buildResponse(Throwable $exception): array
 	{

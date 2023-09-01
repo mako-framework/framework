@@ -16,9 +16,6 @@ interface HandlerInterface
 {
 	/**
 	 * Handles the exception.
-	 *
-	 * @param  \Throwable $exception Exception to handle
-	 * @return mixed
 	 */
 	public function handle(Throwable $exception): mixed;
 }

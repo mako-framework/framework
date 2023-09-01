@@ -24,10 +24,6 @@ class File extends Store
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem     File system instance
-	 * @param string                $cachePath      Cache path
-	 * @param array|bool            $classWhitelist Class whitelist
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -38,9 +34,6 @@ class File extends Store
 
 	/**
 	 * Returns the path to the cache file.
-	 *
-	 * @param  string $key Cache key
-	 * @return string
 	 */
 	protected function cacheFile(string $key): string
 	{

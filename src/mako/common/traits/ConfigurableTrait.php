@@ -14,9 +14,6 @@ trait ConfigurableTrait
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $default        Default connection name
-	 * @param array  $configurations Configurations
 	 */
 	public function __construct(
 		protected string $default,

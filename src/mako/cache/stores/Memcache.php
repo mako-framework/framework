@@ -18,24 +18,16 @@ class Memcache extends Store
 {
 	/**
 	 * Memcache instance.
-	 *
-	 * @var \Memcache
 	 */
-	protected $memcache;
+	protected PHPMemcache $memcache;
 
 	/**
 	 * Compression level.
-	 *
-	 * @var int
 	 */
-	protected $compressionLevel = 0;
+	protected int $compressionLevel = 0;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $servers      Memcache servers
-	 * @param int   $timeout      Timeout in seconds
-	 * @param bool  $compressData Compress data?
 	 */
 	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{

@@ -75,39 +75,26 @@ class Argument
 
 	/**
 	 * Argument alias.
-	 *
-	 * @var string|null
 	 */
-	protected $alias;
+	protected string|null $alias = null;
 
 	/**
 	 * Is the argument positional?
-	 *
-	 * @var bool
 	 */
-	protected $isPositional;
+	protected bool $isPositional;
 
 	/**
 	 * Argument options.
-	 *
-	 * @var int
 	 */
-	protected $options;
+	protected int $options;
 
 	/**
 	 * Default value.
-	 *
-	 * @var mixed
 	 */
-	protected $default;
+	protected mixed $default;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array|string $name        Argument name
-	 * @param string       $description Argument description
-	 * @param int          $options     Argument options
-	 * @param mixed        $default     Default return value (only used by optional arguments)
 	 */
 	public function __construct(
 		protected array|string $name,
@@ -138,8 +125,6 @@ class Argument
 
 	/**
 	 * Gets the default return value.
-	 *
-	 * @return mixed
 	 */
 	public function getDefaultValue(): mixed
 	{
@@ -148,9 +133,6 @@ class Argument
 
 	/**
 	 * Returns a validated argument name.
-	 *
-	 * @param  string $name Argument name
-	 * @return string
 	 */
 	protected function getValidatedName(string $name): string
 	{
@@ -164,9 +146,6 @@ class Argument
 
 	/**
 	 * Returns a validated alias.
-	 *
-	 * @param  string $alias Alias
-	 * @return string
 	 */
 	protected function getValidatedAlias(string $alias): string
 	{
@@ -180,9 +159,6 @@ class Argument
 
 	/**
 	 * Parse the argument name.
-	 *
-	 * @param  array|string $name Argument name
-	 * @return array
 	 */
 	protected function parseName(array|string $name): array
 	{
@@ -198,9 +174,6 @@ class Argument
 
 	/**
 	 * Returns validated options.
-	 *
-	 * @param  int $options Argument options
-	 * @return int
 	 */
 	protected function getValidatedOptions(int $options): int
 	{
@@ -234,8 +207,6 @@ class Argument
 
 	/**
 	 * Returns the argument name.
-	 *
-	 * @return string
 	 */
 	public function getName(): string
 	{
@@ -244,8 +215,6 @@ class Argument
 
 	/**
 	 * Returns the normalized argument name.
-	 *
-	 * @return string
 	 */
 	public function getNormalizedName(): string
 	{
@@ -254,8 +223,6 @@ class Argument
 
 	/**
 	 * Returns the argument alias.
-	 *
-	 * @return string|null
 	 */
 	public function getAlias(): ?string
 	{
@@ -264,8 +231,6 @@ class Argument
 
 	/**
 	 * Returns the argument description.
-	 *
-	 * @return string
 	 */
 	public function getDescription(): string
 	{
@@ -274,8 +239,6 @@ class Argument
 
 	/**
 	 * Is the argument positional?
-	 *
-	 * @return bool
 	 */
 	public function isPositional(): bool
 	{
@@ -284,8 +247,6 @@ class Argument
 
 	/**
 	 * Is the argument an integer?
-	 *
-	 * @return bool
 	 */
 	public function isInt(): bool
 	{
@@ -294,8 +255,6 @@ class Argument
 
 	/**
 	 * Is the argument a float?
-	 *
-	 * @return bool
 	 */
 	public function isFloat(): bool
 	{
@@ -304,8 +263,6 @@ class Argument
 
 	/**
 	 * Is the argument a boolean?
-	 *
-	 * @return bool
 	 */
 	public function isBool(): bool
 	{
@@ -314,8 +271,6 @@ class Argument
 
 	/**
 	 * Is the argument an array?
-	 *
-	 * @return bool
 	 */
 	public function isArray(): bool
 	{
@@ -324,8 +279,6 @@ class Argument
 
 	/**
 	 * Is the argument optional?
-	 *
-	 * @return bool
 	 */
 	public function isOptional(): bool
 	{

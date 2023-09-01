@@ -14,15 +14,11 @@ interface UserEntityInterface
 {
 	/**
 	 * Returns the user id.
-	 *
-	 * @return mixed
 	 */
 	public function getId(): mixed;
 
 	/**
 	 * Returns the user username.
-	 *
-	 * @return string
 	 */
 	public function getUsername(): string;
 }

@@ -20,9 +20,6 @@ class Select
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input   $input  Input instance
-	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(
 		protected Input $input,
@@ -32,9 +29,6 @@ class Select
 
 	/**
 	 * Returns a list of options.
-	 *
-	 * @param  array  $options Options
-	 * @return string
 	 */
 	protected function buildOptionsList(array $options): string
 	{
@@ -50,10 +44,6 @@ class Select
 
 	/**
 	 * Prints out a list of options and returns the array key of the chosen value.
-	 *
-	 * @param  string $question Question to ask
-	 * @param  array  $options  Numeric array of options to choose from
-	 * @return int
 	 */
 	public function ask(string $question, array $options): int
 	{

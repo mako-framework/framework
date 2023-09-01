@@ -41,31 +41,21 @@ class Dispatcher
 
 	/**
 	 * Route middleware.
-	 *
-	 * @var array
 	 */
-	protected $middleware = [];
+	protected array $middleware = [];
 
 	/**
 	 * Global middleware.
-	 *
-	 * @var array
 	 */
-	protected $globalMiddleware = [];
+	protected array $globalMiddleware = [];
 
 	/**
 	 * Middleware priority.
-	 *
-	 * @var array
 	 */
-	protected $middlewarePriority = [];
+	protected array $middlewarePriority = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\Request      $request   Request instance
-	 * @param \mako\http\Response     $response  Response instance
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Request $request,
@@ -76,9 +66,6 @@ class Dispatcher
 
 	/**
 	 * Sets the middleware priority.
-	 *
-	 * @param  array                         $priority Middleware priority
-	 * @return \mako\http\routing\Dispatcher
 	 */
 	public function setMiddlewarePriority(array $priority): Dispatcher
 	{
@@ -89,8 +76,6 @@ class Dispatcher
 
 	/**
 	 * Resets middleware priority.
-	 *
-	 * @return \mako\http\routing\Dispatcher
 	 */
 	public function resetMiddlewarePriority(): Dispatcher
 	{
@@ -101,11 +86,6 @@ class Dispatcher
 
 	/**
 	 * Registers middleware.
-	 *
-	 * @param  string                        $name       Middleware name or class name
-	 * @param  string|null                   $middleware Middleware class name
-	 * @param  int|null                      $priority   Middleware priority
-	 * @return \mako\http\routing\Dispatcher
 	 */
 	public function registerMiddleware(string $name, ?string $middleware = null, ?int $priority = null): Dispatcher
 	{
@@ -121,9 +101,6 @@ class Dispatcher
 
 	/**
 	 * Sets the chosen middleware as global.
-	 *
-	 * @param  array                         $middleware Array of middleware names
-	 * @return \mako\http\routing\Dispatcher
 	 */
 	public function setMiddlewareAsGlobal(array $middleware): Dispatcher
 	{
@@ -134,9 +111,6 @@ class Dispatcher
 
 	/**
 	 * Resolves the middleware.
-	 *
-	 * @param  string $middleware middleware
-	 * @return array
 	 */
 	protected function resolveMiddleware(string $middleware): array
 	{
@@ -152,9 +126,6 @@ class Dispatcher
 
 	/**
 	 * Orders resolved middleware by priority.
-	 *
-	 * @param  array $middleware Array of middleware
-	 * @return array
 	 */
 	protected function orderMiddlewareByPriority(array $middleware): array
 	{
@@ -172,9 +143,6 @@ class Dispatcher
 
 	/**
 	 * Adds route middleware to the stack.
-	 *
-	 * @param \mako\onion\Onion $onion      Middleware stack
-	 * @param array             $middleware Array of middleware
 	 */
 	protected function addMiddlewareToStack(Onion $onion, array $middleware): void
 	{
@@ -205,10 +173,6 @@ class Dispatcher
 
 	/**
 	 * Executes a closure action.
-	 *
-	 * @param  \Closure            $action     Closure
-	 * @param  array               $parameters Parameters
-	 * @return \mako\http\Response
 	 */
 	protected function executeClosure(Closure $action, array $parameters): Response
 	{
@@ -217,10 +181,6 @@ class Dispatcher
 
 	/**
 	 * Executes a controller action.
-	 *
-	 * @param  array|string        $action     Controller
-	 * @param  array               $parameters Parameters
-	 * @return \mako\http\Response
 	 */
 	protected function executeController(array|string $action, array $parameters): Response
 	{
@@ -261,9 +221,6 @@ class Dispatcher
 
 	/**
 	 * Executes the route action.
-	 *
-	 * @param  \mako\http\routing\Route $route Route
-	 * @return \mako\http\Response
 	 */
 	protected function executeAction(Route $route): Response
 	{
@@ -281,9 +238,6 @@ class Dispatcher
 
 	/**
 	 * Dispatches the route and returns the response.
-	 *
-	 * @param  \mako\http\routing\Route $route Route
-	 * @return \mako\http\Response
 	 */
 	public function dispatch(Route $route): Response
 	{

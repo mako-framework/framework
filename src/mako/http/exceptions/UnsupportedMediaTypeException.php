@@ -17,13 +17,10 @@ class UnsupportedMediaTypeException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $defaultMessage = 'The media type is not supported.';
+	protected string|null $defaultMessage = 'The media type is not supported.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string          $message  Exception message
-	 * @param \Throwable|null $previous Previous exception
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{

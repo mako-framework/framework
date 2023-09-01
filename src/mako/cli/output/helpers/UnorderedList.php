@@ -19,15 +19,11 @@ class UnorderedList
 {
 	/**
 	 * Padding.
-	 *
-	 * @var string
 	 */
-	protected $padding = '  ';
+	protected string $padding = '  ';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(
 		protected Output $output
@@ -36,11 +32,6 @@ class UnorderedList
 
 	/**
 	 * Builds a list item.
-	 *
-	 * @param  string $item         Item
-	 * @param  string $marker       Item marker
-	 * @param  int    $nestingLevel Nesting level
-	 * @return string
 	 */
 	protected function buildListItem(string $item, string $marker, int $nestingLevel): string
 	{
@@ -49,11 +40,6 @@ class UnorderedList
 
 	/**
 	 * Builds an unordered list.
-	 *
-	 * @param  array  $items        Items
-	 * @param  string $marker       Item marker
-	 * @param  int    $nestingLevel Nesting level
-	 * @return string
 	 */
 	protected function buildList(array $items, string $marker, int $nestingLevel = 0): string
 	{
@@ -76,10 +62,6 @@ class UnorderedList
 
 	/**
 	 * Renders an unordered list.
-	 *
-	 * @param  array  $items  Items
-	 * @param  string $marker Item marker
-	 * @return string
 	 */
 	public function render(array $items, string $marker = '*'): string
 	{
@@ -88,10 +70,6 @@ class UnorderedList
 
 	/**
 	 * Draws an unordered list.
-	 *
-	 * @param array  $items  Items
-	 * @param string $marker Item marker
-	 * @param int    $writer Output writer
 	 */
 	public function draw(array $items, string $marker = '*', int $writer = Output::STANDARD): void
 	{

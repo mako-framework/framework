@@ -22,9 +22,6 @@ class Body extends Parameters
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $rawBody     Raw request body
-	 * @param string $contentType Content type
 	 */
 	public function __construct(string $rawBody, string $contentType)
 	{
@@ -33,12 +30,8 @@ class Body extends Parameters
 
 	/**
 	 * Converts the request body into an associative array.
-	 *
-	 * @param  string $rawBody     Raw request body
-	 * @param  string $contentType Content type
-	 * @return array
 	 */
-	protected function parseBody($rawBody, $contentType): array
+	protected function parseBody(string $rawBody, string $contentType): array
 	{
 		if($contentType === 'application/x-www-form-urlencoded')
 		{

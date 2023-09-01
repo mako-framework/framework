@@ -16,24 +16,16 @@ class HttpStatusException extends HttpException
 {
 	/**
 	 * Default message.
-	 *
-	 * @var string|null
 	 */
-	protected $defaultMessage;
+	protected string|null $defaultMessage = null;
 
 	/**
 	 * Exception metadata.
-	 *
-	 * @var array
 	 */
-	protected $metadata = [];
+	protected array $metadata = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param int             $code     Exception code
-	 * @param string          $message  Exception message
-	 * @param \Throwable|null $previous Previous exception
 	 */
 	public function __construct(int $code, string $message = '', ?Throwable $previous = null)
 	{
@@ -43,7 +35,6 @@ class HttpStatusException extends HttpException
 	/**
 	 * Sets exception metadata.
 	 *
-	 * @param  array $metadata Exception metadata
 	 * @return $this
 	 */
 	public function setMetadata(array $metadata)
@@ -55,8 +46,6 @@ class HttpStatusException extends HttpException
 
 	/**
 	 * Returns exception metadata.
-	 *
-	 * @return array
 	 */
 	public function getMetadata(): array
 	{

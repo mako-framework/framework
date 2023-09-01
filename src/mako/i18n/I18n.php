@@ -41,23 +41,16 @@ class I18n
 
 	/**
 	 * Loaded language strings.
-	 *
-	 * @var array
 	 */
-	protected $strings = [];
+	protected array $strings = [];
 
 	/**
 	 * Loaded language inflections.
-	 *
-	 * @var array
 	 */
-	protected $inflections = [];
+	protected array $inflections = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\i18n\loaders\LoaderInterface $loader   Loader instance
-	 * @param string                             $language Default language pack name
 	 */
 	public function __construct(
 		protected LoaderInterface $loader,
@@ -67,8 +60,6 @@ class I18n
 
 	/**
 	 * Returns the language loader.
-	 *
-	 * @return \mako\i18n\loaders\LoaderInterface
 	 */
 	public function getLoader(): LoaderInterface
 	{
@@ -77,8 +68,6 @@ class I18n
 
 	/**
 	 * Gets the current language.
-	 *
-	 * @return string
 	 */
 	public function getLanguage(): string
 	{
@@ -87,8 +76,6 @@ class I18n
 
 	/**
 	 * Sets the current language.
-	 *
-	 * @param string $language Name of the language pack
 	 */
 	public function setLanguage(string $language): void
 	{
@@ -97,8 +84,6 @@ class I18n
 
 	/**
 	 * Loads inflection closure and rules.
-	 *
-	 * @param string $language Name of the language pack
 	 */
 	protected function loadInflection(string $language): void
 	{
@@ -107,11 +92,6 @@ class I18n
 
 	/**
 	 * Returns the plural form of a noun.
-	 *
-	 * @param  string      $word     Noun to pluralize
-	 * @param  int|null    $count    Number of nouns
-	 * @param  string|null $language Language rules to use for pluralization
-	 * @return string
 	 */
 	public function pluralize(string $word, ?int $count = null, ?string $language = null): string
 	{
@@ -134,12 +114,6 @@ class I18n
 
 	/**
 	 * Format number according to locale or desired format.
-	 *
-	 * @param  float       $number             Number to format
-	 * @param  int         $decimals           Number of decimals
-	 * @param  string|null $decimalPoint       Decimal point
-	 * @param  string|null $thousandsSeparator Thousands separator
-	 * @return string
 	 */
 	public function number(float $number, int $decimals = 0, ?string $decimalPoint = null, ?string $thousandsSeparator = null): string
 	{
@@ -161,9 +135,6 @@ class I18n
 
 	/**
 	 * Parses the language key.
-	 *
-	 * @param  string $key Language key
-	 * @return array
 	 */
 	protected function parseKey(string $key): array
 	{
@@ -172,9 +143,6 @@ class I18n
 
 	/**
 	 * Loads all strings for the language.
-	 *
-	 * @param string $language Name of the language pack
-	 * @param string $file     File from which we are loading the strings
 	 */
 	protected function loadStrings(string $language, string $file): void
 	{
@@ -183,10 +151,6 @@ class I18n
 
 	/**
 	 * Returns all strings from the chosen language file.
-	 *
-	 * @param  string $language Name of the language pack
-	 * @param  string $file     File from which we are getting the strings
-	 * @return array
 	 */
 	protected function getStrings(string $language, string $file): array
 	{
@@ -200,10 +164,6 @@ class I18n
 
 	/**
 	 * Returns TRUE if the string exists and FALSE if not.
-	 *
-	 * @param  string      $key      String to translate
-	 * @param  string|null $language Name of the language pack
-	 * @return bool
 	 */
 	public function has(string $key, ?string $language = null): bool
 	{
@@ -221,9 +181,6 @@ class I18n
 
 	/**
 	 * Pluralize words between pluralization tags.
-	 *
-	 * @param  string $string String to parse
-	 * @return string
 	 */
 	protected function parsePluralizationTags(string $string): string
 	{
@@ -232,9 +189,6 @@ class I18n
 
 	/**
 	 * Format numbers between number tags.
-	 *
-	 * @param  string $string String to parse
-	 * @return string
 	 */
 	protected function parseNumberTags(string $string): string
 	{
@@ -243,9 +197,6 @@ class I18n
 
 	/**
 	 * Parses tags.
-	 *
-	 * @param  string $string String to parse
-	 * @return string
 	 */
 	protected function parseTags(string $string): string
 	{
@@ -264,11 +215,6 @@ class I18n
 
 	/**
 	 * Returns the chosen string from the current language.
-	 *
-	 * @param  string      $key      String to translate
-	 * @param  array       $vars     Array of values to replace in the translated text
-	 * @param  string|null $language Name of the language pack
-	 * @return string
 	 */
 	public function get(string $key, array $vars = [], ?string $language = null): string
 	{

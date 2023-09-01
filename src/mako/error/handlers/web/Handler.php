@@ -26,15 +26,11 @@ abstract class Handler implements ProvidesExceptionIdInterface
 
 	/**
 	 * Exception id.
-	 *
-	 * @var string
 	 */
-	protected $exceptionId;
+	protected string $exceptionId;
 
 	/**
 	 * Generates an exception id.
-	 *
-	 * @return string
 	 */
 	protected function generateExceptionId(): string
 	{
@@ -51,9 +47,6 @@ abstract class Handler implements ProvidesExceptionIdInterface
 
 	/**
 	 * Returns the status code that we should send.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return int
 	 */
 	protected function getStatusCode(Throwable $exception): int
 	{
@@ -62,9 +55,6 @@ abstract class Handler implements ProvidesExceptionIdInterface
 
 	/**
 	 * Sends response and adds any aditional headers.
-	 *
-	 * @param \mako\http\Response $response  Response
-	 * @param \Throwable          $exception Exception
 	 */
 	protected function sendResponse(Response $response, Throwable $exception): void
 	{

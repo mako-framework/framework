@@ -23,8 +23,6 @@ class FileInfo extends SplFileInfo
 {
 	/**
 	 * Returns the MIME type of the file.
-	 *
-	 * @return string|null
 	 */
 	public function getMimeType(): ?string
 	{
@@ -39,8 +37,6 @@ class FileInfo extends SplFileInfo
 
 	/**
 	 * Returns the MIME encoding of the file.
-	 *
-	 * @return string|null
 	 */
 	public function getMimeEncoding(): ?string
 	{
@@ -55,10 +51,6 @@ class FileInfo extends SplFileInfo
 
 	/**
 	 * Generates a hash using the contents of the file.
-	 *
-	 * @param  string $algorithm Hashing algorithm
-	 * @param  bool   $raw       Output raw binary data?
-	 * @return string
 	 */
 	public function getHash(string $algorithm = 'sha256', bool $raw = false): string
 	{
@@ -67,11 +59,6 @@ class FileInfo extends SplFileInfo
 
 	/**
 	 * Returns TRUE if the file matches the provided hash and FALSE if not.
-	 *
-	 * @param  string $hash      Hash
-	 * @param  string $algorithm Hashing algorithm
-	 * @param  bool   $raw       Is the provided hash raw?
-	 * @return bool
 	 */
 	public function validateHash(string $hash, string $algorithm = 'sha256', bool $raw = false): bool
 	{
@@ -80,11 +67,6 @@ class FileInfo extends SplFileInfo
 
 	/**
 	 * Generates a HMAC using the contents of the file.
-	 *
-	 * @param  string $key       Shared secret key
-	 * @param  string $algorithm Hashing algorithm
-	 * @param  bool   $raw       Output raw binary data?
-	 * @return string
 	 */
 	public function getHmac(string $key, string $algorithm = 'sha256', bool $raw = false): string
 	{
@@ -93,12 +75,6 @@ class FileInfo extends SplFileInfo
 
 	/**
 	 * Returns TRUE if the file matches the provided HMAC and FALSE if not.
-	 *
-	 * @param  string $hmac      HMAC
-	 * @param  string $key       Key
-	 * @param  string $algorithm Hashing algorithm
-	 * @param  bool   $raw       Is the provided HMAC raw?
-	 * @return bool
 	 */
 	public function validateHmac(string $hmac, string $key, string $algorithm = 'sha256', bool $raw = false): bool
 	{

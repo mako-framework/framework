@@ -22,8 +22,6 @@ class DevelopmentHandler implements HandlerInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output
 	 */
 	public function __construct(
 		protected Output $output
@@ -32,9 +30,6 @@ class DevelopmentHandler implements HandlerInterface
 
 	/**
 	 * Escape formatting tags.
-	 *
-	 * @param  string $string String to escape
-	 * @return string
 	 */
 	protected function escape(string $string): string
 	{
@@ -48,9 +43,6 @@ class DevelopmentHandler implements HandlerInterface
 
 	/**
 	 * Determines the exception type.
-	 *
-	 * @param  \Throwable $exception Throwable
-	 * @return string
 	 */
 	protected function determineExceptionType(Throwable $exception): string
 	{

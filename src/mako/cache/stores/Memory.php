@@ -16,10 +16,8 @@ class Memory extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Cache data.
-	 *
-	 * @var array
 	 */
-	protected $cache = [];
+	protected array $cache = [];
 
 	/**
 	 * {@inheritDoc}

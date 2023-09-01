@@ -14,8 +14,6 @@ interface ReaderInterface
 {
 	/**
 	 * Reads and returns user input.
-	 *
-	 * @return string
 	 */
 	public function read(): string;
 }

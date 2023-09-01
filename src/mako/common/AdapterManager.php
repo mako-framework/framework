@@ -24,24 +24,16 @@ abstract class AdapterManager
 
 	/**
 	 * Extensions.
-	 *
-	 * @var array
 	 */
-	protected $extensions = [];
+	protected array $extensions = [];
 
 	/**
 	 * Connections.
-	 *
-	 * @var array
 	 */
-	protected $instances = [];
+	protected array $instances = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string                  $default        Default connection name
-	 * @param array                   $configurations Configurations
-	 * @param \mako\syringe\Container $container      Container
 	 */
 	public function __construct(
 		protected string $default,
@@ -52,9 +44,6 @@ abstract class AdapterManager
 
 	/**
 	 * Adds extension.
-	 *
-	 * @param string          $name    Adapter name
-	 * @param \Closure|string $adapter Adapter
 	 */
 	public function extend(string $name, Closure|string $adapter): void
 	{
@@ -63,10 +52,6 @@ abstract class AdapterManager
 
 	/**
 	 * Factory.
-	 *
-	 * @param  string $adapterName   Adapter name
-	 * @param  array  $configuration Adapter configuration
-	 * @return mixed
 	 */
 	protected function factory(string $adapterName, array $configuration = []): mixed
 	{
@@ -91,17 +76,11 @@ abstract class AdapterManager
 
 	/**
 	 * Returns a new adapter instance.
-	 *
-	 * @param  string $configuration Configuration name
-	 * @return mixed
 	 */
 	abstract protected function instantiate(string $configuration): mixed;
 
 	/**
 	 * Returns an instance of the chosen adapter configuration.
-	 *
-	 * @param  string|null $configuration Configuration name
-	 * @return mixed
 	 */
 	public function getInstance(?string $configuration = null): mixed
 	{
@@ -117,10 +96,6 @@ abstract class AdapterManager
 
 	/**
 	 * Magic shortcut to the default configuration.
-	 *
-	 * @param  string $name      Method name
-	 * @param  array  $arguments Method arguments
-	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{

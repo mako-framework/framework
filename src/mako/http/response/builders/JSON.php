@@ -20,18 +20,11 @@ class JSON implements ResponseBuilderInterface
 {
 	/**
 	 * Callback.
-	 *
-	 * @var string|null
 	 */
-	protected $callback;
+	protected string|null $callback = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param mixed       $data       Data
-	 * @param int         $options    JSON encode options
-	 * @param int|null    $statusCode Status code
-	 * @param string|null $charset    Character set
 	 */
 	public function __construct(
 		protected mixed $data,
@@ -43,9 +36,6 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Enables JSONP support.
-	 *
-	 * @param  string                            $callback Query string field
-	 * @return \mako\http\response\builders\JSON
 	 */
 	public function asJsonpWith(string $callback): JSON
 	{
@@ -56,9 +46,6 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Sets the response character set.
-	 *
-	 * @param  string                            $charset Character set
-	 * @return \mako\http\response\builders\JSON
 	 */
 	public function setCharset(string $charset): JSON
 	{
@@ -69,8 +56,6 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Returns the response character set.
-	 *
-	 * @return string|null
 	 */
 	public function getCharset(): ?string
 	{
@@ -79,9 +64,6 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Sets the HTTP status code.
-	 *
-	 * @param  int                               $statusCode Status code
-	 * @return \mako\http\response\builders\JSON
 	 */
 	public function setStatus(int $statusCode): JSON
 	{
@@ -92,8 +74,6 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Returns the HTTP status code.
-	 *
-	 * @return int|null
 	 */
 	public function getStatus(): ?int
 	{
@@ -102,9 +82,6 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Ensures a valid callback name.
-	 *
-	 * @param  string $callback Callback name
-	 * @return string
 	 */
 	protected function normalizeCallback(string $callback): string
 	{
@@ -123,7 +100,7 @@ class JSON implements ResponseBuilderInterface
 	{
 		$json = json_encode($this->data, $this->options);
 
-		if(!empty($this->callback) && ($callback = $request->getQuery()->get($this->callback)) !== null)
+		if($this->callback !== null && ($callback = $request->getQuery()->get($this->callback)) !== null)
 		{
 			$response->setType('text/javascript');
 

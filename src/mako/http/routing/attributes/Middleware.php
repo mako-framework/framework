@@ -17,8 +17,6 @@ class Middleware
 {
     /**
      * Constructor.
-     *
-     * @param array|string $middleware Middleware
      */
     public function __construct(
         protected array|string $middleware
@@ -27,8 +25,6 @@ class Middleware
 
     /**
      * Returns an array of middleware.
-     *
-     * @return array
      */
     public function getMiddleware(): array
     {

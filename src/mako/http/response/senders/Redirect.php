@@ -70,16 +70,11 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Status code.
-	 *
-	 * @var int
 	 */
-	protected $statusCode;
+	protected int $statusCode;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $location   Location
-	 * @param int    $statusCode Status code
 	 */
 	public function __construct(
 		protected string $location,
@@ -91,9 +86,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Sets the HTTP status code.
-	 *
-	 * @param  int                                  $statusCode Status code
-	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function setStatus(int $statusCode): Redirect
 	{
@@ -109,8 +101,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Sets the HTTP status code to 301.
-	 *
-	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function movedPermanently(): Redirect
 	{
@@ -121,8 +111,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Sets the HTTP status code to 302.
-	 *
-	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function found(): Redirect
 	{
@@ -133,8 +121,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Sets the HTTP status code to 303.
-	 *
-	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function seeOther(): Redirect
 	{
@@ -145,8 +131,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Sets the HTTP status code to 307.
-	 *
-	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function temporaryRedirect(): Redirect
 	{
@@ -157,8 +141,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Sets the HTTP status code to 308.
-	 *
-	 * @return \mako\http\response\senders\Redirect
 	 */
 	public function permanentRedirect(): Redirect
 	{
@@ -169,8 +151,6 @@ class Redirect implements ResponseSenderInterface
 
 	/**
 	 * Returns the HTTP status code.
-	 *
-	 * @return int
 	 */
 	public function getStatus(): int
 	{

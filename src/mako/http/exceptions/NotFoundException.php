@@ -17,13 +17,10 @@ class NotFoundException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $defaultMessage = 'The resource you requested could not be found. It may have been moved or deleted.';
+	protected string|null $defaultMessage = 'The resource you requested could not be found. It may have been moved or deleted.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string          $message  Exception message
-	 * @param \Throwable|null $previous Previous exception
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{

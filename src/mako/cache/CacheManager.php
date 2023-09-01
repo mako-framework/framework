@@ -37,11 +37,6 @@ class CacheManager extends AdapterManager
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string                  $default        Default connection name
-	 * @param array                   $configurations Configurations
-	 * @param \mako\syringe\Container $container      Container
-	 * @param array|bool              $classWhitelist Class whitelist
 	 */
 	public function __construct(
 		string $default,
@@ -55,9 +50,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * APCU store factory.
-	 *
-	 * @param  array                   $configuration Configuration
-	 * @return \mako\cache\stores\APCU
 	 */
 	protected function apcuFactory(array $configuration): APCU
 	{
@@ -66,9 +58,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * File store factory.
-	 *
-	 * @param  array                   $configuration Configuration
-	 * @return \mako\cache\stores\File
 	 */
 	protected function fileFactory(array $configuration): File
 	{
@@ -77,9 +66,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Database store factory.
-	 *
-	 * @param  array                       $configuration Configuration
-	 * @return \mako\cache\stores\Database
 	 */
 	protected function databaseFactory(array $configuration): Database
 	{
@@ -88,9 +74,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Memcache store factory.
-	 *
-	 * @param  array                       $configuration Configuration
-	 * @return \mako\cache\stores\Memcache
 	 */
 	protected function memcacheFactory(array $configuration): Memcache
 	{
@@ -99,9 +82,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Memcached store factory.
-	 *
-	 * @param  array                        $configuration Configuration
-	 * @return \mako\cache\stores\Memcached
 	 */
 	protected function memcachedFactory(array $configuration): Memcached
 	{
@@ -110,9 +90,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Memory store factory.
-	 *
-	 * @param  array                     $configuration Configuration
-	 * @return \mako\cache\stores\Memory
 	 */
 	protected function memoryFactory(array $configuration): Memory
 	{
@@ -121,9 +98,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Redis store factory.
-	 *
-	 * @param  array                    $configuration Configuration
-	 * @return \mako\cache\stores\Redis
 	 */
 	protected function redisFactory(array $configuration): Redis
 	{
@@ -132,9 +106,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Null store factory.
-	 *
-	 * @param  array                        $configuration Configuration
-	 * @return \mako\cache\stores\NullStore
 	 */
 	protected function nullFactory(array $configuration): NullStore
 	{
@@ -143,9 +114,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Windows cache store factory.
-	 *
-	 * @param  array                       $configuration Configuration
-	 * @return \mako\cache\stores\WinCache
 	 */
 	protected function wincacheFactory(array $configuration): WinCache
 	{
@@ -154,9 +122,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Returns a cache instance.
-	 *
-	 * @param  string                            $configuration Configuration name
-	 * @return \mako\cache\stores\StoreInterface
 	 */
 	protected function instantiate(string $configuration): StoreInterface
 	{
@@ -172,9 +137,6 @@ class CacheManager extends AdapterManager
 
 	/**
 	 * Returns an instance of the chosen cache store. Alias of CacheManager::getInstance().
-	 *
-	 * @param  string|null                       $configuration Configuration name
-	 * @return \mako\cache\stores\StoreInterface
 	 */
 	public function getStore(?string $configuration = null): StoreInterface
 	{

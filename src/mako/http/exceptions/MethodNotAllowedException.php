@@ -17,14 +17,10 @@ class MethodNotAllowedException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $defaultMessage = 'The request method that was used is not supported by this resource.';
+	protected string|null $defaultMessage = 'The request method that was used is not supported by this resource.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array           $allowedMethods Allowed methods
-	 * @param string          $message        Exception message
-	 * @param \Throwable|null $previous       Previous exception
 	 */
 	public function __construct(
 		protected array $allowedMethods = [],
@@ -37,10 +33,8 @@ class MethodNotAllowedException extends HttpStatusException
 
 	/**
 	 * Returns the allowed methods.
-	 *
-	 * @return array
 	 */
-	public function getAllowedMethods()
+	public function getAllowedMethods(): array
 	{
 		return $this->allowedMethods;
 	}

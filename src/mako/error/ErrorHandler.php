@@ -40,43 +40,31 @@ class ErrorHandler
 {
 	/**
 	 * Is the shutdown handler disabled?
-	 *
-	 * @var bool
 	 */
-	protected $disableShutdownHandler = false;
+	protected bool $disableShutdownHandler = false;
 
 	/**
 	 * Exception handlers.
-	 *
-	 * @var array
 	 */
-	protected $handlers = [];
+	protected array $handlers = [];
 
 	/**
 	 * Logger instance.
-	 *
-	 * @var \Closure|\Psr\Log\LoggerInterface|null
 	 */
-	protected $logger;
+	protected Closure|LoggerInterface|null $logger = null;
 
 	/**
 	 * Exception types that shouldn't be logged.
-	 *
-	 * @var array
 	 */
 	protected $dontLog = [];
 
 	/**
 	 * Exception id.
-	 *
-	 * @var string|null
 	 */
-	protected $exceptionId = null;
+	protected string|null $exceptionId = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Container $container = new Container
@@ -93,8 +81,6 @@ class ErrorHandler
 
 	/**
 	 * Should errors be displayed?
-	 *
-	 * @return bool
 	 */
 	protected function displayErrors(): bool
 	{
@@ -110,8 +96,6 @@ class ErrorHandler
 
 	/**
 	 * Write to output.
-	 *
-	 * @param string $output String to write to output
 	 */
 	protected function write(string $output): void
 	{
@@ -127,8 +111,6 @@ class ErrorHandler
 
 	/**
 	 * Returns the fallback handler.
-	 *
-	 * @return \Closure
 	 */
 	protected function getFallbackHandler(): Closure
 	{
@@ -167,8 +149,6 @@ class ErrorHandler
 
 	/**
 	 * Set logger instance or closure that returns a logger instance.
-	 *
-	 * @param \Closure|\Psr\Log\LoggerInterface $logger Logger
 	 */
 	public function setLogger(Closure|LoggerInterface $logger): void
 	{
@@ -177,8 +157,6 @@ class ErrorHandler
 
 	/**
 	 * Return logger instance.
-	 *
-	 * @return \Psr\Log\LoggerInterface|null
 	 */
 	public function getLogger(): ?LoggerInterface
 	{
@@ -192,8 +170,6 @@ class ErrorHandler
 
 	/**
 	 * Disables logging for an exception type.
-	 *
-	 * @param array|string $exceptionType Exception type or array of exception types
 	 */
 	public function dontLog(array|string $exceptionType): void
 	{
@@ -210,10 +186,6 @@ class ErrorHandler
 
 	/**
 	 * Prepends an exception handler to the stack.
-	 *
-	 * @param string          $exceptionType Exception type
-	 * @param \Closure|string $handler       Exception handler
-	 * @param array           $parameters    Constructor parameters
 	 */
 	public function handle(string $exceptionType, Closure|string $handler, array $parameters = []): void
 	{
@@ -222,8 +194,6 @@ class ErrorHandler
 
 	/**
 	 * Clears all error handlers for an exception type.
-	 *
-	 * @param string $exceptionType Exception type
 	 */
 	public function clearHandlers(string $exceptionType): void
 	{
@@ -238,9 +208,6 @@ class ErrorHandler
 
 	/**
 	 * Replaces all error handlers for an exception type with a new one.
-	 *
-	 * @param string   $exceptionType Exception type
-	 * @param \Closure $handler       Exception handler
 	 */
 	public function replaceHandlers(string $exceptionType, Closure $handler): void
 	{
@@ -259,9 +226,6 @@ class ErrorHandler
 
 	/**
 	 * Should the exception be logged?
-	 *
-	 * @param  \Throwable $exception An exception object
-	 * @return bool
 	 */
 	protected function shouldExceptionBeLogged(Throwable $exception): bool
 	{
@@ -283,10 +247,6 @@ class ErrorHandler
 
 	/**
 	 * Creates and returns an error handler instance.
-	 *
-	 * @param  string                                $handler    Handler class name
-	 * @param  array                                 $parameters Constructor parameters
-	 * @return \mako\error\handlers\HandlerInterface
 	 */
 	protected function handlerFactory(string $handler, array $parameters): HandlerInterface
 	{
@@ -295,11 +255,6 @@ class ErrorHandler
 
 	/**
 	 * Handle the exception.
-	 *
-	 * @param  \Throwable      $exception  Exceotion
-	 * @param  \Closure|string $handler    Exception handler
-	 * @param  array           $parameters Constructor parameters
-	 * @return mixed
 	 */
 	protected function handleException(Throwable $exception, Closure|string $handler, array $parameters): mixed
 	{
@@ -320,8 +275,6 @@ class ErrorHandler
 
 	/**
 	 * Logs the exception.
-	 *
-	 * @param \Throwable $exception An exception object
 	 */
 	protected function logException(Throwable $exception): void
 	{
@@ -347,8 +300,6 @@ class ErrorHandler
 
 	/**
 	 * Handles uncaught exceptions.
-	 *
-	 * @param \Throwable $exception An exception object
 	 */
 	public function handler(Throwable $exception): never
 	{

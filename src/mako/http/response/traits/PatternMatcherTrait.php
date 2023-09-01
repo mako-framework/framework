@@ -17,10 +17,6 @@ trait PatternMatcherTrait
 {
 	/**
 	 * Returns TRUE if the string matches one of the patterns and FALSE if not.
-	 *
-	 * @param  string $string   String
-	 * @param  array  $patterns Patterns
-	 * @return bool
 	 */
 	protected function matchesPatterns(string $string, array $patterns): bool
 	{

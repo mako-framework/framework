@@ -18,11 +18,6 @@ interface MiddlewareInterface
 {
 	/**
 	 * Executes the middleware.
-	 *
-	 * @param  \mako\http\Request  $request  Request
-	 * @param  \mako\http\Response $response Response
-	 * @param  \Closure            $next     Next layer
-	 * @return \mako\http\Response
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response;
 }

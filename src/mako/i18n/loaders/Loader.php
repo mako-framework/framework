@@ -22,9 +22,6 @@ class Loader implements LoaderInterface
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem File system instance
-	 * @param string                $path       Default path
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,

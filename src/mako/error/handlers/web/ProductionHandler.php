@@ -27,11 +27,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\Request          $request  Request
-	 * @param \mako\http\Response         $response Response
-	 * @param \mako\view\ViewFactory|null $view     View factory
-	 * @param array                       $keep     Cookies and headers to keep
 	 */
 	public function __construct(
 		protected Request $request,
@@ -50,9 +45,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Returns status code and message.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return array
 	 */
 	protected function getStatusCodeMessageAndMetadata(Throwable $exception): array
 	{
@@ -78,9 +70,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Return a JSON representation of the exception.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsJson(Throwable $exception): string
 	{
@@ -89,9 +78,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Return a XML representation of the exception.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsXml(Throwable $exception): string
 	{
@@ -130,9 +116,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Returns a rendered error view.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsHtml(Throwable $exception): string
 	{
@@ -164,9 +147,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Returns a plain text representation of the error.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return string
 	 */
 	protected function getExceptionAsPlainText(Throwable $exception): string
 	{
@@ -177,9 +157,6 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Returns a response.
-	 *
-	 * @param  \Throwable $exception Exception
-	 * @return array
 	 */
 	protected function buildResponse(Throwable $exception): array
 	{

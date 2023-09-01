@@ -28,15 +28,11 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Headers.
-	 *
-	 * @var array
 	 */
-	protected $headers = [];
+	protected array $headers = [];
 
 	/**
 	 * Returns the numner of headers.
-	 *
-	 * @return int
 	 */
 	public function count(): int
 	{
@@ -45,8 +41,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Retruns an array iterator object.
-	 *
-	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
 	{
@@ -55,9 +49,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Normalizes header names.
-	 *
-	 * @param  string $name Header name
-	 * @return string
 	 */
 	protected function normalizeName(string $name): string
 	{
@@ -66,11 +57,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a response header.
-	 *
-	 * @param  string                      $name    Header name
-	 * @param  string                      $value   Header value
-	 * @param  bool                        $replace Replace header?
-	 * @return \mako\http\response\Headers
 	 */
 	public function add(string $name, string $value, bool $replace = true): Headers
 	{
@@ -94,9 +80,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the header exists and FALSE if not.
-	 *
-	 * @param  string $name Header name
-	 * @return bool
 	 */
 	public function has(string $name): bool
 	{
@@ -105,11 +88,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Return TRUE if the header has the value and FALSE if not.
-	 *
-	 * @param  string $name          Header name
-	 * @param  string $value         Header value
-	 * @param  bool   $caseSensitive Should the comparison be case-sensitive?
-	 * @return bool
 	 */
 	public function hasValue(string $name, string $value, bool $caseSensitive = true): bool
 	{
@@ -128,9 +106,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Removes a header.
-	 *
-	 * @param  string                      $name Header name
-	 * @return \mako\http\response\Headers
 	 */
 	public function remove(string $name): Headers
 	{
@@ -141,8 +116,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Clears all the headers.
-	 *
-	 * @return \mako\http\response\Headers
 	 */
 	public function clear(): Headers
 	{
@@ -153,9 +126,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Clears all the headers except those that patch the provided names or patterns.
-	 *
-	 * @param  array                       $headers Header names or patterns
-	 * @return \mako\http\response\Headers
 	 */
 	public function clearExcept(array $headers): Headers
 	{
@@ -166,8 +136,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns all the headers.
-	 *
-	 * @return array
 	 */
 	public function all(): array
 	{
