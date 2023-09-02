@@ -29,10 +29,8 @@ class Group extends ORM implements GroupEntityInterface
 
 	/**
 	 * Table name.
-	 *
-	 * @var string
 	 */
-	protected $tableName = 'groups';
+	protected string $tableName = 'groups';
 
 	/**
 	 * Group users.

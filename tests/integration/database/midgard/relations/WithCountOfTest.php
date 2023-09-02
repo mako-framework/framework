@@ -16,7 +16,7 @@ use mako\tests\integration\TestORM;
 
 class WithCountOfUser extends TestOrm
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function articles()
 	{
@@ -31,12 +31,12 @@ class WithCountOfUser extends TestOrm
 
 class WithCountOfArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 }
 
 class WithCountOfProfile extends TestORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 }
 
 // --------------------------------------------------------------------------

@@ -20,29 +20,21 @@ abstract class Migration
 
 	/**
 	 * Should a transaction be used if possible?
-	 *
-	 * @var bool
 	 */
-	protected $useTransaction = true;
+	protected bool $useTransaction = true;
 
 	/**
 	 * Connection name.
-	 *
-	 * @var string|null
 	 */
-	protected $connectionName;
+	protected string|null $connectionName;
 
 	/**
 	 * Migration description.
-	 *
-	 * @var string|null
 	 */
-	protected $description;
+	protected string $description = '';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\ConnectionManager $database Connection manager instance
 	 */
 	public function __construct(
 		protected ConnectionManager $database
@@ -51,8 +43,6 @@ abstract class Migration
 
 	/**
 	 * Returns the connection name.
-	 *
-	 * @return string|null
 	 */
 	public function getConnectionName(): ?string
 	{
@@ -61,8 +51,6 @@ abstract class Migration
 
 	/**
 	 * Returns the chosen connection.
-	 *
-	 * @return \mako\database\connections\Connection
 	 */
 	public function getConnection(): Connection
 	{
@@ -71,8 +59,6 @@ abstract class Migration
 
 	/**
 	 * Should we execute this migration in a transaction?
-	 *
-	 * @return bool
 	 */
 	public function useTransaction(): bool
 	{
@@ -81,8 +67,6 @@ abstract class Migration
 
 	/**
 	 * Returns the migration description.
-	 *
-	 * @return string
 	 */
 	public function getDescription(): string
 	{

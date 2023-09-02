@@ -17,9 +17,6 @@ interface HelperInterface
 	/**
 	 * Inserts data into the chosen table and returns the auto increment id.
 	 *
-	 * @param  \mako\database\query\Query $query      Query builder instance
-	 * @param  array                      $values     Associative array of column values
-	 * @param  string|null                $primaryKey Primary key name
 	 * @return false|int
 	 */
 	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null);

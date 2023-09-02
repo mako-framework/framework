@@ -8,6 +8,7 @@
 namespace mako\database\midgard\relations;
 
 use Closure;
+use mako\database\midgard\ResultSet;
 
 /**
  * Has many relation.
@@ -16,11 +17,6 @@ class HasMany extends HasOneOrMany
 {
 	/**
 	 * Eager loads related records and matches them with their originating records.
-	 *
-	 * @param array         &$results Originating records
-	 * @param string        $relation Relation name
-	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
@@ -48,10 +44,8 @@ class HasMany extends HasOneOrMany
 
 	/**
 	 * Fetches a related result set from the database.
-	 *
-	 * @return \mako\database\midgard\ResultSet
 	 */
-	protected function fetchRelated()
+	protected function fetchRelated(): ResultSet
 	{
 		return $this->all();
 	}

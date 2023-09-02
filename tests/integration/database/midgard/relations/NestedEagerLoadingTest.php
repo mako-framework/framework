@@ -17,7 +17,7 @@ use mako\tests\integration\TestORM;
 
 class NestedEagerLoadingUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function articles()
 	{
@@ -27,7 +27,7 @@ class NestedEagerLoadingUser extends TestORM
 
 class NestedEagerLoadingArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 
 	public function comments()
 	{
@@ -37,7 +37,7 @@ class NestedEagerLoadingArticle extends TestORM
 
 class NestedEagerLoadingComment extends TestORM
 {
-	protected $tableName = 'article_comments';
+	protected string $tableName = 'article_comments';
 }
 
 // --------------------------------------------------------------------------

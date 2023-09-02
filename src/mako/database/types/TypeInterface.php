@@ -14,15 +14,11 @@ interface TypeInterface
 {
 	/**
 	 * Returns the PDO parameter type.
-	 *
-	 * @return int
 	 */
 	public function getType(): int;
 
 	/**
 	 * Returns the value.
-	 *
-	 * @return mixed
 	 */
 	public function getValue(): mixed;
 }

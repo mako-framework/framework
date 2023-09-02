@@ -16,7 +16,7 @@ use mako\tests\integration\TestORM;
 
 class NestedProtectUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function articles()
 	{
@@ -26,9 +26,9 @@ class NestedProtectUser extends TestORM
 
 class NestedPreProtectUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
-	protected $protected = ['id', 'articles.id', 'articles.comments.id'];
+	protected array $protected = ['id', 'articles.id', 'articles.comments.id'];
 
 	public function articles()
 	{
@@ -38,7 +38,7 @@ class NestedPreProtectUser extends TestORM
 
 class NestedProtectArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 
 	public function comments()
 	{
@@ -48,7 +48,7 @@ class NestedProtectArticle extends TestORM
 
 class NestedProtectComment extends TestORM
 {
-	protected $tableName = 'article_comments';
+	protected string $tableName = 'article_comments';
 }
 
 // --------------------------------------------------------------------------

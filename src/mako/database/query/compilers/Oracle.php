@@ -21,7 +21,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	protected static $dateFormat = 'Y-m-d H:i:s';
+	protected static string $dateFormat = 'Y-m-d H:i:s';
 
 	/**
 	 * {@inheritDoc}

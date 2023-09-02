@@ -28,11 +28,11 @@ class FakeRelation
 
 class TestUser1 extends ORM
 {
-	protected $including = ['profile'];
+	protected array $including = ['profile'];
 
-	protected $primaryKey = 'id';
+	protected string $primaryKey = 'id';
 
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 }
 
 class TestUser2 extends TestUser1
@@ -57,16 +57,16 @@ class TestUser2 extends TestUser1
 
 class TestUser3 extends TestUser1
 {
-	protected $foreignKeyName = 'testuser3';
+	protected string $foreignKeyName = 'testuser3';
 
-	protected $assignable = ['username', 'email'];
+	protected array $assignable = ['username', 'email'];
 }
 
 class TestUser4 extends TestUser1
 {
-	protected $protected = ['password'];
+	protected array $protected = ['password'];
 
-	protected $columns = ['username' => 'foo', 'password' => 'bar', 'array' => '[1,2,3]', 'optional' => null];
+	protected array $columns = ['username' => 'foo', 'password' => 'bar', 'array' => '[1,2,3]', 'optional' => null];
 
 	public function arrayAccessor($json)
 	{
@@ -78,7 +78,7 @@ class Testuser5 extends TestUser1
 {
 	protected static $dateFormat = 'Y-m-d H:i:s';
 
-	protected $cast = ['created_at' => 'date'];
+	protected array $cast = ['created_at' => 'date'];
 
 	protected function getDateFormat(): string
 	{
@@ -93,12 +93,12 @@ class ORMTestApple extends ORM
 
 class TestCastingScalars extends ORM
 {
-	protected $cast = ['boolean' => 'bool', 'integer' => 'int', 'float' => 'float'];
+	protected array $cast = ['boolean' => 'bool', 'integer' => 'int', 'float' => 'float'];
 }
 
 class TestCastingDate extends ORM
 {
-	protected $cast = ['date' => 'date'];
+	protected array $cast = ['date' => 'date'];
 }
 
 // --------------------------------------------------------------------------

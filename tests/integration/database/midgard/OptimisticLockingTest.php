@@ -20,7 +20,7 @@ class OptimisticLock extends TestORM
 {
 	use OptimisticLockingTrait;
 
-	protected $tableName = 'optimistic_locks';
+	protected string $tableName = 'optimistic_locks';
 }
 
 // --------------------------------------------------------------------------

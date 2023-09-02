@@ -32,18 +32,11 @@ abstract class Relation extends Query
 
 	/**
 	 * Are we lazy load related records?
-	 *
-	 * @var bool
 	 */
-	protected $lazy = true;
+	protected bool $lazy = true;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\connections\Connection $connection Database connection
-	 * @param \mako\database\midgard\ORM            $origin     Originating model
-	 * @param \mako\database\midgard\ORM            $model      Related model
-	 * @param string|null                           $foreignKey Foreign key name
 	 */
 	public function __construct(
 		Connection $connection,
@@ -62,8 +55,6 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns the foreign key name.
-	 *
-	 * @return string
 	 */
 	protected function getForeignKey(): string
 	{
@@ -77,9 +68,6 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns the keys used to eagerly load records.
-	 *
-	 * @param  array $results Result set
-	 * @return array
 	 */
 	protected function keys(array $results): array
 	{
@@ -104,7 +92,6 @@ abstract class Relation extends Query
 	/**
 	 * Sets the criterion used when eager loading related records.
 	 *
-	 * @param  array $keys Keys
 	 * @return $this
 	 */
 	protected function eagerCriterion(array $keys)
@@ -116,9 +103,6 @@ abstract class Relation extends Query
 
 	/**
 	 * Eager loads records in chunks.
-	 *
-	 * @param  array                            $keys Keys
-	 * @return \mako\database\midgard\ResultSet
 	 */
 	protected function eagerLoadChunked(array $keys): ResultSet
 	{
@@ -173,10 +157,8 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns a single record from the database.
-	 *
-	 * @return \mako\database\midgard\ORM|null
 	 */
-	public function first(): mixed
+	public function first(): ?ORM
 	{
 		$this->adjustQuery();
 
@@ -185,8 +167,6 @@ abstract class Relation extends Query
 
 	/**
 	 * Returns a result set from the database.
-	 *
-	 * @return \mako\database\midgard\ResultSet
 	 */
 	public function all(): ResultSet
 	{
@@ -197,17 +177,13 @@ abstract class Relation extends Query
 
 	/**
 	 * Fetches the related record(s) from the database.
-	 *
-	 * @return \mako\database\midgard\ORM|\mako\database\midgard\ResultSet|null
 	 */
-	abstract protected function fetchRelated();
+	abstract protected function fetchRelated(): mixed;
 
 	/**
 	 * Returns the related record(s) from the database.
-	 *
-	 * @return \mako\database\midgard\ORM|\mako\database\midgard\ResultSet|null
 	 */
-	public function getRelated()
+	public function getRelated(): mixed
 	{
 		if(!$this->origin->isPersisted())
 		{

@@ -7,6 +7,8 @@
 
 namespace mako\database\midgard\relations;
 
+use mako\database\midgard\ORM;
+
 /**
  * Has one or has many relation.
  */
@@ -14,11 +16,8 @@ abstract class HasOneOrMany extends Relation
 {
 	/**
 	 * Creates a related record.
-	 *
-	 * @param  array|\mako\database\midgard\ORM $related Related record
-	 * @return \mako\database\midgard\ORM
 	 */
-	public function create($related)
+	public function create(array|ORM $related): ORM
 	{
 		if($related instanceof $this->model)
 		{

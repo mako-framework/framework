@@ -18,12 +18,12 @@ use mako\tests\integration\TestORM;
 
 class BelongsToUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 }
 
 class BelongsToProfile extends TestORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 
 	public function user()
 	{

@@ -17,7 +17,7 @@ use mako\tests\integration\TestORM;
 
 class HasOneUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function profile()
 	{
@@ -27,7 +27,7 @@ class HasOneUser extends TestORM
 
 class HasOneProfile extends TestORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 }
 
 // --------------------------------------------------------------------------

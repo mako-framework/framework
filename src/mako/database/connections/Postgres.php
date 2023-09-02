@@ -15,5 +15,5 @@ class Postgres extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $supportsTransactionalDDL = true;
+	protected bool $supportsTransactionalDDL = true;
 }

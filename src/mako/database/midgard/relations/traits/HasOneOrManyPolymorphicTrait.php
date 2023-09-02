@@ -17,18 +17,11 @@ trait HasOneOrManyPolymorphicTrait
 {
 	/**
 	 * Polymorphic type.
-	 *
-	 * @var string
 	 */
-	protected $polymorphicType;
+	protected string $polymorphicType;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\connections\Connection $connection      Database connection
-	 * @param \mako\database\midgard\ORM            $origin          Originating model
-	 * @param \mako\database\midgard\ORM            $model           Related model
-	 * @param string                                $polymorphicType Polymorphic type
 	 */
 	public function __construct(Connection $connection, ORM $origin, ORM $model, string $polymorphicType)
 	{
@@ -41,11 +34,8 @@ trait HasOneOrManyPolymorphicTrait
 
 	/**
 	 * Creates a related record.
-	 *
-	 * @param  array|\mako\database\midgard\ORM $related Related record
-	 * @return \mako\database\midgard\ORM
 	 */
-	public function create($related)
+	public function create(array|ORM $related): ORM
 	{
 		if($related instanceof $this->model)
 		{

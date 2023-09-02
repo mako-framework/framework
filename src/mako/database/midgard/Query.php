@@ -38,23 +38,16 @@ class Query extends QueryBuilder
 {
 	/**
 	 * Class name of the model we're hydrating.
-	 *
-	 * @var string
 	 */
-	protected $modelClass;
+	protected string $modelClass;
 
 	/**
 	 * Relation count subqueries.
-	 *
-	 * @var array
 	 */
-	protected $relationCounters = [];
+	protected array $relationCounters = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\connections\Connection $connection Database connection
-	 * @param \mako\database\midgard\ORM            $model      Model to hydrate
 	 */
 	public function __construct(
 		Connection $connection,
@@ -83,10 +76,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns the model.
-	 *
-	 * @return \mako\database\midgard\ORM
 	 */
-	public function getModel()
+	public function getModel(): ORM
 	{
 		return $this->model;
 	}
@@ -261,12 +252,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a record using the value of its primary key.
-	 *
-	 * @param  int|string                      $id      Primary key
-	 * @param  array                           $columns Columns to select
-	 * @return \mako\database\midgard\ORM|null
 	 */
-	public function get(int|string $id, array $columns = [])
+	public function get(int|string $id, array $columns = []): ?ORM
 	{
 		if(!empty($columns))
 		{
@@ -278,13 +265,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a record using the value of its primary key.
-	 *
-	 * @param  int|string                 $id        Primary key
-	 * @param  array                      $columns   Columns to select
-	 * @param  string                     $exception Exception class
-	 * @return \mako\database\midgard\ORM
 	 */
-	public function getOrThrow(int|string $id, array $columns = [], string $exception = NotFoundException::class)
+	public function getOrThrow(int|string $id, array $columns = [], string $exception = NotFoundException::class): ORM
 	{
 		if(!empty($columns))
 		{
@@ -370,9 +352,6 @@ class Query extends QueryBuilder
 
 	/**
 	 * Parses the count relation name and returns an array consisting of the relation name and the chosen alias.
-	 *
-	 * @param  string $relation Relation name
-	 * @return array
 	 */
 	protected function parseRelationCountName(string $relation): array
 	{
@@ -389,7 +368,6 @@ class Query extends QueryBuilder
 	/**
 	 * Adds subqueries that count the number of related records for the chosen relations.
 	 *
-	 * @param  array|string $relations Relation or array of relations to count
 	 * @return $this
 	 */
 	public function withCountOf(array|string $relations)
@@ -425,19 +403,14 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a hydrated model.
-	 *
-	 * @param  array                      $result Database result
-	 * @return \mako\database\midgard\ORM
 	 */
-	protected function hydrateModel(array $result)
+	protected function hydrateModel(array $result): ORM
 	{
 		return new ($this->modelClass)($result, true, false, true);
 	}
 
 	/**
 	 * Parses includes.
-	 *
-	 * @return array
 	 */
 	protected function parseIncludes(): array
 	{
@@ -473,9 +446,6 @@ class Query extends QueryBuilder
 
 	/**
 	 * Parses include names.
-	 *
-	 * @param  string $name Include name
-	 * @return array
 	 */
 	protected function parseIncludeName(string $name): array
 	{
@@ -491,8 +461,6 @@ class Query extends QueryBuilder
 
 	/**
 	 * Load includes.
-	 *
-	 * @param array $results Loaded records
 	 */
 	protected function loadIncludes(array $results): void
 	{
@@ -510,9 +478,6 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns hydrated models.
-	 *
-	 * @param  mixed $results Database results
-	 * @return array
 	 */
 	protected function hydrateModelsAndLoadIncludes(mixed $results): array
 	{
@@ -530,10 +495,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a single record from the database.
-	 *
-	 * @return \mako\database\midgard\ORM|null
 	 */
-	public function first(): mixed
+	public function first(): ?ORM
 	{
 		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
 
@@ -547,20 +510,14 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a single record from the database.
-	 *
-	 * @param  string                     $exception Exception class
-	 * @return \mako\database\midgard\ORM
 	 */
-	public function firstOrThrow(string $exception = NotFoundException::class): mixed
+	public function firstOrThrow(string $exception = NotFoundException::class): ORM
 	{
 		return $this->hydrateModelsAndLoadIncludes([$this->fetchFirstOrThrow($exception, PDO::FETCH_ASSOC)])[0];
 	}
 
 	/**
 	 * Creates a result set.
-	 *
-	 * @param  array                            $results Results
-	 * @return \mako\database\midgard\ResultSet
 	 */
 	protected function createResultSet(array $results): ResultSet
 	{
@@ -569,8 +526,6 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a result set from the database.
-	 *
-	 * @return \mako\database\midgard\ResultSet
 	 */
 	public function all(): ResultSet
 	{
@@ -586,8 +541,6 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a generator that lets you iterate over the results.
-	 *
-	 * @return \Generator
 	 */
 	public function yield(): Generator
 	{
@@ -628,8 +581,6 @@ class Query extends QueryBuilder
 	/**
 	 * Calls a scope method on the model.
 	 *
-	 * @param  string $scope        Scope
-	 * @param  mixed  ...$arguments Arguments
 	 * @return $this
 	 */
 	public function scope(string $scope, mixed ...$arguments)

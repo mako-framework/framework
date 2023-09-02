@@ -14,9 +14,6 @@ class Raw
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $sql        Raw SQL
-	 * @param array  $parameters Parameters
 	 */
 	public function __construct(
 		protected string $sql,
@@ -26,8 +23,6 @@ class Raw
 
 	/**
 	 * Returns the raw SQL.
-	 *
-	 * @return string
 	 */
 	public function getSql(): string
 	{
@@ -36,8 +31,6 @@ class Raw
 
 	/**
 	 * Returns the parameters.
-	 *
-	 * @return array
 	 */
 	public function getParameters(): array
 	{

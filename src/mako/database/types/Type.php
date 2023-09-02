@@ -14,8 +14,6 @@ abstract class Type implements TypeInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param mixed $value Value
 	 */
 	public function __construct(
 		protected mixed $value

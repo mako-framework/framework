@@ -91,8 +91,6 @@ interface ProcessorInterface
 
 	/**
 	 * Colorize the image.
-	 *
-	 * @param string $color Hex value
 	 */
 	public function colorize(string $color): void;
 

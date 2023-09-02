@@ -20,16 +20,16 @@ class TimestampedFoo extends TestORM
 {
 	use TimestampedTrait;
 
-	protected $tableName = 'timestamped_foos';
+	protected string $tableName = 'timestamped_foos';
 }
 
 class TimestampedBar extends TestORM
 {
 	use TimestampedTrait;
 
-	protected $tableName = 'timestamped_bars';
+	protected string $tableName = 'timestamped_bars';
 
-	protected $touch = ['foo'];
+	protected array $touch = ['foo'];
 
 	public function foo()
 	{

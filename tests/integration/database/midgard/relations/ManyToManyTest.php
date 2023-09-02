@@ -18,7 +18,7 @@ use mako\tests\integration\TestORM;
 
 class ManyToManyUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function groups()
 	{
@@ -28,7 +28,7 @@ class ManyToManyUser extends TestORM
 
 class ManyToManyGroup extends TestORM
 {
-	protected $tableName = 'groups';
+	protected string $tableName = 'groups';
 
 	public function users()
 	{

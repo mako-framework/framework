@@ -24,9 +24,9 @@ class NullableTest extends ORMTestCase
 		{
 			use NullableTrait;
 
-			protected $tableName = 'nullables';
+			protected string $tableName = 'nullables';
 
-			protected $nullable = ['value1'];
+			protected array $nullable = ['value1'];
 		};
 	}
 

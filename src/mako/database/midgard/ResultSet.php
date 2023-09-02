@@ -60,7 +60,6 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Eager loads relations on the collection.
 	 *
-	 * @param  array|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
 	public function include(array|string $includes)

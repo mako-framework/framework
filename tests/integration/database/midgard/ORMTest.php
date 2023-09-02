@@ -23,7 +23,7 @@ use mako\utility\UUID;
 
 class TestUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function profile(): HasOne
 	{
@@ -33,7 +33,7 @@ class TestUser extends TestORM
 
 class Profile extends TestORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 }
 
 class TestUserScoped extends TestUser
@@ -46,21 +46,21 @@ class TestUserScoped extends TestUser
 
 class TestUserDateTime extends TestUser
 {
-	protected $cast = ['created_at' => 'date'];
+	protected array $cast = ['created_at' => 'date'];
 }
 
 class UUIDKey extends TestORM
 {
-	protected $tableName = 'uuid_keys';
+	protected string $tableName = 'uuid_keys';
 
-	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_UUID;
+	protected int $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_UUID;
 }
 
 class CustomKey extends TestORM
 {
-	protected $tableName = 'custom_keys';
+	protected string $tableName = 'custom_keys';
 
-	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_CUSTOM;
+	protected int $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_CUSTOM;
 
 	protected function generatePrimaryKey(): mixed
 	{
@@ -70,14 +70,14 @@ class CustomKey extends TestORM
 
 class NoKey extends TestORM
 {
-	protected $tableName = 'no_keys';
+	protected string $tableName = 'no_keys';
 
-	protected $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_NONE;
+	protected int $primaryKeyType = TestORM::PRIMARY_KEY_TYPE_NONE;
 }
 
 class Counter extends TestORM
 {
-	protected $tableName = 'counters';
+	protected string $tableName = 'counters';
 }
 
 enum FooEnum: int
@@ -88,7 +88,7 @@ enum FooEnum: int
 
 class Enum extends TestORM
 {
-	protected $cast = ['value' => ['enum' => FooEnum::class]];
+	protected array $cast = ['value' => ['enum' => FooEnum::class]];
 }
 
 // --------------------------------------------------------------------------

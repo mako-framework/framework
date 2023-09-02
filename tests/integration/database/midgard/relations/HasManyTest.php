@@ -18,7 +18,7 @@ use mako\tests\integration\TestORM;
 
 class HasManyUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function articles()
 	{
@@ -28,7 +28,7 @@ class HasManyUser extends TestORM
 
 class HasManyArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 }
 
 // --------------------------------------------------------------------------

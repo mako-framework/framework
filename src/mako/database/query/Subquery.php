@@ -16,10 +16,6 @@ class Subquery
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \Closure    $query                   Builder closure
-	 * @param string|null $alias                   Subquery alias
-	 * @param bool        $providesBuilderInstance Does the subquery provide its own query builder instance?
 	 */
 	public function __construct(
 		protected Closure $query,
@@ -30,9 +26,6 @@ class Subquery
 
 	/**
 	 * Sets the subquery alias.
-	 *
-	 * @param  string                        $alias
-	 * @return \mako\database\query\Subquery
 	 */
 	public function as(string $alias): Subquery
 	{
@@ -43,8 +36,6 @@ class Subquery
 
 	/**
 	 * Returns the subquery alias.
-	 *
-	 * @return string|null
 	 */
 	public function getAlias(): ?string
 	{
@@ -53,8 +44,6 @@ class Subquery
 
 	/**
 	 * Returns the builder closure.
-	 *
-	 * @return \Closure
 	 */
 	public function getQuery(): Closure
 	{
@@ -63,8 +52,6 @@ class Subquery
 
 	/**
 	 * Returns TRUE if the subquery provides its own query builder instance and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function providesBuilderInstance(): bool
 	{

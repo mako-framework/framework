@@ -45,95 +45,66 @@ class Connection
 {
 	/**
 	 * Connection DSN.
-	 *
-	 * @var string
 	 */
-	protected $dsn;
+	protected string $dsn;
 
 	/**
 	 * Database username.
-	 *
-	 * @var string
 	 */
-	protected $username;
+	protected string|null $username;
 
 	/**
 	 * Database password.
-	 *
-	 * @var string
 	 */
-	protected $password;
+	protected string|null $password;
 
 	/**
 	 * Enable the query log?
-	 *
-	 * @var bool
 	 */
-	protected $enableLog;
+	protected bool $enableLog;
 
 	/**
 	 * Should we reconnect?
-	 *
-	 * @var bool
 	 */
-	protected $reconnect;
+	protected bool $reconnect;
 
 	/**
 	 * Should we use a persistent connection?
-	 *
-	 * @var bool
 	 */
-	protected $usePersistentConnection;
+	protected bool $usePersistentConnection;
 
 	/**
 	 * PDO options.
-	 *
-	 * @var array
 	 */
-	protected $options;
+	protected array $options;
 
 	/**
 	 * Queries that should be executed upon connecting.
-	 *
-	 * @var array
 	 */
-	protected $onConnectQueries;
+	protected array $onConnectQueries;
 
 	/**
 	 * PDO object.
-	 *
-	 * @var \PDO|null
 	 */
-	protected $pdo;
+	protected PDO|null $pdo;
 
 	/**
 	 * Transaction nesting level.
-	 *
-	 * @var int
 	 */
-	protected $transactionNestingLevel = 0;
+	protected int $transactionNestingLevel = 0;
 
 	/**
 	 * Query log.
-	 *
-	 * @var array
 	 */
-	protected $log = [];
+	protected array $log = [];
 
 	/**
 	 * Does the connection support transactional DDL?
-	 *
-	 * @var bool
 	 */
-	protected $supportsTransactionalDDL = false;
+	protected bool $supportsTransactionalDDL = false;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $name               Connection name
-	 * @param string $queryCompiler      Query compiler
-	 * @param string $queryBuilderHelper Query builder helper
-	 * @param array  $config             Connection configuration
 	 */
 	public function __construct(
 		protected string $name,
@@ -189,8 +160,6 @@ class Connection
 
 	/**
 	 * Does the connection support transactional DDL?
-	 *
-	 * @return bool
 	 */
 	public function supportsTransactionalDDL(): bool
 	{
@@ -199,8 +168,6 @@ class Connection
 
 	/**
 	 * Returns the connection name.
-	 *
-	 * @return string
 	 */
 	public function getName(): string
 	{
@@ -209,8 +176,6 @@ class Connection
 
 	/**
 	 * Returns a query builder helper instance.
-	 *
-	 * @return \mako\database\query\helpers\HelperInterface
 	 */
 	public function getQueryBuilderHelper(): HelperInterface
 	{
@@ -221,9 +186,6 @@ class Connection
 
 	/**
 	 * Returns a query compiler instance.
-	 *
-	 * @param  \mako\database\query\Query              $query Query
-	 * @return \mako\database\query\compilers\Compiler
 	 */
 	public function getQueryCompiler(Query $query): Compiler
 	{
@@ -232,8 +194,6 @@ class Connection
 
 	/**
 	 * Returns the PDO instance or NULL if the connection has been closed.
-	 *
-	 * @return \PDO|null
 	 */
 	public function getPDO(): ?PDO
 	{
@@ -258,8 +218,6 @@ class Connection
 
 	/**
 	 * Returns the connection options.
-	 *
-	 * @return array
 	 */
 	protected function getConnectionOptions(): array
 	{
@@ -275,8 +233,6 @@ class Connection
 
 	/**
 	 * Creates a PDO instance.
-	 *
-	 * @return \PDO
 	 */
 	protected function connect(): PDO
 	{
@@ -313,8 +269,6 @@ class Connection
 
 	/**
 	 * Checks if the connection is alive.
-	 *
-	 * @return bool
 	 */
 	public function isAlive(): bool
 	{
@@ -332,10 +286,6 @@ class Connection
 
 	/**
 	 * Prepares query for logging.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query paramaters
-	 * @return string
 	 */
 	protected function prepareQueryForLog(string $query, array $params): string
 	{
@@ -368,10 +318,6 @@ class Connection
 
 	/**
 	 * Adds a query to the query log.
-	 *
-	 * @param string $query  SQL query
-	 * @param array  $params Query parameters
-	 * @param float  $start  Start time in microseconds
 	 */
 	protected function log(string $query, array $params, float $start): void
 	{
@@ -392,8 +338,6 @@ class Connection
 
 	/**
 	 * Returns the query log for the connection.
-	 *
-	 * @return array
 	 */
 	public function getLog(): array
 	{
@@ -402,10 +346,6 @@ class Connection
 
 	/**
 	 * Prepare query and params.
-	 *
-	 * @param  string $query  SQL Query
-	 * @param  array  $params Query parameters
-	 * @return array
 	 */
 	protected function prepareQueryAndParams(string $query, array $params): array
 	{
@@ -435,8 +375,6 @@ class Connection
 
 	/**
 	 * Should we try to reestablish the connection?
-	 *
-	 * @return bool
 	 */
 	protected function isConnectionLostAndShouldItBeReestablished(): bool
 	{
@@ -445,10 +383,6 @@ class Connection
 
 	/**
 	 * Binds parameter to the prepared statement.
-	 *
-	 * @param \PDOStatement $statement PDO statement
-	 * @param int           $key       Parameter key
-	 * @param mixed         $value     Parameter value
 	 */
 	protected function bindParameter(PDOStatement $statement, int $key, mixed $value): void
 	{
@@ -484,11 +418,6 @@ class Connection
 
 	/**
 	 * Prepares and executes a query.
-	 *
-	 * @param  string        $query    SQL query
-	 * @param  array         $params   Query parameters
-	 * @param  bool          &$success Was the query executed successfully?
-	 * @return \PDOStatement
 	 */
 	protected function prepareAndExecute(string $query, array $params, ?bool &$success = null): PDOStatement
 	{
@@ -558,10 +487,6 @@ class Connection
 
 	/**
 	 * Executes the query and returns TRUE on success or FALSE on failure.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return bool
 	 */
 	public function query(string $query, array $params = []): bool
 	{
@@ -572,10 +497,6 @@ class Connection
 
 	/**
 	 * Executes the query and return number of affected rows.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return int
 	 */
 	public function queryAndCount(string $query, array $params = []): int
 	{
@@ -584,11 +505,6 @@ class Connection
 
 	/**
 	 * Returns the first row of the result set or NULL if nothing is found.
-	 *
-	 * @param  string $query        SQL query
-	 * @param  array  $params       Query params
-	 * @param  mixed  ...$fetchMode Fetch mode
-	 * @return mixed
 	 */
 	public function first(string $query, array $params = [], mixed ...$fetchMode): mixed
 	{
@@ -604,12 +520,6 @@ class Connection
 
 	/**
 	 * Returns the first row of the result set or throw an exception if nothing is found.
-	 *
-	 * @param  string $query        SQL query
-	 * @param  array  $params       Query params
-	 * @param  string $exception    Exception class
-	 * @param  mixed  ...$fetchMode Fetch mode
-	 * @return mixed
 	 */
 	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, mixed ...$fetchMode): mixed
 	{
@@ -623,11 +533,6 @@ class Connection
 
 	/**
 	 * Returns an array containing all of the result set rows.
-	 *
-	 * @param  string $query        SQL query
-	 * @param  array  $params       Query parameters
-	 * @param  mixed  ...$fetchMode Fetch mode
-	 * @return array
 	 */
 	public function all(string $query, array $params = [], mixed ...$fetchMode): array
 	{
@@ -636,10 +541,6 @@ class Connection
 
 	/**
 	 * Returns the value of the first column of the first row of the result set or NULL if nothing is found.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return mixed
 	 */
 	public function column(string $query, array $params = []): mixed
 	{
@@ -648,10 +549,6 @@ class Connection
 
 	/**
 	 * Returns an array containing the values of the indicated 0-indexed column.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return array
 	 */
 	public function columns(string $query, array $params = []): array
 	{
@@ -660,10 +557,6 @@ class Connection
 
 	/**
 	 * Returns an array where the first column is used as keys and the second as values.
-	 *
-	 * @param  string $query  SQL query
-	 * @param  array  $params Query parameters
-	 * @return array
 	 */
 	public function pairs(string $query, array $params = []): array
 	{
@@ -672,11 +565,6 @@ class Connection
 
 	/**
 	 * Returns a generator that lets you iterate over the results.
-	 *
-	 * @param  string     $query        SQL query
-	 * @param  array      $params       Query params
-	 * @param  mixed      ...$fetchMode Fetch mode
-	 * @return \Generator
 	 */
 	public function yield(string $query, array $params = [], mixed ...$fetchMode): Generator
 	{
@@ -702,8 +590,6 @@ class Connection
 
 	/**
 	 * Returns a query builder instance.
-	 *
-	 * @return \mako\database\query\Query
 	 */
 	public function getQuery(): Query
 	{
@@ -712,8 +598,6 @@ class Connection
 
 	/**
 	 * Creates a new savepoint.
-	 *
-	 * @return bool
 	 */
 	protected function createSavepoint(): bool
 	{
@@ -722,8 +606,6 @@ class Connection
 
 	/**
 	 * Rolls back to the previously created savepoint.
-	 *
-	 * @return bool
 	 */
 	protected function rollBackSavepoint(): bool
 	{
@@ -732,8 +614,6 @@ class Connection
 
 	/**
 	 * Begin a transaction.
-	 *
-	 * @return bool
 	 */
 	public function beginTransaction(): bool
 	{
@@ -747,8 +627,6 @@ class Connection
 
 	/**
 	 * Commits a transaction.
-	 *
-	 * @return bool
 	 */
 	public function commitTransaction(): bool
 	{
@@ -762,8 +640,6 @@ class Connection
 
 	/**
 	 * Roll back a transaction.
-	 *
-	 * @return bool
 	 */
 	public function rollBackTransaction(): bool
 	{
@@ -788,8 +664,6 @@ class Connection
 
 	/**
 	 * Returns the transaction nesting level.
-	 *
-	 * @return int
 	 */
 	public function getTransactionNestingLevel(): int
 	{
@@ -798,8 +672,6 @@ class Connection
 
 	/**
 	 * Returns TRUE if we're in a transaction and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function inTransaction(): bool
 	{
@@ -808,9 +680,6 @@ class Connection
 
 	/**
 	 * Executes queries and rolls back the transaction if any of them fail.
-	 *
-	 * @param  \Closure $queries Queries
-	 * @return mixed
 	 */
 	public function transaction(Closure $queries): mixed
 	{

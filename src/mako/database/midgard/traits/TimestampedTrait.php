@@ -20,8 +20,6 @@ trait TimestampedTrait
 {
 	/**
 	 * Returns trait hooks.
-	 *
-	 * @return array
 	 */
 	protected function getTimestampedTraitHooks(): array
 	{
@@ -92,8 +90,6 @@ trait TimestampedTrait
 
 	/**
 	 * Returns trait casts.
-	 *
-	 * @return array
 	 */
 	protected function getTimestampedTraitCasts(): array
 	{
@@ -102,8 +98,6 @@ trait TimestampedTrait
 
 	/**
 	 * Should we touch relations on insert?
-	 *
-	 * @return bool
 	 */
 	protected function shouldTouchOnInsert(): bool
 	{
@@ -112,8 +106,6 @@ trait TimestampedTrait
 
 	/**
 	 * Should we touch relations on update?
-	 *
-	 * @return bool
 	 */
 	protected function shouldTouchOnUpdate(): bool
 	{
@@ -122,8 +114,6 @@ trait TimestampedTrait
 
 	/**
 	 * Should we touch relations on delete?
-	 *
-	 * @return bool
 	 */
 	protected function shouldTouchOnDelete(): bool
 	{
@@ -132,8 +122,6 @@ trait TimestampedTrait
 
 	/**
 	 * Returns the column that holds the "created at" timestamp.
-	 *
-	 * @return string
 	 */
 	public function getCreatedAtColumn(): string
 	{
@@ -142,8 +130,6 @@ trait TimestampedTrait
 
 	/**
 	 * Returns the column that holds the "updated at" timestamp.
-	 *
-	 * @return string
 	 */
 	public function getUpdatedAtColumn(): string
 	{
@@ -152,8 +138,6 @@ trait TimestampedTrait
 
 	/**
 	 * Returns the relations that we should touch.
-	 *
-	 * @return array
 	 */
 	protected function getRelationsToTouch(): array
 	{
@@ -162,8 +146,6 @@ trait TimestampedTrait
 
 	/**
 	 * Allows you to update the "updated at" timestamp without modifying any data.
-	 *
-	 * @return bool
 	 */
 	public function touch(): bool
 	{

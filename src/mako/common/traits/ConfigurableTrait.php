@@ -23,9 +23,6 @@ trait ConfigurableTrait
 
 	/**
 	 * Adds a configuration.
-	 *
-	 * @param string $name          Connection name
-	 * @param array  $configuration Configuration
 	 */
 	public function addConfiguration(string $name, array $configuration): void
 	{
@@ -35,8 +32,6 @@ trait ConfigurableTrait
 	/**
 	 * Removes a configuration.
 	 * It will also remove any active connection linked to the configuration.
-	 *
-	 * @param string $name Connection name
 	 */
 	public function removeConfiguration(string $name): void
 	{

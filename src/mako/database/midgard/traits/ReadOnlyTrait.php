@@ -16,8 +16,6 @@ trait ReadOnlyTrait
 {
 	/**
 	 * Returns trait hooks.
-	 *
-	 * @return array
 	 */
 	protected function getReadOnlyTraitHooks(): array
 	{

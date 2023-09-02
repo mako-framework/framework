@@ -22,15 +22,11 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 {
 	/**
 	 * Pagination.
-	 *
-	 * @var \mako\pagination\PaginationInterface
 	 */
-	protected $pagination;
+	protected PaginationInterface|null $pagination = null;
 
 	/**
 	 * Sets the pagination.
-	 *
-	 * @param \mako\pagination\PaginationInterface $pagination Pagination
 	 */
 	public function setPagination(PaginationInterface $pagination): void
 	{
@@ -39,8 +35,6 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns the pagination.
-	 *
-	 * @return \mako\pagination\PaginationInterface
 	 */
 	public function getPagination(): PaginationInterface
 	{
@@ -49,9 +43,6 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns an array containing only the values of chosen column.
-	 *
-	 * @param  string $column Column name
-	 * @return array
 	 */
 	public function pluck(string $column): array
 	{
@@ -60,8 +51,6 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns an array representation of the result set.
-	 *
-	 * @return array
 	 */
 	public function toArray(): array
 	{
@@ -77,8 +66,6 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns data which can be serialized by json_encode().
-	 *
-	 * @return mixed
 	 */
 	public function jsonSerialize(): mixed
 	{
@@ -92,9 +79,6 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns a json representation of the result set.
-	 *
-	 * @param  int    $options JSON encode options
-	 * @return string
 	 */
 	public function toJson(int $options = 0): string
 	{
@@ -103,8 +87,6 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns a json representation of the result set.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string
 	{

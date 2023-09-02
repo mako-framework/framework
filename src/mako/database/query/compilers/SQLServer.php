@@ -23,7 +23,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	protected static $dateFormat = 'Y-m-d H:i:s.0000000';
+	protected static string $dateFormat = 'Y-m-d H:i:s.0000000';
 
 	/**
 	 * {@inheritDoc}

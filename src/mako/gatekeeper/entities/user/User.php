@@ -50,17 +50,13 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Table name.
-	 *
-	 * @var string
 	 */
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	/**
 	 * Type casting.
-	 *
-	 * @var array
 	 */
-	protected $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
+	protected array $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
 
 	/**
 	 * User groups.

@@ -17,7 +17,7 @@ use mako\tests\integration\TestORM;
 
 class HasOnePolymorphicProfile extends TestORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 
 	public function image()
 	{
@@ -27,7 +27,7 @@ class HasOnePolymorphicProfile extends TestORM
 
 class HasOnePolymorphicImage extends TestORM
 {
-	protected $tableName = 'images';
+	protected string $tableName = 'images';
 }
 
 // --------------------------------------------------------------------------
