@@ -25,7 +25,7 @@ class Create extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Creates a new migration.';
+	protected string $description = 'Creates a new migration.';
 
 	/**
 	 * {@inheritDoc}

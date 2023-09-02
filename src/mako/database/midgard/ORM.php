@@ -107,12 +107,12 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Table name.
 	 */
-	protected string $tableName = '';
+	protected string $tableName;
 
 	/**
 	 * Foreign key name.
 	 */
-	protected string $foreignKeyName = '';
+	protected string $foreignKeyName;
 
 	/**
 	 * Primary key.

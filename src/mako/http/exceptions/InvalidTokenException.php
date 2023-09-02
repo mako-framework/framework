@@ -17,7 +17,7 @@ class InvalidTokenException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'An invalid or expired token was provided.';
+	protected string $defaultMessage = 'An invalid or expired token was provided.';
 
 	/**
 	 * Constructor.

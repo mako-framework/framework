@@ -20,7 +20,7 @@ class Reset extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Resets the database schema.';
+	protected string $description = 'Resets the database schema.';
 
 	/**
 	 * {@inheritDoc}

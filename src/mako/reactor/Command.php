@@ -21,12 +21,12 @@ abstract class Command implements CommandInterface
 	/**
 	 * Command.
 	 */
-	protected string|null $command = null;
+	protected string $command;
 
 	/**
 	 * Command description.
 	 */
-	protected string|null $description = null;
+	protected string $description;
 
 	/**
 	 * Constructor.

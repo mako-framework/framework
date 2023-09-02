@@ -43,22 +43,22 @@ class File implements ResponseSenderInterface
 	/**
 	 * Filename.
 	 */
-	protected string|null $filename = null;
+	protected string $filename;
 
 	/**
 	 * Content disposition.
 	 */
-	protected string|null $disposition = null;
+	protected string $disposition;
 
 	/**
 	 * Content type.
 	 */
-	protected string|null $contentType = null;
+	protected string $contentType;
 
 	/**
 	 * Callback.
 	 */
-	protected Closure|null $callback = null;
+	protected Closure $callback;
 
 	/**
 	 * Constructor.

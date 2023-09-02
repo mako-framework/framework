@@ -18,7 +18,7 @@ class Remove extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Removes the chosen key from the cache.';
+	protected string $description = 'Removes the chosen key from the cache.';
 
 	/**
 	 * {@inheritDoc}

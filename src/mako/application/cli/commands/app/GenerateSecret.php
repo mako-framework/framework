@@ -22,7 +22,7 @@ class GenerateSecret extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Generates a new application secret.';
+	protected string $description = 'Generates a new application secret.';
 
 	/**
 	 * Executes the command.

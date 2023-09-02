@@ -17,7 +17,7 @@ class GoneException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'The resource you requested is no longer available and will not be available again.';
+	protected string $defaultMessage = 'The resource you requested is no longer available and will not be available again.';
 
 	/**
 	 * Constructor.

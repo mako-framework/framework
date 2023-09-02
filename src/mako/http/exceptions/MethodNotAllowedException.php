@@ -17,7 +17,7 @@ class MethodNotAllowedException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'The request method that was used is not supported by this resource.';
+	protected string $defaultMessage = 'The request method that was used is not supported by this resource.';
 
 	/**
 	 * Constructor.

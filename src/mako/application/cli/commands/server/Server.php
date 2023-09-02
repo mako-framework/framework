@@ -36,7 +36,7 @@ class Server extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Starts the local development server.';
+	protected string $description = 'Starts the local development server.';
 
 	/**
 	 * {@inheritDoc}

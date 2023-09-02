@@ -18,7 +18,7 @@ class Clear extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Clears the cache.';
+	protected string $description = 'Clears the cache.';
 
 	/**
 	 * {@inheritDoc}

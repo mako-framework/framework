@@ -17,7 +17,7 @@ class ForbiddenException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'You don\'t have permission to access the requested resource.';
+	protected string $defaultMessage = 'You don\'t have permission to access the requested resource.';
 
 	/**
 	 * Constructor.

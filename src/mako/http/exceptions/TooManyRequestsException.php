@@ -17,7 +17,7 @@ class TooManyRequestsException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'You have made too many requests to the server.';
+	protected string $defaultMessage = 'You have made too many requests to the server.';
 
 	/**
 	 * Constructor.

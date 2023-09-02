@@ -20,7 +20,7 @@ class Down extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Rolls back the last batch of migrations.';
+	protected string $description = 'Rolls back the last batch of migrations.';
 
 	/**
 	 * {@inheritDoc}

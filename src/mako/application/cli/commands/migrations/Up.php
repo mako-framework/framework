@@ -17,7 +17,7 @@ class Up extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Runs all outstanding migrations.';
+	protected string $description = 'Runs all outstanding migrations.';
 
 	/**
 	 * {@inheritDoc}

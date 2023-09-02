@@ -17,7 +17,7 @@ class NotFoundException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'The resource you requested could not be found. It may have been moved or deleted.';
+	protected string $defaultMessage = 'The resource you requested could not be found. It may have been moved or deleted.';
 
 	/**
 	 * Constructor.

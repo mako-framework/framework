@@ -17,7 +17,7 @@ class UnsupportedMediaTypeException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'The media type is not supported.';
+	protected string $defaultMessage = 'The media type is not supported.';
 
 	/**
 	 * Constructor.

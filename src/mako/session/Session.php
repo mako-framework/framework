@@ -59,7 +59,7 @@ class Session
 	/**
 	 * Session id.
 	 */
-	protected string|null $sessionId = null;
+	protected string $sessionId;
 
 	/**
 	 * Session data.
@@ -67,14 +67,14 @@ class Session
 	protected array $sessionData = [];
 
 	/**
+	 * Session token.
+	 */
+	protected string $token;
+
+	/**
 	 * Flashdata.
 	 */
 	protected array $flashData = [];
-
-	/**
-	 * Session token.
-	 */
-	protected string|null $token = null;
 
 	/**
 	 * Constructor.

@@ -17,7 +17,7 @@ class RangeNotSatisfiableException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $defaultMessage = 'The requested range is not satisfiable.';
+	protected string $defaultMessage = 'The requested range is not satisfiable.';
 
 	/**
 	 * Constructor.

@@ -17,7 +17,7 @@ class HttpStatusException extends HttpException
 	/**
 	 * Default message.
 	 */
-	protected string|null $defaultMessage = null;
+	protected string $defaultMessage = '';
 
 	/**
 	 * Exception metadata.
@@ -29,7 +29,7 @@ class HttpStatusException extends HttpException
 	 */
 	public function __construct(int $code, string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct($message ?: (string) $this->defaultMessage, $code, $previous);
+		parent::__construct($message ?: $this->defaultMessage, $code, $previous);
 	}
 
 	/**

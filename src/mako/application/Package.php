@@ -31,22 +31,22 @@ abstract class Package
 	/**
 	 * Package name.
 	 */
-	protected string $packageName = '';
+	protected string $packageName;
 
 	/**
 	 * Package path.
 	 */
-	protected string|null $path = null;
+	protected string $path;
 
 	/**
 	 * File namespace.
 	 */
-	protected string|null $fileNamespace = null;
+	protected string $fileNamespace;
 
 	/**
 	 * Class namespace.
 	 */
-	protected string|null $classNamespace = null;
+	protected string $classNamespace;
 
 	/**
 	 * Commands.
@@ -74,7 +74,7 @@ abstract class Package
 	 */
 	public function getFileNamespace(): string
 	{
-		if($this->fileNamespace === null)
+		if(empty($this->fileNamespace))
 		{
 			$this->fileNamespace = str_replace('/', '-', strtolower($this->packageName));
 		}
@@ -87,7 +87,7 @@ abstract class Package
 	 */
 	public function getClassNamespace(bool $prefix = false): string
 	{
-		if($this->classNamespace === null)
+		if(empty($this->classNamespace))
 		{
 			$this->classNamespace = substr(static::class, 0, strrpos(static::class, '\\'));
 		}
@@ -100,7 +100,7 @@ abstract class Package
 	 */
 	public function getPath(): string
 	{
-		if($this->path === null)
+		if(empty($this->path))
 		{
 			$this->path = dirname((new ReflectionClass($this))->getFileName(), 2);
 		}

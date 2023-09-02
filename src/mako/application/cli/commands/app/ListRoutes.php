@@ -30,7 +30,7 @@ class ListRoutes extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Lists all registered routes.';
+	protected string $description = 'Lists all registered routes.';
 
 	/**
 	 * {@inheritDoc}

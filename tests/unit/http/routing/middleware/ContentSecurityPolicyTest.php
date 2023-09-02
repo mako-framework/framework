@@ -283,7 +283,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected array|null $reportTo =
+			protected array $reportTo =
 			[
 				[
 					'group'     => 'csp-endpoint',

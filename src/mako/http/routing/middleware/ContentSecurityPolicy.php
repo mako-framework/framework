@@ -26,7 +26,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	/**
 	 * Report to.
 	 */
-	protected array|null $reportTo = null;
+	protected array $reportTo = [];
 
 	/**
 	 * Should we only report content security policy violations?
@@ -46,7 +46,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	/**
 	 * Content security policy nonce.
 	 */
-	protected string|null $nonce = null;
+	protected string $nonce;
 
 	/**
 	 * Content security policy nonce view variable name.
@@ -89,7 +89,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 */
 	protected function getNonce(): string
 	{
-		if($this->nonce === null)
+		if(empty($this->nonce))
 		{
 			$this->nonce = $this->generateNonce();
 		}
@@ -157,14 +157,14 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	{
 		$headers = $response->getHeaders();
 
-		if($this->reportTo !== null)
+		if(!empty($this->reportTo))
 		{
 			$headers->add('Report-To', $this->buildReportToValue());
 		}
 
 		$headers->add($this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildValue());
 
-		if($this->nonce !== null)
+		if(!empty($this->nonce))
 		{
 			$this->assignNonceViewVariable();
 		}

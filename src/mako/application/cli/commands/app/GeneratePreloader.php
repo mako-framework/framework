@@ -27,7 +27,7 @@ class GeneratePreloader extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Generates a opcache preloader script.';
+	protected string $description = 'Generates a opcache preloader script.';
 
 	/**
 	 * Constructor.

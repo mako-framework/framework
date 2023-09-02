@@ -20,7 +20,7 @@ class Status extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string|null $description = 'Checks if there are any outstanding migrations.';
+	protected string $description = 'Checks if there are any outstanding migrations.';
 
 	/**
 	 * {@inheritDoc}
