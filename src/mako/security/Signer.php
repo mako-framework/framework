@@ -25,8 +25,6 @@ class Signer
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $secret Secret used to sign and validate strings
 	 */
 	public function __construct(
 		protected string $secret
@@ -35,9 +33,6 @@ class Signer
 
 	/**
 	 * Returns the signature.
-	 *
-	 * @param  string $string The string you want to sign
-	 * @return string
 	 */
 	protected function getSignature(string $string): string
 	{

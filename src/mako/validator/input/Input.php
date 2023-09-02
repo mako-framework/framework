@@ -16,24 +16,18 @@ abstract class Input implements InputInterface
 {
 	/**
 	 * Validation rules.
-	 *
-	 * @var array
 	 */
-	protected $rules;
+	protected array $rules = [];
 
 	/**
 	 * Error message.
-	 *
-	 * @var string|null
 	 */
-	protected $errorMessage;
+	protected string|null $errorMessage = null;
 
 	/**
 	 * Validation extensions.
-	 *
-	 * @var array
 	 */
-	protected $extensions = [];
+	protected array $extensions = [];
 
 	/**
 	 * {@inheritDoc}

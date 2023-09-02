@@ -67,10 +67,8 @@ class Str
 
 	/**
 	 * Pluralization rules.
-	 *
-	 * @var array
 	 */
-	protected static $pluralizationRules =
+	protected static array $pluralizationRules =
 	[
 		'/(quiz)$/i'                     => '$1zes',
 		'/([m|l])ouse$/i'                => '$1ice',
@@ -94,10 +92,8 @@ class Str
 
 	/**
 	 * Irregular nouns.
-	 *
-	 * @var array
 	 */
-	protected static $irregulars =
+	protected static array $irregulars =
 	[
 		'alias'       => 'aliases',
 		'audio'       => 'audio',
@@ -124,10 +120,6 @@ class Str
 
 	/**
 	 * Replaces newline with <br> or <br />.
-	 *
-	 * @param  string $string The input string
-	 * @param  bool   $xhtml  Should we return XHTML?
-	 * @return string
 	 */
 	public static function nl2br(string $string, bool $xhtml = false): string
 	{
@@ -136,9 +128,6 @@ class Str
 
 	/**
 	 * Replaces <br> and <br /> with newline.
-	 *
-	 * @param  string $string The input string
-	 * @return string
 	 */
 	public static function br2nl(string $string): string
 	{
@@ -147,10 +136,6 @@ class Str
 
 	/**
 	 * Returns the plural form of a noun (english only).
-	 *
-	 * @param  string   $noun  Noun to pluralize
-	 * @param  int|null $count Number of nouns
-	 * @return string
 	 */
 	public static function pluralize(string $noun, ?int $count = null): string
 	{
@@ -179,9 +164,6 @@ class Str
 
 	/**
 	 * Converts camel case to underscored.
-	 *
-	 * @param  string $string The input string
-	 * @return string
 	 */
 	public static function camelToSnake(string $string): string
 	{
@@ -190,10 +172,6 @@ class Str
 
 	/**
 	 * Converts underscored to camel case.
-	 *
-	 * @param  string $string The input string
-	 * @param  bool   $upper  Return upper case camelCase?
-	 * @return string
 	 */
 	public static function snakeToCamel(string $string, bool $upper = false): string
 	{
@@ -202,11 +180,6 @@ class Str
 
 	/**
 	 * Limits the number of characters in a string.
-	 *
-	 * @param  string $string     The input string
-	 * @param  int    $characters Number of characters to allow
-	 * @param  string $sufix      Sufix to add if number of characters is reduced
-	 * @return string
 	 */
 	public static function limitChars(string $string, int $characters = 100, string $sufix = '...'): string
 	{
@@ -215,11 +188,6 @@ class Str
 
 	/**
 	 * Limits the number of words in a string.
-	 *
-	 * @param  string $string The input string
-	 * @param  int    $words  Number of words to allow
-	 * @param  string $sufix  Sufix to add if number of words is reduced
-	 * @return string
 	 */
 	public static function limitWords(string $string, int $words = 100, string $sufix = '...'): string
 	{
@@ -235,9 +203,6 @@ class Str
 
 	/**
 	 * Creates a URL friendly string.
-	 *
-	 * @param  string $string The input string
-	 * @return string
 	 */
 	public static function slug(string $string): string
 	{
@@ -246,9 +211,6 @@ class Str
 
 	/**
 	 * Strips all non-ASCII characters.
-	 *
-	 * @param  string $string The input string
-	 * @return string
 	 */
 	public static function ascii(string $string): string
 	{
@@ -257,9 +219,6 @@ class Str
 
 	/**
 	 * Returns a alternator that will alternate between the defined strings.
-	 *
-	 * @param  array                        $strings Array of strings to alternate between
-	 * @return \mako\utility\str\Alternator
 	 */
 	public static function alternator(array $strings): Alternator
 	{
@@ -268,10 +227,6 @@ class Str
 
 	/**
 	 * Converts URLs in a text into clickable links.
-	 *
-	 * @param  string $string     Text to scan for links
-	 * @param  array  $attributes Anchor attributes
-	 * @return string
 	 */
 	public static function autolink(string $string, array $attributes = []): string
 	{
@@ -280,11 +235,6 @@ class Str
 
 	/**
 	 * Returns a masked string where only the last n characters are visible.
-	 *
-	 * @param  string $string  String to mask
-	 * @param  int    $visible Number of characters to show
-	 * @param  string $mask    Character used to replace remaining characters
-	 * @return string
 	 */
 	public static function mask(string $string, int $visible = 3, string $mask = '*'): string
 	{
@@ -300,11 +250,6 @@ class Str
 
 	/**
 	 * Increments a string by appending a number to it or increasing the number.
-	 *
-	 * @param  string $string    String to increment
-	 * @param  int    $start     Starting number
-	 * @param  string $separator Separator
-	 * @return string
 	 */
 	public static function increment(string $string, int $start = 1, string $separator = '_'): string
 	{
@@ -315,10 +260,6 @@ class Str
 
 	/**
 	 * Returns a random string of the selected type and length.
-	 *
-	 * @param  string $pool   Character pool to use
-	 * @param  int    $length Desired string length
-	 * @return string
 	 */
 	public static function random(string $pool = Str::ALNUM, int $length = 32): string
 	{

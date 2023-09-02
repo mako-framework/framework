@@ -20,19 +20,11 @@ class Unique extends Rule implements RuleInterface
 {
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['table', 'column'];
+	protected array $i18nParameters = ['table', 'column'];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string                           $table      Table
-	 * @param string                           $column     Column
-	 * @param mixed                            $allowed    Allowed value
-	 * @param string|null                      $connection Connection
-	 * @param \mako\database\ConnectionManager $database   Connection manager
 	 */
 	public function __construct(
 		protected string $table,

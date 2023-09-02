@@ -30,7 +30,7 @@ class ListRoutes extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Lists all registered routes.';
+	protected string|null $description = 'Lists all registered routes.';
 
 	/**
 	 * {@inheritDoc}
@@ -46,9 +46,6 @@ class ListRoutes extends Command
 
 	/**
 	 * Returns a normalzed action name.
-	 *
-	 * @param  \mako\http\routing\Route $route Route
-	 * @return string
 	 */
 	protected function getNormalizedActionName(Route $route): string
 	{
@@ -70,10 +67,6 @@ class ListRoutes extends Command
 
 	/**
 	 * Returns TRUE if the route matches the filter and FALSE if not.
-	 *
-	 * @param  string                   $filter Filter
-	 * @param  \mako\http\routing\Route $route  Route
-	 * @return bool
 	 */
 	protected function routeMatches(string $filter, Route $route): bool
 	{
@@ -97,9 +90,6 @@ class ListRoutes extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param \mako\http\routing\Routes $routes Route collection
-	 * @param string|null               $filter Route filter
 	 */
 	public function execute(Routes $routes, bool $detailed = false, ?string $filter = null): void
 	{

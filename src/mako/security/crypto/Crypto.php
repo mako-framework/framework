@@ -17,10 +17,7 @@ use mako\security\Signer;
 class Crypto
 {
 	/**
-	 * Constructor.
-	 *
-	 * @param \mako\security\crypto\encrypters\EncrypterInterface $adapter Crypto adapter
-	 * @param \mako\security\Signer                               $signer  signer instance
+	 * Constructor.                             $signer  signer instance.
 	 */
 	public function __construct(
 		protected EncrypterInterface $adapter,
@@ -30,9 +27,6 @@ class Crypto
 
 	/**
 	 * Encrypts string.
-	 *
-	 * @param  string $string String to encrypt
-	 * @return string
 	 */
 	public function encrypt(string $string): string
 	{
@@ -42,7 +36,6 @@ class Crypto
 	/**
 	 * Decrypts string.
 	 *
-	 * @param  string       $string String to decrypt
 	 * @return false|string
 	 */
 	public function decrypt(string $string)

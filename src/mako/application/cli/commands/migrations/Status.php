@@ -20,7 +20,7 @@ class Status extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Checks if there are any outstanding migrations.';
+	protected string|null $description = 'Checks if there are any outstanding migrations.';
 
 	/**
 	 * {@inheritDoc}
@@ -36,9 +36,6 @@ class Status extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param  bool $exitCode Override exit code?
-	 * @return int
 	 */
 	public function execute($exitCode = false): int
 	{

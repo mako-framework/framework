@@ -32,44 +32,31 @@ class Container
 {
 	/**
 	 * Registered type hints.
-	 *
-	 * @var array
 	 */
-	protected $hints = [];
+	protected array $hints = [];
 
 	/**
 	 * Aliases.
-	 *
-	 * @var array
 	 */
-	protected $aliases = [];
+	protected array $aliases = [];
 
 	/**
 	 * Singleton instances.
-	 *
-	 * @var array
 	 */
-	protected $instances = [];
+	protected array $instances = [];
 
 	/**
 	 * Contextual dependencies.
-	 *
-	 * @var array
 	 */
-	protected $contextualDependencies = [];
+	protected array $contextualDependencies = [];
 
 	/**
 	 * Instance replacers.
-	 *
-	 * @var array
 	 */
-	protected $replacers = [];
+	protected array $replacers = [];
 
 	/**
 	 * Parse the hint parameter.
-	 *
-	 * @param  array|string $hint Type hint or array contaning both type hint and alias
-	 * @return string
 	 */
 	protected function parseHint(array|string $hint): string
 	{
@@ -85,10 +72,6 @@ class Container
 
 	/**
 	 * Register a type hint.
-	 *
-	 * @param array|string    $hint      Type hint or array contaning both type hint and alias
-	 * @param \Closure|string $class     Class name or closure
-	 * @param bool            $singleton Should we return the same instance every time?
 	 */
 	public function register(array|string $hint, Closure|string $class, bool $singleton = false): void
 	{
@@ -97,9 +80,6 @@ class Container
 
 	/**
 	 * Register a type hint and return the same instance every time.
-	 *
-	 * @param array|string    $hint  Type hint or array contaning both type hint and alias
-	 * @param \Closure|string $class Class name or closure
 	 */
 	public function registerSingleton(array|string $hint, Closure|string $class): void
 	{
@@ -108,9 +88,6 @@ class Container
 
 	/**
 	 * Register a singleton instance.
-	 *
-	 * @param array|string $hint     Type hint or array contaning both type hint and alias
-	 * @param object       $instance Class instance
 	 */
 	public function registerInstance(array|string $hint, object $instance): void
 	{
@@ -119,10 +96,6 @@ class Container
 
 	/**
 	 * Registers a contextual dependency.
-	 *
-	 * @param array|string $dependent      Class name or an array containing a class and method name
-	 * @param string       $interface      Interface name
-	 * @param string       $implementation Implementation name
 	 */
 	public function registerContextualDependency(array|string $dependent, string $interface, string $implementation): void
 	{
@@ -136,9 +109,6 @@ class Container
 
 	/**
 	 * Return the name based on its alias. If no alias exists then we'll just return the value we received.
-	 *
-	 * @param  string $alias Alias
-	 * @return string
 	 */
 	protected function resolveAlias(string $alias): string
 	{
@@ -147,8 +117,6 @@ class Container
 
 	/**
 	 * Replaces previously resolved instances.
-	 *
-	 * @param string $hint Type hint
 	 */
 	protected function replaceInstances(string $hint): void
 	{
@@ -165,10 +133,6 @@ class Container
 
 	/**
 	 * Registers replacers.
-	 *
-	 * @param string      $hint      Type hint
-	 * @param callable    $replacer  Instance replacer
-	 * @param string|null $eventName Event name
 	 */
 	public function onReplace(string $hint, callable $replacer, ?string $eventName = null): void
 	{
@@ -179,10 +143,6 @@ class Container
 
 	/**
 	 * Replaces a registered type hint.
-	 *
-	 * @param string          $hint      Type hint
-	 * @param \Closure|string $class     Class name or closure
-	 * @param bool            $singleton Are we replacing a singleton?
 	 */
 	public function replace(string $hint, Closure|string $class, bool $singleton = false): void
 	{
@@ -205,9 +165,6 @@ class Container
 
 	/**
 	 * Replaces a registered singleton type hint.
-	 *
-	 * @param string          $hint  Type hint
-	 * @param \Closure|string $class Class name or closure
 	 */
 	public function replaceSingleton(string $hint, Closure|string $class): void
 	{
@@ -216,9 +173,6 @@ class Container
 
 	/**
 	 * Replaces a singleton instance.
-	 *
-	 * @param string $hint     Type hint
-	 * @param object $instance Class instance
 	 */
 	public function replaceInstance(string $hint, object $instance): void
 	{
@@ -236,9 +190,6 @@ class Container
 
 	/**
 	 * Resolves a type hint.
-	 *
-	 * @param  string          $hint Type hint
-	 * @return \Closure|string
 	 */
 	protected function resolveHint(string $hint): Closure|string
 	{
@@ -247,10 +198,6 @@ class Container
 
 	/**
 	 * Resolves a contextual dependency.
-	 *
-	 * @param  string $dependent Class name or class name and method name separated by a double colon
-	 * @param  string $interface Interface
-	 * @return string
 	 */
 	protected function resolveContextualDependency(string $dependent, string $interface): string
 	{
@@ -259,10 +206,6 @@ class Container
 
 	/**
 	 * Merges the provided parameters with the reflection parameters.
-	 *
-	 * @param  array $reflectionParameters Reflection parameters
-	 * @param  array $providedParameters   Provided parameters
-	 * @return array
 	 */
 	protected function mergeParameters(array $reflectionParameters, array $providedParameters): array
 	{
@@ -291,9 +234,6 @@ class Container
 
 	/**
 	 * Returns the name of the declaring function.
-	 *
-	 * @param  \ReflectionParameter $parameter ReflectionParameter instance
-	 * @return string
 	 */
 	protected function getDeclaringFunction(ReflectionParameter $parameter): string
 	{
@@ -314,11 +254,6 @@ class Container
 
 	/**
 	 * Resolve a parameter.
-	 *
-	 * @param  \ReflectionParameter  $parameter ReflectionParameter instance
-	 * @param  \ReflectionClass|null $class     ReflectionClass instance
-	 * @param  string|null           $method    Metod name
-	 * @return mixed
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null): mixed
 	{
@@ -371,12 +306,6 @@ class Container
 
 	/**
 	 * Resolve parameters.
-	 *
-	 * @param  array                 $reflectionParameters Reflection parameters
-	 * @param  array                 $providedParameters   Provided Parameters
-	 * @param  \ReflectionClass|null $class                ReflectionClass instance
-	 * @param  string|null           $method               Method name
-	 * @return array
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null, ?string $method = null): array
 	{
@@ -406,9 +335,6 @@ class Container
 
 	/**
 	 * Checks if a class is container aware.
-	 *
-	 * @param  object $class Class instance
-	 * @return bool
 	 */
 	protected function isContainerAware(object $class): bool
 	{
@@ -419,10 +345,6 @@ class Container
 
 	/**
 	 * Creates a class instance using a factory closure.
-	 *
-	 * @param  \Closure $factory    Class name or closure
-	 * @param  array    $parameters Constructor parameters
-	 * @return object
 	 */
 	protected function closureFactory(Closure $factory, array $parameters): object
 	{
@@ -433,10 +355,6 @@ class Container
 
 	/**
 	 * Creates a class instance using reflection.
-	 *
-	 * @param  string $class      Class name
-	 * @param  array  $parameters Constructor parameters
-	 * @return object
 	 */
 	protected function reflectionFactory(string $class, array $parameters): object
 	{
@@ -467,10 +385,6 @@ class Container
 
 	/**
 	 * Creates a class instance.
-	 *
-	 * @param  \Closure|string $class      Class name or closure
-	 * @param  array           $parameters Constructor parameters
-	 * @return object
 	 */
 	public function factory(Closure|string $class, array $parameters = []): object
 	{
@@ -499,9 +413,6 @@ class Container
 
 	/**
 	 * Returns TRUE if the class is registered in the container and FALSE if not.
-	 *
-	 * @param  string $class Class name
-	 * @return bool
 	 */
 	public function has(string $class): bool
 	{
@@ -512,9 +423,6 @@ class Container
 
 	/**
 	 * Returns TRUE if there's an instance of the class in the container and FALSE if not.
-	 *
-	 * @param  string $class Class name
-	 * @return bool
 	 */
 	public function hasInstanceOf(string $class): bool
 	{
@@ -523,9 +431,6 @@ class Container
 
 	/**
 	 * Returns TRUE if a class has been registered as a singleton and FALSE if not.
-	 *
-	 * @param  string $class Class name
-	 * @return bool
 	 */
 	public function isSingleton(string $class): bool
 	{
@@ -536,11 +441,6 @@ class Container
 
 	/**
 	 * Returns a class instance.
-	 *
-	 * @param  string $class         Class name
-	 * @param  array  $parameters    Constructor parameters
-	 * @param  bool   $reuseInstance Reuse existing instance?
-	 * @return object
 	 */
 	public function get(string $class, array $parameters = [], bool $reuseInstance = true): object
 	{
@@ -571,10 +471,6 @@ class Container
 
 	/**
 	 * Returns a fresh class instance even if the class is registered as a singleton.
-	 *
-	 * @param  string $class      Class name
-	 * @param  array  $parameters Constructor parameters
-	 * @return object
 	 */
 	public function getFresh(string $class, array $parameters = []): object
 	{
@@ -583,10 +479,6 @@ class Container
 
 	/**
 	 * Execute a callable and inject its dependencies.
-	 *
-	 * @param  callable $callable   Callable
-	 * @param  array    $parameters Parameters
-	 * @return mixed
 	 */
 	public function call(callable $callable, array $parameters = []): mixed
 	{

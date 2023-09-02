@@ -16,10 +16,8 @@ interface ProcessorInterface
 {
 	/**
 	 * Opens the image we want to work with.
-	 *
-	 * @param string $image Path to image file
 	 */
-	public function open($image);
+	public function open(string $image);
 
 	/**
 	 * Creates a snapshot of the image resource.
@@ -33,135 +31,98 @@ interface ProcessorInterface
 
 	/**
 	 * Returns the image width in pixels.
-	 *
-	 * @return int
 	 */
-	public function getWidth();
+	public function getWidth(): int;
 
 	/**
 	 * Returns the image height in pixels.
-	 *
-	 * @return int
 	 */
-	public function getHeight();
+	public function getHeight(): int;
 
 	/**
 	 * Returns an array containing the image dimensions in pixels.
-	 *
-	 * @return array
 	 */
-	public function getDimensions();
+	public function getDimensions(): array;
 
 	/**
 	 * Rotates the image using the given angle in degrees.
-	 *
-	 * @param int $degrees Degrees to rotate the image
 	 */
-	public function rotate($degrees);
+	public function rotate(int $degrees);
 
 	/**
 	 * Resizes the image to the chosen size.
-	 *
-	 * @param int      $width       Width of the image
-	 * @param int|null $height      Height of the image
-	 * @param int      $aspectRatio Aspect ratio
 	 */
 	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE);
 
 	/**
 	 * Crops the image.
-	 *
-	 * @param int $width  Width of the crop
-	 * @param int $height Height of the crop
-	 * @param int $x      The X coordinate of the cropped region's top left corner
-	 * @param int $y      The Y coordinate of the cropped region's top left corner
 	 */
-	public function crop($width, $height, $x, $y);
+	public function crop(int $width, int $height, int $x, int $y): void;
 
 	/**
 	 * Flips the image.
-	 *
-	 * @param int $direction Direction to flip the image
 	 */
-	public function flip($direction = Image::FLIP_HORIZONTAL);
+	public function flip(int $direction = Image::FLIP_HORIZONTAL): void;
 
 	/**
 	 * Adds a watermark to the image.
-	 *
-	 * @param string $file     Path to the image file
-	 * @param int    $position Position of the watermark
-	 * @param int    $opacity  Opacity of the watermark in percent
 	 */
-	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100);
+	public function watermark(string $file, int $position = Image::WATERMARK_TOP_LEFT, int $opacity = 100): void;
 
 	/**
 	 * Adjust image brightness.
-	 *
-	 * @param int $level Brightness level (-100 to 100)
 	 */
-	public function brightness($level = 50);
+	public function brightness(int $level = 50);
 
 	/**
 	 * Converts image to greyscale.
 	 */
-	public function greyscale();
+	public function greyscale(): void;
 
 	/**
 	 * Converts image to sepia.
 	 */
-	public function sepia();
+	public function sepia(): void;
 
 	/**
 	 * Converts image to bitonal.
 	 */
-	public function bitonal();
+	public function bitonal(): void;
 
 	/**
 	 * Colorize the image.
 	 *
 	 * @param string $color Hex value
 	 */
-	public function colorize($color);
+	public function colorize(string $color): void;
 
 	/**
 	 * Sharpens the image.
 	 */
-	public function sharpen();
+	public function sharpen(): void;
 
 	/**
 	 * Pixelates the image.
-	 *
-	 * @param int $pixelSize Pixel size
 	 */
-	public function pixelate($pixelSize = 10);
+	public function pixelate(int $pixelSize = 10);
 
 	/**
 	 * Negates the image.
 	 */
-	public function negate();
+	public function negate(): void;
 
 	/**
 	 * Adds a border to the image.
-	 *
-	 * @param string $color     Hex code for the color
-	 * @param int    $thickness Thickness of the frame in pixels
 	 */
-	public function border($color = '#000', $thickness = 5);
+	public function border(string $color = '#000', int $thickness = 5): void;
 
 	/**
 	 * Returns a string containing the image.
-	 *
-	 * @param  string $type    Image type
-	 * @param  int    $quality Image quality 1-100
-	 * @return string
 	 */
-	public function getImageBlob($type = null, $quality = 95);
+	public function getImageBlob(?string $type = null, int $quality = 95): string;
 
 	/**
 	 * Saves image to file.
-	 *
-	 * @param string $file    Path to the image file
-	 * @param int    $quality Image quality 1-100
 	 */
-	public function save($file, $quality = 95);
+	public function save(string $file, int $quality = 95): void;
 }

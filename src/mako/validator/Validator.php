@@ -99,17 +99,13 @@ class Validator
 
 	/**
 	 * Rule sets.
-	 *
-	 * @var array
 	 */
-	protected $ruleSets;
+	protected array $ruleSets;
 
 	/**
 	 * Rules.
-	 *
-	 * @var array
 	 */
-	protected $rules =
+	protected array $rules =
 	[
 		'after'                    => After::class,
 		'alpha_dash_unicode'       => AlphanumericDashUnicode::class,
@@ -177,32 +173,21 @@ class Validator
 
 	/**
 	 * Original field names.
-	 *
-	 * @var array
 	 */
-	protected $originalFieldNames;
+	protected array $originalFieldNames = [];
 
 	/**
 	 * Is the input valid?
-	 *
-	 * @var bool
 	 */
-	protected $isValid = true;
+	protected bool $isValid = true;
 
 	/**
 	 * Error messages.
-	 *
-	 * @var array
 	 */
-	protected $errors = [];
+	protected array $errors = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array                   $input     Input
-	 * @param array                   $ruleSets  Rule sets
-	 * @param \mako\i18n\I18n|null    $i18n      I18n
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected array $input,
@@ -216,10 +201,6 @@ class Validator
 
 	/**
 	 * Registers a custom validation rule.
-	 *
-	 * @param  string                    $rule      Rule
-	 * @param  string                    $ruleClass Rule class
-	 * @return \mako\validator\Validator
 	 */
 	public function extend(string $rule, string $ruleClass): Validator
 	{
@@ -230,9 +211,6 @@ class Validator
 
 	/**
 	 * Returns TRUE if the field name has a wildcard and FALSE if not.
-	 *
-	 * @param  string $string Field name
-	 * @return bool
 	 */
 	protected function hasWilcard(string $string): bool
 	{
@@ -241,9 +219,6 @@ class Validator
 
 	/**
 	 * Saves original field name along with the expanded field name.
-	 *
-	 * @param array  $fields Expanded field names
-	 * @param string $field  Original field name
 	 */
 	protected function saveOriginalFieldNames(array $fields, string $field): void
 	{
@@ -255,9 +230,6 @@ class Validator
 
 	/**
 	 * Returns the original field name.
-	 *
-	 * @param  string $field Field name
-	 * @return string
 	 */
 	protected function getOriginalFieldName(string $field): string
 	{
@@ -266,9 +238,6 @@ class Validator
 
 	/**
 	 * Expands fields.
-	 *
-	 * @param  array $ruleSets Rule sets
-	 * @return array
 	 */
 	protected function expandFields(array $ruleSets): array
 	{
@@ -301,10 +270,6 @@ class Validator
 
 	/**
 	 * Adds validation rules to input field.
-	 *
-	 * @param  string                    $field   Input field
-	 * @param  array                     $ruleSet Rule set
-	 * @return \mako\validator\Validator
 	 */
 	public function addRules(string $field, array $ruleSet): Validator
 	{
@@ -315,11 +280,6 @@ class Validator
 
 	/**
 	 * Adds validation rules to input field if the condition is met.
-	 *
-	 * @param  string                    $field     Input field
-	 * @param  array                     $ruleSet   Rule set
-	 * @param  bool|\Closure             $condition Condition
-	 * @return \mako\validator\Validator
 	 */
 	public function addRulesIf(string $field, array $ruleSet, bool|Closure $condition): Validator
 	{
@@ -333,9 +293,6 @@ class Validator
 
 	/**
 	 * Parses the rule.
-	 *
-	 * @param  string $rule Rule
-	 * @return object
 	 */
 	protected function parseRule(string $rule): object
 	{
@@ -353,9 +310,6 @@ class Validator
 
 	/**
 	 * Returns the rule class name.
-	 *
-	 * @param  string $name Rule name
-	 * @return string
 	 */
 	protected function getRuleClassName(string $name): string
 	{
@@ -374,10 +328,6 @@ class Validator
 
 	/**
 	 * Creates a rule instance.
-	 *
-	 * @param  string                              $name       Rule name
-	 * @param  array                               $parameters Rule parameters
-	 * @return \mako\validator\rules\RuleInterface
 	 */
 	protected function ruleFactory(string $name, array $parameters): RuleInterface
 	{
@@ -386,9 +336,6 @@ class Validator
 
 	/**
 	 * Returns TRUE if the input field is considered empty and FALSE if not.
-	 *
-	 * @param  mixed $value Value
-	 * @return bool
 	 */
 	protected function isInputFieldEmpty(mixed $value): bool
 	{
@@ -397,11 +344,6 @@ class Validator
 
 	/**
 	 * Returns the error message.
-	 *
-	 * @param  \mako\validator\rules\RuleInterface $rule       Rule
-	 * @param  string                              $field      Field name
-	 * @param  object                              $parsedRule Parsed rule
-	 * @return string
 	 */
 	protected function getErrorMessage(RuleInterface $rule, string $field, object $parsedRule): string
 	{
@@ -417,10 +359,6 @@ class Validator
 
 	/**
 	 * Validates the field using the specified rule.
-	 *
-	 * @param  string $field Field name
-	 * @param  string $rule  Rule
-	 * @return bool
 	 */
 	protected function validateField(string $field, string $rule): bool
 	{
@@ -450,8 +388,6 @@ class Validator
 	/**
 	 * Processes all validation rules and returns an array containing
 	 * the validation status and potential error messages.
-	 *
-	 * @return array
 	 */
 	protected function process(): array
 	{
@@ -477,9 +413,6 @@ class Validator
 
 	/**
 	 * Returns TRUE if all rules passed and FALSE if validation failed.
-	 *
-	 * @param  array &$errors If $errors is provided, then it is filled with all the error messages
-	 * @return bool
 	 */
 	public function isValid(?array &$errors = null): bool
 	{
@@ -490,9 +423,6 @@ class Validator
 
 	/**
 	 * Returns false if all rules passed and true if validation failed.
-	 *
-	 * @param  array &$errors If $errors is provided, then it is filled with all the error messages
-	 * @return bool
 	 */
 	public function isInvalid(?array &$errors = null): bool
 	{
@@ -503,8 +433,6 @@ class Validator
 
 	/**
 	 * Validates the input and returns an array containing validated data.
-	 *
-	 * @return array
 	 */
 	public function getValidatedInput(): array
 	{
@@ -528,8 +456,6 @@ class Validator
 
 	/**
 	 * Returns the validation errors.
-	 *
-	 * @return array
 	 */
 	public function getErrors(): array
 	{

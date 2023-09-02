@@ -28,22 +28,16 @@ interface CommandInterface
 
 	/**
 	 * Returns the command.
-	 *
-	 * @return string|null
 	 */
 	public function getCommand(): ?string;
 
 	/**
 	 * Returns the command description.
-	 *
-	 * @return string
 	 */
 	public function getDescription(): string;
 
 	/**
 	 * Returns the command arguments.
-	 *
-	 * @return array
 	 */
 	public function getArguments(): array;
 }

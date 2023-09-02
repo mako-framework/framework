@@ -20,23 +20,16 @@ abstract class Command implements CommandInterface
 
 	/**
 	 * Command.
-	 *
-	 * @var string|null
 	 */
-	protected $command;
+	protected string|null $command = null;
 
 	/**
 	 * Command description.
-	 *
-	 * @var string|null
 	 */
-	protected $description;
+	protected string|null $description = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input   $input  Input
-	 * @param \mako\cli\output\Output $output Output
 	 */
 	public function __construct(
 		protected Input $input,

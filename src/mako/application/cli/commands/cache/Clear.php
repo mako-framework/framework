@@ -18,7 +18,7 @@ class Clear extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Clears the cache.';
+	protected string|null $description = 'Clears the cache.';
 
 	/**
 	 * {@inheritDoc}
@@ -33,10 +33,6 @@ class Clear extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param  \mako\cache\CacheManager $cache         Cache manager
-	 * @param  string|null              $configuration Configuration name
-	 * @return int|void
 	 */
 	public function execute(CacheManager $cache, ?string $configuration = null)
 	{

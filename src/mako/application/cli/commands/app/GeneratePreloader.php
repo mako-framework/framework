@@ -27,15 +27,10 @@ class GeneratePreloader extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Generates a opcache preloader script.';
+	protected string|null $description = 'Generates a opcache preloader script.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input         $input      Input
-	 * @param \mako\cli\output\Output       $output     Output
-	 * @param \mako\application\Application $app        Application
-	 * @param \mako\file\FileSystem         $fileSystem File system
 	 */
 	public function __construct(
 		Input $input,
@@ -61,8 +56,6 @@ class GeneratePreloader extends Command
 
 	/**
 	 * Gets returns an array of common framework classes.
-	 *
-	 * @return array
 	 */
 	protected function getCoreClasses(): array
 	{
@@ -71,9 +64,6 @@ class GeneratePreloader extends Command
 
 	/**
 	 * Returns an array of all the classes that should be preloaded.
-	 *
-	 * @param  bool  $ignoreCoreClasses Should the default selection of core classes be ignored?
-	 * @return array
 	 */
 	protected function getClasses(bool $ignoreCoreClasses): array
 	{
@@ -94,9 +84,6 @@ class GeneratePreloader extends Command
 
 	/**
 	 * Returns the path to where the opcache preloder script should be stored.
-	 *
-	 * @param  string|null $outputPath Output path
-	 * @return string
 	 */
 	protected function getOutputPath(?string $outputPath): string
 	{
@@ -105,10 +92,6 @@ class GeneratePreloader extends Command
 
 	/**
 	 * Generates an opcache preloader script.
-	 *
-	 * @param  bool        $ignoreCoreClasses Should the default selection of core classes be ignored?
-	 * @param  string|null $outputPath        Output path
-	 * @return int
 	 */
 	public function execute(bool $ignoreCoreClasses = false, ?string $outputPath = null): int
 	{

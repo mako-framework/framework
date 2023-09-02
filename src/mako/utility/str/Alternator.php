@@ -18,22 +18,16 @@ class Alternator implements Stringable
 {
 	/**
 	 * String count.
-	 *
-	 * @var int
 	 */
-	protected $stringCount;
+	protected int $stringCount;
 
 	/**
 	 * Counter.
-	 *
-	 * @var int
 	 */
-	protected $counter = 0;
+	protected int $counter = 0;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $strings Strings
 	 */
 	public function __construct(
 		protected array $strings
@@ -44,8 +38,6 @@ class Alternator implements Stringable
 
 	/**
 	 * Returns a string.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string
 	{
@@ -54,8 +46,6 @@ class Alternator implements Stringable
 
 	/**
 	 * Returns a string.
-	 *
-	 * @return string
 	 */
 	public function __invoke(): string
 	{

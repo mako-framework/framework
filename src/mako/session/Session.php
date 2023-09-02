@@ -36,17 +36,13 @@ class Session
 
 	/**
 	 * Has the session been destroyed?
-	 *
-	 * @var bool
 	 */
-	protected $destroyed = false;
+	protected bool $destroyed = false;
 
 	/**
 	 * Session options.
-	 *
-	 * @var array
 	 */
-	protected $options =
+	protected array $options =
 	[
 		'name'           => 'mako_session',
 		'data_ttl'       => 1800,
@@ -62,40 +58,26 @@ class Session
 
 	/**
 	 * Session id.
-	 *
-	 * @var string
 	 */
-	protected $sessionId;
+	protected string|null $sessionId = null;
 
 	/**
 	 * Session data.
-	 *
-	 * @var array
 	 */
-	protected $sessionData = [];
+	protected array $sessionData = [];
 
 	/**
 	 * Flashdata.
-	 *
-	 * @var array
 	 */
-	protected $flashData = [];
+	protected array $flashData = [];
 
 	/**
 	 * Session token.
-	 *
-	 * @var string
 	 */
-	protected $token;
+	protected string|null $token = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\Request                  $request    Request instance
-	 * @param \mako\http\Response                 $response   Response instance
-	 * @param \mako\session\stores\StoreInterface $store      Session store instance
-	 * @param array                               $options    Session options
-	 * @param bool                                $autoCommit Should the session data be commited automatically?
 	 */
 	public function __construct(
 		protected Request $request,
@@ -130,12 +112,7 @@ class Session
 	{
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
-		$this->sessionId = $this->request->getCookies()->getSigned($this->options['name'], false);
-
-		if($this->sessionId === false)
-		{
-			$this->sessionId = $this->generateId();
-		}
+		$this->sessionId = $this->request->getCookies()->getSigned($this->options['name'], false) ?: $this->generateId();
 
 		// Create a new / update the existing session cookie
 
@@ -201,8 +178,6 @@ class Session
 
 	/**
 	 * Generates a session id.
-	 *
-	 * @return string
 	 */
 	protected function generateId(): string
 	{
@@ -232,8 +207,6 @@ class Session
 
 	/**
 	 * Returns the session id.
-	 *
-	 * @return string
 	 */
 	public function getId(): string
 	{
@@ -242,9 +215,6 @@ class Session
 
 	/**
 	 * Regenerate the session id and returns it.
-	 *
-	 * @param  bool   $keepOld Keep the session data associated with the old session id?
-	 * @return string
 	 */
 	public function regenerateId(bool $keepOld = false): string
 	{
@@ -268,8 +238,6 @@ class Session
 
 	/**
 	 * Returns all the seesion data.
-	 *
-	 * @return array
 	 */
 	public function getData(): array
 	{
@@ -278,9 +246,6 @@ class Session
 
 	/**
 	 * Store a value in the session.
-	 *
-	 * @param string $key   Session key
-	 * @param mixed  $value Session data
 	 */
 	public function put(string $key, mixed $value): void
 	{
@@ -289,9 +254,6 @@ class Session
 
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
-	 *
-	 * @param  string $key Session key
-	 * @return bool
 	 */
 	public function has(string $key): bool
 	{
@@ -300,10 +262,6 @@ class Session
 
 	/**
 	 * Returns a value from the session.
-	 *
-	 * @param  string $key     Session key
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function get(string $key, mixed $default = null): mixed
 	{
@@ -312,11 +270,6 @@ class Session
 
 	/**
 	 * Gets a value from the session and replaces it.
-	 *
-	 * @param  string $key     Session key
-	 * @param  mixed  $value   Session data
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function getAndPut(string $key, mixed $value, mixed $default = null): mixed
 	{
@@ -329,10 +282,6 @@ class Session
 
 	/**
 	 * Gets a value from the session and removes it.
-	 *
-	 * @param  string $key     Session key
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function getAndRemove(string $key, mixed $default = null): mixed
 	{
@@ -345,8 +294,6 @@ class Session
 
 	/**
 	 * Removes a value from the session.
-	 *
-	 * @param string $key Session key
 	 */
 	public function remove(string $key): void
 	{
@@ -355,9 +302,6 @@ class Session
 
 	/**
 	 * Store a flash value in the session.
-	 *
-	 * @param string $key   Flash key
-	 * @param mixed  $value Flash data
 	 */
 	public function putFlash(string $key, mixed $value): void
 	{
@@ -366,9 +310,6 @@ class Session
 
 	/**
 	 * Returns TRUE if key exists in the session and FALSE if not.
-	 *
-	 * @param  string $key Session key
-	 * @return bool
 	 */
 	public function hasFlash(string $key): bool
 	{
@@ -377,10 +318,6 @@ class Session
 
 	/**
 	 * Returns a flash value from the session.
-	 *
-	 * @param  string $key     Session key
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function getFlash(string $key, mixed $default = null): mixed
 	{
@@ -389,8 +326,6 @@ class Session
 
 	/**
 	 * Removes a value from the session.
-	 *
-	 * @param string $key Session key
 	 */
 	public function removeFlash(string $key): void
 	{
@@ -399,8 +334,6 @@ class Session
 
 	/**
 	 * Extends the lifetime of the flash data by one request.
-	 *
-	 * @param array $keys Keys to preserve
 	 */
 	public function reflash(array $keys = []): void
 	{
@@ -413,8 +346,6 @@ class Session
 
 	/**
 	 * Returns the session token.
-	 *
-	 * @return string
 	 */
 	public function getToken(): string
 	{
@@ -423,8 +354,6 @@ class Session
 
 	/**
 	 * Generates a new session token and returns it.
-	 *
-	 * @return string
 	 */
 	public function regenerateToken(): string
 	{
@@ -433,9 +362,6 @@ class Session
 
 	/**
 	 * Validates the provided token.
-	 *
-	 * @param  string $token Token to validate
-	 * @return bool
 	 */
 	public function validateToken(string $token): bool
 	{
@@ -444,8 +370,6 @@ class Session
 
 	/**
 	 * Returns random security token.
-	 *
-	 * @return string
 	 */
 	public function generateOneTimeToken(): string
 	{
@@ -467,9 +391,6 @@ class Session
 
 	/**
 	 * Validates security token.
-	 *
-	 * @param  string $token Security token
-	 * @return bool
 	 */
 	public function validateOneTimeToken(string $token): bool
 	{

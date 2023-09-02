@@ -32,12 +32,6 @@ class Retry
 
 	/**
 	 * Constructor.
-	 *
-	 * @param callable      $callable        The callable
-	 * @param int           $attempts        The number of attempts
-	 * @param int           $wait            The time we want to want to wait between each attempt in microseconds
-	 * @param bool          $exponentialWait Should the time between each attempt increase exponentially?
-	 * @param callable|null $decider         Callable that decides whether or not we should retry
 	 */
 	public function __construct(
 		callable $callable,
@@ -54,9 +48,6 @@ class Retry
 
 	/**
 	 * Sets the number of attempts.
-	 *
-	 * @param  int                 $attempts The maximum number of attempts
-	 * @return \mako\utility\Retry
 	 */
 	public function setAttempts(int $attempts): Retry
 	{
@@ -67,9 +58,6 @@ class Retry
 
 	/**
 	 * Sets the time we want to want to wait between each attempt in microseconds.
-	 *
-	 * @param  int                 $wait The time we want to want to wait between each attempt in microseconds
-	 * @return \mako\utility\Retry
 	 */
 	public function setWait(int $wait): Retry
 	{
@@ -80,8 +68,6 @@ class Retry
 
 	/**
 	 * Enables exponential waiting.
-	 *
-	 * @return \mako\utility\Retry
 	 */
 	public function exponentialWait(): Retry
 	{
@@ -92,9 +78,6 @@ class Retry
 
 	/**
 	 * Sets the decider that decides whether or not we should retry.
-	 *
-	 * @param  callable            $decider Callable that decides whether or not we should retry
-	 * @return \mako\utility\Retry
 	 */
 	public function setDecider(callable $decider): Retry
 	{
@@ -105,9 +88,6 @@ class Retry
 
 	/**
 	 * Returns the number of microseconds we should wait for.
-	 *
-	 * @param  int $attempts Number of attempts
-	 * @return int
 	 */
 	protected function calculateWait(int $attempts): int
 	{
@@ -121,8 +101,6 @@ class Retry
 
 	/**
 	 * Executes and returns the return value of the callable.
-	 *
-	 * @return mixed
 	 */
 	public function execute(): mixed
 	{
@@ -149,8 +127,6 @@ class Retry
 
 	/**
 	 * Executes and returns the return value of the callable.
-	 *
-	 * @return mixed
 	 */
 	public function __invoke(): mixed
 	{

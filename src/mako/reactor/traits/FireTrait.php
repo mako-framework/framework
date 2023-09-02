@@ -26,8 +26,6 @@ trait FireTrait
 {
 	/**
 	 * Returns path to the reactor executable.
-	 *
-	 * @return string
 	 */
 	protected function buildReactorPath(): string
 	{
@@ -36,11 +34,6 @@ trait FireTrait
 
 	/**
 	 * Returns command that we're going to execute.
-	 *
-	 * @param  string $command         Command
-	 * @param  bool   $background      Is it a background process?
-	 * @param  bool   $sameEnvironment Run command using the same environment?
-	 * @return string
 	 */
 	protected function buildCommand(string $command, bool $background = false, bool $sameEnvironment = true): string
 	{
@@ -71,11 +64,6 @@ trait FireTrait
 
 	/**
 	 * Runs command as a separate process and feeds output to handler.
-	 *
-	 * @param  string        $command         Command
-	 * @param  \Closure|null $handler         Output handler
-	 * @param  bool          $sameEnvironment Run command using the same environment?
-	 * @return int
 	 */
 	protected function fire(string $command, ?Closure $handler = null, bool $sameEnvironment = true): int
 	{
@@ -96,9 +84,6 @@ trait FireTrait
 
 	/**
 	 * Starts command as a background process.
-	 *
-	 * @param string $command         Command
-	 * @param bool   $sameEnvironment Run command using the same environment?
 	 */
 	protected function fireAndForget(string $command, bool $sameEnvironment = true): void
 	{

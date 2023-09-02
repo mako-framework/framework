@@ -16,8 +16,6 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param mixed $greaterThanOrEqualTo Greater than or equal to
 	 */
 	public function __construct(
 		protected mixed $greaterThanOrEqualTo
@@ -26,10 +24,8 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['greaterThanOrEqualTo'];
+	protected array $i18nParameters = ['greaterThanOrEqualTo'];
 
 	/**
 	 * {@inheritDoc}

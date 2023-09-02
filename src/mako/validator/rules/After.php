@@ -18,16 +18,11 @@ class After extends Rule implements RuleInterface
 {
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['format', 'date'];
+	protected array $i18nParameters = ['format', 'date'];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $format Date format
-	 * @param string $date   Date
 	 */
 	public function __construct(
 		protected string $format,

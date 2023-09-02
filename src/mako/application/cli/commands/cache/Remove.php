@@ -18,7 +18,7 @@ class Remove extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Removes the chosen key from the cache.';
+	protected string|null $description = 'Removes the chosen key from the cache.';
 
 	/**
 	 * {@inheritDoc}
@@ -34,11 +34,6 @@ class Remove extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param  \mako\cache\CacheManager $cache         Cache manager
-	 * @param  string                   $key           Cache Key
-	 * @param  string|null              $configuration Configuration name
-	 * @return int|void
 	 */
 	public function execute(CacheManager $cache, string $key, ?string $configuration = null)
 	{

@@ -20,7 +20,7 @@ class Down extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Rolls back the last batch of migrations.';
+	protected string|null $description = 'Rolls back the last batch of migrations.';
 
 	/**
 	 * {@inheritDoc}
@@ -36,8 +36,6 @@ class Down extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param int $batches Number of batches to roll back
 	 */
 	public function execute(int $batches = 1): void
 	{

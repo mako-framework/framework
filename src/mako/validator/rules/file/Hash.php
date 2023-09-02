@@ -19,9 +19,6 @@ class Hash extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $hash      Hash
-	 * @param string $algorithm Algorithm
 	 */
 	public function __construct(
 		protected string $hash,
@@ -31,10 +28,8 @@ class Hash extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['hash', 'algorithm'];
+	protected array $i18nParameters = ['hash', 'algorithm'];
 
 	/**
 	 * {@inheritDoc}

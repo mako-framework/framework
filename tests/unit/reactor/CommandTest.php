@@ -20,7 +20,7 @@ use Mockery;
 
 class Foo extends Command
 {
-	protected $description = 'Command description.';
+	protected string|null $description = 'Command description.';
 
 	public function getArguments(): array
 	{
@@ -74,7 +74,7 @@ class CommandTest extends TestCase
 
 		$command = new class ($input, $output) extends Command
 		{
-			protected $description = 'Command description.';
+			protected string|null $description = 'Command description.';
 		};
 
 		$this->assertEquals('Command description.', $command->getDescription());

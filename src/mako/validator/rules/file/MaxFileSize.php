@@ -24,8 +24,6 @@ class MaxFileSize extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param int|string $maxSize Max size
 	 */
 	public function __construct(
 		protected int|string $maxSize
@@ -34,16 +32,11 @@ class MaxFileSize extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['maxSize'];
+	protected array $i18nParameters = ['maxSize'];
 
 	/**
 	 * Convert human friendly size to bytes.
-	 *
-	 * @param  int|string $size Size
-	 * @return float|int
 	 */
 	protected function convertToBytes(int|string $size): float|int
 	{

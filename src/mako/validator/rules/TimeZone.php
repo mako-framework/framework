@@ -19,9 +19,6 @@ class TimeZone extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param int         $group   Time zone group
-	 * @param string|null $country Country code
 	 */
 	public function __construct(
 		protected int $group = DateTimeZone::ALL,

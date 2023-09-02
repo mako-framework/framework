@@ -20,9 +20,6 @@ class Key
 {
 	/**
 	 * Converts a binary key into its hexadecimal representation.
-	 *
-	 * @param  string $key Binary key
-	 * @return string
 	 */
 	public static function encode(string $key): string
 	{
@@ -31,9 +28,6 @@ class Key
 
 	/**
 	 * Converts a hexadecimal key into its binary representation.
-	 *
-	 * @param  string $key Encoded key
-	 * @return string
 	 */
 	public static function decode(string $key): string
 	{
@@ -46,10 +40,7 @@ class Key
 	}
 
 	/**
-	 * Generates a key.
-	 *
-	 * @param  int    $length Key length
-	 * @return string
+	 * Generates a binary key.
 	 */
 	public static function generate(int $length = 32): string
 	{
@@ -58,9 +49,6 @@ class Key
 
 	/**
 	 * Generates a hex encoded key.
-	 *
-	 * @param  int    $length Key length
-	 * @return string
 	 */
 	public static function generateEncoded(int $length = 32): string
 	{

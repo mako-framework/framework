@@ -20,7 +20,7 @@ class Reset extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Resets the database schema.';
+	protected string|null $description = 'Resets the database schema.';
 
 	/**
 	 * {@inheritDoc}
@@ -36,8 +36,6 @@ class Reset extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param bool $force Force the schema reset?
 	 */
 	public function execute(bool $force = false): void
 	{

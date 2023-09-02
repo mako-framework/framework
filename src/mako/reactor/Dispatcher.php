@@ -19,8 +19,6 @@ class Dispatcher
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Container $container
@@ -29,9 +27,6 @@ class Dispatcher
 
 	/**
 	 * Resolves the command.
-	 *
-	 * @param  string                         $command Command class
-	 * @return \mako\reactor\CommandInterface
 	 */
 	protected function resolve(string $command): CommandInterface
 	{
@@ -40,9 +35,6 @@ class Dispatcher
 
 	/**
 	 * Returns arguments where null values have been removed.
-	 *
-	 * @param  array $arguments
-	 * @return array
 	 */
 	protected function filterArguments(array $arguments): array
 	{
@@ -51,10 +43,6 @@ class Dispatcher
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param  \mako\reactor\CommandInterface $command   Command instance
-	 * @param  array                          $arguments Command arguments
-	 * @return mixed
 	 */
 	protected function execute(CommandInterface $command, array $arguments): mixed
 	{
@@ -63,10 +51,6 @@ class Dispatcher
 
 	/**
 	 * Dispatches the command.
-	 *
-	 * @param  string $command   Command class
-	 * @param  array  $arguments Command arguments
-	 * @return int
 	 */
 	public function dispatch(string $command, array $arguments): int
 	{

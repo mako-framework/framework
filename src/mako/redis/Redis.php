@@ -331,72 +331,51 @@ class Redis
 
 	/**
 	 * RESP version the connection was created with.
-	 *
-	 * @var int
 	 */
-	protected $resp = Redis::RESP2;
+	protected int $resp = Redis::RESP2;
 
 	/**
 	 * Redis username.
-	 *
-	 * @var string
 	 */
-	protected $username;
+	protected string|null $username = null;
 
 	/**
 	 * Redis password.
-	 *
-	 * @var string
 	 */
-	protected $password;
+	protected string|null $password = null;
 
 	/**
 	 * Redis database.
-	 *
-	 * @var int
 	 */
-	protected $database;
+	protected int|null $database = null;
 
 	/**
 	 * Is pipelining enabled?
-	 *
-	 * @var bool
 	 */
-	protected $pipelined = false;
+	protected bool $pipelined = false;
 
 	/**
 	 * Pipelined commands.
-	 *
-	 * @var array
 	 */
-	protected $commands = [];
+	protected array $commands = [];
 
 	/**
 	 * Cluster clients.
-	 *
-	 * @var array
 	 */
-	protected $clusterClients = [];
+	protected array $clusterClients = [];
 
 	/**
 	 * Last command.
-	 *
-	 * @var string
 	 */
-	protected $lastCommand;
+	protected string $lastCommand;
 
 	/**
 	 * Response attributes.
-	 *
-	 * @var array
 	 */
-	protected $attributes = [];
+	protected array $attributes = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\redis\Connection $connection Redis connection
-	 * @param array                  $options    Options
 	 */
 	final public function __construct(
 		protected Connection $connection,
@@ -434,8 +413,6 @@ class Redis
 
 	/**
 	 * Returns the RESP version the connection was created with.
-	 *
-	 * @return int
 	 */
 	public function getRespVersion(): int
 	{
@@ -444,8 +421,6 @@ class Redis
 
 	/**
 	 * Returns the connection.
-	 *
-	 * @return \mako\redis\Connection
 	 */
 	public function getConnection(): Connection
 	{
@@ -454,8 +429,6 @@ class Redis
 
 	/**
 	 * Returns the cluster clients.
-	 *
-	 * @return array
 	 */
 	public function getClusterClients(): array
 	{
@@ -464,8 +437,6 @@ class Redis
 
 	/**
 	 * Returns the response attributes from the last call.
-	 *
-	 * @return array
 	 */
 	public function getAttributes(): array
 	{
@@ -474,9 +445,6 @@ class Redis
 
 	/**
 	 * Creates a cluster client.
-	 *
-	 * @param  string            $server Server string
-	 * @return \mako\redis\Redis
 	 */
 	protected function createClusterClient(string $server): Redis
 	{
@@ -493,9 +461,6 @@ class Redis
 
 	/**
 	 * Gets a cluster client.
-	 *
-	 * @param  string            $serverInfo Cluster slot and server string
-	 * @return \mako\redis\Redis
 	 */
 	protected function getClusterClient(string $serverInfo): Redis
 	{
@@ -511,9 +476,6 @@ class Redis
 
 	/**
 	 * Handles a simple string response.
-	 *
-	 * @param  string $response Redis response
-	 * @return string
 	 */
 	protected function handleSimpleStringResponse(string $response): string
 	{
@@ -522,9 +484,6 @@ class Redis
 
 	/**
 	 * Handles a blob string response.
-	 *
-	 * @param  string      $response Redis response
-	 * @return string|null
 	 */
 	protected function handleBlobStringResponse(string $response): ?string
 	{
@@ -560,9 +519,6 @@ class Redis
 
 	/**
 	 * Handles a verbatim string response.
-	 *
-	 * @param  string $response Redis response
-	 * @return string
 	 */
 	protected function handleVerbatimStringResponse(string $response): string
 	{
@@ -573,9 +529,6 @@ class Redis
 
 	/**
 	 * Handles a number response.
-	 *
-	 * @param  string $response Redis response
-	 * @return int
 	 */
 	protected function handleNumberResponse(string $response): int
 	{
@@ -584,9 +537,6 @@ class Redis
 
 	/**
 	 * Handles a double response.
-	 *
-	 * @param  string $response Redis response
-	 * @return float
 	 */
 	protected function handleDoubleResponse(string $response): float
 	{
@@ -607,9 +557,6 @@ class Redis
 
 	/**
 	 * Handles a big number response.
-	 *
-	 * @param  string $response Redis response
-	 * @return string
 	 */
 	protected function handleBigNumberResponse(string $response): string
 	{
@@ -618,9 +565,6 @@ class Redis
 
 	/**
 	 * Handles a boolean response.
-	 *
-	 * @param  string $response Redis response
-	 * @return bool
 	 */
 	protected function handleBooleanResponse(string $response): bool
 	{
@@ -634,9 +578,6 @@ class Redis
 
 	/**
 	 * Handles a array response.
-	 *
-	 * @param  string     $response Redis response
-	 * @return array|null
 	 */
 	protected function handleArrayResponse(string $response): ?array
 	{
@@ -682,9 +623,6 @@ class Redis
 
 	/**
 	 * Handles a map response.
-	 *
-	 * @param  string $response Redis response
-	 * @return array
 	 */
 	protected function handleMapResponse(string $response): array
 	{
@@ -725,9 +663,6 @@ class Redis
 
 	/**
 	 * Handles a set response.
-	 *
-	 * @param  string $response Redis response
-	 * @return array
 	 */
 	protected function handleSetResponse(string $response): array
 	{
@@ -736,9 +671,6 @@ class Redis
 
 	/**
 	 * Handles an attribute response.
-	 *
-	 * @param  string $response Redis response
-	 * @return mixed
 	 */
 	protected function handleAttributeResponse(string $response): mixed
 	{
@@ -762,9 +694,6 @@ class Redis
 
 	/**
 	 * Handles a push response.
-	 *
-	 * @param  string $response Redis response
-	 * @return array
 	 */
 	protected function handlePushResponse(string $response): array
 	{
@@ -773,9 +702,6 @@ class Redis
 
 	/**
 	 * Handles simple error responses.
-	 *
-	 * @param  string $response Redis response
-	 * @return mixed
 	 */
 	protected function handleSimpleErrorResponse(string $response): mixed
 	{
@@ -792,8 +718,6 @@ class Redis
 
 	/**
 	 * Handles blob error responses.
-	 *
-	 * @param string $response Redis response
 	 */
 	protected function handleBlobErrorResponse(string $response): void
 	{
@@ -806,8 +730,6 @@ class Redis
 
 	/**
 	 * Returns response from redis server.
-	 *
-	 * @return mixed
 	 */
 	protected function getResponse(): mixed
 	{
@@ -837,10 +759,6 @@ class Redis
 
 	/**
 	 * Builds command.
-	 *
-	 * @param  string $name      Camel cased or snake cased command name
-	 * @param  array  $arguments Command arguments
-	 * @return string
 	 */
 	protected function buildCommand(string $name, array $arguments = []): string
 	{
@@ -874,8 +792,6 @@ class Redis
 
 	/**
 	 * Sends command to server.
-	 *
-	 * @param string $command Command
 	 */
 	protected function sendCommand(string $command): void
 	{
@@ -886,9 +802,6 @@ class Redis
 
 	/**
 	 * Executes raw Redis commands and returns the response.
-	 *
-	 * @param  string $command Command
-	 * @return mixed
 	 */
 	protected function sendCommandAndGetResponse(string $command): mixed
 	{
@@ -899,12 +812,6 @@ class Redis
 
 	/**
 	 * Subscribes to the chosen channels.
-	 *
-	 * @param array    $channels    Channels
-	 * @param \Closure $subscriber  Subscriber
-	 * @param array    $accept      Message types to accept
-	 * @param string   $subscribe   Subscribe command
-	 * @param string   $unsubscribe Unsubscribe command
 	 */
 	protected function subscribe(array $channels, Closure $subscriber, array $accept, string $subscribe, string $unsubscribe): void
 	{
@@ -930,10 +837,6 @@ class Redis
 
 	/**
 	 * Subscribes to the chosen channels.
-	 *
-	 * @param array    $channels   Channels
-	 * @param \Closure $subscriber Subscriber
-	 * @param array    $accept     Message types to accept
 	 */
 	public function subscribeTo(array $channels, Closure $subscriber, array $accept = ['message']): void
 	{
@@ -942,10 +845,6 @@ class Redis
 
 	/**
 	 * Subscribes to the chosen channels.
-	 *
-	 * @param array    $channels   Channels
-	 * @param \Closure $subscriber Subscriber
-	 * @param array    $accept     Message types to accept
 	 */
 	public function subscribeToPattern(array $channels, Closure $subscriber, array $accept = ['pmessage']): void
 	{
@@ -954,8 +853,6 @@ class Redis
 
 	/**
 	 * Monitors the redis server.
-	 *
-	 * @param \Closure $monitor Monitor closure
 	 */
 	public function monitor(Closure $monitor): void
 	{
@@ -974,9 +871,6 @@ class Redis
 
 	/**
 	 * Pipeline commands.
-	 *
-	 * @param  \Closure $pipeline Pipelined commands
-	 * @return array
 	 */
 	public function pipeline(Closure $pipeline): array
 	{
@@ -1019,10 +913,6 @@ class Redis
 	/**
 	 * Sends command to Redis server and returns response
 	 * or appends command to the pipeline and returns the client.
-	 *
-	 * @param  string $name      Method name
-	 * @param  array  $arguments Method arguments
-	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{

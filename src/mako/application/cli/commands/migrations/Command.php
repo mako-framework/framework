@@ -33,13 +33,6 @@ abstract class Command extends BaseCommand
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input            $input       Input
-	 * @param \mako\cli\output\Output          $output      Output
-	 * @param \mako\application\Application    $application Application
-	 * @param \mako\file\FileSystem            $fileSystem  File system
-	 * @param \mako\database\ConnectionManager $database    Connection manager
-	 * @param \mako\syringe\Container          $container   Container
 	 */
 	public function __construct(
 		Input $input,
@@ -57,8 +50,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns the default connection name of the application.
-	 *
-	 * @return string
 	 */
 	protected function getDefaultConnectionName(): string
 	{
@@ -67,8 +58,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns the connection name for which we are running migrations.
-	 *
-	 * @return string
 	 */
 	protected function getConnectionName(): string
 	{
@@ -77,8 +66,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns a query builder instance.
-	 *
-	 * @return \mako\database\query\Query
 	 */
 	protected function getQuery(): Query
 	{
@@ -87,9 +74,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns the basename of the migration.
-	 *
-	 * @param  string $migration Task path
-	 * @return string
 	 */
 	protected function getBaseName($migration): string
 	{
@@ -98,8 +82,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns all application migrations.
-	 *
-	 * @return array
 	 */
 	protected function findApplicationMigrations(): array
 	{
@@ -115,8 +97,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns all package migrations.
-	 *
-	 * @return array
 	 */
 	protected function findPackageMigrations(): array
 	{
@@ -135,8 +115,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Finds all migrations.
-	 *
-	 * @return array
 	 */
 	protected function findMigrations(): array
 	{
@@ -145,9 +123,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns the fully qualified class name of a migration.
-	 *
-	 * @param  \mako\database\query\Result|\stdClass $migration Migration
-	 * @return string
 	 */
 	protected function getFullyQualifiedMigration(stdClass|Result $migration): string
 	{
@@ -161,8 +136,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns migrations filtered by connection name.
-	 *
-	 * @return array
 	 */
 	protected function getMigrationsFilteredByConnection(): array
 	{
@@ -189,9 +162,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns migrations that have been run.
-	 *
-	 * @param  int|null                       $batches Number of batches fetch
-	 * @return \mako\database\query\ResultSet
 	 */
 	protected function getMigrated(?int $batches = null): ResultSet
 	{
@@ -207,8 +177,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns an array of all outstanding migrations.
-	 *
-	 * @return array
 	 */
 	protected function getOutstanding(): array
 	{
@@ -235,8 +203,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Outputs a migration list.
-	 *
-	 * @param array $migrations Migrations
 	 */
 	protected function outputMigrationList(array $migrations): void
 	{
@@ -261,9 +227,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Returns a migration instance.
-	 *
-	 * @param  object                              $migration Migration meta
-	 * @return \mako\database\migrations\Migration
 	 */
 	protected function resolve(object $migration): Migration
 	{
@@ -272,12 +235,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Builds the migration wrapper closure.
-	 *
-	 * @param  object                              $migration         Migration meta
-	 * @param  \mako\database\migrations\Migration $migrationInstance Migration instance
-	 * @param  string                              $method            Migration method
-	 * @param  int|null                            $batch             Migration batch
-	 * @return \Closure
 	 */
 	protected function buildMigrationWrapper(object $migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
 	{
@@ -300,10 +257,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Executes a migration method.
-	 *
-	 * @param object   $migration Migration meta
-	 * @param string   $method    Migration method
-	 * @param int|null $batch     Batch
 	 */
 	protected function runMigration(object $migration, string $method, ?int $batch = null): void
 	{

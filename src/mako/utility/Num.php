@@ -20,9 +20,6 @@ class Num
 {
 	/**
 	 * Converts arabic numerals (1-3999) to roman numerals.
-	 *
-	 * @param  int    $int Arabic numeral to convert
-	 * @return string
 	 */
 	public static function arabic2roman(int $int): string
 	{
@@ -76,9 +73,6 @@ class Num
 
 	/**
 	 * Converts roman numerals (I-MMMCMXCIX) to arabic numerals.
-	 *
-	 * @param  string $str Roman numeral to convert
-	 * @return int
 	 */
 	public static function roman2arabic(string $str): int
 	{

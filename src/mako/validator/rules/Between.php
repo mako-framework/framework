@@ -16,9 +16,6 @@ class Between extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param mixed $minimum Minimum value
-	 * @param mixed $maximum Maximum value
 	 */
 	public function __construct(
 		protected mixed $minimum,
@@ -28,10 +25,8 @@ class Between extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['minimum', 'maximum'];
+	protected array $i18nParameters = ['minimum', 'maximum'];
 
 	/**
 	 * {@inheritDoc}

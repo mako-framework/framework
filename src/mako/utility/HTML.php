@@ -21,8 +21,6 @@ class HTML
 
 	/**
 	 * Constructor.
-	 *
-	 * @param bool $xhtml Should we return HXML?
 	 */
 	public function __construct(
 		protected bool $xhtml = false
@@ -31,9 +29,6 @@ class HTML
 
 	/**
 	 * Takes an array of attributes and turns it into a string.
-	 *
-	 * @param  array  $attributes Array of tags
-	 * @return string
 	 */
 	protected function attributes(array $attributes): string
 	{
@@ -54,11 +49,6 @@ class HTML
 
 	/**
 	 * Creates a HTML5 tag.
-	 *
-	 * @param  string      $name       Tag name
-	 * @param  array       $attributes Tag attributes
-	 * @param  string|null $content    Tag content
-	 * @return string
 	 */
 	public function tag(string $name, array $attributes = [], ?string $content = null): string
 	{
@@ -67,11 +57,6 @@ class HTML
 
 	/**
 	 * Helper method for building media tags.
-	 *
-	 * @param  string       $type       Tag type
-	 * @param  array|string $files      File or array of files
-	 * @param  array        $attributes Tag attributes
-	 * @return string
 	 */
 	protected function buildMedia(string $type, array|string $files, array $attributes): string
 	{
@@ -87,10 +72,6 @@ class HTML
 
 	/**
 	 * Creates audio tag with support for multiple sources.
-	 *
-	 * @param  array|string $files      File or array of files
-	 * @param  array        $attributes Tag attributes
-	 * @return string
 	 */
 	public function audio(array|string $files, array $attributes = []): string
 	{
@@ -99,10 +80,6 @@ class HTML
 
 	/**
 	 * Creates video tag with support for multiple sources.
-	 *
-	 * @param  array|string $files      File or array of files
-	 * @param  array        $attributes Tag attributes
-	 * @return string
 	 */
 	public function video(array|string $files, array $attributes = []): string
 	{
@@ -111,11 +88,6 @@ class HTML
 
 	/**
 	 * Helper method for building list tags.
-	 *
-	 * @param  string $type       Tag type
-	 * @param  array  $items      List items
-	 * @param  array  $attributes Tag attributes
-	 * @return string
 	 */
 	protected function buildList(string $type, array $items, array $attributes): string
 	{
@@ -138,10 +110,6 @@ class HTML
 
 	/**
 	 * Builds an un-ordered list.
-	 *
-	 * @param  array  $items      List items
-	 * @param  array  $attributes List attributes
-	 * @return string
 	 */
 	public function ul(array $items, array $attributes = []): string
 	{
@@ -150,10 +118,6 @@ class HTML
 
 	/**
 	 * Builds am ordered list.
-	 *
-	 * @param  array  $items      List items
-	 * @param  array  $attributes List attributes
-	 * @return string
 	 */
 	public function ol(array $items, array $attributes = []): string
 	{

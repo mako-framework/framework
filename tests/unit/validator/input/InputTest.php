@@ -24,7 +24,7 @@ class InputTest extends TestCase
 	{
 		$input = new class extends Input
 		{
-			protected $rules = ['foo' => 'bar'];
+			protected array $rules = ['foo' => 'bar'];
 
 			public function getInput(): array { return []; }
 		};
@@ -39,7 +39,7 @@ class InputTest extends TestCase
 	{
 		$input = new class extends Input
 		{
-			protected $extensions = ['bar' => 'foo'];
+			protected array $extensions = ['bar' => 'foo'];
 
 			public function getInput(): array { return []; }
 		};
@@ -79,7 +79,7 @@ class InputTest extends TestCase
 
 		$input = new class extends Input
 		{
-			protected $errorMessage = 'Invalid input.';
+			protected string|null $errorMessage = 'Invalid input.';
 
 			public function getInput(): array { return []; }
 		};

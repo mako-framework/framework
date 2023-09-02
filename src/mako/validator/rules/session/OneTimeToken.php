@@ -21,8 +21,6 @@ class OneTimeToken extends Rule implements RuleInterface
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\session\Session $session Session
 	 */
 	public function __construct(
 		protected Session $session

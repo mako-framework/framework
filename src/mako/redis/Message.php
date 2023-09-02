@@ -19,36 +19,26 @@ class Message implements Stringable
 {
 	/**
 	 * Message type.
-	 *
-	 * @var string
 	 */
-	protected $type;
+	protected string $type;
 
 	/**
 	 * Message channel.
-	 *
-	 * @var string|null
 	 */
-	protected $channel = null;
+	protected string|null $channel = null;
 
 	/**
 	 * Channel pattern.
-	 *
-	 * @var string|null
 	 */
-	protected $pattern = null;
+	protected string|null $pattern = null;
 
 	/**
 	 * Message body.
-	 *
-	 * @var string|null
 	 */
-	protected $body = null;
+	protected string|null $body = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $response Response
 	 */
 	public function __construct(array $response)
 	{
@@ -57,8 +47,6 @@ class Message implements Stringable
 
 	/**
 	 * Parses the message response.
-	 *
-	 * @param array $response Response
 	 */
 	protected function parseResponse(array $response): void
 	{
@@ -93,8 +81,6 @@ class Message implements Stringable
 
 	/**
 	 * Returns the message type.
-	 *
-	 * @return string
 	 */
 	public function getType(): string
 	{
@@ -103,8 +89,6 @@ class Message implements Stringable
 
 	/**
 	 * Returns the message channel.
-	 *
-	 * @return string|null
 	 */
 	public function getChannel(): ?string
 	{
@@ -113,8 +97,6 @@ class Message implements Stringable
 
 	/**
 	 * Returns the channel pattern.
-	 *
-	 * @return string|null
 	 */
 	public function getPattern(): ?string
 	{
@@ -123,8 +105,6 @@ class Message implements Stringable
 
 	/**
 	 * Returns the message body.
-	 *
-	 * @return string|null
 	 */
 	public function getBody(): ?string
 	{
@@ -133,8 +113,6 @@ class Message implements Stringable
 
 	/**
 	 * Returns the message body.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string
 	{

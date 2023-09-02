@@ -16,8 +16,6 @@ class GreaterThan extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param mixed $greaterThan Greater than
 	 */
 	public function __construct(
 		protected mixed $greaterThan
@@ -26,10 +24,8 @@ class GreaterThan extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['greaterThan'];
+	protected array $i18nParameters = ['greaterThan'];
 
 	/**
 	 * {@inheritDoc}

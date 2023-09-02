@@ -18,8 +18,6 @@ class MatchField extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $field Field name
 	 */
 	public function __construct(
 		protected string $field
@@ -28,17 +26,13 @@ class MatchField extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['field'];
+	protected array $i18nParameters = ['field'];
 
 	/**
 	 * Parameters holding additional i18n field names.
-	 *
-	 * @var array
 	 */
-	protected $i18nFieldNameParameters = ['field'];
+	protected array $i18nFieldNameParameters = ['field'];
 
 	/**
 	 * {@inheritDoc}

@@ -24,9 +24,6 @@ trait InputValidationTrait
 
 	/**
 	 * Returns an array containing validated request input.
-	 *
-	 * @param  array|string $inputOrRules Input class name or an array of validation rules
-	 * @return array
 	 */
 	protected function getValidatedInput(array|string $inputOrRules): array
 	{
@@ -40,9 +37,6 @@ trait InputValidationTrait
 
 	/**
 	 * Returns an array containing validated request files.
-	 *
-	 * @param  array|string $inputOrRules Input class name or an array of validation rules
-	 * @return array
 	 */
 	protected function getValidatedFiles(array|string $inputOrRules): array
 	{

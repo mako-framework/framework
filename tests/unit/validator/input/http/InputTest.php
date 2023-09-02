@@ -63,7 +63,7 @@ class InputTest extends TestCase
 
 		$input = new class ($request, $urlBuilder) extends Input
 		{
-			protected $shouldRedirect = false;
+			protected bool $shouldRedirect = false;
 		};
 
 		$this->assertFalse($input->shouldRedirect());
@@ -110,7 +110,7 @@ class InputTest extends TestCase
 
 		$input = new class ($request, $urlBuilder) extends Input
 		{
-			protected $shouldIncludeOldInput = false;
+			protected bool $shouldIncludeOldInput = false;
 		};
 
 		$this->assertFalse($input->shouldIncludeOldInput());

@@ -21,15 +21,11 @@ abstract class Hasher implements HasherInterface
 {
 	/**
 	 * Algorithm options.
-	 *
-	 * @var array
 	 */
-	protected $options;
+	protected array $options;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $options algorithm options
 	 */
 	public function __construct(array $options = [])
 	{
@@ -38,9 +34,6 @@ abstract class Hasher implements HasherInterface
 
 	/**
 	 * Normalizes the algorithm options.
-	 *
-	 * @param  array $options Algorithm options
-	 * @return array
 	 */
 	protected function normalizeOptions(array $options): array
 	{
@@ -49,8 +42,6 @@ abstract class Hasher implements HasherInterface
 
 	/**
 	 * Returns the algorithm type.
-	 *
-	 * @return string|null
 	 */
 	abstract protected function getAlgorithm(): ?string;
 
