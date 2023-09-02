@@ -24,23 +24,16 @@ class Template extends PHP
 {
 	/**
 	 * Template blocks.
-	 *
-	 * @var array
 	 */
-	protected $blocks = [];
+	protected array $blocks = [];
 
 	/**
 	 * Open template blocks.
-	 *
-	 * @var array
 	 */
-	protected $openBlocks = [];
+	protected array $openBlocks = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem File system instance
-	 * @param string                $cachePath  Cache path
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -50,8 +43,6 @@ class Template extends PHP
 
 	/**
 	 * Returns the path to the compiled template.
-	 *
-	 * @return string
 	 */
 	protected function getCompiledPath(string $view): string
 	{
@@ -60,10 +51,6 @@ class Template extends PHP
 
 	/**
 	 * Returns TRUE if the template needs to be compiled and FALSE if not.
-	 *
-	 * @param  string $view     View path
-	 * @param  string $compiled Compiled view path
-	 * @return bool
 	 */
 	protected function needToCompile(string $view, string $compiled): bool
 	{
@@ -72,8 +59,6 @@ class Template extends PHP
 
 	/**
 	 * Compiles view.
-	 *
-	 * @param string $view View path
 	 */
 	protected function compile(string $view): void
 	{
@@ -82,8 +67,6 @@ class Template extends PHP
 
 	/**
 	 * Opens a template block.
-	 *
-	 * @param string $name Block name
 	 */
 	public function open(string $name): void
 	{
@@ -92,8 +75,6 @@ class Template extends PHP
 
 	/**
 	 * Closes a template block.
-	 *
-	 * @return string
 	 */
 	public function close(): string
 	{
@@ -102,8 +83,6 @@ class Template extends PHP
 
 	/**
 	 * Output a template block.
-	 *
-	 * @param string $name Block name
 	 */
 	public function output(string $name): void
 	{
