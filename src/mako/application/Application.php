@@ -38,57 +38,41 @@ abstract class Application
 
 	/**
 	 * Application start time.
-	 *
-	 * @var float
 	 */
-	protected $startTime;
+	protected float $startTime;
 
 	/**
 	 * Container.
-	 *
-	 * @var \mako\syringe\Container
 	 */
-	protected $container;
+	protected Container $container;
 
 	/**
 	 * Config instance.
-	 *
-	 * @var \mako\config\Config
 	 */
-	protected $config;
+	protected Config $config;
 
 	/**
 	 * Application charset.
-	 *
-	 * @var string
 	 */
-	protected $charset;
+	protected string $charset;
 
 	/**
 	 * Application language.
-	 *
-	 * @var string
 	 */
-	protected $language;
+	protected string $language;
 
 	/**
 	 * Application storage path.
-	 *
-	 * @var string
 	 */
-	protected $storagePath;
+	protected string $storagePath;
 
 	/**
 	 * Booted packages.
-	 *
-	 * @var array
 	 */
-	protected $packages = [];
+	protected array $packages = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $applicationPath Application path
 	 */
 	final protected function __construct(
 		protected string $applicationPath
@@ -99,10 +83,6 @@ abstract class Application
 
 	/**
 	 * Starts the application and returns a singleton instance of the application.
-	 *
-	 *
-	 * @param  string $applicationPath Application path
-	 * @return static
 	 */
 	public static function start(string $applicationPath): static
 	{
@@ -118,8 +98,6 @@ abstract class Application
 
 	/**
 	 * Returns a singleton instance of the application.
-	 *
-	 * @return static
 	 */
 	public static function instance(): static
 	{
@@ -133,8 +111,6 @@ abstract class Application
 
 	/**
 	 * Returns the application start time.
-	 *
-	 * @return float
 	 */
 	public function getStartTime(): float
 	{
@@ -143,8 +119,6 @@ abstract class Application
 
 	/**
 	 * Returns the container instance.
-	 *
-	 * @return \mako\syringe\Container
 	 */
 	public function getContainer(): Container
 	{
@@ -153,8 +127,6 @@ abstract class Application
 
 	/**
 	 * Returns the config instance.
-	 *
-	 * @return \mako\config\Config
 	 */
 	public function getConfig(): Config
 	{
@@ -163,8 +135,6 @@ abstract class Application
 
 	/**
 	 * Returns the application charset.
-	 *
-	 * @return string
 	 */
 	public function getCharset(): string
 	{
@@ -173,8 +143,6 @@ abstract class Application
 
 	/**
 	 * Returns the application language.
-	 *
-	 * @return string
 	 */
 	public function getLanguage(): string
 	{
@@ -183,8 +151,6 @@ abstract class Application
 
 	/**
 	 * Sets the application language settings.
-	 *
-	 * @param array $language Application language settings
 	 */
 	public function setLanguage(array $language): void
 	{
@@ -198,8 +164,6 @@ abstract class Application
 
 	/**
 	 * Gets the application path.
-	 *
-	 * @return string
 	 */
 	public function getPath(): string
 	{
@@ -208,8 +172,6 @@ abstract class Application
 
 	/**
 	 * Gets the application storage path.
-	 *
-	 * @return string
 	 */
 	public function getStoragePath(): string
 	{
@@ -218,8 +180,6 @@ abstract class Application
 
 	/**
 	 * Returns all the application packages.
-	 *
-	 * @return array
 	 */
 	public function getPackages(): array
 	{
@@ -228,9 +188,6 @@ abstract class Application
 
 	/**
 	 * Returns a package by its name.
-	 *
-	 * @param  string                    $package Package name
-	 * @return \mako\application\Package
 	 */
 	public function getPackage(string $package): Package
 	{
@@ -244,9 +201,6 @@ abstract class Application
 
 	/**
 	 * Returns the application namespace.
-	 *
-	 * @param  bool   $prefix Prefix the namespace with a slash?
-	 * @return string
 	 */
 	public function getNamespace(bool $prefix = false)
 	{
@@ -262,8 +216,6 @@ abstract class Application
 
 	/**
 	 * Is the application running in the CLI?
-	 *
-	 * @return bool
 	 */
 	public function isCommandLine(): bool
 	{
@@ -272,8 +224,6 @@ abstract class Application
 
 	/**
 	 * Returns the Mako environment. NULL is returned if no environment is specified.
-	 *
-	 * @return string|null
 	 */
 	public function getEnvironment(): ?string
 	{
@@ -312,8 +262,6 @@ abstract class Application
 
 	/**
 	 * Registers services in the container.
-	 *
-	 * @param string $type Service type
 	 */
 	protected function serviceRegistrar(string $type): void
 	{
@@ -373,8 +321,6 @@ abstract class Application
 
 	/**
 	 * Boots packages.
-	 *
-	 * @param string $type Package type
 	 */
 	protected function packageBooter(string $type): void
 	{
@@ -425,8 +371,6 @@ abstract class Application
 
 	/**
 	 * Creates a container instance.
-	 *
-	 * @return \mako\syringe\Container
 	 */
 	protected function containerFactory(): Container
 	{
@@ -435,8 +379,6 @@ abstract class Application
 
 	/**
 	 * Creates a configuration instance.
-	 *
-	 * @return \mako\config\Config
 	 */
 	protected function configFactory(): Config
 	{

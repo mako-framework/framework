@@ -18,10 +18,6 @@ abstract class Service
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\application\Application $app       Application
-	 * @param \mako\syringe\Container       $container Container
-	 * @param \mako\config\Config           $config    Config
 	 */
 	public function __construct(
 		protected Application $app,

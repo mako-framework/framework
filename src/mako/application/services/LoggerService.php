@@ -29,8 +29,6 @@ class LoggerService extends Service
 {
 	/**
 	 * Get information about the current user.
-	 *
-	 * @return array|null
 	 */
 	protected function getUserContext(): ?array
 	{
@@ -57,8 +55,6 @@ class LoggerService extends Service
 	}
 	/**
 	 * Get global logger context.
-	 *
-	 * @return array
 	 */
 	protected function getContext(): array
 	{
@@ -74,8 +70,6 @@ class LoggerService extends Service
 
 	/**
 	 * Returns the storage path.
-	 *
-	 * @return string
 	 */
 	protected function getStoragePath(): string
 	{
@@ -84,8 +78,6 @@ class LoggerService extends Service
 
 	/**
 	 * Returns a stream handler.
-	 *
-	 * @return \Monolog\Handler\StreamHandler
 	 */
 	protected function getStreamHandler(): StreamHandler
 	{
@@ -102,8 +94,6 @@ class LoggerService extends Service
 
 	/**
 	 * Returns a syslog handler.
-	 *
-	 * @return \Monolog\Handler\SyslogHandler
 	 */
 	protected function getSyslogHandler(): SyslogHandler
 	{
@@ -112,8 +102,6 @@ class LoggerService extends Service
 
 	/**
 	 * Returns a error log handler.
-	 *
-	 * @return \Monolog\Handler\ErrorLogHandler
 	 */
 	protected function getErrorLogHandler(): ErrorLogHandler
 	{
@@ -122,9 +110,6 @@ class LoggerService extends Service
 
 	/**
 	 * Returns a log handler.
-	 *
-	 * @param  string                            $handler Handler name
-	 * @return \Monolog\Handler\HandlerInterface
 	 */
 	protected function getHandler(string $handler): HandlerInterface
 	{

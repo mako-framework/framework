@@ -18,8 +18,6 @@ class ViewFactoryService extends Service
 {
 	/**
 	 * Returns the storage path.
-	 *
-	 * @return string
 	 */
 	protected function getStoragePath(): string
 	{

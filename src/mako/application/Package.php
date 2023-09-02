@@ -30,43 +30,31 @@ abstract class Package
 {
 	/**
 	 * Package name.
-	 *
-	 * @var string
 	 */
-	protected $packageName;
+	protected string $packageName = '';
 
 	/**
 	 * Package path.
-	 *
-	 * @var string
 	 */
-	protected $path;
+	protected string|null $path = null;
 
 	/**
 	 * File namespace.
-	 *
-	 * @var string
 	 */
-	protected $fileNamespace;
+	protected string|null $fileNamespace = null;
 
 	/**
 	 * Class namespace.
-	 *
-	 * @var string
 	 */
-	protected $classNamespace;
+	protected string|null $classNamespace = null;
 
 	/**
 	 * Commands.
-	 *
-	 * @var array
 	 */
-	protected $commands = [];
+	protected array $commands = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Container $container
@@ -75,8 +63,6 @@ abstract class Package
 
 	/**
 	 * Returns the package name.
-	 *
-	 * @return string
 	 */
 	public function getName(): string
 	{
@@ -85,8 +71,6 @@ abstract class Package
 
 	/**
 	 * Returns the package namespace.
-	 *
-	 * @return string
 	 */
 	public function getFileNamespace(): string
 	{
@@ -100,9 +84,6 @@ abstract class Package
 
 	/**
 	 * Returns the class namespace.
-	 *
-	 * @param  bool   $prefix Prefix the namespace with a slash?
-	 * @return string
 	 */
 	public function getClassNamespace(bool $prefix = false): string
 	{
@@ -116,8 +97,6 @@ abstract class Package
 
 	/**
 	 * Returns package path.
-	 *
-	 * @return string
 	 */
 	public function getPath(): string
 	{
@@ -131,8 +110,6 @@ abstract class Package
 
 	/**
 	 * Returns the path to the package configuration files.
-	 *
-	 * @return string
 	 */
 	public function getConfigPath(): string
 	{
@@ -141,8 +118,6 @@ abstract class Package
 
 	/**
 	 * Returns the path to the package i18n strings.
-	 *
-	 * @return string
 	 */
 	public function getI18nPath(): string
 	{
@@ -151,8 +126,6 @@ abstract class Package
 
 	/**
 	 * Returns the path to the package views.
-	 *
-	 * @return string
 	 */
 	public function getViewPath(): string
 	{
@@ -161,8 +134,6 @@ abstract class Package
 
 	/**
 	 * Returns the package commands.
-	 *
-	 * @return array
 	 */
 	public function getCommands(): array
 	{
