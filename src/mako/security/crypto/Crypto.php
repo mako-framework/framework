@@ -17,7 +17,7 @@ use mako\security\Signer;
 class Crypto
 {
 	/**
-	 * Constructor.                             $signer  signer instance.
+	 * Constructor.
 	 */
 	public function __construct(
 		protected EncrypterInterface $adapter,

@@ -15,7 +15,7 @@ use function substr;
 /**
  * Builds and returns a "function" used for middleware, route constraints and validation rules.
  */
-function f(string $_name, ...$_arguments): string
+function f(string $_name, mixed ...$_arguments): string
 {
 	if(empty($_arguments))
 	{

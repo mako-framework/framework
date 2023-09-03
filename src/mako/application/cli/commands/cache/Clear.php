@@ -33,6 +33,8 @@ class Clear extends Command
 
 	/**
 	 * Executes the command.
+	 *
+	 * @return int|void
 	 */
 	public function execute(CacheManager $cache, ?string $configuration = null)
 	{

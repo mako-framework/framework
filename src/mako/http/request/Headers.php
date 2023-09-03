@@ -46,7 +46,7 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Acceptable encodings.
 	 */
-	protected $acceptableEncodings;
+	protected array|null $acceptableEncodings = null;
 
 	/**
 	 * Constructor.

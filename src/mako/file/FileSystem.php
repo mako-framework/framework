@@ -102,6 +102,8 @@ class FileSystem
 
 	/**
 	 * Returns the target of a link.
+	 *
+	 * @return false|string
 	 */
 	public function getLinkTarget(string $path)
 	{

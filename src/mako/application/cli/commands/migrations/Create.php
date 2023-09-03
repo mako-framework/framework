@@ -41,6 +41,8 @@ class Create extends Command
 
 	/**
 	 * Executes the command.
+	 *
+	 * @return int|void
 	 */
 	public function execute(Application $application, FileSystem $fileSystem, $package = null, $description = null)
 	{

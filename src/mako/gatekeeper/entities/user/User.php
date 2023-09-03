@@ -101,7 +101,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Sets the user email address.
 	 */
-	public function setEmail($email): void
+	public function setEmail(string $email): void
 	{
 		$this->email = $email;
 	}

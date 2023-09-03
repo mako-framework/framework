@@ -75,7 +75,7 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns the basename of the migration.
 	 */
-	protected function getBaseName($migration): string
+	protected function getBaseName(string $migration): string
 	{
 		return basename($migration, '.php');
 	}

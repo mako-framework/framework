@@ -26,6 +26,8 @@ class GenerateSecret extends Command
 
 	/**
 	 * Executes the command.
+	 *
+	 * @return int|void
 	 */
 	public function execute(Application $application, FileSystem $fileSystem)
 	{

@@ -34,6 +34,8 @@ class Remove extends Command
 
 	/**
 	 * Executes the command.
+	 *
+	 * @return int|void
 	 */
 	public function execute(CacheManager $cache, string $key, ?string $configuration = null)
 	{

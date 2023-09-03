@@ -37,7 +37,7 @@ class Status extends Command
 	/**
 	 * Executes the command.
 	 */
-	public function execute($exitCode = false): int
+	public function execute(bool $exitCode = false): int
 	{
 		$migrations = $this->getOutstanding();
 

@@ -202,7 +202,7 @@ abstract class Application
 	/**
 	 * Returns the application namespace.
 	 */
-	public function getNamespace(bool $prefix = false)
+	public function getNamespace(bool $prefix = false): string
 	{
 		$namespace = basename(rtrim($this->applicationPath, '\\'));
 
