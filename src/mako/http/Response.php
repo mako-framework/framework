@@ -55,12 +55,12 @@ class Response
 	/**
 	 * Response headers.
 	 */
-	protected Headers $headers;
+	public readonly Headers $headers;
 
 	/**
 	 * Cookies.
 	 */
-	protected Cookies $cookies;
+	public readonly Cookies $cookies;
 
 	/**
 	 * Compress output?

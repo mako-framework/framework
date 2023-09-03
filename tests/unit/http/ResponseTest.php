@@ -10,6 +10,8 @@ namespace mako\tests\unit\http;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
+use mako\http\response\Cookies;
+use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\tests\TestCase;
 use Mockery;
@@ -453,5 +455,39 @@ class ResponseTest extends TestCase
 		$response->getHeaders()->add('Cache-Control', 'no-store');
 
 		$this->assertFalse($response->isCacheable());
+	}
+
+	/**
+	 *
+	 */
+	public function testCookies(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$this->assertInstanceOf(Cookies::class, $response->getCookies());
+		$this->assertInstanceOf(Cookies::class, $response->cookies);
+
+		$this->assertFalse($response->cookies->has('foo'));
+
+		$response->cookies->add('foo', 'bar');
+
+		$this->assertTrue($response->cookies->has('foo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testHeaders(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$this->assertInstanceOf(Headers::class, $response->getHeaders());
+		$this->assertInstanceOf(Headers::class, $response->headers);
+
+		$this->assertFalse($response->headers->has('X-Foo'));
+
+		$response->headers->add('X-Foo', 'bar');
+
+		$this->assertTrue($response->headers->has('X-Foo'));
 	}
 }

@@ -676,6 +676,12 @@ class RequestTest extends TestCase
 		$this->assertFalse($request->getCookies()->get('bar', false));
 
 		$this->assertEquals('bar', $request->getCookies()->get('foo'));
+
+		$this->assertEquals('bar', $request->cookies->get('foo'));
+
+		$request->cookies->add('baz', 'bax');
+
+		$this->assertEquals('bax', $request->cookies->get('baz'));
 	}
 
 	/**
@@ -733,6 +739,12 @@ class RequestTest extends TestCase
 		$this->assertEquals('keep-alive', $request->getHeaders()->get('connection'));
 
 		$this->assertEquals('keep-alive', $request->getHeaders()->get('ConNeCtIoN'));
+
+		$this->assertEquals('keep-alive', $request->headers->get('connection'));
+
+		$request->headers->add('oof', 'rab');
+
+		$this->assertEquals('rab', $request->headers->get('oof'));
 	}
 
 	/**
@@ -751,6 +763,12 @@ class RequestTest extends TestCase
 		$this->assertEquals('example.local', $request->getServer()->get('HTTP_HOST'));
 
 		$this->assertEquals($server, $request->getServer()->all());
+
+		$this->assertEquals('example.local', $request->server->get('HTTP_HOST'));
+
+		$request->server->add('oof', 'rab');
+
+		$this->assertEquals('rab', $request->server->get('oof'));
 	}
 
 	/**
@@ -771,6 +789,12 @@ class RequestTest extends TestCase
 		$this->assertEquals('bax', $request->getQuery()->get('baz.0'));
 
 		$this->assertEquals($get, $request->getQuery()->all());
+
+		$this->assertEquals('bar', $request->query->get('foo'));
+
+		$request->query->add('oof', 'rab');
+
+		$this->assertEquals('rab', $request->query->get('oof'));
 	}
 
 	/**
@@ -791,6 +815,12 @@ class RequestTest extends TestCase
 		$this->assertEquals('bax', $request->getPost()->get('baz.0'));
 
 		$this->assertEquals($post, $request->getPost()->all());
+
+		$this->assertEquals('bar', $request->post->get('foo'));
+
+		$request->post->add('oof', 'rab');
+
+		$this->assertEquals('rab', $request->getPost()->get('oof'));
 	}
 
 	/**
@@ -979,6 +1009,20 @@ class RequestTest extends TestCase
 		$this->assertEquals('foo/bar', $file->getReportedMimeType());
 
 		$this->assertEquals(0, $file->getErrorCode());
+
+		//
+
+		$file = $request->files->get('upload');
+
+		$this->assertInstanceOf(UploadedFile::class, $file);
+
+		//
+
+		$request->files->add('foo', $file);
+
+		$file = $request->files->get('foo');
+
+		$this->assertInstanceOf(UploadedFile::class, $file);
 	}
 
 	/**

@@ -61,32 +61,32 @@ class Request
 	/**
 	 * Get data.
 	 */
-	protected Parameters $query;
+	public readonly Parameters $query;
 
 	/**
 	 * Post data.
 	 */
-	protected Parameters $post;
+	public readonly Parameters $post;
 
 	/**
 	 * Cookie data.
 	 */
-	protected Cookies $cookies;
+	public readonly Cookies $cookies;
 
 	/**
 	 * File data.
 	 */
-	protected Files $files;
+	public readonly Files $files;
 
 	/**
 	 * Server info.
 	 */
-	protected Server $server;
+	public readonly Server $server;
 
 	/**
 	 * Request headers.
 	 */
-	protected Headers $headers;
+	public readonly Headers $headers;
 
 	/**
 	 * Raw request body.
