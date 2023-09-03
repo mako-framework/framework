@@ -15,17 +15,10 @@ use Stringable;
  */
 class Logger implements LoggerInterface
 {
-	/**
-	 * Global logger context.
-	 *
-	 * @var array
-	 */
-	protected $context = [];
+	protected array $context = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \Psr\Log\LoggerInterface $logger Logger instance
 	 */
 	public function __construct(
 		protected LoggerInterface $logger
@@ -34,8 +27,6 @@ class Logger implements LoggerInterface
 
 	/**
 	 * Returns the underlying logger instance.
-	 *
-	 * @return \Psr\Log\LoggerInterface
 	 */
 	public function getLogger(): LoggerInterface
 	{
@@ -45,10 +36,9 @@ class Logger implements LoggerInterface
 	/**
 	 * Sets the global logger context.
 	 *
-	 * @param  array $context Context
 	 * @return $this
 	 */
-	public function setContext(array $context)
+	public function setContext(array $context): static
 	{
 		$this->context = $context;
 
@@ -57,8 +47,6 @@ class Logger implements LoggerInterface
 
 	/**
 	 * Returns the global logger context.
-	 *
-	 * @return array
 	 */
 	public function getContext(): array
 	{

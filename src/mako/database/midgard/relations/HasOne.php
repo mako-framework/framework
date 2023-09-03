@@ -8,6 +8,7 @@
 namespace mako\database\midgard\relations;
 
 use Closure;
+use mako\database\midgard\ORM;
 
 /**
  * Has one relation.
@@ -16,11 +17,6 @@ class HasOne extends HasOneOrMany
 {
 	/**
 	 * Eager loads related records and matches them with their originating records.
-	 *
-	 * @param array         &$results Originating records
-	 * @param string        $relation Relation name
-	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
@@ -48,10 +44,8 @@ class HasOne extends HasOneOrMany
 
 	/**
 	 * Fetches a related record from the database.
-	 *
-	 * @return \mako\database\midgard\ORM|null
 	 */
-	protected function fetchRelated()
+	protected function fetchRelated(): ?ORM
 	{
 		return $this->first();
 	}

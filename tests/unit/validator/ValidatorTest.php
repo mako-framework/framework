@@ -39,10 +39,6 @@ class ValidatorTest extends TestCase
 {
 	/**
 	 * Attribute spy.
-	 *
-	 * @param  \mako\validator\Validator $validator Validator
-	 * @param  string                    $attribute Attribute name
-	 * @return array
 	 */
 	protected function attributeSpy(Validator $validator, string $attribute): array
 	{

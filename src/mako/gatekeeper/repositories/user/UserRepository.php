@@ -25,16 +25,11 @@ class UserRepository implements UserRepositoryInterface
 {
 	/**
 	 * User identifier.
-	 *
-	 * @var string
 	 */
-	protected $identifier = 'email';
+	protected string $identifier = 'email';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string                                                  $model      Model name
-	 * @param \mako\gatekeeper\authorization\AuthorizerInterface|null $authorizer Authorizer
 	 */
 	public function __construct(
 		protected string $model,
@@ -44,8 +39,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Returns a model instance.
-	 *
-	 * @return \mako\gatekeeper\entities\user\User
 	 */
 	protected function getModel(): User
 	{
@@ -54,8 +47,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Sets the user identifier.
-	 *
-	 * @param string $identifier User identifier
 	 */
 	public function setIdentifier(string $identifier): void
 	{
@@ -69,9 +60,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Sets the authorizer.
-	 *
-	 * @param  \mako\gatekeeper\entities\user\User|null $user User
-	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
 	protected function setAuthorizer(?User $user): ?User
 	{
@@ -106,9 +94,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Fetches a user by its action token.
-	 *
-	 * @param  string                                   $token Action token
-	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
 	public function getByActionToken(string $token): ?User
 	{
@@ -117,9 +102,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Fetches a user by its access token.
-	 *
-	 * @param  string                                   $token Access token
-	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
 	public function getByAccessToken(string $token): ?User
 	{
@@ -128,9 +110,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Fetches a user by its email address.
-	 *
-	 * @param  string                                   $email Email address
-	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
 	public function getByEmail(string $email): ?User
 	{
@@ -139,9 +118,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Fetches a user by its username.
-	 *
-	 * @param  string                                   $username Username
-	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
 	public function getByUsername(string $username): ?User
 	{
@@ -150,9 +126,6 @@ class UserRepository implements UserRepositoryInterface
 
 	/**
 	 * Fetches a user by its id.
-	 *
-	 * @param  int                                      $id User id
-	 * @return \mako\gatekeeper\entities\user\User|null
 	 */
 	public function getById(int $id): ?User
 	{

@@ -32,36 +32,26 @@ class ClassFinder
 
 	/**
 	 * Should classes be included?
-	 *
-	 * @var bool
 	 */
-	protected $includeClasses = true;
+	protected bool $includeClasses = true;
 
 	/**
 	 * Should abstract classes be included?
-	 *
-	 * @var bool
 	 */
-	protected $includeAbstractClasses = true;
+	protected bool $includeAbstractClasses = true;
 
 	/**
 	 * Should interfaces be included?
-	 *
-	 * @var bool
 	 */
-	protected $includeInterfaces = true;
+	protected bool $includeInterfaces = true;
 
 	/**
 	 * Should traits be included?
-	 *
-	 * @var bool
 	 */
-	protected $includeTraits = true;
+	protected bool $includeTraits = true;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\Finder $finder Finder instance
 	 */
 	public function __construct(
 		protected Finder $finder
@@ -78,7 +68,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeClasses()
+	public function includeClasses(): static
 	{
 		$this->includeClasses = true;
 
@@ -90,7 +80,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeClasses()
+	public function excludeClasses(): static
 	{
 		$this->includeClasses = false;
 
@@ -102,7 +92,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeAbstractClasses()
+	public function includeAbstractClasses(): static
 	{
 		$this->includeAbstractClasses = true;
 
@@ -114,7 +104,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeAbstractClasses()
+	public function excludeAbstractClasses(): static
 	{
 		$this->includeAbstractClasses = false;
 
@@ -126,7 +116,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeInterfaces()
+	public function includeInterfaces(): static
 	{
 		$this->includeInterfaces = true;
 
@@ -138,7 +128,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeInterfaces()
+	public function excludeInterfaces(): static
 	{
 		$this->includeInterfaces = false;
 
@@ -150,7 +140,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeTraits()
+	public function includeTraits(): static
 	{
 		$this->includeTraits = true;
 
@@ -162,7 +152,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeTraits()
+	public function excludeTraits(): static
 	{
 		$this->includeTraits = false;
 
@@ -171,8 +161,6 @@ class ClassFinder
 
 	/**
 	 * Returns the tokens we're searching for.
-	 *
-	 * @return array
 	 */
 	protected function getAllowedClasslikeTokens(): array
 	{
@@ -198,9 +186,6 @@ class ClassFinder
 
 	/**
 	 * Finds the class in a PHP file.
-	 *
-	 * @param  string      $path Path to PHP file
-	 * @return string|null
 	 */
 	protected function findClassInFile(string $path): ?string
 	{
@@ -248,8 +233,6 @@ class ClassFinder
 
 	/**
 	 * Returns all the classes.
-	 *
-	 * @return \Generator
 	 */
 	protected function findClasses(): Generator
 	{
@@ -265,8 +248,6 @@ class ClassFinder
 
 	/**
 	 * Returns all the classes.
-	 *
-	 * @return \Generator
 	 */
 	public function find(): Generator
 	{
@@ -275,9 +256,6 @@ class ClassFinder
 
 	/**
 	 * Returns all the classes implementing the interface.
-	 *
-	 * @param  string     $interfaceName Interface name
-	 * @return \Generator
 	 */
 	public function findImplementing(string $interfaceName): Generator
 	{
@@ -292,9 +270,6 @@ class ClassFinder
 
 	/**
 	 * Returns all the classes extending the class.
-	 *
-	 * @param  string     $className Class name
-	 * @return \Generator
 	 */
 	public function findExtending(string $className): Generator
 	{
@@ -309,9 +284,6 @@ class ClassFinder
 
 	/**
 	 * Returns all the classes using the trait.
-	 *
-	 * @param  string     $traitName Trait name
-	 * @return \Generator
 	 */
 	public function findUsing(string $traitName): Generator
 	{

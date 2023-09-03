@@ -24,8 +24,6 @@ class Humanizer
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\i18n\I18n|null $i18n I18n instance
 	 */
 	public function __construct(
 		protected ?I18n $i18n = null
@@ -34,10 +32,6 @@ class Humanizer
 
 	/**
 	 * Returns a human friendly file size.
-	 *
-	 * @param  float|int $size   File size in bytes
-	 * @param  bool      $binary True to use binary suffixes and FALSE to use decimal suffixes
-	 * @return string
 	 */
 	public function fileSize(float|int $size, bool $binary = true): string
 	{
@@ -64,10 +58,6 @@ class Humanizer
 
 	/**
 	 * Returns a human friendly representation of the date.
-	 *
-	 * @param  \DateTimeInterface $dateTime   DateTime object
-	 * @param  string             $dateFormat Default date format
-	 * @return string
 	 */
 	public function day(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i'): string
 	{
@@ -91,11 +81,6 @@ class Humanizer
 
 	/**
 	 * Returns a human friendly representation of the time.
-	 *
-	 * @param  \DateTimeInterface $dateTime    DateTime object
-	 * @param  string             $dateFormat  Default date format
-	 * @param  string             $clockFormat Default clock format
-	 * @return string
 	 */
 	public function time(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i', string $clockFormat = ', H:i'): string
 	{

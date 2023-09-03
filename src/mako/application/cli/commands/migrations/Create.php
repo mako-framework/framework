@@ -25,7 +25,7 @@ class Create extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Creates a new migration.';
+	protected string $description = 'Creates a new migration.';
 
 	/**
 	 * {@inheritDoc}
@@ -42,10 +42,6 @@ class Create extends Command
 	/**
 	 * Executes the command.
 	 *
-	 * @param  \mako\application\Application $application Application instance
-	 * @param  \mako\file\FileSystem         $fileSystem  File system instance
-	 * @param  string                        $package     Package name
-	 * @param  string                        $description Migration description
 	 * @return int|void
 	 */
 	public function execute(Application $application, FileSystem $fileSystem, $package = null, $description = null)

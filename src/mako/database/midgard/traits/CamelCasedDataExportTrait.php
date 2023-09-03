@@ -16,8 +16,6 @@ trait CamelCasedDataExportTrait
 {
 	/**
 	 * Returns an array representation of the record.
-	 *
-	 * @return array
 	 */
 	public function toArray(): array
 	{

@@ -37,44 +37,31 @@ class File implements ResponseSenderInterface
 {
 	/**
 	 * File size.
-	 *
-	 * @var int
 	 */
-	protected $fileSize;
+	protected int $fileSize;
 
 	/**
 	 * Filename.
-	 *
-	 * @var string|null
 	 */
-	protected $filename;
+	protected string $filename;
 
 	/**
 	 * Content disposition.
-	 *
-	 * @var string|null
 	 */
-	protected $disposition;
+	protected string $disposition;
 
 	/**
 	 * Content type.
-	 *
-	 * @var string|null
 	 */
-	protected $contentType;
+	protected string $contentType;
 
 	/**
 	 * Callback.
-	 *
-	 * @var \Closure|null
 	 */
-	protected $callback;
+	protected Closure $callback;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem FileSytem instance
-	 * @param string                $filePath   File path
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -91,9 +78,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the filename.
-	 *
-	 * @param  string                           $name Filename
-	 * @return \mako\http\response\senders\File
 	 */
 	public function setName(string $name): File
 	{
@@ -104,9 +88,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the content disposition.
-	 *
-	 * @param  string                           $disposition Content disposition
-	 * @return \mako\http\response\senders\File
 	 */
 	public function setDisposition(string $disposition): File
 	{
@@ -117,9 +98,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the response content type.
-	 *
-	 * @param  string                           $type Mime type
-	 * @return \mako\http\response\senders\File
 	 */
 	public function setType(string $type): File
 	{
@@ -130,9 +108,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the callback closure.
-	 *
-	 * @param  \Closure                         $callback Callback closure
-	 * @return \mako\http\response\senders\File
 	 */
 	public function done(Closure $callback): File
 	{
@@ -143,8 +118,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Returns the filename.
-	 *
-	 * @return string
 	 */
 	protected function getName(): string
 	{
@@ -153,8 +126,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Returns the content disposition.
-	 *
-	 * @return string
 	 */
 	protected function getDisposition(): string
 	{
@@ -163,8 +134,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Returns the content type.
-	 *
-	 * @return string
 	 */
 	protected function getContenType(): string
 	{
@@ -174,7 +143,6 @@ class File implements ResponseSenderInterface
 	/**
 	 * Calculates the content range that should be served.
 	 *
-	 * @param  string      $range Request range
 	 * @return array|false
 	 */
 	protected function calculateRange(string $range)
@@ -225,9 +193,6 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sends the file.
-	 *
-	 * @param int $start Starting point
-	 * @param int $end   Ending point
 	 */
 	protected function sendFile(int $start, int $end): void
 	{

@@ -50,22 +50,16 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Table name.
-	 *
-	 * @var string
 	 */
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	/**
 	 * Type casting.
-	 *
-	 * @var array
 	 */
-	protected $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
+	protected array $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
 
 	/**
 	 * User groups.
-	 *
-	 * @return \mako\database\midgard\relations\ManyToMany
 	 */
 	public function groups(): ManyToMany
 	{
@@ -74,8 +68,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns a hasher instance.
-	 *
-	 * @return \mako\security\password\HasherInterface
 	 */
 	protected function getHasher(): HasherInterface
 	{
@@ -84,9 +76,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Password mutator.
-	 *
-	 * @param  string $password Password
-	 * @return string
 	 */
 	protected function passwordMutator(string $password): string
 	{
@@ -95,8 +84,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Generates a new token.
-	 *
-	 * @return string
 	 */
 	protected function generateToken(): string
 	{
@@ -113,18 +100,14 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Sets the user email address.
-	 *
-	 * @param string $email Email address
 	 */
-	public function setEmail($email): void
+	public function setEmail(string $email): void
 	{
 		$this->email = $email;
 	}
 
 	/**
 	 * Returns the user email address.
-	 *
-	 * @return string
 	 */
 	public function getEmail(): string
 	{
@@ -133,8 +116,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Sets the username.
-	 *
-	 * @param string $username Username
 	 */
 	public function setUsername(string $username): void
 	{
@@ -151,8 +132,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Sets the user password.
-	 *
-	 * @param string $password Password
 	 */
 	public function setPassword(string $password): void
 	{
@@ -161,8 +140,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns the user password hash.
-	 *
-	 * @return string
 	 */
 	public function getPassword(): string
 	{
@@ -171,8 +148,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Sets the user IP address.
-	 *
-	 * @param string $ip IP address
 	 */
 	public function setIp(string $ip): void
 	{
@@ -181,8 +156,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns the user IP address.
-	 *
-	 * @return string
 	 */
 	public function getIp(): string
 	{
@@ -191,8 +164,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Generates a new action token.
-	 *
-	 * @return string
 	 */
 	public function generateActionToken(): string
 	{
@@ -201,8 +172,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns the user action token.
-	 *
-	 * @return string
 	 */
 	public function getActionToken(): string
 	{
@@ -211,8 +180,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Generates a new access token.
-	 *
-	 * @return string
 	 */
 	public function generateAccessToken(): string
 	{
@@ -221,8 +188,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns the user access token.
-	 *
-	 * @return string
 	 */
 	public function getAccessToken(): string
 	{
@@ -247,8 +212,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns TRUE of the user is activated and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isActivated(): bool
 	{
@@ -273,8 +236,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns TRUE if the user is banned and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isBanned(): bool
 	{
@@ -283,12 +244,8 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns TRUE if the provided password is correct and FALSE if not.
-	 *
-	 * @param  string $password Provided password
-	 * @param  bool   $autoSave Autosave rehashed password?
-	 * @return bool
 	 */
-	public function validatePassword(string $password, $autoSave = true): bool
+	public function validatePassword(string $password, bool $autoSave = true): bool
 	{
 		$hasher = $this->getHasher();
 
@@ -337,8 +294,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Locks the account until the given date.
-	 *
-	 * @param \DateTimeInterface $time Date
 	 */
 	public function lockUntil(DateTimeInterface $time): void
 	{
@@ -347,10 +302,8 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns null if the account isn't locked and a date time instance if it's locked.
-	 *
-	 * @return \DateTimeInterface|\mako\chrono\Time|null
 	 */
-	public function lockedUntil()
+	public function lockedUntil(): DateTimeInterface|Time|null
 	{
 		return $this->locked_until;
 	}
@@ -365,8 +318,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns TRUE if the account is locked and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isLocked(): bool
 	{
@@ -375,8 +326,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Returns the number of failed login attempts.
-	 *
-	 * @return int
 	 */
 	public function getFailedAttempts(): int
 	{
@@ -385,21 +334,14 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Gets the time of the last failed attempt.
-	 *
-	 * @return \DateTimeInterface|\mako\chrono\Time|null
 	 */
-	public function getLastFailAt()
+	public function getLastFailAt(): DateTimeInterface|Time|null
 	{
 		return $this->last_fail_at;
 	}
 
 	/**
 	 * Throttles login attempts.
-	 *
-	 * @param  int  $maxLoginAttempts Maximum number of failed login attempts
-	 * @param  int  $lockTime         Number of seconds for which the account gets locked after reaching the maximum number of login attempts
-	 * @param  bool $autoSave         Autosave changes?
-	 * @return bool
 	 */
 	public function throttle(int $maxLoginAttempts, int $lockTime, bool $autoSave = true): bool
 	{
@@ -435,9 +377,6 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 	/**
 	 * Resets the login throttling.
-	 *
-	 * @param  bool $autoSave Autosave changes?
-	 * @return bool
 	 */
 	public function resetThrottle(bool $autoSave = true): bool
 	{

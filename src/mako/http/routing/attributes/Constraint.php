@@ -17,8 +17,6 @@ class Constraint
 {
     /**
      * Constructor.
-     *
-     * @param array|string $constraint Constraint
      */
     public function __construct(
         protected array|string $constraint
@@ -27,8 +25,6 @@ class Constraint
 
     /**
      * Returns an array of constraints.
-     *
-     * @return array
      */
     public function getConstraints(): array
     {

@@ -360,7 +360,7 @@ class InputValidationTest extends TestCase
 
 		$middleware = new class ($urlBuilder) extends InputValidation
 		{
-			protected $dontInclude = ['username', 'password'];
+			protected array $dontInclude = ['username', 'password'];
 		};
 
 		$this->assertSame($expected2, (function () use ($input)
@@ -426,7 +426,7 @@ class InputValidationTest extends TestCase
 
 		$middleware = new class ($urlBuilder) extends InputValidation
 		{
-			protected $defaultErrorMessage = 'foobar';
+			protected string $defaultErrorMessage = 'foobar';
 		};
 
 		$this->assertSame('foobar', (function ()

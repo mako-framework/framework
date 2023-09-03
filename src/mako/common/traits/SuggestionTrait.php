@@ -17,10 +17,6 @@ trait SuggestionTrait
 	/**
 	 * Returns the string that resembles the provided string the most.
 	 * NULL is returned if no string with a similarity of 66% or more is found.
-	 *
-	 * @param  string      $string       String
-	 * @param  array       $alternatives Alternatives
-	 * @return string|null
 	 */
 	protected function suggest(string $string, array $alternatives): ?string
 	{

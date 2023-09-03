@@ -40,22 +40,16 @@ class Compiler
 
 	/**
 	 * Datetime format.
-	 *
-	 * @var string
 	 */
-	protected static $dateFormat = 'Y-m-d H:i:s';
+	protected static string $dateFormat = 'Y-m-d H:i:s';
 
 	/**
 	 * Query parameters.
-	 *
-	 * @var array
 	 */
-	protected $params = [];
+	protected array $params = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\query\Query $query Query builder
 	 */
 	public function __construct(
 		protected Query $query
@@ -64,8 +58,6 @@ class Compiler
 
 	/**
 	 * Sets the date format.
-	 *
-	 * @param string $dateFormat Date format
 	 */
 	public static function setDateFormat(string $dateFormat): void
 	{
@@ -74,8 +66,6 @@ class Compiler
 
 	/**
 	 * Gets the date format.
-	 *
-	 * @return string
 	 */
 	public static function getDateFormat(): string
 	{
@@ -84,9 +74,6 @@ class Compiler
 
 	/**
 	 * Compiles a raw SQL statement.
-	 *
-	 * @param  \mako\database\query\Raw $raw Raw SQL
-	 * @return string
 	 */
 	protected function raw(Raw $raw): string
 	{
@@ -102,9 +89,6 @@ class Compiler
 
 	/**
 	 * Compiles a subselect and merges the parameters.
-	 *
-	 * @param  \mako\database\query\Query $query Query
-	 * @return string
 	 */
 	protected function subselect(Query $query): string
 	{
@@ -117,10 +101,6 @@ class Compiler
 
 	/**
 	 * Compiles a subquery.
-	 *
-	 * @param  \mako\database\query\Subquery $subquery Subquery container
-	 * @param  bool                          $enclose  Should the subquery be enclosed in parentheses?
-	 * @return string
 	 */
 	protected function subquery(Subquery $subquery, bool $enclose = true): string
 	{
@@ -147,9 +127,6 @@ class Compiler
 
 	/**
 	 * Returns an escaped identifier.
-	 *
-	 * @param  string $identifier Identifier to escape
-	 * @return string
 	 */
 	public function escapeIdentifier(string $identifier): string
 	{
@@ -158,9 +135,6 @@ class Compiler
 
 	/**
 	 * Returns an array of escaped identifiers.
-	 *
-	 * @param  array  $identifiers Identifiers to escape
-	 * @return string
 	 */
 	public function escapeIdentifiers(array $identifiers): string
 	{
@@ -174,9 +148,6 @@ class Compiler
 
 	/**
 	 * Does the string have a JSON path?
-	 *
-	 * @param  string $string String
-	 * @return bool
 	 */
 	protected function hasJsonPath(string $string): bool
 	{
@@ -185,10 +156,6 @@ class Compiler
 
 	/**
 	 * Builds a JSON value getter.
-	 *
-	 * @param  string $column   Column name
-	 * @param  array  $segments JSON path segments
-	 * @return string
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
@@ -197,11 +164,6 @@ class Compiler
 
 	/**
 	 * Builds a JSON value setter.
-	 *
-	 * @param  string $column   Column name
-	 * @param  array  $segments JSON path segments
-	 * @param  string $param    Parameter
-	 * @return string
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
@@ -210,9 +172,6 @@ class Compiler
 
 	/**
 	 * Escapes a table name.
-	 *
-	 * @param  string $table Table name
-	 * @return string
 	 */
 	public function escapeTableName(string $table): string
 	{
@@ -228,9 +187,6 @@ class Compiler
 
 	/**
 	 * Compiles a table.
-	 *
-	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $table Table
-	 * @return string
 	 */
 	public function table(Raw|Subquery|string $table): string
 	{
@@ -254,9 +210,6 @@ class Compiler
 
 	/**
 	 * Returns a comma-separated list of tables.
-	 *
-	 * @param  array  $tables Array of tables
-	 * @return string
 	 */
 	public function tables(array $tables): string
 	{
@@ -272,9 +225,6 @@ class Compiler
 
 	/**
 	 * Escapes a column name.
-	 *
-	 * @param  string $column Column name
-	 * @return string
 	 */
 	public function escapeColumnName(string $column): string
 	{
@@ -297,9 +247,6 @@ class Compiler
 
 	/**
 	 * Compiles a column name.
-	 *
-	 * @param  string $column Column name
-	 * @return string
 	 */
 	public function columnName(string $column): string
 	{
@@ -317,9 +264,6 @@ class Compiler
 
 	/**
 	 * Returns a comma-separated list of column names.
-	 *
-	 * @param  array  $columns Array of column names
-	 * @return string
 	 */
 	public function columnNames(array $columns): string
 	{
@@ -335,10 +279,6 @@ class Compiler
 
 	/**
 	 * Compiles a column.
-	 *
-	 * @param  \mako\database\query\Raw|\mako\database\query\Subquery|string $column     Column
-	 * @param  bool                                                          $allowAlias Allow aliases?
-	 * @return string
 	 */
 	public function column(Raw|Subquery|string $column, bool $allowAlias = false): string
 	{
@@ -362,10 +302,6 @@ class Compiler
 
 	/**
 	 * Returns a comma-separated list of compiled columns.
-	 *
-	 * @param  array  $columns    Array of columns
-	 * @param  bool   $allowAlias Allow aliases?
-	 * @return string
 	 */
 	public function columns(array $columns, bool $allowAlias = false): string
 	{
@@ -381,9 +317,6 @@ class Compiler
 
 	/**
 	 * Compiles common table expressions.
-	 *
-	 * @param  array  $commonTableExpressions Common table expressions
-	 * @return string
 	 */
 	protected function commonTableExpressions(array $commonTableExpressions): string
 	{
@@ -413,9 +346,6 @@ class Compiler
 
 	/**
 	 * Compiles set operations.
-	 *
-	 * @param  array  $setOperations Set operations
-	 * @return string
 	 */
 	protected function setOperations(array $setOperations): string
 	{
@@ -436,10 +366,6 @@ class Compiler
 
 	/**
 	 * Returns raw SQL or a paramter placeholder.
-	 *
-	 * @param  mixed  $param   Parameter
-	 * @param  bool   $enclose Should subqueries be enclosed in parentheses?
-	 * @return string
 	 */
 	protected function param(mixed $param, bool $enclose = true): string
 	{
@@ -474,10 +400,6 @@ class Compiler
 
 	/**
 	 * Returns a comma-separated list of parameters.
-	 *
-	 * @param  array  $params  Array of parameters
-	 * @param  bool   $enclose Should subqueries be enclosed in parentheses?
-	 * @return string
 	 */
 	protected function params(array $params, bool $enclose = true): string
 	{
@@ -493,9 +415,6 @@ class Compiler
 
 	/**
 	 * Returns a parameter placeholder.
-	 *
-	 * @param  mixed  $param Parameter
-	 * @return string
 	 */
 	protected function simpleParam(mixed $param): string
 	{
@@ -506,9 +425,6 @@ class Compiler
 
 	/**
 	 * Returns a comma-separated list of parameter placeholders.
-	 *
-	 * @param  array  $params Parameters
-	 * @return string
 	 */
 	protected function simpleParams(array $params): string
 	{
@@ -524,9 +440,6 @@ class Compiler
 
 	/**
 	 * Compiles the FROM clause.
-	 *
-	 * @param  array|\mako\database\query\Raw|\mako\database\query\Subquery|string|null $table Table
-	 * @return string
 	 */
 	protected function from(array|Raw|Subquery|string|null $table): string
 	{
@@ -540,9 +453,6 @@ class Compiler
 
 	/**
 	 * Compiles WHERE conditions.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function where(array $where): string
 	{
@@ -560,9 +470,6 @@ class Compiler
 
 	/**
 	 * Compiles a raw WHERE condition.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function whereRaw(array $where): string
 	{
@@ -571,9 +478,6 @@ class Compiler
 
 	/**
 	 * Compiles date comparison clauses.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function whereDate(array $where): string
 	{
@@ -582,9 +486,6 @@ class Compiler
 
 	/**
 	 * Compiles column comparison clauses.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function whereColumn(array $where): string
 	{
@@ -602,9 +503,6 @@ class Compiler
 
 	/**
 	 * Compiles BETWEEN clauses.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function between(array $where): string
 	{
@@ -613,9 +511,6 @@ class Compiler
 
 	/**
 	 * Compiles date range clauses.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function betweenDate(array $where): string
 	{
@@ -624,9 +519,6 @@ class Compiler
 
 	/**
 	 * Compiles IN clauses.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function in(array $where): string
 	{
@@ -637,9 +529,6 @@ class Compiler
 
 	/**
 	 * Compiles IS NULL clauses.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function null(array $where): string
 	{
@@ -648,9 +537,6 @@ class Compiler
 
 	/**
 	 * Compiles EXISTS clauses.
-	 *
-	 * @param  array  $where Exists clause
-	 * @return string
 	 */
 	protected function exists(array $where): string
 	{
@@ -659,9 +545,6 @@ class Compiler
 
 	/**
 	 * Compiles nested WHERE conditions.
-	 *
-	 * @param  array  $where Where clause
-	 * @return string
 	 */
 	protected function nestedWhere(array $where): string
 	{
@@ -670,9 +553,6 @@ class Compiler
 
 	/**
 	 * Compiles WHERE conditions.
-	 *
-	 * @param  array  $wheres Where conditions
-	 * @return string
 	 */
 	protected function whereConditions(array $wheres): string
 	{
@@ -692,9 +572,6 @@ class Compiler
 
 	/**
 	 * Compiles WHERE clauses.
-	 *
-	 * @param  array  $wheres Array of where clauses
-	 * @return string
 	 */
 	protected function wheres(array $wheres): string
 	{
@@ -708,9 +585,6 @@ class Compiler
 
 	/**
 	 * Compiles a JOIN condition.
-	 *
-	 * @param  array  $condition Join condition
-	 * @return string
 	 */
 	protected function joinCondition(array $condition): string
 	{
@@ -724,9 +598,6 @@ class Compiler
 
 	/**
 	 * Compiles nested JOIN condition.
-	 *
-	 * @param  array  $condition Join condition
-	 * @return string
 	 */
 	protected function nestedJoinCondition(array $condition): string
 	{
@@ -737,9 +608,6 @@ class Compiler
 
 	/**
 	 * Compiles JOIN conditions.
-	 *
-	 * @param  \mako\database\query\Join $join Join
-	 * @return string
 	 */
 	protected function joinConditions(Join $join): string
 	{
@@ -759,9 +627,6 @@ class Compiler
 
 	/**
 	 * Compiles JOIN clauses.
-	 *
-	 * @param  array  $joins Array of joins
-	 * @return string
 	 */
 	protected function joins(array $joins): string
 	{
@@ -784,9 +649,6 @@ class Compiler
 
 	/**
 	 * Compiles GROUP BY clauses.
-	 *
-	 * @param  array  $groupings Array of column names
-	 * @return string
 	 */
 	protected function groupings(array $groupings): string
 	{
@@ -795,9 +657,6 @@ class Compiler
 
 	/**
 	 * Compiles ORDER BY clauses.
-	 *
-	 * @param  array  $orderings Array of order by clauses
-	 * @return string
 	 */
 	protected function orderings(array $orderings): string
 	{
@@ -818,9 +677,6 @@ class Compiler
 
 	/**
 	 * Compiles HAVING conditions.
-	 *
-	 * @param  array  $havings Having conditions
-	 * @return string
 	 */
 	protected function havingCondictions(array $havings): string
 	{
@@ -840,9 +696,6 @@ class Compiler
 
 	/**
 	 * Compiles HAVING clauses.
-	 *
-	 * @param  array  $havings Array of having clauses
-	 * @return string
 	 */
 	protected function havings(array $havings): string
 	{
@@ -856,9 +709,6 @@ class Compiler
 
 	/**
 	 * Compiles LIMIT clauses.
-	 *
-	 * @param  int|null $limit Limit
-	 * @return string
 	 */
 	protected function limit(?int $limit): string
 	{
@@ -867,9 +717,6 @@ class Compiler
 
 	/**
 	 * Compiles OFFSET clauses.
-	 *
-	 * @param  int|null $offset Limit
-	 * @return string
 	 */
 	protected function offset(?int $offset): string
 	{
@@ -878,9 +725,6 @@ class Compiler
 
 	/**
 	 * Compiles locking clause.
-	 *
-	 * @param  bool|string|null $lock Lock
-	 * @return string
 	 */
 	protected function lock(bool|string|null $lock): string
 	{
@@ -889,8 +733,6 @@ class Compiler
 
 	/**
 	 * Compiles a SELECT query.
-	 *
-	 * @return array
 	 */
 	public function select(): array
 	{
@@ -914,8 +756,6 @@ class Compiler
 
 	/**
 	 * Returns a INSERT query without values.
-	 *
-	 * @return string
 	 */
 	protected function insertWithoutValues(): string
 	{
@@ -924,9 +764,6 @@ class Compiler
 
 	/**
 	 * Returns a INSERT query with values.
-	 *
-	 * @param  array  $values Array of values
-	 * @return string
 	 */
 	protected function insertWithValues(array $values): string
 	{
@@ -940,9 +777,6 @@ class Compiler
 
 	/**
 	 * Compiles a INSERT query.
-	 *
-	 * @param  array $values Array of values
-	 * @return array
 	 */
 	public function insert(array $values = []): array
 	{
@@ -954,9 +788,6 @@ class Compiler
 
 	/**
 	 * Compiles a INSERT query with multiple row inserts.
-	 *
-	 * @param  array ...$values Array of values
-	 * @return array
 	 */
 	public function insertMultiple(array ...$values): array
 	{
@@ -979,9 +810,6 @@ class Compiler
 
 	/**
 	 * Compiles update columns.
-	 *
-	 * @param  array  $columns Associative array of columns and values
-	 * @return string
 	 */
 	protected function updateColumns(array $columns): string
 	{
@@ -1010,9 +838,6 @@ class Compiler
 
 	/**
 	 * Compiles a UPDATE query.
-	 *
-	 * @param  array $values Array of values
-	 * @return array
 	 */
 	public function update(array $values): array
 	{
@@ -1028,8 +853,6 @@ class Compiler
 
 	/**
 	 * Compiles a DELETE query.
-	 *
-	 * @return array
 	 */
 	public function delete(): array
 	{

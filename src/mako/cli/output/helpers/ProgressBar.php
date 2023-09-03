@@ -25,59 +25,41 @@ class ProgressBar
 {
 	/**
 	 * Progressbar width.
-	 *
-	 * @var int
 	 */
-	protected $width = 20;
+	protected int $width = 20;
 
 	/**
 	 * String that represents the empty part of the progess bar.
-	 *
-	 * @var string
 	 */
-	protected $emptyTemplate = '-';
+	protected string $emptyTemplate = '-';
 
 	/**
 	 * String that represents the filled part of the progess bar.
-	 *
-	 * @var string
 	 */
-	protected $filledTemplate = '=';
+	protected string $filledTemplate = '=';
 
 	/**
 	 * Minimum time between redraw in seconds.
-	 *
-	 * @var float
 	 */
-	protected $minTimeBetweenRedraw;
+	protected float $minTimeBetweenRedraw;
 
 	/**
 	 * Time of last redraw.
-	 *
-	 * @var float
 	 */
-	protected $lastRedraw;
+	protected float|null $lastRedraw = null;
 
 	/**
 	 * Progress status.
-	 *
-	 * @var int
 	 */
-	protected $progress = 0;
+	protected int $progress = 0;
 
 	/**
 	 * Progress bar prefix.
-	 *
-	 * @var string
 	 */
-	protected $prefix;
+	protected string $prefix = '';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output               Output instance
-	 * @param int                     $items                Total number of items
-	 * @param float                   $minTimeBetweenRedraw Minimum time between redraw in seconds
 	 */
 	public function __construct(
 		protected Output $output,
@@ -90,8 +72,6 @@ class ProgressBar
 
 	/**
 	 * Sets the progress bar width.
-	 *
-	 * @param int $width Progress bar width
 	 */
 	public function setWidth(int $width): void
 	{
@@ -100,8 +80,6 @@ class ProgressBar
 
 	/**
 	 * Sets the string that represents the empty part of the progess bar.
-	 *
-	 * @param string $template Template
 	 */
 	public function setEmptyTemplate(string $template): void
 	{
@@ -110,8 +88,6 @@ class ProgressBar
 
 	/**
 	 * Sets the string that represents the filled part of the progess bar.
-	 *
-	 * @param string $template Template
 	 */
 	public function setFilledTemplate(string $template): void
 	{
@@ -120,8 +96,6 @@ class ProgressBar
 
 	/**
 	 * Sets the progress bar prefix.
-	 *
-	 * @param string $prefix Progress bar prefix
 	 */
 	public function setPrefix(string $prefix): void
 	{
@@ -130,9 +104,6 @@ class ProgressBar
 
 	/**
 	 * Builds the progressbar.
-	 *
-	 * @param  float  $percent Percent to fill
-	 * @return string
 	 */
 	protected function buildProgressBar(float $percent): string
 	{
@@ -179,8 +150,6 @@ class ProgressBar
 
 	/**
 	 * Return current unix timestamp with microseconds.
-	 *
-	 * @return float
 	 */
 	protected function getMicrotime(): float
 	{
@@ -189,8 +158,6 @@ class ProgressBar
 
 	/**
 	 * Should the progress bar be redrawn?
-	 *
-	 * @return bool
 	 */
 	protected function shouldRedraw(): bool
 	{

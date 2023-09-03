@@ -18,9 +18,6 @@ trait HelperTrait
 {
 	/**
 	 * Returns the width of the string without formatting.
-	 *
-	 * @param  string $string String to strip
-	 * @return int
 	 */
 	protected function stringWidthWithoutFormatting(string $string): int
 	{

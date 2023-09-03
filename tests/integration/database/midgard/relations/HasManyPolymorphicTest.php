@@ -18,7 +18,7 @@ use mako\tests\integration\TestORM;
 
 class HasManyPolymorphicArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 
 	public function comments()
 	{
@@ -28,7 +28,7 @@ class HasManyPolymorphicArticle extends TestORM
 
 class HasManyPolymorphicComment extends TestORM
 {
-	protected $tableName = 'polymorphic_comments';
+	protected string $tableName = 'polymorphic_comments';
 }
 
 // --------------------------------------------------------------------------

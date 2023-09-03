@@ -53,15 +53,11 @@ class Application extends BaseApplication
 {
 	/**
 	 * Reactor instance.
-	 *
-	 * @var \mako\reactor\Reactor
 	 */
-	protected $reactor;
+	protected Reactor $reactor;
 
 	/**
 	 * Creates a input instance.
-	 *
-	 * @return \mako\cli\input\Input
 	 */
 	protected function inputFactory(): Input
 	{
@@ -74,8 +70,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Creates an output instance.
-	 *
-	 * @return \mako\cli\output\Output
 	 */
 	protected function outputFactory(): Output
 	{
@@ -84,8 +78,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Creates a reactor instance.
-	 *
-	 * @return \mako\reactor\Reactor
 	 */
 	protected function reactorFactory(): Reactor
 	{
@@ -94,8 +86,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Loads the reactor ASCII logo.
-	 *
-	 * @return string
 	 */
 	protected function loadLogo(): string
 	{
@@ -173,8 +163,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Returns the application commands.
-	 *
-	 * @return array
 	 */
 	protected function getApplicationCommands(): array
 	{
@@ -207,8 +195,6 @@ class Application extends BaseApplication
 
 	/**
 	 * Returns all registered commands.
-	 *
-	 * @return array
 	 */
 	protected function getCommands(): array
 	{

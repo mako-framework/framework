@@ -25,24 +25,18 @@ class ContentSecurityPolicy implements MiddlewareInterface
 {
 	/**
 	 * Report to.
-	 *
-	 * @var array|null
 	 */
-	protected $reportTo;
+	protected array $reportTo = [];
 
 	/**
 	 * Should we only report content security policy violations?
-	 *
-	 * @var bool
 	 */
-	protected $reportOnly = false;
+	protected bool $reportOnly = false;
 
 	/**
 	 * Content security policy directives.
-	 *
-	 * @var array
 	 */
-	protected $directives =
+	protected array $directives =
 	[
 		'base-uri'    => ['self'],
 		'default-src' => ['self'],
@@ -51,22 +45,16 @@ class ContentSecurityPolicy implements MiddlewareInterface
 
 	/**
 	 * Content security policy nonce.
-	 *
-	 * @var string|null
 	 */
-	protected $nonce;
+	protected string $nonce;
 
 	/**
 	 * Content security policy nonce view variable name.
-	 *
-	 * @var string
 	 */
-	protected $nonceVariableName = '_csp_nonce_';
+	protected string $nonceVariableName = '_csp_nonce_';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function __construct(
 		protected Container $container
@@ -75,8 +63,6 @@ class ContentSecurityPolicy implements MiddlewareInterface
 
 	/**
 	 * Builds the "Report-To" header value.
-	 *
-	 * @return string
 	 */
 	protected function buildReportToValue(): string
 	{
@@ -92,8 +78,6 @@ class ContentSecurityPolicy implements MiddlewareInterface
 
 	/**
 	 * Generates a random content security policy nonce.
-	 *
-	 * @return string
 	 */
 	protected function generateNonce(): string
 	{
@@ -102,12 +86,10 @@ class ContentSecurityPolicy implements MiddlewareInterface
 
 	/**
 	 * Returns the content security policy nonce.
-	 *
-	 * @return string
 	 */
 	protected function getNonce(): string
 	{
-		if($this->nonce === null)
+		if(empty($this->nonce))
 		{
 			$this->nonce = $this->generateNonce();
 		}
@@ -117,8 +99,6 @@ class ContentSecurityPolicy implements MiddlewareInterface
 
 	/**
 	 * Builds the "Content-Security-Policy" header value.
-	 *
-	 * @return string
 	 */
 	protected function buildValue(): string
 	{
@@ -177,14 +157,14 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	{
 		$headers = $response->getHeaders();
 
-		if($this->reportTo !== null)
+		if(!empty($this->reportTo))
 		{
 			$headers->add('Report-To', $this->buildReportToValue());
 		}
 
 		$headers->add($this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildValue());
 
-		if($this->nonce !== null)
+		if(!empty($this->nonce))
 		{
 			$this->assignNonceViewVariable();
 		}

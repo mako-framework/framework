@@ -20,16 +20,11 @@ class Config
 {
 	/**
 	 * Configuration.
-	 *
-	 * @var array
 	 */
-	protected $configuration = [];
+	protected array $configuration = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\config\loaders\LoaderInterface $loader      Config loader
-	 * @param string|null                          $environment Environment name
 	 */
 	public function __construct(
 		protected LoaderInterface $loader,
@@ -39,8 +34,6 @@ class Config
 
 	/**
 	 * Returns the config loader.
-	 *
-	 * @return \mako\config\loaders\LoaderInterface
 	 */
 	public function getLoader(): LoaderInterface
 	{
@@ -49,8 +42,6 @@ class Config
 
 	/**
 	 * Returns the currently loaded configuration.
-	 *
-	 * @return array
 	 */
 	public function getLoadedConfiguration(): array
 	{
@@ -59,8 +50,6 @@ class Config
 
 	/**
 	 * Sets the environment.
-	 *
-	 * @param string $environment Environment name
 	 */
 	public function setEnvironment(string $environment): void
 	{
@@ -69,9 +58,6 @@ class Config
 
 	/**
 	 * Parses the config key.
-	 *
-	 * @param  string $key Config key
-	 * @return array
 	 */
 	protected function parseKey(string $key): array
 	{
@@ -80,8 +66,6 @@ class Config
 
 	/**
 	 * Loads the configuration file.
-	 *
-	 * @param string $file Filename
 	 */
 	protected function load(string $file): void
 	{
@@ -90,10 +74,6 @@ class Config
 
 	/**
 	 * Returns config value or entire config array from a file.
-	 *
-	 * @param  string $key     Config key
-	 * @param  mixed  $default Default value to return if config value doesn't exist
-	 * @return mixed
 	 */
 	public function get(string $key, mixed $default = null): mixed
 	{
@@ -109,9 +89,6 @@ class Config
 
 	/**
 	 * Sets a config value.
-	 *
-	 * @param string $key   Config key
-	 * @param mixed  $value Config value
 	 */
 	public function set(string $key, mixed $value): void
 	{
@@ -127,9 +104,6 @@ class Config
 
 	/**
 	 * Removes a value from the configuration.
-	 *
-	 * @param  string $key Config key
-	 * @return bool
 	 */
 	public function remove(string $key): bool
 	{

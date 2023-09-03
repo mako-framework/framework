@@ -17,9 +17,9 @@ use PDO;
 abstract class BuilderTestCase extends TestCase
 {
 	/**
-	 * @var \mako\database\ConnectionManager
+	 *
 	 */
-	protected $connectionManager;
+	protected ConnectionManager $connectionManager;
 
 	/**
 	 * {@inheritDoc}

@@ -20,8 +20,6 @@ trait OptimisticLockingTrait
 {
 	/**
 	 * Returns trait hooks.
-	 *
-	 * @return array
 	 */
 	protected function getOptimisticLockingTraitHooks(): array
 	{
@@ -65,8 +63,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Returns the optimistic locking column.
-	 *
-	 * @return string
 	 */
 	protected function getLockingColumn(): string
 	{
@@ -75,8 +71,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Reloads the record from the database.
-	 *
-	 * @return bool
 	 */
 	public function reload(): bool
 	{
@@ -99,8 +93,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Sets the optimistic locking version.
-	 *
-	 * @param int $version Locking version
 	 */
 	public function setLockVersion(int $version): void
 	{
@@ -109,8 +101,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Returns the optimistic locking version.
-	 *
-	 * @return int
 	 */
 	public function getLockVersion(): int
 	{
@@ -119,9 +109,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Updates an existing record.
-	 *
-	 * @param  \mako\database\midgard\Query $query Query builder
-	 * @return bool
 	 */
 	protected function updateRecord(Query $query): bool
 	{
@@ -145,9 +132,6 @@ trait OptimisticLockingTrait
 
 	/**
 	 * Deletes a record from the database.
-	 *
-	 * @param  \mako\database\midgard\Query $query Query builder
-	 * @return bool
 	 */
 	protected function deleteRecord(Query $query): bool
 	{

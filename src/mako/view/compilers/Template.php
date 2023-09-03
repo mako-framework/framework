@@ -33,17 +33,13 @@ class Template
 
 	/**
 	 * Verbatims.
-	 *
-	 * @var array
 	 */
-	protected $verbatims = [];
+	protected array $verbatims = [];
 
 	/**
 	 * Compilation order.
-	 *
-	 * @var array
 	 */
-	protected $compileOrder =
+	protected array $compileOrder =
 	[
 		'collectVerbatims',
 		'comments',
@@ -59,10 +55,6 @@ class Template
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem File system instance
-	 * @param string                $cachePath  Cache path
-	 * @param string                $template   Path to template
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -73,9 +65,6 @@ class Template
 
 	/**
 	 * Collects verbatim blocks and replaces them with a palceholder.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function collectVerbatims(string $template): string
 	{
@@ -89,9 +78,6 @@ class Template
 
 	/**
 	 * Replaces verbatim placeholders with their original values.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	public function insertVerbatims(string $template): string
 	{
@@ -105,9 +91,6 @@ class Template
 
 	/**
 	 * Compiles comments.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function comments(string $template): string
 	{
@@ -118,9 +101,6 @@ class Template
 
 	/**
 	 * Compiles template extensions.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function extensions(string $template): string
 	{
@@ -141,9 +121,6 @@ class Template
 
 	/**
 	 * Compiles nospace blocks.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function nospaces(string $template): string
 	{
@@ -163,9 +140,6 @@ class Template
 
 	/**
 	 * Compiles view includes.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function views(string $template): string
 	{
@@ -180,9 +154,6 @@ class Template
 
 	/**
 	 * Compiles capture blocks.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function captures(string $template): string
 	{
@@ -194,9 +165,6 @@ class Template
 
 	/**
 	 * Compiles blocks.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function blocks(string $template): string
 	{
@@ -211,9 +179,6 @@ class Template
 
 	/**
 	 * Compiles control structures.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function controlStructures(string $template): string
 	{
@@ -228,9 +193,6 @@ class Template
 
 	/**
 	 * Compiles echos.
-	 *
-	 * @param  string $template Template
-	 * @return string
 	 */
 	protected function echos(string $template): string
 	{

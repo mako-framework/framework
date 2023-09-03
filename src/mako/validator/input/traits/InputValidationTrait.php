@@ -22,10 +22,6 @@ trait InputValidationTrait
 {
 	/**
 	 * Validates the input and returns an array containing the validated data.
-	 *
-	 * @param  array|string $input Input class name or input array
-	 * @param  array        $rules Validation rules
-	 * @return array
 	 */
 	protected function getValidatedInput(array|string $input, array $rules = []): array
 	{

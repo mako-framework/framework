@@ -47,22 +47,16 @@ trait ContainerAwareTrait
 {
 	/**
 	 * Container.
-	 *
-	 * @var \mako\syringe\Container
 	 */
-	protected $container;
+	protected Container $container;
 
 	/**
 	 * Array of resolved objects and/or references to resolved objects.
-	 *
-	 * @var array
 	 */
-	protected $resolved = [];
+	protected array $__resolved__ = [];
 
 	/**
 	 * Sets the container instance.
-	 *
-	 * @param \mako\syringe\Container $container Container
 	 */
 	public function setContainer(Container $container): void
 	{
@@ -71,15 +65,12 @@ trait ContainerAwareTrait
 
 	/**
 	 * Resolves item from the container using overloading.
-	 *
-	 * @param  string $key Key
-	 * @return mixed
 	 */
 	public function __get(string $key): mixed
 	{
-		if(isset($this->resolved[$key]))
+		if(isset($this->__resolved__[$key]))
 		{
-			return $this->resolved[$key];
+			return $this->__resolved__[$key];
 		}
 
 		if($this->container->has($key) === false)
@@ -94,6 +85,6 @@ trait ContainerAwareTrait
 			return $resolved;
 		}
 
-		return $this->resolved[$key] = $resolved;
+		return $this->__resolved__[$key] = $resolved;
 	}
 }

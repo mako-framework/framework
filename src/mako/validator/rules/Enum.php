@@ -21,8 +21,6 @@ class Enum extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $enum Enum class
 	 */
 	public function __construct(
 		protected string $enum

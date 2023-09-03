@@ -8,6 +8,7 @@
 namespace mako\cli\output\helpers;
 
 use mako\cli\exceptions\CliException;
+use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
 
@@ -26,15 +27,11 @@ class Table
 
 	/**
 	 * Formatter.
-	 *
-	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
-	protected $formatter;
+	protected FormatterInterface|null $formatter = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(
 		protected Output $output
@@ -45,10 +42,6 @@ class Table
 
 	/**
 	 * Checks if the number of cells in each row matches the number of columns.
-	 *
-	 * @param  array $columnNames Array of column names
-	 * @param  array $rows        Array of rows
-	 * @return bool
 	 */
 	protected function isValidInput(array $columnNames, array $rows): bool
 	{
@@ -70,10 +63,6 @@ class Table
 
 	/**
 	 * Returns an array containing the maximum width of each column.
-	 *
-	 * @param  array $columnNames Array of column names
-	 * @param  array $rows        Array of rows
-	 * @return array
 	 */
 	protected function getColumnWidths(array $columnNames, array $rows): array
 	{
@@ -108,10 +97,6 @@ class Table
 
 	/**
 	 * Builds a row separator.
-	 *
-	 * @param  array  $columnWidths Array of column widths
-	 * @param  string $separator    Separator character
-	 * @return string
 	 */
 	protected function buildRowSeparator(array $columnWidths, string $separator = '-'): string
 	{
@@ -122,10 +107,6 @@ class Table
 
 	/**
 	 * Builds a table row.
-	 *
-	 * @param  array  $colums       Array of column values
-	 * @param  array  $columnWidths Array of column widths
-	 * @return string
 	 */
 	protected function buildTableRow(array $colums, array $columnWidths): string
 	{
@@ -141,10 +122,6 @@ class Table
 
 	/**
 	 * Renders a table.
-	 *
-	 * @param  array  $columnNames Array of column names
-	 * @param  array  $rows        Array of rows
-	 * @return string
 	 */
 	public function render(array $columnNames, array $rows): string
 	{
@@ -179,10 +156,6 @@ class Table
 
 	/**
 	 * Draws a table.
-	 *
-	 * @param array $columnNames Array of column names
-	 * @param array $rows        Array of rows
-	 * @param int   $writer      Output writer
 	 */
 	public function draw(array $columnNames, array $rows, int $writer = Output::STANDARD): void
 	{

@@ -27,9 +27,6 @@ class CryptoManager extends AdapterManager
 {
 	/**
 	 * OpenSSL encrypter factory.
-	 *
-	 * @param  array                                    $configuration Configuration
-	 * @return \mako\security\crypto\encrypters\OpenSSL
 	 */
 	protected function opensslFactory(array $configuration): OpenSSL
 	{
@@ -38,9 +35,6 @@ class CryptoManager extends AdapterManager
 
 	/**
 	 * Returns a crypto instance.
-	 *
-	 * @param  string                       $configuration Configuration name
-	 * @return \mako\security\crypto\Crypto
 	 */
 	protected function instantiate(string $configuration): Crypto
 	{
@@ -56,9 +50,6 @@ class CryptoManager extends AdapterManager
 
 	/**
 	 * Returns an instance of the chosen encrypter. Alias of CryptoManager::getInstance().
-	 *
-	 * @param  string|null                                         $configuration Configuration name
-	 * @return \mako\security\crypto\encrypters\EncrypterInterface
 	 */
 	public function getEncrypter(?string $configuration = null): EncrypterInterface
 	{

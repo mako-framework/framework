@@ -10,7 +10,9 @@ namespace mako\gatekeeper\adapters;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\user\UserEntityInterface;
+use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\group\GroupRepositoryInterface;
+use mako\gatekeeper\repositories\user\UserRepository;
 use mako\gatekeeper\repositories\user\UserRepositoryInterface;
 
 /**
@@ -23,24 +25,18 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 {
 	/**
 	 * User repository.
-	 *
-	 * @var \mako\gatekeeper\repositories\user\UserRepository|null
 	 */
-	protected $userRepository;
+	protected UserRepository|null $userRepository = null;
 
 	/**
 	 * Group repository.
-	 *
-	 * @var \mako\gatekeeper\repositories\group\GroupRepository|null
 	 */
-	protected $groupRepository;
+	protected GroupRepository|null $groupRepository = null;
 
 	/**
 	 * User entity.
-	 *
-	 * @var \mako\gatekeeper\entities\user\User|null
 	 */
-	protected $user;
+	protected User|null $user = null;
 
 	/**
 	 * {@inheritDoc}
@@ -100,13 +96,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 
 	/**
 	 * Creates a new user and returns the user object.
-	 *
-	 * @param  string                              $email      Email address
-	 * @param  string                              $username   Username
-	 * @param  string                              $password   Password
-	 * @param  bool                                $activate   Will activate the user if set to true
-	 * @param  array                               $properties Additional user properties
-	 * @return \mako\gatekeeper\entities\user\User
 	 */
 	public function createUser(string $email, string $username, string $password, bool $activate = false, array $properties = []): User
 	{
@@ -123,10 +112,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 
 	/**
 	 * Creates a new group and returns the group object.
-	 *
-	 * @param  string                                $name       Group name
-	 * @param  array                                 $properties Additional group properties
-	 * @return \mako\gatekeeper\entities\group\Group
 	 */
 	public function createGroup(string $name, array $properties = []): Group
 	{
@@ -140,9 +125,6 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 
 	/**
 	 * Activates a user based on the provided action token.
-	 *
-	 * @param  string $token Action token
-	 * @return bool
 	 */
 	public function activateUser(string $token): bool
 	{

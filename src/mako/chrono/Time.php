@@ -31,8 +31,6 @@ class Time extends DateTime implements TimeInterface
 
 	/**
 	 * Returns an immutable instance of the current instance.
-	 *
-	 * @return \mako\chrono\TimeImmutable
 	 */
 	public function getImmutable(): TimeImmutable
 	{

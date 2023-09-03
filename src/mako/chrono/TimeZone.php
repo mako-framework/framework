@@ -20,8 +20,6 @@ class TimeZone extends DateTimeZone
 	/**
 	 * Returns a list of time zones where the key is
 	 * a valid PHP time zone while the value is a presentable name.
-	 *
-	 * @return array
 	 */
 	public static function getTimeZones(): array
 	{
@@ -38,8 +36,6 @@ class TimeZone extends DateTimeZone
 	/**
 	 * Returns an array of grouped time zones where the key is
 	 * a valid PHP time zone while the value is a presentable name.
-	 *
-	 * @return array
 	 */
 	public static function getGroupedTimeZones(): array
 	{

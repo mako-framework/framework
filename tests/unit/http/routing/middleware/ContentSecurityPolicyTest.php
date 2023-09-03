@@ -88,7 +88,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $reportOnly = true;
+			protected bool $reportOnly = true;
 		};
 
 		$contentSecurityPolicy->execute($request, $response, $next);
@@ -126,7 +126,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $directives =
+			protected array $directives =
 			[
 				'block-all-mixed-content' => true,
 				'default-src'             => ['self'],
@@ -178,7 +178,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $directives =
+			protected array $directives =
 			[
 				'default-src' => ['nonce'],
 			];
@@ -233,9 +233,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $nonceVariableName = 'cspNonce';
+			protected string $nonceVariableName = 'cspNonce';
 
-			protected $directives =
+			protected array $directives =
 			[
 				'default-src' => ['nonce'],
 			];
@@ -283,7 +283,7 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
 		{
-			protected $reportTo =
+			protected array $reportTo =
 			[
 				[
 					'group'     => 'csp-endpoint',
@@ -295,7 +295,7 @@ class ContentSecurityPolicyTest extends TestCase
 				],
 			];
 
-			protected $directives =
+			protected array $directives =
 			[
 
 				'report-to' => ['csp-endpoint'],

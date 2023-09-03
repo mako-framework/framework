@@ -29,10 +29,8 @@ class PreloaderGenerator
 {
 	/**
 	 * Preloader template.
-	 *
-	 * @var string
 	 */
-	protected $template = <<<'EOF'
+	protected string $template = <<<'EOF'
 	<?php
 
 	$files = %s;
@@ -46,9 +44,6 @@ class PreloaderGenerator
 
 	/**
 	 * Get class names from reflection type.
-	 *
-	 * @param  \ReflectionType $type Reflection type
-	 * @return array
 	 */
 	protected function getTypeClasses(ReflectionType $type): array
 	{
@@ -102,9 +97,6 @@ class PreloaderGenerator
 
 	/**
 	 * Adds missing user defined dependencies to the class array.
-	 *
-	 * @param  iterable $classes An iterable of class names
-	 * @return array
 	 */
 	protected function addMissingDependencies(iterable $classes): array
 	{
@@ -193,9 +185,6 @@ class PreloaderGenerator
 
 	/**
 	 * Returns an array containing the file paths of the provided classes.
-	 *
-	 * @param  array $classes An array of class names
-	 * @return array
 	 */
 	protected function getClassFilePaths(array $classes): array
 	{
@@ -204,9 +193,6 @@ class PreloaderGenerator
 
 	/**
 	 * Generates a preloader.
-	 *
-	 * @param  iterable $classes An iterable of class names
-	 * @return string
 	 */
 	public function generatePreloader(iterable $classes): string
 	{

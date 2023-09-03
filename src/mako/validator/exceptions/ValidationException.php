@@ -23,18 +23,11 @@ class ValidationException extends ValidatorException
 {
 	/**
 	 * Input.
-	 *
-	 * @var \mako\validator\input\InputInterface|null
 	 */
-	protected $input;
+	protected InputInterface|null $input = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array           $errors   Validation errors
-	 * @param string          $message  Exception code
-	 * @param int             $code     Exception message
-	 * @param \Throwable|null $previous Previous exception
 	 */
 	public function __construct(
 		protected array $errors,
@@ -47,8 +40,6 @@ class ValidationException extends ValidatorException
 
 	/**
 	 * Returns the validation errors.
-	 *
-	 * @return array
 	 */
 	public function getErrors(): array
 	{
@@ -57,8 +48,6 @@ class ValidationException extends ValidatorException
 
 	/**
 	 * Returns the exception message along with the validation errors.
-	 *
-	 * @return string
 	 */
 	public function getMessageWithErrors(): string
 	{
@@ -71,8 +60,6 @@ class ValidationException extends ValidatorException
 
 	/**
 	 * Sets the input.
-	 *
-	 * @param \mako\validator\input\InputInterface $input Input
 	 */
 	public function setInput(InputInterface $input): void
 	{
@@ -81,8 +68,6 @@ class ValidationException extends ValidatorException
 
 	/**
 	 * Returns the input.
-	 *
-	 * @return \mako\validator\input\InputInterface|null
 	 */
 	public function getInput(): ?InputInterface
 	{

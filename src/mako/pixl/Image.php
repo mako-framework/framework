@@ -101,9 +101,6 @@ class Image
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string                                   $image     Path to image file
-	 * @param \mako\pixl\processors\ProcessorInterface $processor Processor instance
 	 */
 	public function __construct(
 		protected $image,
@@ -124,11 +121,8 @@ class Image
 
 	/**
 	 * Makes sure that the quality is between 1 and 100.
-	 *
-	 * @param  int $quality Image quality
-	 * @return int
 	 */
-	protected function normalizeImageQuality($quality)
+	protected function normalizeImageQuality(int $quality): int
 	{
 		return max(min((int) $quality, 100), 1);
 	}
@@ -151,41 +145,32 @@ class Image
 
 	/**
 	 * Returns the image width in pixels.
-	 *
-	 * @return int
 	 */
-	public function getWidth()
+	public function getWidth(): int
 	{
 		return $this->processor->getWidth();
 	}
 
 	/**
 	 * Returns the image height in pixels.
-	 *
-	 * @return int
 	 */
-	public function getHeight()
+	public function getHeight(): int
 	{
 		return $this->processor->getHeight();
 	}
 
 	/**
 	 * Returns an array containing the image dimensions in pixels.
-	 *
-	 * @return array
 	 */
-	public function getDimensions()
+	public function getDimensions(): array
 	{
 		return $this->processor->getDimensions();
 	}
 
 	/**
 	 * Rotates the image using the given angle in degrees.
-	 *
-	 * @param  int              $degrees Degrees to rotate the image
-	 * @return \mako\pixl\Image
 	 */
-	public function rotate($degrees): Image
+	public function rotate(int $degrees): Image
 	{
 		$this->processor->rotate($degrees);
 
@@ -194,13 +179,8 @@ class Image
 
 	/**
 	 * Resizes the image to the chosen size.
-	 *
-	 * @param  int              $width       Width of the image
-	 * @param  int              $height      Height of the image
-	 * @param  int              $aspectRatio Aspect ratio
-	 * @return \mako\pixl\Image
 	 */
-	public function resize($width, $height = null, $aspectRatio = Image::RESIZE_IGNORE): Image
+	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): Image
 	{
 		$this->processor->resize($width, $height, $aspectRatio);
 
@@ -209,14 +189,8 @@ class Image
 
 	/**
 	 * Crops the image.
-	 *
-	 * @param  int              $width  Width of the crop
-	 * @param  int              $height Height of the crop
-	 * @param  int              $x      The X coordinate of the cropped region's top left corner
-	 * @param  int              $y      The Y coordinate of the cropped region's top left corner
-	 * @return \mako\pixl\Image
 	 */
-	public function crop($width, $height, $x, $y): Image
+	public function crop(int $width, int $height, int $x, int $y): Image
 	{
 		$this->processor->crop($width, $height, $x, $y);
 
@@ -225,11 +199,8 @@ class Image
 
 	/**
 	 * Flips the image.
-	 *
-	 * @param  int              $direction Direction to flip the image
-	 * @return \mako\pixl\Image
 	 */
-	public function flip($direction = Image::FLIP_HORIZONTAL): Image
+	public function flip(int $direction = Image::FLIP_HORIZONTAL): Image
 	{
 		$this->processor->flip($direction);
 
@@ -238,13 +209,8 @@ class Image
 
 	/**
 	 * Adds a watermark to the image.
-	 *
-	 * @param  string           $file     Path to the image file
-	 * @param  int              $position Position of the watermark
-	 * @param  int              $opacity  Opacity of the watermark in percent
-	 * @return \mako\pixl\Image
 	 */
-	public function watermark($file, $position = Image::WATERMARK_TOP_LEFT, $opacity = 100): Image
+	public function watermark(string $file, int $position = Image::WATERMARK_TOP_LEFT, int $opacity = 100): Image
 	{
 		// Check if the image exists
 
@@ -266,11 +232,8 @@ class Image
 
 	/**
 	 * Adjust image brightness.
-	 *
-	 * @param  int              $level Brightness level (-100 to 100)
-	 * @return \mako\pixl\Image
 	 */
-	public function brightness($level = 50): Image
+	public function brightness(int $level = 50): Image
 	{
 		// Normalize brighness level
 
@@ -285,8 +248,6 @@ class Image
 
 	/**
 	 * Converts image to greyscale.
-	 *
-	 * @return \mako\pixl\Image
 	 */
 	public function greyscale(): Image
 	{
@@ -297,8 +258,6 @@ class Image
 
 	/**
 	 * Converts image to sepia.
-	 *
-	 * @return \mako\pixl\Image
 	 */
 	public function sepia(): Image
 	{
@@ -309,8 +268,6 @@ class Image
 
 	/**
 	 * Converts image to bitonal.
-	 *
-	 * @return \mako\pixl\Image
 	 */
 	public function bitonal(): Image
 	{
@@ -321,11 +278,8 @@ class Image
 
 	/**
 	 * Colorizes the image.
-	 *
-	 * @param  string           $color Hex code for the color
-	 * @return \mako\pixl\Image
 	 */
-	public function colorize($color): Image
+	public function colorize(string $color): Image
 	{
 		$this->processor->colorize($color);
 
@@ -344,11 +298,8 @@ class Image
 
 	/**
 	 * Pixelates the image.
-	 *
-	 * @param  int              $pixelSize Pixel size
-	 * @return \mako\pixl\Image
 	 */
-	public function pixelate($pixelSize = 10): Image
+	public function pixelate(int $pixelSize = 10): Image
 	{
 		$this->processor->pixelate($pixelSize);
 
@@ -357,8 +308,6 @@ class Image
 
 	/**
 	 * Negates the image.
-	 *
-	 * @return \mako\pixl\Image
 	 */
 	public function negate(): Image
 	{
@@ -369,12 +318,8 @@ class Image
 
 	/**
 	 * Adds a border to the image.
-	 *
-	 * @param  string           $color     Hex code for the color
-	 * @param  int              $thickness Thickness of the frame in pixels
-	 * @return \mako\pixl\Image
 	 */
-	public function border($color = '#000', $thickness = 5): Image
+	public function border(string $color = '#000', int $thickness = 5): Image
 	{
 		$this->processor->border($color, $thickness);
 
@@ -383,23 +328,16 @@ class Image
 
 	/**
 	 * Returns a string containing the image.
-	 *
-	 * @param  string $type    Image type
-	 * @param  int    $quality Image quality 1-100
-	 * @return string
 	 */
-	public function getImageBlob($type = null, $quality = 95)
+	public function getImageBlob(?string $type = null, int $quality = 95): string
 	{
 		return $this->processor->getImageBlob($type, $this->normalizeImageQuality($quality));
 	}
 
 	/**
 	 * Saves image to file.
-	 *
-	 * @param string $file    Path to the image file
-	 * @param int    $quality Image quality 1-100
 	 */
-	public function save($file = null, $quality = 95): void
+	public function save(?string $file = null, int $quality = 95): void
 	{
 		$file ??= $this->image;
 

@@ -17,13 +17,10 @@ class BadRequestException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $defaultMessage = 'The server was unable to process the request.';
+	protected string $defaultMessage = 'The server was unable to process the request.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string          $message  Exception message
-	 * @param \Throwable|null $previous Previous exception
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{

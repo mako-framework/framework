@@ -7,6 +7,7 @@
 
 namespace mako\cli\output\helpers;
 
+use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 
 use function explode;
@@ -66,23 +67,16 @@ class Alert
 
 	/**
 	 * Alert width.
-	 *
-	 * @var int
 	 */
-	protected $width;
+	protected int $width;
 
 	/**
 	 * Formatter.
-	 *
-	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
-	protected $formatter;
+	protected FormatterInterface|null $formatter = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output instance
-	 * @param int|null                $width  Alert width
 	 */
 	public function __construct(
 		protected Output $output,
@@ -96,10 +90,6 @@ class Alert
 
 	/**
 	 * Wraps a string to a given number of characters.
-	 *
-	 * @param  string $string String
-	 * @param  int    $width  Max line width
-	 * @return string
 	 */
 	protected function wordWrap(string $string, int $width): string
 	{
@@ -108,9 +98,6 @@ class Alert
 
 	/**
 	 * Escapes style tags if we have a formatter.
-	 *
-	 * @param  string $string string
-	 * @return string
 	 */
 	protected function escape(string $string): string
 	{
@@ -124,9 +111,6 @@ class Alert
 
 	/**
 	 * Formats the string.
-	 *
-	 * @param  string $string String
-	 * @return string
 	 */
 	protected function format(string $string): string
 	{
@@ -146,10 +130,6 @@ class Alert
 
 	/**
 	 * Renders an alert.
-	 *
-	 * @param  string $message  Message
-	 * @param  string $template Alert template
-	 * @return string
 	 */
 	public function render(string $message, string $template = Alert::DEFAULT): string
 	{
@@ -158,10 +138,6 @@ class Alert
 
 	/**
 	 * Draws an alert.
-	 *
-	 * @param string $message  Message
-	 * @param string $template Alert template
-	 * @param int    $writer   Output writer
 	 */
 	public function draw(string $message, string $template = Alert::DEFAULT, int $writer = Output::STANDARD): void
 	{

@@ -18,8 +18,6 @@ class Date extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $format Date format
 	 */
 	public function __construct(
 		protected string $format
@@ -28,10 +26,8 @@ class Date extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['format'];
+	protected array $i18nParameters = ['format'];
 
 	/**
 	 * {@inheritDoc}

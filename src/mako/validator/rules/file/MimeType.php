@@ -21,15 +21,11 @@ class MimeType extends Rule implements RuleInterface
 {
 	/**
 	 * Mime types.
-	 *
-	 * @var array
 	 */
-	protected $mimeTypes;
+	protected array $mimeTypes;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array|string $mimeType Mime type or array of mime types
 	 */
 	public function __construct(array|string $mimeType)
 	{
@@ -38,10 +34,8 @@ class MimeType extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['mimeTypes'];
+	protected array $i18nParameters = ['mimeTypes'];
 
 	/**
 	 * {@inheritDoc}

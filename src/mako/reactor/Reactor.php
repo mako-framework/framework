@@ -34,32 +34,21 @@ class Reactor
 
 	/**
 	 * Dispatcher.
-	 *
-	 * @var \mako\reactor\Dispatcher
 	 */
-	protected $dispatcher;
+	protected Dispatcher $dispatcher;
 
 	/**
 	 * Commands.
-	 *
-	 * @var array
 	 */
-	protected $commands = [];
+	protected array $commands = [];
 
 	/**
 	 * Logo.
-	 *
-	 * @var string
 	 */
-	protected $logo;
+	protected string|null $logo = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input         $input      Input
-	 * @param \mako\cli\output\Output       $output     Output
-	 * @param \mako\syringe\Container       $container  Container
-	 * @param \mako\reactor\Dispatcher|null $dispatcher Command dispatcher
 	 */
 	public function __construct(
 		protected Input $input,
@@ -73,8 +62,6 @@ class Reactor
 
 	/**
 	 * Returns the input.
-	 *
-	 * @return \mako\cli\input\Input
 	 */
 	public function getInput(): Input
 	{
@@ -83,8 +70,6 @@ class Reactor
 
 	/**
 	 * Returns the output.
-	 *
-	 * @return \mako\cli\output\Output
 	 */
 	public function getOutput(): Output
 	{
@@ -93,9 +78,6 @@ class Reactor
 
 	/**
 	 * Registers a command.
-	 *
-	 * @param string $command Command
-	 * @param string $class   Command class
 	 */
 	public function registerCommand(string $command, string $class): void
 	{
@@ -104,8 +86,6 @@ class Reactor
 
 	/**
 	 * Sets the reactor logo.
-	 *
-	 * @param string $logo ASCII logo
 	 */
 	public function setLogo(string $logo): void
 	{
@@ -136,10 +116,6 @@ class Reactor
 
 	/**
 	 * Draws information table.
-	 *
-	 * @param string $heading Table heading
-	 * @param array  $headers Table headers
-	 * @param array  $rows    Table rows
 	 */
 	protected function drawTable(string $heading, array $headers, array $rows): void
 	{
@@ -161,9 +137,6 @@ class Reactor
 
 	/**
 	 * Draws an argument table.
-	 *
-	 * @param string $heading   Table heading
-	 * @param array  $arguments Arguments
 	 */
 	protected function drawArgumentTable(string $heading, array $arguments): void
 	{
@@ -189,7 +162,7 @@ class Reactor
 	{
 		// Display basic reactor information
 
-		if(!empty($this->logo))
+		if($this->logo !== null)
 		{
 			$this->output->writeLn($this->logo);
 
@@ -213,9 +186,6 @@ class Reactor
 
 	/**
 	 * Instantiates command without calling the constructor.
-	 *
-	 * @param  string                         $class Class name
-	 * @return \mako\reactor\CommandInterface
 	 */
 	protected function instantiateCommandWithoutConstructor(string $class): CommandInterface
 	{
@@ -224,8 +194,6 @@ class Reactor
 
 	/**
 	 * Returns an array of command information.
-	 *
-	 * @return array
 	 */
 	protected function getCommands(): array
 	{
@@ -255,8 +223,6 @@ class Reactor
 
 	/**
 	 * Displays reactor info and lists all available commands.
-	 *
-	 * @return int
 	 */
 	protected function displayReactorInfoAndCommandList(): int
 	{
@@ -269,9 +235,6 @@ class Reactor
 
 	/**
 	 * Returns TRUE if the command exists and FALSE if not.
-	 *
-	 * @param  string $command Command
-	 * @return bool
 	 */
 	protected function commandExists(string $command): bool
 	{
@@ -280,9 +243,6 @@ class Reactor
 
 	/**
 	 * Displays error message for unknown commands.
-	 *
-	 * @param  string $command Command
-	 * @return int
 	 */
 	protected function unknownCommand(string $command): int
 	{
@@ -302,9 +262,6 @@ class Reactor
 
 	/**
 	 * Displays information about the chosen command.
-	 *
-	 * @param  string $command Command
-	 * @return int
 	 */
 	protected function displayCommandHelp(string $command): int
 	{
@@ -331,9 +288,6 @@ class Reactor
 
 	/**
 	 * Registers the command arguments and dispatches the command.
-	 *
-	 * @param  string $command
-	 * @return int
 	 */
 	protected function registerCommandArgumentsAndDispatch(string $command): int
 	{
@@ -350,8 +304,6 @@ class Reactor
 
 	/**
 	 * Run the reactor.
-	 *
-	 * @return int
 	 */
 	public function run(): int
 	{

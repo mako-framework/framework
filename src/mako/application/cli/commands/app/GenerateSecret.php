@@ -22,13 +22,11 @@ class GenerateSecret extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Generates a new application secret.';
+	protected string $description = 'Generates a new application secret.';
 
 	/**
 	 * Executes the command.
 	 *
-	 * @param  \mako\application\Application $application Application instance
-	 * @param  \mako\file\FileSystem         $fileSystem  File system instance
 	 * @return int|void
 	 */
 	public function execute(Application $application, FileSystem $fileSystem)

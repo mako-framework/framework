@@ -10,6 +10,8 @@ namespace mako\database\midgard\relations;
 use Closure;
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
+use mako\database\midgard\ResultSet;
+use mako\database\query\Query;
 use mako\database\query\Raw;
 
 use function array_diff;
@@ -28,20 +30,11 @@ class ManyToMany extends Relation
 {
 	/**
 	 * Junction columns to include in the result.
-	 *
-	 * @var array
 	 */
-	protected $alongWith = [];
+	protected array $alongWith = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\connections\Connection $connection    Database connection
-	 * @param \mako\database\midgard\ORM            $origin        Originating model
-	 * @param \mako\database\midgard\ORM            $model         Related model
-	 * @param string|null                           $foreignKey    Foreign key name
-	 * @param string|null                           $junctionTable Junction table name
-	 * @param string|null                           $junctionKey   Junction key name
 	 */
 	public function __construct(
 		Connection $connection,
@@ -89,10 +82,9 @@ class ManyToMany extends Relation
 	/**
 	 * Columns to include with the result.
 	 *
-	 * @param  array $columns Columns
 	 * @return $this
 	 */
-	public function alongWith(array $columns)
+	public function alongWith(array $columns): static
 	{
 		foreach($columns as $key => $value)
 		{
@@ -109,8 +101,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Returns the the junction table.
-	 *
-	 * @return string
 	 */
 	protected function getJunctionTable(): string
 	{
@@ -135,8 +125,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Returns the the junction key.
-	 *
-	 * @return string
 	 */
 	protected function getJunctionKey(): string
 	{
@@ -167,7 +155,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function eagerCriterion(array $keys)
+	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->getJunctionTable()}.{$this->getForeignKey()}", $keys);
 
@@ -177,7 +165,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getRelationCountQuery()
+	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', "{$this->origin->getTable()}.{$this->origin->getPrimaryKey()}");
 
@@ -186,11 +174,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Eager loads related records and matches them with their originating records.
-	 *
-	 * @param array         &$results Originating records
-	 * @param string        $relation Relation name
-	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
@@ -220,21 +203,16 @@ class ManyToMany extends Relation
 
 	/**
 	 * Fetches a related result set from the database.
-	 *
-	 * @return \mako\database\midgard\ResultSet
 	 */
-	protected function fetchRelated()
+	protected function fetchRelated(): ResultSet
 	{
 		return $this->all();
 	}
 
 	/**
 	 * Returns a query builder instance to the junction table.
-	 *
-	 * @param  bool                       $includeWheres Should the wheres be included?
-	 * @return \mako\database\query\Query
 	 */
-	protected function junction(bool $includeWheres = false)
+	protected function junction(bool $includeWheres = false): Query
 	{
 		$query = $this->connection->getQuery()->table($this->getJunctionTable());
 
@@ -250,9 +228,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Returns an array of ids.
-	 *
-	 * @param  mixed $id Id, model or an array of ids and/or models
-	 * @return array
 	 */
 	protected function getJunctionKeys(mixed $id): array
 	{
@@ -273,10 +248,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Get junction attributes.
-	 *
-	 * @param  mixed $key        Key
-	 * @param  array $attributes Attributes
-	 * @return array
 	 */
 	protected function getJunctionAttributes(mixed $key, array $attributes): array
 	{
@@ -290,10 +261,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Links related records.
-	 *
-	 * @param  mixed $id         Id, model or an array of ids and/or models
-	 * @param  array $attributes Junction attributes
-	 * @return bool
 	 */
 	public function link(mixed $id, array $attributes = []): bool
 	{
@@ -317,10 +284,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Updates junction attributes.
-	 *
-	 * @param  mixed $id         Id, model or an array of ids and/or models
-	 * @param  array $attributes Junction attributes
-	 * @return bool
 	 */
 	public function updateLink(mixed $id, array $attributes): bool
 	{
@@ -342,9 +305,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Unlinks related records.
-	 *
-	 * @param  mixed $id Id, model or an array of ids and/or models
-	 * @return bool
 	 */
 	public function unlink(mixed $id = null): bool
 	{
@@ -360,9 +320,6 @@ class ManyToMany extends Relation
 
 	/**
 	 * Synchronize related records.
-	 *
-	 * @param  array $ids An array of ids and/or models
-	 * @return bool
 	 */
 	public function synchronize(array $ids): bool
 	{

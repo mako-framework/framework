@@ -18,15 +18,11 @@ class Stopwatch
 {
 	/**
 	 * Laps.
-	 *
-	 * @var array
 	 */
-	protected $laps = [];
+	protected array $laps = [];
 
 	/**
 	 * Returns the laps.
-	 *
-	 * @return array
 	 */
 	public function getLaps(): array
 	{
@@ -35,8 +31,6 @@ class Stopwatch
 
 	/**
 	 * Returns the number of laps.
-	 *
-	 * @return int
 	 */
 	public function getLapCount(): int
 	{
@@ -45,8 +39,6 @@ class Stopwatch
 
 	/**
 	 * Returns TRUE if the stopwatch is still running and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isRunning(): bool
 	{
@@ -56,9 +48,9 @@ class Stopwatch
 	/**
 	 * Starts the stopwatch.
 	 *
-	 * @return \mako\chrono\stopwatch\Stopwatch
+	 * @return $this
 	 */
-	public function start(): Stopwatch
+	public function start(): static
 	{
 		$this->laps[] = (new Lap)->start();
 
@@ -67,8 +59,6 @@ class Stopwatch
 
 	/**
 	 * Starts a new lap and returns the time of the previous lap.
-	 *
-	 * @return float
 	 */
 	public function lap(): float
 	{
@@ -83,8 +73,6 @@ class Stopwatch
 
 	/**
 	 * Get elapsed time.
-	 *
-	 * @return float
 	 */
 	public function getElapsedTime(): float
 	{
@@ -95,8 +83,6 @@ class Stopwatch
 
 	/**
 	 * Stops the timer and returns the elapsed time.
-	 *
-	 * @return float
 	 */
 	public function stop(): float
 	{

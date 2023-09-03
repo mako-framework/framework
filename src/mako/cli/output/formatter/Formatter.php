@@ -49,10 +49,8 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Styles.
-	 *
-	 * @var array
 	 */
-	protected $styles =
+	protected array $styles =
 	[
 		// Clear styles
 
@@ -92,23 +90,16 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * User styles.
-	 *
-	 * @var array
 	 */
-	protected $userStyles = [];
+	protected array $userStyles = [];
 
 	/**
 	 * Open tags.
-	 *
-	 * @var array
 	 */
-	protected $openTags = [];
+	protected array $openTags = [];
 
 	/**
 	 * Adds a user defined style.
-	 *
-	 * @param string       $name  Style name
-	 * @param array|string $style Style or array of styles
 	 */
 	public function addStyle(string $name, array|string $style): void
 	{
@@ -117,9 +108,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Returns the tag name.
-	 *
-	 * @param  string $tag Tag
-	 * @return string
 	 */
 	protected function getTagName(string $tag): string
 	{
@@ -128,9 +116,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Returns TRUE if the tag is a closing tag and FALSE if not.
-	 *
-	 * @param  string $tag Tag to check
-	 * @return bool
 	 */
 	protected function isOpeningTag(string $tag): bool
 	{
@@ -139,8 +124,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Returns ANSI SGR escape sequence for style reset.
-	 *
-	 * @return string
 	 */
 	protected function getSgrResetSequence(): string
 	{
@@ -149,9 +132,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Returns style codes associated with the tag name.
-	 *
-	 * @param  string $tag Tag name
-	 * @return array
 	 */
 	protected function getStyleCodes(string $tag): array
 	{
@@ -176,9 +156,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Returns ANSI SGR escape sequence for the chosen style(s).
-	 *
-	 * @param  string $tag Style name
-	 * @return string
 	 */
 	protected function getSgrStyleSequence(string $tag): string
 	{
@@ -190,9 +167,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns ANSI SGR escape sequence(s) for the chosen style(s) and
 	 * adds the tag name to the array of open tags.
-	 *
-	 * @param  string $tag Tag name
-	 * @return string
 	 */
 	protected function openStyle(string $tag): string
 	{
@@ -204,9 +178,6 @@ class Formatter implements FormatterInterface
 	/**
 	 * Returns ANSI SGR escape sequence for style reset and
 	 * ANSI SGR escape sequence for parent style if the closed tag was nested.
-	 *
-	 * @param  string $tag Tag name
-	 * @return string
 	 */
 	protected function closeStyle(string $tag): string
 	{
@@ -240,9 +211,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Strips escape character from escaped tags.
-	 *
-	 * @param  string $string Input string
-	 * @return string
 	 */
 	protected function removeTagEscapeCharacter(string $string): string
 	{
@@ -313,9 +281,6 @@ class Formatter implements FormatterInterface
 
 	/**
 	 * Returns a string where all SGR sequences have been stripped.
-	 *
-	 * @param  string $string String to strip
-	 * @return string
 	 */
 	public function stripSGR(string $string): string
 	{

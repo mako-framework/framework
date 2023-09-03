@@ -70,9 +70,6 @@ class UUID
 
 	/**
 	 * Checks if a UUID is valid.
-	 *
-	 * @param  string $uuid The UUID to validate
-	 * @return bool
 	 */
 	public static function validate(string $uuid): bool
 	{
@@ -83,9 +80,6 @@ class UUID
 
 	/**
 	 * Converts a UUID from its hexadecimal representation to a binary string.
-	 *
-	 * @param  string $uuid UUID
-	 * @return string
 	 */
 	public static function toBinary(string $uuid): string
 	{
@@ -108,9 +102,6 @@ class UUID
 
 	/**
 	 * Converts a binary UUID to its hexadecimal representation.
-	 *
-	 * @param  string $bytes Binary representation of a UUID
-	 * @return string
 	 */
 	public static function toHexadecimal(string $bytes): string
 	{
@@ -124,10 +115,6 @@ class UUID
 
 	/**
 	 * Returns a V3 UUID.
-	 *
-	 * @param  string $namespace Namespace
-	 * @param  string $name      Name
-	 * @return string
 	 */
 	public static function v3(string $namespace, string $name): string
 	{
@@ -146,8 +133,6 @@ class UUID
 
 	/**
 	 * Returns a V4 UUID.
-	 *
-	 * @return string
 	 */
 	public static function v4(): string
 	{
@@ -162,10 +147,6 @@ class UUID
 
 	/**
 	 * Returns a V5 UUID.
-	 *
-	 * @param  string $namespace Namespace
-	 * @param  string $name      Name
-	 * @return string
 	 */
 	public static function v5(string $namespace, string $name): string
 	{
@@ -184,8 +165,6 @@ class UUID
 
 	/**
 	 * Returns a sequential (COMB) v4 UUID.
-	 *
-	 * @return string
 	 */
 	public static function sequential(): string
 	{

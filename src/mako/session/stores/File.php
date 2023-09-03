@@ -21,10 +21,6 @@ class File implements StoreInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem     File system instance
-	 * @param string                $sessionPath    Session path
-	 * @param array|bool            $classWhitelist Class whitelist
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -35,9 +31,6 @@ class File implements StoreInterface
 
 	/**
 	 * Returns the path to the session file.
-	 *
-	 * @param  string $sessionId Session id
-	 * @return string
 	 */
 	protected function sessionFile(string $sessionId): string
 	{

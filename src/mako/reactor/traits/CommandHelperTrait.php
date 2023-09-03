@@ -32,9 +32,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Writes n newlines to output.
-	 *
-	 * @param int $lines  Number of newlines to write
-	 * @param int $writer Output writer
 	 */
 	protected function nl(int $lines = 1, int $writer = Output::STANDARD): void
 	{
@@ -43,9 +40,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Writes string to output.
-	 *
-	 * @param string $string String to write
-	 * @param int    $writer Output writer
 	 */
 	protected function write(string $string, int $writer = Output::STANDARD): void
 	{
@@ -54,8 +48,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Writes string to output using the error writer.
-	 *
-	 * @param string $string String to write
 	 */
 	protected function error(string $string): void
 	{
@@ -72,10 +64,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws an alert.
-	 *
-	 * @param string $message  Message
-	 * @param string $template Alert template
-	 * @param int    $writer   Output writer
 	 */
 	protected function alert(string $message, string $template = Alert::DEFAULT, int $writer = Output::STANDARD): void
 	{
@@ -84,8 +72,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Rings the terminal bell n times.
-	 *
-	 * @param int $times Number of times to ring the bell
 	 */
 	protected function bell(int $times = 1): void
 	{
@@ -94,8 +80,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Counts down from n.
-	 *
-	 * @param int $from Number of seconds to count down
 	 */
 	protected function countdown(int $from = 5): void
 	{
@@ -104,11 +88,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
-	 *
-	 * @param  int                                  $items                Total number of items
-	 * @param  float                                $minTimeBetweenRedraw Minimum time between redraw in seconds
-	 * @param  string|null                          $prefix               Progress bar prefix
-	 * @return \mako\cli\output\helpers\ProgressBar
 	 */
 	protected function progressBar(int $items, float $minTimeBetweenRedraw = 0.1, ?string $prefix = null): ProgressBar
 	{
@@ -132,10 +111,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws a table.
-	 *
-	 * @param array $columnNames Array of column names
-	 * @param array $rows        Array of rows
-	 * @param int   $writer      Output writer
 	 */
 	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD): void
 	{
@@ -144,10 +119,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws an ordered list.
-	 *
-	 * @param array  $items  Items
-	 * @param string $marker Item marker
-	 * @param int    $writer Output writer
 	 */
 	protected function ol(array $items, string $marker = '<yellow>%s</yellow>.', int $writer = Output::STANDARD): void
 	{
@@ -156,10 +127,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws an unordered list.
-	 *
-	 * @param array  $items  Items
-	 * @param string $marker Item marker
-	 * @param int    $writer Output writer
 	 */
 	protected function ul(array $items, string $marker = '<yellow>*</yellow>', int $writer = Output::STANDARD): void
 	{
@@ -168,10 +135,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Writes question to output and returns boolesn value corresponding to the chosen value.
-	 *
-	 * @param  string $question Question to ask
-	 * @param  string $default  Default answer
-	 * @return bool
 	 */
 	protected function confirm(string $question, string $default = 'n')
 	{
@@ -180,10 +143,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Writes question to output and returns user input.
-	 *
-	 * @param  string $question Question to ask
-	 * @param  mixed  $default  Default if no input is entered
-	 * @return mixed
 	 */
 	protected function question(string $question, mixed $default = null): mixed
 	{
@@ -192,10 +151,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Prints out a list of options and returns the array key of the chosen value.
-	 *
-	 * @param  string $question Question to ask
-	 * @param  array  $options  Numeric array of options to choose from
-	 * @return int
 	 */
 	protected function select(string $question, array $options): int
 	{
@@ -204,11 +159,6 @@ trait CommandHelperTrait
 
 	/**
 	 * Writes question to output and returns hidden user input.
-	 *
-	 * @param  string $question Question to ask
-	 * @param  mixed  $default  Default if no input is entered
-	 * @param  bool   $fallback Fall back to non-hidden input?
-	 * @return mixed
 	 */
 	protected function secret(string $question, mixed $default = null, bool $fallback = false): mixed
 	{

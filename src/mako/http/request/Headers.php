@@ -30,36 +30,26 @@ class Headers implements Countable, IteratorAggregate
 {
 	/**
 	 * Acceptable content types.
-	 *
-	 * @var array|null
 	 */
-	protected $acceptableContentTypes;
+	protected array|null $acceptableContentTypes = null;
 
 	/**
 	 * Acceptable languages.
-	 *
-	 * @var array|null
 	 */
-	protected $acceptableLanguages;
+	protected array|null $acceptableLanguages = null;
 
 	/**
 	 * Acceptable character sets.
-	 *
-	 * @var array|null
 	 */
-	protected $acceptableCharsets;
+	protected array|null $acceptableCharsets = null;
 
 	/**
 	 * Acceptable encodings.
-	 *
-	 * @var array|null
 	 */
-	protected $acceptableEncodings;
+	protected array|null $acceptableEncodings = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $headers Headers
 	 */
 	public function __construct(
 		protected array $headers = []
@@ -68,8 +58,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns the numner of headers.
-	 *
-	 * @return int
 	 */
 	public function count(): int
 	{
@@ -78,8 +66,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Retruns an array iterator object.
-	 *
-	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
 	{
@@ -88,9 +74,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Normalizes header names.
-	 *
-	 * @param  string $name Header name
-	 * @return string
 	 */
 	protected function normalizeName(string $name): string
 	{
@@ -99,9 +82,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a header.
-	 *
-	 * @param string $name  Header name
-	 * @param string $value Header value
 	 */
 	public function add(string $name, string $value): void
 	{
@@ -110,9 +90,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the header exists and FALSE if not.
-	 *
-	 * @param  string $name Header name
-	 * @return bool
 	 */
 	public function has(string $name): bool
 	{
@@ -121,10 +98,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Gets a header value.
-	 *
-	 * @param  string $name    Header name
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function get(string $name, mixed $default = null): mixed
 	{
@@ -133,8 +106,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Removes a header.
-	 *
-	 * @param string $name Header name
 	 */
 	public function remove(string $name): void
 	{
@@ -143,8 +114,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns all the headers.
-	 *
-	 * @return array
 	 */
 	public function all(): array
 	{
@@ -153,9 +122,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Parses a accpet header and returns the values in descending order of preference.
-	 *
-	 * @param  string|null $headerValue Header value
-	 * @return array
 	 */
 	protected function parseAcceptHeader(?string $headerValue): array
 	{
@@ -197,9 +163,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 *
-	 * @param  string|null $default Default content type
-	 * @return array
 	 */
 	public function getAcceptableContentTypes(?string $default = null): array
 	{
@@ -213,13 +176,10 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 *
-	 * @param  string|null $default Default language
-	 * @return array
 	 */
 	public function getAcceptableLanguages(?string $default = null): array
 	{
-		if(!isset($this->acceptableLanguages))
+		if($this->acceptableLanguages === null)
 		{
 			$this->acceptableLanguages = $this->parseAcceptHeader($this->get('accept-language'));
 		}
@@ -229,13 +189,10 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 *
-	 * @param  string|null $default Default charset
-	 * @return array
 	 */
 	public function getAcceptableCharsets(?string $default = null): array
 	{
-		if(!isset($this->acceptableCharsets))
+		if($this->acceptableCharsets === null)
 		{
 			$this->acceptableCharsets = $this->parseAcceptHeader($this->get('accept-charset'));
 		}
@@ -245,13 +202,10 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns an array of acceptable content types in descending order of preference.
-	 *
-	 * @param  string|null $default Default encoding
-	 * @return array
 	 */
 	public function getAcceptableEncodings(?string $default = null): array
 	{
-		if(!isset($this->acceptableEncodings))
+		if($this->acceptableEncodings === null)
 		{
 			$this->acceptableEncodings = $this->parseAcceptHeader($this->get('accept-encoding'));
 		}
@@ -261,8 +215,6 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Returns the bearer token or NULL if there isn't one.
-	 *
-	 * @return string|null
 	 */
 	public function getBearerToken(): ?string
 	{

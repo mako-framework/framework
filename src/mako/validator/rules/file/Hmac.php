@@ -19,10 +19,6 @@ class Hmac extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $hmac      Hmac
-	 * @param string $key       Key
-	 * @param string $algorithm Algorithm
 	 */
 	public function __construct(
 		protected string $hmac,
@@ -33,10 +29,8 @@ class Hmac extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['hmac', 'algorithm'];
+	protected array $i18nParameters = ['hmac', 'algorithm'];
 
 	/**
 	 * {@inheritDoc}

@@ -21,10 +21,6 @@ class Database extends Store
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\database\connections\Connection $connection     Database connection
-	 * @param string                                $table          Database table
-	 * @param array|bool                            $classWhitelist Class whitelist
 	 */
 	public function __construct(
 		protected Connection $connection,
@@ -35,8 +31,6 @@ class Database extends Store
 
 	/**
 	 * Returns a query builder instance.
-	 *
-	 * @return \mako\database\query\Query
 	 */
 	protected function table(): Query
 	{

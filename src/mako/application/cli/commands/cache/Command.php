@@ -25,10 +25,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input   $input  Input
-	 * @param \mako\cli\output\Output $output Output
-	 * @param \mako\config\Config     $config Config
 	 */
 	public function __construct(
 		Input $input,
@@ -41,9 +37,6 @@ abstract class Command extends BaseCommand
 
 	/**
 	 * Checks if the configuration exists.
-	 *
-	 * @param  string $configuration Configuration name
-	 * @return bool
 	 */
 	protected function checkConfigurationExistence(string $configuration): bool
 	{

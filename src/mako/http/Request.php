@@ -55,164 +55,116 @@ class Request
 
 	/**
 	 * Script name.
-	 *
-	 * @var string
 	 */
-	protected $scriptName;
+	protected string $scriptName;
 
 	/**
 	 * Get data.
-	 *
-	 * @var \mako\http\request\Parameters
 	 */
-	protected $query;
+	protected Parameters $query;
 
 	/**
 	 * Post data.
-	 *
-	 * @var \mako\http\request\Parameters
 	 */
-	protected $post;
+	protected Parameters $post;
 
 	/**
 	 * Cookie data.
-	 *
-	 * @var \mako\http\request\Cookies
 	 */
-	protected $cookies;
+	protected Cookies $cookies;
 
 	/**
 	 * File data.
-	 *
-	 * @var \mako\http\request\Files
 	 */
-	protected $files;
+	protected Files $files;
 
 	/**
 	 * Server info.
-	 *
-	 * @var \mako\http\request\Server
 	 */
-	protected $server;
+	protected Server $server;
 
 	/**
 	 * Request headers.
-	 *
-	 * @var \mako\http\request\Headers
 	 */
-	protected $headers;
+	protected Headers $headers;
 
 	/**
 	 * Raw request body.
-	 *
-	 * @var string
 	 */
-	protected $rawBody;
+	protected string|null $rawBody = null;
 
 	/**
 	 * Parsed request body.
-	 *
-	 * @var \mako\http\request\Body
 	 */
-	protected $parsedBody;
+	protected Body|null $parsedBody = null;
 
 	/**
 	 * Content type.
-	 *
-	 * @var string
 	 */
-	protected $contentType;
+	protected string|null $contentType = null;
 
 	/**
 	 * Array of trusted proxy IP addresses.
-	 *
-	 * @var array
 	 */
-	protected $trustedProxies = [];
+	protected array $trustedProxies = [];
 
 	/**
 	 * Ip address of the client that made the request.
-	 *
-	 * @var string
 	 */
-	protected $ip;
+	protected string|null $ip = null;
 
 	/**
 	 * Base path of the request.
-	 *
-	 * @var string
 	 */
-	protected $basePath;
+	protected string|null $basePath = null;
 
 	/**
 	 * Base URL of the request.
-	 *
-	 * @var string
 	 */
-	protected $baseURL;
+	protected string|null $baseURL = null;
 
 	/**
 	 * Holds the request path.
-	 *
-	 * @var string
 	 */
-	protected $path;
+	protected string $path;
 
 	/**
 	 * Request language.
-	 *
-	 * @var array
 	 */
-	protected $language;
+	protected array|null $language = null;
 
 	/**
 	 * Request language prefix.
-	 *
-	 * @var string
 	 */
-	protected $languagePrefix;
+	protected string|null $languagePrefix = null;
 
 	/**
 	 * Which request method was used?
-	 *
-	 * @var string
 	 */
-	protected $method;
+	protected string $method;
 
 	/**
 	 * The actual request method that was used.
-	 *
-	 * @var string
 	 */
-	protected $realMethod;
+	protected string $realMethod;
 
 	/**
 	 * Was this request made using HTTPS?
-	 *
-	 * @var bool
 	 */
-	protected $isSecure;
+	protected bool|null $isSecure = null;
 
 	/**
 	 * The route that matched the request.
-	 *
-	 * @var \mako\http\routing\Route
 	 */
-	protected $route;
+	protected Route|null $route = null;
 
 	/**
 	 * Request attribuntes.
-	 *
-	 * @var array
 	 */
-	protected $attributes = [];
+	protected array $attributes = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array                      $request    Request data and options
-	 * @param \mako\security\Signer|null $signer     Signer instance used to validate signed cookies
-	 * @param string|null                $scriptName Script name
 	 */
 	public function __construct(array $request = [], ?Signer $signer = null, ?string $scriptName = null)
 	{
@@ -246,10 +198,6 @@ class Request
 
 	/**
 	 * Strips the locale segment from the path.
-	 *
-	 * @param  array  $languages Locale segments
-	 * @param  string $path      Path
-	 * @return string
 	 */
 	protected function stripLocaleSegment(array $languages, string $path): string
 	{
@@ -272,9 +220,6 @@ class Request
 
 	/**
 	 * Determines the request path.
-	 *
-	 * @param  array  $languages Locale segments
-	 * @return string
 	 */
 	protected function determinePath(array $languages): string
 	{
@@ -317,8 +262,6 @@ class Request
 
 	/**
 	 * Determines the request method.
-	 *
-	 * @return string
 	 */
 	protected function determineMethod(): string
 	{
@@ -335,8 +278,6 @@ class Request
 	/**
 	 * Returns the content type of the request body.
 	 * An empty string will be returned if the header is missing.
-	 *
-	 * @return string
 	 */
 	public function getContentType(): string
 	{
@@ -350,8 +291,6 @@ class Request
 
 	/**
 	 * Returns the base name of the script that handled the request.
-	 *
-	 * @return string
 	 */
 	public function getScriptName(): string
 	{
@@ -360,8 +299,6 @@ class Request
 
 	/**
 	 * Set the route that matched the request.
-	 *
-	 * @param \mako\http\routing\Route $route Route
 	 */
 	public function setRoute(Route $route): void
 	{
@@ -370,8 +307,6 @@ class Request
 
 	/**
 	 * Returns the route that matched the request.
-	 *
-	 * @return \mako\http\routing\Route|null
 	 */
 	public function getRoute(): ?Route
 	{
@@ -380,9 +315,6 @@ class Request
 
 	/**
 	 * Sets a request attribute.
-	 *
-	 * @param string $name  Attribute name
-	 * @param mixed  $value Attribute value
 	 */
 	public function setAttribute(string $name, mixed $value): void
 	{
@@ -391,10 +323,6 @@ class Request
 
 	/**
 	 * Gets a request attribute.
-	 *
-	 * @param  string $name    Attribute name
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function getAttribute(string $name, mixed $default = null): mixed
 	{
@@ -403,8 +331,6 @@ class Request
 
 	/**
 	 * Returns the raw request body.
-	 *
-	 * @return string
 	 */
 	public function getRawBody(): string
 	{
@@ -428,8 +354,6 @@ class Request
 
 	/**
 	 * Returns the query string.
-	 *
-	 * @return \mako\http\request\Parameters
 	 */
 	public function getQuery(): Parameters
 	{
@@ -438,8 +362,6 @@ class Request
 
 	/**
 	 * Returns the post data.
-	 *
-	 * @return \mako\http\request\Parameters
 	 */
 	public function getPost(): Parameters
 	{
@@ -448,8 +370,6 @@ class Request
 
 	/**
 	 * Returns the cookies.
-	 *
-	 * @return \mako\http\request\Cookies
 	 */
 	public function getCookies(): Cookies
 	{
@@ -458,8 +378,6 @@ class Request
 
 	/**
 	 * Returns the files.
-	 *
-	 * @return \mako\http\request\Files
 	 */
 	public function getFiles(): Files
 	{
@@ -468,8 +386,6 @@ class Request
 
 	/**
 	 * Returns the files.
-	 *
-	 * @return \mako\http\request\Server
 	 */
 	public function getServer(): Server
 	{
@@ -478,8 +394,6 @@ class Request
 
 	/**
 	 * Returns the files.
-	 *
-	 * @return \mako\http\request\Headers
 	 */
 	public function getHeaders(): Headers
 	{
@@ -488,8 +402,6 @@ class Request
 
 	/**
 	 * Returns the parsed request body.
-	 *
-	 * @return \mako\http\request\Body
 	 */
 	public function getBody(): Body
 	{
@@ -503,8 +415,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request has form data and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	protected function hasFormData(): bool
 	{
@@ -520,8 +430,6 @@ class Request
 
 	/**
 	 * Returns the data of the current request method.
-	 *
-	 * @return \mako\http\request\Parameters
 	 */
 	public function getData(): Parameters
 	{
@@ -539,8 +447,6 @@ class Request
 
 	/**
 	 * Set the trusted proxies.
-	 *
-	 * @param array $trustedProxies Array of trusted proxy IP addresses
 	 */
 	public function setTrustedProxies(array $trustedProxies): void
 	{
@@ -549,9 +455,6 @@ class Request
 
 	/**
 	 * Is this IP a trusted proxy?
-	 *
-	 * @param  string $ip IP address
-	 * @return bool
 	 */
 	protected function isTrustedProxy(string $ip): bool
 	{
@@ -568,8 +471,6 @@ class Request
 
 	/**
 	 * Returns the ip of the client that made the request.
-	 *
-	 * @return string
 	 */
 	public function getIp(): string
 	{
@@ -607,8 +508,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request was made using Ajax and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isAjax(): bool
 	{
@@ -617,8 +516,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isSecure(): bool
 	{
@@ -637,8 +534,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request method is considered safe and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isSafe(): bool
 	{
@@ -647,8 +542,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request method is considered idempotent and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isIdempotent(): bool
 	{
@@ -657,8 +550,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request method is considered cacheable and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isCacheable(): bool
 	{
@@ -667,8 +558,6 @@ class Request
 
 	/**
 	 * Is PHP running as a CGI program?
-	 *
-	 * @return bool
 	 */
 	public function isCGI(): bool
 	{
@@ -677,8 +566,6 @@ class Request
 
 	/**
 	 * Returns the base path of the request.
-	 *
-	 * @return string
 	 */
 	public function getBasePath(): string
 	{
@@ -694,8 +581,6 @@ class Request
 
 	/**
 	 * Returns the base url of the request.
-	 *
-	 * @return string
 	 */
 	public function getBaseURL(): string
 	{
@@ -729,8 +614,6 @@ class Request
 
 	/**
 	 * Returns the request path.
-	 *
-	 * @return string
 	 */
 	public function getPath(): string
 	{
@@ -739,8 +622,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the resource was requested with a "clean" URL and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isClean(): bool
 	{
@@ -749,8 +630,6 @@ class Request
 
 	/**
 	 * Returns the request language.
-	 *
-	 * @return array|null
 	 */
 	public function getLanguage(): ?array
 	{
@@ -759,8 +638,6 @@ class Request
 
 	/**
 	 * Returns the request language prefix.
-	 *
-	 * @return string|null
 	 */
 	public function getLanguagePrefix(): ?string
 	{
@@ -769,8 +646,6 @@ class Request
 
 	/**
 	 * Returns the request method that was used.
-	 *
-	 * @return string
 	 */
 	public function getMethod(): string
 	{
@@ -779,8 +654,6 @@ class Request
 
 	/**
 	 * Returns the real request method that was used.
-	 *
-	 * @return string
 	 */
 	public function getRealMethod(): string
 	{
@@ -789,8 +662,6 @@ class Request
 
 	/**
 	 * Returns TRUE if the request method has been faked and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isFaked(): bool
 	{
@@ -799,8 +670,6 @@ class Request
 
 	/**
 	 * Returns the basic HTTP authentication username or null.
-	 *
-	 * @return string|null
 	 */
 	public function getUsername(): ?string
 	{
@@ -809,8 +678,6 @@ class Request
 
 	/**
 	 * Returns the basic HTTP authentication password or null.
-	 *
-	 * @return string|null
 	 */
 	public function getPassword(): ?string
 	{
@@ -819,9 +686,6 @@ class Request
 
 	/**
 	 * Returns the referrer.
-	 *
-	 * @param  mixed $default Value to return if no referrer is set
-	 * @return mixed
 	 */
 	public function getReferrer(mixed $default = null): mixed
 	{

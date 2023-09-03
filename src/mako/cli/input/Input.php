@@ -17,9 +17,6 @@ class Input
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\reader\ReaderInterface $reader    Reader instance
-	 * @param \mako\cli\input\arguments\ArgvParser   $arguments Argument parser
 	 */
 	public function __construct(
 		protected ReaderInterface $reader,
@@ -29,8 +26,6 @@ class Input
 
 	/**
 	 * Reads and returns user input.
-	 *
-	 * @return string
 	 */
 	public function read(): string
 	{
@@ -39,8 +34,6 @@ class Input
 
 	/**
 	 * Returns the argument parser.
-	 *
-	 * @return \mako\cli\input\arguments\ArgvParser
 	 */
 	public function getArgumentParser(): ArgvParser
 	{
@@ -49,8 +42,6 @@ class Input
 
 	/**
 	 * Returns all the arguments passed to the script.
-	 *
-	 * @return array
 	 */
 	public function getArguments(): array
 	{
@@ -59,10 +50,6 @@ class Input
 
 	/**
 	 * Returns the argument associated with the given name.
-	 *
-	 * @param  int|string $name    Parameter number or name
-	 * @param  mixed      $default Default value
-	 * @return mixed
 	 */
 	public function getArgument(int|string $name, mixed $default = null): mixed
 	{

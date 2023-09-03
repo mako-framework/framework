@@ -22,12 +22,8 @@ class DevelopmentHandlerTest extends TestCase
 {
 	/**
 	 * Returns output string.
-	 *
-	 * @param string $type    Error type
-	 * @param string $message Error message
-	 * @param string $trace   Exception trace
 	 */
-	protected function getOutputString($type, $message, $trace)
+	protected function getOutputString(string $type, string $message, string $trace)
 	{
 		return '<bg_red><white>' . $type . ': ' . $message . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>';
 	}

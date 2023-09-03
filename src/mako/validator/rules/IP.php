@@ -20,8 +20,6 @@ class IP extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string|null $version IP version
 	 */
 	public function __construct(
 		protected ?string $version = null
@@ -30,15 +28,11 @@ class IP extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['version'];
+	protected array $i18nParameters = ['version'];
 
 	/**
 	 * Returns the filter flags.
-	 *
-	 * @return int
 	 */
 	protected function getFlags(): int
 	{
@@ -53,8 +47,6 @@ class IP extends Rule implements RuleInterface
 
 	/**
 	 * Returns the name of the IP version that we're validating.
-	 *
-	 * @return string
 	 */
 	protected function getVersion(): string
 	{

@@ -17,8 +17,6 @@ trait NullableTrait
 {
 	/**
 	 * Returns array of nullable columns.
-	 *
-	 * @return array
 	 */
 	protected function getNullableColumns(): array
 	{
@@ -27,9 +25,6 @@ trait NullableTrait
 
 	/**
 	 * Will replace empty strings with null if the column is nullable.
-	 *
-	 * @param  array $values Values
-	 * @return array
 	 */
 	protected function setEmptyNullablesToNull(array $values): array
 	{
@@ -48,8 +43,6 @@ trait NullableTrait
 
 	/**
 	 * Returns trait hooks.
-	 *
-	 * @return array
 	 */
 	protected function getNullableTraitHooks(): array
 	{

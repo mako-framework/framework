@@ -27,7 +27,7 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowAllDomains = true;
+			protected bool $allowAllDomains = true;
 		};
 
 		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
@@ -63,7 +63,7 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowAllDomains = true;
+			protected bool $allowAllDomains = true;
 		};
 
 		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
@@ -99,9 +99,9 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowAllDomains = true;
+			protected bool $allowAllDomains = true;
 
-			protected $allowedDomains =
+			protected array $allowedDomains =
 			[
 				'https://example.org',
 			];
@@ -142,7 +142,7 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowedDomains =
+			protected array $allowedDomains =
 			[
 				'https://example.org',
 			];
@@ -183,7 +183,7 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowedDomains =
+			protected array $allowedDomains =
 			[
 				'https://example.org',
 			];
@@ -215,7 +215,7 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowedDomains =
+			protected array $allowedDomains =
 			[
 				'https://example.org',
 			];
@@ -247,8 +247,8 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowAllDomains = true;
-			protected $allowCredentials = true;
+			protected bool $allowAllDomains = true;
+			protected bool $allowCredentials = true;
 		};
 
 		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
@@ -286,8 +286,8 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowAllDomains = true;
-			protected $allowedHeaders = ['X-Custom-Header1', 'X-Custom-Header2'];
+			protected bool $allowAllDomains = true;
+			protected array $allowedHeaders = ['X-Custom-Header1', 'X-Custom-Header2'];
 		};
 
 		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */
@@ -325,8 +325,8 @@ class AccessControlTest extends TestCase
 	{
 		$middleware = new class extends AccessControl
 		{
-			protected $allowAllDomains = true;
-			protected $allowedMethods = ['GET', 'POST'];
+			protected bool $allowAllDomains = true;
+			protected array $allowedMethods = ['GET', 'POST'];
 		};
 
 		/** @var \mako\http\request\Headers|\Mockery\MockInterface $requestHeaders */

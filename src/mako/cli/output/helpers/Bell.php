@@ -18,8 +18,6 @@ class Bell
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(
 		protected Output $output
@@ -28,8 +26,6 @@ class Bell
 
 	/**
 	 * Rings the terminal bell n times.
-	 *
-	 * @param int $times Number of times to ring the bell
 	 */
 	public function ring(int $times = 1): void
 	{

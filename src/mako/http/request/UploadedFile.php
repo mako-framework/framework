@@ -21,12 +21,6 @@ class UploadedFile extends FileInfo
 {
 	/**
 	 * Constuctor.
-	 *
-	 * @param string $path      File path
-	 * @param string $filename  Filename
-	 * @param int    $size      File size
-	 * @param string $type      File mime type
-	 * @param int    $errorCode File error code
 	 */
 	public function __construct(
 		string $path,
@@ -41,8 +35,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Returns the filename reported by the client.
-	 *
-	 * @return string
 	 */
 	public function getReportedFilename(): string
 	{
@@ -51,8 +43,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Returns the size reported by the client in bytes.
-	 *
-	 * @return int
 	 */
 	public function getReportedSize(): int
 	{
@@ -61,8 +51,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Returns the mime type reported by the client.
-	 *
-	 * @return string
 	 */
 	public function getReportedMimeType(): string
 	{
@@ -71,8 +59,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Does the file have an error?
-	 *
-	 * @return bool
 	 */
 	public function hasError(): bool
 	{
@@ -81,8 +67,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Returns the file error code.
-	 *
-	 * @return int
 	 */
 	public function getErrorCode(): int
 	{
@@ -91,8 +75,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Returns a human friendly error message.
-	 *
-	 * @return string
 	 */
 	public function getErrorMessage(): string
 	{
@@ -112,8 +94,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Returns TRUE if the file has been uploaded and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isUploaded(): bool
 	{
@@ -122,9 +102,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Moves the file to the desired path.
-	 *
-	 * @param  string $path Storage path
-	 * @return bool
 	 */
 	protected function moveUploadedFile(string $path): bool
 	{
@@ -133,9 +110,6 @@ class UploadedFile extends FileInfo
 
 	/**
 	 * Moves the file to the desired path.
-	 *
-	 * @param  string $path Storage path
-	 * @return bool
 	 */
 	public function moveTo(string $path): bool
 	{

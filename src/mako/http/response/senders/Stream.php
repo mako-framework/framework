@@ -24,17 +24,11 @@ class Stream implements ResponseSenderInterface
 {
 	/**
 	 * Is PHP running as a CGI program?
-	 *
-	 * @var bool
 	 */
-	protected $isCGI;
+	protected bool $isCGI;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \Closure    $stream      Stream
-	 * @param string|null $contentType Content type
-	 * @param string|null $charset     Character set
 	 */
 	public function __construct(
 		protected Closure $stream,
@@ -45,9 +39,6 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Sets the response content type.
-	 *
-	 * @param  string                             $contentType Content type
-	 * @return \mako\http\response\senders\Stream
 	 */
 	public function setType(string $contentType): Stream
 	{
@@ -58,8 +49,6 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Returns the response content type.
-	 *
-	 * @return string|null
 	 */
 	public function getType(): ?string
 	{
@@ -68,9 +57,6 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Sets the response character set.
-	 *
-	 * @param  string                             $charset Character set
-	 * @return \mako\http\response\senders\Stream
 	 */
 	public function setCharset(string $charset): Stream
 	{
@@ -81,8 +67,6 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Returns the response character set.
-	 *
-	 * @return string|null
 	 */
 	public function getCharset(): ?string
 	{
@@ -91,9 +75,6 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Flushes a chunck of data.
-	 *
-	 * @param string|null $chunk      Chunck of data to flush
-	 * @param bool        $flushEmpty Flush empty chunk?
 	 */
 	public function flush(?string $chunk, bool $flushEmpty = false): void
 	{

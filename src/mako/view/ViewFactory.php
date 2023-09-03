@@ -26,53 +26,36 @@ class ViewFactory
 
 	/**
 	 * Charset.
-	 *
-	 * @var string
 	 */
-	protected $charset;
+	protected string $charset;
 
 	/**
 	 * View renderers.
-	 *
-	 * @var array
 	 */
-	protected $renderers = ['.php' => PHP::class];
+	protected array $renderers = ['.php' => PHP::class];
 
 	/**
 	 * Global view variables.
-	 *
-	 * @var array
 	 */
-	protected $globalVariables = [];
+	protected array $globalVariables = [];
 
 	/**
 	 * Variables that should be auto assigned to views.
-	 *
-	 * @var array
 	 */
-	protected $autoAssignVariables = [];
+	protected array $autoAssignVariables = [];
 
 	/**
 	 * View cache.
-	 *
-	 * @var array
 	 */
-	protected $viewCache = [];
+	protected array $viewCache = [];
 
 	/**
 	 * Renderer instances.
-	 *
-	 * @var array
 	 */
-	protected $rendererInstances;
+	protected array $rendererInstances = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem   $fileSystem File system instance
-	 * @param string                  $path       Default path
-	 * @param string                  $charset    Charset
-	 * @param \mako\syringe\Container $container  Container
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -90,8 +73,6 @@ class ViewFactory
 
 	/**
 	 * Returns the charset.
-	 *
-	 * @return string
 	 */
 	public function getCharset(): string
 	{
@@ -100,9 +81,6 @@ class ViewFactory
 
 	/**
 	 * Sets the charset.
-	 *
-	 * @param  string                 $charset Charset
-	 * @return \mako\view\ViewFactory
 	 */
 	public function setCharset(string $charset): ViewFactory
 	{
@@ -113,10 +91,6 @@ class ViewFactory
 
 	/**
 	 * Registers a custom view renderer.
-	 *
-	 * @param  string                 $extension Extension handled by the renderer
-	 * @param  \Closure|string        $renderer  Renderer class or closure that creates a renderer instance
-	 * @return \mako\view\ViewFactory
 	 */
 	public function extend(string $extension, Closure|string $renderer): ViewFactory
 	{
@@ -127,10 +101,6 @@ class ViewFactory
 
 	/**
 	 * Assign a global view variable that will be available in all views.
-	 *
-	 * @param  string                 $name  Variable name
-	 * @param  mixed                  $value View variable
-	 * @return \mako\view\ViewFactory
 	 */
 	public function assign(string $name, mixed $value): ViewFactory
 	{
@@ -141,10 +111,6 @@ class ViewFactory
 
 	/**
 	 * Assign variables that should be auto assigned to views upon creation.
-	 *
-	 * @param  string                 $view      View name or array of view names
-	 * @param  callable               $variables Callable that returns an array of variables
-	 * @return \mako\view\ViewFactory
 	 */
 	public function autoAssign($view, callable $variables): ViewFactory
 	{
@@ -158,8 +124,6 @@ class ViewFactory
 
 	/**
 	 * Clears the autoassign variables.
-	 *
-	 * @return \mako\view\ViewFactory
 	 */
 	public function clearAutoAssignVariables(): ViewFactory
 	{
@@ -170,10 +134,6 @@ class ViewFactory
 
 	/**
 	 * Returns an array containing the view path and the renderer we should use.
-	 *
-	 * @param  string      $view           View
-	 * @param  bool        $throwException Throw exception if view doesn't exist?
-	 * @return array|false
 	 */
 	protected function getViewPathAndExtension(string $view, bool $throwException = true)
 	{
@@ -209,9 +169,6 @@ class ViewFactory
 
 	/**
 	 * Creates a renderer instance.
-	 *
-	 * @param  \Closure|string                        $renderer Renderer class or closure
-	 * @return \mako\view\renderers\RendererInterface
 	 */
 	protected function rendererFactory(Closure|string $renderer): RendererInterface
 	{
@@ -220,9 +177,6 @@ class ViewFactory
 
 	/**
 	 * Returns a renderer instance.
-	 *
-	 * @param  string                                 $extension Extension associated with the renderer
-	 * @return \mako\view\renderers\RendererInterface
 	 */
 	protected function resolveRenderer(string $extension): RendererInterface
 	{
@@ -236,9 +190,6 @@ class ViewFactory
 
 	/**
 	 * Returns TRUE if the view exists and FALSE if not.
-	 *
-	 * @param  string $view View
-	 * @return bool
 	 */
 	public function exists(string $view): bool
 	{
@@ -247,9 +198,6 @@ class ViewFactory
 
 	/**
 	 * Returns view specific auto assign variables.
-	 *
-	 * @param  string $view View
-	 * @return array
 	 */
 	protected function getAutoAssignVariablesForView(string $view): array
 	{
@@ -263,9 +211,6 @@ class ViewFactory
 
 	/**
 	 * Returns auto assign variables for a view.
-	 *
-	 * @param  string $view View
-	 * @return array
 	 */
 	protected function getAutoAssignVariables(string $view): array
 	{
@@ -274,10 +219,6 @@ class ViewFactory
 
 	/**
 	 * Returns array where variables have been merged in order of importance.
-	 *
-	 * @param  string $view      View
-	 * @param  array  $variables View variables
-	 * @return array
 	 */
 	protected function mergeVariables(string $view, array $variables): array
 	{
@@ -286,10 +227,6 @@ class ViewFactory
 
 	/**
 	 * Creates and returns a view instance.
-	 *
-	 * @param  string          $view      View
-	 * @param  array           $variables View variables
-	 * @return \mako\view\View
 	 */
 	public function create(string $view, array $variables = []): View
 	{
@@ -300,10 +237,6 @@ class ViewFactory
 
 	/**
 	 * Creates and returns a rendered view.
-	 *
-	 * @param  string $view      View
-	 * @param  array  $variables View variables
-	 * @return string
 	 */
 	public function render(string $view, array $variables = []): string
 	{

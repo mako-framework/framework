@@ -16,15 +16,11 @@ trait AuthorizableTrait
 {
 	/**
 	 * Authorizer.
-	 *
-	 * @var \mako\gatekeeper\authorization\AuthorizerInterface
 	 */
-	protected $authorizer;
+	protected AuthorizerInterface $authorizer;
 
 	/**
 	 * Sets the authorizer.
-	 *
-	 * @param \mako\gatekeeper\authorization\AuthorizerInterface $authorizer Authorizer
 	 */
 	public function setAuthorizer(AuthorizerInterface $authorizer): void
 	{
@@ -33,11 +29,6 @@ trait AuthorizableTrait
 
 	/**
 	 * Returns TRUE if allowed to perform the action on the entity and FALSE if not.
-	 *
-	 * @param  string        $action        Action
-	 * @param  object|string $entity        Entity
-	 * @param  mixed         ...$parameters Additional parameters
-	 * @return bool
 	 */
 	public function can(string $action, object|string $entity, mixed ...$parameters): bool
 	{

@@ -36,7 +36,7 @@ class Server extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Starts the local development server.';
+	protected string $description = 'Starts the local development server.';
 
 	/**
 	 * {@inheritDoc}
@@ -53,9 +53,6 @@ class Server extends Command
 
 	/**
 	 * Tries to find an avaiable port closest to the desired port.
-	 *
-	 * @param  int      $port Desired port number
-	 * @return int|null
 	 */
 	protected function findAvailablePort(int $port): ?int
 	{
@@ -78,12 +75,6 @@ class Server extends Command
 
 	/**
 	 * Executes the command.
-	 *
-	 * @param  \mako\application\Application $application Application instance
-	 * @param  int                           $port        Port
-	 * @param  string                        $address     Address
-	 * @param  string|null                   $docroot     Document root
-	 * @return int|void
 	 */
 	public function execute(Application $application, int $port = 8000, string $address = 'localhost', ?string $docroot = null)
 	{

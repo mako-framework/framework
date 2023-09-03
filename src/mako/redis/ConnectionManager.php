@@ -23,9 +23,6 @@ class ConnectionManager extends BaseConnectionManager
 {
 	/**
 	 * Connects to the chosen redis configuration and returns the connection.
-	 *
-	 * @param  string            $connection Connection name
-	 * @return \mako\redis\Redis
 	 */
 	protected function connect(string $connection): Redis
 	{

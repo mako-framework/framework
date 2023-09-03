@@ -18,9 +18,6 @@ trait GetImageSizeTrait
 {
 	/**
 	 * Returns the image size.
-	 *
-	 * @param  \SplFileInfo $image Image file
-	 * @return array
 	 */
 	protected function getImageSize(SplFileInfo $image): array
 	{

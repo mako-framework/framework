@@ -28,10 +28,8 @@ trait EscaperTrait
 {
 	/**
 	 * HTML entity map.
-	 *
-	 * @var array
 	 */
-	protected $htmlNamedEntityMap =
+	protected array $htmlNamedEntityMap =
 	[
 		34 => 'quot',
 		38 => 'amp',
@@ -41,11 +39,6 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a HTML body context.
-	 *
-	 * @param  string|null $string       String to escape
-	 * @param  string      $charset      Character set
-	 * @param  bool        $doubleEncode Should existing entities be encoded?
-	 * @return string
 	 */
 	public function escapeHTML(?string $string, string $charset, bool $doubleEncode = true): string
 	{
@@ -59,9 +52,6 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a URI or parameter context.
-	 *
-	 * @param  string|null $string String to escape
-	 * @return string
 	 */
 	public function escapeURL(?string $string): string
 	{
@@ -77,9 +67,6 @@ trait EscaperTrait
 	 * Escapes characters for use in a HTML attribute context.
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
-	 *
-	 * @param  array  $matches Regex matches
-	 * @return string
 	 */
 	protected function attributeEscaper(array $matches): string
 	{
@@ -125,10 +112,6 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a HTML attribute context.
-	 *
-	 * @param  string|null $string  String to escape
-	 * @param  string      $charset Character set
-	 * @return string
 	 */
 	public function escapeAttribute(?string $string, string $charset): string
 	{
@@ -156,9 +139,6 @@ trait EscaperTrait
 	 * Escapes characters for use in a CSS context.
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
-	 *
-	 * @param  array  $matches Regex matches
-	 * @return string
 	 */
 	protected function cssEscaper(array $matches): string
 	{
@@ -180,10 +160,6 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a CSS context.
-	 *
-	 * @param  string|null $string  String to escape
-	 * @param  string      $charset Character set
-	 * @return string
 	 */
 	public function escapeCSS(?string $string, string $charset): string
 	{
@@ -216,9 +192,6 @@ trait EscaperTrait
 	 * Escapes characters for use in a Javascript context.
 	 *
 	 * (This method contains code from the SecurityMultiTool library).
-	 *
-	 * @param  array  $matches Regex matches
-	 * @return string
 	 */
 	protected function javascriptEscaper(array $matches): string
 	{
@@ -236,10 +209,6 @@ trait EscaperTrait
 
 	/**
 	 * Returns a string that has been escaped for a Javascript context.
-	 *
-	 * @param  string|null $string  String to escape
-	 * @param  string      $charset Character set
-	 * @return string
 	 */
 	public function escapeJavascript(?string $string, string $charset): string
 	{

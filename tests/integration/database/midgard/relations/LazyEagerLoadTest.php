@@ -16,7 +16,7 @@ use mako\tests\integration\TestORM;
 
 class LazyHasManyUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function articles()
 	{
@@ -26,7 +26,7 @@ class LazyHasManyUser extends TestORM
 
 class LazyHasManyArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 }
 
 // --------------------------------------------------------------------------

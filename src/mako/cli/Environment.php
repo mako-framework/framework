@@ -33,15 +33,11 @@ class Environment
 
 	/**
 	 * Do we have ANSI support?
-	 *
-	 * @var bool
 	 */
-	protected $hasAnsiSupport;
+	protected bool|null $hasAnsiSupport = null;
 
 	/**
 	 * Attempts to get dimensions for Windows.
-	 *
-	 * @return array|null
 	 */
 	protected function getDimensionsForWindows(): ?array
 	{
@@ -50,8 +46,6 @@ class Environment
 
 	/**
 	 * Attempts to get dimensions for Unix-like platforms.
-	 *
-	 * @return array|null
 	 */
 	protected function getDimensionsForUnixLike(): ?array
 	{
@@ -78,8 +72,6 @@ class Environment
 
 	/**
 	 * Returns the console dimensions (width & height).
-	 *
-	 * @return array
 	 */
 	public function getDimensions(): array
 	{
@@ -90,8 +82,6 @@ class Environment
 
 	/**
 	 * Returns the console width.
-	 *
-	 * @return int
 	 */
 	public function getWidth(): int
 	{
@@ -100,8 +90,6 @@ class Environment
 
 	/**
 	 * Returns the console height.
-	 *
-	 * @return int
 	 */
 	public function getHeight(): int
 	{
@@ -110,8 +98,6 @@ class Environment
 
 	/**
 	 * Do we have ANSI support?
-	 *
-	 * @return bool
 	 */
 	public function hasAnsiSupport(): bool
 	{

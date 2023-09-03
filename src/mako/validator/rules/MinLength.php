@@ -17,8 +17,6 @@ class MinLength extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param int $minLength Min length
 	 */
 	public function __construct(
 		protected int $minLength
@@ -27,10 +25,8 @@ class MinLength extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['minLength'];
+	protected array $i18nParameters = ['minLength'];
 
 	/**
 	 * {@inheritDoc}

@@ -8,10 +8,8 @@ class Migration_{{version}} extends Migration
 {
 	/**
 	 * Description.
-	 *
-	 * @var string
 	 */
-	protected $description = '{{description}}';
+	protected string $description = '{{description}}';
 
 	/**
 	 * Makes changes to the database structure.

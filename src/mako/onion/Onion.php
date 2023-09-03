@@ -22,24 +22,16 @@ class Onion
 {
 	/**
 	 * Middleware layers.
-	 *
-	 * @var array
 	 */
-	protected $layers = [];
+	protected array $layers = [];
 
 	/**
 	 * Middleware parameters.
-	 *
-	 * @var array
 	 */
-	protected $parameters = [];
+	protected array $parameters = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\syringe\Container $container         Container
-	 * @param string                  $method            Method to call on the decoracted class
-	 * @param string|null             $expectedInterface Expected middleware interface
 	 */
 	public function __construct(
 		protected Container $container = new Container,
@@ -50,11 +42,6 @@ class Onion
 
 	/**
 	 * Add a new middleware layer.
-	 *
-	 * @param  string     $class      Class
-	 * @param  array|null $parameters Middleware parameters
-	 * @param  bool       $inner      Add an inner layer?
-	 * @return int
 	 */
 	public function addLayer(string $class, ?array $parameters = null, bool $inner = true): int
 	{
@@ -65,10 +52,6 @@ class Onion
 
 	/**
 	 * Add a inner layer to the middleware stack.
-	 *
-	 * @param  string     $class      Class
-	 * @param  array|null $parameters Middleware parameters
-	 * @return int
 	 */
 	public function addInnerLayer(string $class, ?array $parameters = null): int
 	{
@@ -77,10 +60,6 @@ class Onion
 
 	/**
 	 * Add an outer layer to the middleware stack.
-	 *
-	 * @param  string     $class      Class
-	 * @param  array|null $parameters Middleware parameters
-	 * @return int
 	 */
 	public function addOuterLayer(string $class, ?array $parameters = null): int
 	{
@@ -89,9 +68,6 @@ class Onion
 
 	/**
 	 * Builds the core closure.
-	 *
-	 * @param  object   $object The object that we're decorating
-	 * @return \Closure
 	 */
 	protected function buildCoreClosure(object $object): Closure
 	{
@@ -105,10 +81,6 @@ class Onion
 
 	/**
 	 * Builds a layer closure.
-	 *
-	 * @param  object   $layer Middleware object
-	 * @param  \Closure $next  The next middleware layer
-	 * @return \Closure
 	 */
 	protected function buildLayerClosure(object $layer, Closure $next): Closure
 	{
@@ -117,10 +89,6 @@ class Onion
 
 	/**
 	 * Returns the parameters of the requested middleware.
-	 *
-	 * @param  array  $parameters Parameters array
-	 * @param  string $middleware Middleware name
-	 * @return array
 	 */
 	protected function mergeParameters(array $parameters, string $middleware): array
 	{
@@ -129,10 +97,6 @@ class Onion
 
 	/**
 	 * Middleware factory.
-	 *
-	 * @param  string $middleware Middleware class name
-	 * @param  array  $parameters Middleware parameters
-	 * @return object
 	 */
 	protected function middlewareFactory(string $middleware, array $parameters): object
 	{
@@ -158,11 +122,6 @@ class Onion
 
 	/**
 	 * Executes the middleware stack.
-	 *
-	 * @param  object $object               The object that we're decorating
-	 * @param  array  $parameters           Parameters
-	 * @param  array  $middlewareParameters Middleware parameters
-	 * @return mixed
 	 */
 	public function peel(object $object, array $parameters = [], array $middlewareParameters = []): mixed
 	{

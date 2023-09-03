@@ -22,16 +22,11 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 {
 	/**
 	 * Initialization vector size.
-	 *
-	 * @var int
 	 */
-	protected $ivSize;
+	protected int $ivSize;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $key    Encryption key
-	 * @param string $cipher The cipher method to use for encryption
 	 */
 	public function __construct(
 		protected string $key,

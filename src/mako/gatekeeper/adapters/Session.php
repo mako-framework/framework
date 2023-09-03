@@ -28,10 +28,8 @@ class Session extends Adapter
 {
 	/**
 	 * Adapter options.
-	 *
-	 * @var array
 	 */
-	protected $options =
+	protected array $options =
 	[
 		'auth_key'       => 'gatekeeper_auth_key',
 		'cookie_options' =>
@@ -51,20 +49,11 @@ class Session extends Adapter
 
 	/**
 	 * Has the user logged out?
-	 *
-	 * @var bool
 	 */
-	protected $hasLoggedOut = false;
+	protected bool $hasLoggedOut = false;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\gatekeeper\repositories\user\UserRepository   $userRepository  User repository
-	 * @param \mako\gatekeeper\repositories\group\GroupRepository $groupRepository Group repository
-	 * @param \mako\http\Request                                  $request         Request instance
-	 * @param \mako\http\Response                                 $response        Response instance
-	 * @param \mako\session\Session                               $session         Session instance
-	 * @param array                                               $options         Options
 	 */
 	public function __construct(
 		UserRepository $userRepository,
@@ -146,9 +135,6 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  int|string  $identifier User email or username
-	 * @param  string|null $password   User password
-	 * @param  bool        $force      Skip the password check?
 	 * @return int|true
 	 */
 	protected function authenticate(int|string $identifier, ?string $password, bool $force = false)
@@ -213,10 +199,6 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  int|string|null $identifier User identifier
-	 * @param  string|null     $password   User password
-	 * @param  bool            $remember   Set a remember me cookie?
-	 * @param  bool            $force      Login the user without checking the password?
 	 * @return int|true
 	 */
 	public function login(int|string|null $identifier, ?string $password, bool $remember = false, bool $force = false)
@@ -252,8 +234,6 @@ class Session extends Adapter
 	 * Returns TRUE if the identifier exists and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
 	 *
-	 * @param  int|string $identifier User identifier
-	 * @param  bool       $remember   Set a remember me cookie?
 	 * @return int|true
 	 */
 	public function forceLogin(int|string $identifier, bool $remember = false)
@@ -263,9 +243,6 @@ class Session extends Adapter
 
 	/**
 	 * Returns a basic authentication response if login is required and null if not.
-	 *
-	 * @param  bool $clearResponse Clear all previously set headers and cookies from the response?
-	 * @return bool
 	 */
 	public function basicAuth(bool $clearResponse = false): bool
 	{

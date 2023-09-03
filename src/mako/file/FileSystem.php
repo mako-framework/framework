@@ -41,9 +41,6 @@ class FileSystem
 {
 	/**
 	 * Returns TRUE if a resource exists and FALSE if not.
-	 *
-	 * @param  string $path Path to file
-	 * @return bool
 	 */
 	public function has(string $path): bool
 	{
@@ -52,9 +49,6 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the provided path is a file and FALSE if not.
-	 *
-	 * @param  string $path Path
-	 * @return bool
 	 */
 	public function isFile(string $path): bool
 	{
@@ -63,9 +57,6 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the provided path is a directory and FALSE if not.
-	 *
-	 * @param  string $path Path to directory
-	 * @return bool
 	 */
 	public function isDirectory(string $path): bool
 	{
@@ -74,9 +65,6 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if a file or directory is empty and FALSE if not.
-	 *
-	 * @param  string $path Path to directory
-	 * @return bool
 	 */
 	public function isEmpty(string $path): bool
 	{
@@ -90,9 +78,6 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the file is readable and FALSE if not.
-	 *
-	 * @param  string $path Path to file
-	 * @return bool
 	 */
 	public function isReadable(string $path): bool
 	{
@@ -101,9 +86,6 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the file or directory is writable and FALSE if not.
-	 *
-	 * @param  string $path Path to file
-	 * @return bool
 	 */
 	public function isWritable(string $path): bool
 	{
@@ -112,9 +94,6 @@ class FileSystem
 
 	/**
 	 * Returns TRUE if the provided path is a link and FALSE if not.
-	 *
-	 * @param  string $path Path
-	 * @return bool
 	 */
 	public function isLink(string $path): bool
 	{
@@ -124,7 +103,6 @@ class FileSystem
 	/**
 	 * Returns the target of a link.
 	 *
-	 * @param  string       $path Path
 	 * @return false|string
 	 */
 	public function getLinkTarget(string $path)
@@ -134,10 +112,6 @@ class FileSystem
 
 	/**
 	 * Creates a symbolic link.
-	 *
-	 * @param  string $path     Path
-	 * @param  string $linkName Link name
-	 * @return bool
 	 */
 	public function createSymbolicLink(string $path, string $linkName): bool
 	{
@@ -146,10 +120,6 @@ class FileSystem
 
 	/**
 	 * Creates a hard link.
-	 *
-	 * @param  string $path     Path
-	 * @param  string $linkName Link name
-	 * @return bool
 	 */
 	public function createHardLink(string $path, string $linkName): bool
 	{
@@ -158,9 +128,6 @@ class FileSystem
 
 	/**
 	 * Returns the time (unix timestamp) the file was last modified.
-	 *
-	 * @param  string $path Path to file
-	 * @return int
 	 */
 	public function lastModified(string $path): int
 	{
@@ -169,9 +136,6 @@ class FileSystem
 
 	/**
 	 * Returns the fize of the file in bytes.
-	 *
-	 * @param  string $path Path to file
-	 * @return int
 	 */
 	public function size(string $path): int
 	{
@@ -180,9 +144,6 @@ class FileSystem
 
 	/**
 	 * Returns the extension of the file.
-	 *
-	 * @param  string $path Path to file
-	 * @return string
 	 */
 	public function extension(string $path): string
 	{
@@ -191,10 +152,6 @@ class FileSystem
 
 	/**
 	 * Copies a file.
-	 *
-	 * @param  string $source      Path to source file
-	 * @param  string $destination Path to the destination file
-	 * @return bool
 	 */
 	public function copy(string $source, string $destination): bool
 	{
@@ -203,10 +160,6 @@ class FileSystem
 
 	/**
 	 * Renames a file or directory.
-	 *
-	 * @param  string $oldName Old name
-	 * @param  string $newName New name
-	 * @return bool
 	 */
 	public function rename(string $oldName, string $newName): bool
 	{
@@ -215,9 +168,6 @@ class FileSystem
 
 	/**
 	 * Deletes the file from disk.
-	 *
-	 * @param  string $path Path to file
-	 * @return bool
 	 */
 	public function remove(string $path): bool
 	{
@@ -226,9 +176,6 @@ class FileSystem
 
 	/**
 	 * Deletes a directory and its contents from disk.
-	 *
-	 * @param  string $path Path to directory
-	 * @return bool
 	 */
 	public function removeDirectory(string $path): bool
 	{
@@ -250,8 +197,6 @@ class FileSystem
 	/**
 	 * Returns an array of pathnames matching the provided pattern.
 	 *
-	 * @param  string      $pattern Patern
-	 * @param  int         $flags   Flags
 	 * @return array|false
 	 */
 	public function glob(string $pattern, int $flags = 0)
@@ -262,7 +207,6 @@ class FileSystem
 	/**
 	 * Returns the contents of the file.
 	 *
-	 * @param  string       $path File path
 	 * @return false|string
 	 */
 	public function get(string $path)
@@ -273,9 +217,6 @@ class FileSystem
 	/**
 	 * Writes the supplied data to a file.
 	 *
-	 * @param  string    $path File path
-	 * @param  mixed     $data File data
-	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
 	public static function put(string $path, mixed $data, bool $lock = false)
@@ -286,9 +227,6 @@ class FileSystem
 	/**
 	 * Prepends the supplied data to a file.
 	 *
-	 * @param  string    $path File path
-	 * @param  mixed     $data File data
-	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
 	public static function prepend(string $path, mixed $data, bool $lock = false)
@@ -299,9 +237,6 @@ class FileSystem
 	/**
 	 * Appends the supplied data to a file.
 	 *
-	 * @param  string    $path File path
-	 * @param  mixed     $data File data
-	 * @param  bool      $lock Acquire an exclusive write lock?
 	 * @return false|int
 	 */
 	public static function append(string $path, mixed $data, bool $lock = false)
@@ -311,10 +246,6 @@ class FileSystem
 
 	/**
 	 * Truncates a file.
-	 *
-	 * @param  string $path File path
-	 * @param  bool   $lock Acquire an exclusive write lock?
-	 * @return bool
 	 */
 	public static function truncate(string $path, bool $lock = false): bool
 	{
@@ -323,11 +254,6 @@ class FileSystem
 
 	/**
 	 *  Creates a directory.
-	 *
-	 * @param  string $path      Path to directory
-	 * @param  int    $mode      Mode
-	 * @param  bool   $recursive Recursive
-	 * @return bool
 	 */
 	public function createDirectory(string $path, int $mode = 0777, bool $recursive = false): bool
 	{
@@ -336,9 +262,6 @@ class FileSystem
 
 	/**
 	 * Returns the total size of a filesystem or disk partition in bytes.
-	 *
-	 * @param  string|null $path A directory of the filesystem or disk partition
-	 * @return float
 	 */
 	public function getDiskSize(?string $path = null): float
 	{
@@ -347,9 +270,6 @@ class FileSystem
 
 	/**
 	 * Returns the total number of available bytes on the filesystem or disk partition.
-	 *
-	 * @param  string|null $path A directory of the filesystem or disk partition
-	 * @return float
 	 */
 	public function getFreeSpaceOnDisk(?string $path = null): float
 	{
@@ -358,9 +278,6 @@ class FileSystem
 
 	/**
 	 * Includes a file.
-	 *
-	 * @param  string $path Path to file
-	 * @return mixed
 	 */
 	public function include(string $path): mixed
 	{
@@ -369,9 +286,6 @@ class FileSystem
 
 	/**
 	 * Includes a file it hasn't already been included.
-	 *
-	 * @param  string $path Path to file
-	 * @return mixed
 	 */
 	public function includeOnce(string $path): mixed
 	{
@@ -380,9 +294,6 @@ class FileSystem
 
 	/**
 	 * Requires a file.
-	 *
-	 * @param  string $path Path to file
-	 * @return mixed
 	 */
 	public function require(string $path): mixed
 	{
@@ -391,9 +302,6 @@ class FileSystem
 
 	/**
 	 * Requires a file if it hasn't already been required.
-	 *
-	 * @param  string $path Path to file
-	 * @return mixed
 	 */
 	public function requireOnce(string $path): mixed
 	{
@@ -402,9 +310,6 @@ class FileSystem
 
 	/**
 	 * Returns a FileInfo object.
-	 *
-	 * @param  string              $path Path to file
-	 * @return \mako\file\FileInfo
 	 */
 	public function info(string $path): FileInfo
 	{
@@ -414,9 +319,6 @@ class FileSystem
 	/**
 	 * Returns a SplFileObject.
 	 *
-	 * @param  string         $path           Path to file
-	 * @param  string         $openMode       Open mode
-	 * @param  bool           $useIncludePath Use include path?
 	 * @return \SplFileObject
 	 */
 	public function file(string $path, string $openMode = 'r', bool $useIncludePath = false)

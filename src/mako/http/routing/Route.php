@@ -28,53 +28,36 @@ class Route
 {
 	/**
 	 * Route prefix.
-	 *
-	 * @var string
 	 */
-	protected $prefix;
+	protected string $prefix = '';
 
 	/**
 	 * Does the route have a trailing slash?
-	 *
-	 * @var bool
 	 */
-	protected $hasTrailingSlash;
+	protected bool $hasTrailingSlash;
 
 	/**
 	 * Route patterns.
-	 *
-	 * @var array
 	 */
-	protected $patterns = [];
+	protected array $patterns = [];
 
 	/**
 	 * Middleware.
-	 *
-	 * @var array
 	 */
-	protected $middleware = [];
+	protected array $middleware = [];
 
 	/**
 	 * Constraints.
-	 *
-	 * @var array
 	 */
-	protected $constraints = [];
+	protected array $constraints = [];
 
 	/**
 	 * Parameters.
-	 *
-	 * @var array
 	 */
-	protected $parameters = [];
+	protected array $parameters = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array                 $methods Route methods
-	 * @param string                $route   Route
-	 * @param array|\Closure|string $action  Route action
-	 * @param string|null           $name    Route name
 	 */
 	public function __construct(
 		protected array $methods,
@@ -88,8 +71,6 @@ class Route
 
 	/**
 	 * Returns the HTTP methods the route responds to.
-	 *
-	 * @return array
 	 */
 	public function getMethods(): array
 	{
@@ -98,8 +79,6 @@ class Route
 
 	/**
 	 * Returns the route.
-	 *
-	 * @return string
 	 */
 	public function getRoute(): string
 	{
@@ -108,8 +87,6 @@ class Route
 
 	/**
 	 * Returns the route action.
-	 *
-	 * @return array|\Closure|string
 	 */
 	public function getAction(): array|Closure|string
 	{
@@ -118,8 +95,6 @@ class Route
 
 	/**
 	 * Returns the route name.
-	 *
-	 * @return string|null
 	 */
 	public function getName(): ?string
 	{
@@ -128,10 +103,6 @@ class Route
 
 	/**
 	 * Returns attribute values.
-	 *
-	 * @param  array  $attributes An array of reflection attributes
-	 * @param  string $method     Attribute method
-	 * @return array
 	 */
 	protected function getAttributeValues(array $attributes, string $method): array
 	{
@@ -148,8 +119,6 @@ class Route
 
 	/**
 	 * Returns the middleware.
-	 *
-	 * @return array
 	 */
 	public function getMiddleware(): array
 	{
@@ -169,8 +138,6 @@ class Route
 
 	/**
 	 * Returns the constraints.
-	 *
-	 * @return array
 	 */
 	public function getConstraints(): array
 	{
@@ -190,8 +157,6 @@ class Route
 
 	/**
 	 * Sets the route parameters.
-	 *
-	 * @param array $parameters Parameters
 	 */
 	public function setParameters(array $parameters): void
 	{
@@ -200,8 +165,6 @@ class Route
 
 	/**
 	 * Returns all the route parameters.
-	 *
-	 * @return array
 	 */
 	public function getParameters(): array
 	{
@@ -210,10 +173,6 @@ class Route
 
 	/**
 	 * Returns the named parameter value.
-	 *
-	 * @param  string $name    Parameter name
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function getParameter(string $name, mixed $default = null): mixed
 	{
@@ -222,9 +181,6 @@ class Route
 
 	/**
 	 * Adds a prefix to the route.
-	 *
-	 * @param  string                   $prefix Route prefix
-	 * @return \mako\http\routing\Route
 	 */
 	public function prefix(string $prefix): Route
 	{
@@ -238,9 +194,6 @@ class Route
 
 	/**
 	 * Sets the custom patterns.
-	 *
-	 * @param  array                    $patterns Array of patterns
-	 * @return \mako\http\routing\Route
 	 */
 	public function patterns(array $patterns): Route
 	{
@@ -251,9 +204,6 @@ class Route
 
 	/**
 	 * Adds a set of middleware.
-	 *
-	 * @param  array|string             $middleware Middleware
-	 * @return \mako\http\routing\Route
 	 */
 	public function middleware(array|string $middleware): Route
 	{
@@ -264,9 +214,6 @@ class Route
 
 	/**
 	 * Adds a set of constraints.
-	 *
-	 * @param  array|string             $constraint Constraint
-	 * @return \mako\http\routing\Route
 	 */
 	public function constraint(array|string $constraint): Route
 	{
@@ -277,9 +224,6 @@ class Route
 
 	/**
 	 * Returns TRUE if the route allows the specified method or FALSE if not.
-	 *
-	 * @param  string $method Method
-	 * @return bool
 	 */
 	public function allowsMethod(string $method): bool
 	{
@@ -288,8 +232,6 @@ class Route
 
 	/**
 	 * Returns TRUE if the route has a trailing slash and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function hasTrailingSlash(): bool
 	{
@@ -298,8 +240,6 @@ class Route
 
 	/**
 	 * Returns the regex needed to match the route.
-	 *
-	 * @return string
 	 */
 	public function getRegex(): string
 	{

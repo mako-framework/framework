@@ -22,9 +22,6 @@ class Cookies implements Countable, IteratorAggregate
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param array                      $cookies Cookies
-	 * @param \mako\security\Signer|null $signer  Signer
 	 */
 	public function __construct(
 		protected array $cookies = [],
@@ -34,8 +31,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Returns the numner of cookies.
-	 *
-	 * @return int
 	 */
 	public function count(): int
 	{
@@ -44,8 +39,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Retruns an array iterator object.
-	 *
-	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
 	{
@@ -54,9 +47,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a cookie.
-	 *
-	 * @param string $name  Cookie name
-	 * @param string $value Cookie value
 	 */
 	public function add(string $name, string $value): void
 	{
@@ -65,9 +55,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a signed cookie.
-	 *
-	 * @param string $name  Cookie name
-	 * @param string $value Cookie value
 	 */
 	public function addSigned(string $name, string $value): void
 	{
@@ -81,9 +68,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the cookie exists and FALSE if not.
-	 *
-	 * @param  string $name Cookie name
-	 * @return bool
 	 */
 	public function has(string $name): bool
 	{
@@ -92,10 +76,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Gets a cookie value.
-	 *
-	 * @param  string $name    Cookie name
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function get(string $name, mixed $default = null): mixed
 	{
@@ -104,10 +84,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Gets a signed cookie value.
-	 *
-	 * @param  string $name    Cookie name
-	 * @param  mixed  $default Default value
-	 * @return mixed
 	 */
 	public function getSigned(string $name, mixed $default = null): mixed
 	{
@@ -126,8 +102,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Removes a cookie.
-	 *
-	 * @param string $name Cookie name
 	 */
 	public function remove(string $name): void
 	{
@@ -136,8 +110,6 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Returns all the cookies.
-	 *
-	 * @return array
 	 */
 	public function all(): array
 	{

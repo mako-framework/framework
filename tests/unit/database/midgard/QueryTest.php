@@ -22,7 +22,7 @@ use Mockery;
 
 class ScopedModel extends ORM
 {
-	protected $tableName = 'foos';
+	protected string $tableName = 'foos';
 
 	public function popularScope($query): void
 	{
@@ -115,9 +115,9 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
-		$query->shouldReceive('first')->once()->andReturn(true);
+		$query->shouldReceive('first')->once()->andReturn(Mockery::mock(ORM::class));
 
-		$this->assertTrue($query->get(1984));
+		$this->assertInstanceOf(ORM::class, $query->get(1984));
 	}
 
 	/**
@@ -136,9 +136,9 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
 
-		$query->shouldReceive('first')->once()->andReturn(true);
+		$query->shouldReceive('first')->once()->andReturn(Mockery::mock(ORM::class));
 
-		$this->assertTrue($query->get(1984, ['foo', 'bar']));
+		$this->assertInstanceOf(ORM::class, $query->get(1984, ['foo', 'bar']));
 	}
 
 	/**

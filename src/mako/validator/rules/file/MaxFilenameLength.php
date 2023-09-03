@@ -21,8 +21,6 @@ class MaxFilenameLength extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param int $maxLength Max filename length
 	 */
 	public function __construct(
 		protected int $maxLength
@@ -31,10 +29,8 @@ class MaxFilenameLength extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['maxLength'];
+	protected array $i18nParameters = ['maxLength'];
 
 	/**
 	 * {@inheritDoc}

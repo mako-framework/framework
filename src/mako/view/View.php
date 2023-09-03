@@ -17,10 +17,6 @@ class View implements Stringable
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string                                 $path      View path
-	 * @param array                                  $variables View variables
-	 * @param \mako\view\renderers\RendererInterface $renderer  Renderer instance
 	 */
 	public function __construct(
 		protected string $path,
@@ -31,8 +27,6 @@ class View implements Stringable
 
 	/**
 	 * Returns the assigned view variables.
-	 *
-	 * @return array
 	 */
 	public function getVariables(): array
 	{
@@ -41,8 +35,6 @@ class View implements Stringable
 
 	/**
 	 * Returns the renderer instance.
-	 *
-	 * @return \mako\view\renderers\RendererInterface
 	 */
 	public function getRenderer(): RendererInterface
 	{
@@ -51,10 +43,6 @@ class View implements Stringable
 
 	/**
 	 * Assign a local view variable.
-	 *
-	 * @param  string          $name  Variable name
-	 * @param  mixed           $value View variable
-	 * @return \mako\view\View
 	 */
 	public function assign(string $name, mixed $value): View
 	{
@@ -65,8 +53,6 @@ class View implements Stringable
 
 	/**
 	 * Returns the rendered view.
-	 *
-	 * @return string
 	 */
 	public function render(): string
 	{
@@ -75,8 +61,6 @@ class View implements Stringable
 
 	/**
 	 * Returns the rendered view.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string
 	{

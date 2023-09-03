@@ -8,6 +8,7 @@
 namespace mako\database\midgard\relations;
 
 use Closure;
+use mako\database\midgard\ORM;
 
 use function array_filter;
 use function array_unique;
@@ -58,7 +59,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function eagerCriterion(array $keys)
+	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->table}.{$this->model->getPrimaryKey()}", $keys);
 
@@ -68,7 +69,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getRelationCountQuery()
+	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->origin->getTable()}.{$this->getForeignKey()}");
 
@@ -77,11 +78,6 @@ class BelongsTo extends Relation
 
 	/**
 	 * Eager loads related records and matches them with their originating records.
-	 *
-	 * @param array         &$results Originating records
-	 * @param string        $relation Relation name
-	 * @param \Closure|null $criteria Relation criteria
-	 * @param array         $includes Includes passed from the originating record
 	 */
 	public function eagerLoad(array &$results, string $relation, ?Closure $criteria, array $includes): void
 	{
@@ -112,10 +108,8 @@ class BelongsTo extends Relation
 
 	/**
 	 * Fetches a related record from the database.
-	 *
-	 * @return \mako\database\midgard\ORM|null
 	 */
-	protected function fetchRelated()
+	protected function fetchRelated(): ?ORM
 	{
 		if($this->origin->getRawColumnValue($this->getForeignKey()) === null)
 		{

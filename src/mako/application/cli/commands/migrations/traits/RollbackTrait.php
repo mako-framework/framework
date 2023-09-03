@@ -14,8 +14,6 @@ trait RollbackTrait
 {
 	/**
 	 * Rolls back n batches.
-	 *
-	 * @param int|null $batches Number of batches to roll back
 	 */
 	public function rollback(?int $batches = null): void
 	{

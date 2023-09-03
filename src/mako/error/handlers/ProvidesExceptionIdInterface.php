@@ -14,8 +14,6 @@ interface ProvidesExceptionIdInterface
 {
 	/**
 	 * Returns the exception id.
-	 *
-	 * @return string
 	 */
 	public function getExceptionId(): string;
 }

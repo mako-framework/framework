@@ -16,17 +16,11 @@ interface UserRepositoryInterface
 {
 	/**
 	 * Creates and returns a user.
-	 *
-	 * @param  array                                              $properties User properties
-	 * @return \mako\gatekeeper\entities\user\UserEntityInterface
 	 */
 	public function createUser(array $properties = []): UserEntityInterface;
 
 	/**
 	 * Fetches a user by its identifier.
-	 *
-	 * @param  int|string                                              $identifier User identifier
-	 * @return \mako\gatekeeper\entities\user\UserEntityInterface|null
 	 */
 	public function getByIdentifier(int|string $identifier): ?UserEntityInterface;
 }

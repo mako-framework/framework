@@ -7,6 +7,7 @@
 
 namespace mako\cli\output\helpers;
 
+use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 
 use function is_array;
@@ -21,22 +22,16 @@ class OrderedList
 {
 	/**
 	 * Padding.
-	 *
-	 * @var string
 	 */
-	protected $padding = '  ';
+	protected string $padding = '  ';
 
 	/**
 	 * Formatter instance.
-	 *
-	 * @var \mako\cli\output\formatter\FormatterInterface|null
 	 */
-	protected $formatter;
+	protected FormatterInterface|null $formatter = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\Output $output Output instance
 	 */
 	public function __construct(
 		protected Output $output
@@ -47,10 +42,6 @@ class OrderedList
 
 	/**
 	 * Calculates the maximum width of a marker in a list.
-	 *
-	 * @param  array  $items  Items
-	 * @param  string $marker Item marker
-	 * @return array
 	 */
 	protected function calculateWidth(array $items, string $marker): array
 	{
@@ -73,14 +64,6 @@ class OrderedList
 
 	/**
 	 * Builds a list item.
-	 *
-	 * @param  string $item         Item
-	 * @param  string $marker       Item marker
-	 * @param  int    $width        Item number width
-	 * @param  int    $number       Item number
-	 * @param  int    $nestingLevel Nesting level
-	 * @param  int    $parentWidth  Parent width
-	 * @return string
 	 */
 	protected function buildListItem(string $item, string $marker, int $width, int $number, int $nestingLevel, int $parentWidth): string
 	{
@@ -91,12 +74,6 @@ class OrderedList
 
 	/**
 	 * Builds an ordered list.
-	 *
-	 * @param  array  $items        Items
-	 * @param  string $marker       Item marker
-	 * @param  int    $nestingLevel Nesting level
-	 * @param  int    $parentWidth  Parent marker width
-	 * @return string
 	 */
 	protected function buildList(array $items, string $marker, int $nestingLevel = 0, int $parentWidth = 0): string
 	{
@@ -121,10 +98,6 @@ class OrderedList
 
 	/**
 	 * Renders an ordered list.
-	 *
-	 * @param  array  $items  Items
-	 * @param  string $marker Item marker
-	 * @return string
 	 */
 	public function render(array $items, string $marker = '%s.'): string
 	{
@@ -133,10 +106,6 @@ class OrderedList
 
 	/**
 	 * Draws an ordered list.
-	 *
-	 * @param array  $items  Items
-	 * @param string $marker Item marker
-	 * @param int    $writer Output writer
 	 */
 	public function draw(array $items, string $marker = '%s.', int $writer = Output::STANDARD): void
 	{

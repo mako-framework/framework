@@ -17,8 +17,6 @@ class MaxLength extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param int $maxLength Max length
 	 */
 	public function __construct(
 		protected int $maxLength
@@ -27,10 +25,8 @@ class MaxLength extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['maxLength'];
+	protected array $i18nParameters = ['maxLength'];
 
 	/**
 	 * {@inheritDoc}

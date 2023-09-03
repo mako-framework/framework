@@ -16,8 +16,6 @@ class LessThan extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param mixed $lessThan Less than
 	 */
 	public function __construct(
 		protected mixed $lessThan
@@ -26,10 +24,8 @@ class LessThan extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['lessThan'];
+	protected array $i18nParameters = ['lessThan'];
 
 	/**
 	 * {@inheritDoc}

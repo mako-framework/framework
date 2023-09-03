@@ -34,18 +34,11 @@ class Output
 
 	/**
 	 * Is the output muted?
-	 *
-	 * @var bool
 	 */
-	protected $muted = false;
+	protected bool $muted = false;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\output\writer\WriterInterface            $standard    Standard writer
-	 * @param \mako\cli\output\writer\WriterInterface            $error       Error writer
-	 * @param \mako\cli\output\formatter\FormatterInterface|null $formatter   Formatter
-	 * @param \mako\cli\Environment                              $environment Environment
 	 */
 	public function __construct(
 		protected WriterInterface $standard,
@@ -57,9 +50,6 @@ class Output
 
 	/**
 	 * Returns the chosen writer.
-	 *
-	 * @param  int                                     $writer Writer
-	 * @return \mako\cli\output\writer\WriterInterface
 	 */
 	public function getWriter(int $writer = Output::STANDARD): WriterInterface
 	{
@@ -68,8 +58,6 @@ class Output
 
 	/**
 	 * Sets the formatter.
-	 *
-	 * @param \mako\cli\output\formatter\FormatterInterface $formatter Formatter
 	 */
 	public function setFormatter(FormatterInterface $formatter): void
 	{
@@ -78,8 +66,6 @@ class Output
 
 	/**
 	 * Returns the formatter.
-	 *
-	 * @return \mako\cli\output\formatter\FormatterInterface|null
 	 */
 	public function getFormatter(): ?FormatterInterface
 	{
@@ -88,8 +74,6 @@ class Output
 
 	/**
 	 * Returns the environment.
-	 *
-	 * @return \mako\cli\Environment
 	 */
 	public function getEnvironment(): Environment
 	{
@@ -114,8 +98,6 @@ class Output
 
 	/**
 	 * Is the output muted?
-	 *
-	 * @return bool
 	 */
 	public function isMuted(): bool
 	{
@@ -124,9 +106,6 @@ class Output
 
 	/**
 	 * Writes string to output.
-	 *
-	 * @param string $string String to write
-	 * @param int    $writer Output type
 	 */
 	public function write(string $string, int $writer = Output::STANDARD): void
 	{
@@ -152,8 +131,6 @@ class Output
 
 	/**
 	 * Writes string to output using the error writer.
-	 *
-	 * @param string $string String to write
 	 */
 	public function error(string $string): void
 	{
@@ -162,9 +139,6 @@ class Output
 
 	/**
 	 * Appends newline to string and writes it to output.
-	 *
-	 * @param string $string String to write
-	 * @param int    $writer Output type
 	 */
 	public function writeLn(string $string, int $writer = Output::STANDARD): void
 	{
@@ -173,8 +147,6 @@ class Output
 
 	/**
 	 * Appends newline to string and writes it to output using the error writer.
-	 *
-	 * @param string $string String to write
 	 */
 	public function errorLn(string $string): void
 	{
@@ -183,9 +155,6 @@ class Output
 
 	/**
 	 * Dumps a value to the output.
-	 *
-	 * @param mixed $value  Value
-	 * @param int   $writer Output type
 	 */
 	public function dump(mixed $value, int $writer = Output::STANDARD): void
 	{
@@ -216,8 +185,6 @@ class Output
 
 	/**
 	 * Clears n lines.
-	 *
-	 * @param int $lines Number of lines to clear
 	 */
 	public function clearLines(int $lines): void
 	{

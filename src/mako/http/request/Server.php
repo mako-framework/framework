@@ -18,8 +18,6 @@ class Server extends Parameters
 {
 	/**
 	 * Returns all the request headers.
-	 *
-	 * @return array
 	 */
 	public function getHeaders(): array
 	{

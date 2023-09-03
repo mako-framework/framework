@@ -18,17 +18,11 @@ class Memcached extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Memcached instance.
-	 *
-	 * @var \Memcached
 	 */
-	protected $memcached;
+	protected PHPMemcached $memcached;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $servers      Memcache servers
-	 * @param int   $timeout      Timeout in seconds
-	 * @param bool  $compressData Compress data?
 	 */
 	public function __construct(array $servers, int $timeout = 1, bool $compressData = false)
 	{

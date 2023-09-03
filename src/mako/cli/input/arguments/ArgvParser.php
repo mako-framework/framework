@@ -46,44 +46,31 @@ class ArgvParser
 
 	/**
 	 * Arguments.
-	 *
-	 * @var array
 	 */
-	protected $arguments = [];
+	protected array $arguments = [];
 
 	/**
 	 * Map.
-	 *
-	 * @var array
 	 */
-	protected $map = [];
+	protected array $map = [];
 
 	/**
 	 * Positional arguments.
-	 *
-	 * @var array
 	 */
-	protected $positionals = [];
+	protected array $positionals = [];
 
 	/**
 	 * Parsed arguments.
-	 *
-	 * @var array
 	 */
-	protected $parsed = [];
+	protected array $parsed = [];
 
 	/**
 	 * Should unknown arguments be ignored?
-	 *
-	 * @var bool
 	 */
-	protected $ignoreUnknownArguments = false;
+	protected bool $ignoreUnknownArguments = false;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $argv      Argv
-	 * @param array $arguments Array of arguments
 	 */
 	public function __construct(
 		protected array $argv,
@@ -95,8 +82,6 @@ class ArgvParser
 
 	/**
 	 * Returns the registered arguments.
-	 *
-	 * @return array
 	 */
 	public function getArguments(): array
 	{
@@ -105,9 +90,6 @@ class ArgvParser
 
 	/**
 	 * Tries to find a suggestion for the invalid argument name.
-	 *
-	 * @param  string      $name Invalid argument name
-	 * @return string|null
 	 */
 	protected function findArgumentSuggestion(string $name): ?string
 	{
@@ -116,9 +98,6 @@ class ArgvParser
 
 	/**
 	 * Returns an argument based on its name.
-	 *
-	 * @param  string                                  $name Argument name
-	 * @return \mako\cli\input\arguments\Argument|null
 	 */
 	protected function getArgument(string $name): ?Argument
 	{
@@ -137,8 +116,6 @@ class ArgvParser
 
 	/**
 	 * Clears the parsed argument cache.
-	 *
-	 * @return \mako\cli\input\arguments\ArgvParser
 	 */
 	public function clearCache(): ArgvParser
 	{
@@ -149,8 +126,6 @@ class ArgvParser
 
 	/**
 	 * Add argument.
-	 *
-	 * @param \mako\cli\input\arguments\Argument $argument Argument
 	 */
 	public function addArgument(Argument $argument): void
 	{
@@ -197,8 +172,6 @@ class ArgvParser
 
 	/**
 	 * Add arguments.
-	 *
-	 * @param array $arguments Array of arguments
 	 */
 	public function addArguments(array $arguments): void
 	{
@@ -210,11 +183,6 @@ class ArgvParser
 
 	/**
 	 * Casts the value to the desired type.
-	 *
-	 * @param  \mako\cli\input\arguments\Argument $argument Argument
-	 * @param  string|null                        $token    Token
-	 * @param  bool|string                        $value    Value
-	 * @return bool|float|int|string
 	 */
 	protected function castValue(Argument $argument, ?string $token, bool|string $value): bool|float|int|string
 	{
@@ -242,10 +210,6 @@ class ArgvParser
 
 	/**
 	 * Store the value.
-	 *
-	 * @param \mako\cli\input\arguments\Argument $argument Argument
-	 * @param string|null                        $token    Token
-	 * @param bool|string|null                   $value    Value
 	 */
 	protected function storeValue(Argument $argument, ?string $token, bool|string|null $value): void
 	{
@@ -268,11 +232,6 @@ class ArgvParser
 
 	/**
 	 * Stores option values.
-	 *
-	 * @param \mako\cli\input\arguments\Argument $argument Argument
-	 * @param string                             $token    Token
-	 * @param string|null                        $value    Value
-	 * @param array                              &$tokens  Remaining tokens
 	 */
 	protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens): void
 	{
@@ -298,9 +257,6 @@ class ArgvParser
 
 	/**
 	 * Parses an option.
-	 *
-	 * @param string $token   Token
-	 * @param array  &$tokens Remaining tokens
 	 */
 	protected function parseOption(string $token, array &$tokens): void
 	{
@@ -321,9 +277,6 @@ class ArgvParser
 
 	/**
 	 * Parses an alias.
-	 *
-	 * @param string $token   Token
-	 * @param array  &$tokens Remaining tokens
 	 */
 	protected function parseAlias(string $token, array &$tokens): void
 	{
@@ -356,11 +309,6 @@ class ArgvParser
 
 	/**
 	 * Parses a positional argument.
-	 *
-	 * @param string $token        Token
-	 * @param array  &$positionals Remaining positional arguments
-	 * @param array  &$tokens      Remaining tokens
-	 * @param bool   $parseOptions Are we still parsing options?
 	 */
 	protected function parsePositional(string $token, array &$positionals, array &$tokens, bool $parseOptions): void
 	{
@@ -391,9 +339,6 @@ class ArgvParser
 
 	/**
 	 * Parses the arguments.
-	 *
-	 * @param  bool  $ignoreUnknownArguments Should unknown arguments be ignored?
-	 * @return array
 	 */
 	public function parse(bool $ignoreUnknownArguments = false): array
 	{
@@ -451,11 +396,6 @@ class ArgvParser
 
 	/**
 	 * Returns the value of a parsed argument.
-	 *
-	 * @param  string $argument               Argument name
-	 * @param  mixed  $default                Default value
-	 * @param  bool   $ignoreUnknownArguments Should unknown arguments be ignored?
-	 * @return mixed
 	 */
 	public function getArgumentValue(string $argument, mixed $default = null, bool $ignoreUnknownArguments = false): mixed
 	{

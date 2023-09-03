@@ -22,9 +22,6 @@ class ExactDimensions extends Rule implements RuleInterface
 
 	/**
 	 * Constructor.
-	 *
-	 * @param int $width  Width
-	 * @param int $height Height
 	 */
 	public function __construct(
 		protected int $width,
@@ -34,10 +31,8 @@ class ExactDimensions extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['width', 'height'];
+	protected array $i18nParameters = ['width', 'height'];
 
 	/**
 	 * {@inheritDoc}

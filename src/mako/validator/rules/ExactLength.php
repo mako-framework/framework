@@ -17,8 +17,6 @@ class ExactLength extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param int $length Length
 	 */
 	public function __construct(
 		protected int $length
@@ -27,10 +25,8 @@ class ExactLength extends Rule implements RuleInterface
 
 	/**
 	 * I18 parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['length'];
+	protected array $i18nParameters = ['length'];
 
 	/**
 	 * {@inheritDoc}

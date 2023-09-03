@@ -14,15 +14,11 @@ interface GroupEntityInterface
 {
 	/**
 	 * Returns the group id.
-	 *
-	 * @return mixed
 	 */
 	public function getId(): mixed;
 
 	/**
 	 * Returns the group name.
-	 *
-	 * @return string
 	 */
 	public function getName(): string;
 }

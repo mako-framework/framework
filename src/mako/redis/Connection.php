@@ -40,45 +40,31 @@ class Connection
 
 	/**
 	 * Connection name.
-	 *
-	 * @var string|null
 	 */
-	protected $name;
+	protected string|null $name;
 
 	/**
 	 * Is the connection persistent?
-	 *
-	 * @var bool
 	 */
-	protected $isPersistent;
+	protected bool $isPersistent;
 
 	/**
 	 * Connection timeout.
-	 *
-	 * @var int
 	 */
-	protected $connectionTimeout;
+	protected int $connectionTimeout;
 
 	/**
 	 * Read/write timeout.
-	 *
-	 * @var int
 	 */
-	protected $readWriteTimeout;
+	protected int $readWriteTimeout;
 
 	/**
 	 * TCP nodelay.
-	 *
-	 * @var bool
 	 */
-	protected $tcpNodelay;
+	protected bool $tcpNodelay;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param string $host    Redis host
-	 * @param int    $port    Redis port
-	 * @param array  $options Connection options
 	 */
 	public function __construct(string $host, int $port = 6379, array $options = [])
 	{
@@ -112,8 +98,6 @@ class Connection
 
 	/**
 	 * Returns the connection options.
-	 *
-	 * @return array
 	 */
 	public function getOptions(): array
 	{
@@ -130,8 +114,6 @@ class Connection
 	/**
 	 * Creates a connection to the server.
 	 *
-	 * @param  string   $host Redis host
-	 * @param  int      $port Redis port
 	 * @return resource
 	 */
 	protected function createConnection(string $host, int $port)
@@ -161,9 +143,6 @@ class Connection
 
 	/**
 	 * Appends the read error reason to the error message if possible.
-	 *
-	 * @param  string $message Error message
-	 * @return string
 	 */
 	protected function appendReadErrorReason($message): string
 	{
@@ -177,8 +156,6 @@ class Connection
 
 	/**
 	 * Gets line from the server.
-	 *
-	 * @return string
 	 */
 	public function readLine(): string
 	{
@@ -194,9 +171,6 @@ class Connection
 
 	/**
 	 * Reads n bytes from the server.
-	 *
-	 * @param  int    $bytes Number of bytes to read
-	 * @return string
 	 */
 	public function read(int $bytes): string
 	{
@@ -224,9 +198,6 @@ class Connection
 
 	/**
 	 * Writes data to the server.
-	 *
-	 * @param  string $data Data to write
-	 * @return int
 	 */
 	public function write(string $data): int
 	{

@@ -39,59 +39,43 @@ class Response
 
 	/**
 	 * Response body.
-	 *
-	 * @var mixed
 	 */
-	protected $body;
+	protected mixed $body;
 
 	/**
 	 * Response content type.
-	 *
-	 * @var string
 	 */
-	protected $contentType = 'text/html';
+	protected string $contentType = 'text/html';
 
 	/**
 	 * Status code.
-	 *
-	 * @var int
 	 */
-	protected $statusCode = self::DEFAULT_STATUS;
+	protected int $statusCode = self::DEFAULT_STATUS;
 
 	/**
 	 * Response headers.
-	 *
-	 * @var \mako\http\response\Headers
 	 */
-	protected $headers;
+	protected Headers $headers;
 
 	/**
 	 * Cookies.
-	 *
-	 * @var \mako\http\response\Cookies
 	 */
-	protected $cookies;
+	protected Cookies $cookies;
 
 	/**
 	 * Compress output?
-	 *
-	 * @var bool
 	 */
-	protected $outputCompression = false;
+	protected bool $outputCompression = false;
 
 	/**
 	 * Enable response cache?
-	 *
-	 * @var bool
 	 */
-	protected $responseCache = false;
+	protected bool $responseCache = false;
 
 	/**
 	 * HTTP status codes.
-	 *
-	 * @var array
 	 */
-	protected $statusCodes =
+	protected array $statusCodes =
 	[
 		// 1xx Informational
 
@@ -181,10 +165,6 @@ class Response
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\Request         $request Request instance
-	 * @param string                     $charset Response character set
-	 * @param \mako\security\Signer|null $signer  Signer instance used to sign cookies
 	 */
 	public function __construct(
 		protected Request $request,
@@ -199,8 +179,6 @@ class Response
 
 	/**
 	 * Returns the request instance.
-	 *
-	 * @return \mako\http\Request
 	 */
 	public function getRequest(): Request
 	{
@@ -209,9 +187,6 @@ class Response
 
 	/**
 	 * Sets the response body.
-	 *
-	 * @param  mixed               $body Response body
-	 * @return \mako\http\Response
 	 */
 	public function setBody(mixed $body): Response
 	{
@@ -222,8 +197,6 @@ class Response
 
 	/**
 	 * Returns the response body.
-	 *
-	 * @return mixed
 	 */
 	public function getBody(): mixed
 	{
@@ -232,8 +205,6 @@ class Response
 
 	/**
 	 * Clears the response body.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function clearBody(): Response
 	{
@@ -244,10 +215,6 @@ class Response
 
 	/**
 	 * Sets the response content type.
-	 *
-	 * @param  string              $contentType Content type
-	 * @param  string|null         $charset     Charset
-	 * @return \mako\http\Response
 	 */
 	public function setType(string $contentType, ?string $charset = null): Response
 	{
@@ -263,8 +230,6 @@ class Response
 
 	/**
 	 * Returns the response content type.
-	 *
-	 * @return string
 	 */
 	public function getType(): string
 	{
@@ -273,9 +238,6 @@ class Response
 
 	/**
 	 * Sets the response character set.
-	 *
-	 * @param  string              $charset Character set
-	 * @return \mako\http\Response
 	 */
 	public function setCharset(string $charset): Response
 	{
@@ -286,8 +248,6 @@ class Response
 
 	/**
 	 * Returns the response character set.
-	 *
-	 * @return string
 	 */
 	public function getCharset(): string
 	{
@@ -296,9 +256,6 @@ class Response
 
 	/**
 	 * Sets the HTTP status code.
-	 *
-	 * @param  int                 $statusCode HTTP status code
-	 * @return \mako\http\Response
 	 */
 	public function setStatus(int $statusCode): Response
 	{
@@ -312,8 +269,6 @@ class Response
 
 	/**
 	 * Returns the HTTP status code.
-	 *
-	 * @return int
 	 */
 	public function getStatus(): int
 	{
@@ -322,8 +277,6 @@ class Response
 
 	/**
 	 * Returns response header collection.
-	 *
-	 * @return \mako\http\response\Headers
 	 */
 	public function getHeaders(): Headers
 	{
@@ -332,8 +285,6 @@ class Response
 
 	/**
 	 * Returns response cookie collection.
-	 *
-	 * @return \mako\http\response\Cookies
 	 */
 	public function getCookies(): Cookies
 	{
@@ -342,8 +293,6 @@ class Response
 
 	/**
 	 * Clears the response body, cookies and headers.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function clear(): Response
 	{
@@ -358,9 +307,6 @@ class Response
 
 	/**
 	 * Clears the response body in addition to cookies and headers that don't match the provided names or patterns.
-	 *
-	 * @param  array               $exceptions Exceptions
-	 * @return \mako\http\Response
 	 */
 	public function clearExcept(array $exceptions): Response
 	{
@@ -375,8 +321,6 @@ class Response
 
 	/**
 	 * Resets the response.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function reset(): Response
 	{
@@ -387,9 +331,6 @@ class Response
 
 	/**
 	 * Resets the response except for cookies and headers that match the provided names or patterns.
-	 *
-	 * @param  array               $exceptions Exceptions
-	 * @return \mako\http\Response
 	 */
 	public function resetExcept(array $exceptions): Response
 	{
@@ -449,8 +390,6 @@ class Response
 
 	/**
 	 * Is the response cacheable?
-	 *
-	 * @return bool
 	 */
 	public function isCacheable(): bool
 	{
@@ -474,8 +413,6 @@ class Response
 
 	/**
 	 * Enables ETag response cache.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function enableCaching(): Response
 	{
@@ -486,8 +423,6 @@ class Response
 
 	/**
 	 * Disables ETag response cache.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function disableCaching(): Response
 	{
@@ -498,8 +433,6 @@ class Response
 
 	/**
 	 * Enables output compression.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function enableCompression(): Response
 	{
@@ -510,8 +443,6 @@ class Response
 
 	/**
 	 * Disables output compression.
-	 *
-	 * @return \mako\http\Response
 	 */
 	public function disableCompression(): Response
 	{

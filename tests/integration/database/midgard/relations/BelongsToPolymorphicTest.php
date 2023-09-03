@@ -16,12 +16,12 @@ use mako\tests\integration\TestORM;
 
 class BelongsToPolymorphicProfile extends TestORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 }
 
 class BelongsToPolymorphicImage extends TestORM
 {
-	protected $tableName = 'images';
+	protected string $tableName = 'images';
 
 	public function profile()
 	{

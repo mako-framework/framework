@@ -17,9 +17,9 @@ use mako\tests\integration\TestORM;
 
 class AutoEagerLoadingUser extends TestORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
-	protected $including = ['articles'];
+	protected array $including = ['articles'];
 
 	public function articles()
 	{
@@ -29,7 +29,7 @@ class AutoEagerLoadingUser extends TestORM
 
 class AutoEagerLoadingArticle extends TestORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 }
 
 // --------------------------------------------------------------------------

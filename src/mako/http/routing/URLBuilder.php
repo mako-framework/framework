@@ -21,32 +21,21 @@ class URLBuilder
 {
 	/**
 	 * Base URL.
-	 *
-	 * @var string
 	 */
-	protected $baseURL;
+	protected string $baseURL;
 
 	/**
 	 * Script name.
-	 *
-	 * @var string
 	 */
-	protected $scriptName;
+	protected string $scriptName;
 
 	/**
 	 * Language prefix.
-	 *
-	 * @var string
 	 */
-	protected $languagePrefix;
+	protected string $languagePrefix = '';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\Request        $request   Request instance
-	 * @param \mako\http\routing\Routes $routes    Route collection
-	 * @param bool                      $cleanURLs Create "clean" URLs?
-	 * @param string|null               $baseURL   Base URL
 	 */
 	public function __construct(
 		protected Request $request,
@@ -67,9 +56,6 @@ class URLBuilder
 
 	/**
 	 * Returns TRUE if the pattern matches the current route and FALSE if not.
-	 *
-	 * @param  string $pattern Pattern to match
-	 * @return bool
 	 */
 	public function matches(string $pattern): bool
 	{
@@ -78,8 +64,6 @@ class URLBuilder
 
 	/**
 	 * Returns the base URL of the application.
-	 *
-	 * @return string
 	 */
 	public function base(): string
 	{
@@ -88,12 +72,6 @@ class URLBuilder
 
 	/**
 	 * Returns the URL of the specified path.
-	 *
-	 * @param  string      $path        Path
-	 * @param  array       $queryParams Associative array used to build URL-encoded query string
-	 * @param  string      $separator   Argument separator
-	 * @param  bool|string $language    Request language
-	 * @return string
 	 */
 	public function to(string $path, array $queryParams = [], string $separator = '&', bool|string $language = true): string
 	{
@@ -109,13 +87,6 @@ class URLBuilder
 
 	/**
 	 * Returns the URL of a named route.
-	 *
-	 * @param  string      $routeName   Route name
-	 * @param  array       $routeParams Route parameters
-	 * @param  array       $queryParams Associative array used to build URL-encoded query string
-	 * @param  string      $separator   Argument separator
-	 * @param  bool|string $language    Request language
-	 * @return string
 	 */
 	public function toRoute(string $routeName, array $routeParams = [], array $queryParams = [], string $separator = '&', bool|string $language = true): string
 	{
@@ -141,11 +112,6 @@ class URLBuilder
 
 	/**
 	 * Returns the current URL of the request.
-	 *
-	 * @param  array|null  $queryParams Associative array used to build URL-encoded query string
-	 * @param  string      $separator   Argument separator
-	 * @param  bool|string $language    Request language
-	 * @return string
 	 */
 	public function current(?array $queryParams = [], string $separator = '&', bool|string $language = true): string
 	{
@@ -156,12 +122,6 @@ class URLBuilder
 
 	/**
 	 * Returns the URL of the specified route.
-	 *
-	 * @param  string $route       URL segments
-	 * @param  string $language    Request language
-	 * @param  array  $queryParams Associative array used to build URL-encoded query string
-	 * @param  string $separator   Argument separator
-	 * @return string
 	 */
 	public function toLanguage(string $route, string $language, array $queryParams = [], string $separator = '&'): string
 	{
@@ -170,13 +130,6 @@ class URLBuilder
 
 	/**
 	 * Returns the URL of a named route.
-	 *
-	 * @param  string $routeName   Route name
-	 * @param  string $language    Request language
-	 * @param  array  $routeParams Route parameters
-	 * @param  array  $queryParams Associative array used to build URL-encoded query string
-	 * @param  string $separator   Argument separator
-	 * @return string
 	 */
 	public function toRouteLanguage(string $routeName, string $language, array $routeParams = [], array $queryParams = [], string $separator = '&'): string
 	{
@@ -185,11 +138,6 @@ class URLBuilder
 
 	/**
 	 * Returns the current URL of the request.
-	 *
-	 * @param  string     $language    Request language
-	 * @param  array|null $queryParams Query parameters
-	 * @param  string     $separator   Argument separator
-	 * @return string
 	 */
 	public function currentLanguage(string $language, ?array $queryParams = [], string $separator = '&'): string
 	{

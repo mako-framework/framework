@@ -21,9 +21,6 @@ trait CamelCasedDataInteractionTrait
 {
 	/**
 	 * Sets a raw column value.
-	 *
-	 * @param string $name  Column name
-	 * @param mixed  $value Column value
 	 */
 	public function setRawColumnValue(string $name, mixed $value): void
 	{
@@ -32,9 +29,6 @@ trait CamelCasedDataInteractionTrait
 
 	/**
 	 * Sets a column value.
-	 *
-	 * @param string $name  Column name
-	 * @param mixed  $value Column value
 	 */
 	public function setColumnValue(string $name, mixed $value): void
 	{
@@ -57,12 +51,9 @@ trait CamelCasedDataInteractionTrait
 	/**
 	 * Assigns the column values to the model.
 	 *
-	 * @param  array $columns   Column values
-	 * @param  bool  $raw       Set raw values?
-	 * @param  bool  $whitelist Remove columns that are not in the whitelist?
 	 * @return $this
 	 */
-	public function assign(array $columns, bool $raw = false, bool $whitelist = true)
+	public function assign(array $columns, bool $raw = false, bool $whitelist = true): static
 	{
 		$snakeCased = [];
 
@@ -76,9 +67,6 @@ trait CamelCasedDataInteractionTrait
 
 	/**
 	 * Gets a raw column value.
-	 *
-	 * @param  string $name Column name
-	 * @return mixed
 	 */
 	public function getRawColumnValue(string $name): mixed
 	{
@@ -87,9 +75,6 @@ trait CamelCasedDataInteractionTrait
 
 	/**
 	 * Returns a column value.
-	 *
-	 * @param  string $name Column name
-	 * @return mixed
 	 */
 	public function getColumnValue(string $name): mixed
 	{
@@ -105,9 +90,6 @@ trait CamelCasedDataInteractionTrait
 
 	/**
 	 * Gets a column value or relation.
-	 *
-	 * @param  string $name Column name
-	 * @return mixed
 	 */
 	public function getValue(string $name): mixed
 	{
@@ -137,9 +119,6 @@ trait CamelCasedDataInteractionTrait
 
 	/**
 	 * Checks if a column or relation is set using overloading.
-	 *
-	 * @param  string $name Column or relation name
-	 * @return bool
 	 */
 	public function __isset(string $name): bool
 	{
@@ -153,8 +132,6 @@ trait CamelCasedDataInteractionTrait
 
 	/**
 	 * Unset column value or relation using overloading.
-	 *
-	 * @param string $name Column name
 	 */
 	public function __unset(string $name): void
 	{

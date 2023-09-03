@@ -20,9 +20,6 @@ trait TimeTrait
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string                    $time     A date/time string
-	 * @param \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 */
 	final public function __construct(string $time = 'now', DateTimeZone|string|null $timeZone = null)
 	{
@@ -36,9 +33,6 @@ trait TimeTrait
 
 	/**
 	 * Returns a new instance set to the current time.
-	 *
-	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
-	 * @return static
 	 */
 	public static function now(DateTimeZone|string|null $timeZone = null): static
 	{
@@ -48,10 +42,6 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified date.
 	 *
-	 * @param  int                       $year     Year
-	 * @param  int|null                  $month    Month (1 to 12)
-	 * @param  int|null                  $day      Day of month (1 to 31)
-	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
 	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, DateTimeZone|string|null $timeZone = null)
@@ -68,8 +58,6 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 *
-	 * @param  int                       $timestamp UNIX timestamp
-	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
 	public static function createFromTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null)
@@ -80,8 +68,6 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
 	 *
-	 * @param  int                       $timestamp DOS timestamp
-	 * @param  \DateTimeZone|string|null $timeZone  A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
 	public static function createFromDOSTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null)
@@ -101,9 +87,6 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified time string.
 	 *
-	 * @param  string                    $format   The format that the passed in string should be in
-	 * @param  string                    $time     String representing the time
-	 * @param  \DateTimeZone|string|null $timeZone A valid time zone or a DateTimeZone object
 	 * @return false|static
 	 */
 	#[\ReturnTypeWillChange]
@@ -129,7 +112,6 @@ trait TimeTrait
 	/**
 	 * Sets the time zone.
 	 *
-	 * @param  \DateTimeZone|string $timeZone A valid time zone or a DateTimeZone object
 	 * @return $this|false|static
 	 */
 	#[\ReturnTypeWillChange]
@@ -146,7 +128,6 @@ trait TimeTrait
 	/**
 	 * Move forward in time by x seconds.
 	 *
-	 * @param  int                $seconds Number of seconds
 	 * @return $this|false|static
 	 */
 	public function forward(int $seconds)
@@ -157,7 +138,6 @@ trait TimeTrait
 	/**
 	 * Move backward in time by x seconds.
 	 *
-	 * @param  int                $seconds Number of seconds
 	 * @return $this|false|static
 	 */
 	public function rewind(int $seconds)
@@ -167,8 +147,6 @@ trait TimeTrait
 
 	/**
 	 * Returns the DOS timestamp.
-	 *
-	 * @return int
 	 */
 	public function getDOSTimestamp(): int
 	{
@@ -189,8 +167,6 @@ trait TimeTrait
 
 	/**
 	 * Returns TRUE if the year is a leap year and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isLeapYear(): bool
 	{
@@ -206,8 +182,6 @@ trait TimeTrait
 
 	/**
 	 * Returns an array containing the number of days in each month of the year.
-	 *
-	 * @return array
 	 */
 	public function daysInMonths(): array
 	{
@@ -230,8 +204,6 @@ trait TimeTrait
 
 	/**
 	 * Returns the number of days in the current or specified month.
-	 *
-	 * @return int
 	 */
 	public function daysInMonth(): int
 	{

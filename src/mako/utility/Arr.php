@@ -32,10 +32,6 @@ class Arr
 {
 	/**
 	 * Sets an array value using "dot notation".
-	 *
-	 * @param array  &$array Array you want to modify
-	 * @param string $path   Array path
-	 * @param mixed  $value  Value to set
 	 */
 	public static function set(array &$array, string $path, mixed $value): void
 	{
@@ -58,10 +54,6 @@ class Arr
 
 	/**
 	 * Appends an array value using "dot notation".
-	 *
-	 * @param array  &$array Array you want to modify
-	 * @param string $path   Array path
-	 * @param mixed  $value  Value to append
 	 */
 	public static function append(array &$array, string $path, mixed $value): void
 	{
@@ -84,10 +76,6 @@ class Arr
 
 	/**
 	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
-	 *
-	 * @param  array  $array Array we're goint to search
-	 * @param  string $path  Array path
-	 * @return bool
 	 */
 	public static function has(array $array, string $path): bool
 	{
@@ -108,11 +96,6 @@ class Arr
 
 	/**
 	 * Returns value from array using "dot notation".
-	 *
-	 * @param  array  $array   Array we're going to search
-	 * @param  string $path    Array path
-	 * @param  mixed  $default Default return value
-	 * @return mixed
 	 */
 	public static function get(array $array, string $path, mixed $default = null): mixed
 	{
@@ -133,10 +116,6 @@ class Arr
 
 	/**
 	 * Deletes an array value using "dot notation".
-	 *
-	 * @param  array  &$array Array you want to modify
-	 * @param  string $path   Array path
-	 * @return bool
 	 */
 	public static function delete(array &$array, string $path): bool
 	{
@@ -161,9 +140,6 @@ class Arr
 
 	/**
 	 * Returns a random value from an array.
-	 *
-	 * @param  array $array Array you want to pick a random value from
-	 * @return mixed
 	 */
 	public static function random(array $array): mixed
 	{
@@ -172,9 +148,6 @@ class Arr
 
 	/**
 	 * Returns TRUE if the array is associative and FALSE if not.
-	 *
-	 * @param  array $array Array to check
-	 * @return bool
 	 */
 	public static function isAssoc(array $array): bool
 	{
@@ -183,10 +156,6 @@ class Arr
 
 	/**
 	 * Returns the values from a single column of the input array, identified by the key.
-	 *
-	 * @param  array  $array Array to pluck from
-	 * @param  string $key   Array key
-	 * @return array
 	 */
 	public static function pluck(array $array, string $key): array
 	{
@@ -202,10 +171,6 @@ class Arr
 
 	/**
 	 * Expands a wildcard key to an array of "dot notation" keys.
-	 *
-	 * @param  array  $array Array
-	 * @param  string $key   Wildcard key
-	 * @return array
 	 */
 	public static function expandKey(array $array, string $key): array
 	{
@@ -251,9 +216,6 @@ class Arr
 
 	/**
 	 * Converts arrays to objects.
-	 *
-	 * @param  array        $array Array to convert
-	 * @return array|object
 	 */
 	public static function toObject(array $array): array|object
     {

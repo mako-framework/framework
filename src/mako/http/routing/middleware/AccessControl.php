@@ -21,39 +21,31 @@ abstract class AccessControl implements MiddlewareInterface
 {
 	/**
 	 * Allow credentials?
-	 *
-	 * @var bool
 	 */
-	protected $allowCredentials = false;
+	protected bool $allowCredentials = false;
 
 	/**
 	 * Allow all domains?
-	 *
-	 * @var bool
 	 */
-	protected $allowAllDomains = false;
+	protected bool $allowAllDomains = false;
 
 	/**
 	 * Allowed domains.
-	 *
-	 * @var array
 	 */
-	protected $allowedDomains = [];
+	protected array $allowedDomains = [];
 
 	/**
-	 * @var array
+	 * Allowed headers.
 	 */
-	protected $allowedHeaders = [];
+	protected array $allowedHeaders = [];
 
 	/**
-	 * @var array
+	 * Allowed methods.
 	 */
-	protected $allowedMethods = [];
+	protected array $allowedMethods = [];
 
 	/**
 	 * Returns TRUE if we allows credentials and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	protected function allowsCredentials(): bool
 	{
@@ -62,8 +54,6 @@ abstract class AccessControl implements MiddlewareInterface
 
 	/**
 	 * Returns TRUE if we allow all domains and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	protected function allowsAllDomains(): bool
 	{
@@ -72,9 +62,6 @@ abstract class AccessControl implements MiddlewareInterface
 
 	/**
 	 * Returns the request origin.
-	 *
-	 * @param  \mako\http\Request $request Request instance
-	 * @return string|null
 	 */
 	protected function getOrigin(Request $request): ?string
 	{
@@ -83,8 +70,6 @@ abstract class AccessControl implements MiddlewareInterface
 
 	/**
 	 * Returns the allowed domains.
-	 *
-	 * @return array
 	 */
 	protected function getAllowedDomains(): array
 	{
@@ -93,9 +78,6 @@ abstract class AccessControl implements MiddlewareInterface
 
 	/**
 	 * Returns TRUE if the domain is allowed and FALSE if not.
-	 *
-	 * @param  string $domain Domain
-	 * @return bool
 	 */
 	protected function isDomainAllowed(string $domain): bool
 	{
@@ -104,8 +86,6 @@ abstract class AccessControl implements MiddlewareInterface
 
 	/**
 	 * Returns the allowed headers.
-	 *
-	 * @return array
 	 */
 	protected function getAllowedHeaders(): array
 	{
@@ -114,8 +94,6 @@ abstract class AccessControl implements MiddlewareInterface
 
 	/**
 	 * Returns the allowed methods.
-	 *
-	 * @return array
 	 */
 	protected function getAllowedMethods(): array
 	{

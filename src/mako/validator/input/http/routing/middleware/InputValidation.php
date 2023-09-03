@@ -36,87 +36,61 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Default HTTP status code for invalid requests.
-	 *
-	 * @var int
 	 */
-	protected $httpStatusCode = 400;
+	protected int $httpStatusCode = 400;
 
 	/**
 	 * Headers and cookies to keep.
-	 *
-	 * @var array
 	 */
-	protected $keep = ['headers' => ['Access-Control-.*']];
+	protected array $keep = ['headers' => ['Access-Control-.*']];
 
 	/**
 	 * Session flash key for errors.
-	 *
-	 * @var string
 	 */
-	protected $errorsFlashKey = 'mako.errors';
+	protected string $errorsFlashKey = 'mako.errors';
 
 	/**
 	 * Session flash key for old input.
-	 *
-	 * @var string
 	 */
-	protected $oldInputFlashKey = 'mako.old';
+	protected string $oldInputFlashKey = 'mako.old';
 
 	/**
 	 * Errors view variable name.
-	 *
-	 * @var string
 	 */
-	protected $errorsVariableName = '_errors_';
+	protected string $errorsVariableName = '_errors_';
 
 	/**
 	 * Old input view variable name.
-	 *
-	 * @var string
 	 */
-	protected $oldInputVariableName = '_old_';
+	protected string $oldInputVariableName = '_old_';
 
 	/**
 	 * Default error message.
-	 *
-	 * @var string
 	 */
-	protected $defaultErrorMessage = 'Invalid input.';
+	protected string $defaultErrorMessage = 'Invalid input.';
 
 	/**
 	 * Keys that will be removed from the old input.
-	 *
-	 * @var array
 	 */
-	protected $dontInclude = ['password', 'password_confirmation'];
+	protected array $dontInclude = ['password', 'password_confirmation'];
 
 	/**
 	 * Request.
-	 *
-	 * @var \mako\http\Request
 	 */
-	protected $request;
+	protected Request $request;
 
 	/**
 	 * Response.
-	 *
-	 * @var \mako\http\Response
 	 */
-	protected $response;
+	protected Response $response;
 
 	/**
 	 * Input.
-	 *
-	 * @var \mako\validator\input\http\InputInterface|null
 	 */
-	protected $input;
+	protected InputInterface|null $input = null;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\routing\URLBuilder $urlBuilder  URL builder
-	 * @param \mako\session\Session|null    $session     Session
-	 * @param \mako\view\ViewFactory|null   $viewFactory View factory
 	 */
 	public function __construct(
 		protected URLBuilder $urlBuilder,
@@ -127,8 +101,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Set the input.
-	 *
-	 * @param \mako\validator\input\http\InputInterface|null $input Input
 	 */
 	protected function setInput(?InputInterface $input): void
 	{
@@ -137,8 +109,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Should we redirect the client if possible?
-	 *
-	 * @return bool
 	 */
 	protected function shouldRedirect(): bool
 	{
@@ -152,8 +122,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Should the old input be included?
-	 *
-	 * @return bool
 	 */
 	protected function shouldIncludeOldInput(): bool
 	{
@@ -167,8 +135,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Returns the old input.
-	 *
-	 * @return array
 	 */
 	protected function getOldInput(): array
 	{
@@ -186,8 +152,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Returns the redirect URL.
-	 *
-	 * @return string
 	 */
 	protected function getRedirectUrl(): string
 	{
@@ -201,9 +165,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Add errors to flash data and redirect.
-	 *
-	 * @param  \mako\validator\exceptions\ValidationException $exception Validation exception
-	 * @return \mako\http\Response
 	 */
 	protected function handleRedirect(ValidationException $exception): Response
 	{
@@ -221,8 +182,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Returns the error message.
-	 *
-	 * @return string
 	 */
 	protected function getErrorMessage(): string
 	{
@@ -236,10 +195,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Builds XML based on the exception.
-	 *
-	 * @param  \mako\validator\exceptions\ValidationException $exception Validation exception
-	 * @param  string                                         $charset   Character set
-	 * @return string
 	 */
 	protected function buildXmlFromException(ValidationException $exception, string $charset): string
 	{
@@ -259,9 +214,6 @@ class InputValidation implements MiddlewareInterface
 
 	/**
 	 * Output errors.
-	 *
-	 * @param  \mako\validator\exceptions\ValidationException $exception Validation exception
-	 * @return \mako\http\Response
 	 */
 	protected function handleOutput(ValidationException $exception): Response
 	{

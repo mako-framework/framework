@@ -47,8 +47,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array $items Collection items
 	 */
 	final public function __construct(
 		protected array $items = []
@@ -57,8 +55,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns all the items in the collection.
-	 *
-	 * @return array
 	 */
 	public function getItems(): array
 	{
@@ -67,8 +63,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns all the values in the collection.
-	 *
-	 * @return array
 	 */
 	public function getValues(): array
 	{
@@ -80,7 +74,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function resetKeys()
+	public function resetKeys(): static
 	{
 		$this->items = array_values($this->items);
 
@@ -90,11 +84,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Adds a new item to the collection.
 	 *
-	 * @param  int|string $key   Key
-	 * @param  mixed      $value Value
 	 * @return $this
 	 */
-	public function put(int|string $key, mixed $value)
+	public function put(int|string $key, mixed $value): static
 	{
 		$this->items[$key] = $value;
 
@@ -103,9 +95,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the item key exists and FALSE if not.
-	 *
-	 * @param  int|string $key Key
-	 * @return bool
 	 */
 	public function has(int|string $key): bool
 	{
@@ -114,10 +103,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns an item from the collection.
-	 *
-	 * @param  int|string $key     Key
-	 * @param  mixed      $default Default value
-	 * @return mixed
 	 */
 	public function get(int|string $key, mixed $default = null): mixed
 	{
@@ -132,10 +117,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Removes an item from the collection.
 	 *
-	 * @param  int|string $key Key
 	 * @return $this
 	 */
-	public function remove(int|string $key)
+	public function remove(int|string $key): static
 	{
 		unset($this->items[$key]);
 
@@ -147,7 +131,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function clear()
+	public function clear(): static
 	{
 		$this->items = [];
 
@@ -156,9 +140,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Checks whether or not an offset exists.
-	 *
-	 * @param  mixed $offset The offset to check for
-	 * @return bool
 	 */
 	public function offsetExists(mixed $offset): bool
 	{
@@ -167,9 +148,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the value at the specified offset.
-	 *
-	 * @param  mixed $offset The offset to retrieve
-	 * @return mixed
 	 */
 	public function offsetGet(mixed $offset): mixed
 	{
@@ -183,9 +161,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Assigns a value to the specified offset.
-	 *
-	 * @param mixed $offset The offset to assign the value to
-	 * @param mixed $value  The value to set
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void
 	{
@@ -201,8 +176,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Unsets an offset.
-	 *
-	 * @param mixed $offset The offset to unset
 	 */
 	public function offsetUnset(mixed $offset): void
 	{
@@ -211,8 +184,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the numner of items in the collection.
-	 *
-	 * @return int
 	 */
 	public function count(): int
 	{
@@ -221,8 +192,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Retruns an array iterator object.
-	 *
-	 * @return \ArrayIterator
 	 */
 	public function getIterator(): ArrayIterator
 	{
@@ -231,8 +200,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the collection is empty and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isEmpty(): bool
 	{
@@ -242,9 +209,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Prepends the passed item to the front of the collection
 	 * and returns the new number of elements in the collection.
-	 *
-	 * @param  mixed $item Collection item
-	 * @return int
 	 */
 	public function unshift(mixed $item): int
 	{
@@ -254,8 +218,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Shifts the first value of the collection off and returns it,
 	 * shortening the collection by one element.
-	 *
-	 * @return mixed
 	 */
 	public function shift(): mixed
 	{
@@ -265,9 +227,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Pushes the passed variable onto the end of the collection
 	 * and returns the new number of elements in the collection.
-	 *
-	 * @param  mixed $item Collection item
-	 * @return int
 	 */
 	public function push(mixed $item): int
 	{
@@ -277,8 +236,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Pops and returns the last value of the collection,
 	 * shortening the collection by one element.
-	 *
-	 * @return mixed
 	 */
 	public function pop(): mixed
 	{
@@ -287,8 +244,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the first item of the collection or NULL if the collection is empty.
-	 *
-	 * @return mixed
 	 */
 	public function first(): mixed
 	{
@@ -304,8 +259,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the last item of the collection or NULL if the collection is empty.
-	 *
-	 * @return mixed
 	 */
 	public function last(): mixed
 	{
@@ -323,11 +276,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Sorts the collection using the specified comparator callable
 	 * and returns TRUE on success and FALSE on failure.
 	 *
-	 * @param  callable $comparator               Comparator callable
-	 * @param  bool     $maintainIndexAssociation Maintain index association?
 	 * @return $this
 	 */
-	public function sort(callable $comparator, bool $maintainIndexAssociation = true)
+	public function sort(callable $comparator, bool $maintainIndexAssociation = true): static
 	{
 		if($maintainIndexAssociation)
 		{
@@ -343,9 +294,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Chunks the collection into a collection containing $size sized collections.
-	 *
-	 * @param  int    $size Chunk size
-	 * @return static
 	 */
 	public function chunk(int $size): static
 	{
@@ -360,12 +308,11 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Shuffles the items in the collection and returns
-	 * TRUE on success and FALSE on failure.
+	 * Shuffles the items in the collection.
 	 *
 	 * @return $this
 	 */
-	public function shuffle()
+	public function shuffle(): static
 	{
 		shuffle($this->items);
 
@@ -375,10 +322,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Applies the callable on all items in the collection.
 	 *
-	 * @param  callable $callable Callable
 	 * @return $this
 	 */
-	public function each(callable $callable)
+	public function each(callable $callable): static
 	{
 		$reflection = new ReflectionFunction($callable);
 
@@ -404,9 +350,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new collection where the callable has
 	 * been applied to all the items.
-	 *
-	 * @param  callable $callable Callable
-	 * @return static
 	 */
 	public function map(callable $callable): static
 	{
@@ -419,9 +362,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns a new filtered collection.
-	 *
-	 * @param  callable|null $callable Filter
-	 * @return static
 	 */
 	public function filter(?callable $callable = null): static
 	{
@@ -435,9 +375,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns a new collection where all items not in the provided list have been removed.
-	 *
-	 * @param  array  $keys Keys
-	 * @return static
 	 */
 	public function with(array $keys): static
 	{
@@ -446,9 +383,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns a new collection where all items in the provided list have been removed.
-	 *
-	 * @param  array  $keys Keys
-	 * @return static
 	 */
 	public function without(array $keys): static
 	{
@@ -457,9 +391,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Merges two collections.
-	 *
-	 * @param  \mako\utility\Collection $collection Collection to merge
-	 * @return static
 	 */
 	public function merge(Collection $collection): static
 	{

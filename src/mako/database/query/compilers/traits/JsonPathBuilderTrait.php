@@ -17,9 +17,6 @@ trait JsonPathBuilderTrait
 {
 	/**
 	 * Builds a JSON path.
-	 *
-	 * @param  array  $segments Path segments
-	 * @return string
 	 */
 	protected function buildJsonPath(array $segments): string
 	{

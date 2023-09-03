@@ -14,18 +14,15 @@ abstract class Store implements StoreInterface
 {
 	/**
 	 * Prefix.
-	 *
-	 * @var string|null
 	 */
-	protected $prefix;
+	protected string|null $prefix = null;
 
 	/**
 	 * Sets the cache key prefix.
 	 *
-	 * @param  string $prefix Prefix
 	 * @return $this
 	 */
-	public function setPrefix(string $prefix)
+	public function setPrefix(string $prefix): static
 	{
 		$this->prefix = $prefix;
 
@@ -34,8 +31,6 @@ abstract class Store implements StoreInterface
 
 	/**
 	 * Returns the cache key prefix.
-	 *
-	 * @return string|null
 	 */
 	public function getPrefix(): ?string
 	{
@@ -44,9 +39,6 @@ abstract class Store implements StoreInterface
 
 	/**
 	 * Returns a prefixed key.
-	 *
-	 * @param  string $key Key
-	 * @return string
 	 */
 	protected function getPrefixedKey(string $key): string
 	{
@@ -68,11 +60,6 @@ abstract class Store implements StoreInterface
 
 	/**
 	 * Fetch data from the cache and replace it. NULL will be returned if the item does not exist.
-	 *
-	 * @param  string $key  Cache key
-	 * @param  mixed  $data The data to store
-	 * @param  int    $ttl  Time to live
-	 * @return mixed
 	 */
 	public function getAndPut(string $key, mixed $data, int $ttl = 0): mixed
 	{
@@ -85,9 +72,6 @@ abstract class Store implements StoreInterface
 
 	/**
 	 * Fetch data from the cache and remove it. NULL will be returned if the item does not exist.
-	 *
-	 * @param  string $key Cache key
-	 * @return mixed
 	 */
 	public function getAndRemove(string $key): mixed
 	{

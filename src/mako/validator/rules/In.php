@@ -17,8 +17,6 @@ class In extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param array $values Allowed values
 	 */
 	public function __construct(
 		protected array $values
@@ -27,10 +25,8 @@ class In extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['values'];
+	protected array $i18nParameters = ['values'];
 
 	/**
 	 * {@inheritDoc}

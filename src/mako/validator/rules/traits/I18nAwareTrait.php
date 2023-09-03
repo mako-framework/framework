@@ -27,16 +27,11 @@ trait I18nAwareTrait
 {
 	/**
 	 * I18n.
-	 *
-	 * @var \mako\i18n\I18n
 	 */
-	protected $i18n;
+	protected I18n $i18n;
 
 	/**
 	 * Sets the I18n instance.
-	 *
-	 * @param  \mako\i18n\I18n                          $i18n I18n
-	 * @return \mako\validator\rules\I18nAwareInterface
 	 */
 	public function setI18n(I18n $i18n): I18nAwareInterface
 	{
@@ -47,10 +42,6 @@ trait I18nAwareTrait
 
 	/**
 	 * Returns a translated field name.
-	 *
-	 * @param  string $field   Field name
-	 * @param  string $package Package prefix
-	 * @return string
 	 */
 	protected function translateFieldName(string $field, string $package): string
 	{
@@ -68,10 +59,6 @@ trait I18nAwareTrait
 
 	/**
 	 * Gets the i18n parameters.
-	 *
-	 * @param  string $field   Field name
-	 * @param  string $package Package prefix
-	 * @return array
 	 */
 	protected function getI18nParameters(string $field, string $package): array
 	{
@@ -95,19 +82,11 @@ trait I18nAwareTrait
 
 	/**
 	 * Returns an error message.
-	 *
-	 * @param  string $field Field name
-	 * @return string
 	 */
 	abstract public function getErrorMessage(string $field): string;
 
 	/**
 	 * Returns the translated error message.
-	 *
-	 * @param  string      $field   Field name
-	 * @param  string      $rule    Rule name
-	 * @param  string|null $package Package name
-	 * @return string
 	 */
 	public function getTranslatedErrorMessage(string $field, string $rule, ?string $package = null): string
 	{

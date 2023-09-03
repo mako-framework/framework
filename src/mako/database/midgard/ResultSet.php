@@ -31,7 +31,7 @@ class ResultSet extends BaseResultSet
 	 * @param  array|false|string $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function protect($column)
+	public function protect($column): static
 	{
 		foreach($this->items as $item)
 		{
@@ -47,7 +47,7 @@ class ResultSet extends BaseResultSet
 	 * @param  array|string|true $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function expose($column)
+	public function expose($column): static
 	{
 		foreach($this->items as $item)
 		{
@@ -60,10 +60,9 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Eager loads relations on the collection.
 	 *
-	 * @param  array|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
-	public function include(array|string $includes)
+	public function include(array|string $includes): static
 	{
 		(function ($includes, $items): void
 		{

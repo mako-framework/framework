@@ -23,10 +23,8 @@ class Pagination implements PaginationInterface
 {
 	/**
 	 * Options.
-	 *
-	 * @var array
 	 */
-	protected $options =
+	protected array $options =
 	[
 		'page_key'       => 'page',
 		'max_page_links' => 5,
@@ -34,52 +32,38 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Number of pages.
-	 *
-	 * @var int
 	 */
-	protected $pages;
+	protected int $pages;
 
 	/**
 	 * Offset.
-	 *
-	 * @var int
 	 */
-	protected $offset;
+	protected int $offset;
 
 	/**
 	 * Request instance.
-	 *
-	 * @var \mako\http\Request|null
 	 */
-	protected $request;
+	protected Request|null $request = null;
 
 	/**
 	 * Query parameter cache.
-	 *
-	 * @var array
 	 */
-	protected $params;
+	protected array|null $params = null;
 
 	/**
 	 * URL builder instance.
-	 *
-	 * @var \mako\http\routing\URLBuilder|null
 	 */
-	protected $urlBuilder;
+	protected URLBuilder|null $urlBuilder = null;
 
 	/**
 	 * View factory instance.
-	 *
-	 * @var \mako\view\ViewFactory|null
 	 */
-	protected $viewFactory;
+	protected ViewFactory|null $viewFactory = null;
 
 	/**
 	 * Pagination.
-	 *
-	 * @var array
 	 */
-	protected $pagination = [];
+	protected array $pagination = [];
 
 	/**
 	 * {@inheritDoc}
@@ -160,8 +144,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Sets the request instance.
-	 *
-	 * @param \mako\http\Request $request Request
 	 */
 	public function setRequest(Request $request): void
 	{
@@ -170,8 +152,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Sets the URL builder instance.
-	 *
-	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder instance
 	 */
 	public function setURLBuilder(URLBuilder $urlBuilder): void
 	{
@@ -180,8 +160,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Sets the view factory builder instance.
-	 *
-	 * @param \mako\view\ViewFactory $viewFactory View factory instance
 	 */
 	public function setViewFactory(ViewFactory $viewFactory): void
 	{
@@ -190,9 +168,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Builds a url to the desired page.
-	 *
-	 * @param  int    $page Page
-	 * @return string
 	 */
 	protected function buildPageUrl(int $page): string
 	{
@@ -234,8 +209,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Returns data which can be serialized by json_encode().
-	 *
-	 * @return mixed
 	 */
 	public function jsonSerialize(): mixed
 	{
@@ -252,8 +225,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Builds and returns the pagination array.
-	 *
-	 * @return array
 	 */
 	public function pagination(): array
 	{
@@ -317,9 +288,6 @@ class Pagination implements PaginationInterface
 
 	/**
 	 * Renders and returns the pagination partial.
-	 *
-	 * @param  string $view Pagination view
-	 * @return string
 	 */
 	public function render(string $view): string
 	{

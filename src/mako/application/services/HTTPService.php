@@ -22,8 +22,6 @@ class HTTPService extends Service
 {
 	/**
 	 * Returns path to the application routing.
-	 *
-	 * @return string
 	 */
 	protected function getRoutingPath(): string
 	{

@@ -18,23 +18,16 @@ abstract class Input extends BaseInput implements InputInterface
 {
 	/**
 	 * Should we redirect the client if possible?
-	 *
-	 * @var bool
 	 */
-	protected $shouldRedirect = true;
+	protected bool $shouldRedirect = true;
 
 	/**
 	 * Should the old input be included?
-	 *
-	 * @var bool
 	 */
-	protected $shouldIncludeOldInput = true;
+	protected bool $shouldIncludeOldInput = true;
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\Request            $request    Request
-	 * @param \mako\http\routing\URLBuilder $urlBuilder URL builder
 	 */
 	public function __construct(
 		protected Request $request,

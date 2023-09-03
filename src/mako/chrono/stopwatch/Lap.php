@@ -16,22 +16,16 @@ class Lap
 {
 	/**
 	 * Start time.
-	 *
-	 * @var float
 	 */
-	protected $started = 0.0;
+	protected float $started = 0.0;
 
 	/**
 	 * Stop time.
-	 *
-	 * @var float
 	 */
-	protected $stopped = 0.0;
+	protected float $stopped = 0.0;
 
 	/**
 	 * Returns the lap start time.
-	 *
-	 * @return float
 	 */
 	public function getStartTime(): float
 	{
@@ -40,8 +34,6 @@ class Lap
 
 	/**
 	 * Returns the lap stop time.
-	 *
-	 * @return float
 	 */
 	public function getStopTime(): float
 	{
@@ -50,8 +42,6 @@ class Lap
 
 	/**
 	 * Returns TRUE if the lap is still running and FALSE if not.
-	 *
-	 * @return bool
 	 */
 	public function isRunning(): bool
 	{
@@ -61,9 +51,9 @@ class Lap
 	/**
 	 * Starts the lap.
 	 *
-	 * @return \mako\chrono\stopwatch\Lap
+	 * @return $this
 	 */
-	public function start(): Lap
+	public function start(): static
 	{
 		$this->started = microtime(true);
 
@@ -72,8 +62,6 @@ class Lap
 
 	/**
 	 * Stops the lap and returns the elapsed time.
-	 *
-	 * @return float
 	 */
 	public function stop(): float
 	{

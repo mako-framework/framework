@@ -18,7 +18,7 @@ class GenerateKey extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Generates a 256-bit encryption key.';
+	protected string $description = 'Generates a 256-bit encryption key.';
 
 	/**
 	 * Executes the command.

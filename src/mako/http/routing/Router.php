@@ -36,23 +36,16 @@ class Router
 
 	/**
 	 * Constraints.
-	 *
-	 * @var array
 	 */
-	protected $constraints = [];
+	protected array $constraints = [];
 
 	/**
 	 * Global constraints.
-	 *
-	 * @var array
 	 */
-	protected $globalConstraints = [];
+	protected array $globalConstraints = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\routing\Routes $routes    Routes
-	 * @param \mako\syringe\Container   $container Container
 	 */
 	public function __construct(
 		protected Routes $routes,
@@ -62,10 +55,6 @@ class Router
 
 	/**
 	 * Registers constraint.
-	 *
-	 * @param  string                    $name       Constraint name or class name
-	 * @param  string|null               $constraint Constraint class name
-	 * @return \mako\http\routing\Router
 	 */
 	public function registerConstraint(string $name, ?string $constraint = null): Router
 	{
@@ -76,9 +65,6 @@ class Router
 
 	/**
 	 * Sets the chosen constraint as global.
-	 *
-	 * @param  array                     $constraint Array of constraint names
-	 * @return \mako\http\routing\Router
 	 */
 	public function setConstraintAsGlobal(array $constraint): Router
 	{
@@ -89,10 +75,6 @@ class Router
 
 	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
-	 *
-	 * @param  \mako\http\routing\Route $route Route
-	 * @param  string                   $path  Request path
-	 * @return bool
 	 */
 	protected function matches(Route $route, string $path): bool
 	{
@@ -118,9 +100,6 @@ class Router
 
 	/**
 	 * Constraint factory.
-	 *
-	 * @param  string                                             $constraint Constraint
-	 * @return \mako\http\routing\constraints\ConstraintInterface
 	 */
 	protected function constraintFactory(string $constraint): ConstraintInterface
 	{
@@ -138,9 +117,6 @@ class Router
 
 	/**
 	 * Returns TRUE if all the route constraints are satisfied and FALSE if not.
-	 *
-	 * @param  \mako\http\routing\Route $route Route
-	 * @return bool
 	 */
 	protected function constraintsAreSatisfied(Route $route): bool
 	{
@@ -157,9 +133,6 @@ class Router
 
 	/**
 	 * Returns a route with a closure action that redirects to the correct URL.
-	 *
-	 * @param  string                   $requestPath The requested path
-	 * @return \mako\http\routing\Route
 	 */
 	protected function redirectRoute(string $requestPath): Route
 	{
@@ -180,9 +153,6 @@ class Router
 
 	/**
 	 * Returns an array of all allowed request methods for the requested route.
-	 *
-	 * @param  string $requestPath The requested path
-	 * @return array
 	 */
 	protected function getAllowedMethodsForMatchingRoutes(string $requestPath): array
 	{
@@ -201,9 +171,6 @@ class Router
 
 	/**
 	 * Returns a route with a closure action that sets the allow header.
-	 *
-	 * @param  string                   $requestPath The requested path
-	 * @return \mako\http\routing\Route
 	 */
 	protected function optionsRoute(string $requestPath): Route
 	{
@@ -217,9 +184,6 @@ class Router
 
 	/**
 	 * Returns a route that throws a method not allowed exception.
-	 *
-	 * @param  array                    $allowedMethods Allowed methods
-	 * @return \mako\http\routing\Route
 	 */
 	protected function methodNotAllowedRoute(array $allowedMethods): Route
 	{
@@ -231,8 +195,6 @@ class Router
 
 	/**
 	 * Returns a route that throws a not found exception.
-	 *
-	 * @return \mako\http\routing\Route
 	 */
 	protected function notFoundRoute(): Route
 	{
@@ -244,9 +206,6 @@ class Router
 
 	/**
 	 * Matches and returns the appropriate route along with its parameters.
-	 *
-	 * @param  \mako\http\Request       $request Request
-	 * @return \mako\http\routing\Route
 	 */
 	public function route(Request $request): Route
 	{

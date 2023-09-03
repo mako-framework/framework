@@ -47,29 +47,21 @@ class Gatekeeper
 
 	/**
 	 * Default adapter name.
-	 *
-	 * @var string
 	 */
-	protected $defaultAdapter;
+	protected string $defaultAdapter;
 
 	/**
 	 * Adapters.
-	 *
-	 * @var array
 	 */
-	protected $adapters = [];
+	protected array $adapters = [];
 
 	/**
 	 * Adapter factories.
-	 *
-	 * @var array
 	 */
-	protected $adapterFactories = [];
+	protected array $adapterFactories = [];
 
 	/**
 	 * Constructor.
-	 *
-	 * @param array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
 	 */
 	public function __construct(array|AdapterInterface $adapter)
 	{
@@ -78,9 +70,6 @@ class Gatekeeper
 
 	/**
 	 * Registers an adapter instance.
-	 *
-	 * @param  \mako\gatekeeper\adapters\AdapterInterface $adapter Adapter instance
-	 * @return string
 	 */
 	protected function registerAdapterInstance(AdapterInterface $adapter): string
 	{
@@ -91,10 +80,6 @@ class Gatekeeper
 
 	/**
 	 * Registers an adapter factory.
-	 *
-	 * @param  string   $name    Adapter name
-	 * @param  \Closure $factory Adapter factory
-	 * @return string
 	 */
 	protected function registerAdapterFactory(string $name, Closure $factory): string
 	{
@@ -105,9 +90,6 @@ class Gatekeeper
 
 	/**
 	 * Registers an adapter.
-	 *
-	 * @param  array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
-	 * @return string
 	 */
 	protected function registerAdapter(array|AdapterInterface $adapter): string
 	{
@@ -123,9 +105,6 @@ class Gatekeeper
 
 	/**
 	 * Registers a new adapter.
-	 *
-	 * @param  array|\mako\gatekeeper\adapters\AdapterInterface $adapter Array containing the adapter name and closure factory or an adapter instance
-	 * @return \mako\gatekeeper\Gatekeeper
 	 */
 	public function extend(array|AdapterInterface $adapter): Gatekeeper
 	{
@@ -136,9 +115,6 @@ class Gatekeeper
 
 	/**
 	 * Sets the defaut adapter name.
-	 *
-	 * @param  string                      $name Adapter name
-	 * @return \mako\gatekeeper\Gatekeeper
 	 */
 	public function useAsDefaultAdapter(string $name): Gatekeeper
 	{
@@ -149,9 +125,6 @@ class Gatekeeper
 
 	/**
 	 * Creates an adapter instance using a factory.
-	 *
-	 * @param  string                                     $name Adapter name
-	 * @return \mako\gatekeeper\adapters\AdapterInterface
 	 */
 	protected function adapterFactory(string $name): AdapterInterface
 	{
@@ -162,9 +135,6 @@ class Gatekeeper
 
 	/**
 	 * Returns an adapter instance.
-	 *
-	 * @param  string|null                                $name Adapter name
-	 * @return \mako\gatekeeper\adapters\AdapterInterface
 	 */
 	public function adapter(?string $name = null): AdapterInterface
 	{
@@ -175,10 +145,6 @@ class Gatekeeper
 
 	/**
 	 * Magic shortcut to the default adapter.
-	 *
-	 * @param  string $name      Method name
-	 * @param  array  $arguments Method arguments
-	 * @return mixed
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{

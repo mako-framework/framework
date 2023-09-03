@@ -21,8 +21,6 @@ class Result implements JsonSerializable, Stringable
 {
 	/**
 	 * Returns an array representation of the result.
-	 *
-	 * @return array
 	 */
 	public function toArray(): array
 	{
@@ -31,8 +29,6 @@ class Result implements JsonSerializable, Stringable
 
 	/**
 	 * Returns data which can be serialized by json_encode().
-	 *
-	 * @return mixed
 	 */
 	public function jsonSerialize(): mixed
 	{
@@ -41,9 +37,6 @@ class Result implements JsonSerializable, Stringable
 
 	/**
 	 * Returns a json representation of the result.
-	 *
-	 * @param  int    $options JSON encode options
-	 * @return string
 	 */
 	public function toJson(int $options = 0): string
 	{
@@ -52,8 +45,6 @@ class Result implements JsonSerializable, Stringable
 
 	/**
 	 * Returns a json representation of the result.
-	 *
-	 * @return string
 	 */
 	public function __toString(): string
 	{

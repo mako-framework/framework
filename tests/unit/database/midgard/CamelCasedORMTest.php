@@ -19,7 +19,7 @@ class CamelCasedORM extends ORM
 {
     use CamelCasedTrait;
 
-	protected $cast = ['is_something' => 'bool'];
+	protected array $cast = ['is_something' => 'bool'];
 
 	protected function jsonColumnMutator(array $value)
 	{

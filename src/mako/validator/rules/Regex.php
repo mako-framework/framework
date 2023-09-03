@@ -17,8 +17,6 @@ class Regex extends Rule implements RuleInterface
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param string $regex Regex
 	 */
 	public function __construct(
 		protected string $regex
@@ -27,10 +25,8 @@ class Regex extends Rule implements RuleInterface
 
 	/**
 	 * I18n parameters.
-	 *
-	 * @var array
 	 */
-	protected $i18nParameters = ['regex'];
+	protected array $i18nParameters = ['regex'];
 
 	/**
 	 * {@inheritDoc}
