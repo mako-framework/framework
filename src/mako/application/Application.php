@@ -416,7 +416,7 @@ abstract class Application
 	 *
 	 * @return $this
 	 */
-	public function boot()
+	public function boot(): static
 	{
 		// Set up the framework core
 

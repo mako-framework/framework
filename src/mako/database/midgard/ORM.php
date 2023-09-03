@@ -410,7 +410,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 *
 	 * @return $this
 	 */
-	public function include(array|string $includes)
+	public function include(array|string $includes): static
 	{
 		(function ($includes, $model): void
 		{
@@ -582,7 +582,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 *
 	 * @return $this
 	 */
-	public function assign(array $columns, bool $raw = false, bool $whitelist = true)
+	public function assign(array $columns, bool $raw = false, bool $whitelist = true): static
 	{
 		// Remove columns that are not in the whitelist
 
@@ -885,7 +885,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 * @param  array|false|string $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function protect($column)
+	public function protect($column): static
 	{
 		$this->protected = $column === false ? [] : array_unique([...$this->protected, ...(array) $column]);
 
@@ -899,7 +899,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 * @param  array|string|true $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function expose($column)
+	public function expose($column): static
 	{
 		$this->protected = $column === true ? [] : array_diff($this->protected, (array) $column);
 

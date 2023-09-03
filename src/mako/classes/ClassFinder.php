@@ -68,7 +68,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeClasses()
+	public function includeClasses(): static
 	{
 		$this->includeClasses = true;
 
@@ -80,7 +80,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeClasses()
+	public function excludeClasses(): static
 	{
 		$this->includeClasses = false;
 
@@ -92,7 +92,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeAbstractClasses()
+	public function includeAbstractClasses(): static
 	{
 		$this->includeAbstractClasses = true;
 
@@ -104,7 +104,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeAbstractClasses()
+	public function excludeAbstractClasses(): static
 	{
 		$this->includeAbstractClasses = false;
 
@@ -116,7 +116,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeInterfaces()
+	public function includeInterfaces(): static
 	{
 		$this->includeInterfaces = true;
 
@@ -128,7 +128,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeInterfaces()
+	public function excludeInterfaces(): static
 	{
 		$this->includeInterfaces = false;
 
@@ -140,7 +140,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function includeTraits()
+	public function includeTraits(): static
 	{
 		$this->includeTraits = true;
 
@@ -152,7 +152,7 @@ class ClassFinder
 	 *
 	 * @return $this
 	 */
-	public function excludeTraits()
+	public function excludeTraits(): static
 	{
 		$this->includeTraits = false;
 

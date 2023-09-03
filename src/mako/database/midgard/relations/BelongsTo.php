@@ -59,7 +59,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function eagerCriterion(array $keys)
+	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->table}.{$this->model->getPrimaryKey()}", $keys);
 
@@ -69,7 +69,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getRelationCountQuery()
+	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->origin->getTable()}.{$this->getForeignKey()}");
 

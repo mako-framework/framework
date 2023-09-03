@@ -38,7 +38,7 @@ class Logger implements LoggerInterface
 	 *
 	 * @return $this
 	 */
-	public function setContext(array $context)
+	public function setContext(array $context): static
 	{
 		$this->context = $context;
 

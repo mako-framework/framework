@@ -94,7 +94,7 @@ abstract class Relation extends Query
 	 *
 	 * @return $this
 	 */
-	protected function eagerCriterion(array $keys)
+	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->table}.{$this->getForeignKey()}", $keys);
 
@@ -137,7 +137,7 @@ abstract class Relation extends Query
 	 *
 	 * @return $this
 	 */
-	protected function getRelationCountQuery()
+	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->table}.{$this->getForeignKey()}", '=', "{$this->origin->getTable()}.{$this->origin->getPrimaryKey()}");
 

@@ -85,7 +85,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN')
+	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN'): static
 	{
 		if(empty($this->joins) && $this->columns === ['*'])
 		{
@@ -282,7 +282,7 @@ class Query extends QueryBuilder
 	 * @param  array|false|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
-	public function including($includes)
+	public function including($includes): static
 	{
 		if($includes === false)
 		{
@@ -324,7 +324,7 @@ class Query extends QueryBuilder
 	 * @param  array|string|true $excludes Relation or array of relations to exclude from eager loading
 	 * @return $this
 	 */
-	public function excluding($excludes)
+	public function excluding($excludes): static
 	{
 		if($excludes === true)
 		{
@@ -370,7 +370,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return $this
 	 */
-	public function withCountOf(array|string $relations)
+	public function withCountOf(array|string $relations): static
 	{
 		foreach((array) $relations as $relation => $criteria)
 		{
@@ -583,7 +583,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return $this
 	 */
-	public function scope(string $scope, mixed ...$arguments)
+	public function scope(string $scope, mixed ...$arguments): static
 	{
 		$this->model->{Str::snakeToCamel($scope) . 'Scope'}(...[$this, ...$arguments]);
 

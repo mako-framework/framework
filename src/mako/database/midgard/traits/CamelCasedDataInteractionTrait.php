@@ -53,7 +53,7 @@ trait CamelCasedDataInteractionTrait
 	 *
 	 * @return $this
 	 */
-	public function assign(array $columns, bool $raw = false, bool $whitelist = true)
+	public function assign(array $columns, bool $raw = false, bool $whitelist = true): static
 	{
 		$snakeCased = [];
 

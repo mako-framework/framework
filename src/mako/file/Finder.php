@@ -42,7 +42,7 @@ class Finder
 	 *
 	 * @return $this
 	 */
-	public function setPattern(string $pattern)
+	public function setPattern(string $pattern): static
 	{
 		$this->pattern = $pattern;
 
@@ -62,7 +62,7 @@ class Finder
 	 *
 	 * @return $this
 	 */
-	public function setMaxDepth(int $maxDepth)
+	public function setMaxDepth(int $maxDepth): static
 	{
 		$this->maxDepth = $maxDepth;
 

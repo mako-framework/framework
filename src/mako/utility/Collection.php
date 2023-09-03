@@ -74,7 +74,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function resetKeys()
+	public function resetKeys(): static
 	{
 		$this->items = array_values($this->items);
 
@@ -86,7 +86,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function put(int|string $key, mixed $value)
+	public function put(int|string $key, mixed $value): static
 	{
 		$this->items[$key] = $value;
 
@@ -119,7 +119,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function remove(int|string $key)
+	public function remove(int|string $key): static
 	{
 		unset($this->items[$key]);
 
@@ -131,7 +131,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function clear()
+	public function clear(): static
 	{
 		$this->items = [];
 
@@ -278,7 +278,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function sort(callable $comparator, bool $maintainIndexAssociation = true)
+	public function sort(callable $comparator, bool $maintainIndexAssociation = true): static
 	{
 		if($maintainIndexAssociation)
 		{
@@ -308,12 +308,11 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Shuffles the items in the collection and returns
-	 * TRUE on success and FALSE on failure.
+	 * Shuffles the items in the collection.
 	 *
 	 * @return $this
 	 */
-	public function shuffle()
+	public function shuffle(): static
 	{
 		shuffle($this->items);
 
@@ -325,7 +324,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function each(callable $callable)
+	public function each(callable $callable): static
 	{
 		$reflection = new ReflectionFunction($callable);
 

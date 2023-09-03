@@ -37,7 +37,7 @@ class HttpStatusException extends HttpException
 	 *
 	 * @return $this
 	 */
-	public function setMetadata(array $metadata)
+	public function setMetadata(array $metadata): static
 	{
 		$this->metadata = $metadata;
 

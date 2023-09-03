@@ -84,7 +84,7 @@ class ManyToMany extends Relation
 	 *
 	 * @return $this
 	 */
-	public function alongWith(array $columns)
+	public function alongWith(array $columns): static
 	{
 		foreach($columns as $key => $value)
 		{
@@ -155,7 +155,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function eagerCriterion(array $keys)
+	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->getJunctionTable()}.{$this->getForeignKey()}", $keys);
 
@@ -165,7 +165,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function getRelationCountQuery()
+	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', "{$this->origin->getTable()}.{$this->origin->getPrimaryKey()}");
 

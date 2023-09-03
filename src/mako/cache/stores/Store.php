@@ -22,7 +22,7 @@ abstract class Store implements StoreInterface
 	 *
 	 * @return $this
 	 */
-	public function setPrefix(string $prefix)
+	public function setPrefix(string $prefix): static
 	{
 		$this->prefix = $prefix;
 

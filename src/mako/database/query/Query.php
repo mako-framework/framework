@@ -170,7 +170,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function inSubqueryContext()
+	public function inSubqueryContext(): static
 	{
 		$this->inSubqueryContext = true;
 
@@ -333,7 +333,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function forCompiler(string $compilerClass, Closure $query)
+	public function forCompiler(string $compilerClass, Closure $query): static
 	{
 		if($this->compiler instanceof $compilerClass)
 		{
@@ -348,7 +348,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function with(string $name, array $columns, Subquery $query)
+	public function with(string $name, array $columns, Subquery $query): static
 	{
 		$this->commonTableExpressions['ctes'][] =
 		[
@@ -365,7 +365,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function withRecursive(string $name, array $columns, Subquery $query)
+	public function withRecursive(string $name, array $columns, Subquery $query): static
 	{
 		$this->commonTableExpressions['recursive'] = true;
 
@@ -377,7 +377,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	protected function setOperation(string $operation)
+	protected function setOperation(string $operation): static
 	{
 		$previous = clone $this;
 
@@ -397,7 +397,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function union()
+	public function union(): static
 	{
 		return $this->setOperation('UNION');
 	}
@@ -407,7 +407,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function unionAll()
+	public function unionAll(): static
 	{
 		return $this->setOperation('UNION ALL');
 	}
@@ -417,7 +417,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function intersect()
+	public function intersect(): static
 	{
 		return $this->setOperation('INTERSECT');
 	}
@@ -427,7 +427,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function intersectAll()
+	public function intersectAll(): static
 	{
 		return $this->setOperation('INTERSECT ALL');
 	}
@@ -437,7 +437,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function except()
+	public function except(): static
 	{
 		return $this->setOperation('EXCEPT');
 	}
@@ -447,7 +447,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function exceptAll()
+	public function exceptAll(): static
 	{
 		return $this->setOperation('EXCEPT ALL');
 	}
@@ -457,7 +457,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function table(array|Raw|Subquery|string|null $table)
+	public function table(array|Raw|Subquery|string|null $table): static
 	{
 		$this->table = $table;
 
@@ -469,7 +469,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function from(array|Raw|Subquery|string|null $table)
+	public function from(array|Raw|Subquery|string|null $table): static
 	{
 		return $this->table($table);
 	}
@@ -479,7 +479,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function into(array|Raw|Subquery|string|null $table)
+	public function into(array|Raw|Subquery|string|null $table): static
 	{
 		return $this->table($table);
 	}
@@ -489,7 +489,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function select(array $columns)
+	public function select(array $columns): static
 	{
 		$this->columns = $columns;
 
@@ -501,7 +501,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function selectRaw(string $sql, array $parameters = [])
+	public function selectRaw(string $sql, array $parameters = []): static
 	{
 		$this->columns = [new Raw($sql, $parameters)];
 
@@ -513,7 +513,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function distinct()
+	public function distinct(): static
 	{
 		$this->distinct = true;
 
@@ -525,7 +525,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function where(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null, string $separator = 'AND')
+	public function where(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null, string $separator = 'AND'): static
 	{
 		if($column instanceof Closure)
 		{
@@ -560,7 +560,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function whereRaw(array|Raw|string $column, array|string|null $operator = null, ?string $raw = null, string $separator = 'AND')
+	public function whereRaw(array|Raw|string $column, array|string|null $operator = null, ?string $raw = null, string $separator = 'AND'): static
 	{
 		if($raw === null)
 		{
@@ -582,7 +582,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null)
+	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null): static
 	{
 		return $this->where($column, $operator, $value, 'OR');
 	}
@@ -592,7 +592,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhereRaw(array|Raw|string $column, array|string|null $operator = null, ?string $raw = null)
+	public function orWhereRaw(array|Raw|string $column, array|string|null $operator = null, ?string $raw = null): static
 	{
 		return $this->whereRaw($column, $operator, $raw, 'OR');
 	}
@@ -602,7 +602,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function whereDate(string $column, string $operator, DateTimeInterface|string $date, string $separator = 'AND')
+	public function whereDate(string $column, string $operator, DateTimeInterface|string $date, string $separator = 'AND'): static
 	{
 
 		$this->wheres[] =
@@ -622,7 +622,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhereDate(string $column, string $operator, DateTimeInterface|string $date)
+	public function orWhereDate(string $column, string $operator, DateTimeInterface|string $date): static
 	{
 		return $this->whereDate($column, $operator, $date, 'OR');
 	}
@@ -632,7 +632,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function whereColumn(array|string $column1, string $operator, array|string $column2, string $separator = 'AND')
+	public function whereColumn(array|string $column1, string $operator, array|string $column2, string $separator = 'AND'): static
 	{
 		$this->wheres[] =
 		[
@@ -651,7 +651,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhereColumn(array|string $column1, string $operator, array|string $column2)
+	public function orWhereColumn(array|string $column1, string $operator, array|string $column2): static
 	{
 		return $this->whereColumn($column1, $operator, $column2, 'OR');
 	}
@@ -661,7 +661,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function between(mixed $column, mixed $value1, mixed $value2, string $separator = 'AND', bool $not = false)
+	public function between(mixed $column, mixed $value1, mixed $value2, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -681,7 +681,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orBetween(mixed $column, mixed $value1, mixed $value2)
+	public function orBetween(mixed $column, mixed $value1, mixed $value2): static
 	{
 		return $this->between($column, $value1, $value2, 'OR');
 	}
@@ -691,7 +691,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function notBetween(mixed $column, mixed $value1, mixed $value2)
+	public function notBetween(mixed $column, mixed $value1, mixed $value2): static
 	{
 		return $this->between($column, $value1, $value2, 'AND', true);
 	}
@@ -701,7 +701,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orNotBetween(mixed $column, mixed $value1, mixed $value2)
+	public function orNotBetween(mixed $column, mixed $value1, mixed $value2): static
 	{
 		return $this->between($column, $value1, $value2, 'OR', true);
 	}
@@ -711,7 +711,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function betweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2, string $separator = 'AND', bool $not = false)
+	public function betweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -731,7 +731,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orBetweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2)
+	public function orBetweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2): static
 	{
 		return $this->betweenDate($column, $date1, $date2, 'OR');
 	}
@@ -741,7 +741,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function notBetweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2)
+	public function notBetweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2): static
 	{
 		return $this->betweenDate($column, $date1, $date2, 'AND', true);
 	}
@@ -751,7 +751,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orNotBetweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2)
+	public function orNotBetweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2): static
 	{
 		return $this->betweenDate($column, $date1, $date2, 'OR', true);
 	}
@@ -761,7 +761,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function in(mixed $column, array|Raw|Subquery $values, string $separator = 'AND', bool $not = false)
+	public function in(mixed $column, array|Raw|Subquery $values, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -780,7 +780,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orIn(mixed $column, array|Raw|Subquery $values)
+	public function orIn(mixed $column, array|Raw|Subquery $values): static
 	{
 		return $this->in($column, $values, 'OR');
 	}
@@ -790,7 +790,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function notIn(mixed $column, array|Raw|Subquery $values)
+	public function notIn(mixed $column, array|Raw|Subquery $values): static
 	{
 		return $this->in($column, $values, 'AND', true);
 	}
@@ -800,7 +800,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orNotIn(mixed $column, array|Raw|Subquery $values)
+	public function orNotIn(mixed $column, array|Raw|Subquery $values): static
 	{
 		return $this->in($column, $values, 'OR', true);
 	}
@@ -810,7 +810,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function isNull(mixed $column, string $separator = 'AND', bool $not = false)
+	public function isNull(mixed $column, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -828,7 +828,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orIsNull(mixed $column)
+	public function orIsNull(mixed $column): static
 	{
 		return $this->isNull($column, 'OR');
 	}
@@ -838,7 +838,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function isNotNull(mixed $column)
+	public function isNotNull(mixed $column): static
 	{
 		return $this->isNull($column, 'AND', true);
 	}
@@ -848,7 +848,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orIsNotNull(mixed $column)
+	public function orIsNotNull(mixed $column): static
 	{
 		return $this->isNull($column, 'OR', true);
 	}
@@ -858,7 +858,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function exists(Subquery $query, string $separator = 'AND', bool $not = false)
+	public function exists(Subquery $query, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -876,7 +876,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orExists(Subquery $query)
+	public function orExists(Subquery $query): static
 	{
 		return $this->exists($query, 'OR');
 	}
@@ -886,7 +886,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function notExists(Subquery $query)
+	public function notExists(Subquery $query): static
 	{
 		return $this->exists($query, 'AND', true);
 	}
@@ -896,7 +896,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orNotExists(Subquery $query)
+	public function orNotExists(Subquery $query): static
 	{
 		return $this->exists($query, 'OR', true);
 	}
@@ -906,7 +906,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN')
+	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN'): static
 	{
 		$join = new Join($type, $table);
 
@@ -929,7 +929,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function joinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw, string $type = 'INNER JOIN')
+	public function joinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw, string $type = 'INNER JOIN'): static
 	{
 		return $this->join($table, $column1, $operator, new Raw($raw), $type);
 	}
@@ -939,7 +939,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function leftJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null)
+	public function leftJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null): static
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER JOIN');
 	}
@@ -949,7 +949,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function leftJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw)
+	public function leftJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw): static
 	{
 		return $this->joinRaw($table, $column1, $operator, $raw, 'LEFT OUTER JOIN');
 	}
@@ -959,7 +959,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function rightJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null)
+	public function rightJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null): static
 	{
 		return $this->join($table, $column1, $operator, $column2, 'RIGHT OUTER JOIN');
 	}
@@ -969,7 +969,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function rightJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw)
+	public function rightJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw): static
 	{
 		return $this->joinRaw($table, $column1, $operator, $raw, 'RIGHT OUTER JOIN');
 	}
@@ -979,7 +979,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function crossJoin(Raw|Subquery|string $table)
+	public function crossJoin(Raw|Subquery|string $table): static
 	{
 		return $this->join($table, type: 'CROSS JOIN');
 	}
@@ -989,7 +989,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function lateralJoin(Subquery $subquery, string $type = 'LEFT OUTER JOIN')
+	public function lateralJoin(Subquery $subquery, string $type = 'LEFT OUTER JOIN'): static
 	{
 		return $this->join($subquery, new Raw('TRUE'), type: "{$type} LATERAL");
 	}
@@ -999,7 +999,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function groupBy(array|string $columns)
+	public function groupBy(array|string $columns): static
 	{
 		$this->groupings = is_array($columns) ? $columns : [$columns];
 
@@ -1011,7 +1011,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function having(Raw|string $column, string $operator, mixed $value, string $separator = 'AND')
+	public function having(Raw|string $column, string $operator, mixed $value, string $separator = 'AND'): static
 	{
 		$this->havings[] =
 		[
@@ -1029,7 +1029,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function havingRaw(string $raw, string $operator, mixed $value, string $separator = 'AND')
+	public function havingRaw(string $raw, string $operator, mixed $value, string $separator = 'AND'): static
 	{
 		return $this->having(new Raw($raw), $operator, $value, $separator);
 	}
@@ -1039,7 +1039,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orHaving(Raw|string $column, string $operator, mixed $value)
+	public function orHaving(Raw|string $column, string $operator, mixed $value): static
 	{
 		return $this->having($column, $operator, $value, 'OR');
 	}
@@ -1049,7 +1049,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orHavingRaw(string $raw, string $operator, mixed $value)
+	public function orHavingRaw(string $raw, string $operator, mixed $value): static
 	{
 		return $this->havingRaw($raw, $operator, $value, 'OR');
 	}
@@ -1059,7 +1059,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orderBy(array|Raw|string $columns, string $order = 'ASC')
+	public function orderBy(array|Raw|string $columns, string $order = 'ASC'): static
 	{
 		$this->orderings[] =
 		[
@@ -1075,7 +1075,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orderByRaw(string $raw, array $parameters = [], string $order = 'ASC')
+	public function orderByRaw(string $raw, array $parameters = [], string $order = 'ASC'): static
 	{
 		return $this->orderBy(new Raw($raw, $parameters), $order);
 	}
@@ -1085,7 +1085,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function ascending(array|string $columns)
+	public function ascending(array|string $columns): static
 	{
 		return $this->orderBy($columns, 'ASC');
 	}
@@ -1095,7 +1095,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function ascendingRaw(string $raw, array $parameters = [])
+	public function ascendingRaw(string $raw, array $parameters = []): static
 	{
 		return $this->orderByRaw($raw, $parameters, 'ASC');
 	}
@@ -1105,7 +1105,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function descending(array|string $columns)
+	public function descending(array|string $columns): static
 	{
 		return $this->orderBy($columns, 'DESC');
 	}
@@ -1115,7 +1115,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function descendingRaw(string $raw, array $parameters = [])
+	public function descendingRaw(string $raw, array $parameters = []): static
 	{
 		return $this->orderByRaw($raw, $parameters, 'DESC');
 	}
@@ -1125,7 +1125,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function clearOrderings()
+	public function clearOrderings(): static
 	{
 		$this->orderings = [];
 
@@ -1137,7 +1137,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function limit(int $limit)
+	public function limit(int $limit): static
 	{
 		$this->limit = (int) $limit;
 
@@ -1149,7 +1149,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function offset(int $offset)
+	public function offset(int $offset): static
 	{
 		$this->offset = (int) $offset;
 
@@ -1161,7 +1161,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function lock(bool|string $lock = true)
+	public function lock(bool|string $lock = true): static
 	{
 		$this->lock = $lock;
 
@@ -1173,7 +1173,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function sharedLock()
+	public function sharedLock(): static
 	{
 		return $this->lock(false);
 	}
@@ -1183,7 +1183,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function prefix(string $prefix)
+	public function prefix(string $prefix): static
 	{
 		$this->prefix = "{$prefix} ";
 
