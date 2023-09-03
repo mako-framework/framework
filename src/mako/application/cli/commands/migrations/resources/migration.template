@@ -8,8 +8,6 @@ class Migration_{{version}} extends Migration
 {
 	/**
 	 * Description.
-	 *
-	 * @var string
 	 */
 	protected string $description = '{{description}}';
 

@@ -41,10 +41,8 @@ class ConnectionManager extends BaseConnectionManager
 {
 	/**
 	 * Driver aliases.
-	 *
-	 * @var array
 	 */
-	protected $driverAliases =
+	protected array $driverAliases =
 	[
 		'oracle' => ['oci', 'oracle'],
 		'sqlsrv' => ['dblib', 'sqlsrv', 'mssql'],
@@ -52,10 +50,8 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Connections.
-	 *
-	 * @var array
 	 */
-	protected $connectionClasses =
+	protected array $connectionClasses =
 	[
 		'firebird' => FirebirdConnection::class,
 		'mysql'    => MySQLConnection::class,
@@ -67,10 +63,8 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Query compilers.
-	 *
-	 * @var array
 	 */
-	protected $queryCompilerClasses =
+	protected array $queryCompilerClasses =
 	[
 		'firebird' => FirebirdCompiler::class,
 		'mysql'    => MySQLCompiler::class,
@@ -82,19 +76,14 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Query builder helpers.
-	 *
-	 * @var array
 	 */
-	protected $queryBuilderHelperClasses =
+	protected array $queryBuilderHelperClasses =
 	[
 		'pgsql' => PostgresHelper::class,
 	];
 
 	/**
 	 * Returns the normalized driver name.
-	 *
-	 * @param  string $driver Driver name
-	 * @return string
 	 */
 	protected function normalizeDriverName(string $driver): string
 	{
@@ -111,9 +100,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Returns the connection class.
-	 *
-	 * @param  string $driver Driver name
-	 * @return string
 	 */
 	protected function getConnectionClass(string $driver): string
 	{
@@ -122,9 +108,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Retuns the query compiler class.
-	 *
-	 * @param  string $driver Driver name
-	 * @return string
 	 */
 	protected function getQueryCompilerClass(string $driver): string
 	{
@@ -133,9 +116,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Retuns the query builder helper class.
-	 *
-	 * @param  string $driver Driver name
-	 * @return string
 	 */
 	protected function getQueryBuilderHelperClass(string $driver): string
 	{
@@ -144,9 +124,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Sets a driver alias.
-	 *
-	 * @param string       $driver Driver name
-	 * @param array|string $alias  Alias or array of aliases
 	 */
 	public function setDriverAlias(string $driver, array|string $alias): void
 	{
@@ -155,9 +132,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Sets a connection class.
-	 *
-	 * @param string $driver Driver name
-	 * @param string $class  Connection class
 	 */
 	public function setConnectionClass(string $driver, string $class): void
 	{
@@ -166,9 +140,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Sets a query compiler class.
-	 *
-	 * @param string $driver Driver name
-	 * @param string $class  Query compiler class
 	 */
 	public function setQueryCompilerClass(string $driver, string $class): void
 	{
@@ -177,9 +148,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Sets a query builder helper class.
-	 *
-	 * @param string $driver Driver name
-	 * @param string $class  Query builder helper class
 	 */
 	public function setQueryBuilderHelperClass(string $driver, string $class): void
 	{
@@ -188,9 +156,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Connects to the chosen database and returns the connection.
-	 *
-	 * @param  string                                $connectionName Connection name
-	 * @return \mako\database\connections\Connection
 	 */
 	protected function connect(string $connectionName): Connection
 	{
@@ -212,9 +177,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Adds a database connection to the connection manager.
-	 *
-	 * @param  \mako\database\connections\Connection $connection Database connection
-	 * @return \mako\database\ConnectionManager
 	 */
 	public function setConnection(Connection $connection): ConnectionManager
 	{
@@ -236,9 +198,6 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Returns the query log for all connections.
-	 *
-	 * @param  bool  $groupedByConnection Group logs by connection?
-	 * @return array
 	 */
 	public function getLogs(bool $groupedByConnection = true): array
 	{

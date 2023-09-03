@@ -20,9 +20,7 @@ use Mockery;
 class ContentNegotiationTraitTest extends TestCase
 {
 	/**
-	 * @param  \mako\http\Request  $request  Request
-	 * @param  \mako\http\Response $response Response
-	 * @return object
+	 *
 	 */
 	protected function getTestClass(Request $request, Response $response): object
 	{

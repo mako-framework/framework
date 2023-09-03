@@ -25,9 +25,9 @@ use mako\tests\TestCase;
 class RedisTest extends TestCase
 {
 	/**
-	 * @var \mako\redis\Redis
+	 *
 	 */
-	protected $redis;
+	protected Redis|null $redis = null;
 
 	/**
 	 *

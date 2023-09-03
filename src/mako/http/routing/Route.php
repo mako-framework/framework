@@ -28,8 +28,6 @@ class Route
 {
 	/**
 	 * Route prefix.
-	 *
-	 * @var string
 	 */
 	protected string $prefix = '';
 
