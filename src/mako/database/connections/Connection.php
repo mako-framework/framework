@@ -51,12 +51,12 @@ class Connection
 	/**
 	 * Database username.
 	 */
-	protected string|null $username;
+	protected null|string $username;
 
 	/**
 	 * Database password.
 	 */
-	protected string|null $password;
+	protected null|string $password;
 
 	/**
 	 * Enable the query log?
@@ -86,7 +86,7 @@ class Connection
 	/**
 	 * PDO object.
 	 */
-	protected PDO|null $pdo;
+	protected null|PDO $pdo;
 
 	/**
 	 * Transaction nesting level.

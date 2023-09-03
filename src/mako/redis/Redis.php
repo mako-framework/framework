@@ -337,17 +337,17 @@ class Redis
 	/**
 	 * Redis username.
 	 */
-	protected string|null $username = null;
+	protected null|string $username = null;
 
 	/**
 	 * Redis password.
 	 */
-	protected string|null $password = null;
+	protected null|string $password = null;
 
 	/**
 	 * Redis database.
 	 */
-	protected int|null $database = null;
+	protected null|int $database = null;
 
 	/**
 	 * Is pipelining enabled?

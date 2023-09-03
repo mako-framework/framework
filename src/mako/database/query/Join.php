@@ -24,7 +24,7 @@ class Join
 	 */
 	public function __construct(
 		protected ?string $type = null,
-		protected Raw|Subquery|string|null $table = null,
+		protected null|Raw|string|Subquery $table = null,
 	)
 	{}
 
@@ -63,7 +63,7 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 */
-	public function on(Closure|Raw|string $column1, ?string $operator = null, Raw|string|null $column2 = null, string $separator = 'AND'): Join
+	public function on(Closure|Raw|string $column1, ?string $operator = null, null|Raw|string $column2 = null, string $separator = 'AND'): Join
 	{
 		if($column1 instanceof Closure)
 		{
@@ -104,7 +104,7 @@ class Join
 	/**
 	 * Adds a OR ON condition to the join.
 	 */
-	public function orOn(Closure|Raw|string $column1, ?string $operator = null, Raw|string|null $column2 = null): Join
+	public function orOn(Closure|Raw|string $column1, ?string $operator = null, null|Raw|string $column2 = null): Join
 	{
 		return $this->on($column1, $operator, $column2, 'OR');
 	}

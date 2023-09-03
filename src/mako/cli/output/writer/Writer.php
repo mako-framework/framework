@@ -25,7 +25,7 @@ abstract class Writer implements WriterInterface
 	/**
 	 * Is the stream direct?
 	 */
-	protected bool|null $isDirect = null;
+	protected null|bool $isDirect = null;
 
 	/**
 	 * {@inheritDoc}

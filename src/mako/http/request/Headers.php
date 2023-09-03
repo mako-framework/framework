@@ -31,22 +31,22 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Acceptable content types.
 	 */
-	protected array|null $acceptableContentTypes = null;
+	protected null|array $acceptableContentTypes = null;
 
 	/**
 	 * Acceptable languages.
 	 */
-	protected array|null $acceptableLanguages = null;
+	protected null|array $acceptableLanguages = null;
 
 	/**
 	 * Acceptable character sets.
 	 */
-	protected array|null $acceptableCharsets = null;
+	protected null|array $acceptableCharsets = null;
 
 	/**
 	 * Acceptable encodings.
 	 */
-	protected array|null $acceptableEncodings = null;
+	protected null|array $acceptableEncodings = null;
 
 	/**
 	 * Constructor.

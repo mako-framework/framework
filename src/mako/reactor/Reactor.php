@@ -45,7 +45,7 @@ class Reactor
 	/**
 	 * Logo.
 	 */
-	protected string|null $logo = null;
+	protected null|string $logo = null;
 
 	/**
 	 * Constructor.

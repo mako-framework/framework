@@ -60,35 +60,35 @@ interface TimeInterface extends DateTimeInterface
 	/**
 	 * Returns a new instance set to the current time.
 	 */
-	public static function now(DateTimeZone|string|null $timeZone = null): static;
+	public static function now(null|DateTimeZone|string $timeZone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified date.
 	 *
 	 * @return false|static
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, DateTimeZone|string|null $timeZone = null);
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 *
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null);
+	public static function createFromTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
 	 *
 	 * @return false|static
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null);
+	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified time string.
 	 *
 	 * @return false|static
 	 */
-	public static function createFromFormat(string $format, string $time, DateTimeZone|string|null $timeZone = null);
+	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null);
 
 	/**
 	 * Returns a copy of the current instance.

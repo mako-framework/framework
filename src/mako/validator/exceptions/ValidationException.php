@@ -24,7 +24,7 @@ class ValidationException extends ValidatorException
 	/**
 	 * Input.
 	 */
-	protected InputInterface|null $input = null;
+	protected null|InputInterface $input = null;
 
 	/**
 	 * Constructor.

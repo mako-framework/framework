@@ -46,7 +46,7 @@ class ProgressBar
 	/**
 	 * Time of last redraw.
 	 */
-	protected float|null $lastRedraw = null;
+	protected null|float $lastRedraw = null;
 
 	/**
 	 * Progress status.

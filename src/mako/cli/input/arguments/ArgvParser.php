@@ -211,7 +211,7 @@ class ArgvParser
 	/**
 	 * Store the value.
 	 */
-	protected function storeValue(Argument $argument, ?string $token, bool|string|null $value): void
+	protected function storeValue(Argument $argument, ?string $token, null|bool|string $value): void
 	{
 		if($value === null)
 		{

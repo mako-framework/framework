@@ -63,7 +63,7 @@ class Gatekeeper
 	/**
 	 * Constructor.
 	 */
-	public function __construct(array|AdapterInterface $adapter)
+	public function __construct(AdapterInterface|array $adapter)
 	{
 		$this->defaultAdapter = $this->registerAdapter($adapter);
 	}
@@ -91,7 +91,7 @@ class Gatekeeper
 	/**
 	 * Registers an adapter.
 	 */
-	protected function registerAdapter(array|AdapterInterface $adapter): string
+	protected function registerAdapter(AdapterInterface|array $adapter): string
 	{
 		if($adapter instanceof AdapterInterface)
 		{
@@ -106,7 +106,7 @@ class Gatekeeper
 	/**
 	 * Registers a new adapter.
 	 */
-	public function extend(array|AdapterInterface $adapter): Gatekeeper
+	public function extend(AdapterInterface|array $adapter): Gatekeeper
 	{
 		$this->registerAdapter($adapter);
 

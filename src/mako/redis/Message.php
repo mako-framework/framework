@@ -25,17 +25,17 @@ class Message implements Stringable
 	/**
 	 * Message channel.
 	 */
-	protected string|null $channel = null;
+	protected null|string $channel = null;
 
 	/**
 	 * Channel pattern.
 	 */
-	protected string|null $pattern = null;
+	protected null|string $pattern = null;
 
 	/**
 	 * Message body.
 	 */
-	protected string|null $body = null;
+	protected null|string $body = null;
 
 	/**
 	 * Constructor.

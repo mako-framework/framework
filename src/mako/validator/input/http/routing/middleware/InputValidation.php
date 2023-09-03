@@ -87,7 +87,7 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Input.
 	 */
-	protected InputInterface|null $input = null;
+	protected null|InputInterface $input = null;
 
 	/**
 	 * Constructor.

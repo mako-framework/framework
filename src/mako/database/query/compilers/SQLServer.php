@@ -52,7 +52,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function from(array|Raw|Subquery|string|null $from): string
+	public function from(null|array|Raw|string|Subquery $from): string
 	{
 		$from = parent::from($from);
 

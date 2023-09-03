@@ -76,7 +76,7 @@ class Argument
 	/**
 	 * Argument alias.
 	 */
-	protected string|null $alias = null;
+	protected null|string $alias = null;
 
 	/**
 	 * Is the argument positional?

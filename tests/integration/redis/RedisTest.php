@@ -27,7 +27,7 @@ class RedisTest extends TestCase
 	/**
 	 *
 	 */
-	protected Redis|null $redis = null;
+	protected null|Redis $redis = null;
 
 	/**
 	 *

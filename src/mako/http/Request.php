@@ -91,17 +91,17 @@ class Request
 	/**
 	 * Raw request body.
 	 */
-	protected string|null $rawBody = null;
+	protected null|string $rawBody = null;
 
 	/**
 	 * Parsed request body.
 	 */
-	protected Body|null $parsedBody = null;
+	protected null|Body $parsedBody = null;
 
 	/**
 	 * Content type.
 	 */
-	protected string|null $contentType = null;
+	protected null|string $contentType = null;
 
 	/**
 	 * Array of trusted proxy IP addresses.
@@ -111,17 +111,17 @@ class Request
 	/**
 	 * Ip address of the client that made the request.
 	 */
-	protected string|null $ip = null;
+	protected null|string $ip = null;
 
 	/**
 	 * Base path of the request.
 	 */
-	protected string|null $basePath = null;
+	protected null|string $basePath = null;
 
 	/**
 	 * Base URL of the request.
 	 */
-	protected string|null $baseURL = null;
+	protected null|string $baseURL = null;
 
 	/**
 	 * Holds the request path.
@@ -131,12 +131,12 @@ class Request
 	/**
 	 * Request language.
 	 */
-	protected array|null $language = null;
+	protected null|array $language = null;
 
 	/**
 	 * Request language prefix.
 	 */
-	protected string|null $languagePrefix = null;
+	protected null|string $languagePrefix = null;
 
 	/**
 	 * Which request method was used?
@@ -151,12 +151,12 @@ class Request
 	/**
 	 * Was this request made using HTTPS?
 	 */
-	protected bool|null $isSecure = null;
+	protected null|bool $isSecure = null;
 
 	/**
 	 * The route that matched the request.
 	 */
-	protected Route|null $route = null;
+	protected null|Route $route = null;
 
 	/**
 	 * Request attribuntes.

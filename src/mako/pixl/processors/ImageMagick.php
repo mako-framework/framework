@@ -27,12 +27,12 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * Imagick instance.
 	 */
-	protected Imagick|null $image = null;
+	protected null|Imagick $image = null;
 
 	/**
 	 * Imagick instance.
 	 */
-	protected Imagick|null $snapshot = null;
+	protected null|Imagick $snapshot = null;
 
 	/**
 	 * Destructor.

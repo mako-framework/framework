@@ -124,7 +124,7 @@ abstract class Command extends BaseCommand
 	/**
 	 * Returns the fully qualified class name of a migration.
 	 */
-	protected function getFullyQualifiedMigration(stdClass|Result $migration): string
+	protected function getFullyQualifiedMigration(Result|stdClass $migration): string
 	{
 		if(empty($migration->package))
 		{

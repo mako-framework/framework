@@ -34,7 +34,7 @@ class Environment
 	/**
 	 * Do we have ANSI support?
 	 */
-	protected bool|null $hasAnsiSupport = null;
+	protected null|bool $hasAnsiSupport = null;
 
 	/**
 	 * Attempts to get dimensions for Windows.

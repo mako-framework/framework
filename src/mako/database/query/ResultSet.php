@@ -23,7 +23,7 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 	/**
 	 * Pagination.
 	 */
-	protected PaginationInterface|null $pagination = null;
+	protected null|PaginationInterface $pagination = null;
 
 	/**
 	 * Sets the pagination.

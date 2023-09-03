@@ -23,7 +23,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function from(array|Raw|Subquery|string|null $table): string
+	protected function from(null|array|Raw|string|Subquery $table): string
 	{
 		return $table === null ? ' FROM RDB$DATABASE' : parent::from($table);
 	}
@@ -67,7 +67,7 @@ class Firebird extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function lock(bool|string|null $lock): string
+	public function lock(null|bool|string $lock): string
 	{
 		if($lock === null)
 		{

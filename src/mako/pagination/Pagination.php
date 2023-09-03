@@ -43,22 +43,22 @@ class Pagination implements PaginationInterface
 	/**
 	 * Request instance.
 	 */
-	protected Request|null $request = null;
+	protected null|Request $request = null;
 
 	/**
 	 * Query parameter cache.
 	 */
-	protected array|null $params = null;
+	protected null|array $params = null;
 
 	/**
 	 * URL builder instance.
 	 */
-	protected URLBuilder|null $urlBuilder = null;
+	protected null|URLBuilder $urlBuilder = null;
 
 	/**
 	 * View factory instance.
 	 */
-	protected ViewFactory|null $viewFactory = null;
+	protected null|ViewFactory $viewFactory = null;
 
 	/**
 	 * Pagination.

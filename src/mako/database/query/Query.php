@@ -42,7 +42,7 @@ class Query
 	/**
 	 * Database table.
 	 */
-	protected array|Raw|Subquery|string|null $table = null;
+	protected null|array|Raw|string|Subquery $table = null;
 
 	/**
 	 * Select distinct?
@@ -92,22 +92,22 @@ class Query
 	/**
 	 * Limit.
 	 */
-	protected int|null $limit = null;
+	protected null|int $limit = null;
 
 	/**
 	 * Offset.
 	 */
-	protected int|null $offset = null;
+	protected null|int $offset = null;
 
 	/**
 	 * Lock.
 	 */
-	protected bool|string|null $lock = null;
+	protected null|bool|string $lock = null;
 
 	/**
 	 * Prefix.
 	 */
-	protected string|null $prefix = null;
+	protected null|string $prefix = null;
 
 	/**
 	 * Is the query in subquery context?
@@ -235,7 +235,7 @@ class Query
 	/**
 	 * Returns the database table.
 	 */
-	public function getTable(): array|Raw|Subquery|string|null
+	public function getTable(): null|array|Raw|string|Subquery
 	{
 		return $this->table;
 	}
@@ -315,7 +315,7 @@ class Query
 	/**
 	 * Returns the lock.
 	 */
-	public function getLock(): bool|string|null
+	public function getLock(): null|bool|string
 	{
 		return $this->lock;
 	}
@@ -457,7 +457,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function table(array|Raw|Subquery|string|null $table): static
+	public function table(null|array|Raw|string|Subquery $table): static
 	{
 		$this->table = $table;
 
@@ -469,7 +469,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function from(array|Raw|Subquery|string|null $table): static
+	public function from(null|array|Raw|string|Subquery $table): static
 	{
 		return $this->table($table);
 	}
@@ -479,7 +479,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function into(array|Raw|Subquery|string|null $table): static
+	public function into(null|array|Raw|string|Subquery $table): static
 	{
 		return $this->table($table);
 	}
@@ -560,7 +560,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function whereRaw(array|Raw|string $column, array|string|null $operator = null, ?string $raw = null, string $separator = 'AND'): static
+	public function whereRaw(array|Raw|string $column, null|array|string $operator = null, ?string $raw = null, string $separator = 'AND'): static
 	{
 		if($raw === null)
 		{
@@ -592,7 +592,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhereRaw(array|Raw|string $column, array|string|null $operator = null, ?string $raw = null): static
+	public function orWhereRaw(array|Raw|string $column, null|array|string $operator = null, ?string $raw = null): static
 	{
 		return $this->whereRaw($column, $operator, $raw, 'OR');
 	}
@@ -906,7 +906,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function join(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null, string $type = 'INNER JOIN'): static
+	public function join(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null, string $type = 'INNER JOIN'): static
 	{
 		$join = new Join($type, $table);
 
@@ -929,7 +929,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function joinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw, string $type = 'INNER JOIN'): static
+	public function joinRaw(Raw|string|Subquery $table, Raw|string $column1, string $operator, string $raw, string $type = 'INNER JOIN'): static
 	{
 		return $this->join($table, $column1, $operator, new Raw($raw), $type);
 	}
@@ -939,7 +939,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function leftJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null): static
+	public function leftJoin(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null): static
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT OUTER JOIN');
 	}
@@ -949,7 +949,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function leftJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw): static
+	public function leftJoinRaw(Raw|string|Subquery $table, Raw|string $column1, string $operator, string $raw): static
 	{
 		return $this->joinRaw($table, $column1, $operator, $raw, 'LEFT OUTER JOIN');
 	}
@@ -959,7 +959,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function rightJoin(Raw|Subquery|string $table, Closure|Raw|string|null $column1 = null, ?string $operator = null, Raw|string|null $column2 = null): static
+	public function rightJoin(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null): static
 	{
 		return $this->join($table, $column1, $operator, $column2, 'RIGHT OUTER JOIN');
 	}
@@ -969,7 +969,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function rightJoinRaw(Raw|Subquery|string $table, Raw|string $column1, string $operator, string $raw): static
+	public function rightJoinRaw(Raw|string|Subquery $table, Raw|string $column1, string $operator, string $raw): static
 	{
 		return $this->joinRaw($table, $column1, $operator, $raw, 'RIGHT OUTER JOIN');
 	}
@@ -979,7 +979,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function crossJoin(Raw|Subquery|string $table): static
+	public function crossJoin(Raw|string|Subquery $table): static
 	{
 		return $this->join($table, type: 'CROSS JOIN');
 	}

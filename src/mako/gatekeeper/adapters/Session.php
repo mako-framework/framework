@@ -201,7 +201,7 @@ class Session extends Adapter
 	 *
 	 * @return int|true
 	 */
-	public function login(int|string|null $identifier, ?string $password, bool $remember = false, bool $force = false)
+	public function login(null|int|string $identifier, ?string $password, bool $remember = false, bool $force = false)
 	{
 		if(empty($identifier))
 		{

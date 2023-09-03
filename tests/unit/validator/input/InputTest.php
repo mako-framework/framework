@@ -79,7 +79,7 @@ class InputTest extends TestCase
 
 		$input = new class extends Input
 		{
-			protected string|null $errorMessage = 'Invalid input.';
+			protected null|string $errorMessage = 'Invalid input.';
 
 			public function getInput(): array { return []; }
 		};

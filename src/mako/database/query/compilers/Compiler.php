@@ -188,7 +188,7 @@ class Compiler
 	/**
 	 * Compiles a table.
 	 */
-	public function table(Raw|Subquery|string $table): string
+	public function table(Raw|string|Subquery $table): string
 	{
 		if($table instanceof Raw)
 		{
@@ -280,7 +280,7 @@ class Compiler
 	/**
 	 * Compiles a column.
 	 */
-	public function column(Raw|Subquery|string $column, bool $allowAlias = false): string
+	public function column(Raw|string|Subquery $column, bool $allowAlias = false): string
 	{
 		if($column instanceof Raw)
 		{
@@ -441,7 +441,7 @@ class Compiler
 	/**
 	 * Compiles the FROM clause.
 	 */
-	protected function from(array|Raw|Subquery|string|null $table): string
+	protected function from(null|array|Raw|string|Subquery $table): string
 	{
 		if($table === null)
 		{
@@ -726,7 +726,7 @@ class Compiler
 	/**
 	 * Compiles locking clause.
 	 */
-	protected function lock(bool|string|null $lock): string
+	protected function lock(null|bool|string $lock): string
 	{
 		return '';
 	}

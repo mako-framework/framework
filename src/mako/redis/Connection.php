@@ -41,7 +41,7 @@ class Connection
 	/**
 	 * Connection name.
 	 */
-	protected string|null $name;
+	protected null|string $name;
 
 	/**
 	 * Is the connection persistent?

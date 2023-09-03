@@ -22,12 +22,12 @@ class Finder
 	/**
 	 * The pattern that the files should match.
 	 */
-	protected string|null $pattern = null;
+	protected null|string $pattern = null;
 
 	/**
 	 * Maximum search depth.
 	 */
-	protected int|null $maxDepth = null;
+	protected null|int $maxDepth = null;
 
 	/**
 	 * Constructor.

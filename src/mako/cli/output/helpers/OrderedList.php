@@ -28,7 +28,7 @@ class OrderedList
 	/**
 	 * Formatter instance.
 	 */
-	protected FormatterInterface|null $formatter = null;
+	protected null|FormatterInterface $formatter = null;
 
 	/**
 	 * Constructor.

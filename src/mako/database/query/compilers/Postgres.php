@@ -105,7 +105,7 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function lock(bool|string|null $lock): string
+	public function lock(null|bool|string $lock): string
 	{
 		if($lock === null)
 		{

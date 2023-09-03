@@ -58,6 +58,7 @@ return (new Config)->setRules
 	'object_operator_without_whitespace' => true,
 	'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
 	'ordered_traits' => true,
+	'ordered_types' => true,
 	'phpdoc_align' => true,
 	'phpdoc_annotation_without_dot' => true,
 	'phpdoc_indent' => true,

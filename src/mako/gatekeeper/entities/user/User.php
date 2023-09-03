@@ -303,7 +303,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Returns null if the account isn't locked and a date time instance if it's locked.
 	 */
-	public function lockedUntil(): DateTimeInterface|Time|null
+	public function lockedUntil(): null|DateTimeInterface|Time
 	{
 		return $this->locked_until;
 	}
@@ -335,7 +335,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Gets the time of the last failed attempt.
 	 */
-	public function getLastFailAt(): DateTimeInterface|Time|null
+	public function getLastFailAt(): null|DateTimeInterface|Time
 	{
 		return $this->last_fail_at;
 	}

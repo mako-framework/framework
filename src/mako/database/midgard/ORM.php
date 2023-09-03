@@ -87,12 +87,12 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Connection name to use for the model.
 	 */
-	protected string|null $connectionName = null;
+	protected null|string $connectionName = null;
 
 	/**
 	 * Connection manager instance.
 	 */
-	protected static ConnectionManager|null $connectionManager = null;
+	protected static null|ConnectionManager $connectionManager = null;
 
 	/**
 	 * ORM query builder hooks.

@@ -21,7 +21,7 @@ trait TimeTrait
 	/**
 	 * Constructor.
 	 */
-	final public function __construct(string $time = 'now', DateTimeZone|string|null $timeZone = null)
+	final public function __construct(string $time = 'now', null|DateTimeZone|string $timeZone = null)
 	{
 		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
 		{
@@ -34,7 +34,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance set to the current time.
 	 */
-	public static function now(DateTimeZone|string|null $timeZone = null): static
+	public static function now(null|DateTimeZone|string $timeZone = null): static
 	{
 		return new static('now', $timeZone);
 	}
@@ -44,7 +44,7 @@ trait TimeTrait
 	 *
 	 * @return false|static
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, DateTimeZone|string|null $timeZone = null)
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null)
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
@@ -60,7 +60,7 @@ trait TimeTrait
 	 *
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null)
+	public static function createFromTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null)
 	{
 		return (new static('now', $timeZone))->setTimestamp($timestamp);
 	}
@@ -70,7 +70,7 @@ trait TimeTrait
 	 *
 	 * @return false|static
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, DateTimeZone|string|null $timeZone = null)
+	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null)
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -90,7 +90,7 @@ trait TimeTrait
 	 * @return false|static
 	 */
 	#[\ReturnTypeWillChange]
-	public static function createFromFormat(string $format, string $time, DateTimeZone|string|null $timeZone = null)
+	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null)
 	{
 		if($timeZone !== null)
 		{

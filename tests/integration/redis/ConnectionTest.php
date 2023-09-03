@@ -20,7 +20,7 @@ class ConnectionTest extends TestCase
 	/**
 	 *
 	 */
-	protected Connection|null $connection = null;
+	protected null|Connection $connection = null;
 
 	/**
 	 *

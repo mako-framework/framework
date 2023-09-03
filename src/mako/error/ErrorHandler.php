@@ -51,7 +51,7 @@ class ErrorHandler
 	/**
 	 * Logger instance.
 	 */
-	protected Closure|LoggerInterface|null $logger = null;
+	protected null|Closure|LoggerInterface $logger = null;
 
 	/**
 	 * Exception types that shouldn't be logged.
@@ -61,7 +61,7 @@ class ErrorHandler
 	/**
 	 * Exception id.
 	 */
-	protected string|null $exceptionId = null;
+	protected null|string $exceptionId = null;
 
 	/**
 	 * Constructor.
