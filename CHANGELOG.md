@@ -14,6 +14,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 * Removed the deprecated event library (use the bus library instead).
 * Removed the deprecated command bus library (use the bus library instead).
 * Removed the deprecated `TimeInterface::formatLocalized()` method.
+* All class properties are now typed.
 
 #### Improvements
 
