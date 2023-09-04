@@ -140,7 +140,7 @@ class Router
 		{
 			$url = $request->getBaseURL() . ($request->isClean() ? '' : "/{$request->getScriptName()}") . rtrim("/{$request->getLanguagePrefix()}", '/') . "{$requestPath}/";
 
-			$query = $request->getQuery()->all();
+			$query = $request->query->all();
 
 			if(!empty($query))
 			{
@@ -178,7 +178,7 @@ class Router
 
 		return new Route([], '', static function (Response $response) use ($allowedMethods): void
 		{
-			$response->getHeaders()->add('Allow', implode(',', $allowedMethods));
+			$response->headers->add('Allow', implode(',', $allowedMethods));
 		}, 'router:options');
 	}
 

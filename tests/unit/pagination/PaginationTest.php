@@ -224,7 +224,9 @@ class PaginationTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 1]);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -311,7 +313,9 @@ class PaginationTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 2]);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$urlBuilder = $this->getURLBuilder();
 
@@ -398,7 +402,9 @@ class PaginationTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 10]);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$urlBuilder = $this->getURLBuilder();
 

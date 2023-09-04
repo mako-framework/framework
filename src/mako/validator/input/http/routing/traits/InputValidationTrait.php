@@ -45,6 +45,6 @@ trait InputValidationTrait
 			return $this->baseGetValidatedInput($inputOrRules);
 		}
 
-		return $this->baseGetValidatedInput($this->request->getFiles()->all(), $inputOrRules);
+		return $this->baseGetValidatedInput($this->request->files->all(), $inputOrRules);
 	}
 }

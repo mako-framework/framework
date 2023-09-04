@@ -43,7 +43,9 @@ class SecurityHeadersTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('X-XSS-Protection', '1; mode=block');
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{

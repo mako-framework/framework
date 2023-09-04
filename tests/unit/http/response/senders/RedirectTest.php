@@ -38,7 +38,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(302);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -69,7 +71,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(302);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -100,7 +104,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(302);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -133,7 +139,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(301);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -166,7 +174,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(302);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -199,7 +209,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(303);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -232,7 +244,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(307);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -265,7 +279,9 @@ class RedirectTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(308);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 

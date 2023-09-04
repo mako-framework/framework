@@ -105,7 +105,7 @@ class Session extends Adapter
 
 			if($token === null)
 			{
-				$token = $this->request->getCookies()->getSigned($this->options['auth_key']);
+				$token = $this->request->cookies->getSigned($this->options['auth_key']);
 
 				if($token !== null)
 				{
@@ -191,7 +191,7 @@ class Session extends Adapter
 			throw new GatekeeperException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
-		$this->response->getCookies()->addSigned($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
+		$this->response->cookies->addSigned($this->options['auth_key'], $this->user->getAccessToken(), (3600 * 24 * 365), $this->options['cookie_options']);
 	}
 
 	/**
@@ -256,7 +256,7 @@ class Session extends Adapter
 			$this->response->clear();
 		}
 
-		$this->response->getHeaders()->add('WWW-Authenticate', 'basic');
+		$this->response->headers->add('WWW-Authenticate', 'basic');
 
 		$this->response->setStatus(401);
 
@@ -274,7 +274,7 @@ class Session extends Adapter
 
 		$this->session->remove($this->options['auth_key']);
 
-		$this->response->getCookies()->delete($this->options['auth_key'], $this->options['cookie_options']);
+		$this->response->cookies->delete($this->options['auth_key'], $this->options['cookie_options']);
 
 		$this->user = null;
 

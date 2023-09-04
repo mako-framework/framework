@@ -40,7 +40,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "base-uri 'self'; default-src 'self'; object-src 'none'");
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{
@@ -75,7 +77,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy-Report-Only', "base-uri 'self'; default-src 'self'; object-src 'none'");
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{
@@ -113,7 +117,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "block-all-mixed-content; default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval' 'none'");
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{
@@ -165,7 +171,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "default-src 'nonce-foobar'");
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{
@@ -220,7 +228,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "default-src 'nonce-foobar'");
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{
@@ -270,7 +280,9 @@ class ContentSecurityPolicyTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', 'report-to csp-endpoint');
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$next = function ($request, $response)
 		{

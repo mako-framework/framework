@@ -169,7 +169,9 @@ class RouterTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$returnValue = $action($request);
 
@@ -187,7 +189,9 @@ class RouterTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(301);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -262,7 +266,9 @@ class RouterTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$returnValue = $action($request);
 
@@ -280,7 +286,9 @@ class RouterTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(301);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('sendHeaders')->once();
 
@@ -324,7 +332,9 @@ class RouterTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$action($response);
 	}

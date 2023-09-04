@@ -127,7 +127,7 @@ class Stream implements ResponseSenderInterface
 
 		if(!$this->isCGI)
 		{
-			$response->getHeaders()->add('Transfer-Encoding', 'chunked');
+			$response->headers->add('Transfer-Encoding', 'chunked');
 		}
 
 		if(!empty($this->contentType))

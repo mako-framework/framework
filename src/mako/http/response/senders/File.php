@@ -236,13 +236,13 @@ class File implements ResponseSenderInterface
 
 		$response->setType($this->getContenType());
 
-		$response->getHeaders()->add('Accept-Ranges', $request->isSafe() ? 'bytes' : 'none');
+		$response->headers->add('Accept-Ranges', $request->isSafe() ? 'bytes' : 'none');
 
-		$response->getHeaders()->add('Content-Disposition', "{$this->getDisposition()}; filename=\"{$this->getName()}\"");
+		$response->headers->add('Content-Disposition', "{$this->getDisposition()}; filename=\"{$this->getName()}\"");
 
 		// Get the requested byte range
 
-		$range = $request->getHeaders()->get('range');
+		$range = $request->headers->get('range');
 
 		if($range !== null)
 		{
@@ -267,7 +267,7 @@ class File implements ResponseSenderInterface
 
 				$range = ['start' => 0, 'end' => $this->fileSize - 1];
 
-				$response->getHeaders()->add('Content-Length', $this->fileSize);
+				$response->headers->add('Content-Length', $this->fileSize);
 			}
 			else
 			{
@@ -276,9 +276,9 @@ class File implements ResponseSenderInterface
 
 				$response->setStatus(206);
 
-				$response->getHeaders()->add('Content-Range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
+				$response->headers->add('Content-Range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 
-				$response->getHeaders()->add('Content-Length', $range['end'] - $range['start'] + 1);
+				$response->headers->add('Content-Length', $range['end'] - $range['start'] + 1);
 			}
 
 			// Send headers and the requested byte range

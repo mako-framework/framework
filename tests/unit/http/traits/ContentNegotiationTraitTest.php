@@ -81,7 +81,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -100,7 +102,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -119,7 +123,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -144,7 +150,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -163,7 +171,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -182,7 +192,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -207,7 +219,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -226,7 +240,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -245,7 +261,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -296,7 +314,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -317,7 +337,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -338,7 +360,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -359,7 +383,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -412,7 +438,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -433,7 +461,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -454,7 +484,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -475,7 +507,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -528,7 +562,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -549,7 +585,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -570,7 +608,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -591,7 +631,9 @@ class ContentNegotiationTraitTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($headers);
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);

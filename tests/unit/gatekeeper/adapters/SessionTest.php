@@ -220,7 +220,9 @@ class SessionTest extends TestCase
 
 		$cookies->shouldReceive('getSigned')->times(3)->with('gatekeeper_auth_key')->andReturn(null);
 
-		$request->shouldReceive('getCookies')->times(3)->andReturn($cookies);
+		(function () use ($cookies): void {
+			$this->cookies = $cookies;
+		})->bindTo($request, Request::class)();
 
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $request, $this->getResponse(), $session);
 
@@ -255,7 +257,9 @@ class SessionTest extends TestCase
 
 		$cookies->shouldReceive('getSigned')->times(1)->with('gatekeeper_auth_key')->andReturn('token');
 
-		$request->shouldReceive('getCookies')->times(1)->andReturn($cookies);
+		(function () use ($cookies): void {
+			$this->cookies = $cookies;
+		})->bindTo($request, Request::class)();
 
 		$userRepository = $this->getUserRepository();
 
@@ -268,7 +272,9 @@ class SessionTest extends TestCase
 
 		$responseCookies->shouldReceive('delete')->once()->with('gatekeeper_auth_key', $this->getCookieOptions());
 
-		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
+		(function () use ($responseCookies): void {
+			$this->cookies = $responseCookies;
+		})->bindTo($response, Response::class)();
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $response, $session);
 
@@ -447,7 +453,9 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
+		(function () use ($responseCookies): void {
+			$this->cookies = $responseCookies;
+		})->bindTo($response, Response::class)();
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $response, $session);
 
@@ -532,7 +540,9 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
+		(function () use ($responseCookies): void {
+			$this->cookies = $responseCookies;
+		})->bindTo($response, Response::class)();
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $response, $session, ['cookie_options' => ['secure' => true]]);
 
@@ -671,7 +681,9 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('setStatus')->once()->with(401);
 
@@ -705,7 +717,9 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('setStatus')->once()->with(401);
 
@@ -781,7 +795,9 @@ class SessionTest extends TestCase
 
 		$response = $this->getResponse();
 
-		$response->shouldReceive('getCookies')->once()->andReturn($responseCookies);
+		(function () use ($responseCookies): void {
+			$this->cookies = $responseCookies;
+		})->bindTo($response, Response::class)();
 
 		$adapter = new Session($this->getUserRepository(), $this->getGroupRepository(), $this->getRequest(), $response, $session);
 

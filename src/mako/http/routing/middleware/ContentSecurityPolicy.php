@@ -155,14 +155,12 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		$headers = $response->getHeaders();
-
 		if(!empty($this->reportTo))
 		{
-			$headers->add('Report-To', $this->buildReportToValue());
+			$response->headers->add('Report-To', $this->buildReportToValue());
 		}
 
-		$headers->add($this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildValue());
+		$response->headers->add($this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildValue());
 
 		if(!empty($this->nonce))
 		{

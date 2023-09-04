@@ -40,7 +40,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 
@@ -117,7 +119,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 
@@ -168,7 +172,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 
@@ -196,7 +202,9 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setStatus')->once()->with(405)->andReturn($response);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$response->shouldReceive('send')->once();
 
@@ -241,7 +249,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 
@@ -286,7 +296,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->twice()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 
@@ -436,7 +448,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 
@@ -496,7 +510,9 @@ class ProductionHandlerTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		//
 

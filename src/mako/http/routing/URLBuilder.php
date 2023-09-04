@@ -115,7 +115,7 @@ class URLBuilder
 	 */
 	public function current(?array $queryParams = [], string $separator = '&', bool|string $language = true): string
 	{
-		$queryParams = $queryParams === null ? [] : ($queryParams ?: $this->request->getQuery()->all());
+		$queryParams = $queryParams === null ? [] : ($queryParams ?: $this->request->query->all());
 
 		return $this->to($this->request->getPath(), $queryParams, $separator, $language);
 	}

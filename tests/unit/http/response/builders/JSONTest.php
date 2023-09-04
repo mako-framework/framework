@@ -144,7 +144,9 @@ class JSONTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -175,7 +177,9 @@ class JSONTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -206,7 +210,9 @@ class JSONTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);

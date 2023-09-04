@@ -99,7 +99,9 @@ class InputValidationTraitTest extends TestCase
 		/** @var \mako\http\request\Files|\Mockery\MockInterface $files */
 		$files = Mockery::mock(Files::class);
 
-		$request->shouldReceive('getFiles')->once()->andReturn($files);
+		(function () use ($files): void {
+			$this->files = $files;
+		})->bindTo($request, Request::class)();
 
 		$files->shouldReceive('all')->andReturn([]);
 

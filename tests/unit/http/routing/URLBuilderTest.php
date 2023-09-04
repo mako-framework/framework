@@ -183,7 +183,9 @@ class URLBuilderTest extends TestCase
 
 		$query->shouldReceive('all')->times(2)->andReturn([]);
 
-		$request->shouldReceive('getQuery')->times(2)->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 
@@ -208,7 +210,9 @@ class URLBuilderTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
 
-		$request->shouldReceive('getQuery')->once()->andReturn($query);
+		(function () use ($query): void {
+			$this->query = $query;
+		})->bindTo($request, Request::class)();
 
 		$urlBuilder = new URLBuilder($request, $this->getRoutes(), true);
 

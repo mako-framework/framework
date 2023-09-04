@@ -65,7 +65,7 @@ abstract class AccessControl implements MiddlewareInterface
 	 */
 	protected function getOrigin(Request $request): ?string
 	{
-		return $request->getHeaders()->get('Origin');
+		return $request->headers->get('Origin');
 	}
 
 	/**
@@ -107,30 +107,30 @@ abstract class AccessControl implements MiddlewareInterface
 	{
 		if($this->allowsCredentials())
 		{
-			$response->getHeaders()->add('Access-Control-Allow-Credentials', 'true');
+			$response->headers->add('Access-Control-Allow-Credentials', 'true');
 		}
 
 		$origin = $this->getOrigin($request);
 
 		if($origin !== null && $this->isDomainAllowed($origin))
 		{
-			$response->getHeaders()->add('Access-Control-Allow-Origin', $origin);
+			$response->headers->add('Access-Control-Allow-Origin', $origin);
 
-			$response->getHeaders()->add('Vary', 'Origin', false);
+			$response->headers->add('Vary', 'Origin', false);
 		}
 		elseif($this->allowsAllDomains())
 		{
-			$response->getHeaders()->add('Access-Control-Allow-Origin', '*');
+			$response->headers->add('Access-Control-Allow-Origin', '*');
 		}
 
 		if(!empty($allowedHeaders = $this->getAllowedHeaders()))
 		{
-			$response->getHeaders()->add('Access-Control-Allow-Headers', implode(', ', $allowedHeaders));
+			$response->headers->add('Access-Control-Allow-Headers', implode(', ', $allowedHeaders));
 		}
 
 		if(!empty($allowedMethods = $this->getAllowedMethods()))
 		{
-			$response->getHeaders()->add('Access-Control-Allow-Methods', implode(', ', $allowedMethods));
+			$response->headers->add('Access-Control-Allow-Methods', implode(', ', $allowedMethods));
 		}
 
 		return $next($request, $response);

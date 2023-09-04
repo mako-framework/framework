@@ -38,7 +38,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -48,7 +50,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{
@@ -74,7 +78,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -84,7 +90,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->once()->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{
@@ -115,7 +123,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -127,7 +137,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{
@@ -156,7 +168,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -168,7 +182,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{
@@ -197,7 +213,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -229,7 +247,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
@@ -259,7 +279,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -271,7 +293,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{
@@ -298,7 +322,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -310,7 +336,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{
@@ -337,7 +365,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Request|\Mockery\MockInterface $request */
 		$request = Mockery::mock(Request::class);
 
-		$request->shouldReceive('getHeaders')->once()->andReturn($requestHeaders);
+		(function () use ($requestHeaders): void {
+			$this->headers = $requestHeaders;
+		})->bindTo($request, Request::class)();
 
 		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
@@ -349,7 +379,9 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('getHeaders')->times(2)->andReturn($responseHeaders);
+		(function () use ($responseHeaders): void {
+			$this->headers = $responseHeaders;
+		})->bindTo($response, Response::class)();
 
 		$middleware->execute($request, $response, function ($request, $response)
 		{

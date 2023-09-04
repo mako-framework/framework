@@ -23,7 +23,7 @@ trait ContentNegotiationTrait
 	 */
 	protected function expectsType(array $mimeTypes, ?string $suffix = null): bool
 	{
-		$accepts = $this->request->getHeaders()->getAcceptableContentTypes();
+		$accepts = $this->request->headers->getAcceptableContentTypes();
 
 		if(isset($accepts[0]) && (in_array($accepts[0], $mimeTypes) || ($suffix !== null && strpos($accepts[0], $suffix) !== false)))
 		{

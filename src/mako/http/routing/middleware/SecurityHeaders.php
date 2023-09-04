@@ -39,11 +39,9 @@ class SecurityHeaders implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		$headers = $response->getHeaders();
-
 		foreach($this->getHeaders() as $name => $value)
 		{
-			$headers->add($name, $value);
+			$response->headers->add($name, $value);
 		}
 
 		return $next($request, $response);

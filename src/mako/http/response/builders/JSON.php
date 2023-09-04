@@ -100,7 +100,7 @@ class JSON implements ResponseBuilderInterface
 	{
 		$json = json_encode($this->data, $this->options);
 
-		if($this->callback !== null && ($callback = $request->getQuery()->get($this->callback)) !== null)
+		if($this->callback !== null && ($callback = $request->query->get($this->callback)) !== null)
 		{
 			$response->setType('text/javascript');
 

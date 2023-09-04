@@ -112,7 +112,7 @@ class Session
 	{
 		// Get the session id from the cookie or generate a new one if it doesn't exist.
 
-		$this->sessionId = $this->request->getCookies()->getSigned($this->options['name'], false) ?: $this->generateId();
+		$this->sessionId = $this->request->cookies->getSigned($this->options['name'], false) ?: $this->generateId();
 
 		// Create a new / update the existing session cookie
 
@@ -194,7 +194,7 @@ class Session
 			throw new SessionException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
-		$this->response->getCookies()->addSigned($this->options['name'], $this->sessionId, $this->options['cookie_ttl'], $this->options['cookie_options']);
+		$this->response->cookies->addSigned($this->options['name'], $this->sessionId, $this->options['cookie_ttl'], $this->options['cookie_options']);
 	}
 
 	/**
@@ -425,7 +425,7 @@ class Session
 	{
 		$this->store->delete($this->sessionId);
 
-		$this->response->getCookies()->delete($this->options['name'], $this->options['cookie_options']);
+		$this->response->cookies->delete($this->options['name'], $this->options['cookie_options']);
 
 		$this->destroyed = true;
 	}

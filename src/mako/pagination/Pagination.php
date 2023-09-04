@@ -173,7 +173,7 @@ class Pagination implements PaginationInterface
 	{
 		if($this->params === null)
 		{
-			$this->params = $this->request->getQuery()->all();
+			$this->params = $this->request->query->all();
 		}
 
 		return $this->urlBuilder->current([$this->options['page_key'] => $page] + $this->params);
