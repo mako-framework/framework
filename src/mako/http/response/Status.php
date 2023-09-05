@@ -95,7 +95,7 @@ enum Status: int
 	/**
 	 * Returns the status code.
 	 */
-	public function getStatusCode(): int
+	public function getCode(): int
 	{
 		return $this->value;
 	}
@@ -103,7 +103,7 @@ enum Status: int
 	/**
 	 * Returns the status message.
 	 */
-	public function getStatusMessage(): string
+	public function getMessage(): string
 	{
 		return match($this)
 		{

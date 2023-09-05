@@ -256,7 +256,7 @@ class Response
 
 		$protocol = $this->request->server->get('SERVER_PROTOCOL', 'HTTP/1.1');
 
-		header("{$protocol} {$this->status->value} {$this->status->getStatusMessage()}");
+		header("{$protocol} {$this->status->value} {$this->status->getMessage()}");
 
 		// Send content type header
 
