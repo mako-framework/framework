@@ -101,9 +101,9 @@ enum Status: int
 	}
 
 	/**
-	 * Returns the header name.
+	 * Returns the status message.
 	 */
-	public function getHeaderName(): string
+	public function getStatusMessage(): string
 	{
 		return match($this)
 		{
