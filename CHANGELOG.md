@@ -21,6 +21,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 	- `Response::setStatus()`
 	- `JSON::setStatus()`
 	- `Redirect::setStatus()`
+* Added `HttpStatusException::getStatus()` method.
 
 #### Changes
 
