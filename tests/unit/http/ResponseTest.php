@@ -199,7 +199,7 @@ class ResponseTest extends TestCase
 	public function testInvaludStatus(): void
 	{
 		$this->expectException(ValueError::class);
-		$this->expectExceptionMessage('999 is not a valid backing value for enum mako\http\response\Status');
+		$this->expectExceptionMessageMatches('/^999 is not a valid backing value for enum/');
 
 		$response = new Response($this->getRequest());
 
