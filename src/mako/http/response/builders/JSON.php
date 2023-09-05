@@ -9,7 +9,9 @@ namespace mako\http\response\builders;
 
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\Status;
 
+use function is_int;
 use function json_encode;
 use function preg_match;
 
@@ -24,15 +26,25 @@ class JSON implements ResponseBuilderInterface
 	protected null|string $callback = null;
 
 	/**
+	 * HTTP status code.
+	 */
+	protected null|Status $status = null;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected mixed $data,
 		protected int $options = 0,
-		protected ?int $statusCode = null,
+		null|int|Status $status = null,
 		protected ?string $charset = null
 	)
-	{}
+	{
+		if(!empty($status))
+		{
+			$this->setStatus($status);
+		}
+	}
 
 	/**
 	 * Enables JSONP support.
@@ -65,19 +77,19 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Sets the HTTP status code.
 	 */
-	public function setStatus(int $statusCode): JSON
+	public function setStatus(int|Status $status): JSON
 	{
-		$this->statusCode = $statusCode;
+		$this->status = is_int($status) ? Status::from($status): $status;
 
 		return $this;
 	}
 
 	/**
-	 * Returns the HTTP status code.
+	 * Returns the HTTP status.
 	 */
-	public function getStatus(): ?int
+	public function getStatus(): ?Status
 	{
-		return $this->statusCode;
+		return $this->status;
 	}
 
 	/**
@@ -111,9 +123,9 @@ class JSON implements ResponseBuilderInterface
 			$response->setType('application/json');
 		}
 
-		if(!empty($this->statusCode))
+		if(!empty($this->status))
 		{
-			$response->setStatus($this->statusCode);
+			$response->setStatus($this->status);
 		}
 
 		if(!empty($this->charset))

@@ -11,6 +11,7 @@ use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\http\exceptions\HttpStatusException;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\Response;
+use mako\http\response\Status;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\utility\UUID;
 use Throwable;
@@ -46,11 +47,11 @@ abstract class Handler implements ProvidesExceptionIdInterface
 	}
 
 	/**
-	 * Returns the status code that we should send.
+	 * Returns the status that we should send.
 	 */
-	protected function getStatusCode(Throwable $exception): int
+	protected function getHttpStatus(Throwable $exception): Status
 	{
-		return ($exception instanceof HttpStatusException) ? $exception->getCode() : 500;
+		return ($exception instanceof HttpStatusException) ? $exception->getStatus() : Status::INTERNAL_SERVER_ERROR;
 	}
 
 	/**

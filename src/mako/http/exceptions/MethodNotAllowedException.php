@@ -7,6 +7,7 @@
 
 namespace mako\http\exceptions;
 
+use mako\http\response\Status;
 use Throwable;
 
 /**
@@ -28,7 +29,7 @@ class MethodNotAllowedException extends HttpStatusException
 		?Throwable $previous = null
 	)
 	{
-		parent::__construct(405, $message, $previous);
+		parent::__construct(Status::METHOD_NOT_ALLOWED, $message, $previous);
 	}
 
 	/**

@@ -15,6 +15,7 @@ use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
+use mako\http\response\Status;
 use mako\http\routing\constraints\ConstraintInterface;
 use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\Route;
@@ -187,7 +188,7 @@ class RouterTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(301);
+		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -284,7 +285,7 @@ class RouterTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(301);
+		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;

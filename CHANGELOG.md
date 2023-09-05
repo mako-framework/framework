@@ -17,6 +17,10 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 * The following `Response` properties are now public readonly:
 	- `Response::$cookies`
 	- `Response::$headers`
+* The following methods now accept both an int and the `mako\http\response\Status` enum as a parameter value:
+	- `Response::setStatus()`
+	- `JSON::setStatus()`
+	- `Redirect::setStatus()`
 
 #### Changes
 
@@ -25,6 +29,11 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 * Removed the deprecated command bus library (use the bus library instead).
 * Removed the deprecated `TimeInterface::formatLocalized()` method.
 * All class properties are now typed.
+* The `mako\http\response\Status` class has been converted to an enum.
+* The following methods now return an `mako\http\response\Status` instance instead of an int:
+	- `Response::getStatus()`
+	- `JSON::getStatus()`
+	- `Redirect::getStatus()`
 
 #### Improvements
 

@@ -10,8 +10,10 @@ namespace mako\http\response\senders;
 use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\Status;
 
 use function in_array;
+use function is_int;
 use function vsprintf;
 
 /**
@@ -22,37 +24,37 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Moved permanently status code.
 	 *
-	 * @var int
+	 * @var \mako\http\response\Status
 	 */
-	public const MOVED_PERMANENTLY = 301;
+	public const MOVED_PERMANENTLY = Status::MOVED_PERMANENTLY;
 
 	/**
 	 * Found status code.
 	 *
-	 * @var int
+	 * @var \mako\http\response\Status
 	 */
-	public const FOUND = 302;
+	public const FOUND = Status::FOUND;
 
 	/**
 	 * See other status code.
 	 *
-	 * @var int
+	 * @var \mako\http\response\Status
 	 */
-	public const SEE_OTHER = 303;
+	public const SEE_OTHER = Status::SEE_OTHER;
 
 	/**
 	 * Temporary redirect status code.
 	 *
-	 * @var int
+	 * @var \mako\http\response\Status
 	 */
-	public const TEMPORARY_REDIRECT = 307;
+	public const TEMPORARY_REDIRECT = Status::TEMPORARY_REDIRECT;
 
 	/**
 	 * Permanent redirect status code.
 	 *
-	 * @var int
+	 * @var \mako\http\response\Status
 	 */
-	public const PERMANENT_REDIRECT = 308;
+	public const PERMANENT_REDIRECT = Status::PERMANENT_REDIRECT;
 
 	/**
 	 * Supported redirect types.
@@ -61,40 +63,42 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public const SUPPORTED_STATUS_CODES =
 	[
-		self::MOVED_PERMANENTLY,
-		self::FOUND,
-		self::SEE_OTHER,
-		self::TEMPORARY_REDIRECT,
-		self::PERMANENT_REDIRECT,
+		Status::MOVED_PERMANENTLY,
+		Status::FOUND,
+		Status::SEE_OTHER,
+		Status::TEMPORARY_REDIRECT,
+		Status::PERMANENT_REDIRECT,
 	];
 
 	/**
 	 * Status code.
 	 */
-	protected int $statusCode;
+	protected Status $status;
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected string $location,
-		int $statusCode = self::FOUND
+		int|Status $status = Status::FOUND
 	)
 	{
-		$this->setStatus($statusCode);
+		$this->setStatus($status);
 	}
 
 	/**
 	 * Sets the HTTP status code.
 	 */
-	public function setStatus(int $statusCode): Redirect
+	public function setStatus(int|Status $status): Redirect
 	{
-		if(!in_array($statusCode, self::SUPPORTED_STATUS_CODES))
+		$status = is_int($status) ? Status::from($status) : $status;
+
+		if(!in_array($status, self::SUPPORTED_STATUS_CODES))
 		{
-			throw new HttpException(vsprintf('Unsupported redirect status code [ %s ].', [$statusCode]));
+			throw new HttpException(vsprintf('Unsupported redirect status code [ %s ].', [$status->value]));
 		}
 
-		$this->statusCode = $statusCode;
+		$this->status = $status;
 
 		return $this;
 	}
@@ -104,7 +108,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function movedPermanently(): Redirect
 	{
-		$this->statusCode = self::MOVED_PERMANENTLY;
+		$this->status = Status::MOVED_PERMANENTLY;
 
 		return $this;
 	}
@@ -114,7 +118,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function found(): Redirect
 	{
-		$this->statusCode = self::FOUND;
+		$this->status = Status::FOUND;
 
 		return $this;
 	}
@@ -124,7 +128,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function seeOther(): Redirect
 	{
-		$this->statusCode = self::SEE_OTHER;
+		$this->status = Status::SEE_OTHER;
 
 		return $this;
 	}
@@ -134,7 +138,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function temporaryRedirect(): Redirect
 	{
-		$this->statusCode = self::TEMPORARY_REDIRECT;
+		$this->status = Status::TEMPORARY_REDIRECT;
 
 		return $this;
 	}
@@ -144,17 +148,17 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function permanentRedirect(): Redirect
 	{
-		$this->statusCode = self::PERMANENT_REDIRECT;
+		$this->status = Status::PERMANENT_REDIRECT;
 
 		return $this;
 	}
 
 	/**
-	 * Returns the HTTP status code.
+	 * Returns the HTTP status.
 	 */
-	public function getStatus(): int
+	public function getStatus(): Status
 	{
-		return $this->statusCode;
+		return $this->status;
 	}
 
 	/**
@@ -164,7 +168,7 @@ class Redirect implements ResponseSenderInterface
 	{
 		// Set status and location header
 
-		$response->setStatus($this->statusCode);
+		$response->setStatus($this->status);
 
 		$response->headers->add('Location', $this->location);
 

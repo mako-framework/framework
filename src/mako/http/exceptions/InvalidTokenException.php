@@ -7,6 +7,7 @@
 
 namespace mako\http\exceptions;
 
+use mako\http\response\Status;
 use Throwable;
 
 /**
@@ -24,6 +25,6 @@ class InvalidTokenException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(498, $message, $previous);
+		parent::__construct(Status::INVALID_TOKEN, $message, $previous);
 	}
 }

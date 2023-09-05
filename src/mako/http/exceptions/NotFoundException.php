@@ -7,6 +7,7 @@
 
 namespace mako\http\exceptions;
 
+use mako\http\response\Status;
 use Throwable;
 
 /**
@@ -24,6 +25,6 @@ class NotFoundException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(404, $message, $previous);
+		parent::__construct(Status::NOT_FOUND, $message, $previous);
 	}
 }

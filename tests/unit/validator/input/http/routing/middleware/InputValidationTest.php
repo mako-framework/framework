@@ -526,7 +526,7 @@ class InputValidationTest extends TestCase
 
 		$this->assertSame(Redirect::SEE_OTHER, (function ()
 		{
-			return $this->statusCode;
+			return $this->status;
 		})->bindTo($redirect, Redirect::class)());
 	}
 
@@ -600,7 +600,7 @@ class InputValidationTest extends TestCase
 
 		$this->assertSame(Redirect::SEE_OTHER, (function ()
 		{
-			return $this->statusCode;
+			return $this->status;
 		})->bindTo($redirect, Redirect::class)());
 	}
 

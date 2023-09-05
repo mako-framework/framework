@@ -61,7 +61,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 		}
 
 		return [
-			'code'         => $this->getStatusCode($exception),
+			'code'         => $this->getHttpStatus($exception)->value,
 			'message'      => $message,
 			'exception_id' => $this->exceptionId,
 			'metadata'     => $metadata ?? [],
@@ -123,7 +123,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 		if($exception instanceof HttpStatusException)
 		{
-			$code = $exception->getCode();
+			$code = $exception->getStatus()->value;
 
 			if($this->view->exists("mako-error::{$code}"))
 			{
@@ -191,7 +191,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 		->disableCompression()
 		->setType($type)
 		->setBody($body)
-		->setStatus($this->getStatusCode($exception)), $exception);
+		->setStatus($this->getHttpStatus($exception)), $exception);
 
 		return false;
 	}

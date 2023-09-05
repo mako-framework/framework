@@ -11,6 +11,7 @@ use mako\http\Request;
 use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
+use mako\http\response\Status;
 use mako\tests\TestCase;
 use Mockery;
 
@@ -58,7 +59,7 @@ class JSONTest extends TestCase
 
 		$response->shouldReceive('setType')->once()->with('application/json');
 
-		$response->shouldReceive('setStatus')->once()->with(400);
+		$response->shouldReceive('setStatus')->once()->with(Status::BAD_REQUEST);
 
 		$response->shouldReceive('setBody')->once()->with('[1,2,3]');
 
@@ -68,7 +69,7 @@ class JSONTest extends TestCase
 
 		$json->setStatus(400);
 
-		$this->assertSame(400, $json->getStatus());
+		$this->assertSame(Status::BAD_REQUEST, $json->getStatus());
 
 		$json->build($request, $response);
 	}
@@ -114,7 +115,7 @@ class JSONTest extends TestCase
 
 		$response->shouldReceive('setType')->once()->with('application/json');
 
-		$response->shouldReceive('setStatus')->once()->with(200);
+		$response->shouldReceive('setStatus')->once()->with(Status::OK);
 
 		$response->shouldReceive('setCharset')->once()->with('UTF-8');
 
@@ -124,7 +125,7 @@ class JSONTest extends TestCase
 
 		$json = new JSON([1, 2, 3], 0, 200, 'UTF-8');
 
-		$this->assertSame(200, $json->getStatus());
+		$this->assertSame(Status::OK, $json->getStatus());
 
 		$this->assertSame('UTF-8', $json->getCharset());
 

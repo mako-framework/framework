@@ -15,6 +15,7 @@ use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\Status;
 use mako\session\Session as HttpSession;
 
 use function array_replace_recursive;
@@ -258,7 +259,7 @@ class Session extends Adapter
 
 		$this->response->headers->add('WWW-Authenticate', 'basic');
 
-		$this->response->setStatus(401);
+		$this->response->setStatus(Status::UNAUTHORIZED);
 
 		return false;
 	}

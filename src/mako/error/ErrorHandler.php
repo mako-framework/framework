@@ -328,7 +328,7 @@ class ErrorHandler
 			{
 				if(PHP_SAPI !== 'cli')
 				{
-					http_response_code($exception instanceof HttpStatusException ? $exception->getCode() : 500);
+					http_response_code($exception instanceof HttpStatusException ? $exception->getStatus()->value : 500);
 				}
 
 				// Empty output buffers

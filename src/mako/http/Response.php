@@ -11,11 +11,13 @@ use mako\http\response\builders\ResponseBuilderInterface;
 use mako\http\response\Cookies;
 use mako\http\response\Headers;
 use mako\http\response\senders\ResponseSenderInterface;
+use mako\http\response\Status;
 use mako\security\Signer;
 
 use function hash;
 use function header;
 use function in_array;
+use function is_int;
 use function ob_end_flush;
 use function ob_get_length;
 use function ob_get_level;
@@ -31,11 +33,11 @@ use function stripos;
 class Response
 {
 	/**
-	 * Default status code.
+	 * Default HTTP status.
 	 *
-	 * @var int
+	 * @var \mako\http\response\Status
 	 */
-	public const DEFAULT_STATUS = 200;
+	public const DEFAULT_STATUS = Status::OK;
 
 	/**
 	 * Response body.
@@ -48,9 +50,9 @@ class Response
 	protected string $contentType = 'text/html';
 
 	/**
-	 * Status code.
+	 * HTTP Status.
 	 */
-	protected int $statusCode = self::DEFAULT_STATUS;
+	protected Status $status = self::DEFAULT_STATUS;
 
 	/**
 	 * Response headers.
@@ -71,97 +73,6 @@ class Response
 	 * Enable response cache?
 	 */
 	protected bool $responseCache = false;
-
-	/**
-	 * HTTP status codes.
-	 */
-	protected array $statusCodes =
-	[
-		// 1xx Informational
-
-		100 => 'Continue',
-		101 => 'Switching Protocols',
-		102 => 'Processing',
-		103 => 'Early Hints',
-
-		// 2xx Success
-
-		200 => 'OK',
-		201 => 'Created',
-		202 => 'Accepted',
-		203 => 'Non-Authoritative Information',
-		204 => 'No Content',
-		205 => 'Reset Content',
-		206 => 'Partial Content',
-		207 => 'Multi-Status',
-		208 => 'Already Reported',
-		226 => 'IM Used',
-
-		// 3xx Redirection
-
-		300 => 'Multiple Choices',
-		301 => 'Moved Permanently',
-		302 => 'Found',
-		303 => 'See Other',
-		304 => 'Not Modified',
-		305 => 'Use Proxy',
-		306 => 'Switch Proxy',
-		307 => 'Temporary Redirect',
-		308 => 'Permanent Redirect',
-
-		// 4xx Client Error
-
-		400 => 'Bad Request',
-		401 => 'Unauthorized',
-		402 => 'Payment Required',
-		403 => 'Forbidden',
-		404 => 'Not Found',
-		405 => 'Method Not Allowed',
-		406 => 'Not Acceptable',
-		407 => 'Proxy Authentication Required',
-		408 => 'Request Timeout',
-		409 => 'Conflict',
-		410 => 'Gone',
-		411 => 'Length Required',
-		412 => 'Precondition Failed',
-		413 => 'Payload Too Large',
-		414 => 'URI Too Long',
-		415 => 'Unsupported Media Type',
-		416 => 'Range Not Satisfiable',
-		417 => 'Expectation Failed',
-		418 => 'I\'m a teapot',
-		419 => 'Authentication Timeout',
-		421 => 'Misdirected Request',
-		422 => 'Unprocessable Entity',
-		423 => 'Locked',
-		424 => 'Failed Dependency',
-		425 => 'Too Early',
-		426 => 'Upgrade Required',
-		428 => 'Precondition Required',
-		429 => 'Too Many Requests',
-		431 => 'Request Header Fields Too Large',
-		449 => 'Retry With',
-		450 => 'Blocked by Windows Parental Controls',
-		451 => 'Unavailable For Legal Reasons',
-		498 => 'Invalid Token',
-		499 => 'Token required',
-
-		// 5xx Server Error
-
-		500 => 'Internal Server Error',
-		501 => 'Not Implemented',
-		502 => 'Bad Gateway',
-		503 => 'Service Unavailable',
-		504 => 'Gateway Timeout',
-		505 => 'HTTP Version Not Supported',
-		506 => 'Variant Also Negotiates',
-		507 => 'Insufficient Storage',
-		508 => 'Loop Detected',
-		509 => 'Bandwidth Limit Exceeded',
-		510 => 'Not Extended',
-		511 => 'Network Authentication Required',
-		530 => 'User access denied',
-	];
 
 	/**
 	 * Constructor.
@@ -255,24 +166,21 @@ class Response
 	}
 
 	/**
-	 * Sets the HTTP status code.
+	 * Sets the HTTP status.
 	 */
-	public function setStatus(int $statusCode): Response
+	public function setStatus(int|Status $status): Response
 	{
-		if(isset($this->statusCodes[$statusCode]))
-		{
-			$this->statusCode = $statusCode;
-		}
+		$this->status = is_int($status) ? Status::from($status): $status;
 
 		return $this;
 	}
 
 	/**
-	 * Returns the HTTP status code.
+	 * Returns the HTTP status.
 	 */
-	public function getStatus(): int
+	public function getStatus(): Status
 	{
-		return $this->statusCode;
+		return $this->status;
 	}
 
 	/**
@@ -324,7 +232,7 @@ class Response
 	 */
 	public function reset(): Response
 	{
-		$this->statusCode = self::DEFAULT_STATUS;
+		$this->status = static::DEFAULT_STATUS;
 
 		return $this->clear();
 	}
@@ -334,7 +242,7 @@ class Response
 	 */
 	public function resetExcept(array $exceptions): Response
 	{
-		$this->statusCode = self::DEFAULT_STATUS;
+		$this->status = static::DEFAULT_STATUS;
 
 		return $this->clearExcept($exceptions);
 	}
@@ -348,7 +256,7 @@ class Response
 
 		$protocol = $this->request->server->get('SERVER_PROTOCOL', 'HTTP/1.1');
 
-		header("{$protocol} {$this->statusCode} {$this->statusCodes[$this->statusCode]}");
+		header("{$protocol} {$this->status->value} {$this->status->getHeaderName()}");
 
 		// Send content type header
 
@@ -398,7 +306,7 @@ class Response
 			return false;
 		}
 
-		if(in_array($this->statusCode, [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false)
+		if(in_array($this->status->value, [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false)
 		{
 			return false;
 		}
@@ -496,13 +404,13 @@ class Response
 
 			if(str_replace('-gzip', '', $this->request->headers->get('If-None-Match')) === $hash)
 			{
-				$this->setStatus(304);
+				$this->setStatus(Status::NOT_MODIFIED);
 
 				$sendBody = false;
 			}
 		}
 
-		if($sendBody && in_array($this->statusCode, [100, 101, 102, 103, 204, 304]) === false)
+		if($sendBody && in_array($this->status->value, [100, 101, 102, 103, 204, 304]) === false)
 		{
 			// Start compressed output buffering if output compression is enabled
 

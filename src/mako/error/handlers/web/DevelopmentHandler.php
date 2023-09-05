@@ -406,7 +406,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 		->disableCompression()
 		->setType($type)
 		->setBody($body)
-		->setStatus($this->getStatusCode($exception)), $exception);
+		->setStatus($this->getHttpStatus($exception)), $exception);
 
 		return false;
 	}

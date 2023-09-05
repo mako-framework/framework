@@ -13,8 +13,10 @@ use mako\http\response\builders\JSON;
 use mako\http\response\Cookies;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
+use mako\http\response\Status;
 use mako\tests\TestCase;
 use Mockery;
+use ValueError;
 
 /**
  * @group unit
@@ -170,27 +172,38 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testStatus(): void
+	public function testDefaultStatus(): void
 	{
 		$response = new Response($this->getRequest());
 
-		$this->assertEquals(200, $response->getStatus());
+		$this->assertEquals(Status::OK, $response->getStatus());
 
-		//
+	}
 
+	/**
+	 *
+	 */
+	public function testValidStatus(): void
+	{
 		$response = new Response($this->getRequest());
 
 		$response->setStatus(404);
 
-		$this->assertEquals(404, $response->getStatus());
+		$this->assertEquals(Status::NOT_FOUND, $response->getStatus());
 
-		//
+	}
+
+	/**
+	 *
+	 */
+	public function testInvaludStatus(): void
+	{
+		$this->expectException(ValueError::class);
+		$this->expectExceptionMessage('999 is not a valid backing value for enum mako\http\response\Status');
 
 		$response = new Response($this->getRequest());
 
-		$response->setStatus(999); // Invalid status code
-
-		$this->assertEquals(200, $response->getStatus());
+		$response->setStatus(999);
 	}
 
 	/**
@@ -322,7 +335,7 @@ class ResponseTest extends TestCase
 
 		$this->assertCount(0, $response->getCookies());
 
-		$this->assertSame(200, $response->getStatus());
+		$this->assertSame(Status::OK, $response->getStatus());
 	}
 
 	/**
@@ -358,7 +371,7 @@ class ResponseTest extends TestCase
 
 		$this->assertCount(1, $response->getCookies());
 
-		$this->assertSame(200, $response->getStatus());
+		$this->assertSame(Status::OK, $response->getStatus());
 	}
 
 	/**
@@ -394,7 +407,7 @@ class ResponseTest extends TestCase
 
 		$this->assertCount(0, $response->getCookies());
 
-		$this->assertSame(200, $response->getStatus());
+		$this->assertSame(Status::OK, $response->getStatus());
 	}
 
 	/**

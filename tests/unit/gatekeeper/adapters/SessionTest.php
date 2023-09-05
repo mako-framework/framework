@@ -19,6 +19,7 @@ use mako\http\request\Cookies as RequestCookies;
 use mako\http\Response;
 use mako\http\response\Cookies as ResponseCookies;
 use mako\http\response\Headers as ResponseHeaders;
+use mako\http\response\Status;
 use mako\session\Session as HttpSession;
 use mako\tests\TestCase;
 use Mockery;
@@ -685,7 +686,7 @@ class SessionTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$response->shouldReceive('setStatus')->once()->with(401);
+		$response->shouldReceive('setStatus')->once()->with(Status::UNAUTHORIZED);
 
 		/** @var \mako\gatekeeper\adapters\Session|\Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()]);
@@ -721,7 +722,7 @@ class SessionTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$response->shouldReceive('setStatus')->once()->with(401);
+		$response->shouldReceive('setStatus')->once()->with(Status::UNAUTHORIZED);
 
 		$response->shouldReceive('clear')->once();
 
