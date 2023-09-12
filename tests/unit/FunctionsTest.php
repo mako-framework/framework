@@ -76,5 +76,11 @@ class FunctionsTest extends TestCase
 
 		$this->assertTrue(env('MAKO_TRUE', isBool: true));
 		$this->assertFalse(env('MAKO_FALSE', isBool: true));
+
+		$_ENV['MAKO_TRUE'] = '1';
+		$_ENV['MAKO_FALSE'] = '0';
+
+		$this->assertTrue(env('MAKO_TRUE', isBool: true));
+		$this->assertFalse(env('MAKO_FALSE', isBool: true));
 	}
 }
