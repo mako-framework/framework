@@ -30,12 +30,12 @@ function f(string $_name, mixed ...$_arguments): string
  */
 function env(string $variableName, mixed $default = null, bool $isBool = false, bool $localOnly = false): mixed
 {
-	$value = $_ENV[$variableName] ?? getenv($variableName, $localOnly) ?: null;
+	$value = $_ENV[$variableName] ?? (getenv($variableName, $localOnly) ?: null);
 
-    if($isBool && $value !== true && $value !== false && $value !== null)
-    {
-        $value = filter_var($value, FILTER_VALIDATE_BOOL);
-    }
+	if($isBool && $value !== true && $value !== false && $value !== null)
+	{
+		$value = filter_var($value, FILTER_VALIDATE_BOOL);
+	}
 
-    return $value ?? $default;
+	return $value ?? $default;
 }

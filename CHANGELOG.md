@@ -44,6 +44,14 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 
 --------------------------------------------------------
 
+### 9.1.2 <small>(2023-09-12)</small>
+
+#### Bugfixes
+
+* The `mako\env()` function now works as expected with the falsy boolean value defined as "0"
+
+--------------------------------------------------------
+
 ### 9.1.1 <small>(2023-06-23)</small>
 
 #### New
