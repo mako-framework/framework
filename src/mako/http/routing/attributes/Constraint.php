@@ -15,19 +15,43 @@ use Attribute;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 class Constraint
 {
+	/**
+	 * Parameters.
+	 */
+	protected array $parameters;
+
     /**
      * Constructor.
      */
     public function __construct(
-        protected array|string $constraint
+        protected string $constraint,
+		mixed ...$parameters
     )
-    {}
+    {
+		$this->parameters = $parameters;
+	}
 
     /**
-     * Returns an array of constraints.
+     * Returns the constraint.
      */
-    public function getConstraints(): array
+    public function getConstraint(): string
     {
-        return (array) $this->constraint;
+        return $this->constraint;
     }
+
+	/**
+	 * Returns the constraint parameters.
+	 */
+	public function getParameters(): array
+	{
+		return $this->parameters;
+	}
+
+	/**
+	 * Returns the constraint and parameters.
+	 */
+	public function getConstraintAndParameters(): array
+	{
+		return ['constraint' => $this->constraint, 'parameters' => $this->parameters];
+	}
 }

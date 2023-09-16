@@ -8,7 +8,6 @@
 namespace mako\tests\unit;
 
 use mako\tests\TestCase;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 
 use function mako\env;
 use function mako\f;
@@ -39,7 +38,6 @@ class FunctionsTest extends TestCase
 	/**
 	 *
 	 */
-	#[RunInSeparateProcess]
 	public function testEnvWithMissingVariable(): void
 	{
 		$this->assertNull(env('MAKO_MISSING'));
@@ -50,29 +48,26 @@ class FunctionsTest extends TestCase
 	/**
 	 *
 	 */
-	#[RunInSeparateProcess]
 	public function testEnvWithVariableFromEnvSuperglobal(): void
 	{
-		$_ENV['MAKO_FOOBAR'] = 'hello';
+		$_ENV['MAKO_FOOBAR1'] = 'hello';
 
-		$this->assertSame('hello', env('MAKO_FOOBAR'));
+		$this->assertSame('hello', env('MAKO_FOOBAR1'));
 	}
 
 	/**
 	 *
 	 */
-	#[RunInSeparateProcess]
 	public function testEnvWithVariableFromGetenv(): void
 	{
-		putenv('MAKO_FOOBAR=hello');
+		putenv('MAKO_FOOBAR2=hello');
 
-		$this->assertSame('hello', env('MAKO_FOOBAR'));
+		$this->assertSame('hello', env('MAKO_FOOBAR2'));
 	}
 
 	/**
 	 *
 	 */
-	#[RunInSeparateProcess]
 	public function testEnvWithBooleanValues(): void
 	{
 		$_ENV['MAKO_TRUE'] = 'true';

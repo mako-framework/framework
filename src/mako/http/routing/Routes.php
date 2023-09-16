@@ -12,6 +12,7 @@ use mako\common\traits\ExtendableTrait;
 use mako\http\routing\exceptions\RoutingException;
 
 use function array_pop;
+use function is_string;
 use function vsprintf;
 
 /**
@@ -91,6 +92,31 @@ class Routes
 	}
 
 	/**
+	 * Registers a group option.
+	 */
+	protected function registerGroupOption(Route $route, string $option, mixed $value): void
+	{
+		if($option === 'middleware' || $option === 'constraint')
+		{
+			foreach((array) $value as $parameters)
+			{
+				if(is_string($parameters))
+				{
+					$route->$option($parameters);
+				}
+				else
+				{
+					$route->$option($parameters[0], ...$parameters[1]);
+				}
+			}
+
+			return;
+		}
+
+		$route->$option($value);
+	}
+
+	/**
 	 * Registers a route.
 	 */
 	protected function registerRoute(array $methods, string $route, array|Closure|string $action, ?string $name = null): Route
@@ -115,7 +141,7 @@ class Routes
 			{
 				foreach($group as $option => $value)
 				{
-					$route->$option($value);
+					$this->registerGroupOption($route, $option, $value);
 				}
 			}
 		}

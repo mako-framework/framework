@@ -7,7 +7,6 @@
 
 namespace mako\http\routing;
 
-use mako\common\traits\FunctionParserTrait;
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\http\exceptions\NotFoundException;
 use mako\http\Request;
@@ -32,8 +31,6 @@ use function vsprintf;
  */
 class Router
 {
-	use FunctionParserTrait;
-
 	/**
 	 * Constraints.
 	 */
@@ -56,9 +53,9 @@ class Router
 	/**
 	 * Registers constraint.
 	 */
-	public function registerConstraint(string $name, ?string $constraint = null): Router
+	public function registerConstraint(string $constraint): Router
 	{
-		$this->constraints[$name] = $constraint ?? $name;
+		$this->constraints[$constraint] = $constraint;
 
 		return $this;
 	}
@@ -66,9 +63,16 @@ class Router
 	/**
 	 * Sets the chosen constraint as global.
 	 */
-	public function setConstraintAsGlobal(array $constraint): Router
+	public function setConstraintAsGlobal(array $constraints): Router
 	{
-		$this->globalConstraints = $constraint;
+		foreach($constraints as $globalConstraint)
+		{
+			$globalConstraint = is_array($globalConstraint)
+			? ['constraint' => $globalConstraint[0], 'parameters' => $globalConstraint[1]]
+			: ['constraint' => $globalConstraint, 'parameters' => []];
+
+			$this->globalConstraints[] = $globalConstraint;
+		}
 
 		return $this;
 	}
@@ -101,18 +105,14 @@ class Router
 	/**
 	 * Constraint factory.
 	 */
-	protected function constraintFactory(string $constraint): ConstraintInterface
+	protected function constraintFactory(array $constraint): ConstraintInterface
 	{
-		[$constraint, $parameters] = $this->parseFunction($constraint);
-
-		if(!isset($this->constraints[$constraint]))
+		if(!isset($this->constraints[$constraint['constraint']]))
 		{
-			throw new RoutingException(vsprintf('No constraint named [ %s ] has been registered.', [$constraint]));
+			throw new RoutingException(vsprintf('The [ %s ] constraint hasn\'t been registered.', [$constraint['constraint']]));
 		}
 
-		$constraint = $this->container->get($this->constraints[$constraint], $parameters);
-
-		return $constraint;
+		return $this->container->get($constraint['constraint'], $constraint['parameters']);
 	}
 
 	/**
