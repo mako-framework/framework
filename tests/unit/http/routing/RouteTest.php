@@ -343,19 +343,19 @@ class RouteTest extends TestCase
 	{
 		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware('foo');
 
-		$this->assertSame(['foo'], $route->getMiddleware());
-
-		//
-
-		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware(['foo', 'bar']);
-
-		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
+		$this->assertSame([['middleware' => 'foo', 'parameters' => []]], $route->getMiddleware());
 
 		//
 
 		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware('foo')->middleware('bar');
 
-		$this->assertSame(['foo', 'bar'], $route->getMiddleware());
+		$this->assertSame([['middleware' => 'foo', 'parameters' => []], ['middleware' => 'bar', 'parameters' => []]], $route->getMiddleware());
+
+		//
+
+		$route = (new Route(['GET'], '/', fn () => 'Hello, world!'))->middleware('foo', foo: 'bar')->middleware('bar', foo: 'bar');
+
+		$this->assertSame([['middleware' => 'foo', 'parameters' => ['foo' => 'bar']], ['middleware' => 'bar', 'parameters' => ['foo' => 'bar']]], $route->getMiddleware());
 	}
 
 	/**
@@ -385,11 +385,21 @@ class RouteTest extends TestCase
 	 */
 	public function testAttributeMiddleware(): void
 	{
+		$expected = [
+			['middleware' => 'foo0', 'parameters' => []],
+			['middleware' => 'foo1', 'parameters' => []],
+			['middleware' => 'foo2', 'parameters' => []],
+			['middleware' => 'foo3', 'parameters' => []],
+			['middleware' => 'foo4', 'parameters' => []],
+		];
+
+		//
+
 		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
 
 		$route->middleware('foo0');
 
-		$this->assertSame(['foo0', 'foo1', 'foo2', 'foo3', 'foo4'], $route->getMiddleware());
+		$this->assertSame($expected, $route->getMiddleware());
 
 		//
 
@@ -397,7 +407,7 @@ class RouteTest extends TestCase
 
 		$route->middleware('foo0');
 
-		$this->assertSame(['foo0', 'foo1', 'foo2', 'foo3', 'foo4'], $route->getMiddleware());
+		$this->assertSame($expected, $route->getMiddleware());
 	}
 
 	/**
@@ -405,11 +415,21 @@ class RouteTest extends TestCase
 	 */
 	public function testAttributeConstraints(): void
 	{
+		$expected = [
+			['constraint' => 'bar0', 'parameters' => []],
+			['constraint' => 'bar1', 'parameters' => []],
+			['constraint' => 'bar2', 'parameters' => []],
+			['constraint' => 'bar3', 'parameters' => []],
+			['constraint' => 'bar4', 'parameters' => []],
+		];
+
+		//
+
 		$route = new Route(['GET'], '/', [AttributeController::class, 'method']);
 
 		$route->constraint('bar0');
 
-		$this->assertSame(['bar0', 'bar1', 'bar2', 'bar3', 'bar4'], $route->getConstraints());
+		$this->assertSame($expected, $route->getConstraints());
 
 		//
 
@@ -417,6 +437,6 @@ class RouteTest extends TestCase
 
 		$route->constraint('bar0');
 
-		$this->assertSame(['bar0', 'bar1', 'bar2', 'bar3', 'bar4'], $route->getConstraints());
+		$this->assertSame($expected, $route->getConstraints());
 	}
 }

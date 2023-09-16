@@ -111,7 +111,7 @@ class Route
 		/** @var \ReflectionAttribute $attribute */
 		foreach($attributes as $attribute)
 		{
-			$attributeValues = [...$attributeValues, ...$attribute->newInstance()->$method()];
+			$attributeValues = [...$attributeValues, ...[$attribute->newInstance()->$method()]];
 		}
 
 		return $attributeValues;
@@ -131,8 +131,8 @@ class Route
 
 		return [
 			...$this->middleware,
-			...$this->getAttributeValues((new ReflectionClass($class))->getAttributes(Middleware::class), 'getMiddleware'),
-			...$this->getAttributeValues((new ReflectionMethod($class, $method))->getAttributes(Middleware::class), 'getMiddleware'),
+			...$this->getAttributeValues((new ReflectionClass($class))->getAttributes(Middleware::class), 'getMiddlewareAndParameters'),
+			...$this->getAttributeValues((new ReflectionMethod($class, $method))->getAttributes(Middleware::class), 'getMiddlewareAndParameters'),
 		];
 	}
 
@@ -150,8 +150,8 @@ class Route
 
 		return [
 			...$this->constraints,
-			...$this->getAttributeValues((new ReflectionClass($class))->getAttributes(Constraint::class), 'getConstraints'),
-			...$this->getAttributeValues((new ReflectionMethod($class, $method))->getAttributes(Constraint::class), 'getConstraints'),
+			...$this->getAttributeValues((new ReflectionClass($class))->getAttributes(Constraint::class), 'getConstraintAndParameters'),
+			...$this->getAttributeValues((new ReflectionMethod($class, $method))->getAttributes(Constraint::class), 'getConstraintAndParameters'),
 		];
 	}
 
@@ -203,21 +203,21 @@ class Route
 	}
 
 	/**
-	 * Adds a set of middleware.
+	 * Adds a middleware.
 	 */
-	public function middleware(array|string $middleware): Route
+	public function middleware(string $middleware, mixed ...$parameters): Route
 	{
-		$this->middleware = [...$this->middleware, ...(array) $middleware];
+		$this->middleware = [...$this->middleware, ...[['middleware' => $middleware, 'parameters' => $parameters]]];
 
 		return $this;
 	}
 
 	/**
-	 * Adds a set of constraints.
+	 * Adds a constraint.
 	 */
-	public function constraint(array|string $constraint): Route
+	public function constraint(string $constraint, mixed ...$parameters): Route
 	{
-		$this->constraints = [...$this->constraints, ...(array) $constraint];
+		$this->constraints = [...$this->constraints, ...[['constraint' => $constraint, 'parameters' => $parameters]]];
 
 		return $this;
 	}

@@ -8,7 +8,6 @@
 namespace mako\http\routing;
 
 use Closure;
-use mako\common\traits\FunctionParserTrait;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\exceptions\RoutingException;
@@ -30,8 +29,6 @@ use function vsprintf;
  */
 class Dispatcher
 {
-	use FunctionParserTrait;
-
 	/**
 	 * Default middleware priority.
 	 *
@@ -87,13 +84,13 @@ class Dispatcher
 	/**
 	 * Registers middleware.
 	 */
-	public function registerMiddleware(string $name, ?string $middleware = null, ?int $priority = null): Dispatcher
+	public function registerMiddleware(string $middleware, ?int $priority = null): Dispatcher
 	{
-		$this->middleware[$name] = $middleware ?? $name;
+		$this->middleware[$middleware] = $middleware;
 
 		if($priority !== null)
 		{
-			$this->middlewarePriority[$name] = $priority;
+			$this->middlewarePriority[$middleware] = $priority;
 		}
 
 		return $this;
@@ -104,7 +101,14 @@ class Dispatcher
 	 */
 	public function setMiddlewareAsGlobal(array $middleware): Dispatcher
 	{
-		$this->globalMiddleware = $middleware;
+		foreach($middleware as $globalMiddleware)
+		{
+			$globalMiddleware = is_array($globalMiddleware)
+			? ['middleware' => $globalMiddleware[0], 'parameters' => $globalMiddleware[1]]
+			: ['middleware' => $globalMiddleware, 'parameters' => []];
+
+			$this->globalMiddleware[] = $globalMiddleware;
+		}
 
 		return $this;
 	}
@@ -112,16 +116,14 @@ class Dispatcher
 	/**
 	 * Resolves the middleware.
 	 */
-	protected function resolveMiddleware(string $middleware): array
+	protected function resolveMiddleware(array $middleware): array
 	{
-		[$name, $parameters] = $this->parseFunction($middleware);
-
-		if(!isset($this->middleware[$name]))
+		if(!isset($this->middleware[$middleware['middleware']]))
 		{
-			throw new RoutingException(vsprintf('No middleware named [ %s ] has been registered.', [$middleware]));
+			throw new RoutingException(vsprintf('The [ %s ] middleware hasn\'t been registered.', [$middleware['middleware']]));
 		}
 
-		return ['name' => $name, 'middleware' => $this->middleware[$name], 'parameters' => $parameters];
+		return $middleware;
 	}
 
 	/**
@@ -156,17 +158,14 @@ class Dispatcher
 			{
 				$layer = $this->resolveMiddleware($layer);
 
-				$resolved[$layer['name']][] = $layer;
+				$resolved[$layer['middleware']] = $layer;
 			}
 
 			// Add ordered middleware to stack
 
-			foreach($this->orderMiddlewareByPriority($resolved) as $name)
+			foreach($this->orderMiddlewareByPriority($resolved) as $layer)
 			{
-				foreach($name as $layer)
-				{
-					$onion->addLayer($layer['middleware'], $layer['parameters']);
-				}
+				$onion->addLayer($layer['middleware'], $layer['parameters']);
 			}
 		}
 	}

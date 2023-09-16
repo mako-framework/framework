@@ -401,7 +401,7 @@ class RouterTest extends TestCase
 	{
 		$routes = new Routes;
 
-		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint('bar');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(BarConstraint::class);
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
@@ -410,7 +410,7 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->registerConstraint('bar', BarConstraint::class);
+		$router->registerConstraint(BarConstraint::class);
 
 		$request = $this->getRequest();
 
@@ -465,7 +465,7 @@ class RouterTest extends TestCase
 
 		$routes = new Routes;
 
-		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint('foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(FooConstraint::class);
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
@@ -474,7 +474,7 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->registerConstraint('foo', FooConstraint::class);
+		$router->registerConstraint(FooConstraint::class);
 
 		$request = $this->getRequest();
 
@@ -503,9 +503,9 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->registerConstraint('foo', FooConstraint::class);
+		$router->registerConstraint(FooConstraint::class);
 
-		$router->setConstraintAsGlobal(['foo']);
+		$router->setConstraintAsGlobal([FooConstraint::class]);
 
 		$request = $this->getRequest();
 
@@ -523,11 +523,11 @@ class RouterTest extends TestCase
 	{
 		$this->expectException(RoutingException::class);
 
-		$this->expectExceptionMessage('No constraint named [ foo ] has been registered.');
+		$this->expectExceptionMessage('The [ mako\tests\unit\http\routing\FooConstraint ] constraint hasn\'t been registered.');
 
 		$routes = new Routes;
 
-		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint('foo');
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(FooConstraint::class);
 
 		$router = new Router($routes);
 

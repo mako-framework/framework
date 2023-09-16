@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\http\routing\middleware;
+namespace mako\tests\unit\http\routing\attributes;
 
 use mako\http\routing\attributes\Middleware;
 use mako\tests\TestCase;
@@ -18,20 +18,30 @@ class MiddlewareTest extends TestCase
 	/**
 	 *
 	 */
-	public function testWithArray(): void
+	public function testGetMiddleware(): void
 	{
-		$middleware = new Middleware(['foobar', 'barfoo']);
+		$middleware = new Middleware(FooBar::class);
 
-		$this->assertSame(['foobar', 'barfoo'], $middleware->getMiddleware());
+		$this->assertSame(FooBar::class, $middleware->getMiddleware());
 	}
 
 	/**
 	 *
 	 */
-	public function testWithString(): void
+	public function testGetParameters(): void
 	{
-		$middleware = new Middleware('foobar');
+		$middleware = new Middleware(FooBar::class, foo: 'bar');
 
-		$this->assertSame(['foobar'], $middleware->getMiddleware());
+		$this->assertSame(['foo' => 'bar'], $middleware->getParameters());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetMiddlewareAndParameters(): void
+	{
+		$middleware = new Middleware(FooBar::class, foo: 'bar');
+
+		$this->assertSame(['middleware' => FooBar::class, 'parameters' => ['foo' => 'bar']], $middleware->getMiddlewareAndParameters());
 	}
 }
