@@ -4,8 +4,8 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 
 #### New
 
-* Added `Session::disableAutoCommit()` method.
-* Added `Session::enableAutoCommit()` method.
+* Added the `Session::disableAutoCommit()` method.
+* Added the `Session::enableAutoCommit()` method.
 * Made the `Session::gc()` method public and added a `$force` parameter.
 * The following `Request` properties are now public readonly:
 	- `Request::$query`
@@ -21,9 +21,11 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 	- `Response::setStatus()`
 	- `JSON::setStatus()`
 	- `Redirect::setStatus()`
-* Added `HttpStatusException::getStatus()` method.
-* Improved middleware and constraint registration.
+* Added the `HttpStatusException::getStatus()` method.
+* Simplified middleware and constraint registration.
 * Global middleware and constraints can now be registered with parameters.
+	- Added the `Dispatcher::registerGlobalMiddleware()` method.
+	- Added the `Router::registerGlobalConstraint()` method.
 
 #### Changes
 
@@ -37,6 +39,11 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 	- `Response::getStatus()`
 	- `JSON::getStatus()`
 	- `Redirect::getStatus()`
+* Removed the `Dispatcher::registerMiddleware()` method.
+* Removed the `Dispatcher::setMiddlewareAsGlobal()` method.
+* Changed the `Dispatcher::setMiddlewarePriority()` method signature.
+* Removed the `Router::registerConstraint()` method.
+* Removed the `Router::setConstraintAsGlobal()` method.
 
 #### Improvements
 

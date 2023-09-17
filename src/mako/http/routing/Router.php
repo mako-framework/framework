@@ -13,30 +13,22 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\senders\Redirect;
 use mako\http\routing\constraints\ConstraintInterface;
-use mako\http\routing\exceptions\RoutingException;
 use mako\syringe\Container;
 
 use function array_unique;
 use function http_build_query;
 use function implode;
 use function in_array;
-use function is_array;
 use function is_string;
 use function preg_match;
 use function rtrim;
 use function substr;
-use function vsprintf;
 
 /**
  * Router.
  */
 class Router
 {
-	/**
-	 * Constraints.
-	 */
-	protected array $constraints = [];
-
 	/**
 	 * Global constraints.
 	 */
@@ -52,28 +44,11 @@ class Router
 	{}
 
 	/**
-	 * Registers constraint.
-	 */
-	public function registerConstraint(string $constraint): Router
-	{
-		$this->constraints[$constraint] = $constraint;
-
-		return $this;
-	}
-
-	/**
 	 * Sets the chosen constraint as global.
 	 */
-	public function setConstraintAsGlobal(array $constraints): Router
+	public function registerGlobalConstraint(string $constraint, mixed ...$parameters): Router
 	{
-		foreach($constraints as $globalConstraint)
-		{
-			$globalConstraint = is_array($globalConstraint)
-			? ['constraint' => $globalConstraint[0], 'parameters' => $globalConstraint[1]]
-			: ['constraint' => $globalConstraint, 'parameters' => []];
-
-			$this->globalConstraints[] = $globalConstraint;
-		}
+		$this->globalConstraints[] = ['constraint' => $constraint, 'parameters' => $parameters];
 
 		return $this;
 	}
@@ -108,11 +83,6 @@ class Router
 	 */
 	protected function constraintFactory(array $constraint): ConstraintInterface
 	{
-		if(!isset($this->constraints[$constraint['constraint']]))
-		{
-			throw new RoutingException(vsprintf('The [ %s ] constraint hasn\'t been registered.', [$constraint['constraint']]));
-		}
-
 		return $this->container->get($constraint['constraint'], $constraint['parameters']);
 	}
 

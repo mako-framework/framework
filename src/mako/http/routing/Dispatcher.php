@@ -10,7 +10,6 @@ namespace mako\http\routing;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\onion\Onion;
 use mako\syringe\Container;
@@ -22,7 +21,6 @@ use function array_keys;
 use function asort;
 use function is_array;
 use function method_exists;
-use function vsprintf;
 
 /**
  * Route dispatcher.
@@ -35,11 +33,6 @@ class Dispatcher
 	 * @var int
 	 */
 	public const MIDDLEWARE_DEFAULT_PRIORITY = 100;
-
-	/**
-	 * Route middleware.
-	 */
-	protected array $middleware = [];
 
 	/**
 	 * Global middleware.
@@ -62,11 +55,11 @@ class Dispatcher
 	{}
 
 	/**
-	 * Sets the middleware priority.
+	 * Sets middleware priority.
 	 */
-	public function setMiddlewarePriority(array $priority): Dispatcher
+	public function setMiddlewarePriority(string $middleware, int $priority): Dispatcher
 	{
-		$this->middlewarePriority = $priority + $this->middlewarePriority;
+		$this->middlewarePriority[$middleware] = $priority;
 
 		return $this;
 	}
@@ -82,48 +75,13 @@ class Dispatcher
 	}
 
 	/**
-	 * Registers middleware.
-	 */
-	public function registerMiddleware(string $middleware, ?int $priority = null): Dispatcher
-	{
-		$this->middleware[$middleware] = $middleware;
-
-		if($priority !== null)
-		{
-			$this->middlewarePriority[$middleware] = $priority;
-		}
-
-		return $this;
-	}
-
-	/**
 	 * Sets the chosen middleware as global.
 	 */
-	public function setMiddlewareAsGlobal(array $middleware): Dispatcher
+	public function registerGlobalMiddleware(string $middleware, mixed ...$parameters): Dispatcher
 	{
-		foreach($middleware as $globalMiddleware)
-		{
-			$globalMiddleware = is_array($globalMiddleware)
-			? ['middleware' => $globalMiddleware[0], 'parameters' => $globalMiddleware[1]]
-			: ['middleware' => $globalMiddleware, 'parameters' => []];
-
-			$this->globalMiddleware[] = $globalMiddleware;
-		}
+		$this->globalMiddleware[] = ['middleware' => $middleware, 'parameters' => $parameters];
 
 		return $this;
-	}
-
-	/**
-	 * Resolves the middleware.
-	 */
-	protected function resolveMiddleware(array $middleware): array
-	{
-		if(!isset($this->middleware[$middleware['middleware']]))
-		{
-			throw new RoutingException(vsprintf('The [ %s ] middleware hasn\'t been registered.', [$middleware['middleware']]));
-		}
-
-		return $middleware;
 	}
 
 	/**
@@ -150,20 +108,18 @@ class Dispatcher
 	{
 		if(empty($middleware) === false)
 		{
-			// Resolve middleware
+			// Group middleware
 
-			$resolved = [];
+			$layers = [];
 
 			foreach($middleware as $layer)
 			{
-				$layer = $this->resolveMiddleware($layer);
-
-				$resolved[$layer['middleware']] = $layer;
+				$layers[$layer['middleware']] = $layer;
 			}
 
 			// Add ordered middleware to stack
 
-			foreach($this->orderMiddlewareByPriority($resolved) as $layer)
+			foreach($this->orderMiddlewareByPriority($layers) as $layer)
 			{
 				$onion->addLayer($layer['middleware'], $layer['parameters']);
 			}

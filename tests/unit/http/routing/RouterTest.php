@@ -17,7 +17,6 @@ use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\http\response\Status;
 use mako\http\routing\constraints\ConstraintInterface;
-use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\Route;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
@@ -410,39 +409,6 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->registerConstraint(BarConstraint::class);
-
-		$request = $this->getRequest();
-
-		$request->shouldReceive('getMethod')->andReturn('GET');
-
-		$request->shouldReceive('getPath')->andReturn('/foo');
-
-		$routed = $router->route($request);
-
-		$this->assertSame('get.foo', $routed->getName());
-
-		$this->assertSame($routed, $request->getRoute());
-	}
-
-	/**
-	 *
-	 */
-	public function testSatisfiedConstraintUsingOnlyClassName(): void
-	{
-		$routes = new Routes;
-
-		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(BarConstraint::class);
-
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
-		$container = Mockery::mock(Container::class);
-
-		$container->shouldReceive('get')->once()->with(BarConstraint::class, [])->andReturn(new BarConstraint);
-
-		$router = new Router($routes, $container);
-
-		$router->registerConstraint(BarConstraint::class);
-
 		$request = $this->getRequest();
 
 		$request->shouldReceive('getMethod')->andReturn('GET');
@@ -474,8 +440,6 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->registerConstraint(FooConstraint::class);
-
 		$request = $this->getRequest();
 
 		$request->shouldReceive('getMethod')->andReturn('GET');
@@ -503,9 +467,7 @@ class RouterTest extends TestCase
 
 		$router = new Router($routes, $container);
 
-		$router->registerConstraint(FooConstraint::class);
-
-		$router->setConstraintAsGlobal([FooConstraint::class]);
+		$router->registerGlobalConstraint(FooConstraint::class);
 
 		$request = $this->getRequest();
 
@@ -514,29 +476,5 @@ class RouterTest extends TestCase
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
 		$router->route($request)->getAction()();
-	}
-
-	/**
-	 *
-	 */
-	public function testUnregisteredConstraint(): void
-	{
-		$this->expectException(RoutingException::class);
-
-		$this->expectExceptionMessage('The [ mako\tests\unit\http\routing\FooConstraint ] constraint hasn\'t been registered.');
-
-		$routes = new Routes;
-
-		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(FooConstraint::class);
-
-		$router = new Router($routes);
-
-		$request = $this->getRequest();
-
-		$request->shouldReceive('getMethod')->andReturn('GET');
-
-		$request->shouldReceive('getPath')->andReturn('/foo');
-
-		$router->route($request);
 	}
 }
