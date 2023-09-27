@@ -44,6 +44,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 * Changed the `Dispatcher::setMiddlewarePriority()` method signature.
 * Removed the `Router::registerConstraint()` method.
 * Removed the `Router::setConstraintAsGlobal()` method.
+* Application controllers and routing have been moved to the `app/http` namespace.
 
 #### Improvements
 

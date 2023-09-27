@@ -25,7 +25,7 @@ class HTTPService extends Service
 	 */
 	protected function getRoutingPath(): string
 	{
-		return "{$this->app->getPath()}/routing";
+		return "{$this->app->getPath()}/http/routing";
 	}
 
 	/**
