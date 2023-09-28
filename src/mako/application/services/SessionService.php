@@ -13,6 +13,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\redis\ConnectionManager as RedisConnectionManager;
 use mako\session\Session;
+use mako\session\stores\APCu;
 use mako\session\stores\Database;
 use mako\session\stores\File;
 use mako\session\stores\NullStore;
@@ -25,6 +26,14 @@ use mako\syringe\Container;
  */
 class SessionService extends Service
 {
+	/**
+	 * Returns an APCu store instance.
+	 */
+	protected function getApcuStore(Container $container, array $config, array|bool $classWhitelist): APCu
+	{
+		return new APCu($classWhitelist);
+	}
+
 	/**
 	 * Returns a database store instance.
 	 */

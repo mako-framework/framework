@@ -21,9 +21,9 @@ use function apcu_store;
 use function function_exists;
 
 /**
- * APCU store.
+ * APCu store.
  */
-class APCU extends Store implements IncrementDecrementInterface
+class APCu extends Store implements IncrementDecrementInterface
 {
 	/**
 	 * Constructor.

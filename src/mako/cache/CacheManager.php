@@ -8,7 +8,7 @@
 namespace mako\cache;
 
 use mako\cache\exceptions\CacheException;
-use mako\cache\stores\APCU;
+use mako\cache\stores\APCu;
 use mako\cache\stores\Database;
 use mako\cache\stores\File;
 use mako\cache\stores\Memcache;
@@ -51,9 +51,9 @@ class CacheManager extends AdapterManager
 	/**
 	 * APCU store factory.
 	 */
-	protected function apcuFactory(array $configuration): APCU
+	protected function apcuFactory(array $configuration): APCu
 	{
-		return (new APCU)->setPrefix($configuration['prefix'] ?? '');
+		return (new APCu)->setPrefix($configuration['prefix'] ?? '');
 	}
 
 	/**

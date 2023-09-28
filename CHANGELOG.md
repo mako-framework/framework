@@ -26,6 +26,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 * Global middleware and constraints can now be registered with parameters.
 	- Added the `Dispatcher::registerGlobalMiddleware()` method.
 	- Added the `Router::registerGlobalConstraint()` method.
+* Added APCu session store.
 
 #### Changes
 
