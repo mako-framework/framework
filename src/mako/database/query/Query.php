@@ -661,7 +661,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function between(mixed $column, mixed $value1, mixed $value2, string $separator = 'AND', bool $not = false): static
+	public function between(Raw|string|Subquery $column, mixed $value1, mixed $value2, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -681,7 +681,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orBetween(mixed $column, mixed $value1, mixed $value2): static
+	public function orBetween(Raw|string|Subquery $column, mixed $value1, mixed $value2): static
 	{
 		return $this->between($column, $value1, $value2, 'OR');
 	}
@@ -691,7 +691,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function notBetween(mixed $column, mixed $value1, mixed $value2): static
+	public function notBetween(Raw|string|Subquery $column, mixed $value1, mixed $value2): static
 	{
 		return $this->between($column, $value1, $value2, 'AND', true);
 	}
@@ -701,7 +701,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orNotBetween(mixed $column, mixed $value1, mixed $value2): static
+	public function orNotBetween(Raw|string|Subquery $column, mixed $value1, mixed $value2): static
 	{
 		return $this->between($column, $value1, $value2, 'OR', true);
 	}
@@ -761,7 +761,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function in(mixed $column, array|Raw|Subquery $values, string $separator = 'AND', bool $not = false): static
+	public function in(Raw|string|Subquery $column, array|Raw|Subquery $values, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -780,7 +780,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orIn(mixed $column, array|Raw|Subquery $values): static
+	public function orIn(Raw|string|Subquery $column, array|Raw|Subquery $values): static
 	{
 		return $this->in($column, $values, 'OR');
 	}
@@ -790,7 +790,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function notIn(mixed $column, array|Raw|Subquery $values): static
+	public function notIn(Raw|string|Subquery $column, array|Raw|Subquery $values): static
 	{
 		return $this->in($column, $values, 'AND', true);
 	}
@@ -800,7 +800,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orNotIn(mixed $column, array|Raw|Subquery $values): static
+	public function orNotIn(Raw|string|Subquery $column, array|Raw|Subquery $values): static
 	{
 		return $this->in($column, $values, 'OR', true);
 	}
@@ -810,7 +810,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function isNull(mixed $column, string $separator = 'AND', bool $not = false): static
+	public function isNull(Raw|string|Subquery $column, string $separator = 'AND', bool $not = false): static
 	{
 		$this->wheres[] =
 		[
@@ -828,7 +828,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orIsNull(mixed $column): static
+	public function orIsNull(Raw|string|Subquery $column): static
 	{
 		return $this->isNull($column, 'OR');
 	}
@@ -838,7 +838,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function isNotNull(mixed $column): static
+	public function isNotNull(Raw|string|Subquery $column): static
 	{
 		return $this->isNull($column, 'AND', true);
 	}
@@ -848,7 +848,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orIsNotNull(mixed $column): static
+	public function orIsNotNull(Raw|string|Subquery $column): static
 	{
 		return $this->isNull($column, 'OR', true);
 	}
