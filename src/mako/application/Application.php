@@ -76,8 +76,7 @@ abstract class Application
 	 */
 	final protected function __construct(
 		protected string $applicationPath
-	)
-	{
+	) {
 		$this->startTime = microtime(true);
 	}
 
@@ -86,8 +85,7 @@ abstract class Application
 	 */
 	public static function start(string $applicationPath): static
 	{
-		if(!empty(static::$instance))
-		{
+		if (!empty(static::$instance)) {
 			throw new ApplicationException('The application has already been started.');
 		}
 
@@ -101,8 +99,7 @@ abstract class Application
 	 */
 	public static function instance(): static
 	{
-		if(empty(static::$instance))
-		{
+		if (empty(static::$instance)) {
 			throw new ApplicationException('The application has not been started yet.');
 		}
 
@@ -156,8 +153,7 @@ abstract class Application
 	{
 		$this->language = $language['strings'];
 
-		foreach($language['locale'] as $category => $locale)
-		{
+		foreach ($language['locale'] as $category => $locale) {
 			setlocale($category, $locale);
 		}
 	}
@@ -191,8 +187,7 @@ abstract class Application
 	 */
 	public function getPackage(string $package): Package
 	{
-		if(!isset($this->packages[$package]))
-		{
+		if (!isset($this->packages[$package])) {
 			throw new ApplicationException(vsprintf('Unknown package [ %s ].', [$package]));
 		}
 
@@ -206,8 +201,7 @@ abstract class Application
 	{
 		$namespace = basename(rtrim($this->applicationPath, '\\'));
 
-		if($prefix)
-		{
+		if ($prefix) {
 			$namespace = "\\{$namespace}";
 		}
 
@@ -265,8 +259,7 @@ abstract class Application
 	 */
 	protected function serviceRegistrar(string $type): void
 	{
-		foreach($this->config->get("application.services.{$type}") as $service)
-		{
+		foreach ($this->config->get("application.services.{$type}") as $service) {
 			(new $service($this, $this->container, $this->config))->register();
 		}
 	}
@@ -298,12 +291,10 @@ abstract class Application
 
 		// Register environment specific services
 
-		if($this->isCommandLine())
-		{
+		if ($this->isCommandLine()) {
 			$this->registerCLIServices();
 		}
-		else
-		{
+		else {
 			$this->registerWebServices();
 		}
 	}
@@ -313,8 +304,7 @@ abstract class Application
 	 */
 	protected function bootstrap(): void
 	{
-		(function ($app, $container): void
-		{
+		(function ($app, $container): void {
 			include "{$this->applicationPath}/bootstrap.php";
 		})($this, $this->container);
 	}
@@ -324,8 +314,7 @@ abstract class Application
 	 */
 	protected function packageBooter(string $type): void
 	{
-		foreach($this->config->get("application.packages.{$type}") as $package)
-		{
+		foreach ($this->config->get("application.packages.{$type}") as $package) {
 			$package = new $package($this->container);
 
 			$package->boot();
@@ -359,12 +348,10 @@ abstract class Application
 
 		// Register environment specific services
 
-		if($this->isCommandLine())
-		{
+		if ($this->isCommandLine()) {
 			$this->bootCliPackages();
 		}
-		else
-		{
+		else {
 			$this->bootWebPackages();
 		}
 	}

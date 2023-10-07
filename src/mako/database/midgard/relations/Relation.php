@@ -43,12 +43,10 @@ abstract class Relation extends Query
 		protected ORM $origin,
 		ORM $model,
 		protected ?string $foreignKey = null
-	)
-	{
+	) {
 		parent::__construct($connection, $model);
 
-		if($origin->isPersisted())
-		{
+		if ($origin->isPersisted()) {
 			$this->lazyCriterion();
 		}
 	}
@@ -58,8 +56,7 @@ abstract class Relation extends Query
 	 */
 	protected function getForeignKey(): string
 	{
-		if($this->foreignKey === null)
-		{
+		if ($this->foreignKey === null) {
 			$this->foreignKey = $this->origin->getForeignKey();
 		}
 
@@ -73,8 +70,7 @@ abstract class Relation extends Query
 	{
 		$keys = [];
 
-		foreach($results as $result)
-		{
+		foreach ($results as $result) {
 			$keys[] = $result->getPrimaryKeyValue();
 		}
 
@@ -113,12 +109,10 @@ abstract class Relation extends Query
 		// If the number of related records is greater than the max chunk size
 		// then we'll load the records in appropriately sized chunks
 
-		if(count($keys) > static::EAGER_LOAD_CHUNK_SIZE)
-		{
+		if (count($keys) > static::EAGER_LOAD_CHUNK_SIZE) {
 			$records = [];
 
-			foreach(array_chunk($keys, static::EAGER_LOAD_CHUNK_SIZE) as $chunk)
-			{
+			foreach (array_chunk($keys, static::EAGER_LOAD_CHUNK_SIZE) as $chunk) {
 				$query = clone $this;
 
 				$records = [...$records, ...$query->eagerCriterion($chunk)->all()->getItems()];
@@ -149,8 +143,7 @@ abstract class Relation extends Query
 	 */
 	protected function adjustQuery(): void
 	{
-		if(!$this->lazy)
-		{
+		if (!$this->lazy) {
 			array_shift($this->wheres);
 		}
 	}
@@ -185,8 +178,7 @@ abstract class Relation extends Query
 	 */
 	public function getRelated(): mixed
 	{
-		if(!$this->origin->isPersisted())
-		{
+		if (!$this->origin->isPersisted()) {
 			throw new DatabaseException('Unable to fetch related records for non-persisted models.');
 		}
 

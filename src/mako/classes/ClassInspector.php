@@ -43,11 +43,10 @@ class ClassInspector
 
 		$traits = [];
 
-		do
-		{
+		do {
 			$traits += class_uses($class, $autoload);
 		}
-		while($class = get_parent_class($class));
+		while ($class = get_parent_class($class));
 
 		// Find all traits used by the traits
 
@@ -55,12 +54,10 @@ class ClassInspector
 
 		$searched = [];
 
-		while(!empty($search))
-		{
+		while (!empty($search)) {
 			$trait = array_pop($search);
 
-			if(isset($searched[$trait]))
-			{
+			if (isset($searched[$trait])) {
 				continue;
 			}
 

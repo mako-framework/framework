@@ -27,8 +27,7 @@ trait InputValidationTrait
 	 */
 	protected function getValidatedInput(array|string $inputOrRules): array
 	{
-		if(is_string($inputOrRules))
-		{
+		if (is_string($inputOrRules)) {
 			return $this->baseGetValidatedInput($inputOrRules);
 		}
 
@@ -40,8 +39,7 @@ trait InputValidationTrait
 	 */
 	protected function getValidatedFiles(array|string $inputOrRules): array
 	{
-		if(is_string($inputOrRules))
-		{
+		if (is_string($inputOrRules)) {
 			return $this->baseGetValidatedInput($inputOrRules);
 		}
 

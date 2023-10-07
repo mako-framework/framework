@@ -24,8 +24,8 @@ class OneTimeToken extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected Session $session
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

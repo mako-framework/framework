@@ -26,8 +26,8 @@ class ExactDimensions extends Rule implements RuleInterface
 	public function __construct(
 		protected int $width,
 		protected int $height
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

@@ -31,8 +31,8 @@ class GroupRepository implements GroupRepositoryInterface
 	 */
 	public function __construct(
 		protected string $model
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns a model instance.
@@ -49,8 +49,7 @@ class GroupRepository implements GroupRepositoryInterface
 	{
 		$group = $this->getModel();
 
-		foreach($properties as $property => $value)
-		{
+		foreach ($properties as $property => $value) {
 			$group->$property = $value;
 		}
 
@@ -64,8 +63,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 */
 	public function setIdentifier(string $identifier): void
 	{
-		if(!in_array($identifier, ['name', 'id']))
-		{
+		if (!in_array($identifier, ['name', 'id'])) {
 			throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 
@@ -93,8 +91,7 @@ class GroupRepository implements GroupRepositoryInterface
 	 */
 	public function getByIdentifier(int|string $identifier): ?Group
 	{
-		return match($this->identifier)
-		{
+		return match ($this->identifier) {
 			'name'  => $this->getByName($identifier),
 			'id'    => $this->getById($identifier),
 			default => throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier])),

@@ -601,8 +601,7 @@ EOF;
 
 		$command->shouldReceive('getDescription')->once()->andReturn('Command description.');
 
-		$command->shouldReceive('getArguments')->once()->andReturn
-		([
+		$command->shouldReceive('getArguments')->once()->andReturn([
 			new Argument('argument', 'Argument description.', Argument::IS_OPTIONAL),
 			new Argument('--option1', 'Option description.', Argument::IS_OPTIONAL),
 			new Argument('-o|--option2', 'Option description.'),

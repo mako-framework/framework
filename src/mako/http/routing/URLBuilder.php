@@ -42,14 +42,12 @@ class URLBuilder
 		protected Routes $routes,
 		protected bool $cleanURLs = false,
 		?string $baseURL = null
-	)
-	{
+	) {
 		$this->baseURL = $baseURL ?? $this->request->getBaseURL();
 
 		$this->scriptName = $request->getScriptName();
 
-		if(!empty($language = $request->getLanguagePrefix()))
-		{
+		if (!empty($language = $request->getLanguagePrefix())) {
 			$this->languagePrefix = "/{$language}";
 		}
 	}
@@ -77,8 +75,7 @@ class URLBuilder
 	{
 		$url = $this->baseURL . ($this->cleanURLs ? '' : "/{$this->scriptName}") . ($language === true ? $this->languagePrefix : (!$language ? '' : "/{$language}")) . $path;
 
-		if(!empty($queryParams))
-		{
+		if (!empty($queryParams)) {
 			$url .= '?' . http_build_query($queryParams, arg_separator: $separator, encoding_type: PHP_QUERY_RFC3986);
 		}
 
@@ -92,18 +89,15 @@ class URLBuilder
 	{
 		$route = $this->routes->getNamedRoute($routeName)->getRoute();
 
-		foreach($routeParams as $key => $value)
-		{
-			if(empty($value) && ($value === '' || $value === false || $value === null))
-			{
+		foreach ($routeParams as $key => $value) {
+			if (empty($value) && ($value === '' || $value === false || $value === null)) {
 				continue;
 			}
 
 			$route = preg_replace("/{{$key}}\??/", $value, $route, 1);
 		}
 
-		if(strpos($route, '?') !== false)
-		{
+		if (strpos($route, '?') !== false) {
 			$route = preg_replace('/\/{\w+}\?/', '', $route);
 		}
 

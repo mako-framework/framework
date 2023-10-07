@@ -23,8 +23,8 @@ abstract class Service
 		protected Application $app,
 		protected Container $container,
 		protected Config $config
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Registers the service.

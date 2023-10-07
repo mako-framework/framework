@@ -24,8 +24,8 @@ class Select
 	public function __construct(
 		protected Input $input,
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns a list of options.
@@ -34,8 +34,7 @@ class Select
 	{
 		$output = '';
 
-		foreach($options as $key => $option)
-		{
+		foreach ($options as $key => $option) {
 			$output .= ($key + 1) . ') ' . $option . PHP_EOL;
 		}
 
@@ -55,8 +54,7 @@ class Select
 
 		$key = (int) $this->input->read() - 1;
 
-		if(isset($options[$key]))
-		{
+		if (isset($options[$key])) {
 			return $key;
 		}
 

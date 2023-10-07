@@ -30,8 +30,8 @@ class Authorizer implements AuthorizerInterface
 	 */
 	public function __construct(
 		protected Container $container = new Container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -48,8 +48,7 @@ class Authorizer implements AuthorizerInterface
 	{
 		$entityClass = is_object($entity) ? $entity::class : $entity;
 
-		if(!isset($this->policies[$entityClass]))
-		{
+		if (!isset($this->policies[$entityClass])) {
 			throw new AuthorizerException(vsprintf('There is no authorization policy registered for [ %s ] entities.', [$entityClass]));
 		}
 
@@ -63,8 +62,7 @@ class Authorizer implements AuthorizerInterface
 	{
 		$policy = $this->policyFactory($entity);
 
-		if(($isAuthorized = $policy->before($user, $action, $entity)) !== null)
-		{
+		if (($isAuthorized = $policy->before($user, $action, $entity)) !== null) {
 			return $isAuthorized;
 		}
 

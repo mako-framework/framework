@@ -26,8 +26,7 @@ class Constraint
     public function __construct(
         protected string $constraint,
 		mixed ...$parameters
-    )
-    {
+    ) {
 		$this->parameters = $parameters;
 	}
 

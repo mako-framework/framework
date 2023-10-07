@@ -61,8 +61,7 @@ class Redirect implements ResponseSenderInterface
 	 *
 	 * @var array
 	 */
-	public const SUPPORTED_STATUS_CODES =
-	[
+	public const SUPPORTED_STATUS_CODES = [
 		Status::MOVED_PERMANENTLY,
 		Status::FOUND,
 		Status::SEE_OTHER,
@@ -81,8 +80,7 @@ class Redirect implements ResponseSenderInterface
 	public function __construct(
 		protected string $location,
 		int|Status $status = Status::FOUND
-	)
-	{
+	) {
 		$this->setStatus($status);
 	}
 
@@ -93,8 +91,7 @@ class Redirect implements ResponseSenderInterface
 	{
 		$status = is_int($status) ? Status::from($status) : $status;
 
-		if(!in_array($status, self::SUPPORTED_STATUS_CODES))
-		{
+		if (!in_array($status, self::SUPPORTED_STATUS_CODES)) {
 			throw new HttpException(vsprintf('Unsupported redirect status code [ %s ].', [$status->value]));
 		}
 

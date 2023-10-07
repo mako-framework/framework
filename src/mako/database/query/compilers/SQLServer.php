@@ -56,8 +56,7 @@ class SQLServer extends Compiler
 	{
 		$from = parent::from($from);
 
-		if(($lock = $this->query->getLock()) !== null)
-		{
+		if (($lock = $this->query->getLock()) !== null) {
 			$from .= $lock === true ? ' WITH (UPDLOCK, ROWLOCK)' : ($lock === false ? ' WITH (HOLDLOCK, ROWLOCK)' : " {$lock}");
 		}
 
@@ -85,8 +84,7 @@ class SQLServer extends Compiler
 	 */
 	protected function orderings(array $orderings): string
 	{
-		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
-		{
+		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
 			return ' ORDER BY (SELECT 0)';
 		}
 
@@ -98,8 +96,7 @@ class SQLServer extends Compiler
 	 */
 	protected function limit(?int $limit): string
 	{
-		if($limit === null)
-		{
+		if ($limit === null) {
 			return '';
 		}
 
@@ -111,8 +108,7 @@ class SQLServer extends Compiler
 	 */
 	protected function offset(?int $offset): string
 	{
-		if($this->query->getLimit() === null && $offset !== null)
-		{
+		if ($this->query->getLimit() === null && $offset !== null) {
 			return " OFFSET {$offset} ROWS";
 		}
 

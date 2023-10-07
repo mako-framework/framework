@@ -25,8 +25,7 @@ class TimeZone extends DateTimeZone
 	{
 		$timeZones = [];
 
-		foreach(static::listIdentifiers() as $timeZone)
-		{
+		foreach (static::listIdentifiers() as $timeZone) {
 			$timeZones[$timeZone] = str_replace('_', ' ', $timeZone);
 		}
 
@@ -41,8 +40,7 @@ class TimeZone extends DateTimeZone
 	{
 		$timeZones = [];
 
-		foreach(static::listIdentifiers() as $timeZone)
-		{
+		foreach (static::listIdentifiers() as $timeZone) {
 			[$group, $city] = explode('/', $timeZone, 2) + [null, null];
 
 			$timeZones[$group][$timeZone] = str_replace('_', ' ', $city);

@@ -23,8 +23,7 @@ trait CamelCasedDataExportTrait
 
 		$array = parent::toArray();
 
-		foreach($array as $key => $value)
-		{
+		foreach ($array as $key => $value) {
 			$camelCased[Str::snakeToCamel($key)] = $value;
 		}
 

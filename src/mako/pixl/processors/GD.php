@@ -109,8 +109,7 @@ class GD implements ProcessorInterface
 	{
 		$imageInfo = getimagesize($file);
 
-		if($imageInfo === false)
-		{
+		if ($imageInfo === false) {
 			throw new ProcessorException(vsprintf('Unable to process the image [ %s ].', [$file]));
 		}
 
@@ -122,8 +121,7 @@ class GD implements ProcessorInterface
 	 */
 	protected function createImageResource(string $image, array $imageInfo): GdImage
 	{
-		return match($imageInfo[2])
-		{
+		return match ($imageInfo[2]) {
 			IMAGETYPE_JPEG => imagecreatefromjpeg($image),
 			IMAGETYPE_GIF  => imagecreatefromgif($image),
 			IMAGETYPE_PNG  => imagecreatefrompng($image),
@@ -138,19 +136,16 @@ class GD implements ProcessorInterface
 	{
 		$hex = str_replace('#', '', $hex);
 
-		if(preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) !== 1)
-		{
+		if (preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) !== 1) {
 			throw new ProcessorException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}
 
-		if(strlen($hex) === 3)
-		{
+		if (strlen($hex) === 3) {
 			$r = hexdec(str_repeat(substr($hex, 0, 1), 2));
 			$g = hexdec(str_repeat(substr($hex, 1, 1), 2));
 			$b = hexdec(str_repeat(substr($hex, 2, 1), 2));
 		}
-		else
-		{
+		else {
 			$r = hexdec(substr($hex, 0, 2));
 			$g = hexdec(substr($hex, 2, 2));
 			$b = hexdec(substr($hex, 4, 2));
@@ -187,8 +182,7 @@ class GD implements ProcessorInterface
 	 */
 	public function restore(): void
 	{
-		if(($this->snapshot instanceof GdImage) === false)
-		{
+		if (($this->snapshot instanceof GdImage) === false) {
 			throw new ProcessorException('No snapshot to restore.');
 		}
 
@@ -231,8 +225,7 @@ class GD implements ProcessorInterface
 
 		$transparent = imagecolorallocatealpha($this->image, 0, 0, 0, 127);
 
-		if($this->imageInfo[2] === IMAGETYPE_GIF)
-		{
+		if ($this->imageInfo[2] === IMAGETYPE_GIF) {
 			$temp = imagecreatetruecolor($width, $height);
 
 			imagefill($temp, 0, 0, $transparent);
@@ -311,21 +304,17 @@ class GD implements ProcessorInterface
 
 		imagefill($flipped, 0, 0, $transparent);
 
-		if($direction ===  Image::FLIP_VERTICAL)
-		{
+		if ($direction ===  Image::FLIP_VERTICAL) {
 			// Flips the image in the vertical direction
 
-			for($y = 0; $y < $height; $y++)
-			{
+			for ($y = 0; $y < $height; $y++) {
 				imagecopy($flipped, $this->image, 0, $y, 0, $height - $y - 1, $width, 1);
 			}
 		}
-		else
-		{
+		else {
 			// Flips the image in the horizontal direction
 
-			for($x = 0; $x < $width; $x++)
-			{
+			for ($x = 0; $x < $width; $x++) {
 				imagecopy($flipped, $this->image, $x, 0, $width - $x - 1, 0, 1, $height);
 			}
 		}
@@ -347,8 +336,7 @@ class GD implements ProcessorInterface
 		$watermarkWidth  = imagesx($watermark);
 		$watermarkHeight = imagesy($watermark);
 
-		if($opacity < 100)
-		{
+		if ($opacity < 100) {
 			// Convert alpha to 0-127
 
 			$alpha = min(round(abs(($opacity * 127 / 100) - 127)), 127);
@@ -362,8 +350,7 @@ class GD implements ProcessorInterface
 
 		// Position the watermark.
 
-		switch($position)
-		{
+		switch ($position) {
 			case Image::WATERMARK_TOP_RIGHT:
 				$x = imagesx($this->image) - $watermarkWidth;
 				$y = 0;
@@ -399,12 +386,10 @@ class GD implements ProcessorInterface
 	{
 		$level *= 2.5;
 
-		if($this->hasFilters)
-		{
+		if ($this->hasFilters) {
 			imagefilter($this->image, IMG_FILTER_BRIGHTNESS, $level);
 		}
-		else
-		{
+		else {
 			$width  = imagesx($this->image);
 			$height = imagesy($this->image);
 
@@ -412,10 +397,8 @@ class GD implements ProcessorInterface
 
 			// Adjust pixel brightness
 
-			for($x = 0; $x < $width; $x++)
-			{
-				for($y = 0; $y < $height; $y++)
-				{
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
 					$rgb = imagecolorat($this->image, $x, $y);
 
 					$r = (($rgb >> 16) & 0xFF) + $level;
@@ -441,12 +424,10 @@ class GD implements ProcessorInterface
 	 */
 	public function greyscale(): void
 	{
-		if($this->hasFilters)
-		{
+		if ($this->hasFilters) {
 			imagefilter($this->image, IMG_FILTER_GRAYSCALE);
 		}
-		else
-		{
+		else {
 			$width  = imagesx($this->image);
 			$height = imagesy($this->image);
 
@@ -456,17 +437,14 @@ class GD implements ProcessorInterface
 
 			$greys = [];
 
-			for($i = 0; $i <= 255; $i++)
-			{
+			for ($i = 0; $i <= 255; $i++) {
 				$greys[$i] = imagecolorallocate($temp, $i, $i, $i);
 			}
 
 			// Convert pixels to greyscale
 
-			for($x = 0; $x < $width; $x++)
-			{
-				for($y = 0; $y < $height; $y++)
-				{
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
 					$rgb = imagecolorat($this->image, $x, $y);
 
 					$r = ($rgb >> 16) & 0xFF;
@@ -495,10 +473,8 @@ class GD implements ProcessorInterface
 
 		// Convert pixels to sepia
 
-		for($x = 0; $x < $width; $x++)
-		{
-			for($y = 0; $y < $height; $y++)
-			{
+		for ($x = 0; $x < $width; $x++) {
+			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($this->image, $x, $y);
 
 				$r = ($rgb >> 16) & 0xFF;
@@ -527,13 +503,11 @@ class GD implements ProcessorInterface
 	 */
 	public function bitonal(): void
 	{
-		if($this->hasFilters)
-		{
+		if ($this->hasFilters) {
 			imagefilter($this->image, IMG_FILTER_GRAYSCALE);
 			imagefilter($this->image, IMG_FILTER_CONTRAST, -2000);
 		}
-		else
-		{
+		else {
 			$width  = imagesx($this->image);
 			$height = imagesy($this->image);
 
@@ -541,18 +515,14 @@ class GD implements ProcessorInterface
 
 			// Colorize pixels
 
-			for($x = 0; $x < $width; $x++)
-			{
-				for($y = 0; $y < $height; $y++)
-				{
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
 					$rgb = imagecolorat($this->image, $x, $y);
 
-					if((((($rgb >> 16) & 0xFF) + (($rgb >> 8) & 0xFF) + ($rgb & 0xFF)) / 3) > 0x7F)
-					{
+					if ((((($rgb >> 16) & 0xFF) + (($rgb >> 8) & 0xFF) + ($rgb & 0xFF)) / 3) > 0x7F) {
 						imagesetpixel($temp, $x, $y, imagecolorallocate($temp, 0xFF, 0xFF, 0xFF));
 					}
-					else
-					{
+					else {
 						imagesetpixel($temp, $x, $y, imagecolorallocate($temp, 0, 0, 0));
 					}
 				}
@@ -571,12 +541,10 @@ class GD implements ProcessorInterface
 	{
 		$rgb = $this->hexToRgb($color);
 
-		if($this->hasFilters)
-		{
+		if ($this->hasFilters) {
 			imagefilter($this->image, IMG_FILTER_COLORIZE, $rgb['r'], $rgb['g'], $rgb['b'], 0);
 		}
-		else
-		{
+		else {
 			$colorize = $rgb;
 
 			$width  = imagesx($this->image);
@@ -586,10 +554,8 @@ class GD implements ProcessorInterface
 
 			// Colorize pixels
 
-			for($x = 0; $x < $width; $x++)
-			{
-				for($y = 0; $y < $height; $y++)
-				{
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
 					$rgb = imagecolorat($this->image, $x, $y);
 
 					$r = (($rgb >> 16) & 0xFF) + $colorize['r'];
@@ -627,12 +593,10 @@ class GD implements ProcessorInterface
 	 */
 	public function pixelate(int $pixelSize = 10): void
 	{
-		if($this->hasFilters)
-		{
+		if ($this->hasFilters) {
 			imagefilter($this->image, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
 		}
-		else
-		{
+		else {
 			$width  = imagesx($this->image);
 			$height = imagesy($this->image);
 
@@ -647,12 +611,10 @@ class GD implements ProcessorInterface
 	 */
 	public function negate(): void
 	{
-		if($this->hasFilters)
-		{
+		if ($this->hasFilters) {
 			imagefilter($this->image, IMG_FILTER_NEGATE);
 		}
-		else
-		{
+		else {
 			$width  = imagesx($this->image);
 			$height = imagesy($this->image);
 
@@ -660,10 +622,8 @@ class GD implements ProcessorInterface
 
 			// Invert pixel colors
 
-			for($x = 0; $x < $width; $x++)
-			{
-				for($y = 0; $y < $height; $y++)
-				{
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
 					imagesetpixel($temp, $x, $y, imagecolorat($this->image, $x, $y) ^ 0x00FFFFFF);
 				}
 			}
@@ -686,8 +646,7 @@ class GD implements ProcessorInterface
 
 		$color = imagecolorallocatealpha($this->image, $rgb['r'], $rgb['g'], $rgb['b'], 0);
 
-		for($i = 0; $i < $thickness; $i++)
-		{
+		for ($i = 0; $i < $thickness; $i++) {
 			$x = --$width;
 			$y = --$height;
 
@@ -706,8 +665,7 @@ class GD implements ProcessorInterface
 
 		ob_start();
 
-		switch($type)
-		{
+		switch ($type) {
 			case 'gif':
 			case 'image/gif':
 				imagegif($this->image);
@@ -742,8 +700,7 @@ class GD implements ProcessorInterface
 
 		// Save image
 
-		switch(strtolower($extension))
-		{
+		switch (strtolower($extension)) {
 			case 'gif':
 				imagegif($this->image, $file);
 				break;

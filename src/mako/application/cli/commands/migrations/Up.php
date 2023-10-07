@@ -24,8 +24,7 @@ class Up extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
 		];
 	}
@@ -37,8 +36,7 @@ class Up extends Command
 	{
 		$migrations = $this->getOutstanding();
 
-		if(empty($migrations))
-		{
+		if (empty($migrations)) {
 			$this->write('<blue>There are no outstanding migrations.</blue>');
 
 			return;
@@ -46,8 +44,7 @@ class Up extends Command
 
 		$batch = $this->getQuery()->max('batch') + 1;
 
-		foreach($migrations as $migration)
-		{
+		foreach ($migrations as $migration) {
 			$this->runMigration($migration, 'up', $batch);
 		}
 

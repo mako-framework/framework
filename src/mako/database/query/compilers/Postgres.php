@@ -29,15 +29,13 @@ class Postgres extends Compiler
 	{
 		$sql = [];
 
-		foreach($segments as $segment)
-		{
+		foreach ($segments as $segment) {
 			$sql[] = is_numeric($segment) ? $segment : "'" . str_replace("'", "''", $segment) . "'";
 		}
 
 		$last = array_pop($sql);
 
-		if(empty($sql))
-		{
+		if (empty($sql)) {
 			return "{$column}->>{$last}";
 		}
 
@@ -68,13 +66,11 @@ class Postgres extends Compiler
 	 */
 	protected function whereDate(array $where): string
 	{
-		switch($where['operator'])
-		{
+		switch ($where['operator']) {
 			case '=':
 			case '!=':
 			case '<>':
-				$where =
-				[
+				$where = [
 					'column' => $where['column'],
 					'not'    => $where['operator'] !== '=',
 					'value1' => $where['value'],
@@ -86,8 +82,7 @@ class Postgres extends Compiler
 			case '>=':
 			case '<':
 			case '<=':
-				switch($where['operator'])
-				{
+				switch ($where['operator']) {
 					case '>=':
 					case '<':
 						$suffix = ' 00:00:00.000000';
@@ -107,8 +102,7 @@ class Postgres extends Compiler
 	 */
 	public function lock(null|bool|string $lock): string
 	{
-		if($lock === null)
-		{
+		if ($lock === null) {
 			return '';
 		}
 

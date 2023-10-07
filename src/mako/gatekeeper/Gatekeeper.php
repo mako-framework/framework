@@ -93,8 +93,7 @@ class Gatekeeper
 	 */
 	protected function registerAdapter(AdapterInterface|array $adapter): string
 	{
-		if($adapter instanceof AdapterInterface)
-		{
+		if ($adapter instanceof AdapterInterface) {
 			return $this->registerAdapterInstance($adapter);
 		}
 

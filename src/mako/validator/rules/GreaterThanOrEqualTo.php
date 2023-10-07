@@ -19,8 +19,8 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected mixed $greaterThanOrEqualTo
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

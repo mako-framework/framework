@@ -27,8 +27,7 @@ class Down extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-b|--batches', 'Number of batches to roll back', Argument::IS_OPTIONAL | Argument::IS_INT),
 			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
 		];

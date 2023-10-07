@@ -101,8 +101,7 @@ class Argument
 		protected string $description = '',
 		int $options = 0,
 		mixed $default = null
-	)
-	{
+	) {
 		[$name, $alias, $isPositional] = $this->parseName($this->name);
 
 		$this->name = $name;
@@ -115,8 +114,7 @@ class Argument
 
 		$this->options = $this->getValidatedOptions($options);
 
-		if($this->isBool() && !$this->isOptional())
-		{
+		if ($this->isBool() && !$this->isOptional()) {
 			$this->options |= static::IS_OPTIONAL;
 		}
 
@@ -136,8 +134,7 @@ class Argument
 	 */
 	protected function getValidatedName(string $name): string
 	{
-		if(preg_match(static::NAME_REGEX, $name) !== 1)
-		{
+		if (preg_match(static::NAME_REGEX, $name) !== 1) {
 			throw new ArgumentException(vsprintf('Invalid argument name [ %s ].', [$name]));
 		}
 
@@ -149,8 +146,7 @@ class Argument
 	 */
 	protected function getValidatedAlias(string $alias): string
 	{
-		if(preg_match(static::ALIAS_REGEX, $alias) !== 1)
-		{
+		if (preg_match(static::ALIAS_REGEX, $alias) !== 1) {
 			throw new ArgumentException(vsprintf('Invalid argument alias [ %s ].', [$alias]));
 		}
 
@@ -162,8 +158,7 @@ class Argument
 	 */
 	protected function parseName(array|string $name): array
 	{
-		if(($isArray = is_array($name)) || strpos($name, '|') !== false)
-		{
+		if (($isArray = is_array($name)) || strpos($name, '|') !== false) {
 			[$name, $alias] = $isArray ? $name : array_reverse(explode('|', $name, 2));
 
 			return [$this->getValidatedName($name), $this->getValidatedAlias($alias), false];
@@ -177,28 +172,23 @@ class Argument
 	 */
 	protected function getValidatedOptions(int $options): int
 	{
-		if($this->isPositional && static::IS_BOOL === ($options & static::IS_BOOL))
-		{
+		if ($this->isPositional && static::IS_BOOL === ($options & static::IS_BOOL)) {
 			throw new ArgumentException("Argument can't be both positional and a boolean flag.");
 		}
 
-		if(static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_ARRAY === ($options & static::IS_ARRAY))
-		{
+		if (static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_ARRAY === ($options & static::IS_ARRAY)) {
 			throw new ArgumentException("Argument can't be both a boolean flag and an array.");
 		}
 
-		if(static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_INT === ($options & static::IS_INT))
-		{
+		if (static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_INT === ($options & static::IS_INT)) {
 			throw new ArgumentException("Argument can't be both a boolean flag and an integer.");
 		}
 
-		if(static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_FLOAT === ($options & static::IS_FLOAT))
-		{
+		if (static::IS_BOOL === ($options & static::IS_BOOL) && static::IS_FLOAT === ($options & static::IS_FLOAT)) {
 			throw new ArgumentException("Argument can't be both a boolean flag and a float.");
 		}
 
-		if(static::IS_FLOAT === ($options & static::IS_FLOAT) && static::IS_INT === ($options & static::IS_INT))
-		{
+		if (static::IS_FLOAT === ($options & static::IS_FLOAT) && static::IS_INT === ($options & static::IS_INT)) {
 			throw new ArgumentException("Argument can't be both a float and an integer.");
 		}
 

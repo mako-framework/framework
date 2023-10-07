@@ -19,12 +19,10 @@ class Oracle extends Connection
 	 */
 	public function isAlive(): bool
 	{
-		try
-		{
+		try {
 			$this->pdo->query('SELECT 1 FROM "DUAL"');
 		}
-		catch(PDOException $e)
-		{
+		catch (PDOException $e) {
 			return false;
 		}
 

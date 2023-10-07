@@ -26,8 +26,8 @@ class ValidatorFactory
 	public function __construct(
 		protected ?I18n $i18n = null,
 		protected ?Container $container = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Registers a custom validation rule.
@@ -46,8 +46,7 @@ class ValidatorFactory
 	{
 		$validator = new Validator($input, $ruleSets, $this->i18n, $this->container);
 
-		foreach($this->rules as $rule => $ruleClass)
-		{
+		foreach ($this->rules as $rule => $ruleClass) {
 			$validator->extend($rule, $ruleClass);
 		}
 

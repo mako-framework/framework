@@ -32,8 +32,8 @@ abstract class Input extends BaseInput implements InputInterface
 	public function __construct(
 		protected Request $request,
 		protected URLBuilder $urlBuilder
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

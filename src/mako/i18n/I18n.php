@@ -55,8 +55,8 @@ class I18n
 	public function __construct(
 		protected LoaderInterface $loader,
 		protected string $language
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the language loader.
@@ -97,13 +97,11 @@ class I18n
 	{
 		$language ??= $this->language;
 
-		if(!isset($this->inflections[$language]))
-		{
+		if (!isset($this->inflections[$language])) {
 			$this->loadInflection($language);
 		}
 
-		if(empty($this->inflections[$language]))
-		{
+		if (empty($this->inflections[$language])) {
 			throw new I18nException(vsprintf('The [ %s ] language pack does not include any inflection rules.', [$language]));
 		}
 
@@ -119,12 +117,10 @@ class I18n
 	{
 		static $defaults;
 
-		if(empty($defaults))
-		{
+		if (empty($defaults)) {
 			$localeconv = localeconv();
 
-			$defaults =
-			[
+			$defaults = [
 				'decimal'   => $localeconv['decimal_point'] ?: '.',
 				'thousands' => $localeconv['thousands_sep'] ?: ',',
 			];
@@ -154,8 +150,7 @@ class I18n
 	 */
 	protected function getStrings(string $language, string $file): array
 	{
-		if(!isset($this->strings[$language][$file]))
-		{
+		if (!isset($this->strings[$language][$file])) {
 			$this->loadStrings($language, $file);
 		}
 
@@ -169,8 +164,7 @@ class I18n
 	{
 		[$file, $string] = $this->parseKey($key);
 
-		if($string === null)
-		{
+		if ($string === null) {
 			return false;
 		}
 
@@ -200,13 +194,11 @@ class I18n
 	 */
 	protected function parseTags(string $string): string
 	{
-		if(stripos($string, '</pluralize>') !== false)
-		{
+		if (stripos($string, '</pluralize>') !== false) {
 			$string = $this->parsePluralizationTags($string);
 		}
 
-		if(stripos($string, '</number>') !== false)
-		{
+		if (stripos($string, '</number>') !== false) {
 			$string = $this->parseNumberTags($string);
 		}
 
@@ -220,19 +212,16 @@ class I18n
 	{
 		[$file, $string] = $this->parseKey($key);
 
-		if($string === null)
-		{
+		if ($string === null) {
 			return $key;
 		}
 
 		$string = Arr::get($this->getStrings($language ?? $this->language, $file), $string, $key);
 
-		if(!empty($vars))
-		{
+		if (!empty($vars)) {
 			$string = vsprintf($string, $vars);
 
-			if(stripos($string, '</') !== false)
-			{
+			if (stripos($string, '</') !== false) {
 				$string = $this->parseTags($string);
 			}
 		}

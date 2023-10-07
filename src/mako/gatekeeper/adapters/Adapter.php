@@ -99,8 +99,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	 */
 	public function createUser(string $email, string $username, string $password, bool $activate = false, array $properties = []): User
 	{
-		$properties =
-		[
+		$properties = [
 			'email'     => $email,
 			'username'  => $username,
 			'password'  => $password,
@@ -115,8 +114,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	 */
 	public function createGroup(string $name, array $properties = []): Group
 	{
-		$properties =
-		[
+		$properties = [
 			'name' => $name,
 		] + $properties;
 
@@ -130,8 +128,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	{
 		$user = $this->userRepository->getByActionToken($token);
 
-		if($user === null)
-		{
+		if ($user === null) {
 			return false;
 		}
 

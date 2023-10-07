@@ -21,8 +21,8 @@ class Subquery
 		protected Closure $query,
 		protected ?string $alias = null,
 		protected bool $providesBuilderInstance = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets the subquery alias.

@@ -26,8 +26,8 @@ class File implements StoreInterface
 		protected FileSystem $fileSystem,
 		protected string $sessionPath,
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the path to the session file.
@@ -42,8 +42,7 @@ class File implements StoreInterface
 	 */
 	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
-		if($this->fileSystem->isWritable($this->sessionPath))
-		{
+		if ($this->fileSystem->isWritable($this->sessionPath)) {
 			$this->fileSystem->put($this->sessionFile($sessionId), serialize($sessionData)) === false ? false : true;
 		}
 	}
@@ -55,8 +54,7 @@ class File implements StoreInterface
 	{
 		$sessionData = [];
 
-		if($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isReadable($this->sessionFile($sessionId)))
-		{
+		if ($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isReadable($this->sessionFile($sessionId))) {
 			$sessionData = unserialize($this->fileSystem->get($this->sessionFile($sessionId)), ['allowed_classes' => $this->classWhitelist]);
 		}
 
@@ -68,8 +66,7 @@ class File implements StoreInterface
 	 */
 	public function delete(string $sessionId): void
 	{
-		if($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId)))
-		{
+		if ($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId))) {
 			$this->fileSystem->remove($this->sessionFile($sessionId));
 		}
 	}
@@ -81,12 +78,9 @@ class File implements StoreInterface
 	{
 		$files = $this->fileSystem->glob("{$this->sessionPath}/*");
 
-		if(is_array($files))
-		{
-			foreach($files as $file)
-			{
-				if(($this->fileSystem->lastModified($file) + $dataTTL) < time() && $this->fileSystem->isWritable($file))
-				{
+		if (is_array($files)) {
+			foreach ($files as $file) {
+				if (($this->fileSystem->lastModified($file) + $dataTTL) < time() && $this->fileSystem->isWritable($file)) {
 					$this->fileSystem->remove($file);
 				}
 			}

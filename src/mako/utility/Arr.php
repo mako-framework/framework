@@ -37,12 +37,10 @@ class Arr
 	{
 		$segments = explode('.', $path);
 
-		while(count($segments) > 1)
-		{
+		while (count($segments) > 1) {
 			$segment = array_shift($segments);
 
-			if(!isset($array[$segment]) || !is_array($array[$segment]))
-			{
+			if (!isset($array[$segment]) || !is_array($array[$segment])) {
 				$array[$segment] = [];
 			}
 
@@ -59,12 +57,10 @@ class Arr
 	{
 		$segments = explode('.', $path);
 
-		while(count($segments) > 1)
-		{
+		while (count($segments) > 1) {
 			$segment = array_shift($segments);
 
-			if(!isset($array[$segment]) || !is_array($array[$segment]))
-			{
+			if (!isset($array[$segment]) || !is_array($array[$segment])) {
 				$array[$segment] = [];
 			}
 
@@ -81,10 +77,8 @@ class Arr
 	{
 		$segments = explode('.', $path);
 
-		foreach($segments as $segment)
-		{
-			if(!is_array($array) || !array_key_exists($segment, $array))
-			{
+		foreach ($segments as $segment) {
+			if (!is_array($array) || !array_key_exists($segment, $array)) {
 				return false;
 			}
 
@@ -101,10 +95,8 @@ class Arr
 	{
 		$segments = explode('.', $path);
 
-		foreach($segments as $segment)
-		{
-			if(!is_array($array) || !array_key_exists($segment, $array))
-			{
+		foreach ($segments as $segment) {
+			if (!is_array($array) || !array_key_exists($segment, $array)) {
 				return $default;
 			}
 
@@ -121,12 +113,10 @@ class Arr
 	{
 		$segments = explode('.', $path);
 
-		while(count($segments) > 1)
-		{
+		while (count($segments) > 1) {
 			$segment = array_shift($segments);
 
-			if(!isset($array[$segment]) || !is_array($array[$segment]))
-			{
+			if (!isset($array[$segment]) || !is_array($array[$segment])) {
 				return false;
 			}
 
@@ -161,8 +151,7 @@ class Arr
 	{
 		$plucked = [];
 
-		foreach($array as $value)
-		{
+		foreach ($array as $value) {
 			$plucked[] = is_object($value) ? $value->$key : $value[$key];
 		}
 
@@ -174,8 +163,7 @@ class Arr
 	 */
 	public static function expandKey(array $array, string $key): array
 	{
-		if(strpos($key, '*') === false)
-		{
+		if (strpos($key, '*') === false) {
 			throw new ArrException('The key must contain at least one wildcard character.');
 		}
 
@@ -185,27 +173,22 @@ class Arr
 
 		$expanded = [];
 
-		foreach($keys as $key)
-		{
+		foreach ($keys as $key) {
 			[$first, $remaining] = array_map('trim', explode('*', $key, 2), ['.', '.']);
 
-			if(empty($first))
-			{
+			if (empty($first)) {
 				$value = $array;
 			}
-			elseif(is_array($value = static::get($array, $first)) === false)
-			{
+			elseif (is_array($value = static::get($array, $first)) === false) {
 				continue;
 			}
 
-			foreach(array_keys($value) as $key)
-			{
+			foreach (array_keys($value) as $key) {
 				$expanded[] = trim("{$first}.{$key}.{$remaining}", '.');
 			}
 		}
 
-		if(strpos($remaining, '*') !== false)
-		{
+		if (strpos($remaining, '*') !== false) {
 			$keys = $expanded;
 
 			goto start;
@@ -218,36 +201,30 @@ class Arr
 	 * Converts arrays to objects.
 	 */
 	public static function toObject(array $array): array|object
-    {
+	{
         $resultArray = [];
 
         $resultObject = new stdClass;
 
         $isNumeric = $isAssociative = false;
 
-        foreach($array as $key => $value)
-        {
-            if(!$isNumeric)
-            {
+        foreach ($array as $key => $value) {
+            if (!$isNumeric) {
                 $isNumeric = is_int($key);
             }
 
-            if(!$isAssociative)
-            {
+            if (!$isAssociative) {
                 $isAssociative = is_string($key);
             }
 
-            if($isNumeric && $isAssociative)
-            {
+            if ($isNumeric && $isAssociative) {
                 throw new ArrException('Unable to convert an array containing a mix of integer and string keys to an object.');
             }
 
-            if($isNumeric)
-            {
+            if ($isNumeric) {
                 $resultArray[$key] = is_array($value) ? static::toObject($value) : $value;
             }
-            else
-            {
+            else {
                 $resultObject->{$key} = is_array($value) ? static::toObject($value) : $value;
             }
         }

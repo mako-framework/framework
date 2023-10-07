@@ -105,31 +105,26 @@ abstract class AccessControl implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		if($this->allowsCredentials())
-		{
+		if ($this->allowsCredentials()) {
 			$response->headers->add('Access-Control-Allow-Credentials', 'true');
 		}
 
 		$origin = $this->getOrigin($request);
 
-		if($origin !== null && $this->isDomainAllowed($origin))
-		{
+		if ($origin !== null && $this->isDomainAllowed($origin)) {
 			$response->headers->add('Access-Control-Allow-Origin', $origin);
 
 			$response->headers->add('Vary', 'Origin', false);
 		}
-		elseif($this->allowsAllDomains())
-		{
+		elseif ($this->allowsAllDomains()) {
 			$response->headers->add('Access-Control-Allow-Origin', '*');
 		}
 
-		if(!empty($allowedHeaders = $this->getAllowedHeaders()))
-		{
+		if (!empty($allowedHeaders = $this->getAllowedHeaders())) {
 			$response->headers->add('Access-Control-Allow-Headers', implode(', ', $allowedHeaders));
 		}
 
-		if(!empty($allowedMethods = $this->getAllowedMethods()))
-		{
+		if (!empty($allowedMethods = $this->getAllowedMethods())) {
 			$response->headers->add('Access-Control-Allow-Methods', implode(', ', $allowedMethods));
 		}
 

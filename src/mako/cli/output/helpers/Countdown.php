@@ -31,8 +31,8 @@ class Countdown
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Delay execution by SLEEP_TIME microseconds.
@@ -53,21 +53,19 @@ class Countdown
 
 		$totalLength = $fromLength + 5;
 
-		do
-		{
-			do
-			{
+		do {
+			do {
 				$numbers = str_pad($from, $fromLength, '0', STR_PAD_LEFT);
 
 				$this->output->write("\r" . str_pad($numbers . ' ' . str_repeat('.', $dots) . ' ', $totalLength, ' '));
 
 				$this->sleep();
 			}
-			while($dots++ < 3);
+			while ($dots++ < 3);
 
 			$dots = 0;
 		}
-		while($from-- > 1);
+		while ($from-- > 1);
 
 		$this->output->write("\r" . str_repeat(' ', $totalLength) . "\r");
 	}

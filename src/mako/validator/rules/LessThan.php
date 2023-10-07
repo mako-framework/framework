@@ -19,8 +19,8 @@ class LessThan extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected mixed $lessThan
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

@@ -22,8 +22,8 @@ class Dispatcher
 	 */
 	public function __construct(
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Resolves the command.

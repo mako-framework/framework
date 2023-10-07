@@ -22,8 +22,8 @@ class Crypto
 	public function __construct(
 		protected EncrypterInterface $adapter,
 		protected Signer $signer
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Encrypts string.
@@ -42,8 +42,7 @@ class Crypto
 	{
 		$string = $this->signer->validate($string);
 
-		if($string === false)
-		{
+		if ($string === false) {
 			throw new CryptoException('Ciphertex has been modified or an invalid authentication key has been provided.');
 		}
 

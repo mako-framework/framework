@@ -21,8 +21,8 @@ class Input
 	public function __construct(
 		protected ReaderInterface $reader,
 		protected ArgvParser $arguments
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Reads and returns user input.

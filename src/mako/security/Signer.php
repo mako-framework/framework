@@ -28,8 +28,8 @@ class Signer
 	 */
 	public function __construct(
 		protected string $secret
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the signature.
@@ -56,8 +56,7 @@ class Signer
 	{
 		$validated = mb_substr($string, static::MAC_LENGTH, encoding: '8bit');
 
-		if(hash_equals($this->getSignature($validated), mb_substr($string, 0, static::MAC_LENGTH, '8bit')))
-		{
+		if (hash_equals($this->getSignature($validated), mb_substr($string, 0, static::MAC_LENGTH, '8bit'))) {
 			return $validated;
 		}
 

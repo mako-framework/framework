@@ -30,18 +30,15 @@ class Session extends Adapter
 	/**
 	 * Adapter options.
 	 */
-	protected array $options =
-	[
+	protected array $options = [
 		'auth_key'       => 'gatekeeper_auth_key',
-		'cookie_options' =>
-		[
+		'cookie_options' => [
 			'path'     => '/',
 			'domain'   => '',
 			'secure'   => false,
 			'httponly' => true,
 		],
-		'throttling'     =>
-		[
+		'throttling'     => [
 			'enabled'      => false,
 			'max_attempts' => 5,
 			'lock_time'    => 300,
@@ -63,8 +60,7 @@ class Session extends Adapter
 		protected Response $response,
 		protected HttpSession $session,
 		array $options = []
-	)
-	{
+	) {
 		$this->setUserRepository($userRepository);
 
 		$this->setGroupRepository($groupRepository);
@@ -85,8 +81,7 @@ class Session extends Adapter
 	 */
 	public function createUser(string $email, string $username, string $password, bool $activate = false, array $properties = []): User
 	{
-		$properties = $properties +
-		[
+		$properties = $properties + [
 			'ip' => $this->request->getIp(),
 		];
 
@@ -98,32 +93,26 @@ class Session extends Adapter
 	 */
 	public function getUser(): ?UserEntityInterface
 	{
-		if($this->user === null && $this->hasLoggedOut === false)
-		{
+		if ($this->user === null && $this->hasLoggedOut === false) {
 			// Check if there'a user that can be logged in
 
 			$token = $this->session->get($this->options['auth_key']);
 
-			if($token === null)
-			{
+			if ($token === null) {
 				$token = $this->request->cookies->getSigned($this->options['auth_key']);
 
-				if($token !== null)
-				{
+				if ($token !== null) {
 					$this->session->put($this->options['auth_key'], $token);
 				}
 			}
 
-			if($token !== null)
-			{
+			if ($token !== null) {
 				$user = $this->userRepository->getByAccessToken($token);
 
-				if($user === null || $user->isBanned() || !$user->isActivated())
-				{
+				if ($user === null || $user->isBanned() || !$user->isActivated()) {
 					$this->logout();
 				}
-				else
-				{
+				else {
 					$this->user = $user;
 				}
 			}
@@ -142,27 +131,21 @@ class Session extends Adapter
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
-		if($user !== null)
-		{
-			if($this->options['throttling']['enabled'] && $user->isLocked())
-			{
+		if ($user !== null) {
+			if ($this->options['throttling']['enabled'] && $user->isLocked()) {
 				return Gatekeeper::LOGIN_LOCKED;
 			}
 
-			if($force || $user->validatePassword($password))
-			{
-				if(!$user->isActivated())
-				{
+			if ($force || $user->validatePassword($password)) {
+				if (!$user->isActivated()) {
 					return Gatekeeper::LOGIN_ACTIVATING;
 				}
 
-				if($user->isBanned())
-				{
+				if ($user->isBanned()) {
 					return Gatekeeper::LOGIN_BANNED;
 				}
 
-				if($this->options['throttling']['enabled'])
-				{
+				if ($this->options['throttling']['enabled']) {
 					$user->resetThrottle();
 				}
 
@@ -170,10 +153,8 @@ class Session extends Adapter
 
 				return true;
 			}
-			else
-			{
-				if($this->options['throttling']['enabled'])
-				{
+			else {
+				if ($this->options['throttling']['enabled']) {
 					$user->throttle($this->options['throttling']['max_attempts'], $this->options['throttling']['lock_time']);
 				}
 			}
@@ -187,8 +168,7 @@ class Session extends Adapter
 	 */
 	protected function setRememberMeCookie(): void
 	{
-		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
-		{
+		if ($this->options['cookie_options']['secure'] && !$this->request->isSecure()) {
 			throw new GatekeeperException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
@@ -204,23 +184,20 @@ class Session extends Adapter
 	 */
 	public function login(null|int|string $identifier, ?string $password, bool $remember = false, bool $force = false)
 	{
-		if(empty($identifier))
-		{
+		if (empty($identifier)) {
 			return Gatekeeper::LOGIN_INCORRECT;
 		}
 
 		$authenticated = $this->authenticate($identifier, $password, $force);
 
-		if($authenticated === true)
-		{
+		if ($authenticated === true) {
 			$this->session->regenerateId();
 
 			$this->session->regenerateToken();
 
 			$this->session->put($this->options['auth_key'], $this->user->getAccessToken());
 
-			if($remember === true)
-			{
+			if ($remember === true) {
 				$this->setRememberMeCookie();
 			}
 
@@ -247,13 +224,11 @@ class Session extends Adapter
 	 */
 	public function basicAuth(bool $clearResponse = false): bool
 	{
-		if($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === true)
-		{
+		if ($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === true) {
 			return true;
 		}
 
-		if($clearResponse)
-		{
+		if ($clearResponse) {
 			$this->response->clear();
 		}
 

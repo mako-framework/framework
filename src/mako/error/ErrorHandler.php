@@ -68,8 +68,7 @@ class ErrorHandler
 	 */
 	public function __construct(
 		protected Container $container = new Container
-	)
-	{
+	) {
 		// Add a basic exception handler to the stack
 
 		$this->handle(Throwable::class, $this->getFallbackHandler());
@@ -86,8 +85,7 @@ class ErrorHandler
 	{
 		$displayErrors = ini_get('display_errors');
 
-		if(in_array($displayErrors, ['stderr', 'stdout']) || filter_var($displayErrors, FILTER_VALIDATE_BOOLEAN))
-		{
+		if (in_array($displayErrors, ['stderr', 'stdout']) || filter_var($displayErrors, FILTER_VALIDATE_BOOLEAN)) {
 			return true;
 		}
 
@@ -99,8 +97,7 @@ class ErrorHandler
 	 */
 	protected function write(string $output): void
 	{
-		if(PHP_SAPI === 'cli' && ini_get('display_errors') === 'stderr')
-		{
+		if (PHP_SAPI === 'cli' && ini_get('display_errors') === 'stderr') {
 			fwrite(STDERR, $output);
 
 			return;
@@ -114,10 +111,8 @@ class ErrorHandler
 	 */
 	protected function getFallbackHandler(): Closure
 	{
-		return function (Throwable $e): void
-		{
-			if($this->displayErrors())
-			{
+		return function (Throwable $e): void {
+			if ($this->displayErrors()) {
 				$this->write('[ ' . $e::class . "]  {$e->getMessage()} on line [ {$e->getLine()} ] in [ {$e->getFile()} ]" . PHP_EOL);
 
 				$this->write($e->getTraceAsString() . PHP_EOL);
@@ -132,12 +127,10 @@ class ErrorHandler
 	{
 		// Allows us to handle "fatal" errors
 
-		register_shutdown_function(function (): void
-		{
+		register_shutdown_function(function (): void {
 			$e = error_get_last();
 
-			if($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler)
-			{
+			if ($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler) {
 				$this->handler(new ErrorException($e['message'], code: $e['type'], filename: $e['file'], line: $e['line']));
 			}
 		});
@@ -160,8 +153,7 @@ class ErrorHandler
 	 */
 	public function getLogger(): ?LoggerInterface
 	{
-		if($this->logger instanceof Closure)
-		{
+		if ($this->logger instanceof Closure) {
 			return ($this->logger)();
 		}
 
@@ -197,10 +189,8 @@ class ErrorHandler
 	 */
 	public function clearHandlers(string $exceptionType): void
 	{
-		foreach($this->handlers as $key => $handler)
-		{
-			if($handler['exceptionType'] === $exceptionType)
-			{
+		foreach ($this->handlers as $key => $handler) {
+			if ($handler['exceptionType'] === $exceptionType) {
 				unset($this->handlers[$key]);
 			}
 		}
@@ -221,7 +211,7 @@ class ErrorHandler
 	 */
 	protected function clearOutputBuffers(): void
 	{
-		while(ob_get_level() > 0) ob_end_clean();
+		while (ob_get_level() > 0) ob_end_clean();
 	}
 
 	/**
@@ -229,15 +219,12 @@ class ErrorHandler
 	 */
 	protected function shouldExceptionBeLogged(Throwable $exception): bool
 	{
-		if($this->logger === null)
-		{
+		if ($this->logger === null) {
 			return false;
 		}
 
-		foreach($this->dontLog as $exceptionType)
-		{
-			if($exception instanceof $exceptionType)
-			{
+		foreach ($this->dontLog as $exceptionType) {
+			if ($exception instanceof $exceptionType) {
 				return false;
 			}
 		}
@@ -258,15 +245,13 @@ class ErrorHandler
 	 */
 	protected function handleException(Throwable $exception, Closure|string $handler, array $parameters): mixed
 	{
-		if($handler instanceof Closure)
-		{
+		if ($handler instanceof Closure) {
 			return $handler($exception);
 		}
 
 		$handler = $this->handlerFactory($handler, $parameters);
 
-		if($handler instanceof ProvidesExceptionIdInterface)
-		{
+		if ($handler instanceof ProvidesExceptionIdInterface) {
 			$this->exceptionId = $handler->getExceptionId();
 		}
 
@@ -278,21 +263,17 @@ class ErrorHandler
 	 */
 	protected function logException(Throwable $exception): void
 	{
-		if($this->shouldExceptionBeLogged($exception))
-		{
-			try
-			{
+		if ($this->shouldExceptionBeLogged($exception)) {
+			try {
 				$context = ['exception' => $exception];
 
-				if($this->exceptionId !== null)
-				{
+				if ($this->exceptionId !== null) {
 					$context['extra']['exception_id'] = $this->exceptionId;
 				}
 
 				$this->getLogger()->error($exception->getMessage(), $context);
 			}
-			catch(Throwable $e)
-			{
+			catch (Throwable $e) {
 				error_log(sprintf('%s on line %s in %s.', $e->getMessage(), $e->getLine(), $e->getLine()));
 			}
 		}
@@ -303,31 +284,24 @@ class ErrorHandler
 	 */
 	public function handler(Throwable $exception): never
 	{
-		try
-		{
+		try {
 			// Empty output buffers
 
 			$this->clearOutputBuffers();
 
 			// Loop through the exception handlers
 
-			foreach($this->handlers as $handler)
-			{
-				if($exception instanceof $handler['exceptionType'])
-				{
-					if($this->handleException($exception, $handler['handler'], $handler['parameters']) !== null)
-					{
+			foreach ($this->handlers as $handler) {
+				if ($exception instanceof $handler['exceptionType']) {
+					if ($this->handleException($exception, $handler['handler'], $handler['parameters']) !== null) {
 						break;
 					}
 				}
 			}
 		}
-		catch(Throwable $e)
-		{
-			if((PHP_SAPI === 'cli' || headers_sent() === false) && $this->displayErrors())
-			{
-				if(PHP_SAPI !== 'cli')
-				{
+		catch (Throwable $e) {
+			if ((PHP_SAPI === 'cli' || headers_sent() === false) && $this->displayErrors()) {
+				if (PHP_SAPI !== 'cli') {
 					http_response_code($exception instanceof HttpStatusException ? $exception->getStatus()->value : 500);
 				}
 
@@ -350,14 +324,11 @@ class ErrorHandler
 				$this->logException($e);
 			}
 		}
-		finally
-		{
-			try
-			{
+		finally {
+			try {
 				$this->logException($exception);
 			}
-			finally
-			{
+			finally {
 				exit(1);
 			}
 		}

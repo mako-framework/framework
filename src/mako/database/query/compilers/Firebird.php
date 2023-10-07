@@ -69,8 +69,7 @@ class Firebird extends Compiler
 	 */
 	public function lock(null|bool|string $lock): string
 	{
-		if($lock === null)
-		{
+		if ($lock === null) {
 			return '';
 		}
 

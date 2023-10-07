@@ -30,10 +30,8 @@ trait NullableTrait
 	{
 		$nullables = $this->getNullableColumns();
 
-		foreach($values as $column => $value)
-		{
-			if($value === '' && in_array($column, $nullables))
-			{
+		foreach ($values as $column => $value) {
+			if ($value === '' && in_array($column, $nullables)) {
 				$values[$column] = null;
 			}
 		}
@@ -46,19 +44,14 @@ trait NullableTrait
 	 */
 	protected function getNullableTraitHooks(): array
 	{
-		return
-		[
-			'beforeInsert' =>
-			[
-				function ($values, $query): array
-				{
+		return [
+			'beforeInsert' => [
+				function ($values, $query): array {
 					return $this->setEmptyNullablesToNull($values);
 				},
 			],
-			'beforeUpdate' =>
-			[
-				function ($values, $query): array
-				{
+			'beforeUpdate' => [
+				function ($values, $query): array {
 					return $this->setEmptyNullablesToNull($values);
 				},
 			],

@@ -38,10 +38,8 @@ class JSON implements ResponseBuilderInterface
 		protected int $options = 0,
 		null|int|Status $status = null,
 		protected ?string $charset = null
-	)
-	{
-		if(!empty($status))
-		{
+	) {
+		if (!empty($status)) {
 			$this->setStatus($status);
 		}
 	}
@@ -97,8 +95,7 @@ class JSON implements ResponseBuilderInterface
 	 */
 	protected function normalizeCallback(string $callback): string
 	{
-		if(preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) !== 1)
-		{
+		if (preg_match('/^[$_\p{L}][$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{200C}\x{200D}]*+$/u', $callback) !== 1) {
 			return 'callback';
 		}
 
@@ -112,24 +109,20 @@ class JSON implements ResponseBuilderInterface
 	{
 		$json = json_encode($this->data, $this->options);
 
-		if($this->callback !== null && ($callback = $request->query->get($this->callback)) !== null)
-		{
+		if ($this->callback !== null && ($callback = $request->query->get($this->callback)) !== null) {
 			$response->setType('text/javascript');
 
 			$json = "/**/{$this->normalizeCallback($callback)}({$json});";
 		}
-		else
-		{
+		else {
 			$response->setType('application/json');
 		}
 
-		if(!empty($this->status))
-		{
+		if (!empty($this->status)) {
 			$response->setStatus($this->status);
 		}
 
-		if(!empty($this->charset))
-		{
+		if (!empty($this->charset)) {
 			$response->setCharset($this->charset);
 		}
 

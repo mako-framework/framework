@@ -253,12 +253,10 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 		// Check if the password needs to be rehashed if the provided password is valid
 
-		if($isValid && $hasher->needsRehash($this->password))
-		{
+		if ($isValid && $hasher->needsRehash($this->password)) {
 			$this->password = $password;
 
-			if($autoSave)
-			{
+			if ($autoSave) {
 				$this->save();
 			}
 		}
@@ -273,18 +271,14 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 */
 	public function isMemberOf($group): bool
 	{
-		if(!$this->isPersisted)
-		{
+		if (!$this->isPersisted) {
 			throw new GatekeeperException('You can only check memberships for users that exist in the database.');
 		}
 
-		foreach((array) $group as $check)
-		{
+		foreach ((array) $group as $check) {
 			/** @var \mako\gatekeeper\entities\group\GroupEntityInterface&ORM $userGroup */
-			foreach($this->groups as $userGroup)
-			{
-				if((is_int($check) && (int) $userGroup->getId() === $check) || $userGroup->getName() === $check)
-				{
+			foreach ($this->groups as $userGroup) {
+				if ((is_int($check) && (int) $userGroup->getId() === $check) || $userGroup->getName() === $check) {
 					return true;
 				}
 			}
@@ -350,10 +344,8 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 		// Reset the failed attempt count if the last failed attempt was more than $lockTime seconds ago
 
-		if($this->last_fail_at !== null)
-		{
-			if(($now->getTimestamp() - $this->last_fail_at->getTimestamp()) > $lockTime)
-			{
+		if ($this->last_fail_at !== null) {
+			if (($now->getTimestamp() - $this->last_fail_at->getTimestamp()) > $lockTime) {
 				$this->failed_attempts = 0;
 			}
 		}
@@ -366,8 +358,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 		// Lock the account for $lockTime seconds if we have exeeded the maximum number of login attempts
 
-		if($this->failed_attempts >= $maxLoginAttempts)
-		{
+		if ($this->failed_attempts >= $maxLoginAttempts) {
 			$this->locked_until = (clone $now)->forward($lockTime);
 		}
 
@@ -381,8 +372,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 */
 	public function resetThrottle(bool $autoSave = true): bool
 	{
-		if($this->failed_attempts > 0)
-		{
+		if ($this->failed_attempts > 0) {
 			$this->failed_attempts = 0;
 
 			$this->last_fail_at = null;

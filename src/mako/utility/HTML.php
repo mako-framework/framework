@@ -24,8 +24,8 @@ class HTML
 	 */
 	public function __construct(
 		protected bool $xhtml = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Takes an array of attributes and turns it into a string.
@@ -34,10 +34,8 @@ class HTML
 	{
 		$attr = '';
 
-		foreach($attributes as $attribute => $value)
-		{
-			if(is_int($attribute))
-			{
+		foreach ($attributes as $attribute => $value) {
+			if (is_int($attribute)) {
 				$attribute = $value;
 			}
 
@@ -62,8 +60,7 @@ class HTML
 	{
 		$sources = '';
 
-		foreach((array) $files as $file)
-		{
+		foreach ((array) $files as $file) {
 			$sources .= $this->tag('source', ['src' => $file]);
 		}
 
@@ -93,14 +90,11 @@ class HTML
 	{
 		$list = '';
 
-		foreach($items as $item)
-		{
-			if(is_array($item))
-			{
+		foreach ($items as $item) {
+			if (is_array($item)) {
 				$list .= $this->tag('li', [], $this->buildList($type, $item, []));
 			}
-			else
-			{
+			else {
 				$list .= $this->tag('li', [], $item);
 			}
 		}

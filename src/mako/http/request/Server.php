@@ -23,14 +23,11 @@ class Server extends Parameters
 	{
 		$headers = [];
 
-		foreach($this->parameters as $key => $value)
-		{
-			if(strpos($key, 'HTTP_') === 0)
-			{
+		foreach ($this->parameters as $key => $value) {
+			if (strpos($key, 'HTTP_') === 0) {
 				$headers[substr($key, 5)] = $value;
 			}
-			elseif(in_array($key, ['CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE']))
-			{
+			elseif (in_array($key, ['CONTENT_LENGTH', 'CONTENT_MD5', 'CONTENT_TYPE'])) {
 				$headers[$key] = $value;
 			}
 		}

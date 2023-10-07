@@ -19,8 +19,7 @@ class InvalidArgumentException extends ArgumentException
 	 */
 	public function __construct(string $message, ?string $suggestion = null, int $code = 0, ?Throwable $previous = null)
 	{
-		if($suggestion !== null)
-		{
+		if ($suggestion !== null) {
 			$message .= " Did you mean [ {$suggestion} ]?";
 		}
 

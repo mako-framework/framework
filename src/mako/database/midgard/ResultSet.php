@@ -23,8 +23,7 @@ class ResultSet extends BaseResultSet
 	 */
 	public function __clone()
 	{
-		foreach($this->items as $key => $value)
-		{
+		foreach ($this->items as $key => $value) {
 			$this->items[$key] = clone $value;
 		}
 	}
@@ -37,8 +36,7 @@ class ResultSet extends BaseResultSet
 	 */
 	public function protect($column): static
 	{
-		foreach($this->items as $item)
-		{
+		foreach ($this->items as $item) {
 			$item->protect($column);
 		}
 
@@ -53,8 +51,7 @@ class ResultSet extends BaseResultSet
 	 */
 	public function expose($column): static
 	{
-		foreach($this->items as $item)
-		{
+		foreach ($this->items as $item) {
 			$item->expose($column);
 		}
 
@@ -68,8 +65,7 @@ class ResultSet extends BaseResultSet
 	 */
 	public function include(array|string $includes): static
 	{
-		(function ($includes, $items): void
-		{
+		(function ($includes, $items): void {
 			$this->including($includes)->loadIncludes($items);
 		})->bindTo($this->items[0]->getQuery(), Query::class)($includes, $this->items);
 

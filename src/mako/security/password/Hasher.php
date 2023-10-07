@@ -50,12 +50,10 @@ abstract class Hasher implements HasherInterface
 	 */
 	public function create(string $password): string
 	{
-		try
-		{
+		try {
 			return password_hash($password, $this->getAlgorithm(), $this->options);
 		}
-		catch(Throwable $e)
-		{
+		catch (Throwable $e) {
 			throw new HasherException('Failed to generate hash.', previous: $e);
 		}
 	}

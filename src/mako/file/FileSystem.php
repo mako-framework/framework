@@ -68,8 +68,7 @@ class FileSystem
 	 */
 	public function isEmpty(string $path): bool
 	{
-		if(is_dir($path))
-		{
+		if (is_dir($path)) {
 			return (new FilesystemIterator($path))->valid() === false;
 		}
 
@@ -179,10 +178,8 @@ class FileSystem
 	 */
 	public function removeDirectory(string $path): bool
 	{
-		foreach(new FilesystemIterator($path) as $item)
-		{
-			if($item->isDir())
-			{
+		foreach (new FilesystemIterator($path) as $item) {
+			if ($item->isDir()) {
 				$this->removeDirectory($item->getPathname());
 
 				continue;

@@ -27,8 +27,8 @@ class After extends Rule implements RuleInterface
 	public function __construct(
 		protected string $format,
 		protected string $date
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -37,8 +37,7 @@ class After extends Rule implements RuleInterface
 	{
 		$date = DateTime::createFromFormat($this->format, $value);
 
-		if($date === false || $date->format($this->format) !== $value)
-		{
+		if ($date === false || $date->format($this->format) !== $value) {
 			return false;
 		}
 

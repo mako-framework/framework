@@ -51,8 +51,8 @@ class Dispatcher
 		protected Request $request,
 		protected Response $response,
 		protected Container $container = new Container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets middleware priority.
@@ -89,8 +89,7 @@ class Dispatcher
 	 */
 	protected function orderMiddlewareByPriority(array $middleware): array
 	{
-		if(empty($this->middlewarePriority))
-		{
+		if (empty($this->middlewarePriority)) {
 			return $middleware;
 		}
 
@@ -106,21 +105,18 @@ class Dispatcher
 	 */
 	protected function addMiddlewareToStack(Onion $onion, array $middleware): void
 	{
-		if(empty($middleware) === false)
-		{
+		if (empty($middleware) === false) {
 			// Group middleware
 
 			$layers = [];
 
-			foreach($middleware as $layer)
-			{
+			foreach ($middleware as $layer) {
 				$layers[$layer['middleware']] = $layer;
 			}
 
 			// Add ordered middleware to stack
 
-			foreach($this->orderMiddlewareByPriority($layers) as $layer)
-			{
+			foreach ($this->orderMiddlewareByPriority($layers) as $layer) {
 				$onion->addLayer($layer['middleware'], $layer['parameters']);
 			}
 		}
@@ -145,13 +141,11 @@ class Dispatcher
 
 		// Execute the before action method if we have one
 
-		if(method_exists($controller, 'beforeAction'))
-		{
+		if (method_exists($controller, 'beforeAction')) {
 			$returnValue = $this->container->call($controller->beforeAction(...));
 		}
 
-		if(empty($returnValue))
-		{
+		if (empty($returnValue)) {
 			// The before action method didn't return any data so we can set the
 			// response body to whatever the route action returns
 
@@ -159,13 +153,11 @@ class Dispatcher
 
 			// Execute the after action method if we have one
 
-			if(method_exists($controller, 'afterAction'))
-			{
+			if (method_exists($controller, 'afterAction')) {
 				$this->container->call($controller->afterAction(...));
 			}
 		}
-		else
-		{
+		else {
 			// The before action method returned data so we'll set the response body to whatever it returned
 
 			$this->response->setBody($returnValue);
@@ -183,8 +175,7 @@ class Dispatcher
 
 		$parameters = $route->getParameters();
 
-		if($action instanceof Closure)
-		{
+		if ($action instanceof Closure) {
 			return $this->executeClosure($action, $parameters);
 		}
 

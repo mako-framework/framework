@@ -19,15 +19,13 @@ trait RollbackTrait
 	{
 		$migrations = $this->getMigrated($batches);
 
-		if($migrations->isEmpty())
-		{
+		if ($migrations->isEmpty()) {
 			$this->write('<blue>There are no migrations to roll back.</blue>');
 
 			return;
 		}
 
-		foreach($migrations as $migration)
-		{
+		foreach ($migrations as $migration) {
 			$this->runMigration($migration, 'down');
 		}
 

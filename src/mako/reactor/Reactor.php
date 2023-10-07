@@ -55,8 +55,7 @@ class Reactor
 		protected Output $output,
 		protected Container $container = new Container,
 		?Dispatcher $dispatcher = null
-	)
-	{
+	) {
 		$this->dispatcher = $dispatcher ?? new Dispatcher($this->container);
 	}
 
@@ -101,8 +100,7 @@ class Reactor
 
 		// Register default reactor arguments
 
-		$arguments->addArguments
-		([
+		$arguments->addArguments([
 			new Argument('command', 'Command name', Argument::IS_OPTIONAL),
 			new Argument('--help', 'Displays helpful information', Argument::IS_BOOL),
 			new Argument('--mute', 'Mutes all output', Argument::IS_BOOL),
@@ -119,8 +117,7 @@ class Reactor
 	 */
 	protected function drawTable(string $heading, array $headers, array $rows): void
 	{
-		if(!empty($rows))
-		{
+		if (!empty($rows)) {
 			$this->output->write(PHP_EOL);
 
 			$this->output->writeLn("<yellow>{$heading}</yellow>");
@@ -142,10 +139,8 @@ class Reactor
 	{
 		$argInfo = [];
 
-		foreach($arguments as $argument)
-		{
-			$argInfo[] =
-			[
+		foreach ($arguments as $argument) {
+			$argInfo[] = [
 				implode(' | ', array_filter([$argument->getAlias(), $argument->getName()])),
 				$argument->getDescription(),
 				$argument->isOptional() ? 'Yes' : 'No',
@@ -162,8 +157,7 @@ class Reactor
 	{
 		// Display basic reactor information
 
-		if($this->logo !== null)
-		{
+		if ($this->logo !== null) {
 			$this->output->writeLn($this->logo);
 
 			$this->output->write(PHP_EOL);
@@ -199,8 +193,7 @@ class Reactor
 	{
 		$info = [];
 
-		foreach($this->commands as $name => $class)
-		{
+		foreach ($this->commands as $name => $class) {
 			$command = $this->instantiateCommandWithoutConstructor($class);
 
 			$info[$name] = [$name, $command->getDescription()];
@@ -248,8 +241,7 @@ class Reactor
 	{
 		$message = "Unknown command [ {$command} ].";
 
-		if(($suggestion = $this->suggest($command, array_keys($this->commands))) !== null)
-		{
+		if (($suggestion = $this->suggest($command, array_keys($this->commands))) !== null) {
 			$message .= " Did you mean [ {$suggestion} ]?";
 		}
 
@@ -307,34 +299,28 @@ class Reactor
 	 */
 	public function run(): int
 	{
-		try
-		{
+		try {
 			$this->setup();
 
-			if($this->input->getArgument('--mute') === true)
-			{
+			if ($this->input->getArgument('--mute') === true) {
 				$this->output->mute();
 			}
 
-			if(($command = $this->input->getArgument('command')) === null)
-			{
+			if (($command = $this->input->getArgument('command')) === null) {
 				return $this->displayReactorInfoAndCommandList();
 			}
 
-			if($this->commandExists($command) === false)
-			{
+			if ($this->commandExists($command) === false) {
 				return $this->unknownCommand($command);
 			}
 
-			if($this->input->getArgument('--help') === true)
-			{
+			if ($this->input->getArgument('--help') === true) {
 				return $this->displayCommandHelp($command);
 			}
 
 			return $this->registerCommandArgumentsAndDispatch($command);
 		}
-		catch(ArgumentException | UnexpectedValueException $e)
-		{
+		catch (ArgumentException | UnexpectedValueException $e) {
 			$this->output->errorLn("<red>{$e->getMessage()}</red>");
 
 			return CommandInterface::STATUS_ERROR;

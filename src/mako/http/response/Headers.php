@@ -64,12 +64,10 @@ class Headers implements Countable, IteratorAggregate
 
 		$this->headers[$normalizedName]['name'] = $name;
 
-		if($replace === true)
-		{
+		if ($replace === true) {
 			$this->headers[$normalizedName]['value'] = [$value];
 		}
-		else
-		{
+		else {
 			$headers = $this->headers[$normalizedName]['value'] ?? [];
 
 			$this->headers[$normalizedName]['value'] = [...$headers, $value];
@@ -91,10 +89,8 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function hasValue(string $name, string $value, bool $caseSensitive = true): bool
 	{
-		if($this->has($name))
-		{
-			if($caseSensitive)
-			{
+		if ($this->has($name)) {
+			if ($caseSensitive) {
 				return in_array($value, $this->headers[$this->normalizeName($name)]['value']);
 			}
 

@@ -27,8 +27,7 @@ class WinCache extends Store
 	 */
 	public function __construct()
 	{
-		if(function_exists('wincache_ucache_set') === false)
-		{
+		if (function_exists('wincache_ucache_set') === false) {
 			throw new CacheException('WinCache is not available on your system.');
 		}
 	}

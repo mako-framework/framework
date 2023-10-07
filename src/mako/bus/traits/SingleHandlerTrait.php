@@ -39,8 +39,7 @@ trait SingleHandlerTrait
 	 */
 	protected function getHandler(object $object): callable
 	{
-		if(!isset($this->handlers[$object::class]))
-		{
+		if (!isset($this->handlers[$object::class])) {
 			throw $this->getUnableToResolveException($object);
 		}
 

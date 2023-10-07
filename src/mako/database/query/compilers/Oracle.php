@@ -60,8 +60,7 @@ class Oracle extends Compiler
 	 */
 	public function lock(null|bool|string $lock): string
 	{
-		if($lock === null)
-		{
+		if ($lock === null) {
 			return '';
 		}
 
@@ -73,8 +72,7 @@ class Oracle extends Compiler
 	 */
 	protected function orderings(array $orderings): string
 	{
-		if(empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null))
-		{
+		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
 			return ' ORDER BY (SELECT 0)';
 		}
 
@@ -86,15 +84,13 @@ class Oracle extends Compiler
 	 */
 	protected function limit(?int $limit): string
 	{
-		if($limit === null)
-		{
+		if ($limit === null) {
 			return '';
 		}
 
 		$offset = $this->query->getOffset();
 
-		if($offset === null)
-		{
+		if ($offset === null) {
 			return " FETCH FIRST {$limit} ROWS ONLY";
 		}
 
@@ -106,8 +102,7 @@ class Oracle extends Compiler
 	 */
 	protected function offset(?int $offset): string
 	{
-		if($this->query->getLimit() === null && $offset !== null)
-		{
+		if ($this->query->getLimit() === null && $offset !== null) {
 			return " OFFSET {$offset} ROWS";
 		}
 

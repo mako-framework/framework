@@ -19,8 +19,7 @@ class SecurityHeaders implements MiddlewareInterface
 	/**
 	 * Security headers.
 	 */
-	protected array $headers =
-	[
+	protected array $headers = [
 		'X-Content-Type-Options' => 'nosniff',
 		'X-Frame-Options'        => 'sameorigin',
 		'X-XSS-Protection'       => '1; mode=block',
@@ -39,8 +38,7 @@ class SecurityHeaders implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		foreach($this->getHeaders() as $name => $value)
-		{
+		foreach ($this->getHeaders() as $name => $value) {
 			$response->headers->add($name, $value);
 		}
 

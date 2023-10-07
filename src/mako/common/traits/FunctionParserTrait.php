@@ -25,8 +25,7 @@ trait FunctionParserTrait
 	 */
 	protected function splitFunctionAndParameters(string $function): array
 	{
-		if(preg_match('/^([a-z0-9_:.\\\\]+)\((.*)\)$/i', $function, $matches) !== 1)
-		{
+		if (preg_match('/^([a-z0-9_:.\\\\]+)\((.*)\)$/i', $function, $matches) !== 1) {
 			throw new FunctionParserTraitException(vsprintf('[ %s ] does not match the expected function pattern.', [$function]));
 		}
 
@@ -39,22 +38,19 @@ trait FunctionParserTrait
 	 */
 	protected function parseFunction(string $function, ?bool $namedParameters = null): array
 	{
-		if(strpos($function, '(') === false)
-		{
+		if (strpos($function, '(') === false) {
 			return [$function, []];
 		}
 
 		$function = $this->splitFunctionAndParameters($function);
 
-		if($namedParameters === null)
-		{
+		if ($namedParameters === null) {
 			$namedParameters = preg_match('/^"[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"\s*:/', $function[1]) === 1;
 		}
 
 		$parameters = json_decode(($namedParameters === true ? "{{$function[1]}}" : "[{$function[1]}]"), true);
 
-		if($parameters === null && json_last_error() !== JSON_ERROR_NONE)
-		{
+		if ($parameters === null && json_last_error() !== JSON_ERROR_NONE) {
 			throw new FunctionParserTraitException('Failed to decode function parameters.');
 		}
 

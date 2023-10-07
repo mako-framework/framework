@@ -25,8 +25,7 @@ class Confirmation extends Question
 	{
 		$normalized = [];
 
-		foreach($array as $key => $value)
-		{
+		foreach ($array as $key => $value) {
 			$normalized[mb_strtolower($key)] = $value;
 		}
 
@@ -40,8 +39,7 @@ class Confirmation extends Question
 	{
 		$highlighted = [];
 
-		foreach(array_keys($options) as $option)
-		{
+		foreach (array_keys($options) as $option) {
 			$highlighted[] = $option === $default ? mb_strtoupper($option) : $option;
 		}
 
@@ -59,8 +57,7 @@ class Confirmation extends Question
 
 		$input = mb_strtolower(empty($input) ? $default : $input);
 
-		if(!isset($options[$input]))
-		{
+		if (!isset($options[$input])) {
 			return $this->ask($question, $default, $options);
 		}
 

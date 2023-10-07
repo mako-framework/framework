@@ -178,8 +178,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		$this->assign($columns, $raw, $whitelist);
 
-		if($isPersisted)
-		{
+		if ($isPersisted) {
 			$this->isPersisted = true;
 
 			$this->synchronize();
@@ -191,8 +190,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function __clone()
 	{
-		if($this->isPersisted)
-		{
+		if ($this->isPersisted) {
 			$this->isPersisted = false;
 			$this->original    = [];
 			$this->related     = [];
@@ -214,8 +212,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function getConnection(): Connection
 	{
-		if(empty(static::$connectionManager))
-		{
+		if (empty(static::$connectionManager)) {
 			static::$connectionManager = Application::instance()->getContainer()->get('database');
 		}
 
@@ -253,20 +250,16 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	protected function registerHooksAndCasts(): void
 	{
-		if(!isset(static::$traitHooks[static::class]))
-		{
+		if (!isset(static::$traitHooks[static::class])) {
 			static::$traitHooks[static::class] = [];
 			static::$traitCasts[static::class] = [];
 
-			foreach(ClassInspector::getTraits(static::class) as $trait)
-			{
-				if(method_exists($this, $getter = "get{$this->getClassShortName($trait)}Hooks"))
-				{
+			foreach (ClassInspector::getTraits(static::class) as $trait) {
+				if (method_exists($this, $getter = "get{$this->getClassShortName($trait)}Hooks")) {
 					static::$traitHooks[static::class] = array_merge_recursive(static::$traitHooks[static::class], $this->$getter());
 				}
 
-				if(method_exists($this, $getter = "get{$this->getClassShortName($trait)}Casts"))
-				{
+				if (method_exists($this, $getter = "get{$this->getClassShortName($trait)}Casts")) {
 					static::$traitCasts[static::class] += $this->$getter();
 				}
 			}
@@ -282,8 +275,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	{
 		$bound = [];
 
-		foreach($hooks as $hook)
-		{
+		foreach ($hooks as $hook) {
 			$bound[] = $hook->bindTo($this);
 		}
 
@@ -307,8 +299,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		$pos = strrpos($class, '\\');
 
-		if($pos === false)
-		{
+		if ($pos === false) {
 			return $class;
 		}
 
@@ -320,8 +311,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function getTable(): string
 	{
-		if(empty($this->tableName))
-		{
+		if (empty($this->tableName)) {
 			$this->tableName = Str::pluralize(Str::camelToSnake($this->getClassShortName()));
 		}
 
@@ -357,8 +347,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function getForeignKey(): string
 	{
-		if(empty($this->foreignKeyName))
-		{
+		if (empty($this->foreignKeyName)) {
 			$this->foreignKeyName = Str::camelToSnake($this->getClassShortName()) . '_id';
 		}
 
@@ -414,8 +403,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function include(array|string $includes): static
 	{
-		(function ($includes, $model): void
-		{
+		(function ($includes, $model): void {
 			$this->including($includes)->loadIncludes([$model]);
 		})->bindTo($this->getQuery(), Query::class)($includes, $this);
 
@@ -435,18 +423,15 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	protected function cast(string $name, mixed $value): mixed
 	{
-		if(isset($this->cast[$name]) && $value !== null)
-		{
+		if (isset($this->cast[$name]) && $value !== null) {
 			$type  = $this->cast[$name];
 			$extra = null;
 
-			if(is_array($type))
-			{
+			if (is_array($type)) {
 				$extra = $this->cast[$name][$type = array_key_first($type)];
 			}
 
-			return match($type)
-			{
+			return match ($type) {
 				'int'    => (int) $value,
 				'float'  => (float) $value,
 				'bool'   => $value === 'f' ? false : (bool) $value,
@@ -475,12 +460,10 @@ abstract class ORM implements JsonSerializable, Stringable
 	{
 		$value = $this->cast($name, $value);
 
-		if(method_exists($this, "{$name}Mutator"))
-		{
+		if (method_exists($this, "{$name}Mutator")) {
 			$this->columns[$name] = $this->{"{$name}Mutator"}($value);
 		}
-		else
-		{
+		else {
 			$this->columns[$name] = $value;
 		}
 	}
@@ -498,8 +481,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function getColumnValue(string $name): mixed
 	{
-		if(method_exists($this, "{$name}Accessor"))
-		{
+		if (method_exists($this, "{$name}Accessor")) {
 			return $this->{"{$name}Accessor"}($this->columns[$name]);
 		}
 
@@ -519,20 +501,17 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function getValue(string $name): mixed
 	{
-		if(array_key_exists($name, $this->columns))
-		{
+		if (array_key_exists($name, $this->columns)) {
 			// It's a database column
 
 			return $this->getColumnValue($name);
 		}
-		elseif(array_key_exists($name, $this->related))
-		{
+		elseif (array_key_exists($name, $this->related)) {
 			// The column is a cached or eagerly loaded relation
 
 			return $this->related[$name];
 		}
-		elseif($this->isRelation($name))
-		{
+		elseif ($this->isRelation($name)) {
 			// The column is a relation. Lazy load the record(s) and cache them
 
 			return $this->related[$name] = $this->$name()->getRelated();
@@ -556,24 +535,18 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	protected function setColumValues(array $columns, bool $raw): void
 	{
-		if($raw)
-		{
-			if(empty($this->cast))
-			{
+		if ($raw) {
+			if (empty($this->cast)) {
 				$this->columns = $columns;
 			}
-			else
-			{
-				foreach($columns as $column => $value)
-				{
+			else {
+				foreach ($columns as $column => $value) {
 					$this->setRawColumnValue($column, $value);
 				}
 			}
 		}
-		else
-		{
-			foreach($columns as $column => $value)
-			{
+		else {
+			foreach ($columns as $column => $value) {
 				$this->setColumnValue($column, $value);
 			}
 		}
@@ -588,15 +561,13 @@ abstract class ORM implements JsonSerializable, Stringable
 	{
 		// Remove columns that are not in the whitelist
 
-		if($whitelist && !empty($this->assignable))
-		{
+		if ($whitelist && !empty($this->assignable)) {
 			$columns = array_intersect_key($columns, array_flip($this->assignable));
 		}
 
 		// Remove the primary key if the model has already beed loaded
 
-		if($this->isPersisted && isset($columns[$this->primaryKey]))
-		{
+		if ($this->isPersisted && isset($columns[$this->primaryKey])) {
 			unset($columns[$this->primaryKey]);
 		}
 
@@ -628,8 +599,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function __isset(string $name): bool
 	{
-		if(isset($this->columns[$name]) || isset($this->related[$name]))
-		{
+		if (isset($this->columns[$name]) || isset($this->related[$name])) {
 			return true;
 		}
 
@@ -765,10 +735,8 @@ abstract class ORM implements JsonSerializable, Stringable
 	{
 		$modified = [];
 
-		foreach($this->columns as $key => $value)
-		{
-			if(!array_key_exists($key, $this->original) || $this->original[$key] !== $value)
-			{
+		foreach ($this->columns as $key => $value) {
+			if (!array_key_exists($key, $this->original) || $this->original[$key] !== $value) {
 				$modified[$key] = $value;
 			}
 		}
@@ -789,17 +757,14 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	protected function insertRecord(Query $query): void
 	{
-		if($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING)
-		{
+		if ($this->primaryKeyType === static::PRIMARY_KEY_TYPE_INCREMENTING) {
 			$this->columns[$this->primaryKey] = $query->insertAndGetId($this->columns, $this->primaryKey);
 
 			return;
 		}
 
-		if($this->primaryKeyType !== static::PRIMARY_KEY_TYPE_NONE)
-		{
-			$this->columns[$this->primaryKey] = match($this->primaryKeyType)
-			{
+		if ($this->primaryKeyType !== static::PRIMARY_KEY_TYPE_NONE) {
+			$this->columns[$this->primaryKey] = match ($this->primaryKeyType) {
 				static::PRIMARY_KEY_TYPE_UUID   => UUID::v4(),
 				static::PRIMARY_KEY_TYPE_CUSTOM => $this->generatePrimaryKey(),
 			};
@@ -825,23 +790,20 @@ abstract class ORM implements JsonSerializable, Stringable
 	{
 		$success = true;
 
-		if(!$this->isPersisted)
-		{
+		if (!$this->isPersisted) {
 			// This is a new record so we need to insert it into the database.
 
 			$this->insertRecord($this->getQuery());
 
 			$this->isPersisted = true;
 		}
-		elseif($this->isModified())
-		{
+		elseif ($this->isModified()) {
 			// This record exists and is modified so all we have to do is update it.
 
 			$success = $this->updateRecord($this->getQuery());
 		}
 
-		if($success)
-		{
+		if ($success) {
 			// Sync up if save was successful
 
 			$this->synchronize();
@@ -863,12 +825,10 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function delete(): bool
 	{
-		if($this->isPersisted)
-		{
+		if ($this->isPersisted) {
 			$deleted = $this->deleteRecord($this->getQuery());
 
-			if($deleted)
-			{
+			if ($deleted) {
 				$this->isPersisted = false;
 				$this->original    = [];
 				$this->related     = [];
@@ -917,19 +877,16 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		// Removes protected columns from the array
 
-		if(!empty($this->protected))
-		{
+		if (!empty($this->protected)) {
 			$columns = array_diff_key($columns, array_flip($this->protected));
 		}
 
 		// Mutate column values if needed
 
-		foreach($columns as $name => $value)
-		{
+		foreach ($columns as $name => $value) {
 			$value = $this->getColumnValue($name);
 
-			if($value instanceof DateTimeInterface)
-			{
+			if ($value instanceof DateTimeInterface) {
 				$value = $value->format($this->dateOutputFormat);
 			}
 
@@ -938,28 +895,23 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		// Merge related records
 
-		foreach($this->related as $relation => $related)
-		{
-			if(in_array($relation, $this->protected))
-			{
+		foreach ($this->related as $relation => $related) {
+			if (in_array($relation, $this->protected)) {
 				continue;
 			}
 
-			if($related === null)
-			{
+			if ($related === null) {
 				$columns += [$relation => null];
 
 				continue;
 			}
 
-			if(!empty($this->protected))
-			{
+			if (!empty($this->protected)) {
 				$protect = array_map(static fn ($value) => substr($value, strlen($relation) + 1),
 					array_filter($this->protected, static fn ($value) => strpos($value, "{$relation}.") === 0)
 				);
 
-				if(!empty($protect))
-				{
+				if (!empty($protect)) {
 					$related->protect($protect);
 				}
 			}

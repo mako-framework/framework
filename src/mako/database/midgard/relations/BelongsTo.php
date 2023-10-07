@@ -23,8 +23,7 @@ class BelongsTo extends Relation
 	 */
 	protected function getForeignKey(): string
 	{
-		if($this->foreignKey === null)
-		{
+		if ($this->foreignKey === null) {
 			$this->foreignKey = $this->model->getForeignKey();
 		}
 
@@ -40,8 +39,7 @@ class BelongsTo extends Relation
 
 		$foreignKey = $this->getForeignKey();
 
-		foreach($results as $result)
-		{
+		foreach ($results as $result) {
 			$keys[] = $result->getRawColumnValue($foreignKey);
 		}
 
@@ -85,23 +83,19 @@ class BelongsTo extends Relation
 
 		$grouped = [];
 
-		if(!empty($keys = $this->keys($results)))
-		{
-			if($criteria !== null)
-			{
+		if (!empty($keys = $this->keys($results))) {
+			if ($criteria !== null) {
 				$criteria($this);
 			}
 
-			foreach($this->eagerLoadChunked($keys) as $related)
-			{
+			foreach ($this->eagerLoadChunked($keys) as $related) {
 				$grouped[$related->getPrimaryKeyValue()] = $related;
 			}
 		}
 
 		$foreignKey = $this->getForeignKey();
 
-		foreach($results as $result)
-		{
+		foreach ($results as $result) {
 			$result->setRelated($relation, $grouped[$result->getRawColumnValue($foreignKey)] ?? null);
 		}
 	}
@@ -111,8 +105,7 @@ class BelongsTo extends Relation
 	 */
 	protected function fetchRelated(): ?ORM
 	{
-		if($this->origin->getRawColumnValue($this->getForeignKey()) === null)
-		{
+		if ($this->origin->getRawColumnValue($this->getForeignKey()) === null) {
 			return null;
 		}
 

@@ -26,8 +26,7 @@ class Loader implements LoaderInterface
 	public function __construct(
 		protected FileSystem $fileSystem,
 		string $path
-	)
-	{
+	) {
 		$this->path = $path;
 	}
 
@@ -38,8 +37,7 @@ class Loader implements LoaderInterface
 	{
 		$path = $this->getFilePath('inflection', suffix: $language);
 
-		if($this->fileSystem->has($path))
-		{
+		if ($this->fileSystem->has($path)) {
 			return $this->fileSystem->include($path);
 		}
 
@@ -53,18 +51,15 @@ class Loader implements LoaderInterface
 	{
 		$strings = false;
 
-		foreach($this->getCascadingFilePaths($file, suffix: "{$language}/strings") as $file)
-		{
-			if($this->fileSystem->has($file))
-			{
+		foreach ($this->getCascadingFilePaths($file, suffix: "{$language}/strings") as $file) {
+			if ($this->fileSystem->has($file)) {
 				$strings = $this->fileSystem->include($file);
 
 				break;
 			}
 		}
 
-		if($strings === false)
-		{
+		if ($strings === false) {
 			throw new LoaderException(vsprintf('The [ %s ] language pack does not have a [ %s ] file.', [$language, $file]));
 		}
 

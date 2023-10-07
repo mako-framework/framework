@@ -53,8 +53,8 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function __construct(
 		protected array $headers = []
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the numner of headers.
@@ -127,19 +127,16 @@ class Headers implements Countable, IteratorAggregate
 	{
 		$groupedAccepts = [];
 
-		if(empty($headerValue))
-		{
+		if (empty($headerValue)) {
 			return $groupedAccepts;
 		}
 
 		// Collect acceptable values
 
-		foreach(explode(',', $headerValue) as $accept)
-		{
+		foreach (explode(',', $headerValue) as $accept) {
 			$quality = 1;
 
-			if(strpos($accept, ';'))
-			{
+			if (strpos($accept, ';')) {
 				// We have a quality so we need to split some more
 
 				[$accept, $quality] = explode(';', $accept, 2);
@@ -166,8 +163,7 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function getAcceptableContentTypes(?string $default = null): array
 	{
-		if(!isset($this->acceptableContentTypes))
-		{
+		if (!isset($this->acceptableContentTypes)) {
 			$this->acceptableContentTypes = $this->parseAcceptHeader($this->get('accept'));
 		}
 
@@ -179,8 +175,7 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function getAcceptableLanguages(?string $default = null): array
 	{
-		if($this->acceptableLanguages === null)
-		{
+		if ($this->acceptableLanguages === null) {
 			$this->acceptableLanguages = $this->parseAcceptHeader($this->get('accept-language'));
 		}
 
@@ -192,8 +187,7 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function getAcceptableCharsets(?string $default = null): array
 	{
-		if($this->acceptableCharsets === null)
-		{
+		if ($this->acceptableCharsets === null) {
 			$this->acceptableCharsets = $this->parseAcceptHeader($this->get('accept-charset'));
 		}
 
@@ -205,8 +199,7 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function getAcceptableEncodings(?string $default = null): array
 	{
-		if($this->acceptableEncodings === null)
-		{
+		if ($this->acceptableEncodings === null) {
 			$this->acceptableEncodings = $this->parseAcceptHeader($this->get('accept-encoding'));
 		}
 
@@ -218,13 +211,11 @@ class Headers implements Countable, IteratorAggregate
 	 */
 	public function getBearerToken(): ?string
 	{
-		if(($value = $this->get('authorization')) === null)
-		{
+		if (($value = $this->get('authorization')) === null) {
 			return null;
 		}
 
-		if(($pos = stripos($value, 'Bearer ')) === false)
-		{
+		if (($pos = stripos($value, 'Bearer ')) === false) {
 			return null;
 		}
 

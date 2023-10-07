@@ -50,8 +50,7 @@ abstract class Store implements StoreInterface
 	 */
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
-		if($this->has($key) === false)
-		{
+		if ($this->has($key) === false) {
 			return $this->put($key, $data, $ttl);
 		}
 
@@ -77,8 +76,7 @@ abstract class Store implements StoreInterface
 	{
 		$storedValue = $this->get($key);
 
-		if($storedValue !== null)
-		{
+		if ($storedValue !== null) {
 			$this->remove($key);
 		}
 
@@ -92,8 +90,7 @@ abstract class Store implements StoreInterface
 	{
 		$cached = $this->get($key);
 
-		if($cached === null)
-		{
+		if ($cached === null) {
 			$cached = $data();
 
 			$this->put($key, $cached, $ttl);

@@ -35,8 +35,7 @@ class OrderedList
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{
+	) {
 		$this->formatter = $output->getFormatter();
 	}
 
@@ -47,10 +46,8 @@ class OrderedList
 	{
 		$count = 0;
 
-		foreach($items as $item)
-		{
-			if(!is_array($item))
-			{
+		foreach ($items as $item) {
+			if (!is_array($item)) {
 				$count++;
 			}
 		}
@@ -81,14 +78,11 @@ class OrderedList
 		$number = 0;
 		$list   = '';
 
-		foreach($items as $item)
-		{
-			if(is_array($item))
-			{
+		foreach ($items as $item) {
+			if (is_array($item)) {
 				$list .= $this->buildList($item, $marker, ($nestingLevel + 1), ($width['marker'] - 1 + $parentWidth));
 			}
-			else
-			{
+			else {
 				$list .= $this->buildListItem($item, $marker, $width['number'], ++$number, $nestingLevel, $parentWidth);
 			}
 		}

@@ -37,8 +37,8 @@ class Onion
 		protected Container $container = new Container,
 		protected string $method = 'handle',
 		protected ?string $expectedInterface = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Add a new middleware layer.
@@ -71,8 +71,7 @@ class Onion
 	 */
 	protected function buildCoreClosure(object $object): Closure
 	{
-		return function (...$arguments) use ($object)
-		{
+		return function (...$arguments) use ($object) {
 			$callable = $object instanceof Closure ? $object : [$object, $this->method];
 
 			return $callable(...$arguments);
@@ -110,8 +109,7 @@ class Onion
 
 		// Check if the middleware implements the expected interface
 
-		if($this->expectedInterface !== null && ($middleware instanceof $this->expectedInterface) === false)
-		{
+		if ($this->expectedInterface !== null && ($middleware instanceof $this->expectedInterface) === false) {
 			throw new OnionException(vsprintf('The Onion instance expects the middleware to be an instance of [ %s ].', [$this->expectedInterface]));
 		}
 
@@ -127,8 +125,7 @@ class Onion
 	{
 		$next = $this->buildCoreClosure($object);
 
-		foreach($this->layers as $layer)
-		{
+		foreach ($this->layers as $layer) {
 			$middleware = $this->middlewareFactory($layer, $middlewareParameters);
 
 			$next = $this->buildLayerClosure($middleware, $next);

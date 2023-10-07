@@ -40,8 +40,8 @@ class Router
 	public function __construct(
 		protected Routes $routes,
 		protected Container $container = new Container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets the chosen constraint as global.
@@ -58,14 +58,11 @@ class Router
 	 */
 	protected function matches(Route $route, string $path): bool
 	{
-		if(preg_match($route->getRegex(), $path, $parameters) === 1)
-		{
+		if (preg_match($route->getRegex(), $path, $parameters) === 1) {
 			$filtered = [];
 
-			foreach($parameters as $key => $value)
-			{
-				if(is_string($key))
-				{
+			foreach ($parameters as $key => $value) {
+				if (is_string($key)) {
 					$filtered[$key] = $value;
 				}
 			}
@@ -91,10 +88,8 @@ class Router
 	 */
 	protected function constraintsAreSatisfied(Route $route): bool
 	{
-		foreach([...$this->globalConstraints, ...$route->getConstraints()] as $constraint)
-		{
-			if($this->constraintFactory($constraint)->isSatisfied() === false)
-			{
+		foreach ([...$this->globalConstraints, ...$route->getConstraints()] as $constraint) {
+			if ($this->constraintFactory($constraint)->isSatisfied() === false) {
 				return false;
 			}
 		}
@@ -107,14 +102,12 @@ class Router
 	 */
 	protected function redirectRoute(string $requestPath): Route
 	{
-		return new Route([], '', static function (Request $request) use ($requestPath)
-		{
+		return new Route([], '', static function (Request $request) use ($requestPath) {
 			$url = $request->getBaseURL() . ($request->isClean() ? '' : "/{$request->getScriptName()}") . rtrim("/{$request->getLanguagePrefix()}", '/') . "{$requestPath}/";
 
 			$query = $request->query->all();
 
-			if(!empty($query))
-			{
+			if (!empty($query)) {
 				$url .= '?' . http_build_query($query, arg_separator: '&', encoding_type: PHP_QUERY_RFC3986);
 			}
 
@@ -129,10 +122,8 @@ class Router
 	{
 		$methods = [];
 
-		foreach($this->routes->getRoutes() as $route)
-		{
-			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
-			{
+		foreach ($this->routes->getRoutes() as $route) {
+			if ($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route)) {
 				$methods = [...$methods, ...$route->getMethods()];
 			}
 		}
@@ -147,8 +138,7 @@ class Router
 	{
 		$allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath);
 
-		return new Route([], '', static function (Response $response) use ($allowedMethods): void
-		{
+		return new Route([], '', static function (Response $response) use ($allowedMethods): void {
 			$response->headers->add('Allow', implode(',', $allowedMethods));
 		}, 'router:options');
 	}
@@ -158,8 +148,7 @@ class Router
 	 */
 	protected function methodNotAllowedRoute(array $allowedMethods): Route
 	{
-		return new Route([], '', static function () use ($allowedMethods): void
-		{
+		return new Route([], '', static function () use ($allowedMethods): void {
 			throw new MethodNotAllowedException($allowedMethods);
 		}, 'router:405');
 	}
@@ -169,8 +158,7 @@ class Router
 	 */
 	protected function notFoundRoute(): Route
 	{
-		return new Route([], '', static function (): void
-		{
+		return new Route([], '', static function (): void {
 			throw new NotFoundException;
 		}, 'router:404');
 	}
@@ -184,17 +172,13 @@ class Router
 
 		$requestPath = $request->getPath();
 
-		foreach($this->routes->getRoutesByMethod($requestMethod) as $route)
-		{
-			if($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route))
-			{
+		foreach ($this->routes->getRoutesByMethod($requestMethod) as $route) {
+			if ($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route)) {
 				// If the matching route is missing its trailing slash then we'll
 				// redirect it (but only if it's a GET or HEAD request)
 
-				if($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/')
-				{
-					if(in_array($requestMethod, ['GET', 'HEAD']))
-					{
+				if ($route->hasTrailingSlash() && !empty($requestPath) && substr($requestPath, -1) !== '/') {
+					if (in_array($requestMethod, ['GET', 'HEAD'])) {
 						return $this->redirectRoute($requestPath);
 					}
 
@@ -205,8 +189,7 @@ class Router
 				// from all routes matching the requested path. We'll then add an "allows" header
 				// to the matched route
 
-				if($requestMethod === 'OPTIONS')
-				{
+				if ($requestMethod === 'OPTIONS') {
 					return $this->optionsRoute($requestPath);
 				}
 
@@ -222,8 +205,7 @@ class Router
 
 		// Check if there are any routes that match the pattern and constaints for other request methods
 
-		if(!empty(($allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath))))
-		{
+		if (!empty(($allowedMethods = $this->getAllowedMethodsForMatchingRoutes($requestPath)))) {
 			return $this->methodNotAllowedRoute($allowedMethods);
 		}
 

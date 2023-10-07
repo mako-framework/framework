@@ -41,8 +41,7 @@ abstract class Command extends BaseCommand
 		protected FileSystem $fileSystem,
 		protected ConnectionManager $database,
 		Container $container
-	)
-	{
+	) {
 		parent::__construct($input, $output);
 
 		$this->container = $container;
@@ -87,8 +86,7 @@ abstract class Command extends BaseCommand
 	{
 		$migrations = [];
 
-		foreach($this->fileSystem->glob("{$this->application->getPath()}/migrations/*.php") as $migration)
-		{
+		foreach ($this->fileSystem->glob("{$this->application->getPath()}/migrations/*.php") as $migration) {
 			$migrations[] = (object) ['package' => null, 'version' => $this->getBasename($migration)];
 		}
 
@@ -102,10 +100,8 @@ abstract class Command extends BaseCommand
 	{
 		$migrations = [];
 
-		foreach($this->application->getPackages() as $package)
-		{
-			foreach($this->fileSystem->glob("{$package->getPath()}/src/migrations/*.php") as $migration)
-			{
+		foreach ($this->application->getPackages() as $package) {
+			foreach ($this->fileSystem->glob("{$package->getPath()}/src/migrations/*.php") as $migration) {
 				$migrations[] = (object) ['package' => $package->getName(), 'version' => $this->getBasename($migration)];
 			}
 		}
@@ -126,8 +122,7 @@ abstract class Command extends BaseCommand
 	 */
 	protected function getFullyQualifiedMigration(Result|stdClass $migration): string
 	{
-		if(empty($migration->package))
-		{
+		if (empty($migration->package)) {
 			return $this->application->getNamespace(true) . "\\migrations\\{$migration->version}";
 		}
 
@@ -145,14 +140,12 @@ abstract class Command extends BaseCommand
 
 		$defaultConnectionName = $this->getDefaultConnectionName();
 
-		foreach($migrations as $key => $migration)
-		{
+		foreach ($migrations as $key => $migration) {
 			$migrationConnectionName = (new ReflectionClass($this->getFullyQualifiedMigration($migration)))
 			->newInstanceWithoutConstructor()
 			->getConnectionName() ?? $defaultConnectionName;
 
-			if($connectionName !== $migrationConnectionName)
-			{
+			if ($connectionName !== $migrationConnectionName) {
 				unset($migrations[$key]);
 			}
 		}
@@ -167,8 +160,7 @@ abstract class Command extends BaseCommand
 	{
 		$query = $this->getQuery();
 
-		if($batches !== null && $batches > 0)
-		{
+		if ($batches !== null && $batches > 0) {
 			$query->where('batch', '>', ($this->getQuery()->max('batch') - $batches));
 		}
 
@@ -182,14 +174,10 @@ abstract class Command extends BaseCommand
 	{
 		$migrations = $this->getMigrationsFilteredByConnection();
 
-		if(!empty($migrations))
-		{
-			foreach($this->getMigrated() as $migrated)
-			{
-				foreach($migrations as $key => $migration)
-				{
-					if($migrated->package === $migration->package && $migrated->version === $migration->version)
-					{
+		if (!empty($migrations)) {
+			foreach ($this->getMigrated() as $migrated) {
+				foreach ($migrations as $key => $migration) {
+					if ($migrated->package === $migration->package && $migrated->version === $migration->version) {
 						unset($migrations[$key]);
 					}
 				}
@@ -208,12 +196,10 @@ abstract class Command extends BaseCommand
 	{
 		$tableBody = [];
 
-		foreach($migrations as $migration)
-		{
+		foreach ($migrations as $migration) {
 			$name = $migration->version;
 
-			if(!empty($migration->package))
-			{
+			if (!empty($migration->package)) {
 				$name .= " ({$migration->package})";
 			}
 
@@ -238,12 +224,10 @@ abstract class Command extends BaseCommand
 	 */
 	protected function buildMigrationWrapper(object $migration, Migration $migrationInstance, string $method, ?int $batch = null): Closure
 	{
-		return function () use ($migration, $migrationInstance, $method, $batch): void
-		{
+		return function () use ($migration, $migrationInstance, $method, $batch): void {
 			$this->container->call([$migrationInstance, $method]);
 
-			switch($method)
-			{
+			switch ($method) {
 				case 'up':
 					$this->getQuery()->insert(['batch' => $batch, 'package' => $migration->package, 'version' => $migration->version]);
 					break;
@@ -264,10 +248,8 @@ abstract class Command extends BaseCommand
 
 		$migrationWrapper = $this->buildMigrationWrapper($migration, $migrationInstance, $method, $batch);
 
-		if($migrationInstance->useTransaction())
-		{
-			$migrationInstance->getConnection()->transaction(function () use ($migrationWrapper): void
-			{
+		if ($migrationInstance->useTransaction()) {
+			$migrationInstance->getConnection()->transaction(function () use ($migrationWrapper): void {
 				$migrationWrapper();
 			});
 

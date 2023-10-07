@@ -90,8 +90,7 @@ class Connection
 	 */
 	public function __destruct()
 	{
-		if(!$this->isPersistent && is_resource($this->connection))
-		{
+		if (!$this->isPersistent && is_resource($this->connection)) {
 			fclose($this->connection);
 		}
 	}
@@ -101,8 +100,7 @@ class Connection
 	 */
 	public function getOptions(): array
 	{
-		return
-		[
+		return [
 			'name'               => $this->name,
 			'persistent'         => $this->isPersistent,
 			'connection_timeout' => $this->connectionTimeout,
@@ -118,13 +116,11 @@ class Connection
 	 */
 	protected function createConnection(string $host, int $port)
 	{
-		if(filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false)
-		{
+		if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
 			$host = "[{$host}]";
 		}
 
-		try
-		{
+		try {
 			$flags = $this->isPersistent ? STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT : STREAM_CLIENT_CONNECT;
 
 			$context = stream_context_create(['socket' => ['tcp_nodelay' => $this->tcpNodelay]]);
@@ -135,8 +131,7 @@ class Connection
 
 			return $connection;
 		}
-		catch(Throwable $e)
-		{
+		catch (Throwable $e) {
 			throw new RedisException(trim(vsprintf('Failed to connect to [ %s ]. %s', [$this->name ?? "{$host}:{$port}", $errstr ?? ''])), (int) ($errno ?? 0), $e);
 		}
 	}
@@ -146,8 +141,7 @@ class Connection
 	 */
 	protected function appendReadErrorReason($message): string
 	{
-		if(stream_get_meta_data($this->connection)['timed_out'])
-		{
+		if (stream_get_meta_data($this->connection)['timed_out']) {
 			return "{$message} The stream timed out while waiting for data.";
 		}
 
@@ -161,8 +155,7 @@ class Connection
 	{
 		$line = fgets($this->connection);
 
-		if($line === false || $line === '')
-		{
+		if ($line === false || $line === '') {
 			throw new RedisException($this->appendReadErrorReason('Failed to read line from the server.'));
 		}
 
@@ -178,12 +171,10 @@ class Connection
 
 		$data = '';
 
-		do
-		{
+		do {
 			$chunk = fread($this->connection, min($bytesLeft, 4096));
 
-			if($chunk === false)
-			{
+			if ($chunk === false) {
 				throw new RedisException($this->appendReadErrorReason('Failed to read data from the server.'));
 			}
 
@@ -191,7 +182,7 @@ class Connection
 
 			$bytesLeft = $bytes - strlen($data);
 		}
-		while($bytesLeft > 0);
+		while ($bytesLeft > 0);
 
 		return $data;
 	}
@@ -205,12 +196,10 @@ class Connection
 
 		$bytesLeft = strlen($data);
 
-		do
-		{
+		do {
 			$totalBytesWritten += $bytesWritten = fwrite($this->connection, $data);
 
-			if($bytesWritten === false)
-			{
+			if ($bytesWritten === false) {
 				throw new RedisException('Failed to write data to the server.');
 			}
 
@@ -218,7 +207,7 @@ class Connection
 
 			$data = substr($data, $bytesWritten);
 		}
-		while($bytesLeft > 0);
+		while ($bytesLeft > 0);
 
 		return $totalBytesWritten;
 	}

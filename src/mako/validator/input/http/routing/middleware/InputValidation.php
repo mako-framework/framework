@@ -96,8 +96,8 @@ class InputValidation implements MiddlewareInterface
 		protected URLBuilder $urlBuilder,
 		protected ?Session $session = null,
 		protected ?ViewFactory $viewFactory = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Set the input.
@@ -112,8 +112,7 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function shouldRedirect(): bool
 	{
-		if($this->session === null || $this->viewFactory === null || in_array($this->request->getMethod(), ['GET', 'HEAD']))
-		{
+		if ($this->session === null || $this->viewFactory === null || in_array($this->request->getMethod(), ['GET', 'HEAD'])) {
 			return false;
 		}
 
@@ -125,8 +124,7 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function shouldIncludeOldInput(): bool
 	{
-		if($this->input === null)
-		{
+		if ($this->input === null) {
 			return true;
 		}
 
@@ -138,12 +136,10 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function getOldInput(): array
 	{
-		if($this->input === null)
-		{
+		if ($this->input === null) {
 			$oldInput = $this->request->getData()->all();
 		}
-		else
-		{
+		else {
 			$oldInput = $this->input->getOldInput();
 		}
 
@@ -155,8 +151,7 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function getRedirectUrl(): string
 	{
-		if($this->input === null)
-		{
+		if ($this->input === null) {
 			return $this->urlBuilder->current();
 		}
 
@@ -170,8 +165,7 @@ class InputValidation implements MiddlewareInterface
 	{
 		$this->session->putFlash($this->errorsFlashKey, $exception->getErrors());
 
-		if($this->shouldIncludeOldInput())
-		{
+		if ($this->shouldIncludeOldInput()) {
 			$this->session->putFlash($this->oldInputFlashKey, $this->getOldInput());
 		}
 
@@ -185,8 +179,7 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function getErrorMessage(): string
 	{
-		if($this->input !== null)
-		{
+		if ($this->input !== null) {
 			$errorMessage = $this->input->getErrorMessage();
 		}
 
@@ -204,8 +197,7 @@ class InputValidation implements MiddlewareInterface
 
 		$errors = $xml->addChild('errors');
 
-		foreach($exception->getErrors() as $field => $error)
-		{
+		foreach ($exception->getErrors() as $field => $error) {
 			$errors->addChild($field, $error);
 		}
 
@@ -219,10 +211,8 @@ class InputValidation implements MiddlewareInterface
 	{
 		$this->response->setStatus($this->httpStatusCode);
 
-		if($this->respondWithJson())
-		{
-			$this->response->setBody(new JSON
-			([
+		if ($this->respondWithJson()) {
+			$this->response->setBody(new JSON([
 				'message' => $this->getErrorMessage(),
 				'errors'  => $exception->getErrors(),
 			]));
@@ -230,8 +220,7 @@ class InputValidation implements MiddlewareInterface
 			return $this->response;
 		}
 
-		if(function_exists('simplexml_load_string') && $this->respondWithXml())
-		{
+		if (function_exists('simplexml_load_string') && $this->respondWithXml()) {
 			$this->response->setType('application/xml');
 
 			$this->response->setBody($this->buildXmlFromException($exception, $this->response->getCharset()));
@@ -251,25 +240,21 @@ class InputValidation implements MiddlewareInterface
 
 		$this->response = $response;
 
-		if($this->session !== null && $this->viewFactory !== null)
-		{
+		if ($this->session !== null && $this->viewFactory !== null) {
 			$this->viewFactory->assign($this->errorsVariableName, $this->session->getFlash($this->errorsFlashKey));
 
 			$this->viewFactory->assign($this->oldInputVariableName, $this->session->getFlash($this->oldInputFlashKey));
 		}
 
-		try
-		{
+		try {
 			return $next($request, $response);
 		}
-		catch(ValidationException $e)
-		{
+		catch (ValidationException $e) {
 			$this->setInput($e->getInput());
 
 			$response->clearExcept($this->keep);
 
-			if($this->shouldRedirect())
-			{
+			if ($this->shouldRedirect()) {
 				return $this->handleRedirect($e);
 			}
 

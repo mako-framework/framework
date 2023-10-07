@@ -25,8 +25,8 @@ class Join
 	public function __construct(
 		protected ?string $type = null,
 		protected null|Raw|string|Subquery $table = null,
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the join type.
@@ -65,23 +65,19 @@ class Join
 	 */
 	public function on(Closure|Raw|string $column1, ?string $operator = null, null|Raw|string $column2 = null, string $separator = 'AND'): Join
 	{
-		if($column1 instanceof Closure)
-		{
+		if ($column1 instanceof Closure) {
 			$join = new self;
 
 			$column1($join);
 
-			$this->conditions[] =
-			[
+			$this->conditions[] = [
 				'type'      => 'nestedJoinCondition',
 				'join'      => $join,
 				'separator' => $separator,
 			];
 		}
-		else
-		{
-			$this->conditions[] =
-			[
+		else {
+			$this->conditions[] = [
 				'type'      => 'joinCondition',
 				'column1'   => $column1,
 				'operator'  => $operator,

@@ -23,8 +23,7 @@ trait TimeTrait
 	 */
 	final public function __construct(string $time = 'now', null|DateTimeZone|string $timeZone = null)
 	{
-		if($timeZone !== null && ($timeZone instanceof DateTimeZone) === false)
-		{
+		if ($timeZone !== null && ($timeZone instanceof DateTimeZone) === false) {
 			$timeZone = new DateTimeZone($timeZone);
 		}
 
@@ -92,17 +91,14 @@ trait TimeTrait
 	#[\ReturnTypeWillChange]
 	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null)
 	{
-		if($timeZone !== null)
-		{
-			if(($timeZone instanceof DateTimeZone) === false)
-			{
+		if ($timeZone !== null) {
+			if (($timeZone instanceof DateTimeZone) === false) {
 				$timeZone = new DateTimeZone($timeZone);
 			}
 
 			$dateTime = parent::createFromFormat($format, $time, $timeZone);
 		}
-		else
-		{
+		else {
 			$dateTime = parent::createFromFormat($format, $time);
 		}
 
@@ -117,8 +113,7 @@ trait TimeTrait
 	#[\ReturnTypeWillChange]
 	public function setTimezone(DateTimeZone|string $timeZone)
 	{
-		if(($timeZone instanceof DateTimeZone) === false)
-		{
+		if (($timeZone instanceof DateTimeZone) === false) {
 			$timeZone = new DateTimeZone($timeZone);
 		}
 
@@ -152,8 +147,7 @@ trait TimeTrait
 	{
 		$time = getdate($this->getTimestamp());
 
-		if($time['year'] < 1980)
-		{
+		if ($time['year'] < 1980) {
 			$time['year']    = 1980;
 			$time['mon']     = 1;
 			$time['mday']    = 1;
@@ -172,8 +166,7 @@ trait TimeTrait
 	{
 		$year = $this->format('Y');
 
-		if($year % 400 === 0 || ($year % 4 === 0 && $year % 100 !== 0))
-		{
+		if ($year % 400 === 0 || ($year % 4 === 0 && $year % 100 !== 0)) {
 			return true;
 		}
 
@@ -185,8 +178,7 @@ trait TimeTrait
 	 */
 	public function daysInMonths(): array
 	{
-		return
-		[
+		return [
 			31,
 			$this->isLeapYear() ? 29 : 28,
 			31,

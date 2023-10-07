@@ -34,8 +34,8 @@ class Stream implements ResponseSenderInterface
 		protected Closure $stream,
 		protected ?string $contentType = null,
 		protected ?string $charset = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets the response content type.
@@ -78,19 +78,15 @@ class Stream implements ResponseSenderInterface
 	 */
 	public function flush(?string $chunk, bool $flushEmpty = false): void
 	{
-		if($this->isCGI)
-		{
-			if(!empty($chunk))
-			{
+		if ($this->isCGI) {
+			if (!empty($chunk)) {
 				echo $chunk;
 
 				flush();
 			}
 		}
-		else
-		{
-			if(!empty($chunk) || $flushEmpty === true)
-			{
+		else {
+			if (!empty($chunk) || $flushEmpty === true) {
 				printf("%x\r\n%s\r\n", strlen($chunk ?? ''), $chunk ?? '');
 
 				flush();
@@ -105,7 +101,7 @@ class Stream implements ResponseSenderInterface
 	{
 		// Erase output buffers and disable output buffering
 
-		while(ob_get_level() > 0) ob_end_clean();
+		while (ob_get_level() > 0) ob_end_clean();
 
 		// Send the stream
 
@@ -125,18 +121,15 @@ class Stream implements ResponseSenderInterface
 	{
 		$this->isCGI = $request->isCGI();
 
-		if(!$this->isCGI)
-		{
+		if (!$this->isCGI) {
 			$response->headers->add('Transfer-Encoding', 'chunked');
 		}
 
-		if(!empty($this->contentType))
-		{
+		if (!empty($this->contentType)) {
 			$response->setType($this->contentType);
 		}
 
-		if(!empty($this->charset))
-		{
+		if (!empty($this->charset)) {
 			$response->setCharset($this->charset);
 		}
 

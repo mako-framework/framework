@@ -64,8 +64,7 @@ class Route
 		protected string $route,
 		protected array|Closure|string $action,
 		protected ?string $name = null
-	)
-	{
+	) {
 		$this->hasTrailingSlash = (substr($this->route, -1) === '/');
 	}
 
@@ -109,8 +108,7 @@ class Route
 		$attributeValues = [];
 
 		/** @var \ReflectionAttribute $attribute */
-		foreach($attributes as $attribute)
-		{
+		foreach ($attributes as $attribute) {
 			$attributeValues = [...$attributeValues, ...[$attribute->newInstance()->$method()]];
 		}
 
@@ -122,8 +120,7 @@ class Route
 	 */
 	public function getMiddleware(): array
 	{
-		if($this->action instanceof Closure)
-		{
+		if ($this->action instanceof Closure) {
 			return $this->middleware;
 		}
 
@@ -141,8 +138,7 @@ class Route
 	 */
 	public function getConstraints(): array
 	{
-		if($this->action instanceof Closure)
-		{
+		if ($this->action instanceof Closure) {
 			return $this->constraints;
 		}
 
@@ -184,8 +180,7 @@ class Route
 	 */
 	public function prefix(string $prefix): Route
 	{
-		if(!empty($prefix))
-		{
+		if (!empty($prefix)) {
 			$this->prefix .= '/' . trim($prefix, '/');
 		}
 
@@ -245,23 +240,19 @@ class Route
 	{
 		$route = $this->getRoute();
 
-		if(strpos($route, '?'))
-		{
+		if (strpos($route, '?')) {
 			$route = preg_replace('/\/{(\w+)}\?/', '(?:/{$1})?', $route);
 		}
 
-		if(!empty($this->patterns))
-		{
-			foreach($this->patterns as $key => $pattern)
-			{
+		if (!empty($this->patterns)) {
+			foreach ($this->patterns as $key => $pattern) {
 				$route = str_replace("{{$key}}", "(?P<{$key}>{$pattern})", $route);
 			}
 		}
 
 		$route = preg_replace('/{((\d*[a-z_]\d*)+)}/i', '(?P<$1>[^/]++)', $route);
 
-		if($this->hasTrailingSlash)
-		{
+		if ($this->hasTrailingSlash) {
 			$route .= '?';
 		}
 

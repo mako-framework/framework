@@ -31,8 +31,7 @@ class Key
 	 */
 	public static function decode(string $key): string
 	{
-		if(strpos($key, 'hex:') === 0)
-		{
+		if (strpos($key, 'hex:') === 0) {
 			return hex2bin(mb_substr($key, 4, encoding: '8bit'));
 		}
 

@@ -26,15 +26,13 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected function connect(string $connection): Redis
 	{
-		if(!isset($this->configurations[$connection]))
-		{
+		if (!isset($this->configurations[$connection])) {
 			throw new RedisException(vsprintf('[ %s ] has not been defined in the redis configuration.', [$connection]));
 		}
 
 		$config = $this->configurations[$connection];
 
-		$options =
-		[
+		$options = [
 			'name'               => $connection,
 			'persistent'         => $config['persistent'] ?? false,
 			'connection_timeout' => $config['connection_timeout'] ?? 5,

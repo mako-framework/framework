@@ -28,14 +28,14 @@ class EventBus implements EventBusInterface
 	 */
 	public function __construct(
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
     /**
      * {@inheritDoc}
      */
     public function registerHandler(string $eventClass, callable|string $handler): void
-	{
+    {
 		$this->handlers[$eventClass][] = $handler;
 	}
 
@@ -44,10 +44,8 @@ class EventBus implements EventBusInterface
 	 */
 	protected function getHandlers(object $event): Generator
 	{
-		if(isset($this->handlers[$event::class]))
-		{
-			foreach($this->handlers[$event::class] as $handler)
-			{
+		if (isset($this->handlers[$event::class])) {
+			foreach ($this->handlers[$event::class] as $handler) {
 				yield $this->resolveHandler($handler);
 			}
 		}
@@ -57,10 +55,9 @@ class EventBus implements EventBusInterface
      * {@inheritDoc}
      */
     public function handle(object $event): void
-	{
+    {
 		/** @var callable $handler */
-		foreach($this->getHandlers($event) as $handler)
-		{
+		foreach ($this->getHandlers($event) as $handler) {
 			$handler($event);
 		}
 	}

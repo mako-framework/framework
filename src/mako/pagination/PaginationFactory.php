@@ -34,8 +34,8 @@ class PaginationFactory implements PaginationFactoryInterface
 	public function __construct(
 		protected Request $request,
 		protected array $options = []
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets the URL builder instance.
@@ -68,13 +68,11 @@ class PaginationFactory implements PaginationFactoryInterface
 
 		$pagination->setRequest($this->request);
 
-		if(!empty($this->urlBuilder))
-		{
+		if (!empty($this->urlBuilder)) {
 			$pagination->setURLBuilder($this->urlBuilder);
 		}
 
-		if(!empty($this->viewFactory))
-		{
+		if (!empty($this->viewFactory)) {
 			$pagination->setViewFactory($this->viewFactory);
 		}
 

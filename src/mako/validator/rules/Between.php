@@ -20,8 +20,8 @@ class Between extends Rule implements RuleInterface
 	public function __construct(
 		protected mixed $minimum,
 		protected mixed $maximum
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

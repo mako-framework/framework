@@ -45,8 +45,8 @@ class Output
 		protected WriterInterface $error,
 		protected ?FormatterInterface $formatter = null,
 		protected Environment $environment = new Environment
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the chosen writer.
@@ -109,17 +109,14 @@ class Output
 	 */
 	public function write(string $string, int $writer = Output::STANDARD): void
 	{
-		if($this->muted)
-		{
+		if ($this->muted) {
 			return;
 		}
 
 		$writer = $this->getWriter($writer);
 
-		if($this->formatter !== null)
-		{
-			if($this->environment->hasAnsiSupport() === false || $writer->isDirect() === false)
-			{
+		if ($this->formatter !== null) {
+			if ($this->environment->hasAnsiSupport() === false || $writer->isDirect() === false) {
 				$string = $this->formatter->stripTags($string);
 			}
 
@@ -166,8 +163,7 @@ class Output
 	 */
 	public function clear(): void
 	{
-		if($this->environment->hasAnsiSupport())
-		{
+		if ($this->environment->hasAnsiSupport()) {
 			$this->write("\e[H\e[2J");
 		}
 	}
@@ -177,8 +173,7 @@ class Output
 	 */
 	public function clearLine(): void
 	{
-		if($this->environment->hasAnsiSupport())
-		{
+		if ($this->environment->hasAnsiSupport()) {
 			$this->write("\r\33[2K");
 		}
 	}
@@ -188,12 +183,9 @@ class Output
 	 */
 	public function clearLines(int $lines): void
 	{
-		if($this->environment->hasAnsiSupport())
-		{
-			for($i = 0; $i < $lines; $i++)
-			{
-				if($i > 0)
-				{
+		if ($this->environment->hasAnsiSupport()) {
+			for ($i = 0; $i < $lines; $i++) {
+				if ($i > 0) {
 					$this->write("\033[F");
 				}
 

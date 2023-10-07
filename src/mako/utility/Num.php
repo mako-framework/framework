@@ -25,13 +25,11 @@ class Num
 	{
 		$int = (int) $int;
 
-		if($int < 1 || $int > 3999)
-		{
+		if ($int < 1 || $int > 3999) {
 			throw new NumException('The number must be between 1 and 3999.');
 		}
 
-		$numerals =
-		[
+		$numerals = [
 			'M'  => 1000,
 			'CM' => 900,
 			'D'  => 500,
@@ -49,12 +47,10 @@ class Num
 
 		$romanNumeral = '';
 
-		foreach($numerals as $roman => $arabic)
-		{
+		foreach ($numerals as $roman => $arabic) {
 			$count = (int) ($int / $arabic);
 
-			if($count === 0)
-			{
+			if ($count === 0) {
 				continue;
 			}
 
@@ -62,8 +58,7 @@ class Num
 
 			$int %= $arabic;
 
-			if($int === 0)
-			{
+			if ($int === 0) {
 				break;
 			}
 		}
@@ -76,13 +71,11 @@ class Num
 	 */
 	public static function roman2arabic(string $str): int
 	{
-		if(empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) !== 1)
-		{
+		if (empty($str) || preg_match('/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i', $str) !== 1) {
 			throw new NumException('Invalid roman numeral. Only values between I and MMMCMXCIX are allowed.');
 		}
 
-		$numerals =
-		[
+		$numerals = [
 			'M'  => 1000,
 			'D'  => 500,
 			'C'  => 100,
@@ -96,12 +89,10 @@ class Num
 
 		$previous = 0;
 
-		foreach(str_split($str) as $numeral)
-		{
+		foreach (str_split($str) as $numeral) {
 			$arabicNumeral += $numerals[$numeral];
 
-			if($previous < $numerals[$numeral])
-			{
+			if ($previous < $numerals[$numeral]) {
 				$arabicNumeral -= ($previous * 2);
 			}
 

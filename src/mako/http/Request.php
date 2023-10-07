@@ -182,8 +182,7 @@ class Request
 
 		$this->scriptName = $scriptName ?? basename($this->server->get('SCRIPT_FILENAME', ''));
 
-		if($this->scriptName === 'reactor')
-		{
+		if ($this->scriptName === 'reactor') {
 			$this->scriptName = 'index.php';
 		}
 
@@ -201,10 +200,8 @@ class Request
 	 */
 	protected function stripLocaleSegment(array $languages, string $path): string
 	{
-		foreach($languages as $key => $language)
-		{
-			if($path === "/{$key}" || strpos($path, "/{$key}/") === 0)
-			{
+		foreach ($languages as $key => $language) {
+			if ($path === "/{$key}" || strpos($path, "/{$key}/") === 0) {
 				$this->language = $language;
 
 				$this->languagePrefix = $key;
@@ -227,29 +224,24 @@ class Request
 
 		$server = $this->server->all();
 
-		if(isset($server['PATH_INFO']))
-		{
+		if (isset($server['PATH_INFO'])) {
 			$path = $server['PATH_INFO'];
 		}
-		elseif(isset($server['REQUEST_URI']))
-		{
-			if($parsed = parse_url($server['REQUEST_URI'], PHP_URL_PATH))
-			{
+		elseif (isset($server['REQUEST_URI'])) {
+			if ($parsed = parse_url($server['REQUEST_URI'], PHP_URL_PATH)) {
 				$path = $parsed;
 
 				// Remove base path from the request path
 
 				$basePath = pathinfo($server['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
-				if($basePath !== '/' && stripos($path, $basePath) === 0)
-				{
+				if ($basePath !== '/' && stripos($path, $basePath) === 0) {
 					$path = mb_substr($path, mb_strlen($basePath));
 				}
 
 				// Remove "/index.php" from the path
 
-				if(stripos($path, "/{$this->scriptName}") === 0)
-				{
+				if (stripos($path, "/{$this->scriptName}") === 0) {
 					$path = mb_substr($path, (strlen($this->scriptName) + 1));
 				}
 
@@ -267,8 +259,7 @@ class Request
 	{
 		$this->realMethod = $method = strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
 
-		if($method === 'POST')
-		{
+		if ($method === 'POST') {
 			return strtoupper($this->post->get('REQUEST_METHOD_OVERRIDE', $this->server->get('HTTP_X_HTTP_METHOD_OVERRIDE', 'POST')));
 		}
 
@@ -281,8 +272,7 @@ class Request
 	 */
 	public function getContentType(): string
 	{
-		if($this->contentType === null)
-		{
+		if ($this->contentType === null) {
 			$this->contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
 		}
 
@@ -334,8 +324,7 @@ class Request
 	 */
 	public function getRawBody(): string
 	{
-		if($this->rawBody === null)
-		{
+		if ($this->rawBody === null) {
 			$this->rawBody = file_get_contents('php://input');
 		}
 
@@ -405,8 +394,7 @@ class Request
 	 */
 	public function getBody(): Body
 	{
-		if($this->parsedBody === null)
-		{
+		if ($this->parsedBody === null) {
 			$this->parsedBody = new Body($this->getRawBody(), $this->getContentType());
 		}
 
@@ -420,8 +408,7 @@ class Request
 	{
 		$contentType = $this->getContentType();
 
-		if($contentType === 'application/x-www-form-urlencoded' || $contentType === 'multipart/form-data')
-		{
+		if ($contentType === 'application/x-www-form-urlencoded' || $contentType === 'multipart/form-data') {
 			return true;
 		}
 
@@ -433,12 +420,10 @@ class Request
 	 */
 	public function getData(): Parameters
 	{
-		if($this->realMethod === 'GET')
-		{
+		if ($this->realMethod === 'GET') {
 			return $this->getQuery();
 		}
-		elseif($this->realMethod === 'POST' && $this->hasFormData())
-		{
+		elseif ($this->realMethod === 'POST' && $this->hasFormData()) {
 			return $this->getPost();
 		}
 
@@ -458,10 +443,8 @@ class Request
 	 */
 	protected function isTrustedProxy(string $ip): bool
 	{
-		foreach($this->trustedProxies as $trustedProxy)
-		{
-			if(IP::inRange($ip, $trustedProxy))
-			{
+		foreach ($this->trustedProxies as $trustedProxy) {
+			if (IP::inRange($ip, $trustedProxy)) {
 				return true;
 			}
 		}
@@ -474,22 +457,17 @@ class Request
 	 */
 	public function getIp(): string
 	{
-		if($this->ip === null)
-		{
+		if ($this->ip === null) {
 			$ip = $this->server->get('REMOTE_ADDR');
 
-			if($ip !== null && $this->isTrustedProxy($ip))
-			{
+			if ($ip !== null && $this->isTrustedProxy($ip)) {
 				$ips = $this->server->get('HTTP_X_FORWARDED_FOR');
 
-				if(!empty($ips))
-				{
+				if (!empty($ips)) {
 					$ips = array_reverse(array_map('trim', explode(',', $ips)));
 
-					foreach($ips as $key => $value)
-					{
-						if($this->isTrustedProxy($value) === false)
-						{
+					foreach ($ips as $key => $value) {
+						if ($this->isTrustedProxy($value) === false) {
 							break;
 						}
 
@@ -519,10 +497,8 @@ class Request
 	 */
 	public function isSecure(): bool
 	{
-		if($this->isSecure === null)
-		{
-			if($this->isTrustedProxy($this->server->get('REMOTE_ADDR', static::REMOTE_ADDRESS_FALLBACK)) && $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https')
-			{
+		if ($this->isSecure === null) {
+			if ($this->isTrustedProxy($this->server->get('REMOTE_ADDR', static::REMOTE_ADDRESS_FALLBACK)) && $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https') {
 				return $this->isSecure = true;
 			}
 
@@ -569,8 +545,7 @@ class Request
 	 */
 	public function getBasePath(): string
 	{
-		if($this->basePath === null)
-		{
+		if ($this->basePath === null) {
 			$path = $this->server->get('SCRIPT_NAME', '');
 
 			$this->basePath = rtrim(str_replace(basename($path), '', $path), '/');
@@ -584,22 +559,19 @@ class Request
 	 */
 	public function getBaseURL(): string
 	{
-		if($this->baseURL === null)
-		{
+		if ($this->baseURL === null) {
 			// Get the protocol
 
 			$protocol = $this->isSecure() ? 'https://' : 'http://';
 
 			// Get the server name and port
 
-			if(($host = $this->server->get('HTTP_HOST')) === null)
-			{
+			if (($host = $this->server->get('HTTP_HOST')) === null) {
 				$host = $this->server->get('SERVER_NAME');
 
 				$port = $this->server->get('SERVER_PORT');
 
-				if($port !== null && $port != 80)
-				{
+				if ($port !== null && $port != 80) {
 					$host = "{$host}:{$port}";
 				}
 			}

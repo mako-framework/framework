@@ -32,16 +32,15 @@ class Unique extends Rule implements RuleInterface
 		protected mixed $allowed,
 		protected ?string $connection,
 		protected ConnectionManager $database
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		if($this->allowed !== null && $this->allowed === $value)
-		{
+		if ($this->allowed !== null && $this->allowed === $value) {
 			return true;
 		}
 
@@ -50,8 +49,7 @@ class Unique extends Rule implements RuleInterface
 		->table($this->table)
 		->where($this->column, '=', $value);
 
-		if($this->allowed !== null)
-		{
+		if ($this->allowed !== null) {
 			$count->where($this->column, '!=', $this->allowed);
 		}
 

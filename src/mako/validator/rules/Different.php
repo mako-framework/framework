@@ -21,8 +21,8 @@ class Different extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected string $field
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

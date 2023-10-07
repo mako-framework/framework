@@ -17,8 +17,8 @@ abstract class Type implements TypeInterface
 	 */
 	public function __construct(
 		protected mixed $value
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

@@ -34,8 +34,8 @@ class UserRepository implements UserRepositoryInterface
 	public function __construct(
 		protected string $model,
 		protected ?AuthorizerInterface $authorizer = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns a model instance.
@@ -50,8 +50,7 @@ class UserRepository implements UserRepositoryInterface
 	 */
 	public function setIdentifier(string $identifier): void
 	{
-		if(!in_array($identifier, ['email', 'username', 'id']))
-		{
+		if (!in_array($identifier, ['email', 'username', 'id'])) {
 			throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
 		}
 
@@ -63,8 +62,7 @@ class UserRepository implements UserRepositoryInterface
 	 */
 	protected function setAuthorizer(?User $user): ?User
 	{
-		if($user !== null && $this->authorizer !== null && $user instanceof AuthorizableInterface)
-		{
+		if ($user !== null && $this->authorizer !== null && $user instanceof AuthorizableInterface) {
 			$user->setAuthorizer($this->authorizer);
 		}
 
@@ -78,8 +76,7 @@ class UserRepository implements UserRepositoryInterface
 	{
 		$user = $this->getModel();
 
-		foreach($properties as $property => $value)
-		{
+		foreach ($properties as $property => $value) {
 			$user->$property = $value;
 		}
 
@@ -139,8 +136,7 @@ class UserRepository implements UserRepositoryInterface
 	 */
 	public function getByIdentifier(int|string $identifier): ?User
 	{
-		return match($this->identifier)
-		{
+		return match ($this->identifier) {
 			'email'    => $this->getByEmail($identifier),
 			'username' => $this->getByUsername($identifier),
 			'id'       => $this->getById($identifier),

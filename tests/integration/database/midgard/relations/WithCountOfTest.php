@@ -70,14 +70,11 @@ class WithCountOfTest extends ORMTestCase
 	 */
 	public function testMultipleWithCountOfWithCriteria(): void
 	{
-		$user = (new WithCountOfUser)->withCountOf
-		([
-			'articles as no_articles_count' => function ($query): void
-			{
+		$user = (new WithCountOfUser)->withCountOf([
+			'articles as no_articles_count' => function ($query): void {
 				$query->where('articles.id', '=', 0);
 			},
-			'profile AS no_profile_count' => function ($query): void
-			{
+			'profile AS no_profile_count' => function ($query): void {
 				$query->where('profiles.id', '=', 0);
 			},
 		])->select(['id'])->get(1);

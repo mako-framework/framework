@@ -22,8 +22,8 @@ class Logger implements LoggerInterface
 	 */
 	public function __construct(
 		protected LoggerInterface $logger
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the underlying logger instance.

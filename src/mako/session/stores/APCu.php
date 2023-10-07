@@ -23,8 +23,8 @@ class APCu implements StoreInterface
 	 */
 	public function __construct(
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

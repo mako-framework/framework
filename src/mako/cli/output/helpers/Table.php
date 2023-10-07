@@ -35,8 +35,7 @@ class Table
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{
+	) {
 		$this->formatter = $output->getFormatter();
 	}
 
@@ -47,12 +46,9 @@ class Table
 	{
 		$columns = count($columnNames);
 
-		if(!empty($rows))
-		{
-			foreach($rows as $row)
-			{
-				if(count($row) !== $columns)
-				{
+		if (!empty($rows)) {
+			foreach ($rows as $row) {
+				if (count($row) !== $columns) {
 					return false;
 				}
 			}
@@ -70,21 +66,17 @@ class Table
 
 		// First we'll get the width of the column names
 
-		foreach(array_values($columnNames) as $key => $value)
-		{
+		foreach (array_values($columnNames) as $key => $value) {
 			$columnWidths[$key] = $this->stringWidthWithoutFormatting($value);
 		}
 
 		// Then we'll go through each row and check if the cells are wider than the column names
 
-		foreach($rows as $row)
-		{
-			foreach(array_values($row) as $key => $value)
-			{
+		foreach ($rows as $row) {
+			foreach (array_values($row) as $key => $value) {
 				$width = $this->stringWidthWithoutFormatting($value);
 
-				if($width > $columnWidths[$key])
-				{
+				if ($width > $columnWidths[$key]) {
 					$columnWidths[$key] = $width;
 				}
 			}
@@ -112,8 +104,7 @@ class Table
 	{
 		$cells = [];
 
-		foreach(array_values($colums) as $key => $value)
-		{
+		foreach (array_values($colums) as $key => $value) {
 			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->stringWidthWithoutFormatting($value));
 		}
 
@@ -125,8 +116,7 @@ class Table
 	 */
 	public function render(array $columnNames, array $rows): string
 	{
-		if(!$this->isValidInput($columnNames, $rows))
-		{
+		if (!$this->isValidInput($columnNames, $rows)) {
 			throw new CliException('The number of cells in each row must match the number of columns.');
 		}
 
@@ -140,8 +130,7 @@ class Table
 
 		// Add table rows
 
-		foreach($rows as $row)
-		{
+		foreach ($rows as $row) {
 			$table .= $this->buildTableRow($row, $columnWidths);
 		}
 

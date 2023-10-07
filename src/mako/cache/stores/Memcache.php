@@ -33,15 +33,13 @@ class Memcache extends Store
 	{
 		$this->memcache = new PHPMemcache;
 
-		if($compressData === true)
-		{
+		if ($compressData === true) {
 			$this->compressionLevel = MEMCACHE_COMPRESSED;
 		}
 
 		// Add servers to the connection pool
 
-		foreach($servers as $server)
-		{
+		foreach ($servers as $server) {
 			$this->memcache->addServer($server['server'], $server['port'], $server['persistent_connection'], $server['weight'], $timeout);
 		}
 	}
@@ -51,15 +49,13 @@ class Memcache extends Store
 	 */
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
-		if($ttl !== 0)
-		{
+		if ($ttl !== 0) {
 			$ttl += time();
 		}
 
 		$key = $this->getPrefixedKey($key);
 
-		if($this->memcache->replace($key, $data, $this->compressionLevel, $ttl) === false)
-		{
+		if ($this->memcache->replace($key, $data, $this->compressionLevel, $ttl) === false) {
 			return $this->memcache->set($key, $data, $this->compressionLevel, $ttl);
 		}
 
@@ -71,8 +67,7 @@ class Memcache extends Store
 	 */
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
-		if($ttl !== 0)
-		{
+		if ($ttl !== 0) {
 			$ttl += time();
 		}
 

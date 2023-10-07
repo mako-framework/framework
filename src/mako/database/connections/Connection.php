@@ -111,8 +111,7 @@ class Connection
 		protected string $queryCompiler,
 		protected string $queryBuilderHelper,
 		array $config
-	)
-	{
+	) {
 		// Configure the connection
 
 		$this->dsn = $config['dsn'];
@@ -221,8 +220,7 @@ class Connection
 	 */
 	protected function getConnectionOptions(): array
 	{
-		return $this->options +
-		[
+		return $this->options + [
 			PDO::ATTR_PERSISTENT         => $this->usePersistentConnection,
 			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
@@ -238,19 +236,16 @@ class Connection
 	{
 		// Connect to the database
 
-		try
-		{
+		try {
 			$pdo = new PDO($this->dsn, $this->username, $this->password, $this->getConnectionOptions());
 		}
-		catch(PDOException $e)
-		{
+		catch (PDOException $e) {
 			throw new DatabaseException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), previous: $e);
 		}
 
 		// Run queries
 
-		foreach($this->onConnectQueries as $query)
-		{
+		foreach ($this->onConnectQueries as $query) {
 			$pdo->exec($query);
 		}
 
@@ -272,12 +267,10 @@ class Connection
 	 */
 	public function isAlive(): bool
 	{
-		try
-		{
+		try {
 			$this->pdo->query('SELECT 1');
 		}
-		catch(PDOException $e)
-		{
+		catch (PDOException $e) {
 			return false;
 		}
 
@@ -289,28 +282,22 @@ class Connection
 	 */
 	protected function prepareQueryForLog(string $query, array $params): string
 	{
-		return preg_replace_callback('/\?/', function () use (&$params)
-		{
+		return preg_replace_callback('/\?/', function () use (&$params) {
 			$param = array_shift($params);
 
-			if(is_int($param) || is_float($param))
-			{
+			if (is_int($param) || is_float($param)) {
 				return $param;
 			}
-			elseif(is_bool(($param)))
-			{
+			elseif (is_bool(($param))) {
 				return $param ? 'TRUE' : 'FALSE';
 			}
-			elseif(is_null($param))
-			{
+			elseif (is_null($param)) {
 				return 'NULL';
 			}
-			elseif(is_object($param))
-			{
+			elseif (is_object($param)) {
 				return $param::class;
 			}
-			else
-			{
+			else {
 				return $this->pdo->quote($param);
 			}
 		}, $query);
@@ -353,12 +340,9 @@ class Connection
 
 		replace:
 
-		if(strpos($query, '([?])') !== false)
-		{
-			foreach($params as $key => $value)
-			{
-				if(is_array($value))
-				{
+		if (strpos($query, '([?])') !== false) {
+			foreach ($params as $key => $value) {
+				if (is_array($value)) {
 					array_splice($params, $key, 1, $value);
 
 					$query = preg_replace('/\(\[\?\]\)/', '(' . trim(str_repeat('?, ', count($value)), ', ') . ')', $query, 1);
@@ -386,30 +370,24 @@ class Connection
 	 */
 	protected function bindParameter(PDOStatement $statement, int $key, mixed $value): void
 	{
-		if(is_string($value))
-		{
+		if (is_string($value)) {
 			$type = PDO::PARAM_STR;
 		}
-		elseif(is_int($value))
-		{
+		elseif (is_int($value)) {
 			$type = PDO::PARAM_INT;
 		}
-		elseif(is_bool($value))
-		{
+		elseif (is_bool($value)) {
 			$type = PDO::PARAM_BOOL;
 		}
-		elseif(is_null($value))
-		{
+		elseif (is_null($value)) {
 			$type = PDO::PARAM_NULL;
 		}
-		elseif(is_object($value) && $value instanceof TypeInterface)
-		{
+		elseif (is_object($value) && $value instanceof TypeInterface) {
 			$value = $value->getValue();
 
 			$type = $value->getType();
 		}
-		else
-		{
+		else {
 			$type = PDO::PARAM_STR;
 		}
 
@@ -427,16 +405,13 @@ class Connection
 
 		// Create prepared statement
 
-		try
-		{
+		try {
 			prepare:
 
 			$statement = $this->pdo->prepare($query);
 		}
-		catch(PDOException $e)
-		{
-			if($this->isConnectionLostAndShouldItBeReestablished())
-			{
+		catch (PDOException $e) {
+			if ($this->isConnectionLostAndShouldItBeReestablished()) {
 				$this->reconnect();
 
 				goto prepare;
@@ -447,28 +422,23 @@ class Connection
 
 		// Bind parameters
 
-		foreach($params as $key => $value)
-		{
+		foreach ($params as $key => $value) {
 			$this->bindParameter($statement, $key, $value);
 		}
 
 		// Execute the query and return the statement
 
-		if($this->enableLog)
-		{
+		if ($this->enableLog) {
 			$start = microtime(true);
 		}
 
-		try
-		{
+		try {
 			execute:
 
 			$success = $statement->execute();
 		}
-		catch(PDOException $e)
-		{
-			if($this->isConnectionLostAndShouldItBeReestablished())
-			{
+		catch (PDOException $e) {
+			if ($this->isConnectionLostAndShouldItBeReestablished()) {
 				$this->reconnect();
 
 				goto execute;
@@ -477,8 +447,7 @@ class Connection
 			throw new DatabaseException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e);
 		}
 
-		if($this->enableLog)
-		{
+		if ($this->enableLog) {
 			$this->log($query, $params, $start);
 		}
 
@@ -510,8 +479,7 @@ class Connection
 	{
 		$statement = $this->prepareAndExecute($query, $params);
 
-		if(!empty($fetchMode))
-		{
+		if (!empty($fetchMode)) {
 			$statement->setFetchMode(...$fetchMode);
 		}
 
@@ -523,8 +491,7 @@ class Connection
 	 */
 	public function firstOrThrow(string $query, array $params = [], string $exception = NotFoundException::class, mixed ...$fetchMode): mixed
 	{
-		if(($row = $this->first($query, $params, ...$fetchMode)) === null)
-		{
+		if (($row = $this->first($query, $params, ...$fetchMode)) === null) {
 			throw new $exception;
 		}
 
@@ -570,20 +537,16 @@ class Connection
 	{
 		$statement = $this->prepareAndExecute($query, $params);
 
-		if(!empty($fetchMode))
-		{
+		if (!empty($fetchMode)) {
 			$statement->setFetchMode(...$fetchMode);
 		}
 
-		try
-		{
-			while($row = $statement->fetch())
-			{
+		try {
+			while ($row = $statement->fetch()) {
 				yield $row;
 			}
 		}
-		finally
-		{
+		finally {
 			$statement->closeCursor();
 		}
 	}
@@ -617,8 +580,7 @@ class Connection
 	 */
 	public function beginTransaction(): bool
 	{
-		if($this->transactionNestingLevel++ === 0)
-		{
+		if ($this->transactionNestingLevel++ === 0) {
 			return $this->pdo->beginTransaction();
 		}
 
@@ -630,8 +592,7 @@ class Connection
 	 */
 	public function commitTransaction(): bool
 	{
-		if($this->transactionNestingLevel > 0 && --$this->transactionNestingLevel === 0)
-		{
+		if ($this->transactionNestingLevel > 0 && --$this->transactionNestingLevel === 0) {
 			return $this->pdo->commit();
 		}
 
@@ -643,14 +604,11 @@ class Connection
 	 */
 	public function rollBackTransaction(): bool
 	{
-		if($this->transactionNestingLevel > 0)
-		{
-			if($this->transactionNestingLevel > 1)
-			{
+		if ($this->transactionNestingLevel > 0) {
+			if ($this->transactionNestingLevel > 1) {
 				$success = $this->rollBackSavepoint();
 			}
-			else
-			{
+			else {
 				$success =  $this->pdo->rollBack();
 			}
 
@@ -683,16 +641,14 @@ class Connection
 	 */
 	public function transaction(Closure $queries): mixed
 	{
-		try
-		{
+		try {
 			$this->beginTransaction();
 
 			$returnValue = $queries($this);
 
 			$this->commitTransaction();
 		}
-		catch(Throwable $e)
-		{
+		catch (Throwable $e) {
 			$this->rollBackTransaction();
 
 			throw new DatabaseException('Exception caught. The transaction has been rolled back.', previous: $e);

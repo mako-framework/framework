@@ -25,8 +25,8 @@ class CommandBus implements CommandBusInterface
 	 */
 	public function __construct(
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

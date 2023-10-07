@@ -19,8 +19,8 @@ class LessThanOrEqualTo extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected mixed $lessThanOrEqualTo
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

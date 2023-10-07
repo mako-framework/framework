@@ -25,8 +25,7 @@ class Remove extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-c|--configuration', 'Configuration name', Argument::IS_OPTIONAL),
 			new Argument('-k|--key', 'Cache key'),
 		];
@@ -39,8 +38,7 @@ class Remove extends Command
 	 */
 	public function execute(CacheManager $cache, string $key, ?string $configuration = null)
 	{
-		if($configuration !== null && $this->checkConfigurationExistence($configuration) === false)
-		{
+		if ($configuration !== null && $this->checkConfigurationExistence($configuration) === false) {
 			return static::STATUS_ERROR;
 		}
 

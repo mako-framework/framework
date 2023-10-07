@@ -23,8 +23,8 @@ class IP extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected ?string $version = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.
@@ -36,8 +36,7 @@ class IP extends Rule implements RuleInterface
 	 */
 	protected function getFlags(): int
 	{
-		return match($this->version)
-		{
+		return match ($this->version) {
 			'v4'    => FILTER_FLAG_IPV4,
 			'v6'    => FILTER_FLAG_IPV6,
 			null    => 0,
@@ -50,8 +49,7 @@ class IP extends Rule implements RuleInterface
 	 */
 	protected function getVersion(): string
 	{
-		return match($this->version)
-		{
+		return match ($this->version) {
 			'v4'    => 'IPv4',
 			'v6'    => 'IPv6',
 			default => 'IP',

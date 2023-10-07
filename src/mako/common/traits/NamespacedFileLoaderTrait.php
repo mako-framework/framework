@@ -64,20 +64,17 @@ trait NamespacedFileLoaderTrait
 	 */
 	protected function getFilePath(string $file, ?string $extension = null, ?string $suffix = null): string
 	{
-		if(strpos($file, '::') === false)
-		{
+		if (strpos($file, '::') === false) {
 			// No namespace so we'll just use the default path
 
 			$path = $this->path;
 		}
-		else
-		{
+		else {
 			// The file is namespaced so we'll use the namespace path
 
 			[$namespace, $file] = explode('::', $file, 2);
 
-			if(!isset($this->namespaces[$namespace]))
-			{
+			if (!isset($this->namespaces[$namespace])) {
 				throw new NamespacedFileLoaderTraitException(vsprintf('The [ %s ] namespace does not exist.', [$namespace]));
 			}
 
@@ -86,8 +83,7 @@ trait NamespacedFileLoaderTrait
 
 		// Append suffix to path if needed
 
-		if($suffix !== null)
-		{
+		if ($suffix !== null) {
 			$path .= DIRECTORY_SEPARATOR . $suffix;
 		}
 
@@ -103,14 +99,12 @@ trait NamespacedFileLoaderTrait
 	{
 		$paths = [];
 
-		if(strpos($file, '::') === false)
-		{
+		if (strpos($file, '::') === false) {
 			// No namespace so we'll just have add a single file
 
 			$paths[] = $this->getFilePath($file, $extension, $suffix);
 		}
-		else
-		{
+		else {
 			// Add the namespaced file first
 
 			$paths[] = $this->getFilePath($file, $extension, $suffix);

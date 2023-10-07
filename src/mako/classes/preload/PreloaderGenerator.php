@@ -49,35 +49,27 @@ class PreloaderGenerator
 	{
 		$classes = [];
 
-		if($type instanceof ReflectionNamedType)
-		{
+		if ($type instanceof ReflectionNamedType) {
 			$class = $type->getName();
 
-			if(!$type->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
-			{
+			if (!$type->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined()) {
 				$classes[] = $class;
 			}
 		}
-		elseif($type instanceof ReflectionIntersectionType)
-		{
+		elseif ($type instanceof ReflectionIntersectionType) {
 			/** @var \ReflectionNamedType $intersectionType */
-			foreach($type->getTypes() as $intersectionType)
-			{
+			foreach ($type->getTypes() as $intersectionType) {
 				$class = $intersectionType->getName();
 
-				if((class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
-				{
+				if ((class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined()) {
 					$classes[] = $class;
 				}
 			}
 		}
-		elseif($type instanceof ReflectionUnionType)
-		{
+		elseif ($type instanceof ReflectionUnionType) {
 			/** @var \ReflectionIntersectionType|\ReflectionNamedType $unionType */
-			foreach($type->getTypes() as $unionType)
-			{
-				if(PHP_VERSION_ID >= 80200 && $unionType instanceof ReflectionIntersectionType)
-				{
+			foreach ($type->getTypes() as $unionType) {
+				if (PHP_VERSION_ID >= 80200 && $unionType instanceof ReflectionIntersectionType) {
 					$classes = [...$classes, ...$this->getTypeClasses($unionType)];
 
 					continue;
@@ -85,8 +77,7 @@ class PreloaderGenerator
 
 				$class = $unionType->getName();
 
-				if(!$unionType->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined())
-				{
+				if (!$unionType->isBuiltin() && (class_exists($class) || interface_exists($class)) && (new ReflectionClass($class))->isUserDefined()) {
 					$classes[] = $class;
 				}
 			}
@@ -100,38 +91,30 @@ class PreloaderGenerator
 	 */
 	protected function addMissingDependencies(iterable $classes): array
 	{
-		do
-		{
+		do {
 			$previous = $classes;
 
 			// Add missing parent classes, interfaces and traits
 
 			$merged = [];
 
-			foreach($classes as $class)
-			{
+			foreach ($classes as $class) {
 				$merged[] = $class;
 
-				foreach(ClassInspector::getParents($class) as $parent)
-				{
-					if((new ReflectionClass($parent))->isUserDefined())
-					{
+				foreach (ClassInspector::getParents($class) as $parent) {
+					if ((new ReflectionClass($parent))->isUserDefined()) {
 						$merged[] = $parent;
 					}
 				}
 
-				foreach(ClassInspector::getInterfaces($class) as $interface)
-				{
-					if((new ReflectionClass($interface))->isUserDefined())
-					{
+				foreach (ClassInspector::getInterfaces($class) as $interface) {
+					if ((new ReflectionClass($interface))->isUserDefined()) {
 						$merged[] = $interface;
 					}
 				}
 
-				foreach(ClassInspector::getTraits($class) as $trait)
-				{
-					if((new ReflectionClass($trait))->isUserDefined())
-					{
+				foreach (ClassInspector::getTraits($class) as $trait) {
+					if ((new ReflectionClass($trait))->isUserDefined()) {
 						$merged[] = $trait;
 					}
 				}
@@ -143,32 +126,25 @@ class PreloaderGenerator
 
 			$merged = [];
 
-			foreach($classes as $class)
-			{
+			foreach ($classes as $class) {
 				$merged[] = $class;
 
 				$reflection = new ReflectionClass($class);
 
-				foreach($reflection->getProperties() as $property)
-				{
-					if(($type = $property->getType()) !== null)
-					{
+				foreach ($reflection->getProperties() as $property) {
+					if (($type = $property->getType()) !== null) {
 						$merged = [...$merged, ...$this->getTypeClasses($type)];
 					}
 				}
 
-				foreach($reflection->getMethods() as $method)
-				{
-					foreach($method->getParameters() as $parameter)
-					{
-						if(($type = $parameter->getType()) !== null)
-						{
+				foreach ($reflection->getMethods() as $method) {
+					foreach ($method->getParameters() as $parameter) {
+						if (($type = $parameter->getType()) !== null) {
 							$merged = [...$merged, ...$this->getTypeClasses($type)];
 						}
 					}
 
-					if(($type = $method->getReturnType()) !== null)
-					{
+					if (($type = $method->getReturnType()) !== null) {
 						$merged = [...$merged, ...$this->getTypeClasses($type)];
 					}
 				}
@@ -176,7 +152,7 @@ class PreloaderGenerator
 
 			$classes = array_unique($merged);
 		}
-		while($classes !== $previous);
+		while ($classes !== $previous);
 
 		// Return the complete list of classes to preload
 

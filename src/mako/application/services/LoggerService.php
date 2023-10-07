@@ -32,21 +32,17 @@ class LoggerService extends Service
 	 */
 	protected function getUserContext(): ?array
 	{
-		if($this->app->isCommandLine() === false)
-		{
-			try
-			{
+		if ($this->app->isCommandLine() === false) {
+			try {
 				$user = ['ip_address' => $this->container->get(Request::class)->getIp()];
 
-				if($this->container->has(Gatekeeper::class) && ($gatekeeperUser = $this->container->get(Gatekeeper::class)->getUser()) !== null)
-				{
+				if ($this->container->has(Gatekeeper::class) && ($gatekeeperUser = $this->container->get(Gatekeeper::class)->getUser()) !== null) {
 					$user += ['id' => $gatekeeperUser->getId(), 'username' => $gatekeeperUser->getUsername()];
 				}
 
 				return $user;
 			}
-			catch(Throwable $e)
-			{
+			catch (Throwable $e) {
 				return null;
 			}
 		}
@@ -60,8 +56,7 @@ class LoggerService extends Service
 	{
 		$context = [];
 
-		if(($user = $this->getUserContext()) !== null)
-		{
+		if (($user = $this->getUserContext()) !== null) {
 			$context['user'] = $user;
 		}
 
@@ -123,14 +118,12 @@ class LoggerService extends Service
 	{
 		$config = $this->config->get('application.logger');
 
-		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function () use ($config)
-		{
+		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function () use ($config) {
 			$processors = ($config['replace_placeholders'] ?? true) === false ? [] : [new PsrLogMessageProcessor];
 
 			$monolog = new MonoLogger($config['channel'] ?? 'mako', processors: $processors);
 
-			foreach($config['handler'] as $handler)
-			{
+			foreach ($config['handler'] as $handler) {
 				$monolog->pushHandler($this->getHandler($handler));
 			}
 

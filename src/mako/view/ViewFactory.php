@@ -62,8 +62,7 @@ class ViewFactory
 		string $path,
 		string $charset = 'UTF-8',
 		protected Container $container = new Container
-	)
-	{
+	) {
 		$this->path = $path;
 
 		$this->globalVariables['__viewfactory__'] = $this;
@@ -114,8 +113,7 @@ class ViewFactory
 	 */
 	public function autoAssign($view, callable $variables): ViewFactory
 	{
-		foreach((array) $view as $name)
-		{
+		foreach ((array) $view as $name) {
 			$this->autoAssignVariables[$name] = $variables;
 		}
 
@@ -137,18 +135,14 @@ class ViewFactory
 	 */
 	protected function getViewPathAndExtension(string $view, bool $throwException = true)
 	{
-		if(!isset($this->viewCache[$view]))
-		{
+		if (!isset($this->viewCache[$view])) {
 			// Loop throught the avaiable extensions and check if the view exists
 
-			foreach($this->renderers as $extension => $renderer)
-			{
+			foreach ($this->renderers as $extension => $renderer) {
 				$paths = $this->getCascadingFilePaths($view, $extension);
 
-				foreach($paths as $path)
-				{
-					if($this->fileSystem->has($path))
-					{
+				foreach ($paths as $path) {
+					if ($this->fileSystem->has($path)) {
 						return $this->viewCache[$view] = [$path, $extension];
 					}
 				}
@@ -156,8 +150,7 @@ class ViewFactory
 
 			// We didn't find the view so we'll throw an exception or return false
 
-			if($throwException)
-			{
+			if ($throwException) {
 				throw new ViewException(vsprintf('The [ %s ] view does not exist.', [$view]));
 			}
 
@@ -180,8 +173,7 @@ class ViewFactory
 	 */
 	protected function resolveRenderer(string $extension): RendererInterface
 	{
-		if(!isset($this->rendererInstances[$extension]))
-		{
+		if (!isset($this->rendererInstances[$extension])) {
 			$this->rendererInstances[$extension] = $this->rendererFactory($this->renderers[$extension]);
 		}
 
@@ -201,8 +193,7 @@ class ViewFactory
 	 */
 	protected function getAutoAssignVariablesForView(string $view): array
 	{
-		if(!isset($this->autoAssignVariables[$view]))
-		{
+		if (!isset($this->autoAssignVariables[$view])) {
 			return [];
 		}
 

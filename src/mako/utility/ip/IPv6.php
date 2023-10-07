@@ -24,16 +24,13 @@ class IPv6
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{
-		if(strpos($range, '/') === false)
-		{
+		if (strpos($range, '/') === false) {
 			$netmask = 128;
 		}
-		else
-		{
+		else {
 			[$range, $netmask] = explode('/', $range, 2);
 
-			if($netmask < 1 || $netmask > 128)
-			{
+			if ($netmask < 1 || $netmask > 128) {
 				return false;
 			}
 		}
@@ -41,13 +38,11 @@ class IPv6
 		$ip    = inet_pton($ip);
 		$range = inet_pton($range);
 
-		if($ip === false || $range === false)
-		{
+		if ($ip === false || $range === false) {
 			return false;
 		}
 
-		$binNetmask = str_repeat('f', (int) ($netmask / 4)) . match($netmask % 4)
-		{
+		$binNetmask = str_repeat('f', (int) ($netmask / 4)) . match ($netmask % 4) {
 			1       => '8',
 			2       => 'c',
 			3       => 'e',

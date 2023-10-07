@@ -24,10 +24,8 @@ class Enum extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected string $enum
-	)
-	{
-		if(enum_exists($this->enum) === false)
-		{
+	) {
+		if (enum_exists($this->enum) === false) {
 			throw new ValidatorException(vsprintf('[ %s ] is not a valid enum.', [$this->enum]));
 		}
 	}
@@ -37,15 +35,12 @@ class Enum extends Rule implements RuleInterface
 	 */
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		if(method_exists($this->enum, 'tryFrom'))
-		{
+		if (method_exists($this->enum, 'tryFrom')) {
 			return ($this->enum)::tryFrom($value) !== null;
 		}
 
-		foreach(($this->enum)::cases() as $case)
-		{
-			if($case->name === $value)
-			{
+		foreach (($this->enum)::cases() as $case) {
+			if ($case->name === $value) {
 				return true;
 			}
 		}

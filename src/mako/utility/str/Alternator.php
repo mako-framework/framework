@@ -31,8 +31,7 @@ class Alternator implements Stringable
 	 */
 	public function __construct(
 		protected array $strings
-	)
-	{
+	) {
 		$this->stringCount = count($strings);
 	}
 

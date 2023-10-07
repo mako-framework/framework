@@ -21,22 +21,18 @@ class IPv4
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{
-		if(strpos($range, '/') === false)
-		{
+		if (strpos($range, '/') === false) {
 			$netmask = 32;
 		}
-		else
-		{
+		else {
 			[$range, $netmask] = explode('/', $range, 2);
 
-			if($netmask < 0 || $netmask > 32)
-			{
+			if ($netmask < 0 || $netmask > 32) {
 				return false;
 			}
 		}
 
-		if(($ip2Long = ip2long($ip)) === false || ($range2Long = ip2long($range)) === false)
-		{
+		if (($ip2Long = ip2long($ip)) === false || ($range2Long = ip2long($range)) === false) {
 			return false;
 		}
 

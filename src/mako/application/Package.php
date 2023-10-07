@@ -58,8 +58,8 @@ abstract class Package
 	 */
 	public function __construct(
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the package name.
@@ -74,8 +74,7 @@ abstract class Package
 	 */
 	public function getFileNamespace(): string
 	{
-		if(empty($this->fileNamespace))
-		{
+		if (empty($this->fileNamespace)) {
 			$this->fileNamespace = str_replace('/', '-', strtolower($this->packageName));
 		}
 
@@ -87,8 +86,7 @@ abstract class Package
 	 */
 	public function getClassNamespace(bool $prefix = false): string
 	{
-		if(empty($this->classNamespace))
-		{
+		if (empty($this->classNamespace)) {
 			$this->classNamespace = substr(static::class, 0, strrpos(static::class, '\\'));
 		}
 
@@ -100,8 +98,7 @@ abstract class Package
 	 */
 	public function getPath(): string
 	{
-		if(empty($this->path))
-		{
+		if (empty($this->path)) {
 			$this->path = dirname((new ReflectionClass($this))->getFileName(), 2);
 		}
 
@@ -157,32 +154,27 @@ abstract class Package
 
 		// Register configuration namespace
 
-		if($fileSystem->isDirectory($path = $this->getConfigPath()))
-		{
+		if ($fileSystem->isDirectory($path = $this->getConfigPath())) {
 			$configLoader = $this->container->get(Config::class)->getLoader();
 
-			if(in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader)))
-			{
+			if (in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader))) {
 				$configLoader->registerNamespace($this->getFileNamespace(), $path);
 			}
 		}
 
 		// Register i18n namespace
 
-		if($fileSystem->isDirectory($path = $this->getI18nPath()) && $this->container->has(I18n::class))
-		{
+		if ($fileSystem->isDirectory($path = $this->getI18nPath()) && $this->container->has(I18n::class)) {
 			$i18nLoader = $this->container->get(I18n::class)->getLoader();
 
-			if(in_array(NamespacedFileLoaderTrait::class, class_uses($i18nLoader)))
-			{
+			if (in_array(NamespacedFileLoaderTrait::class, class_uses($i18nLoader))) {
 				$i18nLoader->registerNamespace($this->getFileNamespace(), $path);
 			}
 		}
 
 		// Register view namespace
 
-		if($fileSystem->isDirectory($path = $this->getViewPath()) && $this->container->has(ViewFactory::class))
-		{
+		if ($fileSystem->isDirectory($path = $this->getViewPath()) && $this->container->has(ViewFactory::class)) {
 			$this->container->get(ViewFactory::class)->registerNamespace($this->getFileNamespace(), $path);
 		}
 

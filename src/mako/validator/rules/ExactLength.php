@@ -20,8 +20,8 @@ class ExactLength extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected int $length
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18 parameters.

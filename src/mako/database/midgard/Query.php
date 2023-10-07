@@ -55,8 +55,7 @@ class Query extends QueryBuilder
 	public function __construct(
 		Connection $connection,
 		protected ORM $model
-	)
-	{
+	) {
 		parent::__construct($connection);
 
 		$this->modelClass = $model->getClass();
@@ -69,8 +68,7 @@ class Query extends QueryBuilder
 	 */
 	public function getColumns(): array
 	{
-		if(empty($this->relationCounters))
-		{
+		if (empty($this->relationCounters)) {
 			return $this->columns;
 		}
 
@@ -90,8 +88,7 @@ class Query extends QueryBuilder
 	 */
 	public function join(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null, string $type = 'INNER JOIN'): static
 	{
-		if(empty($this->joins) && $this->columns === ['*'])
-		{
+		if (empty($this->joins) && $this->columns === ['*']) {
 			$this->select(["{$this->table}.*"]);
 		}
 
@@ -105,8 +102,7 @@ class Query extends QueryBuilder
 	{
 		// Execute "beforeInsert" hooks
 
-		foreach($this->model->getHooks('beforeInsert') as $hook)
-		{
+		foreach ($this->model->getHooks('beforeInsert') as $hook) {
 			$values = $hook($values, $this);
 		}
 
@@ -116,8 +112,7 @@ class Query extends QueryBuilder
 
 		// Execute "afterInsert" hooks
 
-		foreach($this->model->getHooks('afterInsert') as $hook)
-		{
+		foreach ($this->model->getHooks('afterInsert') as $hook) {
 			$hook($inserted);
 		}
 
@@ -133,10 +128,8 @@ class Query extends QueryBuilder
 	{
 		// Execute "beforeInsert" hooks
 
-		foreach($values as $key => $rowValues)
-		{
-			foreach($this->model->getHooks('beforeInsert') as $hook)
-			{
+		foreach ($values as $key => $rowValues) {
+			foreach ($this->model->getHooks('beforeInsert') as $hook) {
 				$values[$key] = $hook($rowValues, $this);
 			}
 		}
@@ -147,8 +140,7 @@ class Query extends QueryBuilder
 
 		// Execute "afterInsert" hooks
 
-		foreach($this->model->getHooks('afterInsert') as $hook)
-		{
+		foreach ($this->model->getHooks('afterInsert') as $hook) {
 			$hook($inserted);
 		}
 
@@ -164,8 +156,7 @@ class Query extends QueryBuilder
 	{
 		// Execute "beforeUpdate" hooks
 
-		foreach($this->model->getHooks('beforeUpdate') as $hook)
-		{
+		foreach ($this->model->getHooks('beforeUpdate') as $hook) {
 			$values = $hook($values, $this);
 		}
 
@@ -175,8 +166,7 @@ class Query extends QueryBuilder
 
 		// Execute "afterUpdate" hooks
 
-		foreach($this->model->getHooks('afterUpdate') as $hook)
-		{
+		foreach ($this->model->getHooks('afterUpdate') as $hook) {
 			$hook($updated);
 		}
 
@@ -190,8 +180,7 @@ class Query extends QueryBuilder
 	 */
 	public function increment(string $column, int $increment = 1): int
 	{
-		if($this->model->isPersisted())
-		{
+		if ($this->model->isPersisted()) {
 			$this->model->$column += $increment;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
@@ -199,8 +188,7 @@ class Query extends QueryBuilder
 
 		$updated = parent::increment($column, $increment);
 
-		if($this->model->isPersisted())
-		{
+		if ($this->model->isPersisted()) {
 			$this->model->synchronize();
 		}
 
@@ -212,8 +200,7 @@ class Query extends QueryBuilder
 	 */
 	public function decrement(string $column, int $decrement = 1): int
 	{
-		if($this->model->isPersisted())
-		{
+		if ($this->model->isPersisted()) {
 			$this->model->$column -= $decrement;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
@@ -221,8 +208,7 @@ class Query extends QueryBuilder
 
 		$updated = parent::decrement($column, $decrement);
 
-		if($this->model->isPersisted())
-		{
+		if ($this->model->isPersisted()) {
 			$this->model->synchronize();
 		}
 
@@ -236,8 +222,7 @@ class Query extends QueryBuilder
 	{
 		// Execute "beforeDelete" hooks
 
-		foreach($this->model->getHooks('beforeDelete') as $hook)
-		{
+		foreach ($this->model->getHooks('beforeDelete') as $hook) {
 			$hook($this);
 		}
 
@@ -245,8 +230,7 @@ class Query extends QueryBuilder
 
 		// Execute "afterDelete" hooks
 
-		foreach($this->model->getHooks('afterDelete') as $hook)
-		{
+		foreach ($this->model->getHooks('afterDelete') as $hook) {
 			$hook($deleted);
 		}
 
@@ -258,8 +242,7 @@ class Query extends QueryBuilder
 	 */
 	public function get(int|string $id, array $columns = []): ?ORM
 	{
-		if(!empty($columns))
-		{
+		if (!empty($columns)) {
 			$this->select($columns);
 		}
 
@@ -273,8 +256,7 @@ class Query extends QueryBuilder
 	 */
 	public function getOrThrow(int|string $id, array $columns = [], string $exception = NotFoundException::class): ORM
 	{
-		if(!empty($columns))
-		{
+		if (!empty($columns)) {
 			$this->select($columns);
 		}
 
@@ -289,26 +271,20 @@ class Query extends QueryBuilder
 	 */
 	public function including($includes): static
 	{
-		if($includes === false)
-		{
+		if ($includes === false) {
 			$this->model->setIncludes([]);
 		}
-		else
-		{
+		else {
 			$includes = (array) $includes;
 
 			$currentIncludes = $this->model->getIncludes();
 
-			if(!empty($currentIncludes))
-			{
+			if (!empty($currentIncludes)) {
 				$withCriterion = array_filter(array_keys($includes), 'is_string');
 
-				if(!empty($withCriterion))
-				{
-					foreach($currentIncludes as $key => $value)
-					{
-						if(in_array($value, $withCriterion))
-						{
+				if (!empty($withCriterion)) {
+					foreach ($currentIncludes as $key => $value) {
+						if (in_array($value, $withCriterion)) {
 							unset($currentIncludes[$key]); // Unset relations that have previously been set without a criterion closure
 						}
 					}
@@ -331,20 +307,16 @@ class Query extends QueryBuilder
 	 */
 	public function excluding($excludes): static
 	{
-		if($excludes === true)
-		{
+		if ($excludes === true) {
 			$this->model->setIncludes([]);
 		}
-		else
-		{
+		else {
 			$excludes = (array) $excludes;
 
 			$includes = $this->model->getIncludes();
 
-			foreach($excludes as $key => $relation)
-			{
-				if(is_string($relation) && isset($includes[$relation]))
-				{
+			foreach ($excludes as $key => $relation) {
+				if (is_string($relation) && isset($includes[$relation])) {
 					unset($includes[$relation], $excludes[$key]); // Unset relations that may have been set with a criterion closure
 				}
 			}
@@ -360,8 +332,7 @@ class Query extends QueryBuilder
 	 */
 	protected function parseRelationCountName(string $relation): array
 	{
-		if(stripos($relation, ' AS ') === false)
-		{
+		if (stripos($relation, ' AS ') === false) {
 			return [$relation, "{$relation}_count"];
 		}
 
@@ -377,10 +348,8 @@ class Query extends QueryBuilder
 	 */
 	public function withCountOf(array|string $relations): static
 	{
-		foreach((array) $relations as $relation => $criteria)
-		{
-			if(is_int($relation))
-			{
+		foreach ((array) $relations as $relation => $criteria) {
+			if (is_int($relation)) {
 				$relation = $criteria;
 				$criteria = null;
 			}
@@ -390,13 +359,11 @@ class Query extends QueryBuilder
 			/** @var \mako\database\midgard\relations\Relation $countQuery */
 			$countQuery = $this->model->$relation()->getRelationCountQuery()->inSubqueryContext();
 
-			if($criteria !== null)
-			{
+			if ($criteria !== null) {
 				$criteria($countQuery);
 			}
 
-			$this->relationCounters[] = new Subquery(static function (&$query) use ($countQuery): void
-			{
+			$this->relationCounters[] = new Subquery(static function (&$query) use ($countQuery): void {
 				$query = $countQuery;
 
 				$query->clearOrderings()->count();
@@ -423,26 +390,20 @@ class Query extends QueryBuilder
 	{
 		$includes = ['this' => [], 'forward' => []];
 
-		foreach($this->model->getIncludes() as $include => $criteria)
-		{
-			if(is_int($include))
-			{
+		foreach ($this->model->getIncludes() as $include => $criteria) {
+			if (is_int($include)) {
 				$include  = $criteria;
 				$criteria = null;
 			}
 
-			if(($position = strpos($include, '.')) === false)
-			{
+			if (($position = strpos($include, '.')) === false) {
 				$includes['this'][$include] = $criteria;
 			}
-			else
-			{
-				if($criteria === null)
-				{
+			else {
+				if ($criteria === null) {
 					$includes['forward'][substr($include, 0, $position)][] = substr($include, $position + 1);
 				}
-				else
-				{
+				else {
 					$includes['forward'][substr($include, 0, $position)][substr($include, $position + 1)] = $criteria;
 				}
 			}
@@ -456,8 +417,7 @@ class Query extends QueryBuilder
 	 */
 	protected function parseIncludeName(string $name): array
 	{
-		if(stripos($name, ' AS ') === false)
-		{
+		if (stripos($name, ' AS ') === false) {
 			return [$name, $name];
 		}
 
@@ -473,8 +433,7 @@ class Query extends QueryBuilder
 	{
 		$includes = $this->parseIncludes();
 
-		foreach($includes['this'] as $include => $criteria)
-		{
+		foreach ($includes['this'] as $include => $criteria) {
 			[$methodName, $propertyName] = $this->parseIncludeName($include);
 
 			$forward = $includes['forward'][$methodName] ?? [];
@@ -492,8 +451,7 @@ class Query extends QueryBuilder
 	{
 		$hydrated = [];
 
-		foreach($results as $result)
-		{
+		foreach ($results as $result) {
 			$hydrated[] = $this->hydrateModel($result);
 		}
 
@@ -511,8 +469,7 @@ class Query extends QueryBuilder
 	{
 		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
 
-		if($result !== null)
-		{
+		if ($result !== null) {
 			return $this->hydrateModelsAndLoadIncludes([$result])[0];
 		}
 
@@ -549,8 +506,7 @@ class Query extends QueryBuilder
 	{
 		$results = $this->fetchAll(false, PDO::FETCH_ASSOC);
 
-		if(!empty($results))
-		{
+		if (!empty($results)) {
 			$results = $this->hydrateModelsAndLoadIncludes($results);
 		}
 
@@ -565,8 +521,7 @@ class Query extends QueryBuilder
 	public function yield(): Generator
 	{
 		/** @var array $row */
-		foreach($this->fetchYield(PDO::FETCH_ASSOC) as $row)
-		{
+		foreach ($this->fetchYield(PDO::FETCH_ASSOC) as $row) {
 			yield $this->hydrateModel($row);
 		}
 	}
@@ -576,8 +531,7 @@ class Query extends QueryBuilder
 	 */
 	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null): void
 	{
-		if(empty($this->orderings))
-		{
+		if (empty($this->orderings)) {
 			$this->ascending($this->model->getPrimaryKey());
 		}
 

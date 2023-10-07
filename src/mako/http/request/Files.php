@@ -43,10 +43,8 @@ class Files extends Parameters
 
 		$count = count($files['name']);
 
-		for($i = 0; $i < $count; $i++)
-		{
-			foreach($keys as $key)
-			{
+		for ($i = 0; $i < $count; $i++) {
+			foreach ($keys as $key) {
 				$normalized[$i][$key] = $files[$key][$i];
 			}
 		}
@@ -61,17 +59,13 @@ class Files extends Parameters
 	{
 		$uploadedFiles = [];
 
-		foreach($files as $name => $file)
-		{
-			if(is_array($file['name']))
-			{
-				foreach($this->normalizeMultiUpload($file) as $file)
-				{
+		foreach ($files as $name => $file) {
+			if (is_array($file['name'])) {
+				foreach ($this->normalizeMultiUpload($file) as $file) {
 					$uploadedFiles[$name][] = $this->createUploadedFile($file);
 				}
 			}
-			else
-			{
+			else {
 				$uploadedFiles[$name] = $this->createUploadedFile($file);
 			}
 		}
@@ -84,8 +78,7 @@ class Files extends Parameters
 	 */
 	public function add(string $name, $value): void
 	{
-		if(is_array($value))
-		{
+		if (is_array($value)) {
 			$value = $this->createUploadedFile($value);
 		}
 

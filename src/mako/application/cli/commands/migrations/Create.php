@@ -32,8 +32,7 @@ class Create extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-d|--description', 'Migration description', Argument::IS_OPTIONAL),
 			new Argument('-p|--package', 'Package name', Argument::IS_OPTIONAL),
 		];
@@ -48,14 +47,12 @@ class Create extends Command
 	{
 		// Get file path and namespace
 
-		if(empty($package))
-		{
+		if (empty($package)) {
 			$namespace = "{$application->getNamespace()}\\migrations";
 
 			$path = "{$application->getPath()}/migrations/";
 		}
-		else
-		{
+		else {
 			$package = $application->getPackage($package);
 
 			$namespace = "{$package->getClassNamespace()}\\migrations";
@@ -75,12 +72,10 @@ class Create extends Command
 
 		$migration = str_replace($search, $replace, $fileSystem->get(__DIR__ . '/resources/migration.template'));
 
-		try
-		{
+		try {
 			$fileSystem->put($path, $migration);
 		}
-		catch(Throwable $e)
-		{
+		catch (Throwable $e) {
 			$this->error('Failed to create migration. Make sure that the migrations directory is writable.');
 
 			return static::STATUS_ERROR;

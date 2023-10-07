@@ -38,12 +38,10 @@ trait CamelCasedDataInteractionTrait
 
 		$value = $this->cast($snakeCased, $value);
 
-		if(method_exists($this, "{$camelCased}Mutator"))
-		{
+		if (method_exists($this, "{$camelCased}Mutator")) {
 			$this->columns[$snakeCased] = $this->{"{$camelCased}Mutator"}($value);
 		}
-		else
-		{
+		else {
 			$this->columns[$snakeCased] = $value;
 		}
 	}
@@ -57,8 +55,7 @@ trait CamelCasedDataInteractionTrait
 	{
 		$snakeCased = [];
 
-		foreach($columns as $key => $value)
-		{
+		foreach ($columns as $key => $value) {
 			$snakeCased[Str::camelToSnake($key)] = $value;
 		}
 
@@ -80,8 +77,7 @@ trait CamelCasedDataInteractionTrait
 	{
 		$camelCased = Str::snakeToCamel($name);
 
-		if(method_exists($this, "{$camelCased}Accessor"))
-		{
+		if (method_exists($this, "{$camelCased}Accessor")) {
 			return $this->{"{$camelCased}Accessor"}($this->columns[Str::camelToSnake($name)]);
 		}
 
@@ -93,20 +89,17 @@ trait CamelCasedDataInteractionTrait
 	 */
 	public function getValue(string $name): mixed
 	{
-		if(array_key_exists(Str::camelToSnake($name), $this->columns))
-		{
+		if (array_key_exists(Str::camelToSnake($name), $this->columns)) {
 			// It's a database column
 
 			return $this->getColumnValue($name);
 		}
-		elseif(array_key_exists($name, $this->related))
-		{
+		elseif (array_key_exists($name, $this->related)) {
 			// The column is a cached or eagerly loaded relation
 
 			return $this->related[$name];
 		}
-		elseif($this->isRelation($name))
-		{
+		elseif ($this->isRelation($name)) {
 			// The column is a relation. Lazy load the record(s) and cache them
 
 			return $this->related[$name] = $this->$name()->getRelated();
@@ -122,8 +115,7 @@ trait CamelCasedDataInteractionTrait
 	 */
 	public function __isset(string $name): bool
 	{
-		if(isset($this->columns[Str::camelToSnake($name)]) || isset($this->related[$name]))
-		{
+		if (isset($this->columns[Str::camelToSnake($name)]) || isset($this->related[$name])) {
 			return true;
 		}
 

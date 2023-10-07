@@ -33,8 +33,7 @@ class Body extends Parameters
 	 */
 	protected function parseBody(string $rawBody, string $contentType): array
 	{
-		if($contentType === 'application/x-www-form-urlencoded')
-		{
+		if ($contentType === 'application/x-www-form-urlencoded') {
 			$parsed = [];
 
 			parse_str($rawBody, $parsed);
@@ -42,12 +41,10 @@ class Body extends Parameters
 			return $parsed;
 		}
 
-		if($contentType === 'application/json' || $contentType === 'text/json' || strpos($contentType, '+json') !== false)
-		{
+		if ($contentType === 'application/json' || $contentType === 'text/json' || strpos($contentType, '+json') !== false) {
 			$parsed = json_decode($rawBody, true);
 
-			if(json_last_error() !== JSON_ERROR_NONE || is_array($parsed) === false)
-			{
+			if (json_last_error() !== JSON_ERROR_NONE || is_array($parsed) === false) {
 				throw new BadRequestException;
 			}
 

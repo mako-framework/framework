@@ -43,8 +43,7 @@ class Server extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-a|--address', 'Address to run the server on', Argument::IS_OPTIONAL),
 			new Argument('-d|--docroot', 'Path to the document root', Argument::IS_OPTIONAL),
 			new Argument('-p|--port', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
@@ -58,10 +57,8 @@ class Server extends Command
 	{
 		$attempts = 0;
 
-		while($attempts++ < static::MAX_PORTS_TO_TRY)
-		{
-			if(($socket = @fsockopen('localhost', $port, $errorNumber, $errorString, 0.1)) === false)
-			{
+		while ($attempts++ < static::MAX_PORTS_TO_TRY) {
+			if (($socket = @fsockopen('localhost', $port, $errorNumber, $errorString, 0.1)) === false) {
 				return $port;
 			}
 
@@ -80,8 +77,7 @@ class Server extends Command
 	{
 		// Attempt to find an available port
 
-		if(($availablePort = $this->findAvailablePort($port)) === null)
-		{
+		if (($availablePort = $this->findAvailablePort($port)) === null) {
 			$this->error(sprintf('Unable to start server. Ports %s to %s are already in use.', $port, $port + static::MAX_PORTS_TO_TRY));
 
 			return static::STATUS_ERROR;

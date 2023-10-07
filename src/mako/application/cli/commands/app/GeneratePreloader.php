@@ -37,8 +37,7 @@ class GeneratePreloader extends Command
 		Output $output,
 		protected Application $app,
 		protected FileSystem $fileSystem
-	)
-	{
+	) {
 		parent::__construct($input, $output);
 	}
 
@@ -47,8 +46,7 @@ class GeneratePreloader extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-i|--ignore-core-classes', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
 			new Argument('-o|--output-path', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
 		];
@@ -69,13 +67,11 @@ class GeneratePreloader extends Command
 	{
 		$classes = [];
 
-		if(!$ignoreCoreClasses)
-		{
+		if (!$ignoreCoreClasses) {
 			$classes = $this->getCoreClasses();
 		}
 
-		if($this->fileSystem->has("{$this->app->getPath()}/config/preload.php"))
-		{
+		if ($this->fileSystem->has("{$this->app->getPath()}/config/preload.php")) {
 			$classes = [...$classes, ...$this->app->getConfig()->get('preload')];
 		}
 
@@ -99,8 +95,7 @@ class GeneratePreloader extends Command
 
 		$classes = $this->getClasses($ignoreCoreClasses);
 
-		if(count($classes) === 0)
-		{
+		if (count($classes) === 0) {
 			$this->error('You must preload at least one class.');
 
 			return static::STATUS_ERROR;

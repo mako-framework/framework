@@ -29,8 +29,8 @@ class File extends Store
 		protected FileSystem $fileSystem,
 		protected string $cachePath,
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the path to the cache file.
@@ -57,8 +57,7 @@ class File extends Store
 	 */
 	public function has(string $key): bool
 	{
-		if($this->fileSystem->has($this->cacheFile($key)))
-		{
+		if ($this->fileSystem->has($this->cacheFile($key))) {
 			$file = $this->fileSystem->file($this->cacheFile($key), 'r');
 
 			$expired = (time() < (int) trim($file->fgets()));
@@ -76,20 +75,17 @@ class File extends Store
 	 */
 	public function get(string $key): mixed
 	{
-		if($this->fileSystem->has($this->cacheFile($key)))
-		{
+		if ($this->fileSystem->has($this->cacheFile($key))) {
 			// Cache exists
 
 			$file = $this->fileSystem->file($this->cacheFile($key), 'r');
 
-			if(time() < (int) trim($file->fgets()))
-			{
+			if (time() < (int) trim($file->fgets())) {
 				// Cache has not expired ... fetch it
 
 				$cache = '';
 
-				while(!$file->eof())
-				{
+				while (!$file->eof()) {
 					$cache .= $file->fgets();
 				}
 
@@ -97,8 +93,7 @@ class File extends Store
 
 				return unserialize($cache, ['allowed_classes' => $this->classWhitelist]);
 			}
-			else
-			{
+			else {
 				// Cache has expired ... delete it
 
 				unset($file);
@@ -115,8 +110,7 @@ class File extends Store
 	 */
 	public function remove(string $key): bool
 	{
-		if($this->fileSystem->has($this->cacheFile($key)))
-		{
+		if ($this->fileSystem->has($this->cacheFile($key))) {
 			return $this->fileSystem->remove($this->cacheFile($key));
 		}
 
@@ -130,12 +124,9 @@ class File extends Store
 	{
 		$files = $this->fileSystem->glob("{$this->cachePath}/*");
 
-		if(is_array($files))
-		{
-			foreach($files as $file)
-			{
-				if($this->fileSystem->isFile($file) && $this->fileSystem->remove($file) === false)
-				{
+		if (is_array($files)) {
+			foreach ($files as $file) {
+				if ($this->fileSystem->isFile($file) && $this->fileSystem->remove($file) === false) {
 					return false;
 				}
 			}

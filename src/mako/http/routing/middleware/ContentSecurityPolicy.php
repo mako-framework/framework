@@ -36,8 +36,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	/**
 	 * Content security policy directives.
 	 */
-	protected array $directives =
-	[
+	protected array $directives = [
 		'base-uri'    => ['self'],
 		'default-src' => ['self'],
 		'object-src'  => ['none'],
@@ -58,8 +57,8 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 */
 	public function __construct(
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Builds the "Report-To" header value.
@@ -68,8 +67,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	{
 		$endpoints = [];
 
-		foreach($this->reportTo as $endpoint)
-		{
+		foreach ($this->reportTo as $endpoint) {
 			$endpoints[] = json_encode($endpoint);
 		}
 
@@ -89,8 +87,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 */
 	protected function getNonce(): string
 	{
-		if(empty($this->nonce))
-		{
+		if (empty($this->nonce)) {
 			$this->nonce = $this->generateNonce();
 		}
 
@@ -104,10 +101,8 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	{
 		$directives = [];
 
-		foreach($this->directives as $name => $directive)
-		{
-			if($directive === true)
-			{
+		foreach ($this->directives as $name => $directive) {
+			if ($directive === true) {
 				$directives[] = $name;
 
 				continue;
@@ -115,10 +110,8 @@ class ContentSecurityPolicy implements MiddlewareInterface
 
 			$directiveString = $name;
 
-			foreach($directive as $value)
-			{
-				switch($value)
-				{
+			foreach ($directive as $value) {
+				switch ($value) {
 					case 'self':
 					case 'unsafe-inline':
 					case 'unsafe-eval':
@@ -144,8 +137,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 */
 	protected function assignNonceViewVariable(): void
 	{
-		if($this->container->has(ViewFactory::class))
-		{
+		if ($this->container->has(ViewFactory::class)) {
 			$this->container->get(ViewFactory::class)->assign($this->nonceVariableName, $this->getNonce());
 		}
 	}
@@ -155,15 +147,13 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		if(!empty($this->reportTo))
-		{
+		if (!empty($this->reportTo)) {
 			$response->headers->add('Report-To', $this->buildReportToValue());
 		}
 
 		$response->headers->add($this->reportOnly ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy', $this->buildValue());
 
-		if(!empty($this->nonce))
-		{
+		if (!empty($this->nonce)) {
 			$this->assignNonceViewVariable();
 		}
 

@@ -19,8 +19,7 @@ class Helper implements HelperInterface
 	 */
 	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null)
 	{
-		if($query->insert($values) === false)
-		{
+		if ($query->insert($values) === false) {
 			return false;
 		}
 

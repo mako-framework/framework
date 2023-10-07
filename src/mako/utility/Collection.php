@@ -57,8 +57,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	final public function __construct(
 		protected array $items = []
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns all the items in the collection.
@@ -125,8 +125,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function get(int|string $key, mixed $default = null): mixed
 	{
-		if(array_key_exists($key, $this->items))
-		{
+		if (array_key_exists($key, $this->items)) {
 			return $this->items[$key];
 		}
 
@@ -175,8 +174,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetGet(mixed $offset): mixed
 	{
-		if(array_key_exists($offset, $this->items))
-		{
+		if (array_key_exists($offset, $this->items)) {
 			return $this->items[$offset];
 		}
 
@@ -191,12 +189,10 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void
 	{
-		if($offset === null)
-		{
+		if ($offset === null) {
 			$this->items[] = $value;
 		}
-		else
-		{
+		else {
 			$this->items[$offset] = $value;
 		}
 	}
@@ -290,8 +286,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	{
 		$key = array_key_first($this->items);
 
-		if($key === null)
-		{
+		if ($key === null) {
 			return null;
 		}
 
@@ -307,8 +302,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	{
 		$key = array_key_last($this->items);
 
-		if($key === null)
-		{
+		if ($key === null) {
 			return null;
 		}
 
@@ -323,12 +317,10 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function sort(callable $comparator, bool $maintainIndexAssociation = true): static
 	{
-		if($maintainIndexAssociation)
-		{
+		if ($maintainIndexAssociation) {
 			uasort($this->items, $comparator);
 		}
-		else
-		{
+		else {
 			usort($this->items, $comparator);
 		}
 
@@ -344,8 +336,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	{
 		$collections = [];
 
-		foreach(array_chunk($this->items, $size) as $chunk)
-		{
+		foreach (array_chunk($this->items, $size) as $chunk) {
 			$collections[] = new static($chunk);
 		}
 
@@ -377,14 +368,11 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 			$reflection->getReturnType() instanceof ReflectionNamedType &&
 			$reflection->getReturnType()->getName() === 'void';
 
-		foreach($this->items as $key => $value)
-		{
-			if($callableHasVoidReturnType)
-			{
+		foreach ($this->items as $key => $value) {
+			if ($callableHasVoidReturnType) {
 				$callable($value, $key);
 			}
-			else
-			{
+			else {
 				$this->items[$key] = $callable($value, $key);
 			}
 		}
@@ -414,8 +402,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function filter(?callable $callable = null): static
 	{
-		if($callable === null)
-		{
+		if ($callable === null) {
 			return new static(array_filter($this->items));
 		}
 

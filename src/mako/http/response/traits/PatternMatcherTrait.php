@@ -20,8 +20,7 @@ trait PatternMatcherTrait
 	 */
 	protected function matchesPatterns(string $string, array $patterns): bool
 	{
-		if(preg_match('/^(' . implode('|', $patterns) . ')$/iu', $string) === 1)
-		{
+		if (preg_match('/^(' . implode('|', $patterns) . ')$/iu', $string) === 1) {
 			return true;
 		}
 

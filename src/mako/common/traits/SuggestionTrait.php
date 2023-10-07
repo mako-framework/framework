@@ -22,12 +22,10 @@ trait SuggestionTrait
 	{
 		$suggestion = false;
 
-		foreach($alternatives as $alternative)
-		{
+		foreach ($alternatives as $alternative) {
 			similar_text($string, $alternative, $similarity);
 
-			if($similarity > 66 && ($suggestion === false || $suggestion['similarity'] < $similarity))
-			{
+			if ($similarity > 66 && ($suggestion === false || $suggestion['similarity'] < $similarity)) {
 				$suggestion = ['string' => $alternative, 'similarity' => $similarity];
 			}
 		}

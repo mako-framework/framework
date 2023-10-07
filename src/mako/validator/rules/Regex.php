@@ -20,8 +20,8 @@ class Regex extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected string $regex
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

@@ -28,8 +28,7 @@ class Loader implements LoaderInterface
 	public function __construct(
 		protected FileSystem $fileSystem,
 		string $path
-	)
-	{
+	) {
 		$this->path = $path;
 	}
 
@@ -42,8 +41,7 @@ class Loader implements LoaderInterface
 
 		// If we have an environment then we must prepend the environment specific config paths to the paths array
 
-		if($environment !== null)
-		{
+		if ($environment !== null) {
 			$namespace = strpos($file, '::');
 
 			$environmentFile = ($namespace === false) ? "{$environment}.{$file}" : substr_replace($file, "{$environment}.", $namespace + 2, 0);
@@ -53,10 +51,8 @@ class Loader implements LoaderInterface
 
 		// Include the first existing file or throw an exception if we don't find any config files
 
-		foreach($paths as $path)
-		{
-			if($this->fileSystem->has($path))
-			{
+		foreach ($paths as $path) {
+			if ($this->fileSystem->has($path)) {
 				return $this->fileSystem->include($path);
 			}
 		}

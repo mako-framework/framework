@@ -34,8 +34,8 @@ abstract class Command implements CommandInterface
 	public function __construct(
 		protected Input $input,
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

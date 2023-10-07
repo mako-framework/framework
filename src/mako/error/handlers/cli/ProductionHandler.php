@@ -21,8 +21,8 @@ class ProductionHandler implements HandlerInterface
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

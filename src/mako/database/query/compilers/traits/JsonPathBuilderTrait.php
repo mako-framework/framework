@@ -22,14 +22,11 @@ trait JsonPathBuilderTrait
 	{
 		$path = '';
 
-		foreach($segments as $segment)
-		{
-			if(is_numeric($segment))
-			{
+		foreach ($segments as $segment) {
+			if (is_numeric($segment)) {
 				$path .= "[{$segment}]";
 			}
-			else
-			{
+			else {
 				$path .= '.' . '"' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
 			}
 		}

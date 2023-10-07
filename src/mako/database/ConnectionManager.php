@@ -42,8 +42,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Driver aliases.
 	 */
-	protected array $driverAliases =
-	[
+	protected array $driverAliases = [
 		'oracle' => ['oci', 'oracle'],
 		'sqlsrv' => ['dblib', 'sqlsrv', 'mssql'],
 	];
@@ -51,8 +50,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Connections.
 	 */
-	protected array $connectionClasses =
-	[
+	protected array $connectionClasses = [
 		'firebird' => FirebirdConnection::class,
 		'mysql'    => MySQLConnection::class,
 		'oracle'   => OracleConnection::class,
@@ -64,8 +62,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Query compilers.
 	 */
-	protected array $queryCompilerClasses =
-	[
+	protected array $queryCompilerClasses = [
 		'firebird' => FirebirdCompiler::class,
 		'mysql'    => MySQLCompiler::class,
 		'oracle'   => OracleCompiler::class,
@@ -77,8 +74,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Query builder helpers.
 	 */
-	protected array $queryBuilderHelperClasses =
-	[
+	protected array $queryBuilderHelperClasses = [
 		'pgsql' => PostgresHelper::class,
 	];
 
@@ -87,10 +83,8 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected function normalizeDriverName(string $driver): string
 	{
-		foreach($this->driverAliases as $normalized => $aliases)
-		{
-			if(in_array($driver, $aliases))
-			{
+		foreach ($this->driverAliases as $normalized => $aliases) {
+			if (in_array($driver, $aliases)) {
 				return $normalized;
 			}
 		}
@@ -159,8 +153,7 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected function connect(string $connectionName): Connection
 	{
-		if(!isset($this->configurations[$connectionName]))
-		{
+		if (!isset($this->configurations[$connectionName])) {
 			throw new DatabaseException(vsprintf('[ %s ] has not been defined in the database configuration.', [$connectionName]));
 		}
 
@@ -190,8 +183,7 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	public function clearLogs(): void
 	{
-		foreach($this->connections as $connection)
-		{
+		foreach ($this->connections as $connection) {
 			$connection->clearLog();
 		}
 	}
@@ -203,18 +195,15 @@ class ConnectionManager extends BaseConnectionManager
 	{
 		$logs = [];
 
-		if($groupedByConnection)
-		{
-			foreach($this->connections as $connection)
-			{
+		if ($groupedByConnection) {
+			foreach ($this->connections as $connection) {
 				$logs[$connection->getName()] = $connection->getLog();
 			}
 
 			return $logs;
 		}
 
-		foreach($this->connections as $connection)
-		{
+		foreach ($this->connections as $connection) {
 			$logs = [...$logs, ...$connection->getLog()];
 		}
 

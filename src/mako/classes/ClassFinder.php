@@ -55,10 +55,8 @@ class ClassFinder
 	 */
 	public function __construct(
 		protected Finder $finder
-	)
-	{
-		if($this->finder->getPattern() === null)
-		{
+	) {
+		if ($this->finder->getPattern() === null) {
 			$this->finder->setPattern(static::PHP_FILENAME_PATTERN);
 		}
 	}
@@ -166,18 +164,15 @@ class ClassFinder
 	{
 		$tokens = [];
 
-		if($this->includeClasses)
-		{
+		if ($this->includeClasses) {
 			$tokens[] = T_CLASS;
 		}
 
-		if($this->includeInterfaces)
-		{
+		if ($this->includeInterfaces) {
 			$tokens[] = T_INTERFACE;
 		}
 
-		if($this->includeTraits)
-		{
+		if ($this->includeTraits) {
 			$tokens[] = T_TRAIT;
 		}
 
@@ -197,19 +192,14 @@ class ClassFinder
 
 		$namespace = '';
 
-		for($i = 0; $i < $tokenCount; $i++)
-		{
-			if(is_string($tokens[$i]))
-			{
+		for ($i = 0; $i < $tokenCount; $i++) {
+			if (is_string($tokens[$i])) {
 				continue;
 			}
 
-			if(T_NAMESPACE === $tokens[$i][0])
-			{
-				while(isset($tokens[++$i]) && is_array($tokens[$i]))
-				{
-					if(in_array($tokens[$i][0], [T_STRING, T_NAME_QUALIFIED]))
-					{
+			if (T_NAMESPACE === $tokens[$i][0]) {
+				while (isset($tokens[++$i]) && is_array($tokens[$i])) {
+					if (in_array($tokens[$i][0], [T_STRING, T_NAME_QUALIFIED])) {
 						$namespace .= $tokens[$i][1];
 					}
 				}
@@ -217,10 +207,8 @@ class ClassFinder
 				$namespace .= '\\';
 			}
 
-			if(in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT]) && T_WHITESPACE === $tokens[$i + 1][0] && T_STRING === $tokens[$i + 2][0])
-			{
-				if(in_array($tokens[$i][0], $allowedClasslikeTokens) && ($this->includeAbstractClasses || (!isset($tokens[$i - 2]) || !is_array($tokens[$i - 2]) || $tokens[$i - 2][0] !== T_ABSTRACT)))
-				{
+			if (in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT]) && T_WHITESPACE === $tokens[$i + 1][0] && T_STRING === $tokens[$i + 2][0]) {
+				if (in_array($tokens[$i][0], $allowedClasslikeTokens) && ($this->includeAbstractClasses || (!isset($tokens[$i - 2]) || !is_array($tokens[$i - 2]) || $tokens[$i - 2][0] !== T_ABSTRACT))) {
 					return $namespace . $tokens[$i + 2][1];
 				}
 
@@ -237,10 +225,8 @@ class ClassFinder
 	protected function findClasses(): Generator
 	{
 		/** @var string $file */
-		foreach($this->finder->find() as $file)
-		{
-			if(($class = $this->findClassInFile($file)) !== null)
-			{
+		foreach ($this->finder->find() as $file) {
+			if (($class = $this->findClassInFile($file)) !== null) {
 				yield $class;
 			}
 		}
@@ -259,10 +245,8 @@ class ClassFinder
 	 */
 	public function findImplementing(string $interfaceName): Generator
 	{
-		foreach($this->findClasses() as $class)
-		{
-			if(is_subclass_of($class, $interfaceName))
-			{
+		foreach ($this->findClasses() as $class) {
+			if (is_subclass_of($class, $interfaceName)) {
 				yield $class;
 			}
 		}
@@ -273,10 +257,8 @@ class ClassFinder
 	 */
 	public function findExtending(string $className): Generator
 	{
-		foreach($this->findClasses() as $class)
-		{
-			if(is_subclass_of($class, $className))
-			{
+		foreach ($this->findClasses() as $class) {
+			if (is_subclass_of($class, $className)) {
 				yield $class;
 			}
 		}
@@ -287,10 +269,8 @@ class ClassFinder
 	 */
 	public function findUsing(string $traitName): Generator
 	{
-		foreach($this->findClasses() as $class)
-		{
-			if(isset(ClassInspector::getTraits($class)[$traitName]))
-			{
+		foreach ($this->findClasses() as $class) {
+			if (isset(ClassInspector::getTraits($class)[$traitName])) {
 				yield $class;
 			}
 		}

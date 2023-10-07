@@ -27,17 +27,14 @@ class PaginationFactoryService extends Service
 
 		// Register the pagination factory
 
-		$this->container->registerSingleton([PaginationFactoryInterface::class, 'pagination'], static function ($container) use ($config)
-		{
+		$this->container->registerSingleton([PaginationFactoryInterface::class, 'pagination'], static function ($container) use ($config) {
 			$paginationFactory = new PaginationFactory($container->get(Request::class), $config->get('pagination'));
 
-			if($container->has(URLBuilder::class))
-			{
+			if ($container->has(URLBuilder::class)) {
 				$paginationFactory->setURLBuilder($container->get(URLBuilder::class));
 			}
 
-			if($container->has(ViewFactory::class))
-			{
+			if ($container->has(ViewFactory::class)) {
 				$paginationFactory->setViewFactory($container->get(ViewFactory::class));
 			}
 

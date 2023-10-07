@@ -68,20 +68,17 @@ trait ContainerAwareTrait
 	 */
 	public function __get(string $key): mixed
 	{
-		if(isset($this->__resolved__[$key]))
-		{
+		if (isset($this->__resolved__[$key])) {
 			return $this->__resolved__[$key];
 		}
 
-		if($this->container->has($key) === false)
-		{
+		if ($this->container->has($key) === false) {
 			throw new ContainerException(vsprintf('Unable to resolve [ %s ].', [$key]));
 		}
 
 		$resolved = $this->container->get($key);
 
-		if($this->container->isSingleton($key) === false)
-		{
+		if ($this->container->isSingleton($key) === false) {
 			return $resolved;
 		}
 

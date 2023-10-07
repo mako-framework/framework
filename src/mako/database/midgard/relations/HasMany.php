@@ -24,20 +24,17 @@ class HasMany extends HasOneOrMany
 
 		$grouped = [];
 
-		if($criteria !== null)
-		{
+		if ($criteria !== null) {
 			$criteria($this);
 		}
 
 		$foreignKey = $this->getForeignKey();
 
-		foreach($this->eagerLoadChunked($this->keys($results)) as $related)
-		{
+		foreach ($this->eagerLoadChunked($this->keys($results)) as $related) {
 			$grouped[$related->getRawColumnValue($foreignKey)][] = $related;
 		}
 
-		foreach($results as $result)
-		{
+		foreach ($results as $result) {
 			$result->setRelated($relation, $this->createResultSet($grouped[$result->getPrimaryKeyValue()] ?? []));
 		}
 	}

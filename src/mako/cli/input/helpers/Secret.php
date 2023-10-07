@@ -29,8 +29,7 @@ class Secret extends Question
 	 */
 	protected function hasStty(): bool
 	{
-		if(static::$hasStty === null)
-		{
+		if (static::$hasStty === null) {
 			exec('stty 2>&1', $output, $status);
 
 			static::$hasStty = $status === 0;
@@ -44,16 +43,13 @@ class Secret extends Question
 	 */
 	public function ask(string $question, mixed $default = null, bool $fallback = false): mixed
 	{
-		if(PHP_OS_FAMILY === 'Windows' || $this->hasStty())
-		{
+		if (PHP_OS_FAMILY === 'Windows' || $this->hasStty()) {
 			$this->output->write(trim($question) . ' ');
 
-			if(PHP_OS_FAMILY === 'Windows')
-			{
+			if (PHP_OS_FAMILY === 'Windows') {
 				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')));
 			}
-			else
-			{
+			else {
 				$settings = shell_exec('stty -g');
 
 				exec('stty -echo');
@@ -67,12 +63,10 @@ class Secret extends Question
 
 			return empty($answer) ? $default : $answer;
 		}
-		elseif($fallback)
-		{
+		elseif ($fallback) {
 			return parent::ask($question, $default);
 		}
-		else
-		{
+		else {
 			throw new CliException('Unable to hide the user input.');
 		}
 	}

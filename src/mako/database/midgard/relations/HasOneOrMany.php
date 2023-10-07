@@ -19,8 +19,7 @@ abstract class HasOneOrMany extends Relation
 	 */
 	public function create(array|ORM $related): ORM
 	{
-		if($related instanceof $this->model)
-		{
+		if ($related instanceof $this->model) {
 			$related->{$this->getForeignKey()} = $this->origin->getPrimaryKeyValue();
 
 			$related->save();

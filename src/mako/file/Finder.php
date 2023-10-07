@@ -34,8 +34,8 @@ class Finder
 	 */
 	public function __construct(
 		protected array $paths
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets a pattern that the files should match.
@@ -84,13 +84,11 @@ class Finder
 	{
 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::CURRENT_AS_PATHNAME | FilesystemIterator::SKIP_DOTS));
 
-		if($this->maxDepth !== null)
-		{
+		if ($this->maxDepth !== null) {
 			$iterator->setMaxDepth($this->maxDepth);
 		}
 
-		if($this->pattern === null)
-		{
+		if ($this->pattern === null) {
 			return $iterator;
 		}
 
@@ -102,8 +100,7 @@ class Finder
 	 */
 	public function find(): Generator
 	{
-		foreach($this->paths as $path)
-		{
+		foreach ($this->paths as $path) {
 			yield from $this->createIterator($path);
 		}
 	}
@@ -113,8 +110,7 @@ class Finder
 	 */
 	public function findAs(string $className): Generator
 	{
-		foreach($this->find() as $file)
-		{
+		foreach ($this->find() as $file) {
 			yield $file => new $className($file);
 		}
 	}

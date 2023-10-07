@@ -53,13 +53,11 @@ class SQLite extends Compiler
 	 */
 	protected function whereDate(array $where): string
 	{
-		switch($where['operator'])
-		{
+		switch ($where['operator']) {
 			case '=':
 			case '!=':
 			case '<>':
-				$where =
-				[
+				$where = [
 					'column' => $where['column'],
 					'not'    => $where['operator'] !== '=',
 					'value1' => $where['value'],
@@ -71,8 +69,7 @@ class SQLite extends Compiler
 			case '>=':
 			case '<':
 			case '<=':
-				switch($where['operator'])
-				{
+				switch ($where['operator']) {
 					case '>=':
 					case '<':
 						$suffix = ' 00:00:00.000';
@@ -92,8 +89,7 @@ class SQLite extends Compiler
 	 */
 	protected function offset(?int $offset): string
 	{
-		if($offset === null)
-		{
+		if ($offset === null) {
 			return '';
 		}
 

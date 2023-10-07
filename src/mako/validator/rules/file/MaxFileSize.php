@@ -27,8 +27,8 @@ class MaxFileSize extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected int|string $maxSize
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.
@@ -40,12 +40,10 @@ class MaxFileSize extends Rule implements RuleInterface
 	 */
 	protected function convertToBytes(int|string $size): float|int
 	{
-		if(is_numeric($unit = substr($size, -3)) === false)
-		{
+		if (is_numeric($unit = substr($size, -3)) === false) {
 			$size = (int) substr($size, 0, -3);
 
-			return match(strtolower($unit))
-			{
+			return match (strtolower($unit)) {
 				'kib'   => $size * 1024,
 				'mib'   => $size * (1024 ** 2),
 				'gib'   => $size * (1024 ** 3),

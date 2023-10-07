@@ -20,16 +20,15 @@ class AliasLoader
 	 */
 	public function __construct(
 		protected array $aliases
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Autoloads aliased classes.
 	 */
 	public function load(string $alias): bool
 	{
-		if(array_key_exists($alias, $this->aliases))
-		{
+		if (array_key_exists($alias, $this->aliases)) {
 			return class_alias($this->aliases[$alias], $alias);
 		}
 

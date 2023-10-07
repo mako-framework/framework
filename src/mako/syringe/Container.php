@@ -60,8 +60,7 @@ class Container
 	 */
 	protected function parseHint(array|string $hint): string
 	{
-		if(is_array($hint))
-		{
+		if (is_array($hint)) {
 			[$hint, $alias] = $hint;
 
 			$this->aliases[$alias] = $hint;
@@ -99,8 +98,7 @@ class Container
 	 */
 	public function registerContextualDependency(array|string $dependent, string $interface, string $implementation): void
 	{
-		if(is_array($dependent))
-		{
+		if (is_array($dependent)) {
 			$dependent = "{$dependent[0]}::{$dependent[1]}";
 		}
 
@@ -120,12 +118,10 @@ class Container
 	 */
 	protected function replaceInstances(string $hint): void
 	{
-		if(isset($this->replacers[$hint]))
-		{
+		if (isset($this->replacers[$hint])) {
 			$instance = $this->get($hint);
 
-			foreach($this->replacers[$hint] as $replacer)
-			{
+			foreach ($this->replacers[$hint] as $replacer) {
 				$replacer($instance);
 			}
 		}
@@ -148,15 +144,13 @@ class Container
 	{
 		$hint = $this->resolveAlias($hint);
 
-		if(!isset($this->hints[$hint]))
-		{
+		if (!isset($this->hints[$hint])) {
 			throw new ContainerException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
 		}
 
 		$this->hints[$hint]['class'] = $class;
 
-		if($singleton)
-		{
+		if ($singleton) {
 			unset($this->instances[$hint]);
 		}
 
@@ -178,8 +172,7 @@ class Container
 	{
 		$hint = $this->resolveAlias($hint);
 
-		if(!isset($this->instances[$hint]))
-		{
+		if (!isset($this->instances[$hint])) {
 			throw new ContainerException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
 		}
 
@@ -213,8 +206,7 @@ class Container
 
 		$associativeReflectionParameters = [];
 
-		foreach($reflectionParameters as $value)
-		{
+		foreach ($reflectionParameters as $value) {
 			$associativeReflectionParameters[$value->getName()] = $value;
 		}
 
@@ -222,8 +214,7 @@ class Container
 
 		$associativeProvidedParameters = [];
 
-		foreach($providedParameters as $key => $value)
-		{
+		foreach ($providedParameters as $key => $value) {
 			$associativeProvidedParameters[is_int($key) ? $reflectionParameters[$key]->getName() : $key] = $value;
 		}
 
@@ -239,13 +230,11 @@ class Container
 	{
 		$declaringFunction = $parameter->getDeclaringFunction();
 
-		if($declaringFunction->isClosure())
-		{
+		if ($declaringFunction->isClosure()) {
 			return 'Closure';
 		}
 
-		if(($class = $parameter->getDeclaringClass()) === null)
-		{
+		if (($class = $parameter->getDeclaringClass()) === null) {
 			return $declaringFunction->getName();
 		}
 
@@ -263,21 +252,16 @@ class Container
 
 		$parameterClassName = ($parameterType instanceof ReflectionNamedType && !$parameterType->isBuiltin()) ? $parameterType->getName() : null;
 
-		if($parameterClassName !== null)
-		{
-			if($class !== null)
-			{
+		if ($parameterClassName !== null) {
+			if ($class !== null) {
 				$parameterClassName = $this->resolveContextualDependency(($method === null ? $class->getName() : "{$class->getName()}::{$method}"), $parameterClassName);
 			}
 
-			try
-			{
+			try {
 				return $this->get($parameterClassName);
 			}
-			catch(UnableToInstantiateException | UnableToResolveParameterException $e)
-			{
-				if($parameter->allowsNull())
-				{
+			catch (UnableToInstantiateException | UnableToResolveParameterException $e) {
+				if ($parameter->allowsNull()) {
 					return null;
 				}
 
@@ -287,15 +271,13 @@ class Container
 
 		// If the parameter has a default value then we'll use that
 
-		if($parameter->isDefaultValueAvailable())
-		{
+		if ($parameter->isDefaultValueAvailable()) {
 			return $parameter->getDefaultValue();
 		}
 
 		// The parameter is nullable so we'll just return null
 
-		if($parameterType !== null && $parameter->allowsNull())
-		{
+		if ($parameterType !== null && $parameter->allowsNull()) {
 			return null;
 		}
 
@@ -309,8 +291,7 @@ class Container
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null, ?string $method = null): array
 	{
-		if(empty($reflectionParameters))
-		{
+		if (empty($reflectionParameters)) {
 			return array_values($providedParameters);
 		}
 
@@ -320,10 +301,8 @@ class Container
 
 		// Loop through the parameters and resolve the ones that need resolving
 
-		foreach($parameters as $key => $parameter)
-		{
-			if($parameter instanceof ReflectionParameter)
-			{
+		foreach ($parameters as $key => $parameter) {
+			if ($parameter instanceof ReflectionParameter) {
 				$parameters[$key] = $this->resolveParameter($parameter, $class, $method);
 			}
 		}
@@ -362,8 +341,7 @@ class Container
 
 		// Check that it's possible to instantiate the class
 
-		if(!$class->isInstantiable())
-		{
+		if (!$class->isInstantiable()) {
 			throw new UnableToInstantiateException(vsprintf('Unable to create a [ %s ] instance.', [$class->getName()]));
 		}
 
@@ -373,8 +351,7 @@ class Container
 
 		// If we don't have a constructor then we'll just return a new instance
 
-		if($constructor === null)
-		{
+		if ($constructor === null) {
 			return $class->newInstance();
 		}
 
@@ -390,19 +367,16 @@ class Container
 	{
 		// Instantiate class
 
-		if($class instanceof Closure)
-		{
+		if ($class instanceof Closure) {
 			$instance = $this->closureFactory($class, $parameters);
 		}
-		else
-		{
+		else {
 			$instance = $this->reflectionFactory($class, $parameters);
 		}
 
 		// Inject container using setter if the class is container aware
 
-		if($this->isContainerAware($instance))
-		{
+		if ($this->isContainerAware($instance)) {
 			$instance->setContainer($this);
 		}
 
@@ -448,8 +422,7 @@ class Container
 
 		// If a singleton instance exists then we'll just return it
 
-		if($reuseInstance && isset($this->instances[$class]))
-		{
+		if ($reuseInstance && isset($this->instances[$class])) {
 			return $this->instances[$class];
 		}
 
@@ -459,8 +432,7 @@ class Container
 
 		// Store the instance if it's registered as a singleton
 
-		if($reuseInstance && isset($this->hints[$class]) && $this->hints[$class]['singleton'])
-		{
+		if ($reuseInstance && isset($this->hints[$class]) && $this->hints[$class]['singleton']) {
 			$this->instances[$class] = $instance;
 		}
 
@@ -482,8 +454,7 @@ class Container
 	 */
 	public function call(callable $callable, array $parameters = []): mixed
 	{
-		if(is_array($callable))
-		{
+		if (is_array($callable)) {
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
 
 			return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters, $reflection->getDeclaringClass(), $callable[1]));

@@ -24,8 +24,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * Options.
 	 */
-	protected array $options =
-	[
+	protected array $options = [
 		'page_key'       => 'page',
 		'max_page_links' => 5,
 	];
@@ -73,8 +72,7 @@ class Pagination implements PaginationInterface
 		protected int $itemsPerPage,
 		protected int $currentPage,
 		array $options = []
-	)
-	{
+	) {
 		$this->options = $options + $this->options;
 
 		// Calculate the number of pages
@@ -171,8 +169,7 @@ class Pagination implements PaginationInterface
 	 */
 	protected function buildPageUrl(int $page): string
 	{
-		if($this->params === null)
-		{
+		if ($this->params === null) {
 			$this->params = $this->request->query->all();
 		}
 
@@ -184,19 +181,15 @@ class Pagination implements PaginationInterface
 	 */
 	public function toArray(): array
 	{
-		$pagination =
-		[
+		$pagination = [
 			'current_page'    => $this->currentPage,
 			'number_of_pages' => $this->pages,
 			'items'           => $this->items,
 			'items_per_page'  => $this->itemsPerPage,
 		];
 
-		if($this->urlBuilder !== null && $this->request !== null)
-		{
-			$pagination +=
-			[
-
+		if ($this->urlBuilder !== null && $this->request !== null) {
+			$pagination += [
 				'first'    => $this->buildPageUrl(1),
 				'last'     => $this->buildPageUrl($this->pages),
 				'next'     => $this->currentPage < $this->pages ? $this->buildPageUrl($this->currentPage + 1) : null,
@@ -228,40 +221,32 @@ class Pagination implements PaginationInterface
 	 */
 	public function pagination(): array
 	{
-		if(empty($this->pagination))
-		{
-			if(empty($this->request))
-			{
+		if (empty($this->pagination)) {
+			if (empty($this->request)) {
 				throw new PaginationException('A [ Request ] instance is required to generate the pagination array.');
 			}
 
-			if(empty($this->urlBuilder))
-			{
+			if (empty($this->urlBuilder)) {
 				throw new PaginationException('A [ URLBuilder ] instance is required to generate the pagination array.');
 			}
 
 			$pagination = $this->toArray();
 
-			if($this->options['max_page_links'] !== 0)
-			{
-				if($this->pages > $this->options['max_page_links'])
-				{
+			if ($this->options['max_page_links'] !== 0) {
+				if ($this->pages > $this->options['max_page_links']) {
 					$start = (int) max(($this->currentPage) - ceil($this->options['max_page_links'] / 2), 0);
 
 					$end = $start + $this->options['max_page_links'];
 
-					if($end > $this->pages)
-					{
+					if ($end > $this->pages) {
 						$end = $this->pages;
 					}
 
-					if($start > ($end - $this->options['max_page_links']))
-					{
+					if ($start > ($end - $this->options['max_page_links'])) {
 						$start = $end - $this->options['max_page_links'];
 					}
 				}
-				else
-				{
+				else {
 					$start = 0;
 
 					$end = $this->pages;
@@ -269,10 +254,8 @@ class Pagination implements PaginationInterface
 
 				$pagination['pages'] = [];
 
-				for($i = $start + 1; $i <= $end; $i++)
-				{
-					$pagination['pages'][] =
-					[
+				for ($i = $start + 1; $i <= $end; $i++) {
+					$pagination['pages'][] = [
 						'url'        => $this->buildPageUrl($i),
 						'number'     => $i,
 						'is_current' => $i === $this->currentPage,
@@ -291,8 +274,7 @@ class Pagination implements PaginationInterface
 	 */
 	public function render(string $view): string
 	{
-		if(empty($this->viewFactory))
-		{
+		if (empty($this->viewFactory)) {
 			throw new PaginationException('A [ ViewFactory ] instance is required to render pagination views.');
 		}
 

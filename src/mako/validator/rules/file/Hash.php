@@ -23,8 +23,8 @@ class Hash extends Rule implements RuleInterface
 	public function __construct(
 		protected string $hash,
 		protected string $algorithm = 'sha256'
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

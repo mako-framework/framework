@@ -26,8 +26,8 @@ class Database implements StoreInterface
 		protected Connection $connection,
 		protected string $table,
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns a query builder instance.
@@ -44,14 +44,12 @@ class Database implements StoreInterface
 	{
 		$sessionData = serialize($sessionData);
 
-		if($this->table()->where('id', '=', $sessionId)->count() != 0)
-		{
+		if ($this->table()->where('id', '=', $sessionId)->count() != 0) {
 			// Update existing session data
 
 			$this->table()->where('id', '=', $sessionId)->update(['data' => $sessionData, 'expires' => (time() + $dataTTL)]);
 		}
-		else
-		{
+		else {
 			// Insert new session data
 
 			$this->table()->insert(['id' => $sessionId, 'data' => $sessionData, 'expires' => (time() + $dataTTL)]);

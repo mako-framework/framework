@@ -23,12 +23,9 @@ trait OptimisticLockingTrait
 	 */
 	protected function getOptimisticLockingTraitHooks(): array
 	{
-		return
-		[
-			'beforeInsert' =>
-			[
-				function (array $values, $query): array
-				{
+		return [
+			'beforeInsert' => [
+				function (array $values, $query): array {
 					$lockingColumn = $this->getLockingColumn();
 
 					$this->columns[$lockingColumn] = 1;
@@ -36,10 +33,8 @@ trait OptimisticLockingTrait
 					return $values + [$lockingColumn => 1];
 				},
 			],
-			'beforeUpdate' =>
-			[
-				function (array $values, $query): array
-				{
+			'beforeUpdate' => [
+				function (array $values, $query): array {
 					$lockingColumn = $this->getLockingColumn();
 
 					return $values + [$lockingColumn => new Raw("{$query->getCompiler()->escapeIdentifier($lockingColumn)} + 1")];
@@ -53,8 +48,7 @@ trait OptimisticLockingTrait
 	 */
 	public function __clone()
 	{
-		if($this->isPersisted)
-		{
+		if ($this->isPersisted) {
 			unset($this->columns[$this->getLockingColumn()]);
 
 			parent::__clone();
@@ -74,12 +68,10 @@ trait OptimisticLockingTrait
 	 */
 	public function reload(): bool
 	{
-		if($this->isPersisted)
-		{
+		if ($this->isPersisted) {
 			$model = static::get($this->getPrimaryKeyValue());
 
-			if($model !== null)
-			{
+			if ($model !== null) {
 				$this->original = $this->columns = $model->getRawColumnValues();
 
 				$this->related = $model->getRelated();
@@ -120,8 +112,7 @@ trait OptimisticLockingTrait
 
 		$result = parent::updateRecord($query);
 
-		if(!$result)
-		{
+		if (!$result) {
 			$this->columns[$lockingColumn]--;
 
 			throw new StaleRecordException('Attempted to update a stale record.');
@@ -141,8 +132,7 @@ trait OptimisticLockingTrait
 
 		$deleted = parent::deleteRecord($query);
 
-		if(!$deleted)
-		{
+		if (!$deleted) {
 			throw new StaleRecordException('Attempted to delete a stale record.');
 		}
 

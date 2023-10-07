@@ -65,8 +65,7 @@ class ProgressBar
 		protected Output $output,
 		protected int $items,
 		float $minTimeBetweenRedraw = 0.1
-	)
-	{
+	) {
 		$this->minTimeBetweenRedraw = max(min($minTimeBetweenRedraw, 1), 0.1);
 	}
 
@@ -123,8 +122,7 @@ class ProgressBar
 	{
 		// Don't draw progess bar if there are 0 items
 
-		if($this->items === 0)
-		{
+		if ($this->items === 0) {
 			return;
 		}
 
@@ -142,8 +140,7 @@ class ProgressBar
 
 		// If we're done then we'll add a newline to the output
 
-		if($this->progress === $this->items)
-		{
+		if ($this->progress === $this->items) {
 			$this->output->write(PHP_EOL);
 		}
 	}
@@ -163,8 +160,7 @@ class ProgressBar
 	{
 		$time = $this->getMicrotime();
 
-		if($this->lastRedraw === null || $time - $this->lastRedraw >= $this->minTimeBetweenRedraw)
-		{
+		if ($this->lastRedraw === null || $time - $this->lastRedraw >= $this->minTimeBetweenRedraw) {
 			$this->lastRedraw = $time;
 
 			return true;
@@ -180,13 +176,11 @@ class ProgressBar
 	{
 		$this->progress++;
 
-		if($this->progress > $this->items)
-		{
+		if ($this->progress > $this->items) {
 			throw new CliException('You cannot advance past 100%.');
 		}
 
-		if($this->progress === $this->items || $this->shouldRedraw())
-		{
+		if ($this->progress === $this->items || $this->shouldRedraw()) {
 			$this->draw();
 		}
 	}

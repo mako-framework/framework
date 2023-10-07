@@ -27,8 +27,8 @@ class UnorderedList
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Builds a list item.
@@ -45,14 +45,11 @@ class UnorderedList
 	{
 		$list = '';
 
-		foreach($items as $item)
-		{
-			if(is_array($item))
-			{
+		foreach ($items as $item) {
+			if (is_array($item)) {
 				$list .= $this->buildList($item, $marker, $nestingLevel + 1);
 			}
-			else
-			{
+			else {
 				$list .= $this->buildListItem($item, $marker, $nestingLevel);
 			}
 		}

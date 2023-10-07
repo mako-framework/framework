@@ -71,16 +71,13 @@ abstract class BusService extends Service
 	{
 		// Register command bus
 
-		if($this->registerCommandBus)
-		{
+		if ($this->registerCommandBus) {
 			$commandHandlers = $this->getCommandHandlers();
 
-			$this->container->registerSingleton([CommandBusInterface::class, 'commandBus'], static function ($container) use ($commandHandlers)
-			{
+			$this->container->registerSingleton([CommandBusInterface::class, 'commandBus'], static function ($container) use ($commandHandlers) {
 				$commandBus = new CommandBus($container);
 
-				foreach($commandHandlers as $command => $handler)
-				{
+				foreach ($commandHandlers as $command => $handler) {
 					$commandBus->registerHandler($command, $handler);
 				}
 
@@ -90,16 +87,13 @@ abstract class BusService extends Service
 
 		// Register event bus
 
-		if($this->registerEventBus)
-		{
+		if ($this->registerEventBus) {
 			$eventHandlers = $this->getEventHandlers();
 
-			$this->container->registerSingleton([EventBusInterface::class, 'eventBus'], static function ($container) use ($eventHandlers)
-			{
+			$this->container->registerSingleton([EventBusInterface::class, 'eventBus'], static function ($container) use ($eventHandlers) {
 				$eventBus = new EventBus($container);
 
-				foreach($eventHandlers as $event => $handler)
-				{
+				foreach ($eventHandlers as $event => $handler) {
 					$eventBus->registerHandler($event, $handler);
 				}
 
@@ -109,16 +103,13 @@ abstract class BusService extends Service
 
 		// Register query bus
 
-		if($this->registerQueryBus)
-		{
+		if ($this->registerQueryBus) {
 			$queryHandlers = $this->getQueryHandlers();
 
-			$this->container->registerSingleton([QueryBusInterface::class, 'queryBus'], static function ($container) use ($queryHandlers)
-			{
+			$this->container->registerSingleton([QueryBusInterface::class, 'queryBus'], static function ($container) use ($queryHandlers) {
 				$queryBus = new QueryBus($container);
 
-				foreach($queryHandlers as $query => $handler)
-				{
+				foreach ($queryHandlers as $query => $handler) {
 					$queryBus->registerHandler($query, $handler);
 				}
 

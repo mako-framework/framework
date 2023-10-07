@@ -81,8 +81,7 @@ class Alert
 	public function __construct(
 		protected Output $output,
 		?int $width = null
-	)
-	{
+	) {
 		$this->width = $width ?? $output->getEnvironment()->getWidth();
 
 		$this->formatter = $output->getFormatter();
@@ -101,8 +100,7 @@ class Alert
 	 */
 	protected function escape(string $string): string
 	{
-		if($this->formatter !== null)
-		{
+		if ($this->formatter !== null) {
 			return $this->formatter->escape($string);
 		}
 
@@ -118,8 +116,7 @@ class Alert
 
 		$lines = explode(PHP_EOL, PHP_EOL . $this->wordWrap($string, $lineWidth) . PHP_EOL);
 
-		foreach($lines as $key => $value)
-		{
+		foreach ($lines as $key => $value) {
 			$value = $this->escape($value) . str_repeat(' ', $lineWidth - mb_strlen($value));
 
 			$lines[$key] = sprintf('%1$s%2$s%1$s', str_repeat(' ', static::PADDING), $value);

@@ -38,8 +38,8 @@ abstract class Migration
 	 */
 	public function __construct(
 		protected ConnectionManager $database
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the connection name.

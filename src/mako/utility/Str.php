@@ -68,8 +68,7 @@ class Str
 	/**
 	 * Pluralization rules.
 	 */
-	protected static array $pluralizationRules =
-	[
+	protected static array $pluralizationRules = [
 		'/(quiz)$/i'                     => '$1zes',
 		'/([m|l])ouse$/i'                => '$1ice',
 		'/(.+)(e|i)x$/'                  => '$1ices',
@@ -93,8 +92,7 @@ class Str
 	/**
 	 * Irregular nouns.
 	 */
-	protected static array $irregulars =
-	[
+	protected static array $irregulars = [
 		'alias'       => 'aliases',
 		'audio'       => 'audio',
 		'child'       => 'children',
@@ -139,18 +137,13 @@ class Str
 	 */
 	public static function pluralize(string $noun, ?int $count = null): string
 	{
-		if($count !== 1)
-		{
-			if(isset(static::$irregulars[$noun]))
-			{
+		if ($count !== 1) {
+			if (isset(static::$irregulars[$noun])) {
 				$noun = static::$irregulars[$noun];
 			}
-			else
-			{
-				foreach(static::$pluralizationRules as $search => $replace)
-				{
-					if(preg_match($search, $noun))
-					{
+			else {
+				foreach (static::$pluralizationRules as $search => $replace) {
+					if (preg_match($search, $noun)) {
 						$noun = preg_replace($search, $replace, $noun);
 
 						break;
@@ -193,8 +186,7 @@ class Str
 	{
 		preg_match("/^\s*+(?:\S++\s*+){1,{$words}}/", $string, $matches);
 
-		if(isset($matches[0]) && mb_strlen($matches[0]) < mb_strlen($string))
-		{
+		if (isset($matches[0]) && mb_strlen($matches[0]) < mb_strlen($string)) {
 			return trim($matches[0]) . $sufix;
 		}
 
@@ -238,8 +230,7 @@ class Str
 	 */
 	public static function mask(string $string, int $visible = 3, string $mask = '*'): string
 	{
-		if($visible === 0)
-		{
+		if ($visible === 0) {
 			return str_repeat($mask, mb_strlen($string));
 		}
 
@@ -267,8 +258,7 @@ class Str
 
 		$poolSize = mb_strlen($pool) - 1;
 
-		for($i = 0; $i < $length; $i++)
-		{
+		for ($i = 0; $i < $length; $i++) {
 			$string .= mb_substr($pool, random_int(0, $poolSize), 1);
 		}
 

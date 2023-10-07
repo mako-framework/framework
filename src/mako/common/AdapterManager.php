@@ -39,8 +39,8 @@ abstract class AdapterManager
 		protected string $default,
 		protected array $configurations,
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Adds extension.
@@ -55,16 +55,13 @@ abstract class AdapterManager
 	 */
 	protected function factory(string $adapterName, array $configuration = []): mixed
 	{
-		if(method_exists($this, ($method = "{$adapterName}Factory")))
-		{
+		if (method_exists($this, ($method = "{$adapterName}Factory"))) {
 			return $this->$method($configuration);
 		}
-		elseif(isset($this->extensions[$adapterName]))
-		{
+		elseif (isset($this->extensions[$adapterName])) {
 			$adapter = $this->extensions[$adapterName];
 
-			if($adapter instanceof Closure)
-			{
+			if ($adapter instanceof Closure) {
 				return $this->container->call($adapter, $configuration);
 			}
 
@@ -86,8 +83,7 @@ abstract class AdapterManager
 	{
 		$configuration ??= $this->default;
 
-		if(!isset($this->instances[$configuration]))
-		{
+		if (!isset($this->instances[$configuration])) {
 			$this->instances[$configuration] = $this->instantiate($configuration);
 		}
 

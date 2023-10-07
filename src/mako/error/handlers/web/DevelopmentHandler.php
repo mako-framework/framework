@@ -59,8 +59,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 		protected Response $response,
 		protected Application $app,
 		protected array $keep = []
-	)
-	{
+	) {
 		$this->exceptionId = $this->generateExceptionId();
 	}
 
@@ -69,10 +68,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	 */
 	protected function getExceptionType(Throwable $exception): string
 	{
-		if($exception instanceof ErrorException)
-		{
-			return $exception::class . match($exception->getCode())
-			{
+		if ($exception instanceof ErrorException) {
+			return $exception::class . match ($exception->getCode()) {
 				E_COMPILE_ERROR                 => ': Compile Error',
 				E_DEPRECATED, E_USER_DEPRECATED => ': Deprecated',
 				E_NOTICE, E_USER_NOTICE         => ': Notice',
@@ -89,8 +86,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	 */
 	protected function getExceptionAsJson(Throwable $exception): string
 	{
-		$details =
-		[
+		$details = [
 			'type'         => $this->getExceptionType($exception),
 			'code'         => $exception->getCode(),
 			'message'      => $exception->getMessage(),
@@ -129,8 +125,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	 */
 	protected function getSourceCode(string $file, int $line): ?array
 	{
-		if(!is_readable($file))
-		{
+		if (!is_readable($file)) {
 			return null;
 		}
 
@@ -138,17 +133,14 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 		$lines       = [];
 		$currentLine = 0;
 
-		while(!feof($handle))
-		{
-			if($currentLine++ > $line + static::SOURCE_PADDING)
-			{
+		while (!feof($handle)) {
+			if ($currentLine++ > $line + static::SOURCE_PADDING) {
 				break;
 			}
 
 			$sourceCode = fgets($handle);
 
-			if($currentLine >= ($line - static::SOURCE_PADDING) && $currentLine <= ($line + static::SOURCE_PADDING))
-			{
+			if ($currentLine >= ($line - static::SOURCE_PADDING) && $currentLine <= ($line + static::SOURCE_PADDING)) {
 				$lines[$currentLine] = $sourceCode;
 			}
 		}
@@ -171,16 +163,14 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 		$foundAppFrame = false;
 
-		foreach($stackTrace as $key => $frame)
-		{
+		foreach ($stackTrace as $key => $frame) {
 			$key = abs($key - $frameCount);
 
 			$enhancedStackTrace[$key] = $frame;
 
 			$enhancedStackTrace[$key]['is_error'] = $enhancedStackTrace[$key]['is_app'] = $enhancedStackTrace[$key]['is_internal'] = $enhancedStackTrace[$key]['open'] = false;
 
-			if(!isset($frame['file']))
-			{
+			if (!isset($frame['file'])) {
 				$enhancedStackTrace[$key]['is_internal'] = true;
 
 				continue;
@@ -190,16 +180,13 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 			$enhancedStackTrace[$key]['is_app'] = strpos($frame['file'], $this->app->getPath()) === 0;
 
-			if($foundAppFrame === false && $enhancedStackTrace[$key]['is_app'] === true)
-			{
+			if ($foundAppFrame === false && $enhancedStackTrace[$key]['is_app'] === true) {
 				$enhancedStackTrace[$key]['open'] = $foundAppFrame = true;
 			}
 		}
 
-		return
-		[
-			'-' =>
-			[
+		return [
+			'-' => [
 				'class'       => $exception::class,
 				'file'        => $exception->getFile(),
 				'line'        => $exception->getLine(),
@@ -219,10 +206,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	{
 		$previousExceptions = [];
 
-		while(($exception = $exception->getPrevious()) !== null)
-		{
-			$previousExceptions[] =
-			[
+		while (($exception = $exception->getPrevious()) !== null) {
+			$previousExceptions[] = [
 				'type'    => $this->getExceptionType($exception),
 				'file'    => $exception->getFile(),
 				'line'    => $exception->getLine(),
@@ -242,8 +227,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 		$dumper = new HtmlDumper(null, $this->app->getCharset(), HtmlDumper::DUMP_STRING_LENGTH);
 		$cloner = new VarCloner;
 
-		$dumper->setStyles
-		([
+		$dumper->setStyles([
 			'default'   => 'background-color:transparent;color:#91CDA4;line-height:1.2em;font:14px Menlo, Monaco, Consolas, monospace;word-wrap:break-word;white-space:pre-wrap;position:relative;z-index:99999;word-break:normal',
 			'num'       => 'font-weight:normal;color:#666666',
 	        'const'     => 'font-weight:bold',
@@ -261,34 +245,29 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 		// We're using a callable to capture the output so that the generated javascript/css only gets printed once
 
-		$callable = new class
-		{
+		$callable = new class {
 			protected $dump;
 
 			public function __invoke($line, $depth): void
 			{
-				if($depth >= 0)
-				{
+				if ($depth >= 0) {
 					$this->dump .= str_repeat('  ', $depth) . "{$line}\n";
 				}
 			}
 
 			public function getDump(): ?string
 			{
-				try
-				{
+				try {
 					return $this->dump;
 				}
-				finally
-				{
+				finally {
 					$this->dump = null;
 				}
 
 			}
 		};
 
-		return static function ($value) use ($dumper, $cloner, $callable): ?string
-		{
+		return static function ($value) use ($dumper, $cloner, $callable): ?string {
 			$dumper->dump($cloner->cloneVar($value, Caster::EXCLUDE_VERBOSE), $callable);
 
 			return $callable->getDump();
@@ -300,13 +279,11 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	 */
 	protected function getQueries(): ?array
 	{
-		if(!$this->app->getContainer()->has(ConnectionManager::class))
-		{
+		if (!$this->app->getContainer()->has(ConnectionManager::class)) {
 			return null;
 		}
 
-		$formatter = new SqlFormatter(new HtmlHighlighter
-		([
+		$formatter = new SqlFormatter(new HtmlHighlighter([
 			HtmlHighlighter::HIGHLIGHT_BACKTICK_QUOTE => 'style="color:#C678DD;"',
 			HtmlHighlighter::HIGHLIGHT_COMMENT        => 'style="color:#5C6370"',
 			HtmlHighlighter::HIGHLIGHT_NUMBER         => 'style="color:#D19A66;"',
@@ -318,10 +295,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 		$groupedQueries = $this->app->getContainer()->get(ConnectionManager::class)->getLogs();
 
-		foreach($groupedQueries as $connectionKey => $connectionQueries)
-		{
-			foreach($connectionQueries as $key => $query)
-			{
+		foreach ($groupedQueries as $connectionKey => $connectionQueries) {
+			foreach ($connectionQueries as $key => $query) {
 				$groupedQueries[$connectionKey][$key]['query'] = $formatter->format($query['query']);
 			}
 		}
@@ -350,8 +325,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	 */
 	protected function getExceptionAsHtml(Throwable $exception): string
 	{
-		return $this->getViewFactory()->render('mako-error::development.error',
-		[
+		return $this->getViewFactory()->render('mako-error::development.error', [
 			'type'         => $this->getExceptionType($exception),
 			'code'         => $exception->getCode(),
 			'message'      => $exception->getMessage(),
@@ -362,8 +336,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 			'dump'         => $this->getDumper(),
 			'queries'      => $this->getQueries(),
 			'exception_id' => $this->exceptionId,
-			'superglobals' =>
-			[
+			'superglobals' => [
 				'_ENV'     => $_ENV,
 				'_SERVER'  => $_SERVER,
 				'_COOKIE'  => $_COOKIE,
@@ -380,13 +353,11 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	 */
 	protected function buildResponse(Throwable $exception): array
 	{
-		if(function_exists('json_encode') && $this->respondWithJson())
-		{
+		if (function_exists('json_encode') && $this->respondWithJson()) {
 			return ['type' => 'application/json', 'body' => $this->getExceptionAsJson($exception)];
 		}
 
-		if(function_exists('simplexml_load_string') && $this->respondWithXml())
-		{
+		if (function_exists('simplexml_load_string') && $this->respondWithXml()) {
 			return ['type' => 'application/xml', 'body' => $this->getExceptionAsXml($exception)];
 		}
 

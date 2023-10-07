@@ -31,8 +31,8 @@ class Exists extends Rule implements RuleInterface
 		protected string $column,
 		protected ?string $connection,
 		protected ConnectionManager $database
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

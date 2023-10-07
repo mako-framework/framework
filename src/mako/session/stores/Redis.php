@@ -23,8 +23,8 @@ class Redis implements StoreInterface
 	public function __construct(
 		protected RedisClient $redis,
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

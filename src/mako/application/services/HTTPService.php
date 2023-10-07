@@ -41,12 +41,10 @@ class HTTPService extends Service
 
 		// Request
 
-		$this->container->registerSingleton([Request::class, 'request'], static function ($container) use ($config)
-		{
+		$this->container->registerSingleton([Request::class, 'request'], static function ($container) use ($config) {
 			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class), $config['script_name'] ?? null);
 
-			if(!empty($config['trusted_proxies']))
-			{
+			if (!empty($config['trusted_proxies'])) {
 				$request->setTrustedProxies($config['trusted_proxies']);
 			}
 
@@ -59,12 +57,10 @@ class HTTPService extends Service
 
 		// Routes
 
-		$this->container->registerSingleton([Routes::class, 'routes'], static function ($container) use ($app, $routingPath)
-		{
+		$this->container->registerSingleton([Routes::class, 'routes'], static function ($container) use ($app, $routingPath) {
 			$routes = new Routes;
 
-			(function ($app, $container, $routes) use ($routingPath): void
-			{
+			(function ($app, $container, $routes) use ($routingPath): void {
 				include "{$routingPath}/routes.php";
 			})
 			->bindTo($app)($app, $container, $routes);
@@ -74,12 +70,10 @@ class HTTPService extends Service
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $routingPath)
-		{
+		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $routingPath) {
 			$router = new Router($container->get(Routes::class), $container);
 
-			(function ($app, $container, $router) use ($routingPath): void
-			{
+			(function ($app, $container, $router) use ($routingPath): void {
 				include "{$routingPath}/constraints.php";
 			})
 			->bindTo($app)($app, $container, $router);
@@ -89,12 +83,10 @@ class HTTPService extends Service
 
 		// Dispatcher
 
-		$this->container->registerSingleton(Dispatcher::class, static function ($container) use ($app, $routingPath)
-		{
+		$this->container->registerSingleton(Dispatcher::class, static function ($container) use ($app, $routingPath) {
 			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
-			(function ($app, $container, $dispatcher) use ($routingPath): void
-			{
+			(function ($app, $container, $dispatcher) use ($routingPath): void {
 				include "{$routingPath}/middleware.php";
 			})
 			->bindTo($app)($app, $container, $dispatcher);

@@ -20,8 +20,7 @@ class Bcrypt extends Hasher
 	 */
 	protected function normalizeOptions(array $options): array
 	{
-		$options +=
-		[
+		$options += [
 			'cost' => PASSWORD_BCRYPT_DEFAULT_COST,
 		];
 

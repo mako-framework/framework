@@ -36,8 +36,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	 */
 	public function increment(string $key, int $step = 1)
 	{
-		if($this->has($key))
-		{
+		if ($this->has($key)) {
 			return $this->cache[$key]['data'] = $this->cache[$key]['data'] + $step;
 		}
 
@@ -51,8 +50,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	 */
 	public function decrement(string $key, int $step = 1)
 	{
-		if($this->has($key))
-		{
+		if ($this->has($key)) {
 			return $this->cache[$key]['data'] = $this->cache[$key]['data'] - $step;
 		}
 
@@ -74,10 +72,8 @@ class Memory extends Store implements IncrementDecrementInterface
 	 */
 	public function get(string $key): mixed
 	{
-		if(isset($this->cache[$key]))
-		{
-			if($this->cache[$key]['ttl'] > time())
-			{
+		if (isset($this->cache[$key])) {
+			if ($this->cache[$key]['ttl'] > time()) {
 				return $this->cache[$key]['data'];
 			}
 
@@ -92,8 +88,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	 */
 	public function remove(string $key): bool
 	{
-		if(isset($this->cache[$key]))
-		{
+		if (isset($this->cache[$key])) {
 			unset($this->cache[$key]);
 
 			return true;

@@ -33,10 +33,8 @@ class ProductionHandler extends Handler implements HandlerInterface
 		protected Response $response,
 		protected ?ViewFactory $view = null,
 		protected array $keep = []
-	)
-	{
-		if($this->view !== null)
-		{
+	) {
+		if ($this->view !== null) {
 			$this->view->registerNamespace('mako-error', __DIR__ . '/views');
 		}
 
@@ -48,15 +46,13 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	protected function getStatusCodeMessageAndMetadata(Throwable $exception): array
 	{
-		if($exception instanceof HttpStatusException)
-		{
+		if ($exception instanceof HttpStatusException) {
 			$message = $exception->getMessage();
 
 			$metadata = $exception->getMetadata();
 		}
 
-		if(empty($message))
-		{
+		if (empty($message)) {
 			$message = 'An error has occurred while processing your request.';
 		}
 
@@ -91,16 +87,12 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 		$xml->addChild('exception_id', $this->exceptionId);
 
-		if(!empty($metadata))
-		{
+		if (!empty($metadata)) {
 			$meta = $xml->addChild('metadata');
 
-			($builder = function ($xml, $metadata) use (&$builder)
-			{
-				foreach($metadata as $key => $value)
-				{
-					if(is_array($value))
-					{
+			($builder = function ($xml, $metadata) use (&$builder) {
+				foreach ($metadata as $key => $value) {
+					if (is_array($value)) {
 						$child = $xml->addChild($key);
 
 						return $builder($child, $value);
@@ -121,12 +113,10 @@ class ProductionHandler extends Handler implements HandlerInterface
 	{
 		$view = 'error';
 
-		if($exception instanceof HttpStatusException)
-		{
+		if ($exception instanceof HttpStatusException) {
 			$code = $exception->getStatus()->value;
 
-			if($this->view->exists("mako-error::{$code}"))
-			{
+			if ($this->view->exists("mako-error::{$code}")) {
 				$view = $code;
 			}
 
@@ -135,12 +125,10 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 		$this->view->assign('exception_id', $this->exceptionId);
 
-		try
-		{
+		try {
 			return $this->view->render('mako-error::' . $view, ['_metadata_' => $metadata ?? []]);
 		}
-		catch(Throwable $e)
-		{
+		catch (Throwable $e) {
 			return $this->view->clearAutoAssignVariables()->render('mako-error::' . $view, ['_metadata_' => $metadata ?? []]);
 		}
 	}
@@ -160,18 +148,15 @@ class ProductionHandler extends Handler implements HandlerInterface
 	 */
 	protected function buildResponse(Throwable $exception): array
 	{
-		if(function_exists('json_encode') && $this->respondWithJson())
-		{
+		if (function_exists('json_encode') && $this->respondWithJson()) {
 			return ['type' => 'application/json', 'body' => $this->getExceptionAsJson($exception)];
 		}
 
-		if(function_exists('simplexml_load_string') && $this->respondWithXml())
-		{
+		if (function_exists('simplexml_load_string') && $this->respondWithXml()) {
 			return ['type' => 'application/xml', 'body' => $this->getExceptionAsXml($exception)];
 		}
 
-		if($this->view !== null)
-		{
+		if ($this->view !== null) {
 			return ['type' => 'text/html', 'body' => $this->getExceptionAsHtml($exception)];
 		}
 

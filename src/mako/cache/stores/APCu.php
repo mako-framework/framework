@@ -30,8 +30,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	 */
 	public function __construct()
 	{
-		if(function_exists('apcu_store') === false)
-		{
+		if (function_exists('apcu_store') === false) {
 			throw new CacheException('APCU is not available on your system.');
 		}
 	}

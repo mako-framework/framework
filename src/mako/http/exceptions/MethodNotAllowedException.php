@@ -27,8 +27,7 @@ class MethodNotAllowedException extends HttpStatusException
 		protected array $allowedMethods = [],
 		string $message = '',
 		?Throwable $previous = null
-	)
-	{
+	) {
 		parent::__construct(Status::METHOD_NOT_ALLOWED, $message, $previous);
 	}
 

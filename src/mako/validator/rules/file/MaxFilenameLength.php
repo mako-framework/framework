@@ -24,8 +24,8 @@ class MaxFilenameLength extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected int $maxLength
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

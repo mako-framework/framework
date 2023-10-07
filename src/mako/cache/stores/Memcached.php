@@ -30,20 +30,17 @@ class Memcached extends Store implements IncrementDecrementInterface
 
 		$this->memcached->setOption(PHPMemcached::OPT_BINARY_PROTOCOL, true);
 
-		if($timeout !== 1)
-		{
+		if ($timeout !== 1) {
 			$this->memcached->setOption(PHPMemcached::OPT_CONNECT_TIMEOUT, ($timeout * 1000)); // Multiply by 1000 to convert to ms
 		}
 
-		if($compressData === false)
-		{
+		if ($compressData === false) {
 			$this->memcached->setOption(PHPMemcached::OPT_COMPRESSION, false);
 		}
 
 		// Add servers to the connection pool
 
-		foreach($servers as $server)
-		{
+		foreach ($servers as $server) {
 			$this->memcached->addServer($server['server'], $server['port'], $server['weight']);
 		}
 	}
@@ -53,15 +50,13 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 */
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
-		if($ttl !== 0)
-		{
+		if ($ttl !== 0) {
 			$ttl += time();
 		}
 
 		$key = $this->getPrefixedKey($key);
 
-		if($this->memcached->replace($key, $data, $ttl) === false)
-		{
+		if ($this->memcached->replace($key, $data, $ttl) === false) {
 			return $this->memcached->set($key, $data, $ttl);
 		}
 
@@ -73,8 +68,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 */
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
-		if($ttl !== 0)
-		{
+		if ($ttl !== 0) {
 			$ttl += time();
 		}
 
@@ -112,8 +106,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	{
 		$value = $this->memcached->get($this->getPrefixedKey($key));
 
-		if($this->memcached->getResultCode() === PHPMemcached::RES_NOTFOUND)
-		{
+		if ($this->memcached->getResultCode() === PHPMemcached::RES_NOTFOUND) {
 			return null;
 		}
 

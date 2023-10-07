@@ -67,10 +67,8 @@ class File implements ResponseSenderInterface
 	public function __construct(
 		protected FileSystem $fileSystem,
 		protected string $filePath
-	)
-	{
-		if($this->fileSystem->has($this->filePath) === false || $this->fileSystem->isReadable($this->filePath) === false)
-		{
+	) {
+		if ($this->fileSystem->has($this->filePath) === false || $this->fileSystem->isReadable($this->filePath) === false) {
 			throw new HttpException(vsprintf('File [ %s ] is not readable.', [$this->filePath]));
 		}
 
@@ -158,8 +156,7 @@ class File implements ResponseSenderInterface
 
 		// Check that the range contains two values
 
-		if(count($range) !== 2)
-		{
+		if (count($range) !== 2) {
 			return false;
 		}
 
@@ -167,13 +164,11 @@ class File implements ResponseSenderInterface
 
 		$end = $range[1] === '' ? $this->fileSize - 1 : $range[1];
 
-		if($range[0] === '')
-		{
+		if ($range[0] === '') {
 			$start = $this->fileSize - $end;
 			$end   = $this->fileSize - 1;
 		}
-		else
-		{
+		else {
 			$start = $range[0];
 		}
 
@@ -182,8 +177,7 @@ class File implements ResponseSenderInterface
 
 		// Check that the range is satisfiable
 
-		if($start > $end || $end + 1 > $this->fileSize)
-		{
+		if ($start > $end || $end + 1 > $this->fileSize) {
 			return false;
 		}
 
@@ -199,7 +193,7 @@ class File implements ResponseSenderInterface
 	{
 		// Erase output buffers and disable output buffering
 
-		while(ob_get_level() > 0) ob_end_clean();
+		while (ob_get_level() > 0) ob_end_clean();
 
 		// Open the file for reading
 
@@ -213,10 +207,8 @@ class File implements ResponseSenderInterface
 
 		$chunkSize = 4096;
 
-		while(!feof($handle) && ($pos = ftell($handle)) <= $end && !connection_aborted())
-		{
-			if($pos + $chunkSize > $end)
-			{
+		while (!feof($handle) && ($pos = ftell($handle)) <= $end && !connection_aborted()) {
+			if ($pos + $chunkSize > $end) {
 				$chunkSize = $end - $pos + 1;
 			}
 
@@ -245,13 +237,11 @@ class File implements ResponseSenderInterface
 
 		$range = $request->headers->get('range');
 
-		if($range !== null)
-		{
+		if ($range !== null) {
 			$range = $this->calculateRange($range);
 		}
 
-		if($range === false)
-		{
+		if ($range === false) {
 			// Not an acceptable range so we'll just send an empty response
 			// along with a "requested range not satisfiable" status
 
@@ -259,10 +249,8 @@ class File implements ResponseSenderInterface
 
 			$response->sendHeaders();
 		}
-		else
-		{
-			if($range === null)
-			{
+		else {
+			if ($range === null) {
 				// No range was provided by the client so we'll just fake one for the sendFile method
 				// and set the content-length header value to the full file size
 
@@ -270,8 +258,7 @@ class File implements ResponseSenderInterface
 
 				$response->headers->add('Content-Length', $this->fileSize);
 			}
-			else
-			{
+			else {
 				// Valid range so we'll need to tell the client which range we're sending
 				// and set the content-length header value to the length of the byte range
 
@@ -290,8 +277,7 @@ class File implements ResponseSenderInterface
 
 			// Execute callback if there is one
 
-			if(!empty($this->callback))
-			{
+			if (!empty($this->callback)) {
 				$callback = $this->callback;
 
 				$callback($this->filePath);

@@ -380,33 +380,27 @@ class Redis
 	final public function __construct(
 		protected Connection $connection,
 		array $options = []
-	)
-	{
+	) {
 		// Switch protocol to RESP3
 
-		if(!empty($options['resp']) && $options['resp'] === static::RESP3)
-		{
+		if (!empty($options['resp']) && $options['resp'] === static::RESP3) {
 			$this->hello($this->resp = static::RESP3);
 		}
 
 		// Authenticate
 
-		if(!empty($options['password']))
-		{
-			if(empty($options['username']))
-			{
+		if (!empty($options['password'])) {
+			if (empty($options['username'])) {
 				$this->auth($this->password = $options['password']);
 			}
-			else
-			{
+			else {
 				$this->auth($this->username = $options['username'], $this->password = $options['password']);
 			}
 		}
 
 		// Select database
 
-		if(!empty($options['database']))
-		{
+		if (!empty($options['database'])) {
 			$this->select($this->database = $options['database']);
 		}
 	}
@@ -450,8 +444,7 @@ class Redis
 	{
 		[$server, $port] = explode(':', $server, 2);
 
-		return new static(new Connection($server, $port, $this->connection->getOptions()),
-		[
+		return new static(new Connection($server, $port, $this->connection->getOptions()), [
 			'resp'     => $this->resp,
 			'username' => $this->username,
 			'password' => $this->password,
@@ -466,8 +459,7 @@ class Redis
 	{
 		[, $server] = explode(' ', $serverInfo, 2);
 
-		if(!isset($this->clusterClients[$server]))
-		{
+		if (!isset($this->clusterClients[$server])) {
 			$this->clusterClients[$server] = $this->createClusterClient($server);
 		}
 
@@ -487,8 +479,7 @@ class Redis
 	 */
 	protected function handleBlobStringResponse(string $response): ?string
 	{
-		if($response === '$-1')
-		{
+		if ($response === '$-1') {
 			return null;
 		}
 
@@ -496,14 +487,12 @@ class Redis
 
 		// Do we have a streamed blob string response?
 
-		if($length === '?')
-		{
+		if ($length === '?') {
 			$string = '';
 
 			$length = (int) substr(trim($this->connection->readLine()), 1);
 
-			while($length !== 0)
-			{
+			while ($length !== 0) {
 				$string .= substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
 
 				$length = (int) substr(trim($this->connection->readLine()), 1);
@@ -542,13 +531,11 @@ class Redis
 	{
 		$value = substr($response, 1);
 
-		if($value === 'inf')
-		{
+		if ($value === 'inf') {
 			return INF;
 		}
 
-		if($value === '-inf')
-		{
+		if ($value === '-inf') {
 			return -INF;
 		}
 
@@ -568,8 +555,7 @@ class Redis
 	 */
 	protected function handleBooleanResponse(string $response): bool
 	{
-		if($response === '#t')
-		{
+		if ($response === '#t') {
 			return true;
 		}
 
@@ -581,8 +567,7 @@ class Redis
 	 */
 	protected function handleArrayResponse(string $response): ?array
 	{
-		if($response === '*-1')
-		{
+		if ($response === '*-1') {
 			return null;
 		}
 
@@ -592,14 +577,11 @@ class Redis
 
 		// Do we have a streamed array response?
 
-		if($count === '?')
-		{
-			while(true)
-			{
+		if ($count === '?') {
+			while (true) {
 				$value = $this->getResponse();
 
-				if($value === static::END)
-				{
+				if ($value === static::END) {
 					break;
 				}
 
@@ -613,8 +595,7 @@ class Redis
 
 		$count = (int) $count;
 
-		for($i = 0; $i < $count; $i++)
-		{
+		for ($i = 0; $i < $count; $i++) {
 			$data[] = $this->getResponse();
 		}
 
@@ -632,14 +613,11 @@ class Redis
 
 		// Do we have a streamed map response?
 
-		if($count === '?')
-		{
-			while(true)
-			{
+		if ($count === '?') {
+			while (true) {
 				$key = $this->getResponse();
 
-				if($key === static::END)
-				{
+				if ($key === static::END) {
 					break;
 				}
 
@@ -653,8 +631,7 @@ class Redis
 
 		$count = (int) $count;
 
-		for($i = 0; $i < $count; $i++)
-		{
+		for ($i = 0; $i < $count; $i++) {
 			$data[$this->getResponse()] = $this->getResponse();
 		}
 
@@ -680,8 +657,7 @@ class Redis
 
 		$count = (int) substr($response, 1);
 
-		for($i = 0; $i < $count; $i++)
-		{
+		for ($i = 0; $i < $count; $i++) {
 			$attributes[$this->getResponse()] = $this->getResponse();
 		}
 
@@ -709,8 +685,7 @@ class Redis
 
 		[$type, $error] = explode(' ', $response, 2);
 
-		return match($type)
-		{
+		return match ($type) {
 			'MOVED', 'ASK' => $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand),
 			default        => throw new RedisException(vsprintf('%s.', [$response])),
 		};
@@ -735,8 +710,7 @@ class Redis
 	{
 		$response = trim($this->connection->readLine());
 
-		return match(substr($response, 0, 1))
-		{
+		return match (substr($response, 0, 1)) {
 			'+'     => $this->handleSimpleStringResponse($response),
 			'$'     => $this->handleBlobStringResponse($response),
 			'='     => $this->handleVerbatimStringResponse($response),
@@ -764,16 +738,13 @@ class Redis
 	{
 		$command = strtoupper(str_replace('_', ' ', Str::camelToSnake($name)));
 
-		if(strpos($command, ' ') === false)
-		{
+		if (strpos($command, ' ') === false) {
 			$command = [$command];
 		}
-		else
-		{
+		else {
 			$command = explode(' ', $command, 2);
 
-			if(strpos($command[1], ' ') !== false)
-			{
+			if (strpos($command[1], ' ') !== false) {
 				$command[1] = str_replace(' ', '-', $command[1]);
 			}
 		}
@@ -782,8 +753,7 @@ class Redis
 
 		$command = '*' . count($pieces) . static::CRLF;
 
-		foreach($pieces as $piece)
-		{
+		foreach ($pieces as $piece) {
 			$command .= '$' . strlen($piece) . static::CRLF . $piece . static::CRLF;
 		}
 
@@ -817,20 +787,17 @@ class Redis
 	{
 		$this->sendCommand($this->buildCommand($subscribe, $channels));
 
-		while(true)
-		{
+		while (true) {
 			$message = new Message($this->getResponse());
 
-			if(in_array($message->getType(), $accept) && $subscriber($message) === false)
-			{
+			if (in_array($message->getType(), $accept) && $subscriber($message) === false) {
 				break;
 			}
 
 			unset($message);
 		}
 
-		foreach($channels as $channel)
-		{
+		foreach ($channels as $channel) {
 			$this->sendCommandAndGetResponse($this->buildCommand($unsubscribe, [$channel]));
 		}
 	}
@@ -858,10 +825,8 @@ class Redis
 	{
 		$this->sendCommandAndGetResponse($this->buildCommand('monitor'));
 
-		while(true)
-		{
-			if($monitor($this->getResponse()) === false)
-			{
+		while (true) {
+			if ($monitor($this->getResponse()) === false) {
 				break;
 			}
 		}
@@ -894,8 +859,7 @@ class Redis
 
 		$this->sendCommand(implode('', $this->commands));
 
-		for($i = 0; $i < $commands; $i++)
-		{
+		for ($i = 0; $i < $commands; $i++) {
 			$responses[] = $this->getResponse();
 		}
 
@@ -918,8 +882,7 @@ class Redis
 	{
 		$command = $this->buildCommand($name, $arguments);
 
-		if($this->pipelined)
-		{
+		if ($this->pipelined) {
 			// Pipeline commands
 
 			$this->commands[] = $command;

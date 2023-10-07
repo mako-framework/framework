@@ -105,8 +105,7 @@ class Validator
 	/**
 	 * Rules.
 	 */
-	protected array $rules =
-	[
+	protected array $rules = [
 		'after'                    => After::class,
 		'alpha_dash_unicode'       => AlphanumericDashUnicode::class,
 		'alpha_dash'               => AlphanumericDash::class,
@@ -194,8 +193,7 @@ class Validator
 		array $ruleSets = [],
 		protected ?I18n $i18n = null,
 		protected Container $container = new Container
-	)
-	{
+	) {
 		$this->ruleSets = $this->expandFields($ruleSets);
 	}
 
@@ -222,8 +220,7 @@ class Validator
 	 */
 	protected function saveOriginalFieldNames(array $fields, string $field): void
 	{
-		foreach($fields as $expanded)
-		{
+		foreach ($fields as $expanded) {
 			$this->originalFieldNames[$expanded] = $field;
 		}
 	}
@@ -243,19 +240,15 @@ class Validator
 	{
 		$expanded = [];
 
-		foreach($ruleSets as $field => $ruleSet)
-		{
-			if($this->hasWilcard($field) === false)
-			{
+		foreach ($ruleSets as $field => $ruleSet) {
+			if ($this->hasWilcard($field) === false) {
 				$expanded = array_merge_recursive($expanded, [$field => $ruleSet]);
 
 				continue;
 			}
 
-			if(!empty($fields = Arr::expandKey($this->input, $field)))
-			{
-				if($field !== '*')
-				{
+			if (!empty($fields = Arr::expandKey($this->input, $field))) {
+				if ($field !== '*') {
 					$this->saveOriginalFieldNames($fields, $field);
 				}
 
@@ -283,8 +276,7 @@ class Validator
 	 */
 	public function addRulesIf(string $field, array $ruleSet, bool|Closure $condition): Validator
 	{
-		if($condition instanceof Closure)
-		{
+		if ($condition instanceof Closure) {
 			$condition = $condition();
 		}
 
@@ -298,8 +290,7 @@ class Validator
 	{
 		$package = null;
 
-		if(preg_match('/^([a-z-]+)::(.*)/', $rule, $matches) === 1)
-		{
+		if (preg_match('/^([a-z-]+)::(.*)/', $rule, $matches) === 1) {
 			$package = $matches[1];
 		}
 
@@ -313,13 +304,11 @@ class Validator
 	 */
 	protected function getRuleClassName(string $name): string
 	{
-		if(isset($this->rules[$name]))
-		{
+		if (isset($this->rules[$name])) {
 			return $this->rules[$name];
 		}
 
-		if(class_exists($name))
-		{
+		if (class_exists($name)) {
 			return $name;
 		}
 
@@ -349,8 +338,7 @@ class Validator
 	{
 		$field = $this->getOriginalFieldName($field);
 
-		if($this->i18n !== null && $rule instanceof I18nAwareInterface)
-		{
+		if ($this->i18n !== null && $rule instanceof I18nAwareInterface) {
 			return $rule->setI18n($this->i18n)->getTranslatedErrorMessage($field, $parsedRule->name, $parsedRule->package);
 		}
 
@@ -368,15 +356,13 @@ class Validator
 
 		// Just return true if the input field is empty and the rule doesn't validate empty input
 
-		if($this->isInputFieldEmpty($inputValue = Arr::get($this->input, $field)) && $rule->validateWhenEmpty() === false)
-		{
+		if ($this->isInputFieldEmpty($inputValue = Arr::get($this->input, $field)) && $rule->validateWhenEmpty() === false) {
 			return true;
 		}
 
 		// Validate input
 
-		if($rule->validate($inputValue, $field, $this->input) === false)
-		{
+		if ($rule->validate($inputValue, $field, $this->input) === false) {
 			$this->errors[$field] = $this->getErrorMessage($rule, $field, $parsedRule);
 
 			return $this->isValid = false;
@@ -391,18 +377,15 @@ class Validator
 	 */
 	protected function process(): array
 	{
-		foreach($this->ruleSets as $field => $ruleSet)
-		{
+		foreach ($this->ruleSets as $field => $ruleSet) {
 			// Ensure that we don't have any duplicated rules for a field
 
 			$ruleSet = array_unique($ruleSet);
 
 			// Validate field and stop as soon as one of the rules fail
 
-			foreach($ruleSet as $rule)
-			{
-				if($this->validateField($field, $rule) === false)
-				{
+			foreach ($ruleSet as $rule) {
+				if ($this->validateField($field, $rule) === false) {
 					break;
 				}
 			}
@@ -436,17 +419,14 @@ class Validator
 	 */
 	public function getValidatedInput(): array
 	{
-		if($this->isInvalid())
-		{
+		if ($this->isInvalid()) {
 			throw new ValidationException($this->errors, 'Invalid input.');
 		}
 
 		$validated = [];
 
-		foreach(array_keys($this->ruleSets) as $validatedKey)
-		{
-			if(Arr::has($this->input, $validatedKey))
-			{
+		foreach (array_keys($this->ruleSets) as $validatedKey) {
+			if (Arr::has($this->input, $validatedKey)) {
 				Arr::set($validated, $validatedKey, Arr::get($this->input, $validatedKey));
 			}
 		}

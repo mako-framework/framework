@@ -71,8 +71,7 @@ class Routes
 	 */
 	public function getNamedRoute(string $name): Route
 	{
-		if(!isset($this->namedRoutes[$name]))
-		{
+		if (!isset($this->namedRoutes[$name])) {
 			throw new RoutingException(vsprintf('No route named [ %s ] has been defined.', [$name]));
 		}
 
@@ -96,16 +95,12 @@ class Routes
 	 */
 	protected function registerGroupOption(Route $route, string $option, mixed $value): void
 	{
-		if($option === 'middleware' || $option === 'constraint')
-		{
-			foreach((array) $value as $parameters)
-			{
-				if(is_string($parameters))
-				{
+		if ($option === 'middleware' || $option === 'constraint') {
+			foreach ((array) $value as $parameters) {
+				if (is_string($parameters)) {
 					$route->$option($parameters);
 				}
-				else
-				{
+				else {
 					$route->$option($parameters[0], ...$parameters[1]);
 				}
 			}
@@ -125,22 +120,17 @@ class Routes
 
 		$this->routes[] = $route;
 
-		foreach($methods as $method)
-		{
+		foreach ($methods as $method) {
 			$this->groupedRoutes[$method][] = $route;
 		}
 
-		if($name !== null)
-		{
+		if ($name !== null) {
 			$this->namedRoutes[$name] = $route;
 		}
 
-		if(!empty($this->groups))
-		{
-			foreach($this->groups as $group)
-			{
-				foreach($group as $option => $value)
-				{
+		if (!empty($this->groups)) {
+			foreach ($this->groups as $group) {
+				foreach ($group as $option => $value) {
 					$this->registerGroupOption($route, $option, $value);
 				}
 			}

@@ -38,8 +38,8 @@ class Template extends PHP
 	public function __construct(
 		protected FileSystem $fileSystem,
 		protected string $cachePath
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the path to the compiled template.
@@ -92,8 +92,7 @@ class Template extends PHP
 
 		unset($this->blocks[$name]);
 
-		if(!empty($parent))
-		{
+		if (!empty($parent)) {
 			$output = str_replace('__PARENT__', $parent, $output);
 		}
 
@@ -107,8 +106,7 @@ class Template extends PHP
 	{
 		$compiled = $this->getCompiledPath($__view__);
 
-		if($this->needToCompile($__view__, $compiled))
-		{
+		if ($this->needToCompile($__view__, $compiled)) {
 			$this->compile($__view__);
 		}
 

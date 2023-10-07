@@ -21,8 +21,7 @@ class MySQL extends Connection
 	 */
 	protected function bindParameter(PDOStatement $statement, int $key, $value): void
 	{
-		if(is_bool($value))
-		{
+		if (is_bool($value)) {
 			$value = $value ? 1 : 0;
 		}
 

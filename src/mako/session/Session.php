@@ -42,13 +42,11 @@ class Session
 	/**
 	 * Session options.
 	 */
-	protected array $options =
-	[
+	protected array $options = [
 		'name'           => 'mako_session',
 		'data_ttl'       => 1800,
 		'cookie_ttl'     => 0,
-		'cookie_options' =>
-		[
+		'cookie_options' => [
 			'path'     => '/',
 			'domain'   => '',
 			'secure'   => false,
@@ -85,8 +83,7 @@ class Session
 		protected StoreInterface $store,
 		array $options = [],
 		protected bool $autoCommit = true
-	)
-	{
+	) {
 		$this->options = array_replace_recursive($this->options, $options);
 
 		$this->gc();
@@ -99,8 +96,7 @@ class Session
 	 */
 	public function __destruct()
 	{
-		if($this->autoCommit)
-		{
+		if ($this->autoCommit) {
 			$this->commit();
 		}
 	}
@@ -124,8 +120,7 @@ class Session
 
 		// Create a session token if we don't have one
 
-		if(empty($this->sessionData['mako.token']))
-		{
+		if (empty($this->sessionData['mako.token'])) {
 			$this->sessionData['mako.token'] = $this->generateId();
 		}
 
@@ -159,8 +154,7 @@ class Session
 
 		// Write session data
 
-		if(!$this->destroyed)
-		{
+		if (!$this->destroyed) {
 			$this->store->write($this->sessionId, $this->sessionData, $this->options['data_ttl']);
 		}
 	}
@@ -170,8 +164,7 @@ class Session
 	 */
 	public function gc(bool $force = false): void
 	{
-		if($force || mt_rand(1, 100) === 100)
-		{
+		if ($force || mt_rand(1, 100) === 100) {
 			$this->store->gc($this->options['data_ttl']);
 		}
 	}
@@ -189,8 +182,7 @@ class Session
 	 */
 	protected function setCookie(): void
 	{
-		if($this->options['cookie_options']['secure'] && !$this->request->isSecure())
-		{
+		if ($this->options['cookie_options']['secure'] && !$this->request->isSecure()) {
 			throw new SessionException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
@@ -220,8 +212,7 @@ class Session
 	{
 		// Delete old data if we don't want to keep it
 
-		if(!$keepOld)
-		{
+		if (!$keepOld) {
 			$this->store->delete($this->sessionId);
 		}
 
@@ -373,12 +364,10 @@ class Session
 	 */
 	public function generateOneTimeToken(): string
 	{
-		if(!empty($this->sessionData['mako.tokens']))
-		{
+		if (!empty($this->sessionData['mako.tokens'])) {
 			$this->sessionData['mako.tokens'] = array_slice($this->sessionData['mako.tokens'], 0, (static::MAX_TOKENS - 1));
 		}
-		else
-		{
+		else {
 			$this->sessionData['mako.tokens'] = [];
 		}
 
@@ -394,12 +383,9 @@ class Session
 	 */
 	public function validateOneTimeToken(string $token): bool
 	{
-		if(!empty($this->sessionData['mako.tokens']))
-		{
-			foreach($this->sessionData['mako.tokens'] as $key => $value)
-			{
-				if(hash_equals($value, $token))
-				{
+		if (!empty($this->sessionData['mako.tokens'])) {
+			foreach ($this->sessionData['mako.tokens'] as $key => $value) {
+				if (hash_equals($value, $token)) {
 					unset($this->sessionData['mako.tokens'][$key]);
 
 					return true;

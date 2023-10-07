@@ -51,8 +51,7 @@ class Environment
 	{
 		// Attempt to get dimensions from environment
 
-		if(($width = getenv('COLUMNS')) !== false && ($height = getenv('LINES')) !== false)
-		{
+		if (($width = getenv('COLUMNS')) !== false && ($height = getenv('LINES')) !== false) {
 			return ['width' => (int) $width, 'height' => (int) $height];
 		}
 
@@ -60,8 +59,7 @@ class Environment
 
 		exec('stty size', $output, $status);
 
-		if($status === 0 && preg_match('/^([0-9]+) ([0-9]+)$/', current($output), $matches) === 1)
-		{
+		if ($status === 0 && preg_match('/^([0-9]+) ([0-9]+)$/', current($output), $matches) === 1) {
 			return ['width' => (int) $matches[2], 'height' => (int) $matches[1]];
 		}
 
@@ -101,8 +99,7 @@ class Environment
 	 */
 	public function hasAnsiSupport(): bool
 	{
-		if($this->hasAnsiSupport === null)
-		{
+		if ($this->hasAnsiSupport === null) {
 			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (getenv('ANSICON') !== false || getenv('ConEmuANSI') === 'ON');
 		}
 

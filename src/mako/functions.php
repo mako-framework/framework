@@ -17,8 +17,7 @@ use function substr;
  */
 function f(string $_name, mixed ...$_arguments): string
 {
-	if(empty($_arguments))
-	{
+	if (empty($_arguments)) {
 		return $_name;
 	}
 
@@ -32,8 +31,7 @@ function env(string $variableName, mixed $default = null, bool $isBool = false, 
 {
 	$value = $_ENV[$variableName] ?? (getenv($variableName, $localOnly) ?: null);
 
-	if($isBool && $value !== true && $value !== false && $value !== null)
-	{
+	if ($isBool && $value !== true && $value !== false && $value !== null) {
 		$value = filter_var($value, FILTER_VALIDATE_BOOL);
 	}
 

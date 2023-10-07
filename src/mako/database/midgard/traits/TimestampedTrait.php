@@ -23,12 +23,9 @@ trait TimestampedTrait
 	 */
 	protected function getTimestampedTraitHooks(): array
 	{
-		return
-		[
-			'beforeInsert' =>
-			[
-				function (array $values, $query): array
-				{
+		return [
+			'beforeInsert' => [
+				function (array $values, $query): array {
 					$dateTime = new DateTime;
 
 					$createdAtColumn = $this->getCreatedAtColumn();
@@ -42,20 +39,15 @@ trait TimestampedTrait
 					return [$createdAtColumn => $dateTime, $updatedAtColumn => $dateTime] + $values;
 				},
 			],
-			'afterInsert' =>
-			[
-				function ($inserted): void
-				{
-					if($this->shouldTouchOnInsert() && $inserted && $this->isPersisted)
-					{
+			'afterInsert' => [
+				function ($inserted): void {
+					if ($this->shouldTouchOnInsert() && $inserted && $this->isPersisted) {
 						$this->touchRelated();
 					}
 				},
 			],
-			'beforeUpdate' =>
-			[
-				function (array $values, $query): array
-				{
+			'beforeUpdate' => [
+				function (array $values, $query): array {
 					$dateTime = new DateTime;
 
 					$updatedAtColumn = $this->getUpdatedAtColumn();
@@ -65,22 +57,16 @@ trait TimestampedTrait
 					return [$updatedAtColumn => $dateTime] + $values;
 				},
 			],
-			'afterUpdate' =>
-			[
-				function ($updated): void
-				{
-					if($this->shouldTouchOnUpdate() && $updated > 0 && $this->isPersisted)
-					{
+			'afterUpdate' => [
+				function ($updated): void {
+					if ($this->shouldTouchOnUpdate() && $updated > 0 && $this->isPersisted) {
 						$this->touchRelated();
 					}
 				},
 			],
-			'afterDelete' =>
-			[
-				function ($deleted): void
-				{
-					if($this->shouldTouchOnDelete() && $deleted > 0 && $this->isPersisted)
-					{
+			'afterDelete' => [
+				function ($deleted): void {
+					if ($this->shouldTouchOnDelete() && $deleted > 0 && $this->isPersisted) {
 						$this->touchRelated();
 					}
 				},
@@ -149,8 +135,7 @@ trait TimestampedTrait
 	 */
 	public function touch(): bool
 	{
-		if($this->isPersisted)
-		{
+		if ($this->isPersisted) {
 			$this->columns[$this->getUpdatedAtColumn()] = null;
 
 			return $this->save();
@@ -164,18 +149,15 @@ trait TimestampedTrait
 	 */
 	protected function touchRelated(): void
 	{
-		foreach($this->getRelationsToTouch() as $touch)
-		{
+		foreach ($this->getRelationsToTouch() as $touch) {
 			$touch = explode('.', $touch);
 
 			$relation = $this->{array_shift($touch)}();
 
-			foreach($touch as $nested)
-			{
+			foreach ($touch as $nested) {
 				$related = $relation->first();
 
-				if($related === null)
-				{
+				if ($related === null) {
 					continue 2;
 				}
 

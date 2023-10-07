@@ -25,25 +25,21 @@ trait InputValidationTrait
 	 */
 	protected function getValidatedInput(array|string $input, array $rules = []): array
 	{
-		if(is_string($input))
-		{
+		if (is_string($input)) {
 			$input = (fn (string $input): InputInterface => $this->container->get($input))($input);
 
 			$validator = $this->validator->create($input->getInput(), $rules + $input->getRules());
 
-			foreach($input->getExtensions() as $rule => $ruleClass)
-			{
+			foreach ($input->getExtensions() as $rule => $ruleClass) {
 				$validator->extend($rule, $ruleClass);
 			}
 
 			$input->addConditionalRules($validator);
 
-			try
-			{
+			try {
 				return $validator->getValidatedInput();
 			}
-			catch(ValidationException $e)
-			{
+			catch (ValidationException $e) {
 				$e->setInput($input);
 
 				throw $e;

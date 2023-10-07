@@ -21,8 +21,8 @@ class Date extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected string $format
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.
@@ -36,8 +36,7 @@ class Date extends Rule implements RuleInterface
 	{
 		$date = DateTime::createFromFormat($this->format, $value);
 
-		if($date === false || $date->format($this->format) !== $value)
-		{
+		if ($date === false || $date->format($this->format) !== $value) {
 			return false;
 		}
 

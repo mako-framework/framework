@@ -50,8 +50,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * Styles.
 	 */
-	protected array $styles =
-	[
+	protected array $styles = [
 		// Clear styles
 
 		'clear'      => 0,
@@ -135,16 +134,13 @@ class Formatter implements FormatterInterface
 	 */
 	protected function getStyleCodes(string $tag): array
 	{
-		if(isset($this->styles[$tag]))
-		{
+		if (isset($this->styles[$tag])) {
 			return [$this->styles[$tag]];
 		}
-		elseif(isset($this->userStyles[$tag]))
-		{
+		elseif (isset($this->userStyles[$tag])) {
 			$codes = [];
 
-			foreach($this->userStyles[$tag] as $tag)
-			{
+			foreach ($this->userStyles[$tag] as $tag) {
 				$codes = [...$codes, ...$this->getStyleCodes($tag)];
 			}
 
@@ -181,8 +177,7 @@ class Formatter implements FormatterInterface
 	 */
 	protected function closeStyle(string $tag): string
 	{
-		if($this->getTagName($tag) !== end($this->openTags))
-		{
+		if ($this->getTagName($tag) !== end($this->openTags)) {
 			throw new FormatterException('Detected incorrectly nested formatting tag.');
 		}
 
@@ -196,10 +191,8 @@ class Formatter implements FormatterInterface
 
 		// Append previous styles if the closed tag was nested
 
-		if(!empty($this->openTags))
-		{
-			foreach($this->openTags as $tag)
-			{
+		if (!empty($this->openTags)) {
+			foreach ($this->openTags as $tag) {
 				$style .= $this->getSgrStyleSequence($tag);
 			}
 		}
@@ -232,28 +225,23 @@ class Formatter implements FormatterInterface
 
 		$formatted = '';
 
-		if(preg_match_all(static::TAG_REGEX, $string, $matches, PREG_OFFSET_CAPTURE) > 0)
-		{
-			foreach($matches[0] as $match)
-			{
+		if (preg_match_all(static::TAG_REGEX, $string, $matches, PREG_OFFSET_CAPTURE) > 0) {
+			foreach ($matches[0] as $match) {
 				[$tag, $pos] = $match;
 
 				$formatted .= substr($string, $offset, $pos - $offset);
 
 				$offset = $pos + strlen($tag);
 
-				if($this->isOpeningTag($tag))
-				{
+				if ($this->isOpeningTag($tag)) {
 					$formatted .= $this->openStyle($tag);
 				}
-				else
-				{
+				else {
 					$formatted .= $this->closeStyle($tag);
 				}
 			}
 
-			if(!empty($this->openTags))
-			{
+			if (!empty($this->openTags)) {
 				throw new FormatterException('Detected missing formatting close tag.');
 			}
 		}

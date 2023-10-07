@@ -24,8 +24,8 @@ class Hmac extends Rule implements RuleInterface
 		protected string $hmac,
 		protected string $key,
 		protected string $algorithm = 'sha256'
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

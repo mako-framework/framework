@@ -34,8 +34,7 @@ trait ControllerHelperTrait
 	 */
 	protected function redirectResponse(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', bool|string $language = true): Redirect
 	{
-		if($this->routes->hasNamedRoute($location))
-		{
+		if ($this->routes->hasNamedRoute($location)) {
 			$location = $this->urlBuilder->toRoute($location, $routeParams, $queryParams, $separator, $language);
 		}
 

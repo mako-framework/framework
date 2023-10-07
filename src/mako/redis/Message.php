@@ -50,8 +50,7 @@ class Message implements Stringable
 	 */
 	protected function parseResponse(array $response): void
 	{
-		switch($response[0])
-		{
+		switch ($response[0]) {
 			case 'message':
 			case 'subscribe':
 			case 'unsubscribe':

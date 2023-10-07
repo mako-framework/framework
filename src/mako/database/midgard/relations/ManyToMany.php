@@ -43,8 +43,7 @@ class ManyToMany extends Relation
 		?string $foreignKey = null,
 		protected ?string $junctionTable = null,
 		protected ?string $junctionKey = null
-	)
-	{
+	) {
 		parent::__construct($connection, $origin, $model, $foreignKey);
 
 		$this->junctionJoin();
@@ -57,8 +56,7 @@ class ManyToMany extends Relation
 	 */
 	public function getColumns(): array
 	{
-		if($this->lazy)
-		{
+		if ($this->lazy) {
 			return [...parent::getColumns(), ...$this->alongWith];
 		}
 
@@ -86,10 +84,8 @@ class ManyToMany extends Relation
 	 */
 	public function alongWith(array $columns): static
 	{
-		foreach($columns as $key => $value)
-		{
-			if(strpos($value, '.') === false)
-			{
+		foreach ($columns as $key => $value) {
+			if (strpos($value, '.') === false) {
 				$columns[$key] = "{$this->getJunctionTable()}.{$value}";
 			}
 		}
@@ -104,14 +100,12 @@ class ManyToMany extends Relation
 	 */
 	protected function getJunctionTable(): string
 	{
-		if($this->junctionTable === null)
-		{
+		if ($this->junctionTable === null) {
 			$tables = [$this->origin->getTable(), $this->model->getTable()];
 
 			sort($tables);
 
-			if(strpos($tables[1], '.') !== false)
-			{
+			if (strpos($tables[1], '.') !== false) {
 				$table = explode('.', $tables[1]);
 
 				$tables[1] = end($table);
@@ -128,8 +122,7 @@ class ManyToMany extends Relation
 	 */
 	protected function getJunctionKey(): string
 	{
-		if($this->junctionKey === null)
-		{
+		if ($this->junctionKey === null) {
 			$this->junctionKey = $this->model->getForeignKey();
 		}
 
@@ -181,22 +174,19 @@ class ManyToMany extends Relation
 
 		$grouped = [];
 
-		if($criteria !== null)
-		{
+		if ($criteria !== null) {
 			$criteria($this);
 		}
 
 		$foreignKey = $this->getForeignKey();
 
-		foreach($this->eagerLoadChunked($this->keys($results)) as $related)
-		{
+		foreach ($this->eagerLoadChunked($this->keys($results)) as $related) {
 			$grouped[$related->getRawColumnValue($foreignKey)][] = $related;
 
 			unset($related->$foreignKey); // Unset as it's not a part of the record
 		}
 
-		foreach($results as $result)
-		{
+		foreach ($results as $result) {
 			$result->setRelated($relation, $this->createResultSet($grouped[$result->getPrimaryKeyValue()] ?? []));
 		}
 	}
@@ -216,8 +206,7 @@ class ManyToMany extends Relation
 	{
 		$query = $this->connection->getQuery()->table($this->getJunctionTable());
 
-		if($includeWheres && count($this->wheres) > 1)
-		{
+		if ($includeWheres && count($this->wheres) > 1) {
 			$query->wheres = $this->wheres;
 
 			array_shift($query->wheres);
@@ -233,10 +222,8 @@ class ManyToMany extends Relation
 	{
 		$ids = [];
 
-		foreach((is_array($id) ? $id : [$id]) as $value)
-		{
-			if($value instanceof $this->model)
-			{
+		foreach ((is_array($id) ? $id : [$id]) as $value) {
+			if ($value instanceof $this->model) {
 				$value = $value->getPrimaryKeyValue();
 			}
 
@@ -251,8 +238,7 @@ class ManyToMany extends Relation
 	 */
 	protected function getJunctionAttributes(mixed $key, array $attributes): array
 	{
-		if(isset($attributes[$key]))
-		{
+		if (isset($attributes[$key])) {
 			return $attributes[$key];
 		}
 
@@ -272,8 +258,7 @@ class ManyToMany extends Relation
 
 		$junctionKey = $this->getJunctionKey();
 
-		foreach($this->getJunctionKeys($id) as $key => $id)
-		{
+		foreach ($this->getJunctionKeys($id) as $key => $id) {
 			$columns = [$foreignKey  => $foreignKeyValue, $junctionKey => $id];
 
 			$success = $success && $this->junction()->insert($columns + $this->getJunctionAttributes($key, $attributes));
@@ -295,8 +280,7 @@ class ManyToMany extends Relation
 
 		$junctionKey = $this->getJunctionKey();
 
-		foreach($this->getJunctionKeys($id) as $key => $id)
-		{
+		foreach ($this->getJunctionKeys($id) as $key => $id) {
 			$success = $success && (bool) $this->junction(true)->where($foreignKey, '=', $foreignKeyValue)->where($junctionKey, '=', $id)->update($this->getJunctionAttributes($key, $attributes));
 		}
 
@@ -310,8 +294,7 @@ class ManyToMany extends Relation
 	{
 		$query = $this->junction(true)->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue());
 
-		if($id !== null)
-		{
+		if ($id !== null) {
 			$query->in($this->getJunctionKey(), $this->getJunctionKeys($id));
 		}
 
@@ -333,15 +316,13 @@ class ManyToMany extends Relation
 
 		// Link new relations
 
-		if(!empty($diff = array_diff($keys, $existing)))
-		{
+		if (!empty($diff = array_diff($keys, $existing))) {
 			$success = $this->link($diff);
 		}
 
 		// Unlink old relations
 
-		if(!empty($diff = array_diff($existing, $keys)))
-		{
+		if (!empty($diff = array_diff($existing, $keys))) {
 			$success = $success && $this->unlink($diff);
 		}
 

@@ -22,10 +22,8 @@ trait ResolveHandlerTrait
 	 */
 	protected function resolveHandler(callable|string $handler): callable
 	{
-		if(is_string($handler))
-		{
-			if(is_callable($handler))
-			{
+		if (is_string($handler)) {
+			if (is_callable($handler)) {
 				return $handler;
 			}
 

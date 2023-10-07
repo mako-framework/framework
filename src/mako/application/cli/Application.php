@@ -103,19 +103,16 @@ class Application extends BaseApplication
 
 		// Register global arguments
 
-		$arguments->addArguments
-		([
+		$arguments->addArguments([
 			new Argument('--env', 'Overrides the Mako environment', Argument::IS_OPTIONAL),
 		]);
 
 		// Get arguments
 
-		try
-		{
+		try {
 			$arguments = $arguments->parse(true);
 		}
-		catch(ArgumentException | UnexpectedValueException $e)
-		{
+		catch (ArgumentException | UnexpectedValueException $e) {
 			$this->reactor->getOutput()->errorLn("<red>{$e->getMessage()}</red>");
 
 			exit(CommandInterface::STATUS_ERROR);
@@ -123,8 +120,7 @@ class Application extends BaseApplication
 
 		// Set the environment if we got one
 
-		if($arguments['env'] !== null)
-		{
+		if ($arguments['env'] !== null) {
 			putenv("MAKO_ENV={$arguments['env']}");
 
 			$this->config->setEnvironment($arguments['env']);
@@ -170,21 +166,18 @@ class Application extends BaseApplication
 
 		$commandsDirectory = $this->config->get('application.commands_directory');
 
-		if($commandsDirectory !== null)
-		{
+		if ($commandsDirectory !== null) {
 			$finder = new ClassFinder(new Finder((array) $commandsDirectory));
 
 			$finder->excludeInterfaces()->excludeAbstractClasses()->excludeTraits();
 
-			foreach($finder->findImplementing(CommandInterface::class) as $commandClass)
-			{
+			foreach ($finder->findImplementing(CommandInterface::class) as $commandClass) {
 				/** @var \mako\reactor\CommandInterface $command */
 				$command = (new ReflectionClass($commandClass))->newInstanceWithoutConstructor();
 
 				$command = $command->getCommand();
 
-				if($command !== null)
-				{
+				if ($command !== null) {
 					$commands[$command] = $commandClass;
 				}
 			}
@@ -200,35 +193,28 @@ class Application extends BaseApplication
 	{
 		// Define core commands
 
-		$commands =
-		[
+		$commands = [
 			'app:generate-key'       => GenerateKey::class,
 			'app:generate-secret'    => GenerateSecret::class,
 			'app:generate-preloader' => GeneratePreloader::class,
 		];
 
-		if($this->container->has(Routes::class))
-		{
-			$commands = [...$commands, ...
-			[
+		if ($this->container->has(Routes::class)) {
+			$commands = [...$commands, ...[
 				'app:routes' => ListRoutes::class,
 				'app:server' => Server::class,
 			]];
 		}
 
-		if($this->container->has(CacheManager::class))
-		{
-			$commands = [...$commands, ...
-			[
+		if ($this->container->has(CacheManager::class)) {
+			$commands = [...$commands, ...[
 				'cache:remove' => Remove::class,
 				'cache:clear'  => Clear::class,
 			]];
 		}
 
-		if($this->container->has(DatabaseConnectionManager::class))
-		{
-			$commands = [...$commands, ...
-			[
+		if ($this->container->has(DatabaseConnectionManager::class)) {
+			$commands = [...$commands, ...[
 				'migration:create' => Create::class,
 				'migration:status' => Status::class,
 				'migration:up'     => Up::class,
@@ -243,8 +229,7 @@ class Application extends BaseApplication
 
 		// Add package commands
 
-		foreach($this->packages as $package)
-		{
+		foreach ($this->packages as $package) {
 			$commands += $package->getCommands();
 		}
 
@@ -262,8 +247,7 @@ class Application extends BaseApplication
 
 		// Register reactor commands
 
-		foreach($this->getCommands() as $command => $class)
-		{
+		foreach ($this->getCommands() as $command => $class) {
 			$this->reactor->registerCommand($command, $class);
 		}
 

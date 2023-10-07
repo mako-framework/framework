@@ -37,8 +37,7 @@ class ListRoutes extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-f|--filter', 'Filter routes using the route action, name or path', Argument::IS_OPTIONAL),
 			new Argument('-d|--detailed', 'Show more information about the route', Argument::IS_BOOL | Argument::IS_OPTIONAL),
 		];
@@ -51,12 +50,10 @@ class ListRoutes extends Command
 	{
 		$action = $route->getAction();
 
-		if($action instanceof Closure)
-		{
+		if ($action instanceof Closure) {
 			return 'Closure';
 		}
-		elseif(is_array($action))
-		{
+		elseif (is_array($action)) {
 			[$class, $method] = $action;
 
 			return "[{$class}::class, '{$method}']";
@@ -70,18 +67,15 @@ class ListRoutes extends Command
 	 */
 	protected function routeMatches(string $filter, Route $route): bool
 	{
-		if(str_contains($route->getRoute(), $filter))
-		{
+		if (str_contains($route->getRoute(), $filter)) {
 			return true;
 		}
 
-		if(str_contains($this->getNormalizedActionName($route), $filter))
-		{
+		if (str_contains($this->getNormalizedActionName($route), $filter)) {
 			return true;
 		}
 
-		if(str_contains((string) $route->getName(), $filter))
-		{
+		if (str_contains((string) $route->getName(), $filter)) {
 			return true;
 		}
 
@@ -100,10 +94,8 @@ class ListRoutes extends Command
 		$matched = 0;
 
 		/** @var \mako\http\routing\Route $route */
-		foreach($routes->getRoutes() as $route)
-		{
-			if($filter !== null && !$this->routeMatches($filter, $route))
-			{
+		foreach ($routes->getRoutes() as $route) {
+			if ($filter !== null && !$this->routeMatches($filter, $route)) {
 				continue;
 			}
 
@@ -124,30 +116,25 @@ class ListRoutes extends Command
 
 			$labelAndValues['Action'] = $this->getNormalizedActionName($route);
 
-			if(!empty($middleware))
-			{
+			if (!empty($middleware)) {
 				$labelAndValues['Middleware'] = $middleware;
 			}
 
-			if(!empty($constraints))
-			{
+			if (!empty($constraints)) {
 				$labelAndValues['Constraints'] = $constraints;
 			}
 
-			if(!empty($name))
-			{
+			if (!empty($name)) {
 				$labelAndValues['Name'] = $name;
 			}
 
-			if($detailed)
-			{
+			if ($detailed) {
 				$labelAndValues['Pattern'] = $this->output->getFormatter()->escape($route->getRegex());
 			}
 
 			$maxLabelLength = max(array_map('mb_strwidth', array_keys($labelAndValues)));
 
-			foreach($labelAndValues as $label => $value)
-			{
+			foreach ($labelAndValues as $label => $value) {
 				$label = str_pad($label, $maxLabelLength, ' ');
 
 				$this->write("<bold>{$label}:</bold> {$value}");
@@ -156,8 +143,7 @@ class ListRoutes extends Command
 			$this->nl();
 		}
 
-		if($filter !== null)
-		{
+		if ($filter !== null) {
 			$routes = $matched === 1 ? 'route' : 'routes';
 
 			$this->write("<green>{$matched}</green> {$routes} matched the '<yellow>{$filter}</yellow>' filter.");

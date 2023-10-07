@@ -26,8 +26,8 @@ class Database extends Store
 		protected Connection $connection,
 		protected string $table,
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns a query builder instance.
@@ -68,10 +68,8 @@ class Database extends Store
 
 		$cache = $this->table()->where('key', '=', $key)->first();
 
-		if($cache !== null)
-		{
-			if(time() < $cache->lifetime)
-			{
+		if ($cache !== null) {
+			if (time() < $cache->lifetime) {
 				return unserialize($cache->data, ['allowed_classes' => $this->classWhitelist]);
 			}
 

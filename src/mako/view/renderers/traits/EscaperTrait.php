@@ -29,8 +29,7 @@ trait EscaperTrait
 	/**
 	 * HTML entity map.
 	 */
-	protected array $htmlNamedEntityMap =
-	[
+	protected array $htmlNamedEntityMap = [
 		34 => 'quot',
 		38 => 'amp',
 		60 => 'lt',
@@ -42,8 +41,7 @@ trait EscaperTrait
 	 */
 	public function escapeHTML(?string $string, string $charset, bool $doubleEncode = true): string
 	{
-		if($string === null)
-		{
+		if ($string === null) {
 			return '';
 		}
 
@@ -55,8 +53,7 @@ trait EscaperTrait
 	 */
 	public function escapeURL(?string $string): string
 	{
-		if($string === null)
-		{
+		if ($string === null) {
 			return '';
 		}
 
@@ -77,16 +74,14 @@ trait EscaperTrait
 		// The following replaces characters undefined in HTML with the
 		// hex entity for the Unicode replacement character.
 
-		if(($ord <= 0x1f && $chr !== "\t" && $chr !== "\n" && $chr !== "\r") || ($ord >= 0x7f && $ord <= 0x9f))
-		{
+		if (($ord <= 0x1f && $chr !== "\t" && $chr !== "\n" && $chr !== "\r") || ($ord >= 0x7f && $ord <= 0x9f)) {
 			return '&#xFFFD;';
 		}
 
 		// Check if the current character to escape has a name entity we should
 		// replace it with while grabbing the integer value of the character.
 
-		if(strlen($chr) > 1)
-		{
+		if (strlen($chr) > 1) {
 			$chr = mb_convert_encoding($chr, 'UTF-16BE', 'UTF-8');
 		}
 
@@ -94,16 +89,14 @@ trait EscaperTrait
 
 		$ord = hexdec($hex);
 
-		if(isset($this->htmlNamedEntityMap[$ord]))
-		{
+		if (isset($this->htmlNamedEntityMap[$ord])) {
 			return "&{$this->htmlNamedEntityMap[$ord]};";
 		}
 
 		// Per OWASP recommendations, we'll use upper hex entities
 		// for any other characters where a named entity does not exist.
 
-		if($ord > 255)
-		{
+		if ($ord > 255) {
 			return sprintf('&#x%04X;', $ord);
 		}
 
@@ -115,20 +108,17 @@ trait EscaperTrait
 	 */
 	public function escapeAttribute(?string $string, string $charset): string
 	{
-		if($string === null)
-		{
+		if ($string === null) {
 			return '';
 		}
 
-		if($charset !== 'UTF-8')
-		{
+		if ($charset !== 'UTF-8') {
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
 		}
 
 		$string = preg_replace_callback('/[^a-z0-9,\.\-_]/iSu', $this->attributeEscaper(...), $string);
 
-		if($charset !== 'UTF-8')
-		{
+		if ($charset !== 'UTF-8') {
 			$string = mb_convert_encoding($string, $charset, 'UTF-8');
 		}
 
@@ -144,12 +134,10 @@ trait EscaperTrait
 	{
 		$chr = $matches[0];
 
-		if(strlen($chr) === 1)
-		{
+		if (strlen($chr) === 1) {
 			$ord = ord($chr);
 		}
-		else
-		{
+		else {
 			$chr = mb_convert_encoding($chr, 'UTF-16BE', 'UTF-8');
 
 			$ord = hexdec(bin2hex($chr));
@@ -163,25 +151,21 @@ trait EscaperTrait
 	 */
 	public function escapeCSS(?string $string, string $charset): string
 	{
-		if($string === null || $string === '')
-		{
+		if ($string === null || $string === '') {
 			return '';
 		}
 
-		if(ctype_digit($string))
-		{
+		if (ctype_digit($string)) {
 			return $string;
 		}
 
-		if($charset !== 'UTF-8')
-		{
+		if ($charset !== 'UTF-8') {
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
 		}
 
 		$string = preg_replace_callback('/[^a-z0-9]/iSu', $this->cssEscaper(...), $string);
 
-		if($charset !== 'UTF-8')
-		{
+		if ($charset !== 'UTF-8') {
 			$string = mb_convert_encoding($string, $charset, 'UTF-8');
 		}
 
@@ -197,8 +181,7 @@ trait EscaperTrait
 	{
 		$chr = $matches[0];
 
-		if(strlen($chr) === 1)
-		{
+		if (strlen($chr) === 1) {
 			return sprintf('\\x%02X', ord($chr));
 		}
 
@@ -212,20 +195,17 @@ trait EscaperTrait
 	 */
 	public function escapeJavascript(?string $string, string $charset): string
 	{
-		if($string === null)
-		{
+		if ($string === null) {
 			return '';
 		}
 
-		if($charset !== 'UTF-8')
-		{
+		if ($charset !== 'UTF-8') {
 			$string = mb_convert_encoding($string, 'UTF-8', $charset);
 		}
 
 		$string = preg_replace_callback('/[^a-z0-9,\._]/iSu', $this->javascriptEscaper(...), $string);
 
-		if($charset !== 'UTF-8')
-		{
+		if ($charset !== 'UTF-8') {
 			$string = mb_convert_encoding($string, $charset, 'UTF-8');
 		}
 

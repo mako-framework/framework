@@ -27,8 +27,8 @@ class Parameters implements Countable, IteratorAggregate
 	 */
 	public function __construct(
 		protected array $parameters = []
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the numner of items in the collection.

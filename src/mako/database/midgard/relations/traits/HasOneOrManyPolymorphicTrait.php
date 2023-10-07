@@ -37,12 +37,10 @@ trait HasOneOrManyPolymorphicTrait
 	 */
 	public function create(array|ORM $related): ORM
 	{
-		if($related instanceof $this->model)
-		{
+		if ($related instanceof $this->model) {
 			$related->{$this->polymorphicType} = $this->origin->getClass();
 		}
-		else
-		{
+		else {
 			$related[$this->polymorphicType] = $this->origin->getClass();
 		}
 

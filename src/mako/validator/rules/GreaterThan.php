@@ -19,8 +19,8 @@ class GreaterThan extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected mixed $greaterThan
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

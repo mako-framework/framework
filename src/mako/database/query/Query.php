@@ -124,8 +124,7 @@ class Query
 	 */
 	public function __construct(
 		protected Connection $connection
-	)
-	{
+	) {
 		$this->helper = $connection->getQueryBuilderHelper();
 
 		$this->compiler = $connection->getQueryCompiler($this);
@@ -138,8 +137,7 @@ class Query
 	{
 		$this->compiler = $this->connection->getQueryCompiler($this);
 
-		foreach($this->setOperations as $key => $setOperation)
-		{
+		foreach ($this->setOperations as $key => $setOperation) {
 			$this->setOperations[$key]['query'] = clone $setOperation['query'];
 		}
 	}
@@ -151,8 +149,7 @@ class Query
 	{
 		$leave = ['connection', 'helper', 'compiler', 'paginationFactory'];
 
-		foreach(array_diff_key(get_class_vars(self::class), array_flip($leave)) as $property => $default)
-		{
+		foreach (array_diff_key(get_class_vars(self::class), array_flip($leave)) as $property => $default) {
 			$this->$property = $default;
 		}
 	}
@@ -190,8 +187,7 @@ class Query
 	 */
 	public static function getPaginationFactory(): PaginationFactoryInterface
 	{
-		if(static::$paginationFactory instanceof Closure)
-		{
+		if (static::$paginationFactory instanceof Closure) {
 			$factory = static::$paginationFactory;
 
 			static::$paginationFactory = $factory();
@@ -335,8 +331,7 @@ class Query
 	 */
 	public function forCompiler(string $compilerClass, Closure $query): static
 	{
-		if($this->compiler instanceof $compilerClass)
-		{
+		if ($this->compiler instanceof $compilerClass) {
 			$query($this);
 		}
 
@@ -350,8 +345,7 @@ class Query
 	 */
 	public function with(string $name, array $columns, Subquery $query): static
 	{
-		$this->commonTableExpressions['ctes'][] =
-		[
+		$this->commonTableExpressions['ctes'][] = [
 			'name'    => $name,
 			'columns' => $columns,
 			'query'   => $query,
@@ -527,23 +521,19 @@ class Query
 	 */
 	public function where(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null, string $separator = 'AND'): static
 	{
-		if($column instanceof Closure)
-		{
+		if ($column instanceof Closure) {
 			$query = $this->newInstance();
 
 			$column($query);
 
-			$this->wheres[] =
-			[
+			$this->wheres[] = [
 				'type'      => 'nestedWhere',
 				'query'     => $query,
 				'separator' => $separator,
 			];
 		}
-		else
-		{
-			$this->wheres[] =
-			[
+		else {
+			$this->wheres[] = [
 				'type'      => 'where',
 				'column'    => $column,
 				'operator'  => $operator,
@@ -562,10 +552,8 @@ class Query
 	 */
 	public function whereRaw(array|Raw|string $column, null|array|string $operator = null, ?string $raw = null, string $separator = 'AND'): static
 	{
-		if($raw === null)
-		{
-			$this->wheres[] =
-			[
+		if ($raw === null) {
+			$this->wheres[] = [
 				'type'      => 'whereRaw',
 				'raw'       => new Raw($column, is_array($operator) ? $operator : []),
 				'separator' => $separator,
@@ -605,8 +593,7 @@ class Query
 	public function whereDate(string $column, string $operator, DateTimeInterface|string $date, string $separator = 'AND'): static
 	{
 
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'whereDate',
 			'column'    => $column,
 			'operator'  => $operator,
@@ -634,8 +621,7 @@ class Query
 	 */
 	public function whereColumn(array|string $column1, string $operator, array|string $column2, string $separator = 'AND'): static
 	{
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'whereColumn',
 			'column1'   => $column1,
 			'operator'  => $operator,
@@ -663,8 +649,7 @@ class Query
 	 */
 	public function between(Raw|string|Subquery $column, mixed $value1, mixed $value2, string $separator = 'AND', bool $not = false): static
 	{
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'between',
 			'column'    => $column,
 			'value1'    => $value1,
@@ -713,8 +698,7 @@ class Query
 	 */
 	public function betweenDate(string $column, DateTimeInterface|string $date1, DateTimeInterface|string $date2, string $separator = 'AND', bool $not = false): static
 	{
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'betweenDate',
 			'column'    => $column,
 			'value1'    => $date1 instanceof DateTimeInterface ? $date1->format('Y-m-d') : $date1,
@@ -763,8 +747,7 @@ class Query
 	 */
 	public function in(Raw|string|Subquery $column, array|Raw|Subquery $values, string $separator = 'AND', bool $not = false): static
 	{
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'in',
 			'column'    => $column,
 			'values'    => is_array($values) ? $values : [$values],
@@ -812,8 +795,7 @@ class Query
 	 */
 	public function isNull(Raw|string|Subquery $column, string $separator = 'AND', bool $not = false): static
 	{
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'null',
 			'column'    => $column,
 			'separator' => $separator,
@@ -860,8 +842,7 @@ class Query
 	 */
 	public function exists(Subquery $query, string $separator = 'AND', bool $not = false): static
 	{
-		$this->wheres[] =
-		[
+		$this->wheres[] = [
 			'type'      => 'exists',
 			'query'     => $query,
 			'separator' => $separator,
@@ -910,12 +891,10 @@ class Query
 	{
 		$join = new Join($type, $table);
 
-		if($column1 instanceof Closure)
-		{
+		if ($column1 instanceof Closure) {
 			$column1($join);
 		}
-		elseif($column1 !== null)
-		{
+		elseif ($column1 !== null) {
 			$join->on($column1, $operator, $column2);
 		}
 
@@ -1013,8 +992,7 @@ class Query
 	 */
 	public function having(Raw|string $column, string $operator, mixed $value, string $separator = 'AND'): static
 	{
-		$this->havings[] =
-		[
+		$this->havings[] = [
 			'column'    => $column,
 			'operator'  => $operator,
 			'value'     => $value,
@@ -1061,8 +1039,7 @@ class Query
 	 */
 	public function orderBy(array|Raw|string $columns, string $order = 'ASC'): static
 	{
-		$this->orderings[] =
-		[
+		$this->orderings[] = [
 			'column' => is_array($columns) ? $columns : [$columns],
 			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
 		];
@@ -1265,8 +1242,7 @@ class Query
 	 */
 	public function column(?string $column = null): mixed
 	{
-		if($column !== null)
-		{
+		if ($column !== null) {
 			$this->select([$column]);
 		}
 
@@ -1280,8 +1256,7 @@ class Query
 	 */
 	public function columns(?string $column = null): array
 	{
-		if($column !== null)
-		{
+		if ($column !== null) {
 			$this->select([$column]);
 		}
 
@@ -1327,13 +1302,11 @@ class Query
 	{
 		$clone = (clone $this)->clearOrderings();
 
-		if(empty($this->setOperations) && empty($this->groupings) && $this->distinct === false)
-		{
+		if (empty($this->setOperations) && empty($this->groupings) && $this->distinct === false) {
 			return $clone->count();
 		}
 
-		return $this->newInstance()->table(new Subquery(static function (&$query) use ($clone): void
-		{
+		return $this->newInstance()->table(new Subquery(static function (&$query) use ($clone): void {
 			$query = $clone->inSubqueryContext();
 		}, 'count', true))->count();
 	}
@@ -1347,12 +1320,10 @@ class Query
 
 		$pagination = static::getPaginationFactory()->create($count, $itemsPerPage, $options);
 
-		if($count > 0)
-		{
+		if ($count > 0) {
 			$results = $this->limit($pagination->limit())->offset($pagination->offset())->all();
 		}
-		else
-		{
+		else {
 			$results = $this->createResultSet([]);
 		}
 
@@ -1368,30 +1339,25 @@ class Query
 	{
 		$this->limit($batchSize);
 
-		while(true)
-		{
+		while (true) {
 			$query = clone $this;
 
-			if($offsetEnd !== null && $offsetStart >= $offsetEnd)
-			{
+			if ($offsetEnd !== null && $offsetStart >= $offsetEnd) {
 				break;
 			}
 
-			if($offsetStart !== 0)
-			{
+			if ($offsetStart !== 0) {
 				$query->offset($offsetStart);
 			}
 
 			$results = $query->all();
 
-			if(count($results) > 0)
-			{
+			if (count($results) > 0) {
 				$processor($results);
 
 				$offsetStart += $batchSize;
 			}
-			else
-			{
+			else {
 				break;
 			}
 		}
@@ -1407,8 +1373,7 @@ class Query
 	{
 		$this->select([new Raw(sprintf($function, is_array($column) ? $this->compiler->columns($column) : $this->compiler->column($column)))]);
 
-		if($this->inSubqueryContext === false)
-		{
+		if ($this->inSubqueryContext === false) {
 			$query = $this->compiler->select();
 
 			return $this->connection->column($query['sql'], $query['params']);

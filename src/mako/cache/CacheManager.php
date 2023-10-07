@@ -43,8 +43,7 @@ class CacheManager extends AdapterManager
 		array $configurations,
 		Container $container,
 		protected array|bool $classWhitelist = false
-	)
-	{
+	) {
 		parent::__construct($default, $configurations, $container);
 	}
 
@@ -125,8 +124,7 @@ class CacheManager extends AdapterManager
 	 */
 	protected function instantiate(string $configuration): StoreInterface
 	{
-		if(!isset($this->configurations[$configuration]))
-		{
+		if (!isset($this->configurations[$configuration])) {
 			throw new CacheException(vsprintf('[ %s ] has not been defined in the cache configuration.', [$configuration]));
 		}
 

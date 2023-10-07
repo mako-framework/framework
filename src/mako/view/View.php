@@ -22,8 +22,8 @@ class View implements Stringable
 		protected string $path,
 		protected array $variables,
 		protected RendererInterface $renderer
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the assigned view variables.

@@ -105,12 +105,10 @@ class Image
 	public function __construct(
 		protected $image,
 		protected ProcessorInterface $processor
-	)
-	{
+	) {
 		// Make sure that the image exists
 
-		if(file_exists($this->image) === false)
-		{
+		if (file_exists($this->image) === false) {
 			throw new PixlException(vsprintf('The image [ %s ] does not exist.', [$this->image]));
 		}
 
@@ -214,8 +212,7 @@ class Image
 	{
 		// Check if the image exists
 
-		if(file_exists($file) === false)
-		{
+		if (file_exists($file) === false) {
 			throw new PixlException(vsprintf('The watermark image [ %s ] does not exist.', [$file]));
 		}
 
@@ -343,19 +340,15 @@ class Image
 
 		// Mage sure that the file or directory is writable
 
-		if(file_exists($file))
-		{
-			if(!is_writable($file))
-			{
+		if (file_exists($file)) {
+			if (!is_writable($file)) {
 				throw new PixlException(vsprintf('The file [ %s ] isn\'t writable.', [$file]));
 			}
 		}
-		else
-		{
+		else {
 			$pathInfo = pathinfo($file);
 
-			if(!is_writable($pathInfo['dirname']))
-			{
+			if (!is_writable($pathInfo['dirname'])) {
 				throw new PixlException(vsprintf('The directory [ %s ] isn\'t writable.', [$pathInfo['dirname']]));
 			}
 		}

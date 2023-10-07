@@ -39,8 +39,7 @@ class Retry
 		protected int $wait = 50000,
 		protected bool $exponentialWait = false,
 		?callable $decider = null
-	)
-	{
+	) {
 		$this->callable = $callable;
 
 		$this->decider = $decider;
@@ -91,8 +90,7 @@ class Retry
 	 */
 	protected function calculateWait(int $attempts): int
 	{
-		if($this->exponentialWait)
-		{
+		if ($this->exponentialWait) {
 			return (2 ** ($attempts - 1)) * $this->wait;
 		}
 
@@ -108,14 +106,11 @@ class Retry
 
 		start:
 
-		try
-		{
+		try {
 			return ($this->callable)();
 		}
-		catch(Throwable $e)
-		{
-			if(++$attempts < $this->attempts && ($this->decider === null || ($this->decider)($e) === true))
-			{
+		catch (Throwable $e) {
+			if (++$attempts < $this->attempts && ($this->decider === null || ($this->decider)($e) === true)) {
 				usleep($this->calculateWait($attempts));
 
 				goto start;

@@ -39,13 +39,11 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function __destruct()
 	{
-		if($this->image instanceof Imagick)
-		{
+		if ($this->image instanceof Imagick) {
 			$this->image->destroy();
 		}
 
-		if($this->snapshot instanceof Imagick)
-		{
+		if ($this->snapshot instanceof Imagick) {
 			$this->snapshot->destroy();
 		}
 	}
@@ -55,8 +53,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function normalizeHex(string $hex): string
 	{
-		if(preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) !== 1)
-		{
+		if (preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) !== 1) {
 			throw new ProcessorException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
 		}
 
@@ -84,8 +81,7 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function restore(): void
 	{
-		if(!($this->snapshot instanceof Imagick))
-		{
+		if (!($this->snapshot instanceof Imagick)) {
 			throw new ProcessorException('No snapshot to restore.');
 		}
 
@@ -152,14 +148,12 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function flip(int $direction = Image::FLIP_HORIZONTAL): void
 	{
-		if($direction ===  Image::FLIP_VERTICAL)
-		{
+		if ($direction ===  Image::FLIP_VERTICAL) {
 			// Flips the image in the vertical direction
 
 			$this->image->flipImage();
 		}
-		else
-		{
+		else {
 			// Flips the image in the horizontal direction
 
 			$this->image->flopImage();
@@ -176,15 +170,13 @@ class ImageMagick implements ProcessorInterface
 		$watermarkW = $watermark->getImageWidth();
 		$watermarkH = $watermark->getImageHeight();
 
-		if($opacity < 100)
-		{
+		if ($opacity < 100) {
 			$watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, ($opacity / 100), Imagick::CHANNEL_ALPHA);
 		}
 
 		// Position the watermark.
 
-		switch($position)
-		{
+		switch ($position) {
 			case Image::WATERMARK_TOP_RIGHT:
 				$x = $this->image->getImageWidth() - $watermarkW;
 				$y = 0;
@@ -296,10 +288,8 @@ class ImageMagick implements ProcessorInterface
 	 */
 	public function getImageBlob(?string $type = null, int $quality = 95): string
 	{
-		if($type !== null)
-		{
-			if(!$this->image->setImageFormat($type))
-			{
+		if ($type !== null) {
+			if (!$this->image->setImageFormat($type)) {
 				throw new ProcessorException(vsprintf('Unsupported image type [ %s ].', [$type]));
 			}
 		}

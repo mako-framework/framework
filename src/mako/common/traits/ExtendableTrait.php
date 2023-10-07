@@ -35,8 +35,7 @@ trait ExtendableTrait
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{
-		if(!isset(static::$_extensions[$name]))
-		{
+		if (!isset(static::$_extensions[$name])) {
 			throw new BadMethodCallException(vsprintf('Call to undefined method [ %s::%s() ].', [static::class, $name]));
 		}
 
@@ -48,8 +47,7 @@ trait ExtendableTrait
 	 */
 	public static function __callStatic(string $name, array $arguments): mixed
 	{
-		if(!isset(static::$_extensions[$name]))
-		{
+		if (!isset(static::$_extensions[$name])) {
 			throw new BadMethodCallException(vsprintf('Call to undefined method [ %s::%s() ].', [static::class, $name]));
 		}
 

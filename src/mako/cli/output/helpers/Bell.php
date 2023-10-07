@@ -21,8 +21,8 @@ class Bell
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Rings the terminal bell n times.

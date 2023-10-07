@@ -29,8 +29,7 @@ class ViewFactoryService extends Service
 	 */
 	public function register(): void
 	{
-		$this->container->registerSingleton([ViewFactory::class, 'view'], function ($container)
-		{
+		$this->container->registerSingleton([ViewFactory::class, 'view'], function ($container) {
 			$fileSystem = $container->get(FileSystem::class);
 
 			// Create factory instance
@@ -39,8 +38,7 @@ class ViewFactoryService extends Service
 
 			// Register template renderer
 
-			$factory->extend('.tpl.php', function () use ($fileSystem)
-			{
+			$factory->extend('.tpl.php', function () use ($fileSystem) {
 				return new Template($fileSystem, $this->getStoragePath());
 			});
 

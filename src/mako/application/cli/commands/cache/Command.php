@@ -30,8 +30,7 @@ abstract class Command extends BaseCommand
 		Input $input,
 		Output $output,
 		protected Config $config
-	)
-	{
+	) {
 		parent::__construct($input, $output);
 	}
 
@@ -42,12 +41,10 @@ abstract class Command extends BaseCommand
 	{
 		$configurations = array_keys($this->config->get('cache.configurations'));
 
-		if(!in_array($configuration, $configurations))
-		{
+		if (!in_array($configuration, $configurations)) {
 			$message = "The [ {$configuration} ] configuration does not exist.";
 
-			if(($suggestion = $this->suggest($configuration, $configurations)) !== null)
-			{
+			if (($suggestion = $this->suggest($configuration, $configurations)) !== null) {
 				$message .= " Did you mean [ {$suggestion} ]?";
 			}
 

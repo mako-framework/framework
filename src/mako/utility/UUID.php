@@ -83,8 +83,7 @@ class UUID
 	 */
 	public static function toBinary(string $uuid): string
 	{
-		if(!static::validate($uuid))
-		{
+		if (!static::validate($uuid)) {
 			throw new UUIDException('The provided string is not a valid UUID.');
 		}
 
@@ -92,8 +91,7 @@ class UUID
 
 		$binary = '';
 
-		for($i = 0; $i < 32; $i += 2)
-		{
+		for ($i = 0; $i < 32; $i += 2) {
 			$binary .= chr(hexdec("{$hex[$i]}{$hex[$i + 1]}"));
 		}
 
@@ -105,8 +103,7 @@ class UUID
 	 */
 	public static function toHexadecimal(string $bytes): string
 	{
-		if(strlen($bytes) !== 16)
-		{
+		if (strlen($bytes) !== 16) {
 			throw new UUIDException('The input must be exactly 16 bytes.');
 		}
 
@@ -120,8 +117,7 @@ class UUID
 	{
 		$hash = md5(static::toBinary($namespace) . $name);
 
-		return sprintf
-		(
+		return sprintf(
 			'%s-%s-%x-%x-%s',
 			substr($hash, 0, 8),
 			substr($hash, 8, 4),
@@ -152,8 +148,7 @@ class UUID
 	{
 		$hash = sha1(static::toBinary($namespace) . $name);
 
-		return sprintf
-		(
+		return sprintf(
 			'%s-%s-%x-%x-%s',
 			substr($hash, 0, 8),
 			substr($hash, 8, 4),

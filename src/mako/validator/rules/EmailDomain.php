@@ -30,8 +30,7 @@ class EmailDomain extends Rule implements RuleInterface
 	 */
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		if(empty($value) || strpos($value, '@') === false)
-		{
+		if (empty($value) || strpos($value, '@') === false) {
 			return false;
 		}
 

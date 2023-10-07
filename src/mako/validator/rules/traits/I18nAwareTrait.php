@@ -47,8 +47,7 @@ trait I18nAwareTrait
 	{
 		// Return custom field name if we have one
 
-		if($this->i18n->has(($i18nKey = "{$package}validate.overrides.fieldnames.{$field}")))
-		{
+		if ($this->i18n->has(($i18nKey = "{$package}validate.overrides.fieldnames.{$field}"))) {
 			return $this->i18n->get($i18nKey);
 		}
 
@@ -62,14 +61,11 @@ trait I18nAwareTrait
 	 */
 	protected function getI18nParameters(string $field, string $package): array
 	{
-		if(property_exists($this, 'i18nParameters'))
-		{
+		if (property_exists($this, 'i18nParameters')) {
 			$parameters = array_map(static fn ($value) => is_array($value) ? implode(', ', $value) : $value, array_intersect_key(get_object_vars($this), array_flip($this->i18nParameters)));
 
-			if(property_exists($this, 'i18nFieldNameParameters'))
-			{
-				foreach($this->i18nFieldNameParameters as $i18nField)
-				{
+			if (property_exists($this, 'i18nFieldNameParameters')) {
+				foreach ($this->i18nFieldNameParameters as $i18nField) {
 					$parameters[$i18nField] = $this->translateFieldName($parameters[$i18nField], $package);
 				}
 			}
@@ -94,8 +90,7 @@ trait I18nAwareTrait
 
 		// Return custom error message if we have one
 
-		if($this->i18n->has(($i18nKey = "{$package}validate.overrides.messages.{$field}.{$rule}")))
-		{
+		if ($this->i18n->has(($i18nKey = "{$package}validate.overrides.messages.{$field}.{$rule}"))) {
 			return $this->i18n->get($i18nKey, $this->getI18nParameters($field, $package));
 		}
 
@@ -105,8 +100,7 @@ trait I18nAwareTrait
 
 		// Return default error message from language file if we have one
 
-		if($this->i18n->has(($i18nKey = "{$package}validate.{$rule}")))
-		{
+		if ($this->i18n->has(($i18nKey = "{$package}validate.{$rule}"))) {
 			return $this->i18n->get("{$package}validate.{$rule}", $this->getI18nParameters($field, $package));
 		}
 

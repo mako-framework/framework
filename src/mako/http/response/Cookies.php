@@ -28,8 +28,7 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Default options.
 	 */
-	protected array $defaults =
-	[
+	protected array $defaults = [
 		'path'     => '/',
 		'domain'   => '',
 		'secure'   => false,
@@ -47,8 +46,8 @@ class Cookies implements Countable, IteratorAggregate
 	 */
 	public function __construct(
 		protected ?Signer $signer = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the numner of cookies.
@@ -83,8 +82,7 @@ class Cookies implements Countable, IteratorAggregate
 	{
 		$expires = ($ttl === 0) ? 0 : (time() + $ttl);
 
-		$this->cookies[$name] =
-		[
+		$this->cookies[$name] = [
 			'raw'     => $raw,
 			'name'    => $name,
 			'value'   => $value,
@@ -107,8 +105,7 @@ class Cookies implements Countable, IteratorAggregate
 	 */
 	public function addSigned(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false): Cookies
 	{
-		if(empty($this->signer))
-		{
+		if (empty($this->signer)) {
 			throw new HttpException('A [ Signer ] instance is required to sign cookies.');
 		}
 

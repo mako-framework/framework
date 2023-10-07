@@ -99,8 +99,7 @@ trait CommandHelperTrait
 
 		$progressBar->setFilledTemplate('<green>▓</green>');
 
-		if($prefix !== null)
-		{
+		if ($prefix !== null) {
 			$progressBar->setPrefix($prefix);
 		}
 

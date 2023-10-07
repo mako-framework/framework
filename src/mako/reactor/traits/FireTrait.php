@@ -37,25 +37,21 @@ trait FireTrait
 	 */
 	protected function buildCommand(string $command, bool $background = false, bool $sameEnvironment = true): string
 	{
-		if($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null)
-		{
+		if ($sameEnvironment && strpos($command, '--env=') === false && ($environment = $this->app->getEnvironment()) !== null) {
 			$command .= ' --env=' . escapeshellarg($environment);
 		}
 
 		$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg($this->buildReactorPath()) . " {$command} 2>&1";
 
-		if(PHP_OS_FAMILY === 'Windows')
-		{
-			if($background)
-			{
+		if (PHP_OS_FAMILY === 'Windows') {
+			if ($background) {
 				$command = "/b {$command}";
 			}
 
 			return "start {$command}";
 		}
 
-		if($background)
-		{
+		if ($background) {
 			$command .= ' &';
 		}
 
@@ -69,12 +65,10 @@ trait FireTrait
 	{
 		$process = popen($this->buildCommand($command, sameEnvironment: $sameEnvironment), 'r');
 
-		while(!feof($process))
-		{
+		while (!feof($process)) {
 			$read = fread($process, 4096);
 
-			if($handler !== null)
-			{
+			if ($handler !== null) {
 				$handler($read);
 			}
 		}

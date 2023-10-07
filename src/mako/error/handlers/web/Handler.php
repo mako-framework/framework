@@ -59,8 +59,7 @@ abstract class Handler implements ProvidesExceptionIdInterface
 	 */
 	protected function sendResponse(Response $response, Throwable $exception): void
 	{
-		if($exception instanceof MethodNotAllowedException)
-		{
+		if ($exception instanceof MethodNotAllowedException) {
 			$response->headers->add('Allow', implode(',', $exception->getAllowedMethods()));
 		}
 

@@ -23,8 +23,8 @@ class Question
 	public function __construct(
 		protected Input $input,
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Writes question to output and returns user input.

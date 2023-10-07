@@ -20,8 +20,8 @@ class NotIn extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected array $values
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

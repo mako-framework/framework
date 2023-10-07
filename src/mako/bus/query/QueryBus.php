@@ -25,8 +25,8 @@ class QueryBus implements QueryBusInterface
 	 */
 	public function __construct(
 		protected Container $container
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

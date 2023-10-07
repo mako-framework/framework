@@ -18,8 +18,8 @@ class Raw
 	public function __construct(
 		protected string $sql,
 		protected array $parameters = []
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the raw SQL.

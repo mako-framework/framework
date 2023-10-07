@@ -39,8 +39,7 @@ class Template
 	/**
 	 * Compilation order.
 	 */
-	protected array $compileOrder =
-	[
+	protected array $compileOrder = [
 		'collectVerbatims',
 		'comments',
 		'extensions',
@@ -60,16 +59,15 @@ class Template
 		protected FileSystem $fileSystem,
 		protected string $cachePath,
 		protected string $template
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Collects verbatim blocks and replaces them with a palceholder.
 	 */
 	protected function collectVerbatims(string $template): string
 	{
-		return preg_replace_callback('/{%\s*verbatim\s*%}(.*?){%\s*endverbatim\s*%}/is', function ($matches)
-		{
+		return preg_replace_callback('/{%\s*verbatim\s*%}(.*?){%\s*endverbatim\s*%}/is', function ($matches) {
 			$this->verbatims[] = $matches[1];
 
 			return static::VERBATIM_PLACEHOLDER;
@@ -81,8 +79,7 @@ class Template
 	 */
 	public function insertVerbatims(string $template): string
 	{
-		foreach($this->verbatims as $verbatim)
-		{
+		foreach ($this->verbatims as $verbatim) {
 			$template = preg_replace('/' . static::VERBATIM_PLACEHOLDER . '/', $verbatim, $template, 1);
 		}
 
@@ -107,8 +104,7 @@ class Template
 		// Replace first occurance of extends tag with an empty string
 		// and append the template with a view tag
 
-		if(preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) === 1)
-		{
+		if (preg_match('/^{%\s*extends:(.*?)\s*%}/i', $template, $matches) === 1) {
 			$replacement = '<?php $__view__ = $__viewfactory__->create(' . $matches[1] . '); $__renderer__ = $__view__->getRenderer(); ?>';
 
 			$template = preg_replace('/^{%\s*extends:(.*?)\s*%}/i', $replacement, $template, 1);
@@ -126,8 +122,7 @@ class Template
 	{
 		// Compile regular nospace blocks
 
-		$template = preg_replace_callback('/{%\s*nospace\s*%}(.*?){%\s*endnospace\s*%}/is', static function ($matches)
-		{
+		$template = preg_replace_callback('/{%\s*nospace\s*%}(.*?){%\s*endnospace\s*%}/is', static function ($matches) {
 			return trim(preg_replace('/>\s+</', '><', $matches[1]));
 		}, $template);
 
@@ -157,8 +152,7 @@ class Template
 	 */
 	protected function captures(string $template): string
 	{
-		return preg_replace_callback('/{%\s*capture:(\$?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', static function ($matches)
-		{
+		return preg_replace_callback('/{%\s*capture:(\$?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*?)\s*%}(.*?){%\s*endcapture\s*%}/is', static function ($matches) {
 			return '<?php ob_start(); ?>' . $matches[2] . '<?php $' . ltrim($matches[1], '$') . ' = ob_get_clean(); ?>';
 		}, $template);
 	}
@@ -198,12 +192,9 @@ class Template
 	{
 		// Closure that matches the "empty else" syntax
 
-		$emptyElse = static function ($matches)
-		{
-			if(preg_match('/(.*)((,\s*default:\s*))(.+)/', $matches) === 1)
-			{
-				return preg_replace_callback('/(.*)(,\s*default:\s*)(.+)/', static function ($matches)
-				{
+		$emptyElse = static function ($matches) {
+			if (preg_match('/(.*)((,\s*default:\s*))(.+)/', $matches) === 1) {
+				return preg_replace_callback('/(.*)(,\s*default:\s*)(.+)/', static function ($matches) {
 					return '(empty(' . trim($matches[1]) . ') ? (isset(' . trim($matches[1]) . ') && (' . trim($matches[1]) . ' === 0 || ' . trim($matches[1]) . ' === 0.0 || ' . trim($matches[1]) . ' === \'0\') ? ' . trim($matches[1]) . ' : ' . trim($matches[3]) . ') : ' . trim($matches[1]) . ')';
 				}, $matches);
 			}
@@ -213,34 +204,26 @@ class Template
 
 		// Compiles echo tags
 
-		return preg_replace_callback('/{{\s*(.*?)\s*}}/', static function ($matches) use ($emptyElse)
-		{
-			if(preg_match('/raw\s*:(.*)/i', $matches[1]) === 1)
-			{
+		return preg_replace_callback('/{{\s*(.*?)\s*}}/', static function ($matches) use ($emptyElse) {
+			if (preg_match('/raw\s*:(.*)/i', $matches[1]) === 1) {
 				return sprintf('<?php echo %s; ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/preserve\s*:(.*)/i', $matches[1]) === 1)
-			{
+			elseif (preg_match('/preserve\s*:(.*)/i', $matches[1]) === 1) {
 				return sprintf('<?php echo $this->escapeHTML(%s, $__charset__, false); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/attribute\s*:(.*)/i', $matches[1]) === 1)
-			{
+			elseif (preg_match('/attribute\s*:(.*)/i', $matches[1]) === 1) {
 				return sprintf('<?php echo $this->escapeAttribute(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/js\s*:(.*)/i', $matches[1]) === 1)
-			{
+			elseif (preg_match('/js\s*:(.*)/i', $matches[1]) === 1) {
 				return sprintf('<?php echo $this->escapeJavascript(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/css\s*:(.*)/i', $matches[1]) === 1)
-			{
+			elseif (preg_match('/css\s*:(.*)/i', $matches[1]) === 1) {
 				return sprintf('<?php echo $this->escapeCSS(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			elseif(preg_match('/url\s*:(.*)/i', $matches[1]) === 1)
-			{
+			elseif (preg_match('/url\s*:(.*)/i', $matches[1]) === 1) {
 				return sprintf('<?php echo $this->escapeURL(%s, $__charset__); ?>', $emptyElse(substr($matches[1], strpos($matches[1], ':') + 1)));
 			}
-			else
-			{
+			else {
 				return sprintf('<?php echo $this->escapeHTML(%s, $__charset__); ?>', $emptyElse($matches[1]));
 			}
 		}, $template);
@@ -257,8 +240,7 @@ class Template
 
 		// Compile template
 
-		foreach($this->compileOrder as $method)
-		{
+		foreach ($this->compileOrder as $method) {
 			$contents = $this->$method($contents);
 		}
 

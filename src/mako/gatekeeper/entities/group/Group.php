@@ -69,13 +69,11 @@ class Group extends ORM implements GroupEntityInterface
 	 */
 	public function addUser(User $user): bool
 	{
-		if(!$this->isPersisted)
-		{
+		if (!$this->isPersisted) {
 			throw new GatekeeperException('You can only add a user to a group that exist in the database.');
 		}
 
-		if(!$user->isPersisted())
-		{
+		if (!$user->isPersisted()) {
 			throw new GatekeeperException('You can only add a user that exist in the database to a group.');
 		}
 
@@ -87,13 +85,11 @@ class Group extends ORM implements GroupEntityInterface
 	 */
 	public function removeUser(User $user): bool
 	{
-		if(!$this->isPersisted)
-		{
+		if (!$this->isPersisted) {
 			throw new GatekeeperException('You can only remove a user from a group that exist in the database.');
 		}
 
-		if(!$user->isPersisted())
-		{
+		if (!$user->isPersisted()) {
 			throw new GatekeeperException('You can only remove a user that exist in the database from a group.');
 		}
 
@@ -105,13 +101,11 @@ class Group extends ORM implements GroupEntityInterface
 	 */
 	public function isMember(User $user)
 	{
-		if(!$this->isPersisted)
-		{
+		if (!$this->isPersisted) {
 			throw new GatekeeperException('You can only check if a user is a member of a group that exist in the database.');
 		}
 
-		if(!$user->isPersisted())
-		{
+		if (!$user->isPersisted()) {
 			throw new GatekeeperException('You can only check if a user that exist in the database is a member of a group.');
 		}
 

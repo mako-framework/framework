@@ -23,8 +23,7 @@ class CryptoService extends Service
 
 		// Register the crypto manager
 
-		$this->container->registerSingleton([CryptoManager::class, 'crypto'], static function ($container) use ($config)
-		{
+		$this->container->registerSingleton([CryptoManager::class, 'crypto'], static function ($container) use ($config) {
 			$config = $config->get('crypto');
 
 			return new CryptoManager($config['default'], $config['configurations'], $container);

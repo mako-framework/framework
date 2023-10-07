@@ -81,8 +81,7 @@ class Response
 		protected Request $request,
 		protected string $charset = 'UTF-8',
 		?Signer $signer = null
-	)
-	{
+	) {
 		$this->headers = new Headers;
 
 		$this->cookies = new Cookies($signer);
@@ -131,8 +130,7 @@ class Response
 	{
 		$this->contentType = $contentType;
 
-		if($charset !== null)
-		{
+		if ($charset !== null) {
 			$this->charset = $charset;
 		}
 
@@ -262,8 +260,7 @@ class Response
 
 		$contentType = $this->contentType;
 
-		if(stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml', 'application/rss+xml', 'application/atom+xml']))
-		{
+		if (stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml', 'application/rss+xml', 'application/atom+xml'])) {
 			$contentType .= "; charset={$this->charset}";
 		}
 
@@ -271,22 +268,18 @@ class Response
 
 		// Send other headers
 
-		foreach($this->headers->all() as $name => $values)
-		{
-			foreach($values as $value)
-			{
+		foreach ($this->headers->all() as $name => $values) {
+			foreach ($values as $value) {
 				header("{$name}: {$value}", false);
 			}
 		}
 
 		// Send cookie headers
 
-		foreach($this->cookies->all() as $cookie)
-		{
+		foreach ($this->cookies->all() as $cookie) {
 			['raw' => $raw, 'name' => $name, 'value' => $value, 'options' => $options] = $cookie;
 
-			if($raw)
-			{
+			if ($raw) {
 				setrawcookie($name, $value, $options);
 
 				continue;
@@ -301,18 +294,15 @@ class Response
 	 */
 	public function isCacheable(): bool
 	{
-		if($this->request->isCacheable() === false)
-		{
+		if ($this->request->isCacheable() === false) {
 			return false;
 		}
 
-		if(in_array($this->status->value, [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false)
-		{
+		if (in_array($this->status->value, [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false) {
 			return false;
 		}
 
-		if($this->headers->hasValue('Cache-Control', 'no-store', false) || $this->headers->hasValue('Cache-Control', 'private', false))
-		{
+		if ($this->headers->hasValue('Cache-Control', 'no-store', false) || $this->headers->hasValue('Cache-Control', 'private', false)) {
 			return false;
 		}
 
@@ -367,8 +357,7 @@ class Response
 		// If the body is a response sender then we'll just pass it the
 		// request and response instances and let it handle the rest itself
 
-		if($this->body instanceof ResponseSenderInterface)
-		{
+		if ($this->body instanceof ResponseSenderInterface) {
 			$this->body->send($this->request, $this);
 
 			return;
@@ -376,8 +365,7 @@ class Response
 
 		// If the body is a response builder then we'll let it build the response
 
-		if($this->body instanceof ResponseBuilderInterface)
-		{
+		if ($this->body instanceof ResponseBuilderInterface) {
 			$this->body->build($this->request, $this);
 		}
 
@@ -385,8 +373,7 @@ class Response
 
 		// Make sure that output buffering is enabled
 
-		if(ob_get_level() === 0)
-		{
+		if (ob_get_level() === 0) {
 			ob_start();
 		}
 
@@ -396,26 +383,22 @@ class Response
 
 		// Check ETag if response cache is enabled
 
-		if($this->responseCache === true && $this->isCacheable())
-		{
+		if ($this->responseCache === true && $this->isCacheable()) {
 			$hash = '"' . hash('sha256', $this->body) . '"';
 
 			$this->headers->add('ETag', $hash);
 
-			if(str_replace('-gzip', '', $this->request->headers->get('If-None-Match')) === $hash)
-			{
+			if (str_replace('-gzip', '', $this->request->headers->get('If-None-Match')) === $hash) {
 				$this->setStatus(Status::NOT_MODIFIED);
 
 				$sendBody = false;
 			}
 		}
 
-		if($sendBody && in_array($this->status->value, [100, 101, 102, 103, 204, 304]) === false)
-		{
+		if ($sendBody && in_array($this->status->value, [100, 101, 102, 103, 204, 304]) === false) {
 			// Start compressed output buffering if output compression is enabled
 
-			if($this->outputCompression)
-			{
+			if ($this->outputCompression) {
 				ob_start('ob_gzhandler');
 			}
 
@@ -424,15 +407,13 @@ class Response
 			// If output compression is enabled then we'll have to flush the compressed buffer
 			// so that we can get the compressed content length when setting the content-length header
 
-			if($this->outputCompression)
-			{
+			if ($this->outputCompression) {
 				ob_end_flush();
 			}
 
 			// Add the content-length header
 
-			if(!$this->headers->has('Transfer-Encoding'))
-			{
+			if (!$this->headers->has('Transfer-Encoding')) {
 				$this->headers->add('Content-Length', (string) (int) ob_get_length());
 			}
 		}

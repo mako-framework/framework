@@ -25,16 +25,15 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	public function __construct(
 		protected Output $output
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Escape formatting tags.
 	 */
 	protected function escape(string $string): string
 	{
-		if(($formatter = $this->output->getFormatter()) === null)
-		{
+		if (($formatter = $this->output->getFormatter()) === null) {
 			return $string;
 		}
 
@@ -46,12 +45,10 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	protected function determineExceptionType(Throwable $exception): string
 	{
-		if($exception instanceof ErrorException)
-		{
+		if ($exception instanceof ErrorException) {
 			$code = $exception->getCode();
 
-			$codes =
-			[
+			$codes = [
 				E_ERROR             => 'Fatal Error',
 				E_PARSE             => 'Parse Error',
 				E_COMPILE_ERROR     => 'Compile Error',
@@ -82,8 +79,7 @@ class DevelopmentHandler implements HandlerInterface
 
 		$message = $this->escape($exception->getMessage());
 
-		if(!empty($exception->getFile()))
-		{
+		if (!empty($exception->getFile())) {
 			$message .= PHP_EOL
 			. PHP_EOL
 			. "Error location: {$this->escape($exception->getFile())}"

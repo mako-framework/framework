@@ -20,8 +20,8 @@ class MinLength extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected int $minLength
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * I18n parameters.

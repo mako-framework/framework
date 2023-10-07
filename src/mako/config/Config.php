@@ -29,8 +29,8 @@ class Config
 	public function __construct(
 		protected LoaderInterface $loader,
 		protected ?string $environment = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns the config loader.
@@ -79,8 +79,7 @@ class Config
 	{
 		[$file, $path] = $this->parseKey($key);
 
-		if(!isset($this->configuration[$file]))
-		{
+		if (!isset($this->configuration[$file])) {
 			$this->load($file);
 		}
 
@@ -94,8 +93,7 @@ class Config
 	{
 		[$file] = $this->parseKey($key);
 
-		if(!isset($this->configuration[$file]))
-		{
+		if (!isset($this->configuration[$file])) {
 			$this->load($file);
 		}
 

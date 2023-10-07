@@ -28,8 +28,7 @@ class UploadedFile extends FileInfo
 		protected int $size,
 		protected string $type,
 		protected int $errorCode
-	)
-	{
+	) {
 		parent::__construct($path);
 	}
 
@@ -78,8 +77,7 @@ class UploadedFile extends FileInfo
 	 */
 	public function getErrorMessage(): string
 	{
-		return match($this->errorCode)
-		{
+		return match ($this->errorCode) {
 			UPLOAD_ERR_OK         => 'There is no error, the file was successfully uploaded.',
 			UPLOAD_ERR_INI_SIZE   => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
 			UPLOAD_ERR_FORM_SIZE  => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
@@ -113,13 +111,11 @@ class UploadedFile extends FileInfo
 	 */
 	public function moveTo(string $path): bool
 	{
-		if($this->hasError())
-		{
+		if ($this->hasError()) {
 			throw new UploadException(vsprintf('%s', [$this->getErrorMessage()]), $this->getErrorCode());
 		}
 
-		if($this->isUploaded() === false)
-		{
+		if ($this->isUploaded() === false) {
 			throw new UploadException('The file that you\'re trying to move was not uploaded.', -1);
 		}
 

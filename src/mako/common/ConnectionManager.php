@@ -38,8 +38,7 @@ abstract class ConnectionManager
 	{
 		$connection ??= $this->default;
 
-		if(!isset($this->connections[$connection]))
-		{
+		if (!isset($this->connections[$connection])) {
 			$this->connections[$connection] = $this->connect($connection);
 		}
 
@@ -53,10 +52,8 @@ abstract class ConnectionManager
 	{
 		$connection ??= $this->default;
 
-		if(isset($this->connections[$connection]))
-		{
-			if(method_exists($this->connections[$connection], 'close'))
-			{
+		if (isset($this->connections[$connection])) {
+			if (method_exists($this->connections[$connection], 'close')) {
 				// Call close on the connection object in case there's a reference
 				// to the connection that won't be garbage collected immediately
 

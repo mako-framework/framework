@@ -23,8 +23,8 @@ class TimeZone extends Rule implements RuleInterface
 	public function __construct(
 		protected int $group = DateTimeZone::ALL,
 		protected ?string $country = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}

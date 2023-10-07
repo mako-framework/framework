@@ -27,23 +27,20 @@ class Humanizer
 	 */
 	public function __construct(
 		protected ?I18n $i18n = null
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Returns a human friendly file size.
 	 */
 	public function fileSize(float|int $size, bool $binary = true): string
 	{
-		if($size > 0)
-		{
-			if($binary === true)
-			{
+		if ($size > 0) {
+			if ($binary === true) {
 				$base  = 1024;
 				$terms = ['byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
 			}
-			else
-			{
+			else {
 				$base  = 1000;
 				$terms = ['byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 			}
@@ -61,20 +58,16 @@ class Humanizer
 	 */
 	public function day(DateTimeInterface $dateTime, string $dateFormat = 'Y-m-d, H:i'): string
 	{
-		if($dateTime->format('Y-m-d') === date('Y-m-d'))
-		{
+		if ($dateTime->format('Y-m-d') === date('Y-m-d')) {
 			return $this->i18n->get('humanizer.today');
 		}
-		elseif($dateTime->format('Y-m-d') === date('Y-m-d', time() - (60 * 60 * 24)))
-		{
+		elseif ($dateTime->format('Y-m-d') === date('Y-m-d', time() - (60 * 60 * 24))) {
 			return $this->i18n->get('humanizer.yesterday');
 		}
-		elseif($dateTime->format('Y-m-d') === date('Y-m-d', time() + (60 * 60 * 24)))
-		{
+		elseif ($dateTime->format('Y-m-d') === date('Y-m-d', time() + (60 * 60 * 24))) {
 			return $this->i18n->get('humanizer.tomorrow');
 		}
-		else
-		{
+		else {
 			return $dateTime->format($dateFormat);
 		}
 	}
@@ -86,47 +79,37 @@ class Humanizer
 	{
 		$diff = time() - $dateTime->getTimestamp();
 
-		if($diff < 0)
-		{
+		if ($diff < 0) {
 			// Our date is in the future
 
 			$diff = abs($diff);
 
-			if($diff < 120)
-			{
+			if ($diff < 120) {
 				return $this->i18n->get('humanizer.in_minute');
 			}
-			elseif($diff < 3600)
-			{
+			elseif ($diff < 3600) {
 				return $this->i18n->get('humanizer.in_minutes', [$diff / 60]);
 			}
-			elseif($dateTime->format('Y-m-d') === date('Y-m-d'))
-			{
+			elseif ($dateTime->format('Y-m-d') === date('Y-m-d')) {
 				return $this->i18n->get('humanizer.today') . (!empty($clockFormat) ? $dateTime->format($clockFormat) : '');
 			}
-			elseif($dateTime->format('Y-m-d') === date('Y-m-d', time() + (60 * 60 * 24)))
-			{
+			elseif ($dateTime->format('Y-m-d') === date('Y-m-d', time() + (60 * 60 * 24))) {
 				return $this->i18n->get('humanizer.tomorrow') . (!empty($clockFormat) ? $dateTime->format($clockFormat) : '');
 			}
 		}
-		else
-		{
+		else {
 			// Our date is in the past
 
-			if($diff < 120)
-			{
+			if ($diff < 120) {
 				return $this->i18n->get('humanizer.minute_ago');
 			}
-			elseif($diff < 3600)
-			{
+			elseif ($diff < 3600) {
 				return $this->i18n->get('humanizer.minutes_ago', [$diff / 60]);
 			}
-			elseif($dateTime->format('Y-m-d') === date('Y-m-d'))
-			{
+			elseif ($dateTime->format('Y-m-d') === date('Y-m-d')) {
 				return $this->i18n->get('humanizer.today') . (!empty($clockFormat) ? $dateTime->format($clockFormat) : '');
 			}
-			elseif($dateTime->format('Y-m-d') === date('Y-m-d', time() - (60 * 60 * 24)))
-			{
+			elseif ($dateTime->format('Y-m-d') === date('Y-m-d', time() - (60 * 60 * 24))) {
 				return $this->i18n->get('humanizer.yesterday') . (!empty($clockFormat) ? $dateTime->format($clockFormat) : '');
 			}
 		}

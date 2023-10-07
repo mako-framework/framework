@@ -18,8 +18,8 @@ trait ConfigurableTrait
 	public function __construct(
 		protected string $default,
 		protected array $configurations
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Adds a configuration.

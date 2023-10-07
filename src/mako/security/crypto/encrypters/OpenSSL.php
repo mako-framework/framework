@@ -31,8 +31,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	public function __construct(
 		protected string $key,
 		protected string $cipher = 'AES-256-CTR'
-	)
-	{
+	) {
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);
 	}
 
@@ -55,8 +54,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	{
 		$string = base64_decode($string, true);
 
-		if($string === false)
-		{
+		if ($string === false) {
 			return false;
 		}
 

@@ -105,8 +105,7 @@ enum Status: int
 	 */
 	public function getMessage(): string
 	{
-		return match($this)
-		{
+		return match ($this) {
 			// 1xx Informational
 
 			static::CONTINUE => 'Continue',

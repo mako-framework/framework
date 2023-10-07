@@ -22,8 +22,7 @@ trait AuthorizationTrait
 	 */
 	protected function authorize(string $action, object|string $entity, mixed ...$parameters): void
 	{
-		if($this->authorizer->can($this->gatekeeper->getUser(), $action, $entity, ...$parameters) === false)
-		{
+		if ($this->authorizer->can($this->gatekeeper->getUser(), $action, $entity, ...$parameters) === false) {
 			throw new ForbiddenException;
 		}
 	}

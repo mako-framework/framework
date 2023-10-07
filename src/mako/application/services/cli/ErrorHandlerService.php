@@ -28,12 +28,10 @@ class ErrorHandlerService extends Service
 
 		$errorHandler = new ErrorHandler($this->container);
 
-		if($config['log_errors'])
-		{
+		if ($config['log_errors']) {
 			$errorHandler->setLogger(fn () => $this->container->get(LoggerInterface::class));
 
-			if(!empty($config['dont_log']))
-			{
+			if (!empty($config['dont_log'])) {
 				$errorHandler->dontLog($config['dont_log']);
 			}
 		}

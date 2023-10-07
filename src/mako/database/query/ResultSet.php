@@ -60,8 +60,7 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 	{
 		$results = [];
 
-		foreach($this->items as $item)
-		{
+		foreach ($this->items as $item) {
 			$results[] = $item->toArray();
 		}
 
@@ -73,8 +72,7 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 	 */
 	public function jsonSerialize(): mixed
 	{
-		if($this->pagination === null)
-		{
+		if ($this->pagination === null) {
 			return $this->toArray();
 		}
 

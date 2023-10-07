@@ -27,8 +27,7 @@ class Reset extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
 			new Argument('-f|--force', 'Force the schema reset?', Argument::IS_BOOL),
 		];
@@ -39,8 +38,7 @@ class Reset extends Command
 	 */
 	public function execute(bool $force = false): void
 	{
-		if($force || $this->confirm('<yellow>Are you sure you want to reset your database?</yellow>'))
-		{
+		if ($force || $this->confirm('<yellow>Are you sure you want to reset your database?</yellow>')) {
 			$this->nl();
 
 			$this->rollback();

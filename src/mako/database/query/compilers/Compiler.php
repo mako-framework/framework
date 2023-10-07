@@ -53,8 +53,8 @@ class Compiler
 	 */
 	public function __construct(
 		protected Query $query
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * Sets the date format.
@@ -79,8 +79,7 @@ class Compiler
 	{
 		$parameters = $raw->getParameters();
 
-		if(!empty($parameters))
-		{
+		if (!empty($parameters)) {
 			$this->params = [...$this->params, ...$parameters];
 		}
 
@@ -112,12 +111,10 @@ class Compiler
 
 		$sql = $this->subselect($query);
 
-		if($enclose)
-		{
+		if ($enclose) {
 			$sql = "({$sql})";
 
-			if(($alias = $subquery->getAlias()) !== null)
-			{
+			if (($alias = $subquery->getAlias()) !== null) {
 				$sql .= " AS {$this->escapeIdentifier($alias)}";
 			}
 		}
@@ -138,8 +135,7 @@ class Compiler
 	 */
 	public function escapeIdentifiers(array $identifiers): string
 	{
-		foreach($identifiers as $key => $identifier)
-		{
+		foreach ($identifiers as $key => $identifier) {
 			$identifiers[$key] = $this->escapeIdentifier($identifier);
 		}
 
@@ -177,8 +173,7 @@ class Compiler
 	{
 		$segments = [];
 
-		foreach(explode('.', $table) as $segment)
-		{
+		foreach (explode('.', $table) as $segment) {
 			$segments[] = $this->escapeIdentifier($segment);
 		}
 
@@ -190,16 +185,13 @@ class Compiler
 	 */
 	public function table(Raw|string|Subquery $table): string
 	{
-		if($table instanceof Raw)
-		{
+		if ($table instanceof Raw) {
 			return $this->raw($table);
 		}
-		elseif($table instanceof Subquery)
-		{
+		elseif ($table instanceof Subquery) {
 			return $this->subquery($table);
 		}
-		elseif(stripos($table, ' AS ') !== false)
-		{
+		elseif (stripos($table, ' AS ') !== false) {
 			[$table, , $alias] = explode(' ', $table, 3);
 
 			return "{$this->escapeTableName($table)} AS {$this->escapeTableName($alias)}";
@@ -215,8 +207,7 @@ class Compiler
 	{
 		$sql = [];
 
-		foreach($tables as $table)
-		{
+		foreach ($tables as $table) {
 			$sql[] = $this->table($table);
 		}
 
@@ -230,14 +221,11 @@ class Compiler
 	{
 		$segments = [];
 
-		foreach(explode('.', $column) as $segment)
-		{
-			if($segment === '*')
-			{
+		foreach (explode('.', $column) as $segment) {
+			if ($segment === '*') {
 				$segments[] = $segment;
 			}
-			else
-			{
+			else {
 				$segments[] = $this->escapeIdentifier($segment);
 			}
 		}
@@ -250,8 +238,7 @@ class Compiler
 	 */
 	public function columnName(string $column): string
 	{
-		if($this->hasJsonPath($column))
-		{
+		if ($this->hasJsonPath($column)) {
 			$segments = explode(static::JSON_PATH_SEPARATOR, $column);
 
 			$column = $this->escapeColumnName(array_shift($segments));
@@ -269,8 +256,7 @@ class Compiler
 	{
 		$sql = [];
 
-		foreach($columns as $column)
-		{
+		foreach ($columns as $column) {
 			$sql[] = $this->columnName($column);
 		}
 
@@ -282,16 +268,13 @@ class Compiler
 	 */
 	public function column(Raw|string|Subquery $column, bool $allowAlias = false): string
 	{
-		if($column instanceof Raw)
-		{
+		if ($column instanceof Raw) {
 			return $this->raw($column);
 		}
-		elseif($column instanceof Subquery)
-		{
+		elseif ($column instanceof Subquery) {
 			return $this->subquery($column);
 		}
-		elseif($allowAlias && stripos($column, ' AS ') !== false)
-		{
+		elseif ($allowAlias && stripos($column, ' AS ') !== false) {
 			[$column, , $alias] = explode(' ', $column, 3);
 
 			return "{$this->columnName($column)} AS {$this->columnName($alias)}";
@@ -307,8 +290,7 @@ class Compiler
 	{
 		$sql = [];
 
-		foreach($columns as $column)
-		{
+		foreach ($columns as $column) {
 			$sql[] = $this->column($column, $allowAlias);
 		}
 
@@ -322,19 +304,16 @@ class Compiler
 	{
 		['recursive' => $recursive, 'ctes' => $ctes] = $commonTableExpressions;
 
-		if(empty($ctes))
-		{
+		if (empty($ctes)) {
 			return '';
 		}
 
 		$expressions = [];
 
-		foreach($ctes as $cte)
-		{
+		foreach ($ctes as $cte) {
 			$expression = $this->escapeIdentifier($cte['name']);
 
-			if(empty($cte['columns']) === false)
-			{
+			if (empty($cte['columns']) === false) {
 				$expression .= " ({$this->escapeIdentifiers($cte['columns'])})";
 			}
 
@@ -349,15 +328,13 @@ class Compiler
 	 */
 	protected function setOperations(array $setOperations): string
 	{
-		if(empty($setOperations))
-		{
+		if (empty($setOperations)) {
 			return '';
 		}
 
 		$sql = '';
 
-		foreach($setOperations as $setOperation)
-		{
+		foreach ($setOperations as $setOperation) {
 			$sql .= "{$this->subselect($setOperation['query'])} {$setOperation['operation']} ";
 		}
 
@@ -369,24 +346,19 @@ class Compiler
 	 */
 	protected function param(mixed $param, bool $enclose = true): string
 	{
-		if(is_object($param))
-		{
-			if($param instanceof Raw)
-			{
+		if (is_object($param)) {
+			if ($param instanceof Raw) {
 				return $this->raw($param);
 			}
-			elseif($param instanceof Subquery)
-			{
+			elseif ($param instanceof Subquery) {
 				return $this->subquery($param, $enclose);
 			}
-			elseif($param instanceof DateTimeInterface)
-			{
+			elseif ($param instanceof DateTimeInterface) {
 				$this->params[] = $param->format(static::$dateFormat);
 
 				return '?';
 			}
-			elseif(enum_exists($param::class))
-			{
+			elseif (enum_exists($param::class)) {
 				$this->params[] = $param->value ?? $param->name;
 
 				return '?';
@@ -405,8 +377,7 @@ class Compiler
 	{
 		$sql = [];
 
-		foreach($params as $param)
-		{
+		foreach ($params as $param) {
 			$sql[] = $this->param($param, $enclose);
 		}
 
@@ -430,8 +401,7 @@ class Compiler
 	{
 		$sql = [];
 
-		foreach($params as $param)
-		{
+		foreach ($params as $param) {
 			$sql[] = $this->simpleParam($param);
 		}
 
@@ -443,8 +413,7 @@ class Compiler
 	 */
 	protected function from(null|array|Raw|string|Subquery $table): string
 	{
-		if($table === null)
-		{
+		if ($table === null) {
 			return '';
 		}
 
@@ -456,8 +425,7 @@ class Compiler
 	 */
 	protected function where(array $where): string
 	{
-		if(is_array($where['column']))
-		{
+		if (is_array($where['column'])) {
 			$column = "({$this->columnNames($where['column'])})";
 
 			$value = is_array($where['value']) ? "({$this->params($where['value'])})" : $this->param($where['value']);
@@ -489,8 +457,7 @@ class Compiler
 	 */
 	protected function whereColumn(array $where): string
 	{
-		if(is_array($where['column1']))
-		{
+		if (is_array($where['column1'])) {
 			$column1 = "({$this->columnNames($where['column1'])})";
 
 			$column2 = is_array($where['column2']) ? "({$this->columnNames($where['column2'])})" : $this->columnName($where['column2']);
@@ -560,8 +527,7 @@ class Compiler
 
 		$conditionCounter = 0;
 
-		foreach($wheres as $where)
-		{
+		foreach ($wheres as $where) {
 			$conditions[] = ($conditionCounter > 0 ? "{$where['separator']} " : '') . $this->{$where['type']}($where);
 
 			$conditionCounter++;
@@ -575,8 +541,7 @@ class Compiler
 	 */
 	protected function wheres(array $wheres): string
 	{
-		if(empty($wheres))
-		{
+		if (empty($wheres)) {
 			return '';
 		}
 
@@ -588,8 +553,7 @@ class Compiler
 	 */
 	protected function joinCondition(array $condition): string
 	{
-		if($condition['operator'] === null)
-		{
+		if ($condition['operator'] === null) {
 			return $this->column($condition['column1']);
 		}
 
@@ -615,8 +579,7 @@ class Compiler
 
 		$conditionCounter = 0;
 
-		foreach($join->getConditions() as $condition)
-		{
+		foreach ($join->getConditions() as $condition) {
 			$conditions[] = ($conditionCounter > 0 ? "{$condition['separator']} " : '') . $this->{$condition['type']}($condition);
 
 			$conditionCounter++;
@@ -630,15 +593,13 @@ class Compiler
 	 */
 	protected function joins(array $joins): string
 	{
-		if(empty($joins))
-		{
+		if (empty($joins)) {
 			return '';
 		}
 
 		$sql = [];
 
-		foreach($joins as $join)
-		{
+		foreach ($joins as $join) {
 			$sql[] = "{$join->getType()}"
 			. " {$this->table($join->getTable())}"
 			. ($join->hasConditions() ? " ON {$this->joinConditions($join)}" : '');
@@ -660,15 +621,13 @@ class Compiler
 	 */
 	protected function orderings(array $orderings): string
 	{
-		if(empty($orderings))
-		{
+		if (empty($orderings)) {
 			return '';
 		}
 
 		$sql = [];
 
-		foreach($orderings as $order)
-		{
+		foreach ($orderings as $order) {
 			$sql[] = "{$this->columns($order['column'])} {$order['order']}";
 		}
 
@@ -684,8 +643,7 @@ class Compiler
 
 		$conditionCounter = 0;
 
-		foreach($havings as $having)
-		{
+		foreach ($havings as $having) {
 			$conditions[] = ($conditionCounter > 0 ? "{$having['separator']} " : '') . "{$this->column($having['column'])} {$having['operator']} {$this->param($having['value'])}";
 
 			$conditionCounter++;
@@ -699,8 +657,7 @@ class Compiler
 	 */
 	protected function havings(array $havings): string
 	{
-		if(empty($havings))
-		{
+		if (empty($havings)) {
 			return '';
 		}
 
@@ -798,8 +755,7 @@ class Compiler
 
 		$rows = [];
 
-		foreach($values as $rowValues)
-		{
+		foreach ($values as $rowValues) {
 			$rows[] =  "({$this->params($rowValues)})";
 		}
 
@@ -815,20 +771,17 @@ class Compiler
 	{
 		$sql = [];
 
-		foreach($columns as $column => $value)
-		{
+		foreach ($columns as $column => $value) {
 			$param = $this->param($value);
 
-			if($this->hasJsonPath($column))
-			{
+			if ($this->hasJsonPath($column)) {
 				$segments = explode(static::JSON_PATH_SEPARATOR, $column);
 
 				$column = $this->escapeColumnName(array_shift($segments));
 
 				$sql[] = $this->buildJsonSet($column, $segments, $param);
 			}
-			else
-			{
+			else {
 				$sql[] = "{$this->escapeColumnName($column)} = {$param}";
 			}
 		}

@@ -19,26 +19,19 @@ trait ReadOnlyTrait
 	 */
 	protected function getReadOnlyTraitHooks(): array
 	{
-		return
-		[
-			'beforeInsert' =>
-			[
-				function ($values, $query): void
-				{
+		return [
+			'beforeInsert' => [
+				function ($values, $query): void {
 					throw new ReadOnlyException('Attempted to create a read-only record.');
 				},
 			],
-			'beforeUpdate' =>
-			[
-				function ($values, $query): void
-				{
+			'beforeUpdate' => [
+				function ($values, $query): void {
 					throw new ReadOnlyException('Attempted to update a read-only record.');
 				},
 			],
-			'beforeDelete' =>
-			[
-				function ($query): void
-				{
+			'beforeDelete' => [
+				function ($query): void {
 					throw new ReadOnlyException('Attempted to delete a read-only record.');
 				},
 			],

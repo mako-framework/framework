@@ -25,8 +25,7 @@ trait ContentNegotiationTrait
 	{
 		$accepts = $this->request->headers->getAcceptableContentTypes();
 
-		if(isset($accepts[0]) && (in_array($accepts[0], $mimeTypes) || ($suffix !== null && strpos($accepts[0], $suffix) !== false)))
-		{
+		if (isset($accepts[0]) && (in_array($accepts[0], $mimeTypes) || ($suffix !== null && strpos($accepts[0], $suffix) !== false))) {
 			return true;
 		}
 
@@ -56,8 +55,7 @@ trait ContentNegotiationTrait
 	{
 		$responseType = $this->response->getType();
 
-		if(in_array($responseType, $mimeTypes) || ($suffix !== null && strpos($responseType, $suffix) !== false))
-		{
+		if (in_array($responseType, $mimeTypes) || ($suffix !== null && strpos($responseType, $suffix) !== false)) {
 			return true;
 		}
 

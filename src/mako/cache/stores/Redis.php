@@ -24,8 +24,8 @@ class Redis extends Store implements IncrementDecrementInterface
 	public function __construct(
 		protected RedisClient $redis,
 		protected array|bool $classWhitelist = false
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -36,8 +36,7 @@ class Redis extends Store implements IncrementDecrementInterface
 
 		$data = is_numeric($data) ? $data : serialize($data);
 
-		if($ttl === 0)
-		{
+		if ($ttl === 0) {
 			return (bool) $this->redis->set($key, $data);
 		}
 
@@ -53,8 +52,7 @@ class Redis extends Store implements IncrementDecrementInterface
 
 		$data = is_numeric($data) ? $data : serialize($data);
 
-		if($ttl === 0)
-		{
+		if ($ttl === 0) {
 			return (bool) $this->redis->setnx($key, $data);
 		}
 
@@ -94,8 +92,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	{
 		$data = $this->redis->get($this->getPrefixedKey($key));
 
-		if($data === null)
-		{
+		if ($data === null) {
 			return null;
 		}
 
