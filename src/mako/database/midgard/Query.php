@@ -32,12 +32,15 @@ use function substr;
 /**
  * ORM query builder.
  *
+ * @template TClass of ORM
  * @method \mako\database\midgard\ResultSet paginate($itemsPerPage = null, array $options = [])
  */
 class Query extends QueryBuilder
 {
 	/**
 	 * Class name of the model we're hydrating.
+	 *
+	 * @var class-string<TClass>
 	 */
 	protected string $modelClass;
 
@@ -265,6 +268,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a record using the value of its primary key.
+	 *
+	 * @return TClass
 	 */
 	public function getOrThrow(int|string $id, array $columns = [], string $exception = NotFoundException::class): ORM
 	{
@@ -403,6 +408,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a hydrated model.
+	 *
+	 * @return TClass
 	 */
 	protected function hydrateModel(array $result): ORM
 	{
@@ -478,6 +485,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns hydrated models.
+	 *
+	 * @return array<TClass>
 	 */
 	protected function hydrateModelsAndLoadIncludes(mixed $results): array
 	{
@@ -495,6 +504,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a single record from the database.
+	 *
+	 * @return TClass|null
 	 */
 	public function first(): ?ORM
 	{
@@ -510,6 +521,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a single record from the database.
+	 *
+	 * @return TClass
 	 */
 	public function firstOrThrow(string $exception = NotFoundException::class): ORM
 	{
@@ -518,6 +531,9 @@ class Query extends QueryBuilder
 
 	/**
 	 * Creates a result set.
+	 *
+	 * @param  array<int, TClass>     $results
+	 * @return ResultSet<int, TClass>
 	 */
 	protected function createResultSet(array $results): ResultSet
 	{
@@ -526,6 +542,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a result set from the database.
+	 *
+	 * @return ResultSet<int, TClass>
 	 */
 	public function all(): ResultSet
 	{
@@ -541,6 +559,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a generator that lets you iterate over the results.
+	 *
+	 * @return Generator<int, TClass>
 	 */
 	public function yield(): Generator
 	{

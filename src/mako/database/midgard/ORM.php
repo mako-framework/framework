@@ -367,6 +367,8 @@ abstract class ORM implements JsonSerializable, Stringable
 
 	/**
 	 * Returns the namespaced class name of the model.
+	 *
+	 * @return class-string<static>
 	 */
 	public function getClass(): string
 	{

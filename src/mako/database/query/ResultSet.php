@@ -17,6 +17,10 @@ use function json_encode;
 
 /**
  * Result set.
+ *
+ * @template TKey of array-key
+ * @template TValue of Result
+ * @extends Collection<TKey, TValue>
  */
 class ResultSet extends Collection implements JsonSerializable, Stringable
 {

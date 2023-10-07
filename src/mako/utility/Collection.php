@@ -40,6 +40,11 @@ use function vsprintf;
 
 /**
  * Collection.
+ *
+ * @template TKey of array-key
+ * @template TValue
+ * @implements ArrayAccess<TKey, TValue>
+ * @implements IteratorAggregate<TKey, TValue>
  */
 class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
@@ -47,6 +52,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Constructor.
+	 *
+	 * @param array<TKey, TValue> $items
 	 */
 	final public function __construct(
 		protected array $items = []
@@ -55,6 +62,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns all the items in the collection.
+	 *
+	 * @return array<TKey, TValue>
 	 */
 	public function getItems(): array
 	{
@@ -63,6 +72,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns all the values in the collection.
+	 *
+	 * @return array<int, TValue>
 	 */
 	public function getValues(): array
 	{
@@ -84,6 +95,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Adds a new item to the collection.
 	 *
+	 * @param  TKey   $key
+	 * @param  TValue $value
 	 * @return $this
 	 */
 	public function put(int|string $key, mixed $value): static
@@ -95,6 +108,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns TRUE if the item key exists and FALSE if not.
+	 *
+	 * @param TKey $key
 	 */
 	public function has(int|string $key): bool
 	{
@@ -103,6 +118,10 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns an item from the collection.
+	 *
+	 * @template TDefault
+	 * @param  TDefault        $default
+	 * @return TDefault|TValue
 	 */
 	public function get(int|string $key, mixed $default = null): mixed
 	{
@@ -117,6 +136,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Removes an item from the collection.
 	 *
+	 * @param  TKey  $key
 	 * @return $this
 	 */
 	public function remove(int|string $key): static
@@ -140,6 +160,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Checks whether or not an offset exists.
+	 *
+	 * @param TKey $offset
 	 */
 	public function offsetExists(mixed $offset): bool
 	{
@@ -148,6 +170,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the value at the specified offset.
+	 *
+	 * @return TValue
 	 */
 	public function offsetGet(mixed $offset): mixed
 	{
@@ -161,6 +185,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Assigns a value to the specified offset.
+	 *
+	 * @param TKey|null $offset
+	 * @param TValue    $value
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void
 	{
@@ -176,6 +203,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Unsets an offset.
+	 *
+	 * @param TKey $offset
 	 */
 	public function offsetUnset(mixed $offset): void
 	{
@@ -192,6 +221,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Retruns an array iterator object.
+	 *
+	 * @return \ArrayIterator<TKey, TValue>
 	 */
 	public function getIterator(): ArrayIterator
 	{
@@ -209,6 +240,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Prepends the passed item to the front of the collection
 	 * and returns the new number of elements in the collection.
+	 *
+	 * @param TValue $item
 	 */
 	public function unshift(mixed $item): int
 	{
@@ -218,6 +251,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Shifts the first value of the collection off and returns it,
 	 * shortening the collection by one element.
+	 *
+	 * @return TValue|null
 	 */
 	public function shift(): mixed
 	{
@@ -227,6 +262,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Pushes the passed variable onto the end of the collection
 	 * and returns the new number of elements in the collection.
+	 *
+	 * @param TValue $item
 	 */
 	public function push(mixed $item): int
 	{
@@ -236,6 +273,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Pops and returns the last value of the collection,
 	 * shortening the collection by one element.
+	 *
+	 * @return TValue|null
 	 */
 	public function pop(): mixed
 	{
@@ -244,6 +283,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the first item of the collection or NULL if the collection is empty.
+	 *
+	 * @return TValue|null
 	 */
 	public function first(): mixed
 	{
@@ -259,6 +300,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns the last item of the collection or NULL if the collection is empty.
+	 *
+	 * @return TValue|null
 	 */
 	public function last(): mixed
 	{
@@ -294,6 +337,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Chunks the collection into a collection containing $size sized collections.
+	 *
+	 * @return static<int, static<int, TValue>>
 	 */
 	public function chunk(int $size): static
 	{
@@ -350,6 +395,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns a new collection where the callable has
 	 * been applied to all the items.
+	 *
+	 * @return static<TKey, TValue>
 	 */
 	public function map(callable $callable): static
 	{
@@ -362,6 +409,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns a new filtered collection.
+	 *
+	 * @return static<TKey, TValue>
 	 */
 	public function filter(?callable $callable = null): static
 	{
@@ -375,6 +424,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns a new collection where all items not in the provided list have been removed.
+	 *
+	 * @param  array<TKey>          $keys
+	 * @return static<TKey, TValue>
 	 */
 	public function with(array $keys): static
 	{
@@ -383,6 +435,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Returns a new collection where all items in the provided list have been removed.
+	 *
+	 * @param  array<TKey>          $keys
+	 * @return static<TKey, TValue>
 	 */
 	public function without(array $keys): static
 	{
@@ -391,6 +446,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Merges two collections.
+	 *
+	 * @param  static<TKey, TValue> $collection
+	 * @return static<TKey, TValue>
 	 */
 	public function merge(Collection $collection): static
 	{

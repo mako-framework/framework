@@ -5,11 +5,11 @@ parameters:
 			count: 1
 			path: src/mako/database/connections/Connection.php
 		-
-			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet\\:\\:including\\(\\)\\.$#"
+			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet<TKey of \\(int\\|string\\), TValue>\\:\\:including\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ResultSet.php
 		-
-			message: "#^Call to protected method loadIncludes\\(\\) of class mako\\\\database\\\\midgard\\\\Query\\.$#"
+			message: "#^Call to protected method loadIncludes\\(\\) of class mako\\\\database\\\\midgard\\\\Query<mako\\\\database\\\\midgard\\\\ORM>\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ORM.php
 		-
@@ -24,3 +24,11 @@ parameters:
 			message: "#^Creating callable from a non-native method stdClass::(beforeAction|afterAction)()#"
 			count: 2
 			path: src/mako/http/routing/Dispatcher.php
+		-
+			message: "#^PHPDoc tag @return with type mako\\\\utility\\\\Collection<int, mako\\\\utility\\\\Collection<int, TValue>> is incompatible with native type static\\(mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue>\\)\\.$#"
+			count: 1
+			path: src/mako/utility/Collection.php
+		-
+			message: "#^PHPDoc tag @return with type mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue> is not subtype of native type static\\(mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue>\\)\\.$#"
+			count: 5
+			path: src/mako/utility/Collection.php

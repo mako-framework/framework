@@ -11,6 +11,10 @@ use mako\database\query\ResultSet as BaseResultSet;
 
 /**
  * ORM result set.
+ *
+ * @template TKey of array-key
+ * @template TValue of ORM
+ * @extends BaseResultSet<TKey, TValue>
  */
 class ResultSet extends BaseResultSet
 {

@@ -1248,6 +1248,8 @@ class Query
 
 	/**
 	 * Executes a SELECT query and returns an array containing all of the result set rows.
+	 *
+	 * @return ResultSet<int, Result>
 	 */
 	public function all(): ResultSet
 	{
