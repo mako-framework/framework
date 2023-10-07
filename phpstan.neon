@@ -5,3 +5,5 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		- '#Attribute class AllowDynamicProperties does not exist\.#'
+	universalObjectCratesClasses:
+		- mako\database\query\Result

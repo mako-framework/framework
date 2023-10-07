@@ -1203,7 +1203,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set or NULL if nothing is found.
 	 *
-	 * @return object|Result|null
+	 * @return Result|null
 	 */
 	public function first(): ?object
 	{
@@ -1213,7 +1213,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set or throw an exception if nothing is found.
 	 */
-	protected function fetchFirstOrThrow(string $exception, mixed ...$fetchMode): object
+	protected function fetchFirstOrThrow(string $exception, mixed ...$fetchMode): mixed
 	{
 		$query = $this->limit(1)->compiler->select();
 
@@ -1223,7 +1223,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set or throw an exception if nothing is found.
 	 *
-	 * @return object|Result
+	 * @return Result
 	 */
 	public function firstOrThrow(string $exception = NotFoundException::class): object
 	{
