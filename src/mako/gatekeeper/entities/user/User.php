@@ -280,6 +280,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 
 		foreach((array) $group as $check)
 		{
+			/** @var \mako\gatekeeper\entities\group\GroupEntityInterface&ORM $userGroup */
 			foreach($this->groups as $userGroup)
 			{
 				if((is_int($check) && (int) $userGroup->getId() === $check) || $userGroup->getName() === $check)
