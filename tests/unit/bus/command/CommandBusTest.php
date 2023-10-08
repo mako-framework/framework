@@ -26,16 +26,16 @@ class CreateUserCommand
 {
 	public function __construct(
 		public string $username
-	)
-	{}
+	) {
+	}
 }
 
 class CreateUserHandler
 {
 	public function __construct(
 		protected Spy $spy
-	)
-	{}
+	) {
+	}
 
 	public function __invoke(CreateUserCommand $createUser): void
 	{
@@ -87,8 +87,7 @@ class CommandBusTest extends TestCase
 	{
 		$spy = new Spy;
 
-		$createUserHandler = function (CreateUserCommand $createUser) use ($spy): void
-		{
+		$createUserHandler = function (CreateUserCommand $createUser) use ($spy): void {
 			$spy->peek = $createUser->username;
 		};
 

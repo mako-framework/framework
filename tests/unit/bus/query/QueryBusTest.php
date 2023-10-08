@@ -21,8 +21,8 @@ class GetUserQuery
 {
 	public function __construct(
 		public string $username
-	)
-	{}
+	) {
+	}
 }
 
 class GetUserHandler

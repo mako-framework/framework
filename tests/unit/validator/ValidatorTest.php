@@ -42,8 +42,7 @@ class ValidatorTest extends TestCase
 	 */
 	protected function attributeSpy(Validator $validator, string $attribute): array
 	{
-		return (function () use ($attribute)
-		{
+		return (function () use ($attribute) {
 			return $this->$attribute;
 		})->bindTo($validator, Validator::class)();
 	}
@@ -374,14 +373,13 @@ class ValidatorTest extends TestCase
 
 		$validator->shouldAllowMockingProtectedMethods();
 
-		$rule = new class($this) implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class($this) implements RuleInterface, I18nAwareInterface {
 			protected $i18n;
 
 			public function __construct(
 				protected $test
-			)
-			{}
+			) {
+			}
 
 			public function validateWhenEmpty(): bool
 			{
@@ -459,12 +457,10 @@ class ValidatorTest extends TestCase
 
 		$validator = new Validator($input, $rules);
 
-		try
-		{
+		try {
 			$validator->getValidatedInput();
 		}
-		catch(Throwable | ValidationException $e)
-		{
+		catch (Throwable | ValidationException $e) {
 			$this->assertInstanceOf(ValidationException::class, $e);
 
 			$this->assertSame(['password' => 'The password field is required.'], $e->getErrors());

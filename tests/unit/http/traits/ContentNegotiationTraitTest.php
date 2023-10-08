@@ -24,15 +24,14 @@ class ContentNegotiationTraitTest extends TestCase
 	 */
 	protected function getTestClass(Request $request, Response $response): object
 	{
-		return new class ($request, $response)
-		{
+		return new class ($request, $response) {
 			use ContentNegotiationTrait;
 
 			public function __construct(
 				protected Request $request,
 				protected Response $response
-			)
-			{}
+			) {
+			}
 
 			public function testExpectsType(array $mimeTypes, ?string $suffix = null): bool
 			{

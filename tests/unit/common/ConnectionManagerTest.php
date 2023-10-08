@@ -18,8 +18,8 @@ class Connection
 {
 	public function __construct(
 		protected $name
-	)
-	{}
+	) {
+	}
 
 	public function getName()
 	{
@@ -76,8 +76,7 @@ class ConnectionManagerTest extends TestCase
 	{
 		$manager = new ConnectionManager('foo', []);
 
-		$getConnections = (function ()
-		{
+		$getConnections = (function () {
 			return $this->connections;
 		})->bindTo($manager, ConnectionManager::class);
 
@@ -107,13 +106,11 @@ class ConnectionManagerTest extends TestCase
 	{
 		$manager = new ConnectionManager('foo', []);
 
-		$getConnections = (function ()
-		{
+		$getConnections = (function () {
 			return $this->connections;
 		})->bindTo($manager, ConnectionManager::class);
 
-		$returnValue = $manager->executeAndClose(function () use ($getConnections)
-		{
+		$returnValue = $manager->executeAndClose(function () use ($getConnections) {
 			$this->assertTrue(isset($getConnections()['foo']));
 
 			return 123;

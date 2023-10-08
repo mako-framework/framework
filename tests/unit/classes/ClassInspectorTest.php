@@ -14,18 +14,40 @@ use mako\tests\TestCase;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-interface IA {}
-interface IB extends IA {}
-interface IC extends IB {}
-interface ID {}
+interface IA
+{
+}
+interface IB extends IA
+{
+}
+interface IC extends IB
+{
+}
+interface ID
+{
+}
 
-trait A {}
-trait B { use A; }
-trait C {}
+trait A
+{
+}
+trait B
+{
+use A;
+}
+trait C
+{
+}
 
-class D implements IC, ID { use B, C; }
-class E extends D {}
-class F extends E {}
+class D implements IC, ID
+{
+use B, C;
+}
+class E extends D
+{
+}
+class F extends E
+{
+}
 
 // --------------------------------------------------------------------------
 // END CLASSES

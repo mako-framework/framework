@@ -402,8 +402,7 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(new ResultSet());
 
-		$query->batch(function ($results): void
-		{
+		$query->batch(function ($results): void {
 
 		});
 
@@ -418,8 +417,7 @@ class QueryTest extends TestCase
 
 		$query->shouldReceive('all')->once()->andReturn(new ResultSet());
 
-		$query->descending('barfoo')->batch(function ($results): void
-		{
+		$query->descending('barfoo')->batch(function ($results): void {
 
 		});
 

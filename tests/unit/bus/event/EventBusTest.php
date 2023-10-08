@@ -25,16 +25,16 @@ class UserCreatedEvent
 {
 	public function __construct(
 		public string $username
-	)
-	{}
+	) {
+	}
 }
 
 class UserCreatedHandler
 {
 	public function __construct(
 		protected Spy $spy
-	)
-	{}
+	) {
+	}
 
 	public function __invoke(UserCreatedEvent $userCreated): void
 	{
@@ -105,8 +105,7 @@ class EventBusTest extends TestCase
 	{
 		$spy = new Spy;
 
-		$createUserHandler = function (UserCreatedEvent $createUser) use ($spy): void
-		{
+		$createUserHandler = function (UserCreatedEvent $createUser) use ($spy): void {
 			$spy->peek = $createUser->username;
 		};
 
