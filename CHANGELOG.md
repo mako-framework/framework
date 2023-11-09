@@ -55,6 +55,14 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 
 --------------------------------------------------------
 
+### 9.1.3 <small>(2023-11-09)</small>
+
+#### Bugfixes
+
+* The logger service will no longer start the session unnecessarily if the gatekeeper service is enabled.
+
+--------------------------------------------------------
+
 ### 9.1.2 <small>(2023-09-12)</small>
 
 #### Bugfixes

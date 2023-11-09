@@ -36,7 +36,7 @@ class LoggerService extends Service
 			try {
 				$user = ['ip_address' => $this->container->get(Request::class)->getIp()];
 
-				if ($this->container->has(Gatekeeper::class) && ($gatekeeperUser = $this->container->get(Gatekeeper::class)->getUser()) !== null) {
+				if ($this->container->hasInstanceOf(Gatekeeper::class) && ($gatekeeperUser = $this->container->get(Gatekeeper::class)->getUser()) !== null) {
 					$user += ['id' => $gatekeeperUser->getId(), 'username' => $gatekeeperUser->getUsername()];
 				}
 
