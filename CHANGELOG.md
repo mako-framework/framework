@@ -1,8 +1,16 @@
+### 9.1.3 <small>(2023-11-09)</small>
+
+#### Bugfixes
+
+* The logger service will no longer start the session unnecessarily if the gatekeeper service is enabled.
+
+--------------------------------------------------------
+
 ### 9.1.2 <small>(2023-09-12)</small>
 
 #### Bugfixes
 
-* The `mako\env()` function now works as expected with the falsy boolean value defined as "0"
+* The `mako\env()` function now works as expected with the falsy boolean value defined as "0".
 
 --------------------------------------------------------
 
