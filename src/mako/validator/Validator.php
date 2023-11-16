@@ -57,6 +57,7 @@ use mako\validator\rules\LessThanOrEqualTo;
 use mako\validator\rules\MatchField;
 use mako\validator\rules\MaxLength;
 use mako\validator\rules\MinLength;
+use mako\validator\rules\NotEmpty;
 use mako\validator\rules\NotIn;
 use mako\validator\rules\Number;
 use mako\validator\rules\NumberFloat;
@@ -159,6 +160,7 @@ class Validator
 		'mime_type'                => MimeType::class,
 		'min_dimensions'           => MinDimensions::class,
 		'min_length'               => MinLength::class,
+		'not_empty'                => NotEmpty::class,
 		'not_in'                   => NotIn::class,
 		'number:float'             => NumberFloat::class,
 		'number:int'               => NumberInt::class,
