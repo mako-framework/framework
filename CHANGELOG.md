@@ -55,6 +55,14 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 
 --------------------------------------------------------
 
+### 9.1.4 <small>(2023-11-16)</small>
+
+#### Bugfixes
+
+* The `not_empty` validation rule is now available.
+
+--------------------------------------------------------
+
 ### 9.1.3 <small>(2023-11-09)</small>
 
 #### Bugfixes
