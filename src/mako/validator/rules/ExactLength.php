@@ -24,7 +24,7 @@ class ExactLength extends Rule implements RuleInterface
 	}
 
 	/**
-	 * I18 parameters.
+	 * I18n parameters.
 	 */
 	protected array $i18nParameters = ['length'];
 
