@@ -59,20 +59,17 @@ class NestedEagerLoadingTest extends ORMTestCase
 	{
 		$users = (new NestedEagerLoadingUser)->including(['articles', 'articles.comments'])->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
-			foreach($user->articles as $article)
-			{
+			foreach ($user->articles as $article) {
 				$this->assertInstanceOf(NestedEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
 
 				$this->assertInstanceOf(ResultSet::class, $article->comments);
 
-				foreach($article->comments as $comment)
-				{
+				foreach ($article->comments as $comment) {
 					$this->assertInstanceOf(NestedEagerLoadingComment::class, $comment);
 
 					$this->assertEquals($comment->article_id, $article->id);
@@ -94,17 +91,14 @@ class NestedEagerLoadingTest extends ORMTestCase
 	 */
 	public function testNestedEagerLoadingWithConstraints(): void
 	{
-		$users = (new NestedEagerLoadingUser)->including(['articles', 'articles.comments' => function ($query): void
-		{
+		$users = (new NestedEagerLoadingUser)->including(['articles', 'articles.comments' => function ($query): void {
 			$query->where('comment', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
-			foreach($user->articles as $article)
-			{
+			foreach ($user->articles as $article) {
 				$this->assertInstanceOf(NestedEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);

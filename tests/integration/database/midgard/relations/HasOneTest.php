@@ -75,8 +75,7 @@ class HasOneTest extends ORMTestCase
 
 		$count = 0;
 
-		foreach($generator as $profile)
-		{
+		foreach ($generator as $profile) {
 			$this->assertInstanceOf(HasOneProfile::class, $profile);
 
 			$this->assertEquals($user->id, $profile->user_id);
@@ -100,8 +99,7 @@ class HasOneTest extends ORMTestCase
 	{
 		$users = (new HasOneUser)->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(HasOneProfile::class, $user->profile);
 
 			$this->assertEquals($user->id, $user->profile->user_id);
@@ -125,8 +123,7 @@ class HasOneTest extends ORMTestCase
 	{
 		$users = (new HasOneUser)->including('profile')->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(HasOneProfile::class, $user->profile);
 
 			$this->assertEquals($user->id, $user->profile->user_id);
@@ -144,13 +141,11 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$users = (new HasOneUser)->including(['profile' => function ($query): void
-		{
+		$users = (new HasOneUser)->including(['profile' => function ($query): void {
 			$query->where('interests', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertNull($user->profile);
 		}
 

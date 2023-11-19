@@ -111,16 +111,14 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getPath')->andReturn('/foo');
 
-		try
-		{
+		try {
 			$route = $router->route($request);
 
 			$this->assertSame('router:405', $route->getName());
 
 			$route->getAction()();
 		}
-		catch(MethodNotAllowedException $e)
-		{
+		catch (MethodNotAllowedException $e) {
 			$this->assertEquals(['POST', 'OPTIONS'], $e->getAllowedMethods());
 
 			throw $e;

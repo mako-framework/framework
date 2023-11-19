@@ -20,8 +20,7 @@ class EscaperTraitTest extends TestCase
 	 */
 	protected function getTraitUser()
 	{
-		return new class
-		{
+		return new class {
 			use EscaperTrait;
 		};
 	}

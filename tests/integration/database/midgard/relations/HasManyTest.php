@@ -56,8 +56,7 @@ class HasManyTest extends ORMTestCase
 
 		$this->assertEquals(2, count($articles));
 
-		foreach($articles as $article)
-		{
+		foreach ($articles as $article) {
 			$this->assertInstanceOf(HasManyArticle::class, $article);
 
 			$this->assertEquals($article->user_id, $user->id);
@@ -81,8 +80,7 @@ class HasManyTest extends ORMTestCase
 
 		$this->assertInstanceOf(Generator::class, $generator);
 
-		foreach($generator as $article)
-		{
+		foreach ($generator as $article) {
 			$this->assertInstanceOf(HasManyArticle::class, $article);
 
 			$this->assertEquals($article->user_id, $user->id);
@@ -102,12 +100,10 @@ class HasManyTest extends ORMTestCase
 	{
 		$users = (new HasManyUser)->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
-			foreach($user->articles as $article)
-			{
+			foreach ($user->articles as $article) {
 				$this->assertInstanceOf(HasManyArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
@@ -132,12 +128,10 @@ class HasManyTest extends ORMTestCase
 	{
 		$users = (new HasManyUser)->including('articles')->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
-			foreach($user->articles as $article)
-			{
+			foreach ($user->articles as $article) {
 				$this->assertInstanceOf(HasManyArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
@@ -156,13 +150,11 @@ class HasManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = (new HasManyUser)->including(['articles' => function ($query): void
-		{
+		$users = (new HasManyUser)->including(['articles' => function ($query): void {
 			$query->where('title', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
 			$this->assertEquals(0, count($user->articles));

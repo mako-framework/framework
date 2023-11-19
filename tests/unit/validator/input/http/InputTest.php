@@ -36,8 +36,7 @@ class InputTest extends TestCase
 
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 
 		};
 
@@ -54,15 +53,13 @@ class InputTest extends TestCase
 
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 
 		};
 
 		$this->assertTrue($input->shouldRedirect());
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 			protected bool $shouldRedirect = false;
 		};
 
@@ -82,8 +79,7 @@ class InputTest extends TestCase
 
 		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 
 		};
 
@@ -101,15 +97,13 @@ class InputTest extends TestCase
 		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 
 		};
 
 		$this->assertTrue($input->shouldIncludeOldInput());
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 			protected bool $shouldIncludeOldInput = false;
 		};
 
@@ -134,8 +128,7 @@ class InputTest extends TestCase
 		/** @var \mako\http\routing\URLBuilder|\Mockery\MockInterface $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
-		$input = new class ($request, $urlBuilder) extends Input
-		{
+		$input = new class ($request, $urlBuilder) extends Input {
 
 		};
 

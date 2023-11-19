@@ -20,8 +20,7 @@ class PolicyTest extends TestCase
 	 */
 	public function testThatBeforeReturnsNull(): void
 	{
-		$policy = new class extends Policy
-		{
+		$policy = new class extends Policy {
 
 		};
 

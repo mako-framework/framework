@@ -44,8 +44,7 @@ class ParametersTest extends TestCase
 
 		$iterations = 0;
 
-		foreach($parameters as $parameter)
-		{
+		foreach ($parameters as $parameter) {
 			$iterations++;
 		}
 
@@ -61,8 +60,7 @@ class ParametersTest extends TestCase
 
 		$iterations = 0;
 
-		foreach($parameters as $parameter)
-		{
+		foreach ($parameters as $parameter) {
 			$iterations++;
 		}
 

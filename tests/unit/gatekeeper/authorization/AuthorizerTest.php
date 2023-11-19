@@ -105,8 +105,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
-		{
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
 			public function update(): bool
 			{
 				return true;
@@ -128,8 +127,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
-		{
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
 			public function update(): bool
 			{
 				return false;
@@ -151,8 +149,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
-		{
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
 			public function update($user, $entity, ...$params): bool
 			{
 				return $params === [1, 2, 3];
@@ -174,8 +171,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface
-		{
+		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface {
 			public function before(?UserEntityInterface $user, string $action, $entity): ?bool
 			{
 				return $user === null && $action === 'update' && $entity === TestEntity::class;
@@ -193,8 +189,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface
-		{
+		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface {
 			public function before(?UserEntityInterface $user, string $action, $entity): ?bool
 			{
 				return count(func_get_args()) === 3 && $user === null && $action === 'update' && $entity === TestEntity::class;
@@ -216,8 +211,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
-		{
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
 			public function update($user, $entity): bool
 			{
 				return $user === null && $entity === TestEntity::class;
@@ -235,8 +229,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
-		{
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
 			public function update($user, $entity, ...$parameters): bool
 			{
 				return $user === null && $entity === TestEntity::class && $parameters === [1, 2, 3];
@@ -254,8 +247,7 @@ class AuthorizerTest extends TestCase
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy
-		{
+		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
 			public function update($user, $entity, $one, $two, $three): bool
 			{
 				return $user === null && $entity === TestEntity::class && $one === 1 && $two === 2 && $three === 3;

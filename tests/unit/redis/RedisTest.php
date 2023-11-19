@@ -773,8 +773,7 @@ class RedisTest extends TestCase
 
 		//
 
-		$redis->subscribeTo(['foo'], function ($message)
-		{
+		$redis->subscribeTo(['foo'], function ($message) {
 			$this->assertSame('subscribe', $message->getType());
 
 			return false;
@@ -827,8 +826,7 @@ class RedisTest extends TestCase
 
 		//
 
-		$redis->subscribeToPattern(['f?o'], function ($message)
-		{
+		$redis->subscribeToPattern(['f?o'], function ($message) {
 			$this->assertSame('psubscribe', $message->getType());
 
 			return false;
@@ -863,8 +861,7 @@ class RedisTest extends TestCase
 
 		//
 
-		$redis->monitor(function ($line)
-		{
+		$redis->monitor(function ($line) {
 			$this->assertSame('foobar', $line);
 
 			return false;

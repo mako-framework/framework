@@ -72,8 +72,7 @@ class CommandTest extends TestCase
 
 		//
 
-		$command = new class ($input, $output) extends Command
-		{
+		$command = new class ($input, $output) extends Command {
 			protected string $description = 'Command description.';
 		};
 

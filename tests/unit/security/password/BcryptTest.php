@@ -20,8 +20,7 @@ class BcryptTest extends TestCase
 	 */
 	public function testNormalizeOptions(): void
 	{
-		$hasher = new class extends Bcrypt
-		{
+		$hasher = new class extends Bcrypt {
 			public function normalizeOptions(array $options): array
 			{
 				return parent::normalizeOptions($options);

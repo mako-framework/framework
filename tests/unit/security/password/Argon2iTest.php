@@ -20,8 +20,7 @@ class Argon2iTest extends TestCase
 	 */
 	public function setUp(): void
 	{
-		if(!defined('PASSWORD_ARGON2I'))
-		{
+		if (!defined('PASSWORD_ARGON2I')) {
 			$this->markTestSkipped('PHP has not been compiled with Argon2i support.');
 		}
 	}

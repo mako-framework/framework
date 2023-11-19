@@ -36,8 +36,7 @@ class CamelCasedDataExportTraitTest extends TestCase
 	 */
 	public function testToArray(): void
 	{
-		$class = new class extends Test
-		{
+		$class = new class extends Test {
 			use CamelCasedDataExportTrait;
 		};
 

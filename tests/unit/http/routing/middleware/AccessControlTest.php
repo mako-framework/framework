@@ -25,8 +25,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowAllWithNoOrigin(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected bool $allowAllDomains = true;
 		};
 
@@ -54,8 +53,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -65,8 +63,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowAllWithOriginButNoAllowedDomains(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected bool $allowAllDomains = true;
 		};
 
@@ -94,8 +91,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -105,8 +101,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowAllWithOriginAndAllowedDomains(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected bool $allowAllDomains = true;
 
 			protected array $allowedDomains =
@@ -141,8 +136,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -152,8 +146,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowWithValidDomain(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected array $allowedDomains =
 			[
 				'https://example.org',
@@ -186,8 +179,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -197,8 +189,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowWithInvalidDomain(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected array $allowedDomains =
 			[
 				'https://example.org',
@@ -220,8 +211,7 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -231,8 +221,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowWithNoOrigin(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected array $allowedDomains =
 			[
 				'https://example.org',
@@ -254,8 +243,7 @@ class AccessControlTest extends TestCase
 		/** @var \mako\http\Response|\Mockery\MockInterface $response */
 		$response = Mockery::mock(Response::class);
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -265,8 +253,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowsCredentials(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected bool $allowAllDomains = true;
 			protected bool $allowCredentials = true;
 		};
@@ -297,8 +284,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -308,8 +294,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowHeaders(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected bool $allowAllDomains = true;
 			protected array $allowedHeaders = ['X-Custom-Header1', 'X-Custom-Header2'];
 		};
@@ -340,8 +325,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}
@@ -351,8 +335,7 @@ class AccessControlTest extends TestCase
 	 */
 	public function testAllowMethods(): void
 	{
-		$middleware = new class extends AccessControl
-		{
+		$middleware = new class extends AccessControl {
 			protected bool $allowAllDomains = true;
 			protected array $allowedMethods = ['GET', 'POST'];
 		};
@@ -383,8 +366,7 @@ class AccessControlTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$middleware->execute($request, $response, function ($request, $response)
-		{
+		$middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		});
 	}

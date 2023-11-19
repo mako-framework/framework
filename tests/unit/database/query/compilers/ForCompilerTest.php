@@ -30,8 +30,7 @@ class ForCompilerTest extends TestCase
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
-		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) use ($compiler)
-		{
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) use ($compiler) {
 			return new $compiler($query);
 		});
 
@@ -54,12 +53,10 @@ class ForCompilerTest extends TestCase
 		$query = $this->getBuilder(Postgres::class);
 
 		$query
-		->forCompiler(Postgres::class, function ($query): void
-		{
+		->forCompiler(Postgres::class, function ($query): void {
 			$query->whereRaw('"created_at"::time = ?', ['14:00:00']);
 		})
-		->forCompiler(MySQL::class, function ($query): void
-		{
+		->forCompiler(MySQL::class, function ($query): void {
 			$query->whereRaw('TIME(`created_at`) = ?', ['14:00:00']);
 		});
 
@@ -77,12 +74,10 @@ class ForCompilerTest extends TestCase
 		$query = $this->getBuilder(MySQL::class);
 
 		$query
-		->forCompiler(Postgres::class, function ($query): void
-		{
+		->forCompiler(Postgres::class, function ($query): void {
 			$query->whereRaw('"created_at"::time = ?', ['14:00:00']);
 		})
-		->forCompiler(MySQL::class, function ($query): void
-		{
+		->forCompiler(MySQL::class, function ($query): void {
 			$query->whereRaw('TIME(`created_at`) = ?', ['14:00:00']);
 		});
 

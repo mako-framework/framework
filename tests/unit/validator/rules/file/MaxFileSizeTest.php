@@ -32,8 +32,7 @@ class MaxFileSizeTest extends TestCase
 	 */
 	public function testConvertToBytes(): void
 	{
-		$rule = new class(0) extends MaxFileSize
-		{
+		$rule = new class(0) extends MaxFileSize {
 			public function convert($size)
 			{
 				return $this->convertToBytes($size);
@@ -60,8 +59,7 @@ class MaxFileSizeTest extends TestCase
 
 		$this->expectExceptionMessage('Invalid unit type [ Foo ].');
 
-		$rule = new class(0) extends MaxFileSize
-		{
+		$rule = new class(0) extends MaxFileSize {
 			public function convert($size)
 			{
 				return $this->convertToBytes($size);

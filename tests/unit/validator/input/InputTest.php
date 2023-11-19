@@ -22,11 +22,13 @@ class InputTest extends TestCase
 	 */
 	public function testGetRules(): void
 	{
-		$input = new class extends Input
-		{
+		$input = new class extends Input {
 			protected array $rules = ['foo' => 'bar'];
 
-			public function getInput(): array { return []; }
+			public function getInput(): array
+			{
+			return [];
+			}
 		};
 
 		$this->assertSame(['foo' => 'bar'], $input->getRules());
@@ -37,11 +39,13 @@ class InputTest extends TestCase
 	 */
 	public function testGetExtensions(): void
 	{
-		$input = new class extends Input
-		{
+		$input = new class extends Input {
 			protected array $extensions = ['bar' => 'foo'];
 
-			public function getInput(): array { return []; }
+			public function getInput(): array
+			{
+			return [];
+			}
 		};
 
 		$this->assertSame(['bar' => 'foo'], $input->getExtensions());
@@ -52,9 +56,11 @@ class InputTest extends TestCase
 	 */
 	public function testAddConditionalRules(): void
 	{
-		$input = new class extends Input
-		{
-			public function getInput(): array { return []; }
+		$input = new class extends Input {
+			public function getInput(): array
+			{
+			return [];
+			}
 		};
 
 		/** @var \mako\validator\Validator|\Mockery\MockInterface $validator */
@@ -70,18 +76,22 @@ class InputTest extends TestCase
 	 */
 	public function testGetErrorMessage(): void
 	{
-		$input = new class extends Input
-		{
-			public function getInput(): array { return []; }
+		$input = new class extends Input {
+			public function getInput(): array
+			{
+			return [];
+			}
 		};
 
 		$this->assertNull($input->getErrorMessage());
 
-		$input = new class extends Input
-		{
+		$input = new class extends Input {
 			protected null|string $errorMessage = 'Invalid input.';
 
-			public function getInput(): array { return []; }
+			public function getInput(): array
+			{
+			return [];
+			}
 		};
 
 		$this->assertSame('Invalid input.', $input->getErrorMessage());

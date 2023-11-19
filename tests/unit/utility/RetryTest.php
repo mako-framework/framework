@@ -20,8 +20,7 @@ class RetryTest extends TestCase
 {
 	protected function getCallable(): object
 	{
-		return new class
-		{
+		return new class {
 			protected $attempts = 0;
 
 			public function getAttempts(): int
@@ -40,8 +39,7 @@ class RetryTest extends TestCase
 			{
 				$this->attempts++;
 
-				if($this->attempts < 5)
-				{
+				if ($this->attempts < 5) {
 					throw new RuntimeException("Failed {$this->attempts} time(s).");
 				}
 
@@ -107,16 +105,14 @@ class RetryTest extends TestCase
 
 		$this->expectExceptionMessage('Failed 4 time(s)');
 
-		try
-		{
+		try {
 			$callable = $this->getCallable();
 
 			(new Retry([$callable, 'failsFourTimes'], 4, 0))();
 
 			$this->assertSame(4, $callable->getAttempts());
 		}
-		catch(RuntimeException $e)
-		{
+		catch (RuntimeException $e) {
 			throw $e;
 		}
 	}
@@ -130,16 +126,14 @@ class RetryTest extends TestCase
 
 		$this->expectExceptionMessage('Failed 4 time(s)');
 
-		try
-		{
+		try {
 			$callable = $this->getCallable();
 
 			(new Retry([$callable, 'failsFourTimes']))->setAttempts(4)->SetWait(0)();
 
 			$this->assertSame(4, $callable->getAttempts());
 		}
-		catch(RuntimeException $e)
-		{
+		catch (RuntimeException $e) {
 			throw $e;
 		}
 	}
@@ -153,19 +147,16 @@ class RetryTest extends TestCase
 
 		$this->expectExceptionMessage('Failed 1 time(s)');
 
-		try
-		{
+		try {
 			$callable = $this->getCallable();
 
-			(new Retry([$callable, 'failsFourTimes'], 4, 0, false, function (Throwable $e)
-			{
+			(new Retry([$callable, 'failsFourTimes'], 4, 0, false, function (Throwable $e) {
 				return $e instanceof InvalidArgumentException;
 			}))();
 
 			$this->assertSame(1, $callable->getAttempts());
 		}
-		catch(RuntimeException $e)
-		{
+		catch (RuntimeException $e) {
 			throw $e;
 		}
 	}
@@ -179,19 +170,16 @@ class RetryTest extends TestCase
 
 		$this->expectExceptionMessage('Failed 1 time(s)');
 
-		try
-		{
+		try {
 			$callable = $this->getCallable();
 
-			(new Retry([$callable, 'failsFourTimes']))->setDecider(function (Throwable $e)
-			{
+			(new Retry([$callable, 'failsFourTimes']))->setDecider(function (Throwable $e) {
 				return $e instanceof InvalidArgumentException;
 			})();
 
 			$this->assertSame(1, $callable->getAttempts());
 		}
-		catch(RuntimeException $e)
-		{
+		catch (RuntimeException $e) {
 			throw $e;
 		}
 	}

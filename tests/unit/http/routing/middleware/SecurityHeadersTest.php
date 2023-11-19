@@ -47,8 +47,7 @@ class SecurityHeadersTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);

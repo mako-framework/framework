@@ -41,8 +41,7 @@ class EnumTest extends TestCase
 	 */
 	public function setup(): void
 	{
-		if(PHP_VERSION_ID < 80100)
-		{
+		if (PHP_VERSION_ID < 80100) {
 			$this->markTestSkipped('This feature requires PHP 8.1+');
 		}
 	}

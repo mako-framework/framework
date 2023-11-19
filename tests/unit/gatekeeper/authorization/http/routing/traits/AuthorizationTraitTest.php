@@ -24,8 +24,7 @@ class AuthorizationTraitTest extends TestCase
 	 */
 	public function testSuccess(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use AuthorizationTrait;
 
 			public $gatekeeper, $authorizer;
@@ -52,8 +51,7 @@ class AuthorizationTraitTest extends TestCase
 	 */
 	public function testSuccessWithAdditionalParameters(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use AuthorizationTrait;
 
 			public $gatekeeper, $authorizer;
@@ -82,8 +80,7 @@ class AuthorizationTraitTest extends TestCase
 	{
 		$this->expectException(ForbiddenException::class);
 
-		$class = new class
-		{
+		$class = new class {
 			use AuthorizationTrait;
 
 			public $gatekeeper, $authorizer;

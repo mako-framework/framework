@@ -61,8 +61,7 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(2, count($groups));
 
-		foreach($groups as $group)
-		{
+		foreach ($groups as $group) {
 			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 		}
 
@@ -90,8 +89,7 @@ class ManyToManyTest extends ORMTestCase
 
 		$count = 0;
 
-		foreach($generator as $group)
-		{
+		foreach ($generator as $group) {
 			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 
 			$count++;
@@ -119,8 +117,7 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(1, count($users));
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ManyToManyUser::class, $user);
 		}
 
@@ -146,8 +143,7 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(2, count($groups));
 
-		foreach($groups as $group)
-		{
+		foreach ($groups as $group) {
 			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 		}
 
@@ -175,8 +171,7 @@ class ManyToManyTest extends ORMTestCase
 
 		$this->assertEquals(2, count($groups));
 
-		foreach($groups as $group)
-		{
+		foreach ($groups as $group) {
 			$this->assertInstanceOf(ManyToManyGroup::class, $group);
 		}
 
@@ -216,12 +211,10 @@ class ManyToManyTest extends ORMTestCase
 	{
 		$users = (new ManyToManyUser)->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->groups);
 
-			foreach($user->groups as $group)
-			{
+			foreach ($user->groups as $group) {
 				$this->assertInstanceOf(ManyToManyGroup::class, $group);
 			}
 		}
@@ -244,12 +237,10 @@ class ManyToManyTest extends ORMTestCase
 	{
 		$users = (new ManyToManyUser)->including('groups')->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->groups);
 
-			foreach($user->groups as $group)
-			{
+			foreach ($user->groups as $group) {
 				$this->assertInstanceOf(ManyToManyGroup::class, $group);
 			}
 		}
@@ -266,13 +257,11 @@ class ManyToManyTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$users = (new ManyToManyUser)->including(['groups' => function ($query): void
-		{
+		$users = (new ManyToManyUser)->including(['groups' => function ($query): void {
 			$query->where('name', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->groups);
 
 			$this->assertEquals(0, count($user->groups));

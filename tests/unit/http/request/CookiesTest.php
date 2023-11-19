@@ -46,8 +46,7 @@ class CookiesTest extends TestCase
 
 		$iterations = 0;
 
-		foreach($cookies as $cookie)
-		{
+		foreach ($cookies as $cookie) {
 			$iterations++;
 		}
 
@@ -63,8 +62,7 @@ class CookiesTest extends TestCase
 
 		$iterations = 0;
 
-		foreach($cookies as $cookie)
-		{
+		foreach ($cookies as $cookie) {
 			$iterations++;
 		}
 

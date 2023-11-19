@@ -91,8 +91,7 @@ class StopwatchTest extends TestCase
 
 		$this->assertIsFloat($stopwatch->stop());
 
-		foreach($stopwatch->getLaps() as $lap)
-		{
+		foreach ($stopwatch->getLaps() as $lap) {
 			$this->assertFalse($lap->isRunning());
 		}
 	}

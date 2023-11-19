@@ -187,7 +187,7 @@ class OutputTest extends TestCase
 	 *
 	 */
 	public function testClearWithNoAnsiSupport(): void
- 	{
+	{
  		$std = $this->getWriter();
  		$err = $this->getWriter();
 

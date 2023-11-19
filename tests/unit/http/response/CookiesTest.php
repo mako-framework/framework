@@ -41,8 +41,7 @@ class CookiesTest extends TestCase
 
 		$cookies->add('foo', 'bar');
 
-		foreach($cookies as $cookie)
-		{
+		foreach ($cookies as $cookie) {
 			$this->assertTrue(is_array($cookie));
 
 			$this->assertArrayHasKey('raw', $cookie);

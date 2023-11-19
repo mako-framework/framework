@@ -2,7 +2,6 @@
 
 namespace mako\tests\unit\classes\classes;
 
-$foo = new class
-{
+$foo = new class {
 
 };

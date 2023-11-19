@@ -21,8 +21,7 @@ class MimeTypeTest extends TestCase
 	 */
 	public function setUp(): void
 	{
-		if(function_exists('finfo_open') === false)
-		{
+		if (function_exists('finfo_open') === false) {
 			$this->markTestSkipped("The fileinfo extension hasn't been enabled.");
 		}
 	}

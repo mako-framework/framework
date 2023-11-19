@@ -20,16 +20,14 @@ class FireTraitTest extends TestCase
 	 */
 	public function testBuildReactorPath(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use FireTrait;
 
 			protected $app;
 
 			public function __construct()
 			{
-				$this->app = new class
-				{
+				$this->app = new class {
 					public function getPath()
 					{
 						return DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar';
@@ -51,16 +49,14 @@ class FireTraitTest extends TestCase
 	 */
 	public function testBuildCommandWithoutEnv(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use FireTrait;
 
 			protected $app;
 
 			public function __construct()
 			{
-				$this->app = new class
-				{
+				$this->app = new class {
 					public function getPath()
 					{
 						return '/foo/bar';
@@ -79,14 +75,12 @@ class FireTraitTest extends TestCase
 			}
 		};
 
-		if(DIRECTORY_SEPARATOR === '/')
-		{
+		if (DIRECTORY_SEPARATOR === '/') {
 			$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 2>&1';
 
 			$this->assertEquals($command, $class->test());
 		}
-		else
-		{
+		else {
 			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 2>&1';
 		}
 	}
@@ -96,16 +90,14 @@ class FireTraitTest extends TestCase
 	 */
 	public function testBuildBackgroundCommandWithoutEnv(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use FireTrait;
 
 			protected $app;
 
 			public function __construct()
 			{
-				$this->app = new class
-				{
+				$this->app = new class {
 					public function getPath()
 					{
 						return '/foo/bar';
@@ -124,14 +116,12 @@ class FireTraitTest extends TestCase
 			}
 		};
 
-		if(DIRECTORY_SEPARATOR === '/')
-		{
+		if (DIRECTORY_SEPARATOR === '/') {
 			$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 2>&1 &';
 
 			$this->assertEquals($command, $class->test());
 		}
-		else
-		{
+		else {
 			$command = 'start /b ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 2>&1';
 		}
 	}
@@ -141,16 +131,14 @@ class FireTraitTest extends TestCase
 	 */
 	public function testBuildCommandWithEnv(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use FireTrait;
 
 			protected $app;
 
 			public function __construct()
 			{
-				$this->app = new class
-				{
+				$this->app = new class {
 					public function getPath()
 					{
 						return '/foo/bar';
@@ -169,14 +157,12 @@ class FireTraitTest extends TestCase
 			}
 		};
 
-		if(DIRECTORY_SEPARATOR === '/')
-		{
+		if (DIRECTORY_SEPARATOR === '/') {
 			$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 --env=\'dev\' 2>&1';
 
 			$this->assertEquals($command, $class->test());
 		}
-		else
-		{
+		else {
 			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 --env=\'dev\' 2>&1';
 		}
 	}
@@ -186,16 +172,14 @@ class FireTraitTest extends TestCase
 	 */
 	public function testBuildCommandWithEnvWithManualOverride(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use FireTrait;
 
 			protected $app;
 
 			public function __construct()
 			{
-				$this->app = new class
-				{
+				$this->app = new class {
 					public function getPath()
 					{
 						return '/foo/bar';
@@ -214,14 +198,12 @@ class FireTraitTest extends TestCase
 			}
 		};
 
-		if(DIRECTORY_SEPARATOR === '/')
-		{
+		if (DIRECTORY_SEPARATOR === '/') {
 			$command =escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 --env=prod 2>&1';
 
 			$this->assertEquals($command, $class->test());
 		}
-		else
-		{
+		else {
 			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . '  foobar --test=1 --env=prod 2>&1';
 		}
 	}
@@ -231,16 +213,14 @@ class FireTraitTest extends TestCase
 	 */
 	public function testBuildCommandWithEnvWithoutUsingSame(): void
 	{
-		$class = new class
-		{
+		$class = new class {
 			use FireTrait;
 
 			protected $app;
 
 			public function __construct()
 			{
-				$this->app = new class
-				{
+				$this->app = new class {
 					public function getPath()
 					{
 						return '/foo/bar';
@@ -259,14 +239,12 @@ class FireTraitTest extends TestCase
 			}
 		};
 
-		if(DIRECTORY_SEPARATOR === '/')
-		{
+		if (DIRECTORY_SEPARATOR === '/') {
 			$command = escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 2>&1';
 
 			$this->assertEquals($command, $class->test());
 		}
-		else
-		{
+		else {
 			$command = 'start ' . escapeshellcmd(PHP_BINARY) . ' ' . escapeshellarg(DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR . 'reactor') . ' foobar --test=1 2>&1';
 		}
 	}

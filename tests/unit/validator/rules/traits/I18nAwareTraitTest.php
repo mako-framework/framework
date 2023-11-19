@@ -24,15 +24,23 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string
+			{
+			return '';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
@@ -52,15 +60,23 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageFromPackage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string
+			{
+			return '';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
@@ -80,8 +96,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageWithParameters(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
 			protected $foo = 'foovalue';
@@ -90,11 +105,20 @@ class I18nAwareTraitTest extends TestCase
 
 			protected $i18nParameters = ['foo', 'bar'];
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string
+			{
+			return '';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
@@ -114,15 +138,23 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldName(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string
+			{
+			return '';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
@@ -148,8 +180,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldNames(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
 			protected $foo = 'foovalue';
@@ -160,11 +191,20 @@ class I18nAwareTraitTest extends TestCase
 
 			protected $i18nFieldNameParameters = ['foo'];
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string
+			{
+			return '';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
@@ -194,15 +234,23 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testDefaultI18nMessage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return ''; }
+			public function getErrorMessage(string $field): string
+			{
+			return '';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
@@ -226,15 +274,23 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testDefaultMessage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface
-		{
+		$rule = new class implements RuleInterface, I18nAwareInterface {
 			use I18nAwareTrait;
 
-			public function validateWhenEmpty(): bool { return false; }
+			public function validateWhenEmpty(): bool
+			{
+			return false;
+			}
 
-			public function validate(mixed $value, string $field, array $input): bool { return true; }
+			public function validate(mixed $value, string $field, array $input): bool
+			{
+			return true;
+			}
 
-			public function getErrorMessage(string $field): string { return 'fallback'; }
+			public function getErrorMessage(string $field): string
+			{
+			return 'fallback';
+			}
 		};
 
 		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */

@@ -52,8 +52,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$this->assertSame($response, $middleware->execute($request, $response, function ($request, $response)
-		{
+		$this->assertSame($response, $middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		}));
 	}
@@ -100,8 +99,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$this->assertSame($response, $middleware->execute($request, $response, function ($request, $response)
-		{
+		$this->assertSame($response, $middleware->execute($request, $response, function ($request, $response) {
 			return $response;
 		}));
 	}
@@ -116,8 +114,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$this->assertFalse((function ()
-		{
+		$this->assertFalse((function () {
 			return $this->shouldRedirect();
 		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
 	}
@@ -137,8 +134,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$this->assertFalse((function ()
-		{
+		$this->assertFalse((function () {
 			return $this->shouldRedirect();
 		})->bindTo(new InputValidation($urlBuilder, $session), InputValidation::class)());
 	}
@@ -170,8 +166,7 @@ class InputValidationTest extends TestCase
 
 		$request->shouldReceive('getMethod')->once()->andReturn('GET');
 
-		$this->assertFalse((function () use ($request)
-		{
+		$this->assertFalse((function () use ($request) {
 			$this->request = $request;
 
 			return $this->shouldRedirect();
@@ -181,8 +176,7 @@ class InputValidationTest extends TestCase
 
 		$request->shouldReceive('getMethod')->once()->andReturn('HEAD');
 
-		$this->assertFalse((function () use ($request)
-		{
+		$this->assertFalse((function () use ($request) {
 			$this->request = $request;
 
 			return $this->shouldRedirect();
@@ -192,16 +186,14 @@ class InputValidationTest extends TestCase
 
 		$request->shouldReceive('getMethod')->once()->andReturn('POST');
 
-		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation {
 			protected function respondWithJson(): bool
 			{
 				return true;
 			}
 		};
 
-		$this->assertFalse((function () use ($request)
-		{
+		$this->assertFalse((function () use ($request) {
 			$this->request = $request;
 
 			return $this->shouldRedirect();
@@ -211,8 +203,7 @@ class InputValidationTest extends TestCase
 
 		$request->shouldReceive('getMethod')->once()->andReturn('POST');
 
-		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation {
 			protected function respondWithJson(): bool
 			{
 				return false;
@@ -224,8 +215,7 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		$this->assertFalse((function () use ($request)
-		{
+		$this->assertFalse((function () use ($request) {
 			$this->request = $request;
 
 			return $this->shouldRedirect();
@@ -235,8 +225,7 @@ class InputValidationTest extends TestCase
 
 		$request->shouldReceive('getMethod')->once()->andReturn('POST');
 
-		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation {
 			protected function respondWithJson(): bool
 			{
 				return false;
@@ -248,8 +237,7 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		$this->assertTrue((function () use ($request)
-		{
+		$this->assertTrue((function () use ($request) {
 			$this->request = $request;
 
 			return $this->shouldRedirect();
@@ -271,8 +259,7 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('shouldIncludeOldInput')->once()->andReturn(false);
 
-		$this->assertFalse((function () use ($input)
-		{
+		$this->assertFalse((function () use ($input) {
 			$this->input = $input;
 
 			return $this->shouldIncludeOldInput();
@@ -285,8 +272,7 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('shouldIncludeOldInput')->once()->andReturn(true);
 
-		$this->assertTrue((function () use ($input)
-		{
+		$this->assertTrue((function () use ($input) {
 			$this->input = $input;
 
 			return $this->shouldIncludeOldInput();
@@ -294,8 +280,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$this->assertTrue((function ()
-		{
+		$this->assertTrue((function () {
 			return $this->shouldIncludeOldInput();
 		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
 	}
@@ -330,8 +315,7 @@ class InputValidationTest extends TestCase
 
 		$request->shouldReceive('getData')->once()->andReturn($data);
 
-		$this->assertSame($expected1, (function () use ($request)
-		{
+		$this->assertSame($expected1, (function () use ($request) {
 			$this->request = $request;
 
 			return $this->getOldInput();
@@ -344,8 +328,7 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('getOldInput')->once()->andReturn($formInput);
 
-		$this->assertSame($expected1, (function () use ($input)
-		{
+		$this->assertSame($expected1, (function () use ($input) {
 			$this->input = $input;
 
 			return $this->getOldInput();
@@ -358,13 +341,11 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('getOldInput')->once()->andReturn($formInput);
 
-		$middleware = new class ($urlBuilder) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder) extends InputValidation {
 			protected array $dontInclude = ['username', 'password'];
 		};
 
-		$this->assertSame($expected2, (function () use ($input)
-		{
+		$this->assertSame($expected2, (function () use ($input) {
 			$this->input = $input;
 
 			return $this->getOldInput();
@@ -387,8 +368,7 @@ class InputValidationTest extends TestCase
 
 		$urlBuilder->shouldReceive('current')->once()->andReturn($expected);
 
-		$this->assertSame($expected, (function ()
-		{
+		$this->assertSame($expected, (function () {
 			return $this->getRedirectUrl();
 		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
 
@@ -399,8 +379,7 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('getRedirectUrl')->once()->andReturn($expected);
 
-		$this->assertSame($expected, (function () use ($input)
-		{
+		$this->assertSame($expected, (function () use ($input) {
 			$this->input = $input;
 
 			return $this->getRedirectUrl();
@@ -417,20 +396,17 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$this->assertSame('Invalid input.', (function ()
-		{
+		$this->assertSame('Invalid input.', (function () {
 			return $this->getErrorMessage();
 		})->bindTo(new InputValidation($urlBuilder), InputValidation::class)());
 
 		//-------------
 
-		$middleware = new class ($urlBuilder) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder) extends InputValidation {
 			protected string $defaultErrorMessage = 'foobar';
 		};
 
-		$this->assertSame('foobar', (function ()
-		{
+		$this->assertSame('foobar', (function () {
 			return $this->getErrorMessage();
 		})->bindTo($middleware, InputValidation::class)());
 
@@ -441,8 +417,7 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('getErrorMessage')->once()->andReturn(null);
 
-		$this->assertSame('Invalid input.', (function () use ($input)
-		{
+		$this->assertSame('Invalid input.', (function () use ($input) {
 			$this->input = $input;
 
 			return $this->getErrorMessage();
@@ -455,8 +430,7 @@ class InputValidationTest extends TestCase
 
 		$input->shouldReceive('getErrorMessage')->once()->andReturn('barfoo');
 
-		$this->assertSame('barfoo', (function () use ($input)
-		{
+		$this->assertSame('barfoo', (function () use ($input) {
 			$this->input = $input;
 
 			return $this->getErrorMessage();
@@ -496,8 +470,7 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$middleware = new class ($urlBuilder, $session) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session) extends InputValidation {
 			protected function shouldIncludeOldInput(): bool
 			{
 				return false;
@@ -506,8 +479,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$response = (function () use ($exception, $response)
-		{
+		$response = (function () use ($exception, $response) {
 			$this->response = $response;
 
 			return $this->handleRedirect($exception);
@@ -519,13 +491,11 @@ class InputValidationTest extends TestCase
 
 		$this->assertInstanceOf(Redirect::class, $redirect);
 
-		$this->assertSame('https://example.org', (function ()
-		{
+		$this->assertSame('https://example.org', (function () {
 			return $this->location;
 		})->bindTo($redirect, Redirect::class)());
 
-		$this->assertSame(Redirect::SEE_OTHER, (function ()
-		{
+		$this->assertSame(Redirect::SEE_OTHER, (function () {
 			return $this->status;
 		})->bindTo($redirect, Redirect::class)());
 	}
@@ -565,8 +535,7 @@ class InputValidationTest extends TestCase
 
 		//
 
-		$middleware = new class ($urlBuilder, $session) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session) extends InputValidation {
 			protected function shouldIncludeOldInput(): bool
 			{
 				return true;
@@ -580,8 +549,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$response = (function () use ($exception, $response)
-		{
+		$response = (function () use ($exception, $response) {
 			$this->response = $response;
 
 			return $this->handleRedirect($exception);
@@ -593,13 +561,11 @@ class InputValidationTest extends TestCase
 
 		$this->assertInstanceOf(Redirect::class, $redirect);
 
-		$this->assertSame('https://example.org', (function ()
-		{
+		$this->assertSame('https://example.org', (function () {
 			return $this->location;
 		})->bindTo($redirect, Redirect::class)());
 
-		$this->assertSame(Redirect::SEE_OTHER, (function ()
-		{
+		$this->assertSame(Redirect::SEE_OTHER, (function () {
 			return $this->status;
 		})->bindTo($redirect, Redirect::class)());
 	}
@@ -609,8 +575,7 @@ class InputValidationTest extends TestCase
 	 */
 	public function testHandleOutputWithJson(): void
 	{
-		if(function_exists('json_encode') === false)
-		{
+		if (function_exists('json_encode') === false) {
 			$this->markTestSkipped('JSON support is missing.');
 
 			return;
@@ -640,8 +605,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$response = (function () use ($response, $exception)
-		{
+		$response = (function () use ($response, $exception) {
 			$this->response = $response;
 
 			return $this->handleOutput($exception);
@@ -652,8 +616,7 @@ class InputValidationTest extends TestCase
 
 		$this->assertInstanceOf(JSON::class, $body);
 
-		$this->assertSame(['message' => 'Invalid input.', 'errors' => ['foo' => 'bar']], (function ()
-		{
+		$this->assertSame(['message' => 'Invalid input.', 'errors' => ['foo' => 'bar']], (function () {
 			return $this->data;
 		})->bindTo($body, JSON::class)());
 	}
@@ -663,8 +626,7 @@ class InputValidationTest extends TestCase
 	 */
 	public function testHandleOutputWithXml(): void
 	{
-		if(function_exists('simplexml_load_string') === false)
-		{
+		if (function_exists('simplexml_load_string') === false) {
 			$this->markTestSkipped('XML support is missing.');
 
 			return;
@@ -703,8 +665,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$response = (function () use ($response, $exception)
-		{
+		$response = (function () use ($response, $exception) {
 			$this->response = $response;
 
 			return $this->handleOutput($exception);
@@ -745,8 +706,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$middleware = new class ($urlBuilder, $session) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session) extends InputValidation {
 			protected function respondWithJson(): bool
 			{
 				return false;
@@ -763,8 +723,7 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		(function () use ($request, $response): void
-		{
+		(function () use ($request, $response): void {
 			$this->request  = $request;
 			$this->response = $response;
 		})->bindTo($middleware, InputValidation::class)();
@@ -800,8 +759,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$middleware = new class ($urlBuilder) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder) extends InputValidation {
 			protected function respondWithJson(): bool
 			{
 				return false;
@@ -813,8 +771,7 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		$middleware->execute($request, $response, function ($request, $response): void
-		{
+		$middleware->execute($request, $response, function ($request, $response): void {
 			throw new ValidationException([]);
 		});
 	}
@@ -859,8 +816,7 @@ class InputValidationTest extends TestCase
 
 		//-------------
 
-		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation
-		{
+		$middleware = new class ($urlBuilder, $session, $viewFactory) extends InputValidation {
 			protected function shouldRedirect(): bool
 			{
 				return true;
@@ -872,13 +828,11 @@ class InputValidationTest extends TestCase
 			}
 		};
 
-		(function () use ($request, $response): void
-		{
+		(function () use ($request, $response): void {
 			$this->response = $response;
 		})->bindTo($middleware, InputValidation::class)();
 
-		$this->assertSame($response, $middleware->execute($request, $response, function ($request, $response): void
-		{
+		$this->assertSame($response, $middleware->execute($request, $response, function ($request, $response): void {
 			throw new ValidationException([]);
 		}));
 	}

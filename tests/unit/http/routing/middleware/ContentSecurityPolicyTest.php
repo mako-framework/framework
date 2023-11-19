@@ -44,8 +44,7 @@ class ContentSecurityPolicyTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);
@@ -81,8 +80,7 @@ class ContentSecurityPolicyTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);
@@ -90,8 +88,7 @@ class ContentSecurityPolicyTest extends TestCase
 			return $response;
 		};
 
-		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
-		{
+		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy {
 			protected bool $reportOnly = true;
 		};
 
@@ -121,8 +118,7 @@ class ContentSecurityPolicyTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);
@@ -130,8 +126,7 @@ class ContentSecurityPolicyTest extends TestCase
 			return $response;
 		};
 
-		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
-		{
+		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy {
 			protected array $directives =
 			[
 				'block-all-mixed-content' => true,
@@ -175,8 +170,7 @@ class ContentSecurityPolicyTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);
@@ -184,8 +178,7 @@ class ContentSecurityPolicyTest extends TestCase
 			return $response;
 		};
 
-		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
-		{
+		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy {
 			protected array $directives =
 			[
 				'default-src' => ['nonce'],
@@ -232,8 +225,7 @@ class ContentSecurityPolicyTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);
@@ -241,8 +233,7 @@ class ContentSecurityPolicyTest extends TestCase
 			return $response;
 		};
 
-		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
-		{
+		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy {
 			protected string $nonceVariableName = 'cspNonce';
 
 			protected array $directives =
@@ -284,8 +275,7 @@ class ContentSecurityPolicyTest extends TestCase
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();
 
-		$next = function ($request, $response)
-		{
+		$next = function ($request, $response) {
 			$this->assertInstanceOf(Request::class, $request);
 
 			$this->assertInstanceOf(Response::class, $response);
@@ -293,8 +283,7 @@ class ContentSecurityPolicyTest extends TestCase
 			return $response;
 		};
 
-		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy
-		{
+		$contentSecurityPolicy = new class ($container) extends ContentSecurityPolicy {
 			protected array $reportTo =
 			[
 				[

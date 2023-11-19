@@ -238,8 +238,7 @@ class CollectionTest extends TestCase
 	{
 		$string = '';
 
-		foreach(new Collection([1, 2, 3]) as $item)
-		{
+		foreach (new Collection([1, 2, 3]) as $item) {
 			$string .= $item;
 		}
 
@@ -345,10 +344,8 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-		$this->assertInstanceOf(Collection::class, $collection->sort(function ($a, $b)
-		{
-			if($a == $b)
-			{
+		$this->assertInstanceOf(Collection::class, $collection->sort(function ($a, $b) {
+			if ($a == $b) {
 				return 0;
 			}
 
@@ -365,10 +362,8 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-		$this->assertInstanceOf(Collection::class, $collection->sort(function ($a, $b)
-		{
-			if($a == $b)
-			{
+		$this->assertInstanceOf(Collection::class, $collection->sort(function ($a, $b) {
+			if ($a == $b) {
 				return 0;
 			}
 
@@ -413,10 +408,8 @@ class CollectionTest extends TestCase
 	 */
 	public function testExtending(): void
 	{
-		Collection::addMethod('increaseByOne', function (): void
-		{
-			foreach($this->items as $key => $value)
-			{
+		Collection::addMethod('increaseByOne', function (): void {
+			foreach ($this->items as $key => $value) {
 				$this->items[$key] += 1;
 			}
 		});
@@ -474,8 +467,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([1, 2, 3]);
 
-		$this->assertInstanceOf(Collection::class, $collection->each(function ($value, $key)
-		{
+		$this->assertInstanceOf(Collection::class, $collection->each(function ($value, $key) {
 			return $key . ':' . $value;
 		}));
 
@@ -489,8 +481,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([(object) ['foo' => 'bar']]);
 
-		$collection->each(function ($object): void
-		{
+		$collection->each(function ($object): void {
 			$object->foo .= 'baz';
 		});
 
@@ -504,8 +495,7 @@ class CollectionTest extends TestCase
 	{
 		$collection = new Collection([1, 2, 3]);
 
-		$mapped = $collection->map(function ($value)
-		{
+		$mapped = $collection->map(function ($value) {
 			return $value + 1;
 		});
 
@@ -517,8 +507,7 @@ class CollectionTest extends TestCase
 
 		$collection = new Collection(['first' => 1, 'second' => 2, 'third' => 3]);
 
-		$mapped = $collection->map(function ($value)
-		{
+		$mapped = $collection->map(function ($value) {
 			return $value + 1;
 		});
 
@@ -526,8 +515,7 @@ class CollectionTest extends TestCase
 
 		// With key passes as second argument
 
-		$mapped = $collection->map(function ($value, $key)
-		{
+		$mapped = $collection->map(function ($value, $key) {
 			return $key . ':' . ($value + 1);
 		});
 
@@ -553,8 +541,7 @@ class CollectionTest extends TestCase
 
 		$collection = new Collection([1, 2, 3]);
 
-		$filtered = $collection->filter(function ($value)
-		{
+		$filtered = $collection->filter(function ($value) {
 			return $value !== 2;
 		});
 
@@ -566,8 +553,7 @@ class CollectionTest extends TestCase
 
 		$collection = new Collection([1, 2, 3, 'foo' => 'bar', 4]);
 
-		$filtered = $collection->filter(function ($value, $key)
-		{
+		$filtered = $collection->filter(function ($value, $key) {
 			return is_int($key);
 		});
 

@@ -28,8 +28,7 @@ class SQLServerCompilerTest extends TestCase
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
-		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query)
-		{
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
 			return new \mako\database\query\compilers\SQLServer($query);
 		});
 

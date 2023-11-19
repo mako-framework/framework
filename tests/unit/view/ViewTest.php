@@ -42,8 +42,7 @@ class ViewTest extends TestCase
 
 		$view = new View('TestView', $initial, $renderer);
 
-		foreach($variables as $key => $value)
-		{
+		foreach ($variables as $key => $value) {
 			$view->assign($key, $value);
 		}
 
@@ -75,8 +74,7 @@ class ViewTest extends TestCase
 
 		$view = new View('TestView', $initial, $renderer);
 
-		foreach($variables as $key => $value)
-		{
+		foreach ($variables as $key => $value) {
 			$view->assign($key, $value);
 		}
 

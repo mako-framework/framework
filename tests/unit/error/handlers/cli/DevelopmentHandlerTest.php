@@ -44,7 +44,7 @@ class DevelopmentHandlerTest extends TestCase
 
 		$formatter->shouldReceive('escape')->once()->with(123)->andReturn('123');
 
-		$formatter->shouldReceive('escape')->once()/*->with(backtrace)*/->andReturn('backtrace');
+		$formatter->shouldReceive('escape')->once()/*->with(backtrace)*/ ->andReturn('backtrace');
 
 		//
 
@@ -76,9 +76,9 @@ class DevelopmentHandlerTest extends TestCase
 
 		$formatter->shouldReceive('escape')->once()->with(__FILE__)->andReturn(__FILE__);
 
-		$formatter->shouldReceive('escape')->once()/*->with(error line)*/->andReturn('123');
+		$formatter->shouldReceive('escape')->once()/*->with(error line)*/ ->andReturn('123');
 
-		$formatter->shouldReceive('escape')->once()/*->with(backtrace)*/->andReturn('backtrace');
+		$formatter->shouldReceive('escape')->once()/*->with(backtrace)*/ ->andReturn('backtrace');
 
 		//
 

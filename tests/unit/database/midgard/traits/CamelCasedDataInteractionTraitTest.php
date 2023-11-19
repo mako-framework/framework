@@ -20,8 +20,7 @@ class CamelCasedDataInteractionTraitTest extends TestCase
 {
 	protected function getClass(): object
 	{
-		return new class
-		{
+		return new class {
 			use CamelCasedDataInteractionTrait;
 
 			public $columns =

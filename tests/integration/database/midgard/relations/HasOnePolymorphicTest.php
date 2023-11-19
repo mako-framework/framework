@@ -77,8 +77,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$count = 0;
 
-		foreach($generator as $image)
-		{
+		foreach ($generator as $image) {
 			$this->assertInstanceOf(HasOnePolymorphicImage::class, $image);
 
 			$this->assertEquals($profile->getClass(), $image->imageable_type);
@@ -104,8 +103,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	{
 		$profiles = (new HasOnePolymorphicProfile)->ascending('id')->all();
 
-		foreach($profiles as $profile)
-		{
+		foreach ($profiles as $profile) {
 			$this->assertInstanceOf(HasOnePolymorphicImage::class, $profile->image);
 
 			$this->assertEquals($profile->getClass(), $profile->image->imageable_type);
@@ -131,8 +129,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 	{
 		$profiles = (new HasOnePolymorphicProfile)->including('image')->ascending('id')->all();
 
-		foreach($profiles as $profile)
-		{
+		foreach ($profiles as $profile) {
 			$this->assertInstanceOf(HasOnePolymorphicImage::class, $profile->image);
 
 			$this->assertEquals($profile->getClass(), $profile->image->imageable_type);
@@ -152,13 +149,11 @@ class HasOnePolymorphicTest extends ORMTestCase
 	 */
 	public function testEagerHasOneRelationWithConstraint(): void
 	{
-		$profiles = (new HasOnePolymorphicProfile)->including(['image' => function ($query): void
-		{
+		$profiles = (new HasOnePolymorphicProfile)->including(['image' => function ($query): void {
 			$query->where('image', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($profiles as $profile)
-		{
+		foreach ($profiles as $profile) {
 			$this->assertNull($profile->image);
 		}
 

@@ -20,8 +20,7 @@ class NullableTest extends ORMTestCase
 	 */
 	protected function getNullable(): ORM
 	{
-		return new class extends ORM
-		{
+		return new class extends ORM {
 			use NullableTrait;
 
 			protected string $tableName = 'nullables';

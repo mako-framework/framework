@@ -68,8 +68,7 @@ class BaseCompilerTest extends TestCase
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
-		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query)
-		{
+		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
 			return new Compiler($query);
 		});
 
@@ -130,8 +129,7 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBasicSelectWithSubqueryUsingClosure(): void
 	{
-		$query = $this->getBuilder(new Subquery(function ($query): void
-		{
+		$query = $this->getBuilder(new Subquery(function ($query): void {
 			$query->table('foobar');
 		}));
 
@@ -146,8 +144,7 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBasicSelectWithSubqueryWithAggregate(): void
 	{
-		$query = $this->getBuilder(new Subquery(function ($query): void
-		{
+		$query = $this->getBuilder(new Subquery(function ($query): void {
 			$query->table('foobar')->min('foobar');
 		}));
 
@@ -162,8 +159,7 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBasicSelectWithSubqueryWithTableAlias(): void
 	{
-		$query = $this->getBuilder(new Subquery(function ($query): void
-		{
+		$query = $this->getBuilder(new Subquery(function ($query): void {
 			$query->table('foobar');
 		}, 'table_alias'));
 
@@ -256,8 +252,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->select(['foo', new Subquery(function ($query): void
-		{
+		$query->select(['foo', new Subquery(function ($query): void {
 			$query->table('barfoo')->select(['baz'])->limit(1);
 		}, 'baz')]);
 
@@ -592,8 +587,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->where(function ($query): void
-		{
+		$query->where(function ($query): void {
 			$query->where('foo', '=', 'bar');
 			$query->where('bar', '=', 'foo');
 		});
@@ -726,8 +720,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->in('foo', new Subquery(function ($query): void
-		{
+		$query->in('foo', new Subquery(function ($query): void {
 			$query->table('barfoo')->select(['id']);
 		}));
 
@@ -840,8 +833,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(new Subquery(function ($query): void
-		{
+		$query->exists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		}));
 
@@ -858,13 +850,11 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(new Subquery(function ($query): void
-		{
+		$query->exists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		}));
 
-		$query->orExists(new Subquery(function ($query): void
-		{
+		$query->orExists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'));
 		}));
 
@@ -881,8 +871,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->exists(new Subquery(function ($query): void
-		{
+		$query->exists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		}));
 
@@ -899,8 +888,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notExists(new Subquery(function ($query): void
-		{
+		$query->notExists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		}));
 
@@ -917,13 +905,11 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->notExists(new Subquery(function ($query): void
-		{
+		$query->notExists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('foobar.id'));
 		}));
 
-		$query->orNotExists(new Subquery(function ($query): void
-		{
+		$query->orNotExists(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('barfoo.foobar_id', '=', new Raw('barbaz.id'));
 		}));
 
@@ -1045,8 +1031,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function ($join): void
-		{
+		$query->join('barfoo', function ($join): void {
 			$join->on('barfoo.foobar_id', '=', 'foobar.id');
 			$join->orOn('barfoo.foobar_id', '!=', 'foobar.id');
 		});
@@ -1064,11 +1049,9 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function ($join): void
-		{
+		$query->join('barfoo', function ($join): void {
 			$join->on('barfoo.foobar_id', '=', 'foobar.id');
-			$join->on(function ($join): void
-			{
+			$join->on(function ($join): void {
 				$join->on('barfoo.foobar_id', '=', 'foobar.id');
 				$join->orOn('barfoo.foobar_id', '!=', 'foobar.id');
 			});
@@ -1087,8 +1070,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function ($join): void
-		{
+		$query->join('barfoo', function ($join): void {
 			$join->onRaw('barfoo.foobar_id', '=', 'SUBSTRING("foo", 1, 2)');
 			$join->orOnRaw('barfoo.foobar_id', '!=', 'SUBSTRING("foo", 1, 2)');
 		});
@@ -1106,8 +1088,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->join('barfoo', function ($join): void
-		{
+		$query->join('barfoo', function ($join): void {
 			$join->onRaw('barfoo.foobar_id', '=', 'SUBSTRING(?, 1, 2)', ['foo']);
 			$join->orOnRaw('barfoo.foobar_id', '!=', 'SUBSTRING(?, 1, 2)', ['bar']);
 		});
@@ -1125,8 +1106,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->join(new Subquery(function ($query): void
-		{
+		$query->join(new Subquery(function ($query): void {
 			$query->table('barfoo')->where('id', '>', 1);
 		}, 'barfoo'), 'barfoo.foobar_id', '=', 'foobar.id');
 
@@ -1159,8 +1139,7 @@ class BaseCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query->table('customers')
-		->lateralJoin(new Subquery(function (Query $query): void
-		{
+		->lateralJoin(new Subquery(function (Query $query): void {
 			$query->table('sales')
 			->whereRaw('sales.customer_id', '=', '"customers"."id"')
 			->descending('created_at')
@@ -1764,13 +1743,11 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testUnionsWithLimits(): void
 	{
-		$query = $this->getBuilder(new Subquery(function ($query): void
-		{
+		$query = $this->getBuilder(new Subquery(function ($query): void {
 			$query->table('sales2015')->limit(10);
 		}, 'limitedsales2015'))
 		->union()
-		->table(new Subquery(function ($query): void
-		{
+		->table(new Subquery(function ($query): void {
 			$query->table('sales2016')->limit(10);
 		}, 'limitedsales2016'));
 
@@ -1882,8 +1859,7 @@ class BaseCompilerTest extends TestCase
 
 		$batches = 0;
 
-		$builder->ascending('id')->batch(function ($results) use (&$batches): void
-		{
+		$builder->ascending('id')->batch(function ($results) use (&$batches): void {
 			$this->assertEquals([5], $results->getItems());
 
 			$batches++;
@@ -1910,8 +1886,7 @@ class BaseCompilerTest extends TestCase
 
 		$batches = 0;
 
-		$builder->ascending('id')->batch(function ($results) use (&$batches): void
-		{
+		$builder->ascending('id')->batch(function ($results) use (&$batches): void {
 			$this->assertEquals([5], $results->getItems());
 
 			$batches++;
@@ -1934,8 +1909,7 @@ class BaseCompilerTest extends TestCase
 
 		$batches = 0;
 
-		$builder->ascending('id')->batch(function ($results) use (&$batches): void
-		{
+		$builder->ascending('id')->batch(function ($results) use (&$batches): void {
 			$this->assertEquals([5], $results->getItems());
 
 			$batches++;
@@ -1951,8 +1925,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', [], new Subquery(function ($query): void
-		{
+		$query->with('cte', [], new Subquery(function ($query): void {
 			$query->table('articles');
 		}));
 
@@ -1969,8 +1942,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', ['title', 'content'], new Subquery(function ($query): void
-		{
+		$query->with('cte', ['title', 'content'], new Subquery(function ($query): void {
 			$query->table('articles')->select(['title', 'content']);
 		}));
 
@@ -1987,8 +1959,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->withRecursive('cte', [], new Subquery(function ($query): void
-		{
+		$query->withRecursive('cte', [], new Subquery(function ($query): void {
 			$query->table('articles');
 		}));
 
@@ -2005,13 +1976,11 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte2');
 
-		$query->with('cte1', [], new Subquery(function ($query): void
-		{
+		$query->with('cte1', [], new Subquery(function ($query): void {
 			$query->table('articles');
 		}));
 
-		$query->with('cte2', [], new Subquery(function ($query): void
-		{
+		$query->with('cte2', [], new Subquery(function ($query): void {
 			$query->table('cte1');
 		}));
 
@@ -2028,10 +1997,8 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder('cte');
 
-		$query->with('cte', ['a', 'b', 'c'], new Subquery(function ($query): void
-		{
-			$query->with('cte2', [], new Subquery(function ($query): void
-			{
+		$query->with('cte', ['a', 'b', 'c'], new Subquery(function ($query): void {
+			$query->with('cte2', [], new Subquery(function ($query): void {
 				$query->selectRaw('1, 2, 3');
 			}))
 			->table('cte2');
@@ -2081,8 +2048,7 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testEnumParameter(): void
 	{
-		if(PHP_VERSION_ID < 80100)
-		{
+		if (PHP_VERSION_ID < 80100) {
 			$this->markTestSkipped('This feature requires PHP 8.1+');
 		}
 
@@ -2101,8 +2067,7 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBackedEnumParameter(): void
 	{
-		if(PHP_VERSION_ID < 80100)
-		{
+		if (PHP_VERSION_ID < 80100) {
 			$this->markTestSkipped('This feature requires PHP 8.1+');
 		}
 

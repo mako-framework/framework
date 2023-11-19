@@ -106,8 +106,7 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->group(['prefix' => 'baz'], function ($routes): void
-		{
+		$routes->group(['prefix' => 'baz'], function ($routes): void {
 			$routes->get('/foo', fn () => 'Hello, world!');
 
 			$routes->get('/bar', fn () => 'Hello, world!');
@@ -127,10 +126,8 @@ class RoutesTest extends TestCase
 	{
 		$routes = new Routes();
 
-		$routes->group(['prefix' => 'baz'], function ($routes): void
-		{
-			$routes->group(['prefix' => 'bax'], function ($routes): void
-			{
+		$routes->group(['prefix' => 'baz'], function ($routes): void {
+			$routes->group(['prefix' => 'bax'], function ($routes): void {
 				$routes->get('/foo', fn () => 'Hello, world!');
 
 				$routes->get('/bar', fn () => 'Hello, world!');

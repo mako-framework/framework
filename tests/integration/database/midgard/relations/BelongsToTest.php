@@ -76,8 +76,7 @@ class BelongsToTest extends ORMTestCase
 
 		$count = 0;
 
-		foreach($generator as $user)
-		{
+		foreach ($generator as $user) {
 			$this->assertInstanceOf(BelongsToUser::class, $user);
 
 			$this->assertEquals($user->id, $profile->user_id);
@@ -101,8 +100,7 @@ class BelongsToTest extends ORMTestCase
 	{
 		$profiles = (new BelongsToProfile)->ascending('id')->all();
 
-		foreach($profiles as $profile)
-		{
+		foreach ($profiles as $profile) {
 			$this->assertInstanceOf(BelongsToUser::class, $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
@@ -126,8 +124,7 @@ class BelongsToTest extends ORMTestCase
 	{
 		$profiles = (new BelongsToProfile)->including('user')->ascending('id')->all();
 
-		foreach($profiles as $profile)
-		{
+		foreach ($profiles as $profile) {
 			$this->assertInstanceOf(BelongsToUser::class, $profile->user);
 
 			$this->assertEquals($profile->user_id, $profile->user->id);
@@ -145,13 +142,11 @@ class BelongsToTest extends ORMTestCase
 	 */
 	public function testEagerBelongsToRelationWithConstraint(): void
 	{
-		$profiles = (new BelongsToProfile)->including(['user' => function ($query): void
-		{
+		$profiles = (new BelongsToProfile)->including(['user' => function ($query): void {
 			$query->where('username', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($profiles as $profile)
-		{
+		foreach ($profiles as $profile) {
 			$this->assertNull($profile->user);
 		}
 

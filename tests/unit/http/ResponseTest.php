@@ -215,13 +215,11 @@ class ResponseTest extends TestCase
 
 		$response->setBody('Hello, world!');
 
-		foreach($this->getHeaders() as $header => $value)
-		{
+		foreach ($this->getHeaders() as $header => $value) {
 			$response->getHeaders()->add($header, $value);
 		}
 
-		foreach($this->getCookies() as $cookie => $value)
-		{
+		foreach ($this->getCookies() as $cookie => $value) {
 			$response->getCookies()->add($cookie, $value);
 		}
 
@@ -247,13 +245,11 @@ class ResponseTest extends TestCase
 
 		$response->setBody('Hello, world!');
 
-		foreach($this->getHeaders() as $header => $value)
-		{
+		foreach ($this->getHeaders() as $header => $value) {
 			$response->getHeaders()->add($header, $value);
 		}
 
-		foreach($this->getCookies() as $cookie => $value)
-		{
+		foreach ($this->getCookies() as $cookie => $value) {
 			$response->getCookies()->add($cookie, $value);
 		}
 
@@ -279,13 +275,11 @@ class ResponseTest extends TestCase
 
 		$response->setBody('Hello, world!');
 
-		foreach($this->getHeaders() as $header => $value)
-		{
+		foreach ($this->getHeaders() as $header => $value) {
 			$response->getHeaders()->add($header, $value);
 		}
 
-		foreach($this->getCookies() as $cookie => $value)
-		{
+		foreach ($this->getCookies() as $cookie => $value) {
 			$response->getCookies()->add($cookie, $value);
 		}
 
@@ -311,13 +305,11 @@ class ResponseTest extends TestCase
 
 		$response->setBody('Hello, world!');
 
-		foreach($this->getHeaders() as $header => $value)
-		{
+		foreach ($this->getHeaders() as $header => $value) {
 			$response->getHeaders()->add($header, $value);
 		}
 
-		foreach($this->getCookies() as $cookie => $value)
-		{
+		foreach ($this->getCookies() as $cookie => $value) {
 			$response->getCookies()->add($cookie, $value);
 		}
 
@@ -347,13 +339,11 @@ class ResponseTest extends TestCase
 
 		$response->setBody('Hello, world!');
 
-		foreach($this->getHeaders() as $header => $value)
-		{
+		foreach ($this->getHeaders() as $header => $value) {
 			$response->getHeaders()->add($header, $value);
 		}
 
-		foreach($this->getCookies() as $cookie => $value)
-		{
+		foreach ($this->getCookies() as $cookie => $value) {
 			$response->getCookies()->add($cookie, $value);
 		}
 
@@ -383,13 +373,11 @@ class ResponseTest extends TestCase
 
 		$response->setBody('Hello, world!');
 
-		foreach($this->getHeaders() as $header => $value)
-		{
+		foreach ($this->getHeaders() as $header => $value) {
 			$response->getHeaders()->add($header, $value);
 		}
 
-		foreach($this->getCookies() as $cookie => $value)
-		{
+		foreach ($this->getCookies() as $cookie => $value) {
 			$response->getCookies()->add($cookie, $value);
 		}
 

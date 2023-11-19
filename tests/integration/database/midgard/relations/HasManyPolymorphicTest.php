@@ -56,8 +56,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		$this->assertEquals(2, count($comments));
 
-		foreach($comments as $comment)
-		{
+		foreach ($comments as $comment) {
 			$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 			$this->assertEquals($comment->commentable_type, $article->getClass());
@@ -83,8 +82,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 
 		$this->assertInstanceOf(Generator::class, $generator);
 
-		foreach($generator as $comment)
-		{
+		foreach ($generator as $comment) {
 			$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 			$this->assertEquals($comment->commentable_type, $article->getClass());
@@ -106,12 +104,10 @@ class HasManyPolymorphicTest extends ORMTestCase
 	{
 		$articles = (new HasManyPolymorphicArticle)->ascending('id')->all();
 
-		foreach($articles as $article)
-		{
+		foreach ($articles as $article) {
 			$this->assertInstanceOf(ResultSet::class, $article->comments);
 
-			foreach($article->comments as $comment)
-			{
+			foreach ($article->comments as $comment) {
 				$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 				$this->assertEquals($comment->commentable_type, $article->getClass());
@@ -138,12 +134,10 @@ class HasManyPolymorphicTest extends ORMTestCase
 	{
 		$articles = (new HasManyPolymorphicArticle)->including('comments')->ascending('id')->all();
 
-		foreach($articles as $article)
-		{
+		foreach ($articles as $article) {
 			$this->assertInstanceOf(ResultSet::class, $article->comments);
 
-			foreach($article->comments as $comment)
-			{
+			foreach ($article->comments as $comment) {
 				$this->assertInstanceOf(HasManyPolymorphicComment::class, $comment);
 
 				$this->assertEquals($comment->commentable_type, $article->getClass());
@@ -164,13 +158,11 @@ class HasManyPolymorphicTest extends ORMTestCase
 	 */
 	public function testEagerHasManyRelationWithConstraint(): void
 	{
-		$articles = (new HasManyPolymorphicArticle)->including(['comments' => function ($query): void
-		{
+		$articles = (new HasManyPolymorphicArticle)->including(['comments' => function ($query): void {
 			$query->where('comment', '=', 'does not exist');
 		}, ])->ascending('id')->all();
 
-		foreach($articles as $article)
-		{
+		foreach ($articles as $article) {
 			$this->assertInstanceOf(ResultSet::class, $article->comments);
 
 			$this->assertEquals(0, count($article->comments));

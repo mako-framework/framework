@@ -20,8 +20,7 @@ class SubqueryTest extends TestCase
 	 */
 	public function testQuery(): void
 	{
-		$query = function (): void
-		{
+		$query = function (): void {
 
 		};
 
@@ -35,8 +34,7 @@ class SubqueryTest extends TestCase
 	 */
 	public function testGetAlias(): void
 	{
-		$query = function (): void
-		{
+		$query = function (): void {
 
 		};
 
@@ -62,8 +60,7 @@ class SubqueryTest extends TestCase
 	 */
 	public function testNeedsBuilderInstance(): void
 	{
-		$query = function (): void
-		{
+		$query = function (): void {
 
 		};
 

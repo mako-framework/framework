@@ -226,8 +226,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertInstanceOf(ResultSet::class, $users);
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(TestUser::class, $user);
 		}
 	}
@@ -241,8 +240,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertInstanceOf('Generator', $users);
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(TestUser::class, $user);
 		}
 	}
@@ -402,8 +400,7 @@ class ORMTest extends ORMTestCase
 
 		$clones = clone (new TestUser)->ascending('id')->all();
 
-		foreach($clones as $clone)
-		{
+		foreach ($clones as $clone) {
 			$clone->save();
 		}
 
@@ -413,8 +410,7 @@ class ORMTest extends ORMTestCase
 
 		$chunkedUsers = $users->chunk(3);
 
-		foreach($chunkedUsers[0] as $key => $user)
-		{
+		foreach ($chunkedUsers[0] as $key => $user) {
 			$this->assertNotEquals($user->id, $chunkedUsers[1][$key]->id);
 
 			$this->assertEquals($user->created_at, $chunkedUsers[1][$key]->created_at);
@@ -647,8 +643,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testEnumCasting(): void
 	{
-		if(PHP_VERSION_ID < 80100)
-		{
+		if (PHP_VERSION_ID < 80100) {
 			$this->markTestSkipped('This feature requires PHP 8.1+');
 		}
 
@@ -678,8 +673,7 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testSubquery(): void
 	{
-		$counters = (new Counter)->in('id', new Subquery(function ($query): void
-		{
+		$counters = (new Counter)->in('id', new Subquery(function ($query): void {
 			$query->table('counters')->select(['id']);
 		}))
 		->all();

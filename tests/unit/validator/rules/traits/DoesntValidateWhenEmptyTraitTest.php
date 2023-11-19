@@ -20,8 +20,7 @@ class DoesntValidateWhenEmptyTraitTest extends TestCase
 	 */
 	public function test(): void
 	{
-		$rule = new class
-		{
+		$rule = new class {
 			use DoesntValidateWhenEmptyTrait;
 		};
 

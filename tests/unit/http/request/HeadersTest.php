@@ -57,8 +57,7 @@ class HeadersTest extends TestCase
 
 		$iterations = 0;
 
-		foreach($headers as $header)
-		{
+		foreach ($headers as $header) {
 			$iterations++;
 		}
 
@@ -74,8 +73,7 @@ class HeadersTest extends TestCase
 
 		$iterations = 0;
 
-		foreach($headers as $header)
-		{
+		foreach ($headers as $header) {
 			$iterations++;
 		}
 

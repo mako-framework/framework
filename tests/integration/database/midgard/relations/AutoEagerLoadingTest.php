@@ -51,12 +51,10 @@ class AutoEagerLoadingTest extends ORMTestCase
 	{
 		$users = (new AutoEagerLoadingUser)->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
-			foreach($user->articles as $article)
-			{
+			foreach ($user->articles as $article) {
 				$this->assertInstanceOf(AutoEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);
@@ -77,12 +75,10 @@ class AutoEagerLoadingTest extends ORMTestCase
 	{
 		$users = (new AutoEagerLoadingUser)->excluding('articles')->ascending('id')->all();
 
-		foreach($users as $user)
-		{
+		foreach ($users as $user) {
 			$this->assertInstanceOf(ResultSet::class, $user->articles);
 
-			foreach($user->articles as $article)
-			{
+			foreach ($user->articles as $article) {
 				$this->assertInstanceOf(AutoEagerLoadingArticle::class, $article);
 
 				$this->assertEquals($article->user_id, $user->id);

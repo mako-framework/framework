@@ -54,8 +54,7 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ==================== 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new class ($output, 10) extends ProgressBar
-		{
+		$progressBar = new class ($output, 10) extends ProgressBar {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;
@@ -64,8 +63,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 10; $i++)
-		{
+		for ($i = 0; $i < 10; $i++) {
 			$progressBar->advance();
 		}
 	}
@@ -91,8 +89,7 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ======================================== 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new class ($output, 10) extends ProgressBar
-		{
+		$progressBar = new class ($output, 10) extends ProgressBar {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;
@@ -103,8 +100,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 10; $i++)
-		{
+		for ($i = 0; $i < 10; $i++) {
 			$progressBar->advance();
 		}
 	}
@@ -130,8 +126,7 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ++++++++++++++++++++ 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new class ($output, 10) extends ProgressBar
-		{
+		$progressBar = new class ($output, 10) extends ProgressBar {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;
@@ -144,8 +139,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 10; $i++)
-		{
+		for ($i = 0; $i < 10; $i++) {
 			$progressBar->advance();
 		}
 	}
@@ -171,8 +165,7 @@ class ProgressBarTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 10/10 ==================== 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new class ($output, 10) extends ProgressBar
-		{
+		$progressBar = new class ($output, 10) extends ProgressBar {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;
@@ -183,8 +176,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 10; $i++)
-		{
+		for ($i = 0; $i < 10; $i++) {
 			$progressBar->advance();
 		}
 	}
@@ -199,8 +191,7 @@ class ProgressBarTest extends TestCase
 
 		$output->shouldReceive('write')->times(102);
 
-		$progressBar = new class ($output, 100) extends ProgressBar
-		{
+		$progressBar = new class ($output, 100) extends ProgressBar {
 			protected function getMicrotime(): float
 			{
 				static $time = 0;
@@ -211,8 +202,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 100; $i++)
-		{
+		for ($i = 0; $i < 100; $i++) {
 			$progressBar->advance();
 		}
 	}
@@ -250,8 +240,7 @@ class ProgressBarTest extends TestCase
 
 		$output->shouldReceive('write');
 
-		$progressBar = new class ($output, 100, 1) extends ProgressBar
-		{
+		$progressBar = new class ($output, 100, 1) extends ProgressBar {
 			public $drawn = 0;
 
 			protected function getMicrotime(): float
@@ -271,8 +260,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 100; $i++)
-		{
+		for ($i = 0; $i < 100; $i++) {
 			$progressBar->advance();
 		}
 
@@ -321,8 +309,7 @@ class ProgressBarTest extends TestCase
 
 		$output->shouldReceive('clearLines')->once()->with(2);
 
-		$progressBar = new class ($output, 10) extends ProgressBar
-		{
+		$progressBar = new class ($output, 10) extends ProgressBar {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;
@@ -331,8 +318,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 10; $i++)
-		{
+		for ($i = 0; $i < 10; $i++) {
 			$progressBar->advance();
 		}
 
@@ -351,8 +337,7 @@ class ProgressBarTest extends TestCase
 
 		$output->shouldReceive('write')->times(12);
 
-		$progressBar = new class ($output, 10) extends ProgressBar
-		{
+		$progressBar = new class ($output, 10) extends ProgressBar {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;
@@ -361,8 +346,7 @@ class ProgressBarTest extends TestCase
 
 		$progressBar->draw();
 
-		for($i = 0; $i < 11; $i++)
-		{
+		for ($i = 0; $i < 11; $i++) {
 			$progressBar->advance();
 		}
 	}

@@ -27,8 +27,7 @@ class ConnectionTest extends TestCase
 	 */
 	public function setUp(): void
 	{
-		try
-		{
+		try {
 			$this->connection = new Connection('localhost', 6379,
 			[
 				'name'               => 'test',
@@ -38,8 +37,7 @@ class ConnectionTest extends TestCase
 				'tcp_nodelay'        => false,
 			]);
 		}
-		catch(RedisException $e)
-		{
+		catch (RedisException $e) {
 			$this->markTestSkipped('Unable to connect to redis server.');
 		}
 	}
@@ -49,8 +47,7 @@ class ConnectionTest extends TestCase
 	 */
 	public function tearDown(): void
 	{
-		if($this->connection !== null)
-		{
+		if ($this->connection !== null) {
 			$this->connection = null;
 		}
 	}

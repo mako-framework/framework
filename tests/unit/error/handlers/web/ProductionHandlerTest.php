@@ -79,8 +79,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response, $viewFactory) extends ProductionHandler
-		{
+		$handler = new class($request, $response, $viewFactory) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';
@@ -147,8 +146,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response, $viewFactory) extends ProductionHandler
-		{
+		$handler = new class($request, $response, $viewFactory) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';
@@ -224,8 +222,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response, $viewFactory) extends ProductionHandler
-		{
+		$handler = new class($request, $response, $viewFactory) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';
@@ -334,8 +331,7 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithJsonResponse(): void
 	{
-		if(function_exists('json_encode') === false)
-		{
+		if (function_exists('json_encode') === false) {
 			$this->markTestSkipped('JSON support is missing.');
 
 			return;
@@ -367,8 +363,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response) extends ProductionHandler
-		{
+		$handler = new class($request, $response) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';
@@ -383,8 +378,7 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testHttpExceptionWithJsonResponse(): void
 	{
-		if(function_exists('json_encode') === false)
-		{
+		if (function_exists('json_encode') === false) {
 			$this->markTestSkipped('JSON support is missing.');
 
 			return;
@@ -416,8 +410,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response) extends ProductionHandler
-		{
+		$handler = new class($request, $response) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';
@@ -432,8 +425,7 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithXmlResponse(): void
 	{
-		if(function_exists('simplexml_load_string') === false)
-		{
+		if (function_exists('simplexml_load_string') === false) {
 			$this->markTestSkipped('XML support is missing.');
 
 			return;
@@ -478,8 +470,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response) extends ProductionHandler
-		{
+		$handler = new class($request, $response) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';
@@ -494,8 +485,7 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testHttpExceptionWithXmlResponse(): void
 	{
-		if(function_exists('simplexml_load_string') === false)
-		{
+		if (function_exists('simplexml_load_string') === false) {
 			$this->markTestSkipped('XML support is missing.');
 
 			return;
@@ -540,8 +530,7 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		$handler = new class($request, $response) extends ProductionHandler
-		{
+		$handler = new class($request, $response) extends ProductionHandler {
 			protected function generateExceptionId(): string
 			{
 				return 'exception_id';

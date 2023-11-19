@@ -34,12 +34,10 @@ class RedisTest extends TestCase
 	 */
 	public function setUp(): void
 	{
-		try
-		{
+		try {
 			$this->redis = new Redis(new Connection('localhost', 6379));
 		}
-		catch(RedisException $e)
-		{
+		catch (RedisException $e) {
 			$this->markTestSkipped('Unable to connect to redis server.');
 		}
 	}
@@ -49,8 +47,7 @@ class RedisTest extends TestCase
 	 */
 	public function tearDown(): void
 	{
-		if($this->redis !== null)
-		{
+		if ($this->redis !== null) {
 			$this->redis->flushdb();
 
 			$this->redis = null;
@@ -120,10 +117,8 @@ class RedisTest extends TestCase
 	{
 		$this->assertEquals('OK', $this->redis->set('myKey', 0));
 
-		$this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], $this->redis->pipeline(function ($redis): void
-		{
-			for($i = 0; $i < 10; $i++)
-			{
+		$this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], $this->redis->pipeline(function ($redis): void {
+			for ($i = 0; $i < 10; $i++) {
 				$redis->incr('myKey');
 			}
 		}));

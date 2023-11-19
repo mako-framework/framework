@@ -931,8 +931,7 @@ class RequestTest extends TestCase
 
 		$request->setRoute($route);
 
-		$route = (function ()
-		{
+		$route = (function () {
 			return $this->route;
 		})->bindTo($request, Request::class)();
 
@@ -1160,8 +1159,7 @@ class RequestTest extends TestCase
 			'TRACE'   => true,
 		];
 
-		foreach($methods as $method => $isSafe)
-		{
+		foreach ($methods as $method => $isSafe) {
 			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
 
 			$this->assertSame($isSafe, $request->isSafe());
@@ -1186,8 +1184,7 @@ class RequestTest extends TestCase
 			'TRACE'   => true,
 		];
 
-		foreach($methods as $method => $isIdempotent)
-		{
+		foreach ($methods as $method => $isIdempotent) {
 			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
 
 			$this->assertSame($isIdempotent, $request->isIdempotent());
@@ -1212,8 +1209,7 @@ class RequestTest extends TestCase
 			'TRACE'   => false,
 		];
 
-		foreach($methods as $method => $isCacheable)
-		{
+		foreach ($methods as $method => $isCacheable) {
 			$request = new Request(['server' => ['REQUEST_METHOD' => $method]]);
 
 			$this->assertSame($isCacheable, $request->isCacheable());

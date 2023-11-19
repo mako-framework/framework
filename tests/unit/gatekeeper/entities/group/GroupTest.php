@@ -99,7 +99,7 @@ class GroupTest extends TestCase
  	 *
  	 */
  	public function testRemoveNonExistingUserFromGroup(): void
-	{
+ 	{
 		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only remove a user that exist in the database from a group.');
@@ -135,7 +135,7 @@ class GroupTest extends TestCase
  	 *
  	 */
  	public function testIsMemberWithNonExistingUser(): void
-	{
+ 	{
 		$this->expectException(GatekeeperException::class);
 
 		$this->expectExceptionMessage('You can only check if a user that exist in the database is a member of a group.');

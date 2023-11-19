@@ -38,8 +38,7 @@ class HeadersTest extends TestCase
 
 		$headers->add('foo', 'bar');
 
-		foreach($headers as $name => $values)
-		{
+		foreach ($headers as $name => $values) {
 			$this->assertSame('foo', $name);
 
 			$this->assertSame(['bar'], $values);

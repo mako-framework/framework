@@ -24,8 +24,7 @@ class AuthorizableTraitTest extends TestCase
 	 */
 	public function testThatTheTraitImplementsTheAuthorizableInterface(): void
 	{
-		$authorizable = new class implements AuthorizableInterface
-		{
+		$authorizable = new class implements AuthorizableInterface {
 			use AuthorizableTrait;
 		};
 

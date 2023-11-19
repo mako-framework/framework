@@ -81,8 +81,7 @@ class SessionTest extends TestCase
 	 */
 	protected function getResponseSetCookie(&$responseCookies = null)
 	{
-		if($responseCookies === null)
-		{
+		if ($responseCookies === null) {
 			/** @var \mako\http\response\Cookies|\Mockery\MockInterface $responseCookies */
 			$responseCookies = Mockery::mock(ResponseCookies::class);
 		}
@@ -120,8 +119,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('read')->once()->with('foo123')->andReturn(['foo' => 'bar', 'mako.flashdata' => []]);
 
-		if($commit !== false)
-		{
+		if ($commit !== false) {
 			$store->shouldReceive('write')->times()->with('foo123', $sessionData, 1800);
 		}
 

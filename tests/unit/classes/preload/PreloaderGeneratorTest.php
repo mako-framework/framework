@@ -70,8 +70,7 @@ class PreloaderGeneratorTest extends TestCase
 
 		EOF;
 
-		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader((function ()
-		{
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader((function () {
 			yield CA::class;
 		})()));
 	}
@@ -284,8 +283,7 @@ class PreloaderGeneratorTest extends TestCase
 	 */
 	public function testGeneratePreloaderWithClassWithTypedIntersectionProperties(): void
 	{
-		if(PHP_VERSION_ID < 80100)
-		{
+		if (PHP_VERSION_ID < 80100) {
 			$this->markTestSkipped('This feature requires PHP 8.1+');
 		}
 
