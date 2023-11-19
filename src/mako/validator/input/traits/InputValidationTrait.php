@@ -23,12 +23,12 @@ trait InputValidationTrait
 	/**
 	 * Validates the input and returns an array containing the validated data.
 	 */
-	protected function getValidatedInput(array|string $input, array $rules = []): array
+	protected function getValidatedInput(array|string $input, array $rules = [], bool $validateEmptyFields = false): array
 	{
 		if (is_string($input)) {
 			$input = (fn (string $input): InputInterface => $this->container->get($input))($input);
 
-			$validator = $this->validator->create($input->getInput(), $rules + $input->getRules());
+			$validator = $this->validator->create($input->getInput(), $rules + $input->getRules(), $validateEmptyFields);
 
 			foreach ($input->getExtensions() as $rule => $ruleClass) {
 				$validator->extend($rule, $ruleClass);
@@ -46,6 +46,6 @@ trait InputValidationTrait
 			}
 		}
 
-		return $this->validator->create($input, $rules)->getValidatedInput();
+		return $this->validator->create($input, $rules, $validateEmptyFields)->getValidatedInput();
 	}
 }

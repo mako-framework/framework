@@ -194,7 +194,8 @@ class Validator
 		protected array $input,
 		array $ruleSets = [],
 		protected ?I18n $i18n = null,
-		protected Container $container = new Container
+		protected Container $container = new Container,
+		protected bool $validateEmptyFields = false
 	) {
 		$this->ruleSets = $this->expandFields($ruleSets);
 	}
@@ -358,7 +359,10 @@ class Validator
 
 		// Just return true if the input field is empty and the rule doesn't validate empty input
 
-		if ($this->isInputFieldEmpty($inputValue = Arr::get($this->input, $field)) && $rule->validateWhenEmpty() === false) {
+		$inputValue = Arr::get($this->input, $field);
+
+		if (($this->validateEmptyFields === false && $this->isInputFieldEmpty($inputValue) && $rule->validateWhenEmpty() === false)
+			|| ($this->validateEmptyFields && Arr::has($this->input, $field) === false)) {
 			return true;
 		}
 

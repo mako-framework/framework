@@ -27,6 +27,7 @@ The major version bump is due to dropped support for PHP `8.0` and a several bre
 	- Added the `Dispatcher::registerGlobalMiddleware()` method.
 	- Added the `Router::registerGlobalConstraint()` method.
 * Added APCu session store.
+* Added the `$validateEmptyFields` parameter to the validator to allow forced validation of empty fields.
 
 #### Changes
 

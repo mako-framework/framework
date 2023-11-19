@@ -42,9 +42,9 @@ class ValidatorFactory
 	/**
 	 * Creates and returns a validator instance.
 	 */
-	public function create(array $input, array $ruleSets = []): Validator
+	public function create(array $input, array $ruleSets = [], bool $validateEmptyFields = false): Validator
 	{
-		$validator = new Validator($input, $ruleSets, $this->i18n, $this->container);
+		$validator = new Validator($input, $ruleSets, $this->i18n, $this->container, $validateEmptyFields);
 
 		foreach ($this->rules as $rule => $ruleClass) {
 			$validator->extend($rule, $ruleClass);

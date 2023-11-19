@@ -34,8 +34,7 @@ class InputValidationTraitTest extends TestCase
 
 		$parameters->shouldReceive('all')->andReturn([]);
 
-		$class = new class
-		{
+		$class = new class {
 			use InputValidationTrait;
 
 			public $request;
@@ -53,7 +52,7 @@ class InputValidationTraitTest extends TestCase
 
 		$class->request = $request;
 
-		$this->assertSame([[], ['foo' => ['required']]], $class->test());
+		$this->assertSame([[], ['foo' => ['required']], false], $class->test());
 	}
 
 	/**
@@ -66,8 +65,7 @@ class InputValidationTraitTest extends TestCase
 
 		$request->shouldReceive('getData')->never();
 
-		$class = new class
-		{
+		$class = new class {
 			public $request;
 
 			use InputValidationTrait;
@@ -85,7 +83,7 @@ class InputValidationTraitTest extends TestCase
 
 		$class->request = $request;
 
-		$this->assertSame(['Foo'], $class->test());
+		$this->assertSame(['Foo', 'validateEmptyFields' => false], $class->test());
 	}
 
 	/**
@@ -105,8 +103,7 @@ class InputValidationTraitTest extends TestCase
 
 		$files->shouldReceive('all')->andReturn([]);
 
-		$class = new class
-		{
+		$class = new class {
 			use InputValidationTrait;
 
 			public $request;
@@ -137,8 +134,7 @@ class InputValidationTraitTest extends TestCase
 
 		$request->shouldReceive('getData')->never();
 
-		$class = new class
-		{
+		$class = new class {
 			use InputValidationTrait;
 
 			public $request;

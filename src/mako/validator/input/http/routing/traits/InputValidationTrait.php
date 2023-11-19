@@ -25,13 +25,13 @@ trait InputValidationTrait
 	/**
 	 * Returns an array containing validated request input.
 	 */
-	protected function getValidatedInput(array|string $inputOrRules): array
+	protected function getValidatedInput(array|string $inputOrRules, bool $validateEmptyFields = false): array
 	{
 		if (is_string($inputOrRules)) {
-			return $this->baseGetValidatedInput($inputOrRules);
+			return $this->baseGetValidatedInput($inputOrRules, validateEmptyFields: $validateEmptyFields);
 		}
 
-		return $this->baseGetValidatedInput($this->request->getData()->all(), $inputOrRules);
+		return $this->baseGetValidatedInput($this->request->getData()->all(), $inputOrRules, $validateEmptyFields);
 	}
 
 	/**

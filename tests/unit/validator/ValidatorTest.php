@@ -490,4 +490,26 @@ class ValidatorTest extends TestCase
 
 		$this->assertSame($input, $validator->getValidatedInput());
 	}
+
+	/**
+	 *
+	 */
+	public function testForcedValidationOnEmptyFields(): void
+	{
+		$input = ['username' => ''];
+
+		$rules = ['username' => ['min_length(4)']];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame($input, $validator->getValidatedInput());
+
+		//
+
+		$this->expectException(ValidationException::class);
+
+		$validator = new Validator($input, $rules, validateEmptyFields: true);
+
+		$this->assertSame($input, $validator->getValidatedInput());
+	}
 }
