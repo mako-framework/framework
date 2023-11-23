@@ -22,7 +22,8 @@ class Redis implements StoreInterface
 	 */
 	public function __construct(
 		protected RedisClient $redis,
-		protected array|bool $classWhitelist = false
+		protected array|bool $classWhitelist = false,
+		protected string $prefix = 'sess_'
 	) {
 	}
 
@@ -31,7 +32,7 @@ class Redis implements StoreInterface
 	 */
 	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
-		$this->redis->setex("sess_{$sessionId}", $dataTTL, serialize($sessionData));
+		$this->redis->setex("{$this->prefix}{$sessionId}", $dataTTL, serialize($sessionData));
 	}
 
 	/**
@@ -39,7 +40,7 @@ class Redis implements StoreInterface
 	 */
 	public function read(string $sessionId): array
 	{
-		$sessionData = $this->redis->get("sess_{$sessionId}");
+		$sessionData = $this->redis->get("{$this->prefix}{$sessionId}");
 
 		return ($sessionData !== null) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
 	}
@@ -49,7 +50,7 @@ class Redis implements StoreInterface
 	 */
 	public function delete(string $sessionId): void
 	{
-		$this->redis->del("sess_{$sessionId}");
+		$this->redis->del("{$this->prefix}{$sessionId}");
 	}
 
 	/**

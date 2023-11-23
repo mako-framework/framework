@@ -63,7 +63,7 @@ class SessionService extends Service
 	 */
 	protected function getRedisStore(Container $container, array $config, array|bool $classWhitelist): Redis
 	{
-		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist);
+		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist, $config['prefix'] ?? 'sess_');
 	}
 
 	/**
