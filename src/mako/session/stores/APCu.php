@@ -22,7 +22,8 @@ class APCu implements StoreInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected array|bool $classWhitelist = false
+		protected array|bool $classWhitelist = false,
+		protected string $prefix = 'sess_'
 	) {
 	}
 
@@ -31,7 +32,7 @@ class APCu implements StoreInterface
 	 */
 	public function write(string $sessionId, array $sessionData, int $dataTTL): void
 	{
-		apcu_store("sess_{$sessionId}", serialize($sessionData), $dataTTL);
+		apcu_store("{$this->prefix}{$sessionId}", serialize($sessionData), $dataTTL);
 	}
 
 	/**
@@ -39,7 +40,7 @@ class APCu implements StoreInterface
 	 */
 	public function read(string $sessionId): array
 	{
-		$sessionData = apcu_fetch("sess_{$sessionId}");
+		$sessionData = apcu_fetch("{$this->prefix}{$sessionId}");
 
 		return ($sessionData !== false) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
 	}
@@ -49,7 +50,7 @@ class APCu implements StoreInterface
 	 */
 	public function delete(string $sessionId): void
 	{
-		apcu_delete("sess_{$sessionId}");
+		apcu_delete("{$this->prefix}{$sessionId}");
 	}
 
 	/**

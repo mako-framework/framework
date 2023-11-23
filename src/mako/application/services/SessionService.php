@@ -31,7 +31,7 @@ class SessionService extends Service
 	 */
 	protected function getApcuStore(Container $container, array $config, array|bool $classWhitelist): APCu
 	{
-		return new APCu($classWhitelist);
+		return new APCu($classWhitelist, $config['prefix'] ?? 'sess_');
 	}
 
 	/**
