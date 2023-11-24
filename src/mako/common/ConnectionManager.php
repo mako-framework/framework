@@ -69,11 +69,12 @@ abstract class ConnectionManager
 	 */
 	public function executeAndClose(Closure $closure, ?string $connection = null): mixed
 	{
-		$returnValue = $closure($this->getConnection($connection));
-
-		$this->close($connection);
-
-		return $returnValue;
+		try {
+			return $closure($this->getConnection($connection));
+		}
+		finally {
+			$this->close($connection);
+		}
 	}
 
 	/**
