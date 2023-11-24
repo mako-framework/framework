@@ -1,3 +1,11 @@
+### 9.1.5 <small>(2023-11-24)</small>
+
+#### Bugfixes
+
+* Ensure closing of connection when using the `ConnectionManager::executeAndClose()` method.
+
+--------------------------------------------------------
+
 ### 9.1.4 <small>(2023-11-16)</small>
 
 #### Bugfixes
