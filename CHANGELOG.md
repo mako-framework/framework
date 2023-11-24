@@ -1,3 +1,11 @@
+### 9.1.5, 10.0.1 <small>(2023-11-24)</small>
+
+#### Bugfixes
+
+* Ensure closing of connection when using the `ConnectionManager::executeAndClose()` method.
+
+--------------------------------------------------------
+
 ### 10.0.0 <small>(2023-11-23)</small>
 
 The major version bump is due to dropped support for PHP `8.0` and a several breaking changes. Most applications built using Mako `9` should run on Mako `10` with just a few simple adjustments.
