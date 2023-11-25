@@ -10,6 +10,7 @@ namespace mako\security\crypto;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Signer;
+use SensitiveParameter;
 
 /**
  * Crypto wrapper.
@@ -28,7 +29,7 @@ class Crypto
 	/**
 	 * Encrypts string.
 	 */
-	public function encrypt(string $string): string
+	public function encrypt(#[SensitiveParameter] string $string): string
 	{
 		return $this->signer->sign($this->adapter->encrypt($string));
 	}
@@ -38,7 +39,7 @@ class Crypto
 	 *
 	 * @return false|string
 	 */
-	public function decrypt(string $string)
+	public function decrypt(#[SensitiveParameter] string $string)
 	{
 		$string = $this->signer->validate($string);
 

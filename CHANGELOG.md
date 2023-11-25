@@ -1,3 +1,11 @@
+### 10.0.2 <small>(2023-11-25)</small>
+
+#### New
+
+* Sensitive parameters will be redacted if present in a stack trace when running on PHP 8.2+
+
+--------------------------------------------------------
+
 ### 9.1.5, 10.0.1 <small>(2023-11-24)</small>
 
 #### Bugfixes

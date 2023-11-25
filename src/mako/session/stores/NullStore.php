@@ -7,6 +7,8 @@
 
 namespace mako\session\stores;
 
+use SensitiveParameter;
+
 /**
  * Null store.
  */
@@ -15,7 +17,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL): void
+	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 
 	}
@@ -23,7 +25,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function read(string $sessionId): array
+	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		return [];
 	}
@@ -31,7 +33,7 @@ class NullStore implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function delete(string $sessionId): void
+	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 
 	}

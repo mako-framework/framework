@@ -7,6 +7,8 @@
 
 namespace mako\security\crypto\encrypters;
 
+use SensitiveParameter;
+
 /**
  * Encrypter interface.
  */
@@ -15,12 +17,12 @@ interface EncrypterInterface
 	/**
 	 * Encrypts string.
 	 */
-	public function encrypt(string $string): string;
+	public function encrypt(#[SensitiveParameter] string $string): string;
 
 	/**
 	 * Decrypts string.
 	 *
 	 * @return false|string
 	 */
-	public function decrypt(string $string);
+	public function decrypt(#[SensitiveParameter] string $string);
 }

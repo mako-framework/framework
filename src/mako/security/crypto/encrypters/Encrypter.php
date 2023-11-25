@@ -7,6 +7,8 @@
 
 namespace mako\security\crypto\encrypters;
 
+use SensitiveParameter;
+
 use function hash_pbkdf2;
 
 /**
@@ -31,7 +33,7 @@ abstract class Encrypter
 	/**
 	 * Generate a PBKDF2 key derivation of a supplied key.
 	 */
-	protected function deriveKey(string $key, string $salt, int $keySize): string
+	protected function deriveKey(#[SensitiveParameter] string $key, #[SensitiveParameter] string $salt, int $keySize): string
 	{
 		return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
 	}

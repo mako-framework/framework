@@ -8,6 +8,7 @@
 namespace mako\security\password;
 
 use mako\security\password\exceptions\HasherException;
+use SensitiveParameter;
 use Throwable;
 
 use function password_hash;
@@ -48,7 +49,7 @@ abstract class Hasher implements HasherInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function create(string $password): string
+	public function create(#[SensitiveParameter] string $password): string
 	{
 		try {
 			return password_hash($password, $this->getAlgorithm(), $this->options);
@@ -61,7 +62,7 @@ abstract class Hasher implements HasherInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function verify(string $password, string $hash): bool
+	public function verify(#[SensitiveParameter] string $password, #[SensitiveParameter] string $hash): bool
 	{
 		return password_verify($password, $hash);
 	}
@@ -69,7 +70,7 @@ abstract class Hasher implements HasherInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function needsRehash(string $hash): bool
+	public function needsRehash(#[SensitiveParameter] string $hash): bool
 	{
 		return password_needs_rehash($hash, $this->getAlgorithm(), $this->options);
 	}

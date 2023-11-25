@@ -7,6 +7,8 @@
 
 namespace mako\security\crypto\encrypters;
 
+use SensitiveParameter;
+
 use function base64_decode;
 use function base64_encode;
 use function mb_substr;
@@ -29,7 +31,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected string $key,
+		#[SensitiveParameter] protected string $key,
 		protected string $cipher = 'AES-256-CTR'
 	) {
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);
@@ -38,7 +40,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function encrypt(string $string): string
+	public function encrypt(#[SensitiveParameter] string $string): string
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
 
@@ -50,7 +52,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrypt(string $string)
+	public function decrypt(#[SensitiveParameter] string $string)
 	{
 		$string = base64_decode($string, true);
 

@@ -7,6 +7,8 @@
 
 namespace mako\security;
 
+use SensitiveParameter;
+
 use function hash_equals;
 use function hash_hmac;
 use function mb_substr;
@@ -27,7 +29,7 @@ class Signer
 	 * Constructor.
 	 */
 	public function __construct(
-		protected string $secret
+		#[SensitiveParameter] protected string $secret
 	) {
 	}
 

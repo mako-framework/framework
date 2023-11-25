@@ -18,6 +18,7 @@ use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\security\password\Bcrypt;
 use mako\security\password\HasherInterface;
+use SensitiveParameter;
 
 use function hash;
 use function is_int;
@@ -77,7 +78,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Password mutator.
 	 */
-	protected function passwordMutator(string $password): string
+	protected function passwordMutator(#[SensitiveParameter] string $password): string
 	{
 		return $this->getHasher()->create($password);
 	}
@@ -133,7 +134,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Sets the user password.
 	 */
-	public function setPassword(string $password): void
+	public function setPassword(#[SensitiveParameter] string $password): void
 	{
 		$this->password = $password;
 	}
@@ -245,7 +246,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Returns TRUE if the provided password is correct and FALSE if not.
 	 */
-	public function validatePassword(string $password, bool $autoSave = true): bool
+	public function validatePassword(#[SensitiveParameter] string $password, bool $autoSave = true): bool
 	{
 		$hasher = $this->getHasher();
 

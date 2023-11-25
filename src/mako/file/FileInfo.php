@@ -7,6 +7,7 @@
 
 namespace mako\file;
 
+use SensitiveParameter;
 use SplFileInfo;
 
 use function finfo_close;
@@ -68,7 +69,7 @@ class FileInfo extends SplFileInfo
 	/**
 	 * Generates a HMAC using the contents of the file.
 	 */
-	public function getHmac(string $key, string $algorithm = 'sha256', bool $raw = false): string
+	public function getHmac(#[SensitiveParameter] string $key, string $algorithm = 'sha256', bool $raw = false): string
 	{
 		return hash_hmac_file($algorithm, $this->getPathname(), $key, $raw);
 	}
@@ -76,7 +77,7 @@ class FileInfo extends SplFileInfo
 	/**
 	 * Returns TRUE if the file matches the provided HMAC and FALSE if not.
 	 */
-	public function validateHmac(string $hmac, string $key, string $algorithm = 'sha256', bool $raw = false): bool
+	public function validateHmac(string $hmac, #[SensitiveParameter] string $key, string $algorithm = 'sha256', bool $raw = false): bool
 	{
 		return hash_equals($hmac, $this->getHmac($key, $algorithm, $raw));
 	}

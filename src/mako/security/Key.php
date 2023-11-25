@@ -7,6 +7,8 @@
 
 namespace mako\security;
 
+use SensitiveParameter;
+
 use function bin2hex;
 use function hex2bin;
 use function mb_substr;
@@ -21,7 +23,7 @@ class Key
 	/**
 	 * Converts a binary key into its hexadecimal representation.
 	 */
-	public static function encode(string $key): string
+	public static function encode(#[SensitiveParameter] string $key): string
 	{
 		return 'hex:' . bin2hex($key);
 	}
@@ -29,7 +31,7 @@ class Key
 	/**
 	 * Converts a hexadecimal key into its binary representation.
 	 */
-	public static function decode(string $key): string
+	public static function decode(#[SensitiveParameter] string $key): string
 	{
 		if (strpos($key, 'hex:') === 0) {
 			return hex2bin(mb_substr($key, 4, encoding: '8bit'));
