@@ -7,6 +7,8 @@
 
 namespace mako\security\password;
 
+use SensitiveParameter;
+
 /**
  * Hahser interface.
  */
@@ -15,12 +17,12 @@ interface HasherInterface
 	/**
 	 * Creates a password hash.
 	 */
-	public function create(string $password): string;
+	public function create(#[SensitiveParameter] string $password): string;
 
 	/**
 	 * Verifies that the password matches the hash.
 	 */
-	public function verify(string $password, string $hash): bool;
+	public function verify(#[SensitiveParameter] string $password, string $hash): bool;
 
 	/**
 	 * Returns TRUE if the password needs rehashing and FALSE if not.

@@ -7,6 +7,8 @@
 
 namespace mako\session\stores;
 
+use SensitiveParameter;
+
 /**
  * Store interface.
  */
@@ -15,17 +17,17 @@ interface StoreInterface
 	/**
 	 * Writes session data.
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL): void;
+	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void;
 
 	/**
 	 * Reads and returns session data.
 	 */
-	public function read(string $sessionId): array;
+	public function read(#[SensitiveParameter] string $sessionId): array;
 
 	/**
 	 * Destroys the session data assiciated with the provided id.
 	 */
-	public function delete(string $sessionId): void;
+	public function delete(#[SensitiveParameter] string $sessionId): void;
 
 	/**
 	 * Garbage collector that deletes expired session data.

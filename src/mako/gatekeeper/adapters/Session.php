@@ -17,6 +17,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Status;
 use mako\session\Session as HttpSession;
+use SensitiveParameter;
 
 use function array_replace_recursive;
 
@@ -79,7 +80,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritDoc}
 	 */
-	public function createUser(string $email, string $username, string $password, bool $activate = false, array $properties = []): User
+	public function createUser(string $email, string $username, #[SensitiveParameter] string $password, bool $activate = false, array $properties = []): User
 	{
 		$properties = $properties + [
 			'ip' => $this->request->getIp(),
@@ -127,7 +128,7 @@ class Session extends Adapter
 	 *
 	 * @return int|true
 	 */
-	protected function authenticate(int|string $identifier, ?string $password, bool $force = false)
+	protected function authenticate(int|string $identifier, #[SensitiveParameter] ?string $password, bool $force = false)
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
@@ -182,7 +183,7 @@ class Session extends Adapter
 	 *
 	 * @return int|true
 	 */
-	public function login(null|int|string $identifier, ?string $password, bool $remember = false, bool $force = false)
+	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false)
 	{
 		if (empty($identifier)) {
 			return Gatekeeper::LOGIN_INCORRECT;

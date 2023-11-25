@@ -9,6 +9,7 @@ namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use SensitiveParameter;
 
 use function sprintf;
 
@@ -22,7 +23,7 @@ class Hmac extends Rule implements RuleInterface
 	 */
 	public function __construct(
 		protected string $hmac,
-		protected string $key,
+		#[SensitiveParameter] protected string $key,
 		protected string $algorithm = 'sha256'
 	) {
 	}

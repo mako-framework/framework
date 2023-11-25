@@ -14,6 +14,7 @@ use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\group\GroupRepositoryInterface;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\gatekeeper\repositories\user\UserRepositoryInterface;
+use SensitiveParameter;
 
 /**
  * Base adapter.
@@ -97,7 +98,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * Creates a new user and returns the user object.
 	 */
-	public function createUser(string $email, string $username, string $password, bool $activate = false, array $properties = []): User
+	public function createUser(string $email, string $username, #[SensitiveParameter] string $password, bool $activate = false, array $properties = []): User
 	{
 		$properties = [
 			'email'     => $email,

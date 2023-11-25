@@ -9,6 +9,7 @@ namespace mako\session\stores;
 
 use mako\database\connections\Connection;
 use mako\database\query\Query;
+use SensitiveParameter;
 
 use function serialize;
 use function time;
@@ -40,7 +41,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL): void
+	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		$sessionData = serialize($sessionData);
 
@@ -59,7 +60,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function read(string $sessionId): array
+	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		$sessionData = $this->table()->select(['data'])->where('id', '=', $sessionId)->column();
 
@@ -69,7 +70,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function delete(string $sessionId): void
+	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 		$this->table()->where('id', '=', $sessionId)->delete();
 	}

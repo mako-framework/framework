@@ -7,6 +7,8 @@
 
 namespace mako\session\stores;
 
+use SensitiveParameter;
+
 use function apcu_delete;
 use function apcu_fetch;
 use function apcu_store;
@@ -30,7 +32,7 @@ class APCu implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL): void
+	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		apcu_store("{$this->prefix}{$sessionId}", serialize($sessionData), $dataTTL);
 	}
@@ -38,7 +40,7 @@ class APCu implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function read(string $sessionId): array
+	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		$sessionData = apcu_fetch("{$this->prefix}{$sessionId}");
 
@@ -48,7 +50,7 @@ class APCu implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function delete(string $sessionId): void
+	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 		apcu_delete("{$this->prefix}{$sessionId}");
 	}

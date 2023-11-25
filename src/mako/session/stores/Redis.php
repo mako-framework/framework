@@ -8,6 +8,7 @@
 namespace mako\session\stores;
 
 use mako\redis\Redis as RedisClient;
+use SensitiveParameter;
 
 use function serialize;
 use function unserialize;
@@ -30,7 +31,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL): void
+	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		$this->redis->setex("{$this->prefix}{$sessionId}", $dataTTL, serialize($sessionData));
 	}
@@ -38,7 +39,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function read(string $sessionId): array
+	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		$sessionData = $this->redis->get("{$this->prefix}{$sessionId}");
 
@@ -48,7 +49,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function delete(string $sessionId): void
+	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 		$this->redis->del("{$this->prefix}{$sessionId}");
 	}

@@ -8,6 +8,7 @@
 namespace mako\session\stores;
 
 use mako\file\FileSystem;
+use SensitiveParameter;
 
 use function is_array;
 use function serialize;
@@ -32,7 +33,7 @@ class File implements StoreInterface
 	/**
 	 * Returns the path to the session file.
 	 */
-	protected function sessionFile(string $sessionId): string
+	protected function sessionFile(#[SensitiveParameter] string $sessionId): string
 	{
 		return "{$this->sessionPath}/{$sessionId}";
 	}
@@ -40,7 +41,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function write(string $sessionId, array $sessionData, int $dataTTL): void
+	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		if ($this->fileSystem->isWritable($this->sessionPath)) {
 			$this->fileSystem->put($this->sessionFile($sessionId), serialize($sessionData)) === false ? false : true;
@@ -50,7 +51,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function read(string $sessionId): array
+	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		$sessionData = [];
 
@@ -64,7 +65,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function delete(string $sessionId): void
+	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 		if ($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId))) {
 			$this->fileSystem->remove($this->sessionFile($sessionId));
