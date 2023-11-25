@@ -11,6 +11,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\session\exceptions\SessionException;
 use mako\session\stores\StoreInterface;
+use SensitiveParameter;
 
 use function array_flip;
 use function array_intersect_key;
@@ -354,7 +355,7 @@ class Session
 	/**
 	 * Validates the provided token.
 	 */
-	public function validateToken(string $token): bool
+	public function validateToken(#[SensitiveParameter] string $token): bool
 	{
 		return hash_equals($this->token, $token);
 	}
@@ -381,7 +382,7 @@ class Session
 	/**
 	 * Validates security token.
 	 */
-	public function validateOneTimeToken(string $token): bool
+	public function validateOneTimeToken(#[SensitiveParameter] string $token): bool
 	{
 		if (!empty($this->sessionData['mako.tokens'])) {
 			foreach ($this->sessionData['mako.tokens'] as $key => $value) {

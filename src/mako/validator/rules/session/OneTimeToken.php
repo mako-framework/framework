@@ -11,6 +11,7 @@ use mako\session\Session;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
+use SensitiveParameter;
 
 /**
  * One-time token rule.
@@ -30,7 +31,7 @@ class OneTimeToken extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function validate(mixed $value, string $field, array $input): bool
+	public function validate(#[SensitiveParameter] mixed $value, string $field, array $input): bool
 	{
 		return $this->session->validateOneTimeToken($value);
 	}
