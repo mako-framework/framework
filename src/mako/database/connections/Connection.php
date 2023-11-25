@@ -18,6 +18,7 @@ use mako\database\types\TypeInterface;
 use PDO;
 use PDOException;
 use PDOStatement;
+use SensitiveParameter;
 use Throwable;
 
 use function array_shift;
@@ -110,7 +111,7 @@ class Connection
 		protected string $name,
 		protected string $queryCompiler,
 		protected string $queryBuilderHelper,
-		array $config
+		#[SensitiveParameter] array $config
 	) {
 		// Configure the connection
 

@@ -8,6 +8,7 @@
 namespace mako\redis;
 
 use mako\redis\exceptions\RedisException;
+use SensitiveParameter;
 use Throwable;
 
 use function fclose;
@@ -66,7 +67,7 @@ class Connection
 	/**
 	 * Constructor.
 	 */
-	public function __construct(string $host, int $port = 6379, array $options = [])
+	public function __construct(string $host, int $port = 6379, #[SensitiveParameter] array $options = [])
 	{
 		// Configure
 
