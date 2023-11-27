@@ -25,7 +25,7 @@ class ValidatorFactory
 	 */
 	public function __construct(
 		protected ?I18n $i18n = null,
-		protected ?Container $container = null
+		protected Container $container = new Container,
 	) {
 	}
 
