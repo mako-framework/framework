@@ -1,3 +1,11 @@
+### 10.0.3 <small>(2023-11-27)</small>
+
+#### Bugfixes
+
+* The validation factory `$container` constructor parameter no longer accepts null.
+
+--------------------------------------------------------
+
 ### 10.0.2 <small>(2023-11-25)</small>
 
 #### New
