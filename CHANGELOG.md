@@ -1,3 +1,11 @@
+### 10.0.4 <small>(2023-12-03)</small>
+
+#### Bugfixes
+
+* Fixed an issue where an uninitialized response body causes problems.
+
+--------------------------------------------------------
+
 ### 10.0.3 <small>(2023-11-27)</small>
 
 #### Bugfixes
