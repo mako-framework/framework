@@ -42,7 +42,7 @@ class Response
 	/**
 	 * Response body.
 	 */
-	protected mixed $body;
+	protected mixed $body = null;
 
 	/**
 	 * Response content type.
