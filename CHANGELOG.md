@@ -1,3 +1,11 @@
+### 10.0.5 <small>(2023-12-07)</small>
+
+#### Bugfixes
+
+* Fixed an issue where an uninitialized connection name in migration would throw an exception.
+
+--------------------------------------------------------
+
 ### 10.0.4 <small>(2023-12-03)</small>
 
 #### Bugfixes

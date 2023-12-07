@@ -26,7 +26,7 @@ abstract class Migration
 	/**
 	 * Connection name.
 	 */
-	protected null|string $connectionName;
+	protected null|string $connectionName = null;
 
 	/**
 	 * Migration description.
