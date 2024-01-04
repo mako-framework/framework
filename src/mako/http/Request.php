@@ -224,7 +224,7 @@ class Request
 
 		$server = $this->server->all();
 
-		if (isset($server['PATH_INFO'])) {
+		if (!empty($server['PATH_INFO'])) {
 			$path = $server['PATH_INFO'];
 		}
 		elseif (isset($server['REQUEST_URI'])) {
