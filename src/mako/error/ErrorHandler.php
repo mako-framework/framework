@@ -67,7 +67,8 @@ class ErrorHandler
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Container $container = new Container
+		protected Container $container = new Container,
+		bool $register = true
 	) {
 		// Add a basic exception handler to the stack
 
@@ -75,7 +76,9 @@ class ErrorHandler
 
 		// Registers the exception handler
 
-		$this->register();
+		if ($register) {
+			$this->register();
+		}
 	}
 
 	/**
@@ -282,7 +285,7 @@ class ErrorHandler
 	/**
 	 * Handles uncaught exceptions.
 	 */
-	public function handler(Throwable $exception): never
+	public function handler(Throwable $exception, bool $shouldExit = true): void
 	{
 		try {
 			// Empty output buffers
@@ -329,7 +332,9 @@ class ErrorHandler
 				$this->logException($exception);
 			}
 			finally {
-				exit(1);
+				if ($shouldExit) {
+					exit(1);
+				}
 			}
 		}
 	}
