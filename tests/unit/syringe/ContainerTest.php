@@ -816,4 +816,44 @@ class ContainerTest extends TestCase
 
 		$this->assertNull($object->store);
 	}
+
+	/**
+	 *
+	 */
+	public function testGetInstanceClassNames(): void
+	{
+		$container = new Container;
+
+		$this->assertEmpty($container->getInstanceClassNames());
+
+		$container->registerSingleton([stdClass::class, 'foo'], function ($container) {
+			return new stdClass;
+		});
+
+		$this->assertEmpty($container->getInstanceClassNames());
+
+		$container->get('foo');
+
+		$this->assertSame([stdClass::class], $container->getInstanceClassNames());
+	}
+
+	/**
+	 *
+	 */
+	public function testRemoveInstance(): void
+	{
+		$container = new Container;
+
+		$container->registerSingleton([stdClass::class, 'foo'], function ($container) {
+			return new stdClass;
+		});
+
+		$container->get('foo');
+
+		$this->assertSame([stdClass::class], $container->getInstanceClassNames());
+
+		$container->removeInstance(stdClass::class);
+
+		$this->assertEmpty($container->getInstanceClassNames());
+	}
 }

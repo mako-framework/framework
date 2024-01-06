@@ -404,6 +404,22 @@ class Container
 	}
 
 	/**
+	 * Returns the class names of the instances that have been registered in the container.
+	 */
+	public function getInstanceClassNames(): array
+	{
+		return array_keys($this->instances);
+	}
+
+	/**
+	 * Removes a class instance from the container.
+	 */
+	public function removeInstance(string $class): void
+	{
+		unset($this->instances[$this->resolveAlias($class)]);
+	}
+
+	/**
 	 * Returns TRUE if a class has been registered as a singleton and FALSE if not.
 	 */
 	public function isSingleton(string $class): bool
