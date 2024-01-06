@@ -26,7 +26,7 @@ class ErrorHandlerService extends Service
 	{
 		$config = $this->config->get('application.error_handler');
 
-		$errorHandler = new ErrorHandler($this->container);
+		$errorHandler = new ErrorHandler($this->container, register: $config['register'] ?? true);
 
 		if ($config['log_errors']) {
 			$errorHandler->setLogger(fn () => $this->container->get(LoggerInterface::class));
