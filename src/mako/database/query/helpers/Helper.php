@@ -17,7 +17,7 @@ class Helper implements HelperInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null)
+	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null): false|int
 	{
 		if ($query->insert($values) === false) {
 			return false;

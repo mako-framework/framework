@@ -844,10 +844,9 @@ abstract class ORM implements JsonSerializable, Stringable
 	 * Excludes the chosen columns and relations from array and json representations of the record.
 	 * You expose all fields by passing FALSE.
 	 *
-	 * @param  array|false|string $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function protect($column): static
+	public function protect(array|false|string $column): static
 	{
 		$this->protected = $column === false ? [] : array_unique([...$this->protected, ...(array) $column]);
 
@@ -858,10 +857,9 @@ abstract class ORM implements JsonSerializable, Stringable
 	 * Exposes the chosen columns and relations in the array and json representations of the record.
 	 * You can expose all fields by passing TRUE.
 	 *
-	 * @param  array|string|true $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function expose($column): static
+	public function expose(array|string|true $column): static
 	{
 		$this->protected = $column === true ? [] : array_diff($this->protected, (array) $column);
 

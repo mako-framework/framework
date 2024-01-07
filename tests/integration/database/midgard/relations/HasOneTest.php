@@ -187,7 +187,7 @@ class HasOneTest extends ORMTestCase
 
 		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2014-04-30 14:12:43\', \'bax\', \'bax@example.org\')', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('INSERT INTO "profiles" ("interests", "user_id") VALUES (\'gaming\', \'4\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('INSERT INTO "profiles" ("interests", "user_id") VALUES (\'gaming\', 4)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**

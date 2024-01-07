@@ -52,7 +52,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrypt(#[SensitiveParameter] string $string)
+	public function decrypt(#[SensitiveParameter] string $string): false|string
 	{
 		$string = base64_decode($string, true);
 

@@ -1440,10 +1440,8 @@ class Query
 
 	/**
 	 * Inserts a single row of data into the chosen table and returns the auto increment id.
-	 *
-	 * @return false|int
 	 */
-	public function insertAndGetId(array $values = [], string $primaryKey = 'id')
+	public function insertAndGetId(array $values = [], string $primaryKey = 'id'): false|int
 	{
 		return $this->helper->insertAndGetId($this, $values, $primaryKey);
 	}

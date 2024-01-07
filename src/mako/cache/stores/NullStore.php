@@ -23,7 +23,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment(string $key, int $step = 1)
+	public function increment(string $key, int $step = 1): false|int
 	{
 		return 0 + $step;
 	}
@@ -31,7 +31,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrement(string $key, int $step = 1)
+	public function decrement(string $key, int $step = 1): false|int
 	{
 		return 0 - $step;
 	}

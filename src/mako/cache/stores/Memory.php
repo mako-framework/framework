@@ -34,7 +34,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment(string $key, int $step = 1)
+	public function increment(string $key, int $step = 1): false|int
 	{
 		if ($this->has($key)) {
 			return $this->cache[$key]['data'] = $this->cache[$key]['data'] + $step;
@@ -48,7 +48,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrement(string $key, int $step = 1)
+	public function decrement(string $key, int $step = 1): false|int
 	{
 		if ($this->has($key)) {
 			return $this->cache[$key]['data'] = $this->cache[$key]['data'] - $step;

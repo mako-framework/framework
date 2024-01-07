@@ -101,10 +101,8 @@ class FileSystem
 
 	/**
 	 * Returns the target of a link.
-	 *
-	 * @return false|string
 	 */
-	public function getLinkTarget(string $path)
+	public function getLinkTarget(string $path): false|string
 	{
 		return readlink($path);
 	}
@@ -193,50 +191,40 @@ class FileSystem
 
 	/**
 	 * Returns an array of pathnames matching the provided pattern.
-	 *
-	 * @return array|false
 	 */
-	public function glob(string $pattern, int $flags = 0)
+	public function glob(string $pattern, int $flags = 0): array|false
 	{
 		return glob($pattern, $flags);
 	}
 
 	/**
 	 * Returns the contents of the file.
-	 *
-	 * @return false|string
 	 */
-	public function get(string $path)
+	public function get(string $path): false|string
 	{
 		return file_get_contents($path);
 	}
 
 	/**
 	 * Writes the supplied data to a file.
-	 *
-	 * @return false|int
 	 */
-	public static function put(string $path, mixed $data, bool $lock = false)
+	public static function put(string $path, mixed $data, bool $lock = false): false|string
 	{
 		return file_put_contents($path, $data, $lock ? LOCK_EX : 0);
 	}
 
 	/**
 	 * Prepends the supplied data to a file.
-	 *
-	 * @return false|int
 	 */
-	public static function prepend(string $path, mixed $data, bool $lock = false)
+	public static function prepend(string $path, mixed $data, bool $lock = false): false|string
 	{
 		return file_put_contents($path, $data . file_get_contents($path), $lock ? LOCK_EX : 0);
 	}
 
 	/**
 	 * Appends the supplied data to a file.
-	 *
-	 * @return false|int
 	 */
-	public static function append(string $path, mixed $data, bool $lock = false)
+	public static function append(string $path, mixed $data, bool $lock = false): false|string
 	{
 		return file_put_contents($path, $data, $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}

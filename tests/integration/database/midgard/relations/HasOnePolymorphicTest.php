@@ -195,7 +195,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('INSERT INTO "profiles" ("user_id", "interests") VALUES (4, \'games\')', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('INSERT INTO "images" ("image", "imageable_type", "imageable_id") VALUES (\'bax.png\', \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\', \'4\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('INSERT INTO "images" ("image", "imageable_type", "imageable_id") VALUES (\'bax.png\', \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\', 4)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**

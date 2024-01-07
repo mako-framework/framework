@@ -51,10 +51,8 @@ class Signer
 
 	/**
 	 * Returns the original string if the signature is valid or FALSE if not.
-	 *
-	 * @return false|string
 	 */
-	public function validate(string $string)
+	public function validate(string $string): false|string
 	{
 		$validated = mb_substr($string, static::MAC_LENGTH, encoding: '8bit');
 

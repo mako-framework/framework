@@ -21,8 +21,6 @@ interface EncrypterInterface
 
 	/**
 	 * Decrypts string.
-	 *
-	 * @return false|string
 	 */
-	public function decrypt(#[SensitiveParameter] string $string);
+	public function decrypt(#[SensitiveParameter] string $string): false|string;
 }

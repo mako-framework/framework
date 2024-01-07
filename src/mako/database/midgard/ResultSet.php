@@ -31,10 +31,9 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Excludes the chosen columns and relations from array and json representations of the collection.
 	 *
-	 * @param  array|false|string $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function protect($column): static
+	public function protect(array|false|string $column): static
 	{
 		foreach ($this->items as $item) {
 			$item->protect($column);
@@ -46,10 +45,9 @@ class ResultSet extends BaseResultSet
 	/**
 	 * Exposes the chosen columns and relations in the array and json representations of the collection.
 	 *
-	 * @param  array|string|true $column Column or relation to hide from the
 	 * @return $this
 	 */
-	public function expose($column): static
+	public function expose(array|string|true $column): static
 	{
 		foreach ($this->items as $item) {
 			$item->expose($column);

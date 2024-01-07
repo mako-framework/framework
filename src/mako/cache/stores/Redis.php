@@ -64,7 +64,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment(string $key, int $step = 1)
+	public function increment(string $key, int $step = 1): false|int
 	{
 		return $this->redis->incrby($this->getPrefixedKey($key), $step);
 	}
@@ -72,7 +72,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrement(string $key, int $step = 1)
+	public function decrement(string $key, int $step = 1): false|int
 	{
 		return $this->redis->decrby($this->getPrefixedKey($key), $step);
 	}

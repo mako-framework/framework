@@ -16,8 +16,6 @@ interface HelperInterface
 {
 	/**
 	 * Inserts data into the chosen table and returns the auto increment id.
-	 *
-	 * @return false|int
 	 */
-	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null);
+	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null): false|int;
 }

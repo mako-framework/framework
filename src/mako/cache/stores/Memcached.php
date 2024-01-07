@@ -78,7 +78,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment(string $key, int $step = 1)
+	public function increment(string $key, int $step = 1): false|int
 	{
 		return $this->memcached->increment($this->getPrefixedKey($key), $step, $step);
 	}
@@ -86,7 +86,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrement(string $key, int $step = 1)
+	public function decrement(string $key, int $step = 1): false|int
 	{
 		return $this->memcached->decrement($this->getPrefixedKey($key), $step, $step);
 	}

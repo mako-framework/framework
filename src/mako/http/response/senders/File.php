@@ -141,10 +141,8 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Calculates the content range that should be served.
-	 *
-	 * @return array|false
 	 */
-	protected function calculateRange(string $range)
+	protected function calculateRange(string $range): array|false
 	{
 		// Remove the "range=" part of the header value
 

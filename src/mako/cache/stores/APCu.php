@@ -54,7 +54,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment(string $key, int $step = 1)
+	public function increment(string $key, int $step = 1): false|int
 	{
 		return apcu_inc($this->getPrefixedKey($key), $step);
 	}
@@ -62,7 +62,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function decrement(string $key, int $step = 1)
+	public function decrement(string $key, int $step = 1): false|int
 	{
 		return apcu_dec($this->getPrefixedKey($key), $step);
 	}

@@ -14,15 +14,11 @@ interface IncrementDecrementInterface
 {
 	/**
 	 * Increments a stored number.
-	 *
-	 * @return false|int
 	 */
-	public function increment(string $key, int $step = 1);
+	public function increment(string $key, int $step = 1): false|int;
 
 	/**
 	 * Decrements a stored number.
-	 *
-	 * @return false|int
 	 */
-	public function decrement(string $key, int $step = 1);
+	public function decrement(string $key, int $step = 1): false|int;
 }

@@ -125,10 +125,8 @@ class Session extends Adapter
 	/**
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
-	 *
-	 * @return int|true
 	 */
-	protected function authenticate(int|string $identifier, #[SensitiveParameter] ?string $password, bool $force = false)
+	protected function authenticate(int|string $identifier, #[SensitiveParameter] ?string $password, bool $force = false): int|true
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
@@ -180,10 +178,8 @@ class Session extends Adapter
 	 * Logs in a user with a valid identifier/password combination.
 	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
-	 *
-	 * @return int|true
 	 */
-	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false)
+	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false): int|true
 	{
 		if (empty($identifier)) {
 			return Gatekeeper::LOGIN_INCORRECT;
@@ -212,10 +208,8 @@ class Session extends Adapter
 	 * Login a user without checking the password.
 	 * Returns TRUE if the identifier exists and the user is activated, not locked and not banned.
 	 * A status code will be retured in all other situations.
-	 *
-	 * @return int|true
 	 */
-	public function forceLogin(int|string $identifier, bool $remember = false)
+	public function forceLogin(int|string $identifier, bool $remember = false): int|true
 	{
 		return $this->login($identifier, null, $remember, true);
 	}

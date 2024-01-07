@@ -266,10 +266,9 @@ class Query extends QueryBuilder
 	/**
 	 * Adds relations to eager load.
 	 *
-	 * @param  array|false|string $includes Relation or array of relations to eager load
 	 * @return $this
 	 */
-	public function including($includes): static
+	public function including(array|false|string $includes): static
 	{
 		if ($includes === false) {
 			$this->model->setIncludes([]);
@@ -302,10 +301,9 @@ class Query extends QueryBuilder
 	/**
 	 * Removes relations to eager load.
 	 *
-	 * @param  array|string|true $excludes Relation or array of relations to exclude from eager loading
 	 * @return $this
 	 */
-	public function excluding($excludes): static
+	public function excluding(array|string|true $excludes): static
 	{
 		if ($excludes === true) {
 			$this->model->setIncludes([]);
