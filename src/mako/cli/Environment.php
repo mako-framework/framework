@@ -9,7 +9,7 @@ namespace mako\cli;
 
 use function current;
 use function exec;
-use function getenv;
+use function mako\env;
 use function preg_match;
 
 /**
@@ -51,7 +51,7 @@ class Environment
 	{
 		// Attempt to get dimensions from environment
 
-		if (($width = getenv('COLUMNS')) !== false && ($height = getenv('LINES')) !== false) {
+		if (($width = env('COLUMNS')) !== false && ($height = env('LINES')) !== false) {
 			return ['width' => (int) $width, 'height' => (int) $height];
 		}
 
@@ -100,7 +100,7 @@ class Environment
 	public function hasAnsiSupport(): bool
 	{
 		if ($this->hasAnsiSupport === null) {
-			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (getenv('ANSICON') !== false || getenv('ConEmuANSI') === 'ON');
+			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (env('ANSICON') !== false || env('ConEmuANSI') === 'ON');
 		}
 
 		return $this->hasAnsiSupport;

@@ -1,3 +1,15 @@
+### 10.0.6 <small>(2024-01-07)</small>
+
+#### Bugfixes
+
+* Fixed request bug that would occur if `PATH_INFO` was set but empty.
+
+#### Improvements
+
+* The framework now uses `mako\env` instead of `getenv`.
+
+--------------------------------------------------------
+
 ### 10.0.5 <small>(2023-12-07)</small>
 
 #### Bugfixes

@@ -15,7 +15,7 @@ use mako\syringe\Container;
 
 use function basename;
 use function date_default_timezone_set;
-use function getenv;
+use function mako\env;
 use function mb_internal_encoding;
 use function mb_language;
 use function mb_regex_encoding;
@@ -221,7 +221,7 @@ abstract class Application
 	 */
 	public function getEnvironment(): ?string
 	{
-		return getenv('MAKO_ENV') ?: null;
+		return env('MAKO_ENV') ?: null;
 	}
 
 	/**

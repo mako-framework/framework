@@ -213,7 +213,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	public function getConnection(): Connection
 	{
 		if (empty(static::$connectionManager)) {
-			static::$connectionManager = Application::instance()->getContainer()->get('database');
+			static::$connectionManager = Application::instance()->getContainer()->get(ConnectionManager::class);
 		}
 
 		return static::$connectionManager->getConnection($this->connectionName);
