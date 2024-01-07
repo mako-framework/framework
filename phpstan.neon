@@ -3,8 +3,5 @@ includes:
 parameters:
 	level: 2
 	reportUnmatchedIgnoredErrors: false
-	ignoreErrors:
-		- '#Attribute class AllowDynamicProperties does not exist\.#'
-		- '#Attribute class SensitiveParameter does not exist\.#'
 	universalObjectCratesClasses:
 		- mako\database\query\Result
