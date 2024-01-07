@@ -283,10 +283,6 @@ class PreloaderGeneratorTest extends TestCase
 	 */
 	public function testGeneratePreloaderWithClassWithTypedIntersectionProperties(): void
 	{
-		if (PHP_VERSION_ID < 80100) {
-			$this->markTestSkipped('This feature requires PHP 8.1+');
-		}
-
 		$classPath = __DIR__;
 
 		$expectedClassLoader = <<<EOF

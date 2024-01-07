@@ -37,16 +37,6 @@ enum BarEnum: int
 class EnumTest extends TestCase
 {
 	/**
-	 *{@inheritDoc}
-	 */
-	public function setup(): void
-	{
-		if (PHP_VERSION_ID < 80100) {
-			$this->markTestSkipped('This feature requires PHP 8.1+');
-		}
-	}
-
-	/**
 	 *
 	 */
 	public function testValidatesWhenEmpty(): void
