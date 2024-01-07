@@ -2048,10 +2048,6 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testEnumParameter(): void
 	{
-		if (PHP_VERSION_ID < 80100) {
-			$this->markTestSkipped('This feature requires PHP 8.1+');
-		}
-
 		$query = $this->getBuilder();
 
 		$query->where('foo', '=', FooEnum::ONE);
@@ -2067,10 +2063,6 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBackedEnumParameter(): void
 	{
-		if (PHP_VERSION_ID < 80100) {
-			$this->markTestSkipped('This feature requires PHP 8.1+');
-		}
-
 		$query = $this->getBuilder();
 
 		$query->where('foo', '=', BarEnum::ONE);

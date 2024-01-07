@@ -643,10 +643,6 @@ class ORMTest extends ORMTestCase
 	 */
 	public function testEnumCasting(): void
 	{
-		if (PHP_VERSION_ID < 80100) {
-			$this->markTestSkipped('This feature requires PHP 8.1+');
-		}
-
 		$enum = Enum::get(1);
 
 		$this->assertIsObject($enum->value);
