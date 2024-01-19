@@ -4,6 +4,14 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 
 --------------------------------------------------------
 
+### 10.0.7 <small>(2024-01-19)</small>
+
+#### Improvements
+
+* Query builder update queries can now have joins.
+
+--------------------------------------------------------
+
 ### 10.0.6 <small>(2024-01-07)</small>
 
 #### Bugfixes
