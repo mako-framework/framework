@@ -9,7 +9,7 @@ namespace mako\database\midgard;
 
 use DateTimeInterface;
 use JsonSerializable;
-use mako\application\Application;
+use mako\application\CurrentApplication;
 use mako\chrono\Time;
 use mako\classes\ClassInspector;
 use mako\database\ConnectionManager;
@@ -213,7 +213,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	public function getConnection(): Connection
 	{
 		if (empty(static::$connectionManager)) {
-			static::$connectionManager = Application::instance()->getContainer()->get(ConnectionManager::class);
+			static::$connectionManager = CurrentApplication::get()?->getContainer()->get(ConnectionManager::class);
 		}
 
 		return static::$connectionManager->getConnection($this->connectionName);

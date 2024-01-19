@@ -2,6 +2,10 @@
 
 The major version bump is due to dropped support for PHP `8.1` and a several breaking changes. Most applications built using Mako `10` should run on Mako `11` with just a few simple adjustments.
 
+#### New
+
+* Mako applications are now better suited to run on application servers like FrankenPHP.
+
 --------------------------------------------------------
 
 ### 10.0.7 <small>(2024-01-19)</small>

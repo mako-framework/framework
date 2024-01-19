@@ -30,13 +30,6 @@ use function vsprintf;
 abstract class Application
 {
 	/**
-	 * Singleton instance of self.
-	 *
-	 * @var static|null
-	 */
-	protected static $instance;
-
-	/**
 	 * Application start time.
 	 */
 	protected float $startTime;
@@ -74,36 +67,22 @@ abstract class Application
 	/**
 	 * Constructor.
 	 */
-	final protected function __construct(
+	public function __construct(
 		protected string $applicationPath
 	) {
 		$this->startTime = microtime(true);
+
+		$this->boot();
 	}
 
 	/**
-	 * Starts the application and returns a singleton instance of the application.
+	 * Clone.
 	 */
-	public static function start(string $applicationPath): static
+	public function __clone()
 	{
-		if (!empty(static::$instance)) {
-			throw new ApplicationException('The application has already been started.');
-		}
+		$this->container = clone $this->container;
 
-		static::$instance = new static($applicationPath);
-
-		return static::$instance->boot();
-	}
-
-	/**
-	 * Returns a singleton instance of the application.
-	 */
-	public static function instance(): static
-	{
-		if (empty(static::$instance)) {
-			throw new ApplicationException('The application has not been started yet.');
-		}
-
-		return static::$instance;
+		$this->startTime = microtime(true);
 	}
 
 	/**
@@ -400,10 +379,8 @@ abstract class Application
 
 	/**
 	 * Boots the application.
-	 *
-	 * @return $this
 	 */
-	public function boot(): static
+	protected function boot(): void
 	{
 		// Set up the framework core
 
@@ -424,10 +401,6 @@ abstract class Application
 		// Boot packages
 
 		$this->bootPackages();
-
-		// Return application instnace
-
-		return $this;
 	}
 
 	/**
