@@ -797,6 +797,7 @@ class Compiler
 		$sql = $this->query->getPrefix()
 		. 'UPDATE '
 		. $this->escapeTableName($this->query->getTable())
+		. $this->joins($this->query->getJoins())
 		. ' SET '
 		. $this->updateColumns($values)
 		. $this->wheres($this->query->getWheres());

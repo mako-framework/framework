@@ -1,3 +1,11 @@
+### 10.0.7 <small>(2024-01-19)</small>
+
+#### Improvements
+
+* Query builder update queries can now have joins.
+
+--------------------------------------------------------
+
 ### 10.0.6 <small>(2024-01-07)</small>
 
 #### Bugfixes
