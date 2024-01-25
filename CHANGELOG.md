@@ -1,3 +1,14 @@
+### 10.0.8 <small>(2024-01-25)</small>
+
+#### Bugfixes
+
+* The `app:routes` command no longer fails when there is registered middleware.
+* The `Environment::getWidth()` method now works as expected.
+* The `Environment::hasAnsiSupport()` method now works as expected.
+
+--------------------------------------------------------
+
+
 ### 10.0.7 <small>(2024-01-19)</small>
 
 #### Improvements

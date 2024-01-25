@@ -51,7 +51,7 @@ class Environment
 	{
 		// Attempt to get dimensions from environment
 
-		if (($width = env('COLUMNS')) !== false && ($height = env('LINES')) !== false) {
+		if (($width = env('COLUMNS')) !== null && ($height = env('LINES')) !== null) {
 			return ['width' => (int) $width, 'height' => (int) $height];
 		}
 
@@ -100,7 +100,7 @@ class Environment
 	public function hasAnsiSupport(): bool
 	{
 		if ($this->hasAnsiSupport === null) {
-			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (env('ANSICON') !== false || env('ConEmuANSI') === 'ON');
+			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (env('ANSICON') !== null || env('ConEmuANSI') === 'ON');
 		}
 
 		return $this->hasAnsiSupport;

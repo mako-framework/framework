@@ -13,6 +13,7 @@ use mako\cli\output\helpers\Alert;
 use mako\http\routing\Route;
 use mako\http\routing\Routes;
 use mako\reactor\Command;
+use mako\utility\Arr;
 
 use function array_keys;
 use function array_map;
@@ -102,7 +103,7 @@ class ListRoutes extends Command
 			$matched++;
 
 			$methods     = implode(', ', $route->getMethods());
-			$middleware  = implode(', ', $route->getMiddleware());
+			$middleware  = implode(', ', Arr::pluck($route->getMiddleware(), 'middleware'));
 			$constraints = implode(', ', $route->getConstraints());
 			$name        = $route->getName();
 
