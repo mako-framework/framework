@@ -5,6 +5,7 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 #### New
 
 * Mako applications are now better suited to run on application servers like FrankenPHP.
+* The development error view now displays the Mako environment name.
 
 --------------------------------------------------------
 

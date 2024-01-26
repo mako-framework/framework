@@ -301,12 +301,16 @@
 			<div id="environment" class="body details" data-open="false">
 				<table>
 					<tr>
-						<td>os</td>
+						<td>OS</td>
 						<td>{{php_uname()}}</td>
 					</tr>
 					<tr>
-						<td>server time</td>
+						<td>Server time</td>
 						<td>{{(new \DateTime)->format('Y-m-d H:i:s T')}}</td>
+					</tr>
+					<tr>
+						<td>Mako environment</td>
+						<td>{{\mako\env('MAKO_ENV', 'default')}}</td>
 					</tr>
 				</table>
 				{% foreach($superglobals as $name => $values) %}
