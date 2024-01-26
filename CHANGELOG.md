@@ -7,6 +7,12 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 * Mako applications are now better suited to run on application servers like FrankenPHP.
 * The development error view now displays the Mako environment name.
 
+#### Improvements
+
+* Various improvements and optimizations.
+
+> Check out the upgrade guide for details on how to upgrade from `10.0.*.`
+
 --------------------------------------------------------
 
 ### 10.0.8 <small>(2024-01-25)</small>
