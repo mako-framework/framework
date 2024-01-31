@@ -23,7 +23,7 @@ jobs:
           tools: composer:v2
           coverage: none
       - name: "Install dependencies"
-        uses: nick-invision/retry@v2.9.0
+        uses: nick-invision/retry@v3.0.0
         with:
           timeout_minutes: 5
           max_attempts: 5
