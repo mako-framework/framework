@@ -19,6 +19,7 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 
+use function array_keys;
 use function array_replace;
 use function array_values;
 use function is_array;

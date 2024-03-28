@@ -9,6 +9,8 @@ namespace mako\application;
 
 use RuntimeException;
 
+use function vsprintf;
+
 /**
  * Holds the current application instance.
  */
