@@ -61,7 +61,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = \'1\' AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = 1 AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -93,7 +93,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = \'1\' AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = 1 AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -115,11 +115,11 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = \'1\' AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = 1 AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = \'2\' AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = 2 AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[2]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = \'3\' AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[3]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_id" = 3 AND "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -141,7 +141,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' AND "images"."imageable_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' AND "images"."imageable_id" IN (1, 2, 3)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -161,7 +161,7 @@ class HasOnePolymorphicTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' AND "image" = \'does not exist\' AND "images"."imageable_id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "images" WHERE "images"."imageable_type" = \'\mako\tests\integration\database\midgard\relations\HasOnePolymorphicProfile\' AND "image" = \'does not exist\' AND "images"."imageable_id" IN (1, 2, 3)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**

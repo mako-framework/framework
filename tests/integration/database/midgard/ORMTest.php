@@ -154,7 +154,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertSame('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $queries[0]['query']);
 
-		$this->assertSame('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (\'1\')', $queries[1]['query']);
+		$this->assertSame('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (1)', $queries[1]['query']);
 	}
 
 	/**
@@ -170,7 +170,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertSame('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $queries[0]['query']);
 
-		$this->assertSame('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (\'1\')', $queries[1]['query']);
+		$this->assertSame('SELECT * FROM "profiles" WHERE "profiles"."user_id" IN (1)', $queries[1]['query']);
 
 		$this->assertTrue(empty($user->getRelated()['profile']));
 
@@ -514,7 +514,7 @@ class ORMTest extends ORMTestCase
 	{
 		$user = TestUser::get(1)->toJson();
 
-		$this->assertEquals('{"id":"1","created_at":"2014-04-30 14:40:01","username":"foo","email":"foo@example.org"}', $user);
+		$this->assertEquals('{"id":1,"created_at":"2014-04-30 14:40:01","username":"foo","email":"foo@example.org"}', $user);
 	}
 
 	/**
@@ -548,7 +548,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 1', $connection->getLog()[0]['query']);
 
-		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 1 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 1 WHERE "id" = 1', $connection->getLog()[2]['query']);
 	}
 
 	/**
@@ -572,7 +572,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1', $connection->getLog()[0]['query']);
 
-		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 1 WHERE "id" = 1', $connection->getLog()[2]['query']);
 	}
 
 	/**
@@ -596,7 +596,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 10', $connection->getLog()[0]['query']);
 
-		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 10 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" + 10 WHERE "id" = 1', $connection->getLog()[2]['query']);
 	}
 
 	/**
@@ -620,7 +620,7 @@ class ORMTest extends ORMTestCase
 
 		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 10', $connection->getLog()[0]['query']);
 
-		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 10 WHERE "id" = \'1\'', $connection->getLog()[2]['query']);
+		$this->assertEquals('UPDATE "counters" SET "counter" = "counter" - 10 WHERE "id" = 1', $connection->getLog()[2]['query']);
 	}
 
 	/**

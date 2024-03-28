@@ -60,7 +60,7 @@ class LazyEagerLoadTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "articles"."user_id" IN (\'1\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "articles"."user_id" IN (1)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -80,6 +80,6 @@ class LazyEagerLoadTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "users" WHERE "id" = 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "articles" WHERE "articles"."user_id" IN (\'1\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "articles" WHERE "articles"."user_id" IN (1)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 }

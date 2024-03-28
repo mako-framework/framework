@@ -60,7 +60,7 @@ class BelongsToTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = \'1\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -90,7 +90,7 @@ class BelongsToTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" WHERE "id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = \'1\'', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -110,11 +110,11 @@ class BelongsToTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = \'1\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = 1 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = \'2\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[2]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = 2 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[2]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = \'3\' LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[3]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" = 3 LIMIT 1', $this->connectionManager->getConnection('sqlite')->getLog()[3]['query']);
 	}
 
 	/**
@@ -134,7 +134,7 @@ class BelongsToTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "users"."id" IN (1, 2, 3)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**
@@ -154,7 +154,7 @@ class BelongsToTest extends ORMTestCase
 
 		$this->assertEquals('SELECT * FROM "profiles" ORDER BY "id" ASC', $this->connectionManager->getConnection('sqlite')->getLog()[0]['query']);
 
-		$this->assertEquals('SELECT * FROM "users" WHERE "username" = \'does not exist\' AND "users"."id" IN (\'1\', \'2\', \'3\')', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
+		$this->assertEquals('SELECT * FROM "users" WHERE "username" = \'does not exist\' AND "users"."id" IN (1, 2, 3)', $this->connectionManager->getConnection('sqlite')->getLog()[1]['query']);
 	}
 
 	/**

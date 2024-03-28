@@ -9,7 +9,6 @@ namespace mako\tests\integration;
 
 use mako\database\ConnectionManager;
 use mako\tests\TestCase;
-use PDO;
 
 /**
  * Builder test case.
@@ -37,10 +36,6 @@ abstract class BuilderTestCase extends TestCase
 				'queries'     =>
 				[
 					"PRAGMA encoding = 'UTF-8'",
-				],
-				'options' =>
-				[
-					PDO::ATTR_STRINGIFY_FETCHES => true, // SQLite supports native types since PHP 8.1 and this ensures backwards compatibility
 				],
 			],
 		];
