@@ -243,3 +243,14 @@ CREATE TABLE "enums" (
 INSERT INTO "enums" ("id", "value") VALUES (1, 1);
 INSERT INTO "enums" ("id", "value") VALUES (2, 2);
 
+------------------------------------------------------------
+-- BLOBS
+------------------------------------------------------------
+
+DROP TABLE IF EXISTS "blobs";
+CREATE TABLE "blobs" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "blob" blob DEFAULT NULL
+);
+
+INSERT INTO "blobs" ("id", "blob") VALUES (1, '7928545c-4a95-49c5-a8fd-9335da3e9071');

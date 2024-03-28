@@ -553,6 +553,23 @@ class Connection
 	}
 
 	/**
+	 * Returns a resource that allows you to treat a column value as a byte stream.
+	 *
+	 * @return resource|null
+	 */
+	public function blob(string $query, array $params = [], int|string $column = 1)
+	{
+		$statement = $this->prepareAndExecute($query, $params);
+
+		$statement->bindColumn($column, $blob, PDO::PARAM_LOB);
+
+		$statement->fetch(PDO::FETCH_BOUND);
+
+		/** @var resource $blob */
+		return $blob;
+	}
+
+	/**
 	 * Returns a query builder instance.
 	 */
 	public function getQuery(): Query

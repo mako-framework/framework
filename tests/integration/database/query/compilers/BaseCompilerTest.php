@@ -15,6 +15,7 @@ use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
 use mako\tests\integration\BuilderTestCase;
 use Mockery;
+use PDO;
 
 /**
  * @group integration
@@ -373,5 +374,27 @@ class BaseCompilerTest extends BuilderTestCase
 		$this->assertSame(1, count($this->connectionManager->getConnection()->getLog()));
 
 		$this->assertEquals('SELECT (SELECT COUNT(*) FROM "users") AS "count" FROM "users" LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBlob(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$blob = $query->table('blobs')->blob('blob');
+
+		$this->assertIsResource($blob);
+
+		$s = '';
+
+		while (!feof($blob)) {
+			$s .= fread($blob, 1);
+		}
+
+		$this->assertSame(36, strlen($s));
+
+		$this->assertEquals('SELECT "blob" FROM "blobs" LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 }

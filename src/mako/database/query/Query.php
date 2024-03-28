@@ -1296,6 +1296,20 @@ class Query
 	}
 
 	/**
+	 * Executes a SELECT query and returns a resource that allows you to treat a column value as a byte stream.
+	 *
+	 * @return resource|null
+	 */
+	public function blob(string $column, int $chunkSize = 8192)
+	{
+		$this->select([$column])->limit(1);
+
+		$query = $this->compiler->select();
+
+		return $this->connection->blob($query['sql'], $query['params'], $column, $chunkSize);
+	}
+
+	/**
 	 * Returns the number of records that the query will return.
 	 */
 	protected function paginationCount(): int
