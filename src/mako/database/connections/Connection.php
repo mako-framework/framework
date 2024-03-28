@@ -565,7 +565,7 @@ class Connection
 
 		$statement->fetch(PDO::FETCH_BOUND);
 
-		/** @var resource $blob */
+		/** @var resource|null $blob */
 		return $blob;
 	}
 
