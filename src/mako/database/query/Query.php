@@ -1300,13 +1300,13 @@ class Query
 	 *
 	 * @return resource|null
 	 */
-	public function blob(string $column, int $chunkSize = 8192)
+	public function blob(string $column)
 	{
 		$this->select([$column])->limit(1);
 
 		$query = $this->compiler->select();
 
-		return $this->connection->blob($query['sql'], $query['params'], $column, $chunkSize);
+		return $this->connection->blob($query['sql'], $query['params'], $column);
 	}
 
 	/**
