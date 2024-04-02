@@ -9,11 +9,11 @@ namespace mako\database\midgard\relations;
 
 use Closure;
 use mako\database\connections\Connection;
+use mako\database\exceptions\DatabaseException;
 use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\database\query\Query;
 use mako\database\query\Raw;
-use RuntimeException;
 
 use function array_combine;
 use function array_diff;
@@ -354,7 +354,7 @@ class ManyToMany extends Relation
 	public function synchronize(array $ids, array $attributes = []): bool
 	{
 		if (!empty($attributes) && array_is_list($attributes)) {
-			throw new RuntimeException('Synchronize can only be used with a single set of attributes.');
+			throw new DatabaseException('Synchronize can only be used with a single set of attributes.');
 		}
 
 		$success = true;
