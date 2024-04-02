@@ -13,6 +13,7 @@ use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\database\query\Query;
 use mako\database\query\Raw;
+use RuntimeException;
 
 use function array_combine;
 use function array_diff;
@@ -352,16 +353,25 @@ class ManyToMany extends Relation
 	 */
 	public function synchronize(array $ids, array $attributes = []): bool
 	{
+		if (!empty($attributes) && array_is_list($attributes)) {
+			throw new RuntimeException('Synchronize can only be used with a single set of attributes.');
+		}
+
 		$success = true;
 
 		$keys = $this->getJunctionKeys($ids);
 
 		// Fetch existing links
 
-		$existing = $this->junction()
+		$query = $this->junction()
 		->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue())
-		->select([$this->getJunctionKey()])
-		->all()
+		->select([$this->getJunctionKey()]);
+
+		foreach ($attributes as $column => $value) {
+			$query->where($column, '=', $value);
+		}
+
+		$existing = $query->all()
 		->pluck($this->getJunctionKey());
 
 		// Link new relations
