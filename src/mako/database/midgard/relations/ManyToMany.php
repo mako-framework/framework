@@ -14,7 +14,11 @@ use mako\database\midgard\ResultSet;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 
+use function array_combine;
 use function array_diff;
+use function array_fill;
+use function array_is_list;
+use function array_keys;
 use function array_shift;
 use function count;
 use function end;
@@ -238,8 +242,12 @@ class ManyToMany extends Relation
 	 */
 	protected function getJunctionAttributes(mixed $key, array $attributes): array
 	{
-		if (isset($attributes[$key])) {
-			return $attributes[$key];
+		if (array_is_list($attributes)) {
+			if (isset($attributes[$key])) {
+				return $attributes[$key];
+			}
+
+			return [];
 		}
 
 		return $attributes;
@@ -261,7 +269,8 @@ class ManyToMany extends Relation
 		foreach ($this->getJunctionKeys($id) as $key => $id) {
 			$columns = [$foreignKey  => $foreignKeyValue, $junctionKey => $id];
 
-			$success = $success && $this->junction()->insert($columns + $this->getJunctionAttributes($key, $attributes));
+			$success = $success && $this->junction()
+			->insert($columns + $this->getJunctionAttributes($key, $attributes));
 		}
 
 		return $success;
@@ -281,7 +290,10 @@ class ManyToMany extends Relation
 		$junctionKey = $this->getJunctionKey();
 
 		foreach ($this->getJunctionKeys($id) as $key => $id) {
-			$success = $success && (bool) $this->junction(true)->where($foreignKey, '=', $foreignKeyValue)->where($junctionKey, '=', $id)->update($this->getJunctionAttributes($key, $attributes));
+			$success = $success && (bool) $this->junction(true)
+			->where($foreignKey, '=', $foreignKeyValue)
+			->where($junctionKey, '=', $id)
+			->update($this->getJunctionAttributes($key, $attributes));
 		}
 
 		return $success;
@@ -290,21 +302,55 @@ class ManyToMany extends Relation
 	/**
 	 * Unlinks related records.
 	 */
-	public function unlink(mixed $id = null): bool
+	public function unlink(mixed $id = null, array $attributes = []): bool
 	{
 		$query = $this->junction(true)->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue());
 
-		if ($id !== null) {
-			$query->in($this->getJunctionKey(), $this->getJunctionKeys($id));
+		// If we have no attributes or the attributes are not a list
+		// then we can unlink all the related records in one go
+
+		if (empty($attributes) || !array_is_list($attributes)) {
+			if ($id !== null) {
+				$query->in($this->getJunctionKey(), $this->getJunctionKeys($id));
+			}
+
+			if (!empty($attributes)) {
+				foreach ($attributes as $column => $value) {
+					$query->where($column, '=', $value);
+				}
+			}
+
+			return (bool) $query->delete();
 		}
 
-		return (bool) $query->delete();
+		// We has a list of attributes so we need to unlink the records one by one
+
+		$success = true;
+
+		$iterable = $id === null ?
+		array_combine(array_keys($attributes), array_fill(0, count($attributes), null)) : $this->getJunctionKeys($id);
+
+		foreach ($iterable as $key => $id) {
+			$queryClone = clone $query;
+
+			if ($id !== null) {
+				$queryClone->where($this->getJunctionKey(), '=', $id);
+			}
+
+			foreach ($this->getJunctionAttributes($key, $attributes) as $column => $value) {
+				$queryClone->where($column, '=', $value);
+			}
+
+			$success = $success && (bool) $queryClone->delete();
+		}
+
+		return $success;
 	}
 
 	/**
 	 * Synchronize related records.
 	 */
-	public function synchronize(array $ids): bool
+	public function synchronize(array $ids, array $attributes = []): bool
 	{
 		$success = true;
 
@@ -312,18 +358,22 @@ class ManyToMany extends Relation
 
 		// Fetch existing links
 
-		$existing = $this->junction()->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue())->select([$this->getJunctionKey()])->all()->pluck($this->getJunctionKey());
+		$existing = $this->junction()
+		->where($this->getForeignKey(), '=', $this->origin->getPrimaryKeyValue())
+		->select([$this->getJunctionKey()])
+		->all()
+		->pluck($this->getJunctionKey());
 
 		// Link new relations
 
 		if (!empty($diff = array_diff($keys, $existing))) {
-			$success = $this->link($diff);
+			$success = $this->link($diff, $attributes);
 		}
 
 		// Unlink old relations
 
 		if (!empty($diff = array_diff($existing, $keys))) {
-			$success = $success && $this->unlink($diff);
+			$success = $success && $this->unlink($diff, $attributes);
 		}
 
 		// Return status

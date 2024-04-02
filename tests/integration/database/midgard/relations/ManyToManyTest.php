@@ -442,6 +442,8 @@ class ManyToManyTest extends ORMTestCase
 		$group1 = ManyToManyGroup::get(1);
 		$group2 = ManyToManyGroup::get(4);
 
+		//
+
 		$this->assertEquals(1, count($user->groups()->all()));
 
 		$user->groups()->link([$group1->id, $group2->id], ['extra' => 'barfoo']);
@@ -456,6 +458,29 @@ class ManyToManyTest extends ORMTestCase
 		$user->groups()->unlink([$group1->id, $group2->id]);
 
 		$this->assertEquals(1, count($user->groups()->all()));
+
+		//
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$user->groups()->link([$group1->id, $group2->id], ['extra' => 'barfoo']);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(3, count($groups));
+
+		$this->assertSame('barfoo', $groups[1]->extra);
+		$this->assertSame('barfoo', $groups[2]->extra);
+
+		$user->groups()->unlink([$group1->id, $group2->id], ['extra' => 'foobar']);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(3, count($groups));
+
+		$user->groups()->unlink([$group1->id, $group2->id], ['extra' => 'barfoo']);
+
+		$this->assertEquals(1, count($user->groups()->all()));
 	}
 
 	/**
@@ -467,6 +492,8 @@ class ManyToManyTest extends ORMTestCase
 
 		$group1 = ManyToManyGroup::get(1);
 		$group2 = ManyToManyGroup::get(4);
+
+		//
 
 		$this->assertEquals(1, count($user->groups()->all()));
 
@@ -480,6 +507,27 @@ class ManyToManyTest extends ORMTestCase
 		$this->assertSame('bazbax', $groups[2]->extra);
 
 		$user->groups()->unlink([$group1->id, $group2->id]);
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		//
+
+		$this->assertEquals(1, count($user->groups()->all()));
+
+		$user->groups()->link([$group1->id, $group2->id], [['extra' => 'barfoo'], ['extra' => 'bazbax']]);
+
+		$groups = $user->groups()->alongWith(['extra'])->all();
+
+		$this->assertEquals(3, count($groups));
+
+		$this->assertSame('barfoo', $groups[1]->extra);
+		$this->assertSame('bazbax', $groups[2]->extra);
+
+		$user->groups()->unlink([$group1->id, $group2->id], [['extra' => 'foobar'], ['extra' => 'baxbaz']]);
+
+		$this->assertEquals(3, count($user->groups()->all()));
+
+		$user->groups()->unlink([$group1->id, $group2->id], [['extra' => 'barfoo'], ['extra' => 'bazbax']]);
 
 		$this->assertEquals(1, count($user->groups()->all()));
 	}
