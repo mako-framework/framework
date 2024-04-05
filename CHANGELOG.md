@@ -6,8 +6,8 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 
 * Mako applications are now better suited to run on application servers like FrankenPHP.
 * The development error view now displays the Mako environment name.
-* Added `Connection::blob()` method that allows you to easily fetch a blob column as stream.
-* Added `Query::blob()` method that allows you to easily fetch a blob column as stream.
+* Added `Connection::blob()` method that allows you to easily fetch a blob column as a stream.
+* Added `Query::blob()` method that allows you to easily fetch a blob column as a stream.
 * The `ManyToMany::unlink()` and `ManyToMany::synchronize()` methods now support junction attributes.
 
 #### Improvements
