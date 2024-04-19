@@ -10,7 +10,7 @@ namespace mako\tests\integration;
 /**
  * ORM test case.
  */
-abstract class ORMTestCase extends BuilderTestCase
+abstract class ORMTestCase extends InMemoryDbTestCase
 {
 	/**
 	 *{@inheritDoc}

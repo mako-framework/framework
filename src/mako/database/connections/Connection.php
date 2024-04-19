@@ -20,6 +20,7 @@ use PDOException;
 use PDOStatement;
 use SensitiveParameter;
 use Throwable;
+use UnitEnum;
 
 use function array_shift;
 use function array_splice;
@@ -383,10 +384,18 @@ class Connection
 		elseif (is_null($value)) {
 			$type = PDO::PARAM_NULL;
 		}
-		elseif (is_object($value) && $value instanceof TypeInterface) {
-			$value = $value->getValue();
-
-			$type = $value->getType();
+		elseif (is_object($value)) {
+			if ($value instanceof TypeInterface) {
+				$value = $value->getValue();
+				$type = $value->getType();
+			}
+			elseif ($value instanceof UnitEnum) {
+				$value = $value->value ?? $value->name;
+				$type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+			}
+			else {
+				throw new DatabaseException(vsprintf('Unable to bind object of type [ %s ] to the prepared statement.', [$value::class]));
+			}
 		}
 		else {
 			$type = PDO::PARAM_STR;

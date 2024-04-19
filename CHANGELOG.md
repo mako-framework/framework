@@ -9,6 +9,7 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 * Added `Connection::blob()` method that allows you to easily fetch a blob column as a stream.
 * Added `Query::blob()` method that allows you to easily fetch a blob column as a stream.
 * The `ManyToMany::unlink()` and `ManyToMany::synchronize()` methods now support junction attributes.
+* Enums are now also supported when writing "raw" SQL.
 
 #### Improvements
 

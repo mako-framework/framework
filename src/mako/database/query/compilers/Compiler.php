@@ -16,7 +16,6 @@ use mako\database\query\Subquery;
 
 use function array_keys;
 use function array_shift;
-use function enum_exists;
 use function explode;
 use function implode;
 use function is_array;
@@ -355,11 +354,6 @@ class Compiler
 			}
 			elseif ($param instanceof DateTimeInterface) {
 				$this->params[] = $param->format(static::$dateFormat);
-
-				return '?';
-			}
-			elseif (enum_exists($param::class)) {
-				$this->params[] = $param->value ?? $param->name;
 
 				return '?';
 			}

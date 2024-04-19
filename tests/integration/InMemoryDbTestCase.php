@@ -11,9 +11,9 @@ use mako\database\ConnectionManager;
 use mako\tests\TestCase;
 
 /**
- * Builder test case.
+ * In memory DB test case.
  */
-abstract class BuilderTestCase extends TestCase
+abstract class InMemoryDbTestCase extends TestCase
 {
 	/**
 	 *

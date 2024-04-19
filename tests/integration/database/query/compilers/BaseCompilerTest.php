@@ -13,9 +13,31 @@ use mako\database\query\Query;
 use mako\database\query\Subquery;
 use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
-use mako\tests\integration\BuilderTestCase;
+use mako\tests\integration\InMemoryDbTestCase;
 use Mockery;
-use PDO;
+
+// --------------------------------------------------------------------------
+// START CLASSES
+// --------------------------------------------------------------------------
+
+enum BackedUserEmailEnum: string
+{
+	case FOO = 'foo@example.org';
+}
+
+enum BackedUserIdEnum: int
+{
+	case FOO = 1;
+}
+
+enum UsernameEnum
+{
+	case foo;
+}
+
+// --------------------------------------------------------------------------
+// END CLASSES
+// --------------------------------------------------------------------------
 
 /**
  * @group integration
@@ -23,7 +45,7 @@ use PDO;
  * @requires extension PDO
  * @requires extension pdo_sqlite
  */
-class BaseCompilerTest extends BuilderTestCase
+class BaseCompilerTest extends InMemoryDbTestCase
 {
 	public function setUp(): void
 	{
@@ -396,5 +418,41 @@ class BaseCompilerTest extends BuilderTestCase
 		$this->assertSame(36, strlen($s));
 
 		$this->assertEquals('SELECT "blob" FROM "blobs" LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBackedStringEnum(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$user = $query->table('users')->where('email', '=', BackedUserEmailEnum::FOO)->first();
+
+		$this->assertSame(BackedUserEmailEnum::FOO->value, $user->email);
+	}
+
+	/**
+	 *
+	 */
+	public function testBackedIntEnum(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$user = $query->table('users')->where('id', '=', BackedUserIdEnum::FOO)->first();
+
+		$this->assertSame(BackedUserIdEnum::FOO->value, $user->id);
+	}
+
+	/**
+	 *
+	 */
+	public function testEnum(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$user = $query->table('users')->where('username', '=', UsernameEnum::foo)->first();
+
+		$this->assertSame(UsernameEnum::foo->name, $user->username);
 	}
 }

@@ -19,26 +19,6 @@ use mako\database\query\Subquery;
 use mako\tests\TestCase;
 use Mockery;
 
-// --------------------------------------------------------------------------
-// START CLASSES
-// --------------------------------------------------------------------------
-
-enum FooEnum
-{
-	case ONE;
-	case TWO;
-}
-
-enum BarEnum: int
-{
-	case ONE = 1;
-	case TWO = 2;
-}
-
-// --------------------------------------------------------------------------
-// END CLASSES
-// --------------------------------------------------------------------------
-
 /**
  * @group unit
  */
@@ -2058,35 +2038,5 @@ class BaseCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
 		$this->assertEquals(['2021-11-02 13:37:00'], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testEnumParameter(): void
-	{
-		$query = $this->getBuilder();
-
-		$query->where('foo', '=', FooEnum::ONE);
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
-		$this->assertEquals(['ONE'], $query['params']);
-	}
-
-	/**
-	 *
-	 */
-	public function testBackedEnumParameter(): void
-	{
-		$query = $this->getBuilder();
-
-		$query->where('foo', '=', BarEnum::ONE);
-
-		$query = $query->getCompiler()->select();
-
-		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
-		$this->assertEquals([1], $query['params']);
 	}
 }
