@@ -18,16 +18,22 @@ use mako\http\routing\Route;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use Stringable;
 
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class InjectMe
+class InjectMe implements Stringable
 {
 	public function helloWorld()
 	{
 		return 'Hello, world!';
+	}
+
+	public function __toString()
+	{
+		return $this->helloWorld();
 	}
 }
 

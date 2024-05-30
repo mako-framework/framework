@@ -13,6 +13,7 @@ use mako\http\response\Headers;
 use mako\http\response\senders\ResponseSenderInterface;
 use mako\http\response\Status;
 use mako\security\Signer;
+use Stringable;
 
 use function hash;
 use function header;
@@ -98,7 +99,7 @@ class Response
 	/**
 	 * Sets the response body.
 	 */
-	public function setBody(mixed $body): Response
+	public function setBody(ResponseBuilderInterface|ResponseSenderInterface|string|Stringable $body): Response
 	{
 		$this->body = $body;
 
