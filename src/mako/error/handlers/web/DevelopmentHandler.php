@@ -52,7 +52,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	protected const SOURCE_PADDING = 6;
 
 	/**
-	 * Constructor.                        $keep     Cookies and headers to keep.
+	 * Constructor.
 	 */
 	public function __construct(
 		protected Request $request,

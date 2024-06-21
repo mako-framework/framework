@@ -23,7 +23,7 @@ class Loader implements LoaderInterface
 	use NamespacedFileLoaderTrait;
 
 	/**
-	 * Constructor.             $path       Default path.
+	 * Constructor.
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
