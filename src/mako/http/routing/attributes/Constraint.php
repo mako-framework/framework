@@ -48,6 +48,8 @@ class Constraint
 
 	/**
 	 * Returns the constraint and parameters.
+	 *
+	 * @return array{constraint: string, parameters: array}
 	 */
 	public function getConstraintAndParameters(): array
 	{

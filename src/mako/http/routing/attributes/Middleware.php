@@ -48,6 +48,8 @@ class Middleware
 
 	/**
 	 * Returns the middleware and parameters.
+	 *
+	 * @return array{middleware: string, parameters: array}
 	 */
 	public function getMiddlewareAndParameters(): array
 	{

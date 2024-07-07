@@ -69,8 +69,10 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 
 	/**
 	 * Returns data which can be serialized by json_encode().
+	 *
+	 * @return array|array{data: array, pagination: array}
 	 */
-	public function jsonSerialize(): mixed
+	public function jsonSerialize(): array
 	{
 		if ($this->pagination === null) {
 			return $this->toArray();

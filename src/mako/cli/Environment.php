@@ -46,6 +46,8 @@ class Environment
 
 	/**
 	 * Attempts to get dimensions for Unix-like platforms.
+	 *
+	 * @return array{width: int, height: int}|null
 	 */
 	protected function getDimensionsForUnixLike(): ?array
 	{
@@ -70,6 +72,8 @@ class Environment
 
 	/**
 	 * Returns the console dimensions (width & height).
+	 *
+	 * @return array{width: int, height: int}
 	 */
 	public function getDimensions(): array
 	{

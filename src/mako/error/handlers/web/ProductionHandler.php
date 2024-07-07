@@ -145,6 +145,8 @@ class ProductionHandler extends Handler implements HandlerInterface
 
 	/**
 	 * Returns a response.
+	 *
+	 * @return array{type: string, body: string}
 	 */
 	protected function buildResponse(Throwable $exception): array
 	{

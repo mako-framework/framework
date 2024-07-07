@@ -41,6 +41,8 @@ interface ProcessorInterface
 
 	/**
 	 * Returns an array containing the image dimensions in pixels.
+	 *
+	 * @return array{width: int, height: int}
 	 */
 	public function getDimensions(): array;
 

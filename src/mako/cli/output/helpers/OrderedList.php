@@ -41,6 +41,8 @@ class OrderedList
 
 	/**
 	 * Calculates the maximum width of a marker in a list.
+	 *
+	 * @return array{number: int, marker: int}
 	 */
 	protected function calculateWidth(array $items, string $marker): array
 	{

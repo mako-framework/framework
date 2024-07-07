@@ -684,6 +684,8 @@ class Compiler
 
 	/**
 	 * Compiles a SELECT query.
+	 *
+	 * @return array{sql: string, params: array}
 	 */
 	public function select(): array
 	{
@@ -728,6 +730,8 @@ class Compiler
 
 	/**
 	 * Compiles a INSERT query.
+	 *
+	 * @return array{sql: string, params: array}
 	 */
 	public function insert(array $values = []): array
 	{
@@ -739,6 +743,8 @@ class Compiler
 
 	/**
 	 * Compiles a INSERT query with multiple row inserts.
+	 *
+	 * @return array{sql: string, params: array}
 	 */
 	public function insertMultiple(array ...$values): array
 	{
@@ -785,6 +791,8 @@ class Compiler
 
 	/**
 	 * Compiles a UPDATE query.
+	 *
+	 * @return array{sql: string, params: array}
 	 */
 	public function update(array $values): array
 	{
@@ -801,6 +809,8 @@ class Compiler
 
 	/**
 	 * Compiles a DELETE query.
+	 *
+	 * @return array{sql: string, params: array}
 	 */
 	public function delete(): array
 	{

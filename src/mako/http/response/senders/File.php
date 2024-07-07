@@ -141,6 +141,8 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Calculates the content range that should be served.
+	 *
+	 * @return array{start: int, end:int}|false
 	 */
 	protected function calculateRange(string $range): array|false
 	{

@@ -131,6 +131,8 @@ class GD implements ProcessorInterface
 
 	/**
 	 * Converts HEX value to an RGB array.
+	 *
+	 * @return array{r: int, g: int, b: int}
 	 */
 	protected function hexToRgb(string $hex): array
 	{

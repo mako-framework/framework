@@ -350,6 +350,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 	/**
 	 * Builds a response.
+	 *
+	 * @return array{type: string, body: string}
 	 */
 	protected function buildResponse(Throwable $exception): array
 	{
