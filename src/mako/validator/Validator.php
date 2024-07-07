@@ -288,6 +288,8 @@ class Validator
 
 	/**
 	 * Parses the rule.
+	 *
+	 * @return object{package: string|null, name: string, parameters: array<mixed>}
 	 */
 	protected function parseRule(string $rule): object
 	{
