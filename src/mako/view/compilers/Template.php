@@ -9,8 +9,8 @@ namespace mako\view\compilers;
 
 use mako\file\FileSystem;
 
+use function hash;
 use function ltrim;
-use function md5;
 use function preg_match;
 use function preg_replace;
 use function preg_replace_callback;
@@ -246,6 +246,6 @@ class Template
 
 		// Store compiled template
 
-		$this->fileSystem->put($this->cachePath . '/' . md5($this->template) . '.php', trim($contents));
+		$this->fileSystem->put($this->cachePath . '/' . hash('md5', $this->template) . '.php', trim($contents));
 	}
 }

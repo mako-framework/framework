@@ -38,7 +38,6 @@ use function str_replace;
 use function stripos;
 use function strlen;
 use function strpos;
-use function strtok;
 use function strtoupper;
 
 /**
@@ -273,7 +272,7 @@ class Request
 	public function getContentType(): string
 	{
 		if ($this->contentType === null) {
-			$this->contentType = rtrim(strtok((string) $this->headers->get('content-type'), ';'));
+			$this->contentType = rtrim(explode(';', (string) $this->headers->get('content-type'))[0]);
 		}
 
 		return $this->contentType;
