@@ -64,7 +64,6 @@ class DevelopmentHandler implements HandlerInterface
 				E_PARSE             => 'Parse Error',
 				E_COMPILE_ERROR     => 'Compile Error',
 				E_COMPILE_WARNING   => 'Compile Warning',
-				E_STRICT            => 'Strict Mode Error',
 				E_NOTICE            => 'Notice',
 				E_WARNING           => 'Warning',
 				E_RECOVERABLE_ERROR => 'Recoverable Error',

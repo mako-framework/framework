@@ -1,3 +1,11 @@
+### 9.1.6 <small>(2024-07-21)</small>
+
+#### Compatibility
+
+* Ensuring compatibility with future PHP versions.
+
+--------------------------------------------------------
+
 ### 9.1.5 <small>(2023-11-24)</small>
 
 #### Bugfixes

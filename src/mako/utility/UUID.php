@@ -13,14 +13,13 @@ use function bin2hex;
 use function chr;
 use function dechex;
 use function explode;
+use function hash;
 use function hex2bin;
 use function hexdec;
-use function md5;
 use function microtime;
 use function ord;
 use function preg_match;
 use function random_bytes;
-use function sha1;
 use function sprintf;
 use function str_replace;
 use function str_split;
@@ -131,7 +130,7 @@ class UUID
 	 */
 	public static function v3(string $namespace, string $name): string
 	{
-		$hash = md5(static::toBinary($namespace) . $name);
+		$hash = hash('md5', static::toBinary($namespace) . $name);
 
 		return sprintf
 		(
@@ -169,7 +168,7 @@ class UUID
 	 */
 	public static function v5(string $namespace, string $name): string
 	{
-		$hash = sha1(static::toBinary($namespace) . $name);
+		$hash = hash('sha1', static::toBinary($namespace) . $name);
 
 		return sprintf
 		(

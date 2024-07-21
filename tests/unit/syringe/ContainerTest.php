@@ -380,7 +380,7 @@ class ContainerTest extends TestCase
 
 		$container->registerSingleton([Bar::class, 'bar'], function ()
 		{
-			return new Bar(uniqid(), uniqid());
+			return new Bar(bin2hex(random_bytes(16)), bin2hex(random_bytes(16)));
 		});
 
 		$this->assertFalse($container->hasInstanceOf(Bar::class));
@@ -401,7 +401,7 @@ class ContainerTest extends TestCase
 
 		$container->registerSingleton([Bar::class, 'bar'], function ()
 		{
-			return new Bar(uniqid(), uniqid());
+			return new Bar(bin2hex(random_bytes(16)), bin2hex(random_bytes(16)));
 		});
 
 		$this->assertEquals($container->get('bar'), $container->get('bar'));
