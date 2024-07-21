@@ -12,7 +12,7 @@ use mako\view\compilers\Template as Compiler;
 
 use function array_pop;
 use function current;
-use function md5;
+use function hash;
 use function ob_get_clean;
 use function ob_start;
 use function str_replace;
@@ -46,7 +46,7 @@ class Template extends PHP
 	 */
 	protected function getCompiledPath(string $view): string
 	{
-		return "{$this->cachePath}/" . md5($view) . '.php';
+		return "{$this->cachePath}/" . hash('md5', $view) . '.php';
 	}
 
 	/**

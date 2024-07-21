@@ -19,6 +19,14 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 
 --------------------------------------------------------
 
+### 9.1.6, 10.0.9 <small>(2024-07-21)</small>
+
+#### Compatibility
+
+* Ensuring compatibility with future PHP versions.
+
+--------------------------------------------------------
+
 ### 10.0.8 <small>(2024-01-25)</small>
 
 #### Bugfixes
@@ -81,7 +89,7 @@ The major version bump is due to dropped support for PHP `8.1` and a several bre
 
 --------------------------------------------------------
 
-### 9.1.5, 10.0.1 <small>(2023-11-24)</small>
+### 9.1.5 <small>(2023-11-24)</small>
 
 #### Bugfixes
 
