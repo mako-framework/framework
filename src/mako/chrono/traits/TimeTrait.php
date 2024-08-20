@@ -61,6 +61,10 @@ trait TimeTrait
 	 */
 	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null)
 	{
+		if (PHP_VERSION_ID >= 80400) {
+			return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timeZone);
+		}
+
 		return static::createFromFormat(is_int($timestamp) ? 'U' : 'U.u', (string) $timestamp, $timeZone);
 	}
 
