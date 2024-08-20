@@ -102,7 +102,7 @@ trait TimeTrait
 			$dateTime = parent::createFromFormat($format, $time);
 		}
 
-		return new static($dateTime->format('Y-m-d\TH:i:s'), $dateTime->getTimeZone());
+		return new static($dateTime->format('Y-m-d\TH:i:s.u'), $dateTime->getTimeZone());
 	}
 
 	/**
