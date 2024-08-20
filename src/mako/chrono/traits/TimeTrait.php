@@ -59,9 +59,9 @@ trait TimeTrait
 	 *
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null)
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null)
 	{
-		return (new static('now', $timeZone))->setTimestamp($timestamp);
+		return static::createFromFormat(is_int($timestamp) ? 'U' : 'U.u', (string) $timestamp, $timeZone);
 	}
 
 	/**
@@ -91,18 +91,7 @@ trait TimeTrait
 	#[\ReturnTypeWillChange]
 	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null)
 	{
-		if ($timeZone !== null) {
-			if (($timeZone instanceof DateTimeZone) === false) {
-				$timeZone = new DateTimeZone($timeZone);
-			}
-
-			$dateTime = parent::createFromFormat($format, $time, $timeZone);
-		}
-		else {
-			$dateTime = parent::createFromFormat($format, $time);
-		}
-
-		return new static($dateTime->format('Y-m-d\TH:i:s.u'), $dateTime->getTimeZone());
+		return new static(parent::createFromFormat($format, $time)->format('Y-m-d\TH:i:s.u'), $timeZone);
 	}
 
 	/**
