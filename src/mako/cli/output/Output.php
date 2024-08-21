@@ -20,17 +20,13 @@ class Output
 {
 	/**
 	 * Standard output.
-	 *
-	 * @var int
 	 */
-	public const STANDARD = 1;
+	public const int STANDARD = 1;
 
 	/**
 	 * Error output.
-	 *
-	 * @var int
 	 */
-	public const ERROR = 2;
+	public const int ERROR = 2;
 
 	/**
 	 * Is the output muted?

@@ -47,10 +47,8 @@ class Request
 {
 	/**
 	 * Remote address fallback.
-	 *
-	 * @var string
 	 */
-	public const REMOTE_ADDRESS_FALLBACK = '127.0.0.1';
+	public const string REMOTE_ADDRESS_FALLBACK = '127.0.0.1';
 
 	/**
 	 * Script name.

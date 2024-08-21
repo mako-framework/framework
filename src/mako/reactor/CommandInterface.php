@@ -14,17 +14,13 @@ interface CommandInterface
 {
 	/**
 	 * Success status code.
-	 *
-	 * @var int
 	 */
-	public const STATUS_SUCCESS = 0;
+	public const int STATUS_SUCCESS = 0;
 
 	/**
 	 * Error status code.
-	 *
-	 * @var int
 	 */
-	public const STATUS_ERROR = 1;
+	public const int STATUS_ERROR = 1;
 
 	/**
 	 * Returns the command.

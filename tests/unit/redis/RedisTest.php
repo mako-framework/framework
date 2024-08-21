@@ -18,7 +18,7 @@ use Mockery;
  */
 class RedisTest extends TestCase
 {
-	protected const CRLF_LENGTH = 2;
+	protected const int CRLF_LENGTH = 2;
 
 	/**
 	 *

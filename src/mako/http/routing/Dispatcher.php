@@ -29,10 +29,8 @@ class Dispatcher
 {
 	/**
 	 * Default middleware priority.
-	 *
-	 * @var int
 	 */
-	public const MIDDLEWARE_DEFAULT_PRIORITY = 100;
+	public const int MIDDLEWARE_DEFAULT_PRIORITY = 100;
 
 	/**
 	 * Global middleware.

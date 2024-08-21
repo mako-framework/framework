@@ -26,52 +26,38 @@ class Argument
 {
 	/**
 	 * Integer flag.
-	 *
-	 * @var int
 	 */
-	public const IS_INT = 2;
+	public const int IS_INT = 2;
 
 	/**
 	 * Float flag.
-	 *
-	 * @var int
 	 */
-	public const IS_FLOAT = 4;
+	public const int IS_FLOAT = 4;
 
 	/**
 	 * Boolean flag.
-	 *
-	 * @var int
 	 */
-	public const IS_BOOL = 8;
+	public const int IS_BOOL = 8;
 
 	/**
 	 * Array flag.
-	 *
-	 * @var int
 	 */
-	public const IS_ARRAY = 16;
+	public const int IS_ARRAY = 16;
 
 	/**
 	 * Optional flag.
-	 *
-	 * @var int
 	 */
-	public const IS_OPTIONAL = 32;
+	public const int IS_OPTIONAL = 32;
 
 	/**
 	 * Regex that matches allowed parameter names.
-	 *
-	 * @var string
 	 */
-	protected const NAME_REGEX = '/^(--)?(?!.*(--|__|-_|_-))[a-z][a-z0-9-_]+(?<!(-|_))$/i';
+	protected const string NAME_REGEX = '/^(--)?(?!.*(--|__|-_|_-))[a-z][a-z0-9-_]+(?<!(-|_))$/i';
 
 	/**
 	 * Regex that matches allowed aliases.
-	 *
-	 * @var string
 	 */
-	protected const ALIAS_REGEX = '/^-[a-z]$/i';
+	protected const string ALIAS_REGEX = '/^-[a-z]$/i';
 
 	/**
 	 * Argument alias.

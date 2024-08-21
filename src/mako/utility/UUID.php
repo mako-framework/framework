@@ -34,38 +34,28 @@ class UUID
 {
 	/**
 	 * DNS namespace.
-	 *
-	 * @var string
 	 */
-	public const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+	public const string DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
 	 * URL namespace.
-	 *
-	 * @var string
 	 */
-	public const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+	public const string URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
 	 * ISO OID namespace.
-	 *
-	 * @var string
 	 */
-	public const OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
+	public const string OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
 	 * X.500 DN namespace.
-	 *
-	 * @var string
 	 */
-	public const X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
+	public const string X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
 	/**
 	 * The "nil" UUID.
-	 *
-	 * @var string
 	 */
-	public const NIL = '00000000-0000-0000-0000-000000000000';
+	public const string NIL = '00000000-0000-0000-0000-000000000000';
 
 	/**
 	 * Checks if a UUID is valid.

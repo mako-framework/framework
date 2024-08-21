@@ -26,10 +26,8 @@ class Template
 {
 	/**
 	 * Verbatim placeholder.
-	 *
-	 * @var string
 	 */
-	protected const VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
+	protected const string VERBATIM_PLACEHOLDER = '__VERBATIM_PLACEHOLDER__';
 
 	/**
 	 * Verbatims.

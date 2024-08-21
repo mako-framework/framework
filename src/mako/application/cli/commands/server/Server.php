@@ -28,10 +28,8 @@ class Server extends Command
 {
 	/**
 	 * Number of ports to try before giving up.
-	 *
-	 * @var int
 	 */
-	protected const MAX_PORTS_TO_TRY = 10;
+	protected const int MAX_PORTS_TO_TRY = 10;
 
 	/**
 	 * {@inheritDoc}

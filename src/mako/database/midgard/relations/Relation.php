@@ -25,10 +25,8 @@ abstract class Relation extends Query
 {
 	/**
 	 * Eager load chunk size.
-	 *
-	 * @var int
 	 */
-	protected const EAGER_LOAD_CHUNK_SIZE = 900;
+	protected const int EAGER_LOAD_CHUNK_SIZE = 900;
 
 	/**
 	 * Are we lazy load related records?

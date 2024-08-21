@@ -19,31 +19,23 @@ class Gatekeeper
 {
 	/**
 	 * Status code for banned users.
-	 *
-	 * @var int
 	 */
-	public const LOGIN_BANNED = 100;
+	public const int LOGIN_BANNED = 100;
 
 	/**
 	 * Status code for users who need to activate their account.
-	 *
-	 * @var int
 	 */
-	public const LOGIN_ACTIVATING = 101;
+	public const int LOGIN_ACTIVATING = 101;
 
 	/**
 	 * Status code for users who fail to provide the correct credentials.
-	 *
-	 * @var int
 	 */
-	public const LOGIN_INCORRECT = 102;
+	public const int LOGIN_INCORRECT = 102;
 
 	/**
 	 * Status code for users that are temporarily locked.
-	 *
-	 * @var int
 	 */
-	public const LOGIN_LOCKED = 103;
+	public const int LOGIN_LOCKED = 103;
 
 	/**
 	 * Default adapter name.

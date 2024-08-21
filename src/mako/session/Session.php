@@ -30,10 +30,8 @@ class Session
 {
 	/**
 	 * Maximum number of tokens stored per session.
-	 *
-	 * @var int
 	 */
-	protected const MAX_TOKENS = 20;
+	protected const int MAX_TOKENS = 20;
 
 	/**
 	 * Has the session been destroyed?

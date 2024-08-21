@@ -25,10 +25,8 @@ class ClassFinder
 {
 	/**
 	 * PHP filename pattern.
-	 *
-	 * @var string
 	 */
-	protected const PHP_FILENAME_PATTERN = '/\.php$/';
+	protected const string PHP_FILENAME_PATTERN = '/\.php$/';
 
 	/**
 	 * Should classes be included?

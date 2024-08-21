@@ -28,24 +28,18 @@ class Formatter implements FormatterInterface
 {
 	/**
 	 * Regex that matches non-escaped tags.
-	 *
-	 * @var string
 	 */
-	protected const TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
+	protected const string TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
 
 	/**
 	 * Regex that matches escaped tags.
-	 *
-	 * @var string
 	 */
-	protected const ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
+	protected const string ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
 
 	/**
 	 * Regex that mathes ANSI SGR sequences.
-	 *
-	 * @var string
 	 */
-	protected const ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
+	protected const string ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
 
 	/**
 	 * Styles.

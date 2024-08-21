@@ -32,38 +32,28 @@ class Str
 {
 	/**
 	 * Alphanumeric characters.
-	 *
-	 * @var string
 	 */
-	public const ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	public const string ALNUM = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
 	 * Alphabetic characters.
-	 *
-	 * @var string
 	 */
-	public const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	public const string ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	/**
 	 * Hexadecimal characters.
-	 *
-	 * @var string
 	 */
-	public const HEXDEC = '0123456789abcdef';
+	public const string HEXDEC = '0123456789abcdef';
 
 	/**
 	 * Numeric characters.
-	 *
-	 * @var string
 	 */
-	public const NUMERIC = '0123456789';
+	public const string NUMERIC = '0123456789';
 
 	/**
 	 * ASCII symbols.
-	 *
-	 * @var string
 	 */
-	public const SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+	public const string SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 	/**
 	 * Pluralization rules.

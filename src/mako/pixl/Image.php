@@ -24,80 +24,58 @@ class Image
 {
 	/**
 	 * Resizing constraint.
-	 *
-	 * @var int
 	 */
-	public const RESIZE_IGNORE = 10;
+	public const int RESIZE_IGNORE = 10;
 
 	/**
 	 * Resizing constraint.
-	 *
-	 * @var int
 	 */
-	public const RESIZE_AUTO = 11;
+	public const int RESIZE_AUTO = 11;
 
 	/**
 	 * Resizing constraint.
-	 *
-	 * @var int
 	 */
-	public const RESIZE_WIDTH = 12;
+	public const int RESIZE_WIDTH = 12;
 
 	/**
 	 * Resizing constraint.
-	 *
-	 * @var int
 	 */
-	public const RESIZE_HEIGHT = 13;
+	public const int RESIZE_HEIGHT = 13;
 
 	/**
 	 * Watermark position.
-	 *
-	 * @var int
 	 */
-	public const WATERMARK_TOP_LEFT = 20;
+	public const int WATERMARK_TOP_LEFT = 20;
 
 	/**
 	 * Watermark position.
-	 *
-	 * @var int
 	 */
-	public const WATERMARK_TOP_RIGHT = 21;
+	public const int WATERMARK_TOP_RIGHT = 21;
 
 	/**
 	 * Watermark position.
-	 *
-	 * @var int
 	 */
-	public const WATERMARK_BOTTOM_LEFT = 22;
+	public const int WATERMARK_BOTTOM_LEFT = 22;
 
 	/**
 	 * Watermark position.
-	 *
-	 * @var int
 	 */
-	public const WATERMARK_BOTTOM_RIGHT = 23;
+	public const int WATERMARK_BOTTOM_RIGHT = 23;
 
 	/**
 	 * Watermark position.
-	 *
-	 * @var int
 	 */
-	public const WATERMARK_CENTER = 24;
+	public const int WATERMARK_CENTER = 24;
 
 	/**
 	 * Flip direction.
-	 *
-	 * @var int
 	 */
-	public const FLIP_VERTICAL = 30;
+	public const int FLIP_VERTICAL = 30;
 
 	/**
 	 * Flip direction.
-	 *
-	 * @var int
 	 */
-	public const FLIP_HORIZONTAL = 31;
+	public const int FLIP_HORIZONTAL = 31;
 
 	/**
 	 * Constructor.

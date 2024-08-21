@@ -35,10 +35,8 @@ class Response
 {
 	/**
 	 * Default HTTP status.
-	 *
-	 * @var \mako\http\response\Status
 	 */
-	public const DEFAULT_STATUS = Status::OK;
+	public const Status DEFAULT_STATUS = Status::OK;
 
 	/**
 	 * Response body.

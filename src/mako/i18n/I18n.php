@@ -27,17 +27,13 @@ class I18n
 {
 	/**
 	 * Regex that matches pluralization tags.
-	 *
-	 * @var string
 	 */
-	protected const PLURALIZATION_TAG_REGEX = '/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu';
+	protected const string PLURALIZATION_TAG_REGEX = '/\<pluralize:([0-9]+)\>(\w*)\<\/pluralize\>/iu';
 
 	/**
 	 * Regex that matches number tags.
-	 *
-	 * @var string
 	 */
-	protected const NUMBER_TAG_REGEX = '/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu';
+	protected const string NUMBER_TAG_REGEX = '/\<number(:([0-9]+)(,(.)(,(.))?)?)?\>([0-9-.e]*)\<\/number\>/iu';
 
 	/**
 	 * Loaded language strings.

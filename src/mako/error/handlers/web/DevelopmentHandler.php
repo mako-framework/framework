@@ -46,10 +46,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 {
 	/**
 	 * Source padding.
-	 *
-	 * @var int
 	 */
-	protected const SOURCE_PADDING = 6;
+	protected const int SOURCE_PADDING = 6;
 
 	/**
 	 * Constructor.

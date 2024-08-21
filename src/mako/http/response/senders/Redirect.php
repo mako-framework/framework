@@ -23,45 +23,33 @@ class Redirect implements ResponseSenderInterface
 {
 	/**
 	 * Moved permanently status code.
-	 *
-	 * @var \mako\http\response\Status
 	 */
-	public const MOVED_PERMANENTLY = Status::MOVED_PERMANENTLY;
+	public const Status MOVED_PERMANENTLY = Status::MOVED_PERMANENTLY;
 
 	/**
 	 * Found status code.
-	 *
-	 * @var \mako\http\response\Status
 	 */
-	public const FOUND = Status::FOUND;
+	public const Status FOUND = Status::FOUND;
 
 	/**
 	 * See other status code.
-	 *
-	 * @var \mako\http\response\Status
 	 */
-	public const SEE_OTHER = Status::SEE_OTHER;
+	public const Status SEE_OTHER = Status::SEE_OTHER;
 
 	/**
 	 * Temporary redirect status code.
-	 *
-	 * @var \mako\http\response\Status
 	 */
-	public const TEMPORARY_REDIRECT = Status::TEMPORARY_REDIRECT;
+	public const Status TEMPORARY_REDIRECT = Status::TEMPORARY_REDIRECT;
 
 	/**
 	 * Permanent redirect status code.
-	 *
-	 * @var \mako\http\response\Status
 	 */
-	public const PERMANENT_REDIRECT = Status::PERMANENT_REDIRECT;
+	public const Status PERMANENT_REDIRECT = Status::PERMANENT_REDIRECT;
 
 	/**
 	 * Supported redirect types.
-	 *
-	 * @var array
 	 */
-	public const SUPPORTED_STATUS_CODES = [
+	public const array SUPPORTED_STATUS_CODES = [
 		Status::MOVED_PERMANENTLY,
 		Status::FOUND,
 		Status::SEE_OTHER,

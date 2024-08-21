@@ -19,17 +19,13 @@ class Environment
 {
 	/**
 	 * Default width.
-	 *
-	 * @var int
 	 */
-	public const DEFAULT_WIDTH = 80;
+	public const int DEFAULT_WIDTH = 80;
 
 	/**
 	 * Default height.
-	 *
-	 * @var int
 	 */
-	public const DEFAULT_HEIGHT = 25;
+	public const int DEFAULT_HEIGHT = 25;
 
 	/**
 	 * Do we have ANSI support?

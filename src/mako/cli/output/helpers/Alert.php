@@ -25,45 +25,33 @@ class Alert
 {
 	/**
 	 * Alert padding.
-	 *
-	 * @var int
 	 */
-	protected const PADDING = 1;
+	protected const int PADDING = 1;
 
 	/**
 	 * Default template.
-	 *
-	 * @var string
 	 */
-	public const DEFAULT = '%s';
+	public const string DEFAULT = '%s';
 
 	/**
 	 * Info template.
-	 *
-	 * @var string
 	 */
-	public const INFO = '<bg_blue><black>%s</black></bg_blue>';
+	public const string INFO = '<bg_blue><black>%s</black></bg_blue>';
 
 	/**
 	 * Success template.
-	 *
-	 * @var string
 	 */
-	public const SUCCESS = '<bg_green><black>%s</black></bg_green>';
+	public const string SUCCESS = '<bg_green><black>%s</black></bg_green>';
 
 	/**
 	 * Warning template.
-	 *
-	 * @var string
 	 */
-	public const WARNING = '<bg_yellow><black>%s</black></bg_yellow>';
+	public const string WARNING = '<bg_yellow><black>%s</black></bg_yellow>';
 
 	/**
 	 * Danger template.
-	 *
-	 * @var string
 	 */
-	public const DANGER = '<bg_red><white>%s</white></bg_red>';
+	public const string DANGER = '<bg_red><white>%s</white></bg_red>';
 
 	/**
 	 * Alert width.
