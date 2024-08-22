@@ -7,8 +7,7 @@
 
 namespace mako\validator\rules;
 
-use function json_decode;
-use function json_last_error;
+use function json_validate;
 use function sprintf;
 
 /**
@@ -17,11 +16,20 @@ use function sprintf;
 class JSON extends Rule implements RuleInterface
 {
 	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		protected int $depth = 512,
+		protected int $flags = 0
+	) {
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		return (json_decode($value) === null && json_last_error() !== JSON_ERROR_NONE) === false;
+		return json_validate($value, $this->depth, $this->flags);
 	}
 
 	/**

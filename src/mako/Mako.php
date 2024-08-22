@@ -10,7 +10,7 @@ namespace mako;
 /**
  * Mako.
  */
-class Mako
+final class Mako
 {
 	/**
 	 * Mako version.
