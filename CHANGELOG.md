@@ -1,6 +1,6 @@
 ### 11.0.0 <small>(2024-??-??)</small>
 
-The major version bump is due to dropped support for PHP `8.1` and `8.2` and a several breaking changes. Most applications built using Mako `10` should run on Mako `11` with just a few simple adjustments.
+The major version bump is due to upping the required PHP version from `8.1` to `8.3` and a several breaking changes. Most applications built using Mako `10` should run on Mako `11` with just a few simple adjustments.
 
 #### New
 
@@ -12,6 +12,9 @@ The major version bump is due to dropped support for PHP `8.1` and `8.2` and a s
 * Enums are now also supported when writing "raw" SQL.
 * The `Time::createFromTimestamp()` and `TimeImmutable::createFromTimestamp()` methods now support microtime precision.
 * The `Time::createFromFormat()` and `TimeImmutable::createFromFormat()` methods now support microtime precision.
+* It is now possible to customize how JSON request bodies are decoded using the following methods:
+	- `Body::setJsonMaxDepth()` to set the maximum JSON nesting level.
+	- `Body::setJsonFlags()` to set the JSON decoding options.
 
 #### Improvements
 
