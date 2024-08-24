@@ -52,59 +52,49 @@ interface TimeInterface extends DateTimeInterface
 
 	/**
 	 * Returns a new instance according to the specified date.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null);
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null);
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null);
+	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified time string.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null);
+	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null): static;
 
 	/**
 	 * Returns a copy of the current instance.
-	 *
-	 * @return $this
 	 */
-	public function copy();
+	public function copy(): static;
 
 	/**
 	 * Sets the time zone.
 	 *
-	 * @return $this|false|static
+	 * @return $this|static
 	 */
-	public function setTimezone(DateTimeZone|string $timeZone);
+	public function setTimezone(DateTimeZone|string $timeZone): static;
 
 	/**
 	 * Move forward in time by x seconds.
 	 *
-	 * @return $this|false|static
+	 * @return $this|static
 	 */
-	public function forward(int $seconds);
+	public function forward(int $seconds): static;
 
 	/**
 	 * Move backward in time by x seconds.
 	 *
-	 * @return $this|false|static
+	 * @return $this|static
 	 */
-	public function rewind(int $seconds);
+	public function rewind(int $seconds): static;
 
 	/**
 	 * Returns the DOS timestamp.

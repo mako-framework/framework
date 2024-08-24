@@ -13,9 +13,9 @@ use mako\chrono\traits\TimeTrait;
 /**
  * Extension of the PHP DateTimeImmutable class.
  *
- * @method false|static setTimezone(\DateTimeZone|string $timeZone)
- * @method false|static forward(int $seconds)
- * @method false|static rewind(int $seconds)
+ * @method static setTimezone(\DateTimeZone|string $timeZone)
+ * @method static forward(int $seconds)
+ * @method static rewind(int $seconds)
  */
 class TimeImmutable extends DateTimeImmutable implements TimeInterface
 {
@@ -24,7 +24,7 @@ class TimeImmutable extends DateTimeImmutable implements TimeInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function copy()
+	public function copy(): static
 	{
 		return $this; // No need to clone the object as it's immutable
 	}

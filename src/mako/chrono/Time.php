@@ -13,9 +13,9 @@ use mako\chrono\traits\TimeTrait;
 /**
  * Extension of the PHP DateTime class.
  *
- * @method $this|false setTimezone(\DateTimeZone|string $timeZone)
- * @method $this|false forward(int $seconds)
- * @method $this|false rewind(int $seconds)
+ * @method $this setTimezone(\DateTimeZone|string $timeZone)
+ * @method $this forward(int $seconds)
+ * @method $this rewind(int $seconds)
  */
 class Time extends DateTime implements TimeInterface
 {
@@ -24,7 +24,7 @@ class Time extends DateTime implements TimeInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function copy()
+	public function copy(): static
 	{
 		return clone $this;
 	}

@@ -40,10 +40,8 @@ trait TimeTrait
 
 	/**
 	 * Returns a new instance according to the specified date.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null)
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null): static
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
 
@@ -56,10 +54,8 @@ trait TimeTrait
 
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null)
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null): static
 	{
 		if (PHP_VERSION_ID >= 80400) {
 			return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timeZone);
@@ -70,10 +66,8 @@ trait TimeTrait
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
-	 *
-	 * @return false|static
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null)
+	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null): static
 	{
 		$year     = (($timestamp >> 25) & 0x7f) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0f;
@@ -89,22 +83,16 @@ trait TimeTrait
 
 	/**
 	 * Returns a new instance according to the specified time string.
-	 *
-	 * @return false|static
 	 */
-	#[\ReturnTypeWillChange]
-	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null)
+	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null): static
 	{
 		return new static(parent::createFromFormat($format, $time)->format('Y-m-d\TH:i:s.u'), $timeZone);
 	}
 
 	/**
 	 * Sets the time zone.
-	 *
-	 * @return $this|false|static
 	 */
-	#[\ReturnTypeWillChange]
-	public function setTimezone(DateTimeZone|string $timeZone)
+	public function setTimezone(DateTimeZone|string $timeZone): static
 	{
 		if (($timeZone instanceof DateTimeZone) === false) {
 			$timeZone = new DateTimeZone($timeZone);
@@ -116,9 +104,9 @@ trait TimeTrait
 	/**
 	 * Move forward in time by x seconds.
 	 *
-	 * @return $this|false|static
+	 * @return $this|static
 	 */
-	public function forward(int $seconds)
+	public function forward(int $seconds): static
 	{
 		return $this->setTimestamp($this->getTimestamp() + $seconds);
 	}
@@ -126,9 +114,9 @@ trait TimeTrait
 	/**
 	 * Move backward in time by x seconds.
 	 *
-	 * @return $this|false|static
+	 * @return $this|static
 	 */
-	public function rewind(int $seconds)
+	public function rewind(int $seconds): static
 	{
 		return $this->setTimestamp($this->getTimestamp() - $seconds);
 	}
