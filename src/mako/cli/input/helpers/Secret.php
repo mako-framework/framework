@@ -22,7 +22,7 @@ class Secret extends Question
 	/**
 	 * Do we have stty support?
 	 */
-	protected static bool $hasStty;
+	protected static null|bool $hasStty = null;
 
 	/**
 	 * Do we have stty support?
