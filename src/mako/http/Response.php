@@ -387,7 +387,7 @@ class Response
 
 			$this->headers->add('ETag', $hash);
 
-			if (str_replace('-gzip', '', $this->request->headers->get('If-None-Match')) === $hash) {
+			if (str_replace('-gzip', '', $this->request->headers->get('If-None-Match', '')) === $hash) {
 				$this->setStatus(Status::NOT_MODIFIED);
 
 				$sendBody = false;
