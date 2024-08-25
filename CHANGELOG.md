@@ -1,3 +1,12 @@
+### 10.0.10 <small>(2024-08-25)</small>
+
+#### Bugfixes
+
+* Fixed issue with the stty check on PHP 8.3+ [#321](https://github.com/mako-framework/framework/pull/321).
+* Fixed issue with ETag caching on PHP 8.3+ [#322](https://github.com/mako-framework/framework/pull/322).
+
+--------------------------------------------------------
+
 ### 9.1.6, 10.0.9 <small>(2024-07-21)</small>
 
 #### Compatibility
