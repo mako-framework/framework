@@ -2,8 +2,8 @@
 
 #### Bugfixes
 
-* Fixed issue with the stty check on PHP 8.3+ [#321](https://github.com/mako-framework/framework/pull/321).
-* Fixed issue with ETag caching on PHP 8.3+ [#322](https://github.com/mako-framework/framework/pull/322).
+* Fixed issue with the stty check on PHP 8.3+ ([#321](https://github.com/mako-framework/framework/pull/321)).
+* Fixed issue with ETag caching on PHP 8.3+ ([#322](https://github.com/mako-framework/framework/pull/322)).
 
 --------------------------------------------------------
 
