@@ -28,8 +28,8 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 
 #### Bugfixes
 
-* Fixed issue with the stty check on PHP 8.3+ ([#321](https://github.com/mako-framework/framework/pull/321)).
-* Fixed issue with ETag caching on PHP 8.3+ ([#322](https://github.com/mako-framework/framework/pull/322)).
+* Fixed issue with the stty check ([#321](https://github.com/mako-framework/framework/pull/321)).
+* Fixed issue with ETag caching ([#322](https://github.com/mako-framework/framework/pull/322)).
 
 --------------------------------------------------------
 
