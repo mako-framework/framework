@@ -15,6 +15,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * It is now possible to customize how JSON request bodies are decoded using the following methods:
 	- `Body::setJsonMaxDepth()` to set the maximum JSON nesting level.
 	- `Body::setJsonFlags()` to set the JSON decoding options.
+* Added `Deprecated` middleware that allows you to easily set the `Deprecation` and `Sunset` HTTP headers.
 
 #### Improvements
 
