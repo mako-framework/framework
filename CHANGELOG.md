@@ -16,6 +16,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 	- `Body::setJsonMaxDepth()` to set the maximum JSON nesting level.
 	- `Body::setJsonFlags()` to set the JSON decoding options.
 * Added `Deprecated` middleware that allows you to easily set the `Deprecation` and `Sunset` HTTP headers.
+* The database library will use the new PDO driver specific sub-classes when running on PHP 8.4+.
 
 #### Improvements
 
