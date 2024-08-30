@@ -239,7 +239,12 @@ class Connection
 		// Connect to the database
 
 		try {
-			$pdo = new PDO($this->dsn, $this->username, $this->password, $this->getConnectionOptions());
+			if (PHP_VERSION_ID >= 80400) {
+				$pdo = PDO::connect($this->dsn, $this->username, $this->password, $this->getConnectionOptions());
+			}
+			else {
+				$pdo = new PDO($this->dsn, $this->username, $this->password, $this->getConnectionOptions());
+			}
 		}
 		catch (PDOException $e) {
 			throw new DatabaseException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), previous: $e);
