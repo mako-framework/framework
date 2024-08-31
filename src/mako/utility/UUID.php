@@ -58,6 +58,11 @@ class UUID
 	public const string NIL = '00000000-0000-0000-0000-000000000000';
 
 	/**
+	 * The "max" UUID.
+	 */
+	public const string MAX = 'ffffffff-ffff-ffff-ffff-ffffffffffff';
+
+	/**
 	 * Checks if a UUID is valid.
 	 */
 	public static function validate(string $uuid): bool
