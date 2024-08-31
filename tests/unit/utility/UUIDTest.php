@@ -137,6 +137,24 @@ class UUIDTest extends TestCase
 	/**
 	 *
 	 */
+	public function testV4Sequential(): void
+	{
+		$prev = UUID::v4Sequential();
+
+		for ($i = 0; $i < 100; $i++) {
+			usleep(10); // We need to sleep since they cannot be guaranteed to be 100% sequential due to the time presision
+
+			$uuid = UUID::v4Sequential();
+
+			$this->assertTrue(strcmp($prev, $uuid) <= 0);
+
+			$prev = $uuid;
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function testV5(): void
 	{
 		$this->assertEquals(5, substr(UUID::v5(UUID::DNS, 'hello'), 14, 1));
@@ -160,23 +178,5 @@ class UUIDTest extends TestCase
 		$this->expectException(UUIDException::class);
 
 		UUID::v5('nope', 'foobar');
-	}
-
-	/**
-	 *
-	 */
-	public function testSequential(): void
-	{
-		$prev = UUID::v4Sequential();
-
-		for ($i = 0; $i < 100; $i++) {
-			usleep(10); // We need to sleep since they cannot be guaranteed to be 100% sequential due to the time presision
-
-			$uuid = UUID::v4Sequential();
-
-			$this->assertTrue(strcmp($prev, $uuid) <= 0);
-
-			$prev = $uuid;
-		}
 	}
 }
