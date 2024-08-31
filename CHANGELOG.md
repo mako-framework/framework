@@ -18,6 +18,10 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `Deprecated` middleware that allows you to easily set the `Deprecation` and `Sunset` HTTP headers.
 * The database library will use the new PDO driver specific sub-classes when running on PHP 8.4+.
 
+#### Changes
+
+* The `UUID::sequential()` method has been renamed to `UUID::v4Sequential()`.
+
 #### Improvements
 
 * Various improvements and optimizations.

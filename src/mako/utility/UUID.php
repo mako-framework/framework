@@ -131,6 +131,22 @@ class UUID
 	}
 
 	/**
+	 * Returns a sequential (COMB) v4 UUID.
+	 */
+	public static function v4Sequential(): string
+	{
+		[$usec, $sec] = explode(' ', microtime());
+
+		$random = hex2bin(dechex($sec . substr($usec, 2, 5)) . bin2hex(random_bytes(10)));
+
+		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
+
+		$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
+
+		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
+	}
+
+	/**
 	 * Returns a V5 UUID.
 	 */
 	public static function v5(string $namespace, string $name): string
@@ -145,21 +161,5 @@ class UUID
 			(hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
 			substr($hash, 20, 12)
 		);
-	}
-
-	/**
-	 * Returns a sequential (COMB) v4 UUID.
-	 */
-	public static function sequential(): string
-	{
-		[$usec, $sec] = explode(' ', microtime());
-
-		$random = hex2bin(dechex($sec . substr($usec, 2, 5)) . bin2hex(random_bytes(10)));
-
-		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
-
-		$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
-
-		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
 	}
 }

@@ -167,12 +167,12 @@ class UUIDTest extends TestCase
 	 */
 	public function testSequential(): void
 	{
-		$prev = UUID::sequential();
+		$prev = UUID::v4Sequential();
 
 		for ($i = 0; $i < 100; $i++) {
 			usleep(10); // We need to sleep since they cannot be guaranteed to be 100% sequential due to the time presision
 
-			$uuid = UUID::sequential();
+			$uuid = UUID::v4Sequential();
 
 			$this->assertTrue(strcmp($prev, $uuid) <= 0);
 
