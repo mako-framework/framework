@@ -46,7 +46,7 @@ class Template extends PHP
 	 */
 	protected function getCompiledPath(string $view): string
 	{
-		return "{$this->cachePath}/" . hash('md5', $view) . '.php';
+		return "{$this->cachePath}/" . hash('xxh128', $view) . '.php';
 	}
 
 	/**

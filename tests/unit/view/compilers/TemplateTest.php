@@ -31,7 +31,7 @@ class TemplateTest extends TestCase
 
 		$fileSystem->shouldReceive('get')->with($this->templateName)->once()->andReturn($template);
 
-		$fileSystem->shouldReceive('put')->with($this->cachePath . '/' . hash('md5', $this->templateName) . '.php', $compiled);
+		$fileSystem->shouldReceive('put')->with($this->cachePath . '/' . hash('xxh128', $this->templateName) . '.php', $compiled);
 
 		return $fileSystem;
 	}

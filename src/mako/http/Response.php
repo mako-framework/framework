@@ -383,7 +383,7 @@ class Response
 		// Check ETag if response cache is enabled
 
 		if ($this->responseCache === true && $this->isCacheable()) {
-			$hash = '"' . hash('sha256', $this->body) . '"';
+			$hash = '"' . hash('xxh128', $this->body) . '"';
 
 			$this->headers->add('ETag', $hash);
 

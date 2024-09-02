@@ -244,6 +244,6 @@ class Template
 
 		// Store compiled template
 
-		$this->fileSystem->put($this->cachePath . '/' . hash('md5', $this->template) . '.php', trim($contents));
+		$this->fileSystem->put($this->cachePath . '/' . hash('xxh128', $this->template) . '.php', trim($contents));
 	}
 }
