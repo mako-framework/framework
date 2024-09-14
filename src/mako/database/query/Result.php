@@ -7,6 +7,7 @@
 
 namespace mako\database\query;
 
+use AllowDynamicProperties;
 use JsonSerializable;
 use Stringable;
 
@@ -16,7 +17,7 @@ use function json_encode;
 /**
  * Result.
  */
-#[\AllowDynamicProperties]
+#[AllowDynamicProperties]
 class Result implements JsonSerializable, Stringable
 {
 	/**

@@ -27,8 +27,7 @@ use function vsprintf;
 /**
  * Redis client.
  *
- * @see http://redis.io/topics/protocol Redis protocol specification.
- * @see https://github.com/antirez/RESP3/blob/master/spec.md Redis protocol specification.
+ * @see https://redis.io/docs/latest/develop/reference/protocol-spec/ Redis protocol specification.
  *
  * @method mixed aclLoad(...$arguments)
  * @method mixed aclSave(...$arguments)
@@ -463,9 +462,9 @@ class Redis
 	}
 
 	/**
-	 * Handles a blob string response.
+	 * Handles a bulk string response.
 	 */
-	protected function handleBlobStringResponse(string $response): ?string
+	protected function handleBulkStringResponse(string $response): ?string
 	{
 		if ($response === '$-1') {
 			return null;
@@ -473,7 +472,7 @@ class Redis
 
 		$length = substr($response, 1);
 
-		// Do we have a streamed blob string response?
+		// Do we have a streamed bulk string response?
 
 		if ($length === '?') {
 			$string = '';
@@ -489,7 +488,7 @@ class Redis
 			return $string;
 		}
 
-		// It was just a normal blob string response
+		// It was just a normal bulk string response
 
 		return substr($this->connection->read((int) $length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
 	}
@@ -505,9 +504,9 @@ class Redis
 	}
 
 	/**
-	 * Handles a number response.
+	 * Handles an integer response.
 	 */
-	protected function handleNumberResponse(string $response): int
+	protected function handleIntegerResponse(string $response): int
 	{
 		return (int) substr($response, 1);
 	}
@@ -680,9 +679,9 @@ class Redis
 	}
 
 	/**
-	 * Handles blob error responses.
+	 * Handles bulk error responses.
 	 */
-	protected function handleBlobErrorResponse(string $response): void
+	protected function handleBulkErrorResponse(string $response): void
 	{
 		$length = (int) substr($response, 1);
 
@@ -700,9 +699,9 @@ class Redis
 
 		return match (substr($response, 0, 1)) {
 			'+'     => $this->handleSimpleStringResponse($response),
-			'$'     => $this->handleBlobStringResponse($response),
+			'$'     => $this->handleBulkStringResponse($response),
 			'='     => $this->handleVerbatimStringResponse($response),
-			':'     => $this->handleNumberResponse($response),
+			':'     => $this->handleIntegerResponse($response),
 			','     => $this->handleDoubleResponse($response),
 			'('     => $this->handleBigNumberResponse($response),
 			'#'     => $this->handleBooleanResponse($response),
@@ -712,7 +711,7 @@ class Redis
 			'|'     => $this->handleAttributeResponse($response),
 			'>'     => $this->handlePushResponse($response),
 			'-'     => $this->handleSimpleErrorResponse($response),
-			'!'     => $this->handleBlobErrorResponse($response),
+			'!'     => $this->handleBulkErrorResponse($response),
 			'_'     => null,
 			'.'     => static::END,
 			default => throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response])),
