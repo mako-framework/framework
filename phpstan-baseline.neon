@@ -44,3 +44,7 @@ parameters:
 			message: "#^Call to an undefined static method PDO::connect\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/connections/Connection.php
+		-
+			message: "#^Call to protected method orderMiddlewareByPriority\\(\\) of class mako\\\\http\\\\routing\\\\Dispatcher\\.$#"
+			count: 1
+			path: src/mako/application/cli/commands/app/ListRoutes.php

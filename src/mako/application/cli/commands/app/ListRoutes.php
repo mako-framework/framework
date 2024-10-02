@@ -10,7 +10,9 @@ namespace mako\application\cli\commands\app;
 use Closure;
 use mako\cli\input\arguments\Argument;
 use mako\cli\output\helpers\Alert;
+use mako\http\routing\Dispatcher;
 use mako\http\routing\Route;
+use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\reactor\Command;
 use mako\utility\Arr;
@@ -86,7 +88,7 @@ class ListRoutes extends Command
 	/**
 	 * Executes the command.
 	 */
-	public function execute(Routes $routes, bool $detailed = false, ?string $filter = null): void
+	public function execute(Routes $routes, Dispatcher $dispatcher, Router $router, bool $detailed = false, ?string $filter = null): void
 	{
 		$this->clear();
 
@@ -102,9 +104,23 @@ class ListRoutes extends Command
 
 			$matched++;
 
+			$middleware = (function ($middleware) {
+				/** @var \mako\http\routing\Dispatcher $this */
+				return $this->orderMiddlewareByPriority($middleware);
+			})
+			->bindTo($dispatcher, Dispatcher::class)([
+				...$dispatcher->getGlobalMiddleware(),
+				...$route->getMiddleware(),
+			]);
+
+			$constraints = [
+				...$router->getGlobalConstraints(),
+				...$route->getConstraints(),
+			];
+
 			$methods     = implode(', ', $route->getMethods());
-			$middleware  = implode(', ', Arr::pluck($route->getMiddleware(), 'middleware'));
-			$constraints = implode(', ', $route->getConstraints());
+			$middleware  = implode(', ', Arr::pluck($middleware, 'middleware'));
+			$constraints = implode(', ', $constraints);
 			$name        = $route->getName();
 
 			$this->alert("Path: {$route->getRoute()}", Alert::INFO);

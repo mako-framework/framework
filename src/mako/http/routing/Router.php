@@ -54,6 +54,14 @@ class Router
 	}
 
 	/**
+	 * Returns the global constraints.
+	 */
+	public function getGlobalConstraints(): array
+	{
+		return $this->globalConstraints;
+	}
+
+	/**
 	 * Returns TRUE if the route matches the request path and FALSE if not.
 	 */
 	protected function matches(Route $route, string $path): bool

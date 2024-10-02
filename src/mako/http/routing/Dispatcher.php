@@ -83,6 +83,14 @@ class Dispatcher
 	}
 
 	/**
+	 * Returns the global middleware.
+	 */
+	public function getGlobalMiddleware(): array
+	{
+		return $this->globalMiddleware;
+	}
+
+	/**
 	 * Orders resolved middleware by priority.
 	 */
 	protected function orderMiddlewareByPriority(array $middleware): array
@@ -91,11 +99,21 @@ class Dispatcher
 			return $middleware;
 		}
 
-		$priority = array_intersect_key($this->middlewarePriority, $middleware) + array_fill_keys(array_keys(array_diff_key($middleware, $this->middlewarePriority)), static::MIDDLEWARE_DEFAULT_PRIORITY);
+		// Ensure that each middleware only exists once in the final list
+
+		$middlewareByName = [];
+
+		foreach ($middleware as $value) {
+			$middlewareByName[$value['middleware']] = $value;
+		}
+
+		// Sort middleware by priority
+
+		$priority = array_intersect_key($this->middlewarePriority, $middlewareByName) + array_fill_keys(array_keys(array_diff_key($middlewareByName, $this->middlewarePriority)), static::MIDDLEWARE_DEFAULT_PRIORITY);
 
 		asort($priority);
 
-		return [...$priority, ...$middleware];
+		return [...$priority, ...$middlewareByName];
 	}
 
 	/**
@@ -104,17 +122,7 @@ class Dispatcher
 	protected function addMiddlewareToStack(Onion $onion, array $middleware): void
 	{
 		if (empty($middleware) === false) {
-			// Group middleware
-
-			$layers = [];
-
-			foreach ($middleware as $layer) {
-				$layers[$layer['middleware']] = $layer;
-			}
-
-			// Add ordered middleware to stack
-
-			foreach ($this->orderMiddlewareByPriority($layers) as $layer) {
+			foreach ($this->orderMiddlewareByPriority($middleware) as $layer) {
 				$onion->addLayer($layer['middleware'], $layer['parameters']);
 			}
 		}
