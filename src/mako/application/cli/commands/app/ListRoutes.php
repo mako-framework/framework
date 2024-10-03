@@ -168,9 +168,6 @@ class ListRoutes extends Command
 			$this->nl();
 		}
 
-		$this->write('<green>*</green>  <faded>Global middleware is not listed.</faded>');
-		$this->write('<green>**</green> <faded>Global constraints are not listed.</faded>');
-
 		$this->nl();
 	}
 }
