@@ -128,7 +128,7 @@ class Compiler
 	}
 
 	/**
-	 * Returns an array of escaped identifiers.
+	 * Returns a comma-separated list of escaped identifiers.
 	 */
 	public function escapeIdentifiers(array $identifiers): string
 	{
