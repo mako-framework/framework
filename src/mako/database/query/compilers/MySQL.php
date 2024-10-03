@@ -125,4 +125,45 @@ class MySQL extends Compiler
 	{
 		return "INSERT INTO {$this->escapeTableName($this->query->getTable())} () VALUES ()";
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function update(array $values): array
+	{
+		$sql = $this->query->getPrefix()
+		. 'UPDATE '
+		. $this->escapeTableName($this->query->getTable())
+		. $this->joins($this->query->getJoins())
+		. ' SET '
+		. $this->updateColumns($values)
+		. $this->wheres($this->query->getWheres());
+
+		return ['sql' => $sql, 'params' => $this->params];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function delete(array $tables = []): array
+	{
+		$sql = $this->query->getPrefix()
+		. 'DELETE ';
+
+		if (!empty($this->query->getJoins())) {
+			if (empty($tables)) {
+				$sql .= "{$this->escapeTableName($this->query->getTable())} ";
+			}
+			else {
+				$sql .=  "{$this->escapeTableNames($tables)} ";
+			}
+		}
+
+		$sql .= 'FROM '
+		. $this->escapeTableName($this->query->getTable())
+		. $this->joins($this->query->getJoins())
+		. $this->wheres($this->query->getWheres());
+
+		return ['sql' => $sql, 'params' => $this->params];
+	}
 }

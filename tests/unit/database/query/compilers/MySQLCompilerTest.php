@@ -401,4 +401,70 @@ class MySQLCompilerTest extends TestCase
 		$this->assertEquals('SELECT * FROM `foobar` WHERE `foo` = ? OR `date` BETWEEN ? AND ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05 00:00:00.000000', '2019-07-05 23:59:59.999999'], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testUpdateWithWhereAndJoin(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->join('barfoo', 'barfoo.foobar_id', '=', 'foobar.id');
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->update(['foo' => 'bar']);
+
+		$this->assertEquals('UPDATE `foobar` INNER JOIN `barfoo` ON `barfoo`.`foobar_id` = `foobar`.`id` SET `foo` = ? WHERE `id` = ?', $query['sql']);
+		$this->assertEquals(['bar', 1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDeleteWithWhere(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->delete();
+
+		$this->assertEquals('DELETE FROM `foobar` WHERE `id` = ?', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDeleteWithWhereAndJoin(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->join('barfoo', 'barfoo.foobar_id', '=', 'foobar.id');
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->delete();
+
+		$this->assertEquals('DELETE `foobar` FROM `foobar` INNER JOIN `barfoo` ON `barfoo`.`foobar_id` = `foobar`.`id` WHERE `id` = ?', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDeleteWithWhereAndJoinAndMultipleTables(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->join('barfoo', 'barfoo.foobar_id', '=', 'foobar.id');
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->delete(['foobar', 'barfoo']);
+
+		$this->assertEquals('DELETE `foobar`, `barfoo` FROM `foobar` INNER JOIN `barfoo` ON `barfoo`.`foobar_id` = `foobar`.`id` WHERE `id` = ?', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
 }

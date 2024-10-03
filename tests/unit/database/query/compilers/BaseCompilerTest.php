@@ -1534,23 +1534,6 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testUpdateWithWhereAndJoin(): void
-	{
-		$query = $this->getBuilder();
-
-		$query->join('barfoo', 'barfoo.foobar_id', '=', 'foobar.id');
-
-		$query->where('id', '=', 1);
-
-		$query = $query->getCompiler()->update(['foo' => 'bar']);
-
-		$this->assertEquals('UPDATE "foobar" INNER JOIN "barfoo" ON "barfoo"."foobar_id" = "foobar"."id" SET "foo" = ? WHERE "id" = ?', $query['sql']);
-		$this->assertEquals(['bar', 1], $query['params']);
-	}
-
-	/**
-	 *
-	 */
 	public function testCountAggregate(): void
 	{
 		$query = $this->getBuilder();

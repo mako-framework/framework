@@ -112,7 +112,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	protected string $primaryKey = 'id';
 
 	/**
-	 * Does this table have an auto increment primary index?
+	 * The primary key type of the table.
 	 */
 	protected int $primaryKeyType = ORM::PRIMARY_KEY_TYPE_INCREMENTING;
 

@@ -178,6 +178,20 @@ class Compiler
 	}
 
 	/**
+	 * Returns a comma-separated list of escaped table names.
+	 */
+	public function escapeTableNames(array $tables): string
+	{
+		$sql = [];
+
+		foreach ($tables as $table) {
+			$sql[] = $this->escapeTableName($table);
+		}
+
+		return implode(', ', $sql);
+	}
+
+	/**
 	 * Compiles a table.
 	 */
 	public function table(Raw|string|Subquery $table): string
@@ -797,7 +811,6 @@ class Compiler
 		$sql = $this->query->getPrefix()
 		. 'UPDATE '
 		. $this->escapeTableName($this->query->getTable())
-		. $this->joins($this->query->getJoins())
 		. ' SET '
 		. $this->updateColumns($values)
 		. $this->wheres($this->query->getWheres());

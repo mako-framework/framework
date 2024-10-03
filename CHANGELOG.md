@@ -10,6 +10,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `Query::blob()` method that allows you to easily fetch a blob column as a stream.
 * The `ManyToMany::unlink()` and `ManyToMany::synchronize()` methods now support junction attributes.
 * Enums are now also supported when writing "raw" SQL.
+* Added support for deletes with joins to the MySQL query compiler.
 * The `Time::createFromTimestamp()` and `TimeImmutable::createFromTimestamp()` methods now support microtime precision.
 * The `Time::createFromFormat()` and `TimeImmutable::createFromFormat()` methods now support microtime precision.
 * It is now possible to customize how JSON request bodies are decoded using the following methods:
