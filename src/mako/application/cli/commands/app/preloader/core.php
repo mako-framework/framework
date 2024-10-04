@@ -91,6 +91,7 @@ return
 	mako\gatekeeper\entities\user\MemberInterface::class,
 	mako\gatekeeper\entities\user\UserEntityInterface::class,
 	mako\gatekeeper\Gatekeeper::class,
+	mako\gatekeeper\LoginStatus::class,
 	mako\gatekeeper\repositories\group\GroupRepositoryInterface::class,
 	mako\gatekeeper\repositories\user\UserRepositoryInterface::class,
 	mako\http\Request::class,
