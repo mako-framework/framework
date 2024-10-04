@@ -11,7 +11,7 @@ use mako\gatekeeper\adapters\Session;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
-use mako\gatekeeper\Gatekeeper;
+use mako\gatekeeper\LoginStatus;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
@@ -325,7 +325,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertFalse($status->toBool());
+		$this->assertEquals(LoginStatus::INVALID_CREDENTIALS, $status);
 	}
 
 	/**
@@ -343,7 +346,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertFalse($status->toBool());
+		$this->assertEquals(LoginStatus::INVALID_CREDENTIALS, $status);
 	}
 
 	/**
@@ -363,7 +369,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Gatekeeper::LOGIN_ACTIVATING, $adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertFalse($status->toBool());
+		$this->assertEquals(LoginStatus::NOT_ACTIVATED, $status);
 	}
 
 	/**
@@ -385,7 +394,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession());
 
-		$this->assertEquals(Gatekeeper::LOGIN_BANNED, $adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertFalse($status->toBool());
+		$this->assertEquals(LoginStatus::BANNED, $status);
 	}
 
 	/**
@@ -417,7 +429,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $session);
 
-		$this->assertTrue($adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertTrue($status->toBool());
+		$this->assertEquals(LoginStatus::OK, $status);
 	}
 
 	/**
@@ -460,7 +475,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $response, $session);
 
-		$this->assertTrue($adapter->login('foo@example.org', 'password', true));
+		$this->assertTrue($adapter->login('foo@example.org', 'password', true)->toBool());
 	}
 
 	/**
@@ -500,7 +515,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $this->getResponse(), $session, ['cookie_options' => ['secure' => true]]);
 
-		$this->assertTrue($adapter->login('foo@example.org', 'password', true));
+		$this->assertTrue($adapter->login('foo@example.org', 'password', true)->toBool());
 	}
 
 	/**
@@ -547,7 +562,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $request, $response, $session, ['cookie_options' => ['secure' => true]]);
 
-		$this->assertTrue($adapter->login('foo@example.org', 'password', true));
+		$this->assertTrue($adapter->login('foo@example.org', 'password', true)->toBool());
 	}
 
 	/**
@@ -579,7 +594,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $session);
 
-		$this->assertTrue($adapter->forceLogin('foo@example.org'));
+		$this->assertTrue($adapter->forceLogin('foo@example.org')->toBool());
 	}
 
 	/**
@@ -603,7 +618,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession(), $options);
 
-		$this->assertEquals(Gatekeeper::LOGIN_INCORRECT, $adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertFalse($status->toBool());
+		$this->assertEquals(LoginStatus::INVALID_CREDENTIALS, $status);
 	}
 
 	/**
@@ -641,7 +659,7 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $session, $options);
 
-		$this->assertTrue($adapter->login('foo@example.org', 'password'));
+		$this->assertTrue($adapter->login('foo@example.org', 'password')->toBool());
 	}
 
 	/**
@@ -661,7 +679,10 @@ class SessionTest extends TestCase
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $this->getSession(), $options);
 
-		$this->assertEquals(Gatekeeper::LOGIN_LOCKED, $adapter->login('foo@example.org', 'password'));
+		$status = $adapter->login('foo@example.org', 'password');
+
+		$this->assertFalse($status->toBool());
+		$this->assertEquals(LoginStatus::LOCKED, $status);
 	}
 
 	/**
@@ -695,7 +716,7 @@ class SessionTest extends TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
-		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(false);
+		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(LoginStatus::INVALID_CREDENTIALS);
 
 		$this->assertFalse($adapter->basicAuth());
 	}
@@ -733,7 +754,7 @@ class SessionTest extends TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
-		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(false);
+		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(LoginStatus::INVALID_CREDENTIALS);
 
 		$this->assertFalse($adapter->basicAuth(true));
 	}
@@ -771,7 +792,7 @@ class SessionTest extends TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
-		$adapter->shouldReceive('login')->once()->with('foo@example.org', 'password')->andReturn(true);
+		$adapter->shouldReceive('login')->once()->with('foo@example.org', 'password')->andReturn(LoginStatus::OK);
 
 		$this->assertTrue($adapter->basicAuth());
 	}

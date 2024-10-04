@@ -10,7 +10,7 @@ namespace mako\gatekeeper\adapters;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\gatekeeper\exceptions\GatekeeperException;
-use mako\gatekeeper\Gatekeeper;
+use mako\gatekeeper\LoginStatus;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
@@ -123,25 +123,24 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
-	 * A status code will be retured in all other situations.
+	 * Authenticates a user with a valid identifier/password combination.
 	 */
-	protected function authenticate(int|string $identifier, #[SensitiveParameter] ?string $password, bool $force = false): int|true
+	protected function authenticate(int|string $identifier, #[SensitiveParameter] ?string $password, bool $force = false): LoginStatus
 	{
 		$user = $this->userRepository->getByIdentifier($identifier);
 
 		if ($user !== null) {
 			if ($this->options['throttling']['enabled'] && $user->isLocked()) {
-				return Gatekeeper::LOGIN_LOCKED;
+				return LoginStatus::LOCKED;
 			}
 
 			if ($force || $user->validatePassword($password)) {
 				if (!$user->isActivated()) {
-					return Gatekeeper::LOGIN_ACTIVATING;
+					return LoginStatus::NOT_ACTIVATED;
 				}
 
 				if ($user->isBanned()) {
-					return Gatekeeper::LOGIN_BANNED;
+					return LoginStatus::BANNED;
 				}
 
 				if ($this->options['throttling']['enabled']) {
@@ -150,7 +149,7 @@ class Session extends Adapter
 
 				$this->user = $user;
 
-				return true;
+				return LoginStatus::OK;
 			}
 			else {
 				if ($this->options['throttling']['enabled']) {
@@ -159,7 +158,7 @@ class Session extends Adapter
 			}
 		}
 
-		return Gatekeeper::LOGIN_INCORRECT;
+		return LoginStatus::INVALID_CREDENTIALS;
 	}
 
 	/**
@@ -176,18 +175,16 @@ class Session extends Adapter
 
 	/**
 	 * Logs in a user with a valid identifier/password combination.
-	 * Returns TRUE if the identifier + password combination matches and the user is activated, not locked and not banned.
-	 * A status code will be retured in all other situations.
 	 */
-	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false): int|true
+	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false): LoginStatus
 	{
 		if (empty($identifier)) {
-			return Gatekeeper::LOGIN_INCORRECT;
+			return LoginStatus::INVALID_CREDENTIALS;
 		}
 
-		$authenticated = $this->authenticate($identifier, $password, $force);
+		$status = $this->authenticate($identifier, $password, $force);
 
-		if ($authenticated === true) {
+		if ($status === LoginStatus::OK) {
 			$this->session->regenerateId();
 
 			$this->session->regenerateToken();
@@ -197,19 +194,15 @@ class Session extends Adapter
 			if ($remember === true) {
 				$this->setRememberMeCookie();
 			}
-
-			return true;
 		}
 
-		return $authenticated;
+		return $status;
 	}
 
 	/**
 	 * Login a user without checking the password.
-	 * Returns TRUE if the identifier exists and the user is activated, not locked and not banned.
-	 * A status code will be retured in all other situations.
 	 */
-	public function forceLogin(int|string $identifier, bool $remember = false): int|true
+	public function forceLogin(int|string $identifier, bool $remember = false): LoginStatus
 	{
 		return $this->login($identifier, null, $remember, true);
 	}
@@ -219,7 +212,7 @@ class Session extends Adapter
 	 */
 	public function basicAuth(bool $clearResponse = false): bool
 	{
-		if ($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === true) {
+		if ($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === LoginStatus::OK) {
 			return true;
 		}
 
