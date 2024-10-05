@@ -174,7 +174,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Logs in a user with a valid identifier/password combination.
+	 * {@inheritDoc}
 	 */
 	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false): LoginStatus
 	{
@@ -228,7 +228,7 @@ class Session extends Adapter
 	}
 
 	/**
-	 * Logs the user out.
+	 * {@inheritDoc}
 	 */
 	public function logout(): void
 	{

@@ -80,6 +80,7 @@ return
 	mako\gatekeeper\adapters\Adapter::class,
 	mako\gatekeeper\adapters\AdapterInterface::class,
 	mako\gatekeeper\adapters\WithGroupsInterface::class,
+	mako\gatekeeper\adapters\WithLoginInterface::class,
 	mako\gatekeeper\authorization\AuthorizableInterface::class,
 	mako\gatekeeper\authorization\Authorizer::class,
 	mako\gatekeeper\authorization\AuthorizerInterface::class,

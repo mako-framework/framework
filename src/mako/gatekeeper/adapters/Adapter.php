@@ -22,7 +22,7 @@ use SensitiveParameter;
  * @method mako\gatekeeper\repositories\group\GroupRepository getGroupRepository()
  * @method mako\gatekeeper\repositories\user\UserRepository   getUserRepository()
  */
-abstract class Adapter implements AdapterInterface, WithGroupsInterface
+abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLoginInterface
 {
 	/**
 	 * User repository.
@@ -74,7 +74,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function setUser(UserEntityInterface $user): void
+	public function setUser(?UserEntityInterface $user): void
 	{
 		$this->user = $user;
 	}
