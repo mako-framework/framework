@@ -129,6 +129,19 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): array
+	{
+		$sql = $this->query->getPrefix()
+		. $this->insertWithValues($insertValues)
+		. ' ON DUPLICATE KEY UPDATE '
+		. $this->updateColumns($updateValues);
+
+		return ['sql' => $sql, 'params' => $this->params];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function update(array $values): array
 	{
 		$sql = $this->query->getPrefix()

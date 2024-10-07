@@ -152,6 +152,32 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): bool
+	{
+		// Execute "beforeInsert" hooks
+
+		foreach ($this->model->getHooks('beforeInsert') as $hook) {
+			$insertValues = $hook($insertValues, $this);
+		}
+
+		// Insert record
+
+		$inserted = parent::insertOrUpdate($insertValues, $updateValues, $conflictTarget);
+
+		// Execute "afterInsert" hooks
+
+		foreach ($this->model->getHooks('afterInsert') as $hook) {
+			$hook($inserted);
+		}
+
+		// Return insert status
+
+		return $inserted;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function update(array $values): int
 	{
 		// Execute "beforeUpdate" hooks

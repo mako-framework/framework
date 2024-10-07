@@ -108,4 +108,17 @@ class Postgres extends Compiler
 
 		return $lock === true ? ' FOR UPDATE' : ($lock === false ? ' FOR SHARE' : " {$lock}");
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): array
+	{
+		$sql = $sql = $this->query->getPrefix()
+		. $this->insertWithValues($insertValues)
+		. ' ON CONFLICT (' . $this->escapeIdentifier($conflictTarget) . ') DO UPDATE SET '
+		. $this->updateColumns($updateValues);
+
+		return ['sql' => $sql, 'params' => $this->params];
+	}
 }

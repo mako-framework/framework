@@ -95,4 +95,17 @@ class SQLite extends Compiler
 
 		return ($this->query->getLimit() === null) ? " LIMIT -1 OFFSET {$offset}" : " OFFSET {$offset}";
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): array
+	{
+		$sql = $sql = $this->query->getPrefix()
+		. $this->insertWithValues($insertValues)
+		. ' ON CONFLICT (' . $this->escapeIdentifier($conflictTarget) . ') DO UPDATE SET '
+		. $this->updateColumns($updateValues);
+
+		return ['sql' => $sql, 'params' => $this->params];
+	}
 }

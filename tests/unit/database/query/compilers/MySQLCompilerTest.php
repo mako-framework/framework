@@ -467,4 +467,17 @@ class MySQLCompilerTest extends TestCase
 		$this->assertEquals('DELETE `foobar`, `barfoo` FROM `foobar` INNER JOIN `barfoo` ON `barfoo`.`foobar_id` = `foobar`.`id` WHERE `id` = ?', $query['sql']);
 		$this->assertEquals([1], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testInsertOrUpdate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertOrUpdate(['foo' => 'bar'], ['bar' => 'dupe']);
+
+		$this->assertEquals('INSERT INTO `foobar` (`foo`) VALUES (?) ON DUPLICATE KEY UPDATE `bar` = ?', $query['sql']);
+		$this->assertEquals(['bar', 'dupe'], $query['params']);
+	}
 }

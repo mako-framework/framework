@@ -1471,6 +1471,16 @@ class Query
 	}
 
 	/**
+	 * Inserts or updates a row of data into the chosen table.
+	 */
+	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): bool
+	{
+		$query = $this->compiler->insertOrUpdate($insertValues, $updateValues, $conflictTarget);
+
+		return $this->connection->query($query['sql'], $query['params']);
+	}
+
+	/**
 	 * Updates data from the chosen table.
 	 */
 	public function update(array $values): int

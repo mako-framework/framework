@@ -140,4 +140,16 @@ class TimestampedTest extends ORMTestCase
 
 		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert3')->first()->created_at->format('Y-m-d'));
 	}
+
+	/**
+	 *
+	 */
+	public function testInsertOrUpdate(): void
+	{
+		$now = new DateTime;
+
+		(new TimestampedFoo)->insertOrUpdate(['value' => 'test_insert1'], ['value' => 'test_insert1'], 'id');
+
+		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert1')->first()->created_at->format('Y-m-d'));
+	}
 }

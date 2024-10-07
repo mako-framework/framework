@@ -375,4 +375,17 @@ class PostgresCompilerTest extends TestCase
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "date" BETWEEN ? AND ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05 00:00:00.000000', '2019-07-05 23:59:59.999999'], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testInsertOrUpdate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertOrUpdate(['foo' => 'bar'], ['foo' => 'dupe'], 'foo');
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) ON CONFLICT ("foo") DO UPDATE SET "foo" = ?', $query['sql']);
+		$this->assertEquals(['bar', 'dupe'], $query['params']);
+	}
 }
