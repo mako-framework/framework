@@ -116,7 +116,7 @@ class Postgres extends Compiler
 	{
 		$sql = $sql = $this->query->getPrefix()
 		. $this->insertWithValues($insertValues)
-		. ' ON CONFLICT (' . $this->escapeIdentifiers($conflictTarget) . ') DO UPDATE SET '
+		. " ON CONFLICT ({$this->escapeIdentifiers($conflictTarget)}) DO UPDATE SET "
 		. $this->updateColumns($updateValues);
 
 		return ['sql' => $sql, 'params' => $this->params];
