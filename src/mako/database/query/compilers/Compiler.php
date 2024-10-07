@@ -781,7 +781,7 @@ class Compiler
 	 *
 	 * @return array{sql: string, params: array}
 	 */
-	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): array
+	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
 	{
 		throw new DatabaseException(vsprintf('The [ %s ] query compiler does not support insert or update queries.', [static::class]));
 	}

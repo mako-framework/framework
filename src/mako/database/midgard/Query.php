@@ -152,7 +152,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): bool
+	public function insertOrUpdate(array $insertValues, array $updateValues, mixed $conflictTarget = null): bool
 	{
 		// Execute "beforeInsert" hooks
 

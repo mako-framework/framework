@@ -129,7 +129,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): array
+	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
 	{
 		$sql = $this->query->getPrefix()
 		. $this->insertWithValues($insertValues)

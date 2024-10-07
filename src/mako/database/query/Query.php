@@ -1473,7 +1473,7 @@ class Query
 	/**
 	 * Inserts or updates a row of data into the chosen table.
 	 */
-	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): bool
+	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): bool
 	{
 		$query = $this->compiler->insertOrUpdate($insertValues, $updateValues, $conflictTarget);
 

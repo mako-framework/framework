@@ -312,9 +312,22 @@ class SQLiteCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query = $query->getCompiler()->insertOrUpdate(['foo' => 'bar'], ['foo' => 'dupe'], 'foo');
+		$query = $query->getCompiler()->insertOrUpdate(['foo' => 'bar'], ['foo' => 'dupe'], ['foo']);
 
 		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) ON CONFLICT ("foo") DO UPDATE SET "foo" = ?', $query['sql']);
+		$this->assertEquals(['bar', 'dupe'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertOrUpdateWithMultipleConstraints(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertOrUpdate(['foo' => 'bar'], ['foo' => 'dupe'], ['foo', 'bar']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) ON CONFLICT ("foo", "bar") DO UPDATE SET "foo" = ?', $query['sql']);
 		$this->assertEquals(['bar', 'dupe'], $query['params']);
 	}
 }

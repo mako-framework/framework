@@ -99,11 +99,11 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
-	public function insertOrUpdate(array $insertValues, array $updateValues, ?string $conflictTarget = null): array
+	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
 	{
 		$sql = $sql = $this->query->getPrefix()
 		. $this->insertWithValues($insertValues)
-		. ' ON CONFLICT (' . $this->escapeIdentifier($conflictTarget) . ') DO UPDATE SET '
+		. ' ON CONFLICT (' . $this->escapeIdentifiers($conflictTarget) . ') DO UPDATE SET '
 		. $this->updateColumns($updateValues);
 
 		return ['sql' => $sql, 'params' => $this->params];
