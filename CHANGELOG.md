@@ -18,7 +18,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 	- `Body::setJsonFlags()` to set the JSON decoding options.
 * Added `Deprecated` middleware that allows you to easily set the `Deprecation` and `Sunset` HTTP headers.
 * The database library will use the new PDO driver specific sub-classes when running on PHP 8.4+.
-* Added "insert or update" support to the query builder. The feature is currently supported by the `MySQL`, `PostgreSQL` and `SQLite` compilers.
+* Added upsert functionality to the query builder. The feature is currently supported by the `MySQL`, `PostgreSQL` and `SQLite` compilers.
 * Global constraints and middleware will now be listed and sorted by priority when using the `app:routes` command.
 
 #### Changes
