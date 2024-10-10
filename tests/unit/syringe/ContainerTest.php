@@ -919,6 +919,20 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testResolveNullableIntersectionType(): void
+	{
+		$container = new Container;
+
+		$container->register(intersection(IA::class, IB::class), AB::class);
+
+		$object = $container->get(NullableIntersection::class);
+
+		$this->assertInstanceOf(AB::class, $object->ab);
+	}
+
+	/**
+	 *
+	 */
 	public function testResolveNullableIntersectionTypeWithoutRegisteredHint(): void
 	{
 		$container = new Container;
