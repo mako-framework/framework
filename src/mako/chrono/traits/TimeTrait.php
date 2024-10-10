@@ -10,6 +10,7 @@ namespace mako\chrono\traits;
 use DateTimeZone;
 
 use function getdate;
+use function is_int;
 use function min;
 use function mktime;
 
