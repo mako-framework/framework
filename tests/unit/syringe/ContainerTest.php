@@ -14,6 +14,8 @@ use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\tests\TestCase;
 use stdClass;
 
+use function mako\syringe\intersection;
+
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
@@ -171,6 +173,29 @@ class ImpossibleToResolveDependencyC
 {
 	public function __construct(
 		public ?StoreInterface $store
+	) {
+	}
+}
+
+interface IA
+{
+
+}
+
+interface IB
+{
+
+}
+
+class AB implements IA, IB
+{
+
+}
+
+class Intersection
+{
+	public function __construct(
+		public IA&IB $ab
 	) {
 	}
 }
@@ -855,5 +880,33 @@ class ContainerTest extends TestCase
 		$container->removeInstance(stdClass::class);
 
 		$this->assertEmpty($container->getInstanceClassNames());
+	}
+
+	/**
+	 *
+	 */
+	public function testResolveIntersectionType(): void
+	{
+		$container = new Container;
+
+		$container->register(intersection(IA::class, IB::class), AB::class);
+
+		$object = $container->get(Intersection::class);
+
+		$this->assertInstanceOf(AB::class, $object->ab);
+	}
+
+	/**
+	 *
+	 */
+	public function testResolveIntersectionTypeWithoutRegisteredHint(): void
+	{
+		$this->expectException(UnableToResolveParameterException::class);
+
+		$container = new Container;
+
+		$object = $container->get(Intersection::class);
+
+		$this->assertInstanceOf(AB::class, $object->ab);
 	}
 }

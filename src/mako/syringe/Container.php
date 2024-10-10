@@ -15,6 +15,7 @@ use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\syringe\traits\ContainerAwareTrait;
 use ReflectionClass;
 use ReflectionFunction;
+use ReflectionIntersectionType;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -251,7 +252,18 @@ class Container
 
 		// If the parameter should be a class instance then we'll try to resolve it using the container
 
-		$parameterClassName = ($parameterType instanceof ReflectionNamedType && !$parameterType->isBuiltin()) ? $parameterType->getName() : null;
+		$parameterClassName = null;
+
+		if ($parameterType instanceof ReflectionNamedType && !$parameterType->isBuiltin()) {
+			$parameterClassName = $parameterType->getName();
+		}
+		elseif ($parameterType instanceof ReflectionIntersectionType) {
+			$parameterClassName = (string) $parameterType;
+
+			if (!$this->has($parameterClassName)) {
+				$parameterClassName = null;
+			}
+		}
 
 		if ($parameterClassName !== null) {
 			if ($class !== null) {

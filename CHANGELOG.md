@@ -18,6 +18,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * It is now possible to customize how JSON request bodies are decoded using the following methods:
 	- `Body::setJsonMaxDepth()` to set the maximum JSON nesting level.
 	- `Body::setJsonFlags()` to set the JSON decoding options.
+* Added support for resolving intersection types to the dependency injection container.
 * Added `Deprecated` middleware that allows you to easily set the `Deprecation` and `Sunset` HTTP headers.
 * Global constraints and middleware will now be listed and sorted by priority when using the `app:routes` command.
 

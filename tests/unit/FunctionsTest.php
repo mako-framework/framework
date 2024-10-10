@@ -11,6 +11,7 @@ use mako\tests\TestCase;
 
 use function mako\env;
 use function mako\f;
+use function mako\syringe\intersection;
 
 /**
  * @group unit
@@ -81,5 +82,13 @@ class FunctionsTest extends TestCase
 
 		$this->assertTrue(env('MAKO_TRUE', isBool: true));
 		$this->assertFalse(env('MAKO_FALSE', isBool: true));
+	}
+
+	/**
+	 *
+	 */
+	public function testIntersection(): void
+	{
+		$this->assertSame('foo&bar&baz', intersection('foo', 'bar', 'baz'));
 	}
 }
