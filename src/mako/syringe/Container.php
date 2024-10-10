@@ -269,7 +269,7 @@ class Container
 					$parameterClassName = (string) $parameterType;
 				}
 
-				// Nullable intersection types will be detected as a union type so we'll have to dig deeper
+				// A nullable intersection type will be detected as a union type so we'll have to dig a bit deeper
 
 				elseif ($parameterType instanceof ReflectionUnionType && $parameterType->allowsNull()) {
 					$intersection = array_filter($parameterType->getTypes(), fn ($type) => $type instanceof ReflectionIntersectionType);
