@@ -200,6 +200,14 @@ class Intersection
 	}
 }
 
+class NullableIntersection
+{
+	public function __construct(
+		public null|(IA&IB) $ab
+	) {
+	}
+}
+
 // --------------------------------------------------------------------------
 // END CLASSES
 // --------------------------------------------------------------------------
@@ -906,7 +914,17 @@ class ContainerTest extends TestCase
 		$container = new Container;
 
 		$object = $container->get(Intersection::class);
+	}
 
-		$this->assertInstanceOf(AB::class, $object->ab);
+	/**
+	 *
+	 */
+	public function testResolveNullableIntersectionTypeWithoutRegisteredHint(): void
+	{
+		$container = new Container;
+
+		$object = $container->get(NullableIntersection::class);
+
+		$this->assertNull($object->ab);
 	}
 }

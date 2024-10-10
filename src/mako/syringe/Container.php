@@ -19,10 +19,12 @@ use ReflectionIntersectionType;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
+use ReflectionUnionType;
 
 use function array_keys;
 use function array_replace;
 use function array_values;
+use function count;
 use function is_array;
 use function is_int;
 use function vsprintf;
@@ -254,14 +256,35 @@ class Container
 
 		$parameterClassName = null;
 
-		if ($parameterType instanceof ReflectionNamedType && !$parameterType->isBuiltin()) {
-			$parameterClassName = $parameterType->getName();
-		}
-		elseif ($parameterType instanceof ReflectionIntersectionType) {
-			$parameterClassName = (string) $parameterType;
+		if ($parameterType !== null) {
+			if ($parameterType instanceof ReflectionNamedType) {
+				if (!$parameterType->isBuiltin()) {
+					$parameterClassName = $parameterType->getName();
+				}
+			}
+			else {
+				// Checking if we have a intersection type
 
-			if (!$this->has($parameterClassName)) {
-				$parameterClassName = null;
+				if ($parameterType instanceof ReflectionIntersectionType) {
+					$parameterClassName = (string) $parameterType;
+				}
+
+				// Nullable intersection types will be detected as a union type so we'll have to dig deeper
+
+				elseif ($parameterType instanceof ReflectionUnionType && $parameterType->allowsNull()) {
+					$intersection = array_filter($parameterType->getTypes(), fn ($type) => $type instanceof ReflectionIntersectionType);
+
+					if (count($intersection) === 1) {
+						$parameterClassName = (string) $intersection[0];
+					}
+				}
+
+				// If the intersection type isn't registered in the container
+				// then we'll just set the classname back to null
+
+				if ($parameterClassName !== null && !$this->has($parameterClassName)) {
+					$parameterClassName = null;
+				}
 			}
 		}
 
