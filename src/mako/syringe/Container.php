@@ -255,9 +255,9 @@ class Container
 
 		// If the parameter should be a class instance then we'll try to resolve it using the container
 
-		$parameterClassName = null;
-
 		if ($parameterType !== null) {
+			$parameterClassName = null;
+
 			if ($parameterType instanceof ReflectionNamedType) {
 				if (!$parameterType->isBuiltin()) {
 					$parameterClassName = $parameterType->getName();
@@ -287,22 +287,24 @@ class Container
 					$parameterClassName = null;
 				}
 			}
-		}
 
-		if ($parameterClassName !== null) {
-			if ($class !== null) {
-				$parameterClassName = $this->resolveContextualDependency(($method === null ? $class->getName() : "{$class->getName()}::{$method}"), $parameterClassName);
-			}
+			// If we have a parameter class name then we'll try to resolve it using the container
 
-			try {
-				return $this->get($parameterClassName);
-			}
-			catch (UnableToInstantiateException | UnableToResolveParameterException $e) {
-				if ($parameter->allowsNull()) {
-					return null;
+			if ($parameterClassName !== null) {
+				if ($class !== null) {
+					$parameterClassName = $this->resolveContextualDependency(($method === null ? $class->getName() : "{$class->getName()}::{$method}"), $parameterClassName);
 				}
 
-				throw $e;
+				try {
+					return $this->get($parameterClassName);
+				}
+				catch (UnableToInstantiateException | UnableToResolveParameterException $e) {
+					if ($parameter->allowsNull()) {
+						return null;
+					}
+
+					throw $e;
+				}
 			}
 		}
 
