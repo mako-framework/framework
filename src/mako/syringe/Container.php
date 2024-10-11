@@ -288,7 +288,7 @@ class Container
 				}
 			}
 
-			// If we have a parameter class name then we'll try to resolve it using the container
+			// If we ended up with a parameter class name then we'll try to resolve it using the container
 
 			if ($parameterClassName !== null) {
 				if ($class !== null) {
