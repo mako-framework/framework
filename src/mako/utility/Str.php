@@ -150,7 +150,7 @@ class Str
 	 */
 	public static function camelToSnake(string $string): string
 	{
-		return mb_strtolower(preg_replace('/([^A-Z])([A-Z])/u', '$1_$2', $string));
+		return mb_strtolower(preg_replace('/([a-z])([A-Z])/u', '$1_$2', $string));
 	}
 
 	/**
