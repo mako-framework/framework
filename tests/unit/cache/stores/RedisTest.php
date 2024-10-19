@@ -11,6 +11,7 @@ use mako\cache\stores\Redis;
 use mako\redis\Redis as RedisClient;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\Generator\MockConfigurationBuilder;
 
 /**
  * @group unit
@@ -20,9 +21,51 @@ class RedisTest extends TestCase
 	/**
 	 * @return \mako\redis\Redis|\Mockery\MockInterface
 	 */
-	public function getRedisClient()
+	public function getRedisClient($ugly = false)
 	{
-		return Mockery::mock(RedisClient::class);
+		if (!$ugly) {
+			return Mockery::mock(RedisClient::class);
+		}
+
+		// This is an extremely ugly workaround to mock the Redis client class.
+		// This is needed since Mockery can't mock classes that have a method named eval.
+
+		$mockConfigBuilder = new MockConfigurationBuilder;
+
+		$mockConfigBuilder->setBlackListedMethods([
+			'__call',
+			'__callStatic',
+			'__clone',
+			'__wakeup',
+			'__set',
+			'__get',
+			'__toString',
+			'__isset',
+			'__destruct',
+			'__debugInfo',
+			'__halt_compiler', 'abstract', 'and', 'array', 'as',
+			'break', 'callable', 'case', 'catch', 'class',
+			'clone', 'const', 'continue', 'declare', 'default',
+			'die', 'do', 'echo', 'else', 'elseif',
+			'empty', 'enddeclare', 'endfor', 'endforeach', 'endif',
+			'endswitch', 'endwhile', 'exit', 'extends',
+			'final', 'for', 'foreach', 'function', 'global',
+			'goto', 'if', 'implements', 'include', 'include_once',
+			'instanceof', 'insteadof', 'interface', 'isset', 'list',
+			'namespace', 'new', 'or', 'print', 'private',
+			'protected', 'public', 'require', 'require_once', 'return',
+			'static', 'switch', 'throw', 'trait', 'try',
+			'unset', 'use', 'var', 'while', 'xor',
+			'callable', 'class', 'trait', 'extends', 'implements', 'static', 'abstract', 'final',
+			'public', 'protected', 'private', 'const', 'enddeclare', 'endfor', 'endforeach', 'endif',
+			'endwhile', 'and', 'global', 'goto', 'instanceof', 'insteadof', 'interface', 'namespace', 'new',
+			'or', 'xor', 'try', 'use', 'var', 'exit', 'list', 'clone', 'include', 'include_once', 'throw',
+			'array', 'print', 'echo', 'require', 'require_once', 'return', 'else', 'elseif', 'default',
+			'break', 'continue', 'switch', 'yield', 'function', 'if', 'endswitch', 'finally', 'for', 'foreach',
+			'declare', 'case', 'do', 'while', 'as', 'catch', 'die', 'self', 'parent',
+		]);
+
+		return Mockery::mock(RedisClient::class, $mockConfigBuilder);
 	}
 
 	/**
@@ -76,7 +119,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setnx')->once()->with('foo', 123)->andReturn(true);
+		$client->shouldReceive('setNx')->once()->with('foo', 123)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -86,7 +129,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setnx')->once()->with('foo', serialize('foo'))->andReturn(true);
+		$client->shouldReceive('setNx')->once()->with('foo', serialize('foo'))->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -94,7 +137,7 @@ class RedisTest extends TestCase
 
 		//
 
-		$client = $this->getRedisClient();
+		$client = $this->getRedisClient(true);
 
 		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
 
@@ -106,7 +149,7 @@ class RedisTest extends TestCase
 
 		//
 
-		$client = $this->getRedisClient();
+		$client = $this->getRedisClient(true);
 
 		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
 

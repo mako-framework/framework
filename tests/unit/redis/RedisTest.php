@@ -160,7 +160,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame('OK', $redis->foobar());
+		$this->assertSame('OK', $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -179,7 +179,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame('foobar', $redis->foobar());
+		$this->assertSame('foobar', $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -196,7 +196,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(null, $redis->foobar());
+		$this->assertSame(null, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -227,7 +227,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame('Hello world', $redis->foobar());
+		$this->assertSame('Hello world', $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -246,7 +246,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame('foobar', $redis->foobar());
+		$this->assertSame('foobar', $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -263,7 +263,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(1, $redis->foobar());
+		$this->assertSame(1, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -280,7 +280,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(1.1, $redis->foobar());
+		$this->assertSame(1.1, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -297,7 +297,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(INF, $redis->foobar());
+		$this->assertSame(INF, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -314,7 +314,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(-INF, $redis->foobar());
+		$this->assertSame(-INF, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -331,7 +331,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame('3492890328409238509324850943850943825024385', $redis->foobar());
+		$this->assertSame('3492890328409238509324850943850943825024385', $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -348,7 +348,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(true, $redis->foobar());
+		$this->assertSame(true, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -365,7 +365,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(false, $redis->foobar());
+		$this->assertSame(false, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -390,7 +390,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(['foo', 'bar'], $redis->foobar());
+		$this->assertSame(['foo', 'bar'], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -413,7 +413,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame([3, 'bar'], $redis->foobar());
+		$this->assertSame([3, 'bar'], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -430,7 +430,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame([], $redis->foobar());
+		$this->assertSame([], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -447,7 +447,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(null, $redis->foobar());
+		$this->assertSame(null, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -470,7 +470,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame([1, 2], $redis->foobar());
+		$this->assertSame([1, 2], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -495,7 +495,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(['first' => 1, 'second' => 2], $redis->foobar());
+		$this->assertSame(['first' => 1, 'second' => 2], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -522,7 +522,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(['first' => 1, 'second' => 2], $redis->foobar());
+		$this->assertSame(['first' => 1, 'second' => 2], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -551,7 +551,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(['foo', 'bar'], $redis->foobar());
+		$this->assertSame(['foo', 'bar'], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -576,7 +576,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame([1, 2], $redis->foobar());
+		$this->assertSame([1, 2], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -615,7 +615,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame([2039123, 9543892], $redis->foobar());
+		$this->assertSame([2039123, 9543892], $redis->get()); // Not a valid call but we're just testing the response parsing
 
 		$this->assertSame([['key-popularity' => ['a' => 0.1923, 'b' => 0.0012]]], $redis->getAttributes());
 	}
@@ -642,7 +642,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(['foo', 'bar'], $redis->foobar());
+		$this->assertSame(['foo', 'bar'], $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -663,7 +663,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$redis->foobar();
+		$redis->get(); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -686,7 +686,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$redis->foobar();
+		$redis->get(); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -703,7 +703,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$this->assertSame(null, $redis->foobar());
+		$this->assertSame(null, $redis->get()); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**
@@ -724,7 +724,7 @@ class RedisTest extends TestCase
 
 		$redis = new Redis($connection);
 
-		$redis->foobar();
+		$redis->get(); // Not a valid call but we're just testing the response parsing
 	}
 
 	/**

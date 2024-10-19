@@ -21,6 +21,16 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * The dependency injection container can now resolve intersection types.
 * Added `Deprecated` middleware that allows you to easily set the `Deprecation` and `Sunset` HTTP headers.
 * Global constraints and middleware will now be listed and sorted by priority when using the `app:routes` command.
+* Refactored the Redis client so that it doesn't rely on magic methods and added support for the following Redis Stack features:
+	- Bloom filter
+	- Cuckoo filter
+	- Count-min sketch
+	- JSON
+	- Redis query engine
+	- Auto-suggest
+	- T-digest
+	- Time series
+	- Top-k
 
 #### Changes
 

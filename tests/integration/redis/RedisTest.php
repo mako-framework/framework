@@ -48,7 +48,7 @@ class RedisTest extends TestCase
 	public function tearDown(): void
 	{
 		if ($this->redis !== null) {
-			$this->redis->flushdb();
+			$this->redis->flushDb();
 
 			$this->redis = null;
 		}
@@ -131,19 +131,9 @@ class RedisTest extends TestCase
 	 */
 	public function testMultipleWordCommands(): void
 	{
-		$this->assertEquals('OK', $this->redis->clientSetname('mako-redis'));
+		$this->assertEquals('OK', $this->redis->clientSetName('mako-redis'));
 
-		$this->assertEquals('mako-redis', $this->redis->client_getname());
-	}
-
-	/**
-	 *
-	 */
-	public function testUnknownCommand(): void
-	{
-		$this->expectException(RedisException::class);
-
-		$this->redis->fooBarBaz();
+		$this->assertEquals('mako-redis', $this->redis->clientGetName());
 	}
 
 	/**

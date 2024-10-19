@@ -9,17 +9,23 @@ namespace mako\redis;
 
 use Closure;
 use mako\redis\exceptions\RedisException;
-use mako\utility\Str;
+use mako\redis\traits\AutoSuggestTrait;
+use mako\redis\traits\BloomFilterTrait;
+use mako\redis\traits\CoreTrait;
+use mako\redis\traits\CountMinSketchTrait;
+use mako\redis\traits\CuckooFilterTrait;
+use mako\redis\traits\JsonTrait;
+use mako\redis\traits\RedisQueryEngineTrait;
+use mako\redis\traits\TDigestTrait;
+use mako\redis\traits\TimeSeriesTrait;
+use mako\redis\traits\TopKTrait;
 
 use function array_unique;
 use function count;
 use function explode;
 use function implode;
 use function in_array;
-use function str_replace;
 use function strlen;
-use function strpos;
-use function strtoupper;
 use function substr;
 use function trim;
 use function vsprintf;
@@ -28,264 +34,20 @@ use function vsprintf;
  * Redis client.
  *
  * @see https://redis.io/docs/latest/develop/reference/protocol-spec/ Redis protocol specification.
- *
- * @method mixed aclLoad(...$arguments)
- * @method mixed aclSave(...$arguments)
- * @method mixed aclList(...$arguments)
- * @method mixed aclUsers(...$arguments)
- * @method mixed aclGetuser(...$arguments)
- * @method mixed aclSetuser(...$arguments)
- * @method mixed aclDeluser(...$arguments)
- * @method mixed aclCat(...$arguments)
- * @method mixed aclGenpass(...$arguments)
- * @method mixed aclWhoami(...$arguments)
- * @method mixed aclLog(...$arguments)
- * @method mixed aclHelp(...$arguments)
- * @method mixed append(...$arguments)
- * @method mixed auth(...$arguments)
- * @method mixed bgrewriteaof(...$arguments)
- * @method mixed bgsave(...$arguments)
- * @method mixed bitcount(...$arguments)
- * @method mixed bitfield(...$arguments)
- * @method mixed bitop(...$arguments)
- * @method mixed bitpos(...$arguments)
- * @method mixed blpop(...$arguments)
- * @method mixed brpop(...$arguments)
- * @method mixed brpoplpush(...$arguments)
- * @method mixed bzpopmin(...$arguments)
- * @method mixed bzpopmax(...$arguments)
- * @method mixed clientCaching(...$arguments)
- * @method mixed clientId(...$arguments)
- * @method mixed clientKill(...$arguments)
- * @method mixed clientList(...$arguments)
- * @method mixed clientGetname(...$arguments)
- * @method mixed clientGetredir(...$arguments)
- * @method mixed clientPause(...$arguments)
- * @method mixed clientReply(...$arguments)
- * @method mixed clientSetname(...$arguments)
- * @method mixed clientTracking(...$arguments)
- * @method mixed clientUnblock(...$arguments)
- * @method mixed clusterAddslots(...$arguments)
- * @method mixed clusterBumpepoch(...$arguments)
- * @method mixed clusterCountFailureReports(...$arguments)
- * @method mixed clusterCountkeysinslot(...$arguments)
- * @method mixed clusterDelslots(...$arguments)
- * @method mixed clusterFailover(...$arguments)
- * @method mixed clusterFlushslots(...$arguments)
- * @method mixed clusterForget(...$arguments)
- * @method mixed clusterGetkeysinslot(...$arguments)
- * @method mixed clusterInfo(...$arguments)
- * @method mixed clusterKeyslot(...$arguments)
- * @method mixed clusterMeet(...$arguments)
- * @method mixed clusterMyid(...$arguments)
- * @method mixed clusterNodes(...$arguments)
- * @method mixed clusterReplicate(...$arguments)
- * @method mixed clusterReset(...$arguments)
- * @method mixed clusterSaveconfig(...$arguments)
- * @method mixed clusterSetConfigEpoch(...$arguments)
- * @method mixed clusterSetslot(...$arguments)
- * @method mixed clusterSlaves(...$arguments)
- * @method mixed clusterReplicas(...$arguments)
- * @method mixed clusterSlots(...$arguments)
- * @method mixed command(...$arguments)
- * @method mixed commandCount(...$arguments)
- * @method mixed commandGetkeys(...$arguments)
- * @method mixed commandInfo(...$arguments)
- * @method mixed configGet(...$arguments)
- * @method mixed configRewrite(...$arguments)
- * @method mixed configSet(...$arguments)
- * @method mixed configResetstat(...$arguments)
- * @method mixed dbsize(...$arguments)
- * @method mixed debugObject(...$arguments)
- * @method mixed debugSegfault(...$arguments)
- * @method mixed decr(...$arguments)
- * @method mixed decrby(...$arguments)
- * @method mixed del(...$arguments)
- * @method mixed discard(...$arguments)
- * @method mixed dump(...$arguments)
- * @method mixed echo(...$arguments)
- * @method mixed eval(...$arguments)
- * @method mixed evalsha(...$arguments)
- * @method mixed exec(...$arguments)
- * @method mixed exists(...$arguments)
- * @method mixed expire(...$arguments)
- * @method mixed expireat(...$arguments)
- * @method mixed flushall(...$arguments)
- * @method mixed flushdb(...$arguments)
- * @method mixed geoadd(...$arguments)
- * @method mixed geohash(...$arguments)
- * @method mixed geopos(...$arguments)
- * @method mixed geodist(...$arguments)
- * @method mixed georadius(...$arguments)
- * @method mixed georadiusbymember(...$arguments)
- * @method mixed get(...$arguments)
- * @method mixed getbit(...$arguments)
- * @method mixed getrange(...$arguments)
- * @method mixed getset(...$arguments)
- * @method mixed hdel(...$arguments)
- * @method mixed hello(...$arguments)
- * @method mixed hexists(...$arguments)
- * @method mixed hget(...$arguments)
- * @method mixed hgetall(...$arguments)
- * @method mixed hincrby(...$arguments)
- * @method mixed hincrbyfloat(...$arguments)
- * @method mixed hkeys(...$arguments)
- * @method mixed hlen(...$arguments)
- * @method mixed hmget(...$arguments)
- * @method mixed hmset(...$arguments)
- * @method mixed hset(...$arguments)
- * @method mixed hsetnx(...$arguments)
- * @method mixed hstrlen(...$arguments)
- * @method mixed hvals(...$arguments)
- * @method mixed incr(...$arguments)
- * @method mixed incrby(...$arguments)
- * @method mixed incrbyfloat(...$arguments)
- * @method mixed info(...$arguments)
- * @method mixed lolwut(...$arguments)
- * @method mixed keys(...$arguments)
- * @method mixed lastsave(...$arguments)
- * @method mixed lindex(...$arguments)
- * @method mixed linsert(...$arguments)
- * @method mixed llen(...$arguments)
- * @method mixed lpop(...$arguments)
- * @method mixed lpos(...$arguments)
- * @method mixed lpush(...$arguments)
- * @method mixed lpushx(...$arguments)
- * @method mixed lrange(...$arguments)
- * @method mixed lrem(...$arguments)
- * @method mixed lset(...$arguments)
- * @method mixed ltrim(...$arguments)
- * @method mixed memoryDoctor(...$arguments)
- * @method mixed memoryHelp(...$arguments)
- * @method mixed memoryMallocStats(...$arguments)
- * @method mixed memoryPurge(...$arguments)
- * @method mixed memoryStats(...$arguments)
- * @method mixed memoryUsage(...$arguments)
- * @method mixed mget(...$arguments)
- * @method mixed migrate(...$arguments)
- * @method mixed moduleList(...$arguments)
- * @method mixed moduleLoad(...$arguments)
- * @method mixed moduleUnload(...$arguments)
- * @method mixed move(...$arguments)
- * @method mixed mset(...$arguments)
- * @method mixed msetnx(...$arguments)
- * @method mixed multi(...$arguments)
- * @method mixed object(...$arguments)
- * @method mixed persist(...$arguments)
- * @method mixed pexpire(...$arguments)
- * @method mixed pexpireat(...$arguments)
- * @method mixed pfadd(...$arguments)
- * @method mixed pfcount(...$arguments)
- * @method mixed pfmerge(...$arguments)
- * @method mixed ping(...$arguments)
- * @method mixed psetex(...$arguments)
- * @method mixed pubsub(...$arguments)
- * @method mixed pttl(...$arguments)
- * @method mixed publish(...$arguments)
- * @method mixed quit(...$arguments)
- * @method mixed randomkey(...$arguments)
- * @method mixed readonly(...$arguments)
- * @method mixed readwrite(...$arguments)
- * @method mixed rename(...$arguments)
- * @method mixed renamenx(...$arguments)
- * @method mixed restore(...$arguments)
- * @method mixed role(...$arguments)
- * @method mixed rpop(...$arguments)
- * @method mixed rpoplpush(...$arguments)
- * @method mixed rpush(...$arguments)
- * @method mixed rpushx(...$arguments)
- * @method mixed sadd(...$arguments)
- * @method mixed save(...$arguments)
- * @method mixed scard(...$arguments)
- * @method mixed scriptDebug(...$arguments)
- * @method mixed scriptExists(...$arguments)
- * @method mixed scriptFlush(...$arguments)
- * @method mixed scriptKill(...$arguments)
- * @method mixed scriptLoad(...$arguments)
- * @method mixed sdiff(...$arguments)
- * @method mixed sdiffstore(...$arguments)
- * @method mixed select(...$arguments)
- * @method mixed set(...$arguments)
- * @method mixed setbit(...$arguments)
- * @method mixed setex(...$arguments)
- * @method mixed setnx(...$arguments)
- * @method mixed setrange(...$arguments)
- * @method mixed shutdown(...$arguments)
- * @method mixed sinter(...$arguments)
- * @method mixed sinterstore(...$arguments)
- * @method mixed sismember(...$arguments)
- * @method mixed slaveof(...$arguments)
- * @method mixed replicaof(...$arguments)
- * @method mixed slowlog(...$arguments)
- * @method mixed smembers(...$arguments)
- * @method mixed smove(...$arguments)
- * @method mixed sort(...$arguments)
- * @method mixed spop(...$arguments)
- * @method mixed srandmember(...$arguments)
- * @method mixed srem(...$arguments)
- * @method mixed stralgo(...$arguments)
- * @method mixed strlen(...$arguments)
- * @method mixed sunion(...$arguments)
- * @method mixed sunionstore(...$arguments)
- * @method mixed swapdb(...$arguments)
- * @method mixed sync(...$arguments)
- * @method mixed psync(...$arguments)
- * @method mixed time(...$arguments)
- * @method mixed touch(...$arguments)
- * @method mixed ttl(...$arguments)
- * @method mixed type(...$arguments)
- * @method mixed unlink(...$arguments)
- * @method mixed unwatch(...$arguments)
- * @method mixed wait(...$arguments)
- * @method mixed watch(...$arguments)
- * @method mixed zadd(...$arguments)
- * @method mixed zcard(...$arguments)
- * @method mixed zcount(...$arguments)
- * @method mixed zincrby(...$arguments)
- * @method mixed zinterstore(...$arguments)
- * @method mixed zlexcount(...$arguments)
- * @method mixed zpopmax(...$arguments)
- * @method mixed zpopmin(...$arguments)
- * @method mixed zrange(...$arguments)
- * @method mixed zrangebylex(...$arguments)
- * @method mixed zrevrangebylex(...$arguments)
- * @method mixed zrangebyscore(...$arguments)
- * @method mixed zrank(...$arguments)
- * @method mixed zrem(...$arguments)
- * @method mixed zremrangebylex(...$arguments)
- * @method mixed zremrangebyrank(...$arguments)
- * @method mixed zremrangebyscore(...$arguments)
- * @method mixed zrevrange(...$arguments)
- * @method mixed zrevrangebyscore(...$arguments)
- * @method mixed zrevrank(...$arguments)
- * @method mixed zscore(...$arguments)
- * @method mixed zunionstore(...$arguments)
- * @method mixed scan(...$arguments)
- * @method mixed sscan(...$arguments)
- * @method mixed hscan(...$arguments)
- * @method mixed zscan(...$arguments)
- * @method mixed xinfo(...$arguments)
- * @method mixed xadd(...$arguments)
- * @method mixed xtrim(...$arguments)
- * @method mixed xdel(...$arguments)
- * @method mixed xrange(...$arguments)
- * @method mixed xrevrange(...$arguments)
- * @method mixed xlen(...$arguments)
- * @method mixed xread(...$arguments)
- * @method mixed xgroup(...$arguments)
- * @method mixed xreadgroup(...$arguments)
- * @method mixed xack(...$arguments)
- * @method mixed xclaim(...$arguments)
- * @method mixed xpending(...$arguments)
- * @method mixed latencyDoctor(...$arguments)
- * @method mixed latencyGraph(...$arguments)
- * @method mixed latencyHistory(...$arguments)
- * @method mixed latencyLatest(...$arguments)
- * @method mixed latencyReset(...$arguments)
- * @method mixed latencyHelp(...$arguments)
  */
 class Redis
 {
+	use AutoSuggestTrait;
+	use BloomFilterTrait;
+	use CoreTrait;
+	use CountMinSketchTrait;
+	use CuckooFilterTrait;
+	use JsonTrait;
+	use RedisQueryEngineTrait;
+	use TDigestTrait;
+	use TimeSeriesTrait;
+	use TopKTrait;
+
 	/**
 	 * Command terminator.
 	 */
@@ -721,21 +483,8 @@ class Redis
 	/**
 	 * Builds command.
 	 */
-	protected function buildCommand(string $name, array $arguments = []): string
+	protected function buildCommand(array $command, array $arguments = []): string
 	{
-		$command = strtoupper(str_replace('_', ' ', Str::camelToSnake($name)));
-
-		if (strpos($command, ' ') === false) {
-			$command = [$command];
-		}
-		else {
-			$command = explode(' ', $command, 2);
-
-			if (strpos($command[1], ' ') !== false) {
-				$command[1] = str_replace(' ', '-', $command[1]);
-			}
-		}
-
 		$pieces = [...$command, ...$arguments];
 
 		$command = '*' . count($pieces) . static::CRLF;
@@ -772,7 +521,7 @@ class Redis
 	 */
 	protected function subscribe(array $channels, Closure $subscriber, array $accept, string $subscribe, string $unsubscribe): void
 	{
-		$this->sendCommand($this->buildCommand($subscribe, $channels));
+		$this->sendCommand($this->buildCommand([$subscribe], $channels));
 
 		while (true) {
 			$message = new Message($this->getResponse());
@@ -785,7 +534,7 @@ class Redis
 		}
 
 		foreach ($channels as $channel) {
-			$this->sendCommandAndGetResponse($this->buildCommand($unsubscribe, [$channel]));
+			$this->sendCommandAndGetResponse($this->buildCommand([$unsubscribe], [$channel]));
 		}
 	}
 
@@ -794,7 +543,7 @@ class Redis
 	 */
 	public function subscribeTo(array $channels, Closure $subscriber, array $accept = ['message']): void
 	{
-		$this->subscribe($channels, $subscriber, $accept, 'subscribe', 'unsubscribe');
+		$this->subscribe($channels, $subscriber, $accept, 'SUBSCRIBE', 'UNSUBSCRIBE');
 	}
 
 	/**
@@ -802,7 +551,7 @@ class Redis
 	 */
 	public function subscribeToPattern(array $channels, Closure $subscriber, array $accept = ['pmessage']): void
 	{
-		$this->subscribe($channels, $subscriber, $accept, 'psubscribe', 'punsubscribe');
+		$this->subscribe($channels, $subscriber, $accept, 'PSUBSCRIBE', 'PUNSUBSCRIBE');
 	}
 
 	/**
@@ -810,7 +559,7 @@ class Redis
 	 */
 	public function monitor(Closure $monitor): void
 	{
-		$this->sendCommandAndGetResponse($this->buildCommand('monitor'));
+		$this->sendCommandAndGetResponse($this->buildCommand(['MONITOR']));
 
 		while (true) {
 			if ($monitor($this->getResponse()) === false) {
@@ -818,7 +567,7 @@ class Redis
 			}
 		}
 
-		$this->sendCommandAndGetResponse($this->buildCommand('quit'));
+		$this->sendCommandAndGetResponse($this->buildCommand(['QUIT']));
 	}
 
 	/**
@@ -862,16 +611,16 @@ class Redis
 	}
 
 	/**
-	 * Sends command to Redis server and returns response
+	 * Builds and sends a command to the Redis server and returns response
 	 * or appends command to the pipeline and returns the client.
 	 */
-	public function __call(string $name, array $arguments): mixed
+	protected function buildAndSendCommandAndReturnResponse(array $command, array $arguments = []): mixed
 	{
-		$command = $this->buildCommand($name, $arguments);
+		$command = $this->buildCommand($command, $arguments);
+
+		// Should we pipeline the command?
 
 		if ($this->pipelined) {
-			// Pipeline commands
-
 			$this->commands[] = $command;
 
 			return $this;
