@@ -111,6 +111,9 @@ trait JsonTrait
 		return $this->buildAndSendCommandAndReturnResponse(['JSON.OBJLEN'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function jsonResp(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['JSON.RESP'], $arguments);

@@ -185,11 +185,17 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SETSHARDS'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function clusterSlaves(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLAVES'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function clusterSlots(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLOTS'], $arguments);
@@ -312,6 +318,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['PING'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function quit(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['QUIT'], $arguments);
@@ -511,21 +520,33 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['GEOPOS'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function geoRadius(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUS'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function getRadiusRo(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUS_RO'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function geoRadiusByMember(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUSBYMEMBER'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function getRadiusByMemberRo(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUSBYMEMBER_RO'], $arguments);
@@ -603,6 +624,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['HMGET'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function hMSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['HMSET'], $arguments);
@@ -717,6 +741,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['BRPOP'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function brPopLPush(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['BRPOPLPUSH'], $arguments);
@@ -792,6 +819,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['RPOP'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function rPopLPush(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['RPOPLPUSH'], $arguments);
@@ -1176,6 +1206,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['SHUTDOWN'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function slaveOf(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SLAVEOF'], $arguments);
@@ -1395,11 +1428,17 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['ZRANGE'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function zRangeByLex(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZRANGEBYLEX'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function zRangeByScore(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZRANGEBYSCORE'], $arguments);
@@ -1435,16 +1474,25 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['ZREMRANGEBYSCORE'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function zRevRange(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZREVRANGE'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function zRevRangeByLex(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZREVRANGEBYLEX'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function zRevRangeByScore(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZREVRANGEBYSCORE'], $arguments);
@@ -1619,6 +1667,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['GETRANGE'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function getSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GETSET'], $arguments);
@@ -1659,6 +1710,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['MSETNX'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function pSetEx(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['PSETEX'], $arguments);
@@ -1669,11 +1723,17 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['SET'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function setEx(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SETEX'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function setNx(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SETNX'], $arguments);
@@ -1689,6 +1749,9 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['STRLEN'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function subStr(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SUBSTR'], $arguments);

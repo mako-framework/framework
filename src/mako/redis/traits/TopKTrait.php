@@ -21,6 +21,9 @@ trait TopKTrait
 		return $this->buildAndSendCommandAndReturnResponse(['TOPK.ADD'], $arguments);
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function topKCount(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['TOPK.COUNT'], $arguments);
