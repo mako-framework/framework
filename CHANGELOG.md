@@ -31,7 +31,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 	- T-digest
 	- Time series
 	- Top-k
-
+* Added `Redis::executeCommand()` helper method that makes it possible to call commands not yet supported by the client.
 #### Changes
 
 * The `UUID::sequential()` method has been renamed to `UUID::v4Sequential()`.
