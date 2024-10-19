@@ -36,6 +36,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 
 * The `UUID::sequential()` method has been renamed to `UUID::v4Sequential()`.
 * The gatekeeper `Session::login()` and `Session::forceLogin()` methods will now return a `LoginStatus` enum instance instead of a mix of boolean and integer values.
+* Dropped support for underscore speparated Redis method calls.
 
 #### Improvements
 

@@ -145,4 +145,26 @@ class RedisTest extends TestCase
 
 		$this->redis->set('foo');
 	}
+
+	/**
+	 *
+	 */
+	public function testGetUsingExecuteCommand(): void
+	{
+		$this->assertEquals('OK', $this->redis->executeCommand('SET', 'myKey', 'hello'));
+
+		$this->assertEquals('hello', $this->redis->executeCommand('GET', 'myKey'));
+
+		$this->assertNull($this->redis->executeCommand('GET', 'doesNotExist'));
+	}
+
+	/**
+	 *
+	 */
+	public function testMultipleWordCommandsUsingExecuteCommand(): void
+	{
+		$this->assertEquals('OK', $this->redis->executeCommand('CLIENT SETNAME', 'mako-redis'));
+
+		$this->assertEquals('mako-redis', $this->redis->executeCommand('CLIENT GETNAME'));
+	}
 }

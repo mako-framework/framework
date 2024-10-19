@@ -25,6 +25,7 @@ use function count;
 use function explode;
 use function implode;
 use function in_array;
+use function is_string;
 use function strlen;
 use function substr;
 use function trim;
@@ -633,5 +634,17 @@ class Redis
 		// Send command to server and return response
 
 		return $this->sendCommandAndGetResponse($command);
+	}
+
+	/**
+	 * Sends a command to the Redis server and returns the response.
+	 */
+	public function executeCommand(string $command, mixed ...$arguments): mixed
+	{
+		if (is_string($command)) {
+			$command = explode(' ', $command);
+		}
+
+		return $this->buildAndSendCommandAndReturnResponse($command, $arguments);
 	}
 }
