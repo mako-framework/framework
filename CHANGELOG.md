@@ -11,7 +11,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * The `ManyToMany::unlink()` and `ManyToMany::synchronize()` methods now support junction attributes.
 * Enums are now also supported when writing "raw" SQL.
 * Added support for deletes with joins to the MySQL query compiler.
-* The database library will use the new PDO driver specific sub-classes when running on PHP 8.4+.
+* The database library will use the new driver specific PDO sub-classes.
 * Added upsert functionality to the query builder. The feature is currently supported by the `MySQL`, `PostgreSQL` and `SQLite` compilers.
 * The `Time::createFromTimestamp()` and `TimeImmutable::createFromTimestamp()` methods now support microtime precision.
 * The `Time::createFromFormat()` and `TimeImmutable::createFromFormat()` methods now support microtime precision.
@@ -45,7 +45,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 #### Changes
 
 * The gatekeeper `Session::login()` and `Session::forceLogin()` methods will now return a `LoginStatus` enum instance instead of a mix of boolean and integer values.
-* Dropped support for underscore speparated Redis method calls.
+* Dropped support for underscore separated Redis method calls.
 * Renamed the `UUID::sequential()` method to `UUID::v4Sequential()`.
 * Renamed the `ErrorHandler::handle()` method to `ErrorHandler::addHandler()`.
 * Renamed the `ErrorHandler::handler()` method to `ErrorHandler::handle()`.
