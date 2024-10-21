@@ -28,7 +28,7 @@ class Permissions
 	/**
 	 * Constructor.
 	 */
-	public function __construct(Permission ...$permissions)
+	final public function __construct(Permission ...$permissions)
 	{
 		$this->permissions = empty($permissions) ? [Permission::NONE] : $permissions;
 	}
