@@ -32,6 +32,13 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 	- Time series
 	- Top-k
 * Added `Redis::executeCommand()` helper method that makes it possible to call commands not yet supported by the client.
+* Added `Permission` enum with the following methods to make it easier to interact with file permissions:
+	- `Permission::calculate()`
+	- `Permission::hasPermissions()`
+* Added `FileSystem::setPermissions()` method that accepts `Permission` enum values.
+* Added `FileSystem::hasPermissions()` method.
+* Added `FileInfo::hasPermissions()` method.
+
 #### Changes
 
 * The gatekeeper `Session::login()` and `Session::forceLogin()` methods will now return a `LoginStatus` enum instance instead of a mix of boolean and integer values.

@@ -10,6 +10,7 @@ namespace mako\file;
 use FilesystemIterator;
 use SplFileObject;
 
+use function chmod;
 use function copy;
 use function disk_free_space;
 use function disk_total_space;
@@ -17,6 +18,7 @@ use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function filemtime;
+use function fileperms;
 use function filesize;
 use function getcwd;
 use function glob;
@@ -73,6 +75,22 @@ class FileSystem
 		}
 
 		return filesize($path) === 0;
+	}
+
+	/**
+	 * Sets the file permissions.
+	 */
+	public function setPermissions(string $path, Permission ...$permission): bool
+	{
+		return chmod($path, Permission::calculate(...$permission));
+	}
+
+	/**
+	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
+	 */
+	public function hasPermission(string $path, Permission ...$permission): bool
+	{
+		return Permission::hasPermissions(fileperms($path) & Permission::FULL->value, ...$permission);
 	}
 
 	/**

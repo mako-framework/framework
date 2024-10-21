@@ -81,4 +81,12 @@ class FileInfo extends SplFileInfo
 	{
 		return hash_equals($hmac, $this->getHmac($key, $algorithm, $raw));
 	}
+
+	/**
+	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
+	 */
+	public function hasPermissions(Permission ...$permission): bool
+	{
+		return Permission::hasPermissions($this->getPerms() & Permission::FULL->value, ...$permission);
+	}
 }
