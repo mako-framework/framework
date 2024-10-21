@@ -77,6 +77,8 @@ return
 	mako\database\query\Subquery::class,
 	mako\error\ErrorHandler::class,
 	mako\file\FileSystem::class,
+	mako\file\Permission::class,
+	mako\file\Permissions::class,
 	mako\gatekeeper\adapters\Adapter::class,
 	mako\gatekeeper\adapters\AdapterInterface::class,
 	mako\gatekeeper\adapters\WithGroupsInterface::class,
