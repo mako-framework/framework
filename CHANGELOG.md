@@ -34,9 +34,11 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `Redis::executeCommand()` helper method that makes it possible to call commands not yet supported by the client.
 #### Changes
 
-* The `UUID::sequential()` method has been renamed to `UUID::v4Sequential()`.
 * The gatekeeper `Session::login()` and `Session::forceLogin()` methods will now return a `LoginStatus` enum instance instead of a mix of boolean and integer values.
 * Dropped support for underscore speparated Redis method calls.
+* Renamed the `UUID::sequential()` method to `UUID::v4Sequential()`.
+* Renamed the `ErrorHandler::handle()` method to `ErrorHandler::addHandler()`.
+* Renamed the `ErrorHandler::handler()` method to `ErrorHandler::handle()`.
 
 #### Improvements
 

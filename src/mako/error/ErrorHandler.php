@@ -72,7 +72,7 @@ class ErrorHandler
 	) {
 		// Add a basic exception handler to the stack
 
-		$this->handle(Throwable::class, $this->getFallbackHandler());
+		$this->addHandler(Throwable::class, $this->getFallbackHandler());
 
 		// Registers the exception handler
 
@@ -134,13 +134,13 @@ class ErrorHandler
 			$e = error_get_last();
 
 			if ($e !== null && (error_reporting() & $e['type']) !== 0 && !$this->disableShutdownHandler) {
-				$this->handler(new ErrorException($e['message'], code: $e['type'], filename: $e['file'], line: $e['line']));
+				$this->handle(new ErrorException($e['message'], code: $e['type'], filename: $e['file'], line: $e['line']));
 			}
 		});
 
 		// Set the exception handler
 
-		set_exception_handler($this->handler(...));
+		set_exception_handler($this->handle(...));
 	}
 
 	/**
@@ -182,7 +182,7 @@ class ErrorHandler
 	/**
 	 * Prepends an exception handler to the stack.
 	 */
-	public function handle(string $exceptionType, Closure|string $handler, array $parameters = []): void
+	public function addHandler(string $exceptionType, Closure|string $handler, array $parameters = []): void
 	{
 		array_unshift($this->handlers, ['exceptionType' => $exceptionType, 'handler' => $handler, 'parameters' => $parameters]);
 	}
@@ -206,7 +206,7 @@ class ErrorHandler
 	{
 		$this->clearHandlers($exceptionType);
 
-		$this->handle($exceptionType, $handler);
+		$this->addHandler($exceptionType, $handler);
 	}
 
 	/**
@@ -285,7 +285,7 @@ class ErrorHandler
 	/**
 	 * Handles uncaught exceptions.
 	 */
-	public function handler(Throwable $exception, bool $shouldExit = true): void
+	public function handle(Throwable $exception, bool $shouldExit = true): void
 	{
 		try {
 			// Empty output buffers
