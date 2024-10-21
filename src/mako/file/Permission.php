@@ -9,6 +9,8 @@ namespace mako\file;
 
 use InvalidArgumentException;
 
+use function vsprintf;
+
 /**
  * File permissions.
  */
@@ -63,10 +65,10 @@ enum Permission: int
 	public static function hasPermissions(int $permissions, Permission ...$permission): bool
 	{
 		if ($permissions < 0o000 || $permissions > 0o777) {
-			throw new InvalidArgumentException(vsprintf('The integer %s does not represent a valid octal between 0o000 and 0o777.', [$permissions]));
+			throw new InvalidArgumentException(vsprintf('The integer [ %s ] does not represent a valid octal between 0o000 and 0o777.', [$permissions]));
 		}
 
-		$permission = static::calculate(...$permission);
+		$permission = empty($permission) ? 0o000 : static::calculate(...$permission);
 
 		if ($permission === 0o000) {
 			return $permissions === 0o000;

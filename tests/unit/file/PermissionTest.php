@@ -23,6 +23,8 @@ class PermissionTest extends TestCase
 	{
 		// Test individual permissions
 
+		$this->assertSame(0o000, Permission::calculate());
+
 		$this->assertSame(0o000, Permission::calculate(Permission::NONE));
 
 		$this->assertSame(0o400, Permission::calculate(Permission::OWNER_READ));
@@ -79,7 +81,7 @@ class PermissionTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('The integer 1337 does not represent a valid octal between 0o000 and 0o777.');
+		$this->expectExceptionMessage('The integer [ 1337 ] does not represent a valid octal between 0o000 and 0o777.');
 
 		Permission::hasPermissions(1337, Permission::NONE);
 	}
@@ -107,6 +109,8 @@ class PermissionTest extends TestCase
 	 */
 	public function testHasPermissionsWithNoPermissions(): void
 	{
+		$this->assertTrue(Permission::hasPermissions(0o000));
+
 		$this->assertTrue(Permission::hasPermissions(0o000, Permission::NONE));
 
 		$this->assertFalse(Permission::hasPermissions(0o777, Permission::NONE));

@@ -89,4 +89,12 @@ class FileInfo extends SplFileInfo
 	{
 		return Permission::hasPermissions($this->getPerms() & Permission::FULL->value, ...$permission);
 	}
+
+	/**
+	 * Returns the file permissions.
+	 */
+	public function getPermissions(): Permissions
+	{
+		return Permissions::fromInt($this->getPerms() & Permission::FULL->value);
+	}
 }

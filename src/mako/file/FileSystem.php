@@ -94,6 +94,14 @@ class FileSystem
 	}
 
 	/**
+	 * Returns the file permissions.
+	 */
+	public function getPermissions(string $path): Permissions
+	{
+		return Permissions::fromInt(fileperms($path) & Permission::FULL->value);
+	}
+
+	/**
 	 * Returns TRUE if the file is readable and FALSE if not.
 	 */
 	public function isReadable(string $path): bool
