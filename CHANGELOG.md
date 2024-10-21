@@ -35,7 +35,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `Permission` enum with the following methods to make it easier to interact with file permissions:
 	- `Permission::calculate()`
 	- `Permission::hasPermissions()`
-* Added `Permissions` class to that can interact with a set of `Permission` enum instances.
+* Added `Permissions` class that can be used to interact with a set of `Permission` enum instances.
 * Added `FileSystem::setPermissions()` method that accepts `Permission` enum values.
 * Added `FileSystem::hasPermissions()` method.
 * Added `FileSystem::getPermissions()` method that returns a `Permissions` instance.
