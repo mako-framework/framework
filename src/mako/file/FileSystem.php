@@ -23,6 +23,7 @@ use function filesize;
 use function getcwd;
 use function glob;
 use function is_dir;
+use function is_executable;
 use function is_file;
 use function is_link;
 use function is_readable;
@@ -115,6 +116,14 @@ class FileSystem
 	public function isWritable(string $path): bool
 	{
 		return is_writable($path);
+	}
+
+	/**
+	 * Returns TRUE if the file is executable and FALSE if not.
+	 */
+	public function isExecutable(string $path): bool
+	{
+		return is_executable($path);
 	}
 
 	/**

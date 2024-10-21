@@ -39,6 +39,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `FileSystem::setPermissions()` method that accepts `Permission` enum values.
 * Added `FileSystem::hasPermissions()` method.
 * Added `FileSystem::getPermissions()` method that returns a `Permissions` instance.
+* Added `FileSystem::isExecutable()` method.
 * Added `FileInfo::hasPermissions()` method.
 * Added `FileInfo::getPermissions()` method that returns a `Permissions` instance.
 
