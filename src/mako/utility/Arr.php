@@ -202,33 +202,33 @@ class Arr
 	 */
 	public static function toObject(array $array): array|object
 	{
-        $resultArray = [];
+		$resultArray = [];
 
-        $resultObject = new stdClass;
+		$resultObject = new stdClass;
 
-        $isNumeric = $isAssociative = false;
+		$isNumeric = $isAssociative = false;
 
-        foreach ($array as $key => $value) {
-            if (!$isNumeric) {
-                $isNumeric = is_int($key);
-            }
+		foreach ($array as $key => $value) {
+			if (!$isNumeric) {
+				$isNumeric = is_int($key);
+			}
 
-            if (!$isAssociative) {
-                $isAssociative = is_string($key);
-            }
+			if (!$isAssociative) {
+				$isAssociative = is_string($key);
+			}
 
-            if ($isNumeric && $isAssociative) {
-                throw new ArrException('Unable to convert an array containing a mix of integer and string keys to an object.');
-            }
+			if ($isNumeric && $isAssociative) {
+				throw new ArrException('Unable to convert an array containing a mix of integer and string keys to an object.');
+			}
 
-            if ($isNumeric) {
-                $resultArray[$key] = is_array($value) ? static::toObject($value) : $value;
-            }
-            else {
-                $resultObject->{$key} = is_array($value) ? static::toObject($value) : $value;
-            }
-        }
+			if ($isNumeric) {
+				$resultArray[$key] = is_array($value) ? static::toObject($value) : $value;
+			}
+			else {
+				$resultObject->{$key} = is_array($value) ? static::toObject($value) : $value;
+			}
+		}
 
-        return $isNumeric ? $resultArray : $resultObject;
-    }
+		return $isNumeric ? $resultArray : $resultObject;
+	}
 }

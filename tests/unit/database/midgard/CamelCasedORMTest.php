@@ -17,7 +17,7 @@ use mako\tests\TestCase;
 
 class CamelCasedORM extends ORM
 {
-    use CamelCasedTrait;
+	use CamelCasedTrait;
 
 	protected array $cast = ['is_something' => 'bool'];
 

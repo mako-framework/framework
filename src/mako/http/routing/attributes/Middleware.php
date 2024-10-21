@@ -20,23 +20,23 @@ class Middleware
 	 */
 	protected array $parameters;
 
-    /**
-     * Constructor.
-     */
-    public function __construct(
-        protected string $middleware,
+	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		protected string $middleware,
 		mixed ...$parameters
-    ) {
+	) {
 		$this->parameters = $parameters;
 	}
 
-    /**
-     * Returns the middleware.
-     */
-    public function getMiddleware(): string
-    {
-        return $this->middleware;
-    }
+	/**
+	 * Returns the middleware.
+	 */
+	public function getMiddleware(): string
+	{
+		return $this->middleware;
+	}
 
 	/**
 	 * Returns the middleware parameters.

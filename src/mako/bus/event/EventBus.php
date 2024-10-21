@@ -31,11 +31,11 @@ class EventBus implements EventBusInterface
 	) {
 	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function registerHandler(string $eventClass, callable|string $handler): void
-    {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function registerHandler(string $eventClass, callable|string $handler): void
+	{
 		$this->handlers[$eventClass][] = $handler;
 	}
 
@@ -51,11 +51,11 @@ class EventBus implements EventBusInterface
 		}
 	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public function handle(object $event): void
-    {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function handle(object $event): void
+	{
 		/** @var callable $handler */
 		foreach ($this->getHandlers($event) as $handler) {
 			$handler($event);

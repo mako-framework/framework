@@ -20,23 +20,23 @@ class Constraint
 	 */
 	protected array $parameters;
 
-    /**
-     * Constructor.
-     */
-    public function __construct(
-        protected string $constraint,
+	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		protected string $constraint,
 		mixed ...$parameters
-    ) {
+	) {
 		$this->parameters = $parameters;
 	}
 
-    /**
-     * Returns the constraint.
-     */
-    public function getConstraint(): string
-    {
-        return $this->constraint;
-    }
+	/**
+	 * Returns the constraint.
+	 */
+	public function getConstraint(): string
+	{
+		return $this->constraint;
+	}
 
 	/**
 	 * Returns the constraint parameters.
