@@ -50,7 +50,7 @@ enum Permission: int
 	 */
 	public static function calculate(Permission ...$permission): int
 	{
-		$permissions = static::NONE->value;
+		$permissions = 0o000;
 
 		foreach ($permission as $_permission) {
 			$permissions |= $_permission->value;
