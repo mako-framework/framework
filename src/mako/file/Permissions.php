@@ -72,7 +72,7 @@ class Permissions
 	 */
 	public function getPermissions(): array
 	{
-		return $this->permissions;
+		return static::fromInt($this->toInt())->permissions;
 	}
 
 	/**
