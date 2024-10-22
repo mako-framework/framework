@@ -40,9 +40,9 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `FileSystem::hasPermissions()` method that accepts an integer or a `Permissions` instance.
 * Added `FileSystem::getPermissions()` method that returns a `Permissions` instance.
 * Added `FileSystem::isExecutable()` method.
+* Added `FileSystem::clearCache()` method.
 * Added `FileInfo::hasPermissions()` method that accepts an integer or a `Permissions` instance.
 * Added `FileInfo::getPermissions()` method that returns a `Permissions` instance.
-* Added `FileSystem::clearCache()` method.
 
 #### Changes
 
