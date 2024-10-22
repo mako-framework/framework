@@ -56,5 +56,13 @@
         "ext-openssl": "Required to use the crypto library",
         "ext-pdo": "Required to use the database library",
         "ext-simplexml": "Required if you want the error handlers to be able to serve XML"
+    },
+    "scripts": {
+        "phpunit": "phpunit",
+        "phpstan": "phpstan analyze src --no-progress --memory-limit=-1 -c phpstan.neon",
+        "qa": [
+            "@phpstan",
+            "@phpunit"
+        ]
     }
 }
