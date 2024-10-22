@@ -11,6 +11,7 @@ use FilesystemIterator;
 use SplFileObject;
 
 use function chmod;
+use function clearstatcache;
 use function copy;
 use function disk_free_space;
 use function disk_total_space;
@@ -42,6 +43,14 @@ use function unlink;
  */
 class FileSystem
 {
+	/**
+	 * Clears the file status cache.
+	 */
+	public function clearCache(bool $clearRealPathCache = false, string $filename = ''): void
+	{
+		clearstatcache($clearRealPathCache, $filename);
+	}
+
 	/**
 	 * Returns TRUE if a resource exists and FALSE if not.
 	 */
