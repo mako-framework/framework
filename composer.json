@@ -58,11 +58,11 @@
         "ext-simplexml": "Required if you want the error handlers to be able to serve XML"
     },
     "scripts": {
-        "phpunit": "phpunit",
+        "phpunit": "phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning",
         "phpstan": "phpstan analyze src --no-progress --memory-limit=-1 -c phpstan.neon",
         "qa": [
-            "@phpstan",
-            "@phpunit"
+            "@phpunit",
+            "@phpstan"
         ]
     }
 }
