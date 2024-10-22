@@ -81,17 +81,11 @@ class FileSystem
 	/**
 	 * Sets the file permissions.
 	 */
-	public function setPermissions(string $path, Permission ...$permission): bool
+	public function setPermissions(string $path, int|Permissions $permissions): bool
 	{
-		return chmod($path, Permission::calculate(...$permission));
-	}
+		$permissions = $permissions instanceof Permissions ? $permissions : Permissions::fromInt($permissions);
 
-	/**
-	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
-	 */
-	public function hasPermission(string $path, Permission ...$permission): bool
-	{
-		return Permission::hasPermissions(fileperms($path) & Permission::FULL->value, ...$permission);
+		return chmod($path, $permissions->toInt());
 	}
 
 	/**
@@ -100,6 +94,16 @@ class FileSystem
 	public function getPermissions(string $path): Permissions
 	{
 		return Permissions::fromInt(fileperms($path) & Permission::FULL->value);
+	}
+
+	/**
+	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
+	 */
+	public function hasPermissions(string $path, int|Permissions $permissions): bool
+	{
+		$permissions = $permissions instanceof Permissions ? $permissions : Permissions::fromInt($permissions);
+
+		return $this->getPermissions($path)->hasPermissions(...$permissions->getPermissions());
 	}
 
 	/**
@@ -275,9 +279,11 @@ class FileSystem
 	/**
 	 *  Creates a directory.
 	 */
-	public function createDirectory(string $path, int $mode = 0777, bool $recursive = false): bool
+	public function createDirectory(string $path, int|Permissions $permissions = 0o777, bool $recursive = false): bool
 	{
-		return mkdir($path, $mode, $recursive);
+		$permissions = $permissions instanceof Permissions ? $permissions : Permissions::fromInt($permissions);
+
+		return mkdir($path, $permissions->toInt(), $recursive);
 	}
 
 	/**

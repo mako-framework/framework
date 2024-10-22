@@ -36,11 +36,11 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 	- `Permission::calculate()`
 	- `Permission::hasPermissions()`
 * Added `Permissions` class that can be used to interact with a set of `Permission` enum instances.
-* Added `FileSystem::setPermissions()` method that accepts `Permission` enum values.
-* Added `FileSystem::hasPermissions()` method.
+* Added `FileSystem::setPermissions()` method that accepts an integer or a `Permissions` instance.
+* Added `FileSystem::hasPermissions()` method that accepts an integer or a `Permissions` instance.
 * Added `FileSystem::getPermissions()` method that returns a `Permissions` instance.
 * Added `FileSystem::isExecutable()` method.
-* Added `FileInfo::hasPermissions()` method.
+* Added `FileInfo::hasPermissions()` method that accepts an integer or a `Permissions` instance.
 * Added `FileInfo::getPermissions()` method that returns a `Permissions` instance.
 
 #### Changes
@@ -50,6 +50,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Renamed the `UUID::sequential()` method to `UUID::v4Sequential()`.
 * Renamed the `ErrorHandler::handle()` method to `ErrorHandler::addHandler()`.
 * Renamed the `ErrorHandler::handler()` method to `ErrorHandler::handle()`.
+* The
 
 #### Improvements
 

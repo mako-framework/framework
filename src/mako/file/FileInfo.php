@@ -83,18 +83,20 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
-	 */
-	public function hasPermissions(Permission ...$permission): bool
-	{
-		return Permission::hasPermissions($this->getPerms() & Permission::FULL->value, ...$permission);
-	}
-
-	/**
 	 * Returns the file permissions.
 	 */
 	public function getPermissions(): Permissions
 	{
 		return Permissions::fromInt($this->getPerms() & Permission::FULL->value);
+	}
+
+	/**
+	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
+	 */
+	public function hasPermissions(int|Permissions $permissions): bool
+	{
+		$permissions = $permissions instanceof Permissions ? $permissions : Permissions::fromInt($permissions);
+
+		return $this->getPermissions()->hasPermissions(...$permissions->getPermissions());
 	}
 }
