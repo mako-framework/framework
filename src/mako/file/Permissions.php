@@ -105,6 +105,7 @@ class Permissions
 	protected function getGroupAsRwxString(int $permissions, Permission $read, Permission $write, Permission $execute): string
 	{
 		$rwx = '';
+
 		$rwx .= ($permissions & $read->value) ? 'r' : '-';
 		$rwx .= ($permissions & $write->value) ? 'w' : '-';
 		$rwx .= ($permissions & $execute->value) ? 'x' : '-';
