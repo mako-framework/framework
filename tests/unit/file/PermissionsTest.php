@@ -54,6 +54,22 @@ class PermissionsTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetPermissions(): void
+	{
+		$permissions = new Permissions;
+
+		$this->assertSame([Permission::NONE], $permissions->getPermissions());
+
+		//
+
+		$permissions = new Permissions(Permission::OWNER_FULL);
+
+		$this->assertSame([Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::OWNER_EXECUTE], $permissions->getPermissions());
+	}
+
+	/**
+	 *
+	 */
 	public function testHasPermissions(): void
 	{
 		$permissions = new Permissions;
