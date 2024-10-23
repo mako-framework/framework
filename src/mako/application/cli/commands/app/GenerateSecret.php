@@ -9,7 +9,7 @@ namespace mako\application\cli\commands\app;
 
 use mako\application\Application;
 use mako\file\FileSystem;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 use mako\security\Key;
 
@@ -18,7 +18,7 @@ use function preg_replace;
 /**
  * Command that generates a new application secret.
  */
-#[CommandAttribute('app:generate-secret', 'Generates a new application secret.')]
+#[CommandDescription('Generates a new application secret.')]
 class GenerateSecret extends Command
 {
 	/**

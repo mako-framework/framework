@@ -15,7 +15,7 @@ use mako\http\routing\Route;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\reactor\attributes\Arguments;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 use mako\utility\Arr;
 
@@ -30,7 +30,7 @@ use function str_pad;
 /**
  * Command that lists all registered routes.
  */
-#[CommandAttribute('app:routes', 'Lists all registered routes.')]
+#[CommandDescription('Lists all registered routes.')]
 #[Arguments(
 	new Argument('-f|--filter', 'Filter routes using the route action, name or path', Argument::IS_OPTIONAL),
 	new Argument('-d|--detailed', 'Show more information about the route', Argument::IS_BOOL | Argument::IS_OPTIONAL),

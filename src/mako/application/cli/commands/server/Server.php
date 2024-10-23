@@ -10,7 +10,7 @@ namespace mako\application\cli\commands\server;
 use mako\application\Application;
 use mako\cli\input\arguments\Argument;
 use mako\reactor\attributes\Arguments;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
 use function dirname;
@@ -26,7 +26,7 @@ use function sprintf;
 /**
  * Server command.
  */
-#[CommandAttribute('app:server', 'Starts the local development server.')]
+#[CommandDescription('Starts the local development server.')]
 #[Arguments(
 	new Argument('-a|--address', 'Address to run the server on', Argument::IS_OPTIONAL),
 	new Argument('-d|--docroot', 'Path to the document root', Argument::IS_OPTIONAL),

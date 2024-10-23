@@ -10,17 +10,16 @@ namespace mako\reactor\attributes;
 use Attribute;
 
 /**
- * Command attribute.
+ * Command name attribute.
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-class Command
+class CommandName
 {
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
-		protected string $name,
-		protected string $description = '',
+		protected string $name
 	) {
 	}
 
@@ -30,13 +29,5 @@ class Command
 	public function getName(): string
 	{
 		return $this->name;
-	}
-
-	/**
-	 * Returns the command description.
-	 */
-	public function getDescription(): string
-	{
-		return $this->description;
 	}
 }

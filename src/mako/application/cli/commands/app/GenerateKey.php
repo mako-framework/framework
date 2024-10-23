@@ -7,14 +7,14 @@
 
 namespace mako\application\cli\commands\app;
 
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 use mako\security\Key;
 
 /**
  * Command that generates an encryption key.
  */
-#[CommandAttribute('app:generate-key', 'Generates a 256-bit encryption key.')]
+#[CommandDescription('Generates a 256-bit encryption key.')]
 class GenerateKey extends Command
 {
 	/**

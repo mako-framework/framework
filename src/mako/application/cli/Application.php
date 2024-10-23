@@ -36,7 +36,7 @@ use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\Finder;
 use mako\http\routing\Routes;
 use mako\Mako;
-use mako\reactor\attributes\Command;
+use mako\reactor\attributes\CommandName;
 use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
 use ReflectionClass;
@@ -175,7 +175,7 @@ class Application extends BaseApplication
 			foreach ($finder->findImplementing(CommandInterface::class) as $commandClass) {
 				$reflection = new ReflectionClass($commandClass);
 
-				$attributes = $reflection->getAttributes(Command::class);
+				$attributes = $reflection->getAttributes(CommandName::class);
 
 				if (empty($attributes)) {
 					/** @var \mako\reactor\CommandInterface $command */

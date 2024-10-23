@@ -15,7 +15,7 @@ use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
 use mako\common\traits\SuggestionTrait;
 use mako\reactor\attributes\Arguments;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 use mako\syringe\Container;
 use ReflectionClass;
 
@@ -185,7 +185,7 @@ class Reactor
 	 */
 	protected function getCommandDescription(ReflectionClass $class): string
 	{
-		$attributes = $class->getAttributes(CommandAttribute::class);
+		$attributes = $class->getAttributes(CommandDescription::class);
 
 		if (empty($attributes)) {
 			/** @var \mako\reactor\CommandInterface $command */

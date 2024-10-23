@@ -10,12 +10,12 @@ namespace mako\application\cli\commands\cache;
 use mako\cache\CacheManager;
 use mako\cli\input\arguments\Argument;
 use mako\reactor\attributes\Arguments;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 
 /**
  * Command that clears the cache.
  */
-#[CommandAttribute('cache:clear', 'Clears the cache.')]
+#[CommandDescription('Clears the cache.')]
 #[Arguments(
 	new Argument('-c|--configuration', 'Configuration name', Argument::IS_OPTIONAL),
 )]

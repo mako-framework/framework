@@ -14,7 +14,8 @@ use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\reactor\attributes\Arguments;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
+use mako\reactor\attributes\CommandName;
 use mako\reactor\Command;
 use mako\reactor\Dispatcher;
 use mako\reactor\Reactor;
@@ -26,7 +27,8 @@ use Mockery;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-#[CommandAttribute('foo', 'Command description.')]
+#[CommandName('foo')]
+#[CommandDescription('Command description.')]
 #[Arguments(
 	new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
 	new Argument('--option', 'Option description.'),

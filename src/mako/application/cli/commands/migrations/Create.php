@@ -11,7 +11,7 @@ use mako\application\Application;
 use mako\cli\input\arguments\Argument;
 use mako\file\FileSystem;
 use mako\reactor\attributes\Arguments;
-use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 use Throwable;
 
@@ -22,7 +22,7 @@ use function vsprintf;
 /**
  * Command that creates a migration.
  */
-#[CommandAttribute('migration:create', 'Creates a new migration.')]
+#[CommandDescription('Creates a new migration.')]
 #[Arguments(
 	new Argument('-d|--description', 'Migration description', Argument::IS_OPTIONAL),
 	new Argument('-p|--package', 'Package name', Argument::IS_OPTIONAL),
