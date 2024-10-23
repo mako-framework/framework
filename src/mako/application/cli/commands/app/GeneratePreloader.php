@@ -13,6 +13,8 @@ use mako\cli\input\arguments\Argument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
+use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\Command as CommandAttribute;
 use mako\reactor\Command;
 
 use function array_unique;
@@ -22,13 +24,13 @@ use function sprintf;
 /**
  * Command that generates an opcache preloader script.
  */
+#[CommandAttribute('app:generate-preloader', 'Generates a opcache preloader script.')]
+#[Arguments(
+	new Argument('-i|--ignore-core-classes', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
+	new Argument('-o|--output-path', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
+)]
 class GeneratePreloader extends Command
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $description = 'Generates a opcache preloader script.';
-
 	/**
 	 * Constructor.
 	 */
@@ -39,17 +41,6 @@ class GeneratePreloader extends Command
 		protected FileSystem $fileSystem
 	) {
 		parent::__construct($input, $output);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getArguments(): array
-	{
-		return [
-			new Argument('-i|--ignore-core-classes', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
-			new Argument('-o|--output-path', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
-		];
 	}
 
 	/**

@@ -8,27 +8,18 @@
 namespace mako\application\cli\commands\migrations;
 
 use mako\cli\input\arguments\Argument;
+use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\Command as CommandAttribute;
 
 /**
  * Command that runs all outstanding migrations.
  */
+#[CommandAttribute('migration:up', 'Runs all outstanding migrations.')]
+#[Arguments(
+	new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+)]
 class Up extends Command
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $description = 'Runs all outstanding migrations.';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getArguments(): array
-	{
-		return [
-			new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
-		];
-	}
-
 	/**
 	 * Executes the command.
 	 */

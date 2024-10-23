@@ -14,6 +14,8 @@ use mako\cli\input\Input;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\Output;
 use mako\common\traits\SuggestionTrait;
+use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\Command as CommandAttribute;
 use mako\syringe\Container;
 use ReflectionClass;
 
@@ -179,11 +181,37 @@ class Reactor
 	}
 
 	/**
-	 * Instantiates command without calling the constructor.
+	 * Returns the command description.
 	 */
-	protected function instantiateCommandWithoutConstructor(string $class): CommandInterface
+	protected function getCommandDescription(ReflectionClass $class): string
 	{
-		return (new ReflectionClass($class))->newInstanceWithoutConstructor();
+		$attributes = $class->getAttributes(CommandAttribute::class);
+
+		if (empty($attributes)) {
+			/** @var \mako\reactor\CommandInterface $command */
+			$command = $class->newInstanceWithoutConstructor();
+
+			return $command->getDescription();
+		}
+
+		return (string) $attributes[0]->newInstance()->getDescription();
+	}
+
+	/**
+	 * Returns the command arguments.
+	 */
+	public function getCommandArguments(ReflectionClass $class): array
+	{
+		$attributes = $class->getAttributes(Arguments::class);
+
+		if (empty($attributes)) {
+			/** @var \mako\reactor\CommandInterface $command */
+			$command = $class->newInstanceWithoutConstructor();
+
+			return $command->getArguments();
+		}
+
+		return $attributes[0]->newInstance()->getArguments();
 	}
 
 	/**
@@ -194,9 +222,7 @@ class Reactor
 		$info = [];
 
 		foreach ($this->commands as $name => $class) {
-			$command = $this->instantiateCommandWithoutConstructor($class);
-
-			$info[$name] = [$name, $command->getDescription()];
+			$info[$name] = [$name, $this->getCommandDescription(new ReflectionClass($class))];
 		}
 
 		ksort($info);
@@ -257,7 +283,7 @@ class Reactor
 	 */
 	protected function displayCommandHelp(string $command): int
 	{
-		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
+		$commandReflection = new ReflectionClass($this->commands[$command]);
 
 		$this->output->writeLn('<yellow>Command:</yellow>');
 
@@ -271,9 +297,9 @@ class Reactor
 
 		$this->output->write(PHP_EOL);
 
-		$this->output->writeLn($commandInstance->getDescription());
+		$this->output->writeLn($this->getCommandDescription($commandReflection));
 
-		$this->drawArgumentTable('Arguments and options:', $commandInstance->getArguments());
+		$this->drawArgumentTable('Arguments and options:', $this->getCommandArguments($commandReflection));
 
 		return CommandInterface::STATUS_SUCCESS;
 	}
@@ -283,11 +309,11 @@ class Reactor
 	 */
 	protected function registerCommandArgumentsAndDispatch(string $command): int
 	{
-		$commandInstance = $this->instantiateCommandWithoutConstructor($this->commands[$command]);
+		$commandReflection = new ReflectionClass($this->commands[$command]);
 
 		$globalArgumentNames = array_keys($this->input->getArgumentParser()->getArguments());
 
-		$this->input->getArgumentParser()->clearCache()->addArguments($commandInstance->getArguments());
+		$this->input->getArgumentParser()->clearCache()->addArguments($this->getCommandArguments($commandReflection));
 
 		$filteredArguments = array_diff_key($this->input->getArguments(), array_flip($globalArgumentNames));
 

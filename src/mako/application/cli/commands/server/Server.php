@@ -9,6 +9,8 @@ namespace mako\application\cli\commands\server;
 
 use mako\application\Application;
 use mako\cli\input\arguments\Argument;
+use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\Command as CommandAttribute;
 use mako\reactor\Command;
 
 use function dirname;
@@ -24,29 +26,18 @@ use function sprintf;
 /**
  * Server command.
  */
+#[CommandAttribute('app:server', 'Starts the local development server.')]
+#[Arguments(
+	new Argument('-a|--address', 'Address to run the server on', Argument::IS_OPTIONAL),
+	new Argument('-d|--docroot', 'Path to the document root', Argument::IS_OPTIONAL),
+	new Argument('-p|--port', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
+)]
 class Server extends Command
 {
 	/**
 	 * Number of ports to try before giving up.
 	 */
 	protected const int MAX_PORTS_TO_TRY = 10;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $description = 'Starts the local development server.';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getArguments(): array
-	{
-		return [
-			new Argument('-a|--address', 'Address to run the server on', Argument::IS_OPTIONAL),
-			new Argument('-d|--docroot', 'Path to the document root', Argument::IS_OPTIONAL),
-			new Argument('-p|--port', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
-		];
-	}
 
 	/**
 	 * Tries to find an avaiable port closest to the desired port.

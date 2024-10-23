@@ -13,12 +13,54 @@ use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
-use mako\reactor\CommandInterface;
+use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\Command as CommandAttribute;
+use mako\reactor\Command;
 use mako\reactor\Dispatcher;
 use mako\reactor\Reactor;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+
+// --------------------------------------------------------------------------
+// START CLASSES
+// --------------------------------------------------------------------------
+
+#[CommandAttribute('foo', 'Command description.')]
+#[Arguments(
+	new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
+	new Argument('--option', 'Option description.'),
+)]
+class FooWithAttributes extends Command
+{
+	public function execute(): void
+	{
+
+	}
+}
+
+class FooWithoutAttributes extends Command
+{
+	protected string $description = 'Command description.';
+
+	public function getArguments(): array
+	{
+		return
+		[
+			new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
+			new Argument('--option', 'Option description.'),
+		];
+	}
+
+	public function execute(): void
+	{
+
+	}
+}
+
+// --------------------------------------------------------------------------
+// END CLASSES
+// --------------------------------------------------------------------------
 
 /**
  * @group unit
@@ -79,7 +121,7 @@ $commandsTable = <<<'EOF'
 -------------------------------------------------------
 | <green>Command</green> | <green>Description</green> |
 -------------------------------------------------------
-| foo                    | foo description            |
+| foo                    | Command description.       |
 -------------------------------------------------------
 
 EOF;
@@ -90,11 +132,6 @@ EOF;
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
-
-		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
-		$command = Mockery::mock(CommandInterface::class);
-
-		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
 
 		//
 
@@ -108,11 +145,11 @@ EOF;
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
+		//$reactor->shouldReceive('getCommandDescription')->once()->andReturn('foo description');
 
 		$reactor->setLogo('logo');
 
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+		$reactor->registerCommand('foo', FooWithAttributes::class);
 
 		$exitCode = $reactor->run();
 
@@ -174,7 +211,7 @@ $commandsTable = <<<'EOF'
 -------------------------------------------------------
 | <green>Command</green> | <green>Description</green> |
 -------------------------------------------------------
-| foo                    | foo description            |
+| foo                    | Command description.       |
 -------------------------------------------------------
 
 EOF;
@@ -185,11 +222,6 @@ EOF;
 
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
-
-		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
-		$command = Mockery::mock(CommandInterface::class);
-
-		$command->shouldReceive('getDescription')->once()->andReturn('foo description');
 
 		//
 
@@ -203,11 +235,9 @@ EOF;
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
-
 		$reactor->setLogo('logo');
 
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+		$reactor->registerCommand('foo', FooWithAttributes::class);
 
 		$exitCode = $reactor->run();
 
@@ -293,13 +323,6 @@ EOF;
 
 		//
 
-		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
-		$command = Mockery::mock(CommandInterface::class);
-
-		$command->shouldReceive('getDescription')->once()->andReturn('server description');
-
-		//
-
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
@@ -315,9 +338,7 @@ EOF;
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
-
-		$reactor->registerCommand('server', 'foobar');
+		$reactor->registerCommand('server', FooWithAttributes::class);
 
 		$exitCode = $reactor->run();
 
@@ -357,13 +378,6 @@ EOF;
 
 		//
 
-		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
-		$command = Mockery::mock(CommandInterface::class);
-
-		$command->shouldReceive('getDescription')->once()->andReturn('server description');
-
-		//
-
 		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
@@ -379,9 +393,7 @@ EOF;
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->andReturn($command);
-
-		$reactor->registerCommand('foobar', 'foobar');
+		$reactor->registerCommand('foobar', FooWithAttributes::class);
 
 		$exitCode = $reactor->run();
 
@@ -585,27 +597,13 @@ EOF;
 ------------------------------------------------------------------------------
 | <green>Name</green> | <green>Description</green> | <green>Optional</green> |
 ------------------------------------------------------------------------------
-| argument            | Argument description.      | Yes                     |
-| --option1           | Option description.        | Yes                     |
-| -o | --option2      | Option description.        | No                      |
+| arg2                | Argument description.      | Yes                     |
+| --option            | Option description.        | No                      |
 ------------------------------------------------------------------------------
 
 EOF;
 
 		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
-
-		//
-
-		/** @var \mako\reactor\CommandInterface|\Mockery\MockInterface $command */
-		$command = Mockery::mock(CommandInterface::class);
-
-		$command->shouldReceive('getDescription')->once()->andReturn('Command description.');
-
-		$command->shouldReceive('getArguments')->once()->andReturn([
-			new Argument('argument', 'Argument description.', Argument::IS_OPTIONAL),
-			new Argument('--option1', 'Option description.', Argument::IS_OPTIONAL),
-			new Argument('-o|--option2', 'Option description.'),
-		]);
 
 		//
 
@@ -624,9 +622,82 @@ EOF;
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->registerCommand('foo', 'mako\tests\unit\reactor\Foo');
+		$reactor->registerCommand('foo', FooWithAttributes::class);
 
-		$reactor->shouldReceive('instantiateCommandWithoutConstructor')->once()->with('mako\tests\unit\reactor\Foo')->andReturn($command);
+		$exitCode = $reactor->run();
+
+		$this->assertSame(0, $exitCode);
+	}
+
+	/**
+	 *
+	 */
+	public function testDisplayCommandHelpWithoutAttributes(): void
+	{
+		$argvParser = new ArgvParser([]);
+
+		//
+
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+
+		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
+
+		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
+		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(true);
+
+		//
+
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		$output->shouldReceive('write')->times(5)->with(PHP_EOL);
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Command:</yellow>');
+
+		$output->shouldReceive('writeLn')->once()->with('php reactor foo');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Description:</yellow>');
+
+		$output->shouldReceive('writeLn')->once()->with('Command description.');
+
+		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments and options:</yellow>');
+
+		$argumentsTable = <<<'EOF'
+------------------------------------------------------------------------------
+| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
+------------------------------------------------------------------------------
+| arg2                | Argument description.      | Yes                     |
+| --option            | Option description.        | No                      |
+------------------------------------------------------------------------------
+
+EOF;
+
+		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
+
+		//
+
+		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		$container = Mockery::mock(Container::class);
+
+		//
+
+		/** @var \mako\reactor\Dispatcher|\Mockery\MockInterface $dispatcher */
+		$dispatcher = Mockery::mock(Dispatcher::class);
+
+		//
+
+		/** @var \mako\reactor\Reactor|\Mockery\MockInterface $reactor */
+		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+		$reactor->registerCommand('foo', FooWithoutAttributes::class);
 
 		$exitCode = $reactor->run();
 

@@ -24,16 +24,22 @@ interface CommandInterface
 
 	/**
 	 * Returns the command.
+	 *
+	 * @deprecated
 	 */
 	public function getCommand(): ?string;
 
 	/**
 	 * Returns the command description.
+	 *
+	 * @deprecated
 	 */
 	public function getDescription(): string;
 
 	/**
 	 * Returns the command arguments.
+	 *
+	 * @deprecated
 	 */
 	public function getArguments(): array;
 }

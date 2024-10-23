@@ -36,6 +36,7 @@ use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\Finder;
 use mako\http\routing\Routes;
 use mako\Mako;
+use mako\reactor\attributes\Command;
 use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
 use ReflectionClass;
@@ -172,14 +173,26 @@ class Application extends BaseApplication
 			$finder->excludeInterfaces()->excludeAbstractClasses()->excludeTraits();
 
 			foreach ($finder->findImplementing(CommandInterface::class) as $commandClass) {
-				/** @var \mako\reactor\CommandInterface $command */
-				$command = (new ReflectionClass($commandClass))->newInstanceWithoutConstructor();
+				$reflection = new ReflectionClass($commandClass);
 
-				$command = $command->getCommand();
+				$attributes = $reflection->getAttributes(Command::class);
 
-				if ($command !== null) {
-					$commands[$command] = $commandClass;
+				if (empty($attributes)) {
+					/** @var \mako\reactor\CommandInterface $command */
+					$command = $reflection->newInstanceWithoutConstructor();
+
+					$command = $command->getCommand();
+
+					if ($command !== null) {
+						$commands[$command] = $commandClass;
+					}
+
+					continue;
 				}
+
+				$command = $attributes[0]->newInstance()->getName();
+
+				$commands[$command] = $commandClass;
 			}
 		}
 
