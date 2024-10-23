@@ -43,7 +43,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `FileSystem::clearCache()` method.
 * Added `FileInfo::hasPermissions()` method that accepts an integer or a `Permissions` instance.
 * Added `FileInfo::getPermissions()` method that returns a `Permissions` instance.
-* Reactor commands names and descriptions can now be registered with the `Command` attribute.
+* Reactor command names and descriptions can now be registered with the `Command` attribute.
 * Reactor command arguments can now be registered with the `Arguments` attribute.
 
 #### Changes
