@@ -194,7 +194,7 @@ class Reactor
 			return $command->getDescription();
 		}
 
-		return (string) $attributes[0]->newInstance()->getDescription();
+		return $attributes[0]->newInstance()->getDescription();
 	}
 
 	/**

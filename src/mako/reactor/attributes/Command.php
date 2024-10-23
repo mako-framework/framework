@@ -20,7 +20,7 @@ class Command
 	 */
 	public function __construct(
 		protected string $name,
-		protected ?string $description = null,
+		protected string $description = '',
 	) {
 	}
 
@@ -35,7 +35,7 @@ class Command
 	/**
 	 * Returns the command description.
 	 */
-	public function getDescription(): ?string
+	public function getDescription(): string
 	{
 		return $this->description;
 	}
