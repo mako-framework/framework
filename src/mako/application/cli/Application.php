@@ -62,6 +62,7 @@ class Application extends BaseApplication
 	 */
 	protected function inputFactory(): Input
 	{
+		/** @var array $argv */
 		$argv = $_SERVER['argv'];
 
 		array_shift($argv); // Remove the script name
