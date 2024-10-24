@@ -19,7 +19,8 @@ class CommandDescription
 	 * Constructor.
 	 */
 	public function __construct(
-		protected string $description
+		protected string $description,
+		protected string $additionalInformation = ''
 	) {
 	}
 
@@ -29,5 +30,13 @@ class CommandDescription
 	public function getDescription(): string
 	{
 		return $this->description;
+	}
+
+	/**
+	 * Returns the additional information.
+	 */
+	public function getAdditionalInformation(): string
+	{
+		return $this->additionalInformation;
 	}
 }

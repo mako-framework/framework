@@ -198,6 +198,20 @@ class Reactor
 	}
 
 	/**
+	 * Returns the command additional information.
+	 */
+	protected function getCommandAdditionalInformation(ReflectionClass $class): string
+	{
+		$attributes = $class->getAttributes(CommandDescription::class);
+
+		if (empty($attributes)) {
+			return '';
+		}
+
+		return $attributes[0]->newInstance()->getAdditionalInformation();
+	}
+
+	/**
 	 * Returns the command arguments.
 	 */
 	public function getCommandArguments(ReflectionClass $class): array
@@ -285,19 +299,31 @@ class Reactor
 	{
 		$commandReflection = new ReflectionClass($this->commands[$command]);
 
+		$description = $this->getCommandDescription($commandReflection);
+
 		$this->output->writeLn('<yellow>Command:</yellow>');
 
 		$this->output->write(PHP_EOL);
 
 		$this->output->writeLn("php reactor {$command}");
 
-		$this->output->write(PHP_EOL);
+		if (!empty($description)) {
+			$this->output->write(PHP_EOL);
 
-		$this->output->writeLn('<yellow>Description:</yellow>');
+			$this->output->writeLn('<yellow>Description:</yellow>');
 
-		$this->output->write(PHP_EOL);
+			$this->output->write(PHP_EOL);
 
-		$this->output->writeLn($this->getCommandDescription($commandReflection));
+			$this->output->writeLn($description);
+
+			$additionalInformation = $this->getCommandAdditionalInformation($commandReflection);
+
+			if (!empty($additionalInformation)) {
+				$this->output->write(PHP_EOL);
+
+				$this->output->writeLn($additionalInformation);
+			}
+		}
 
 		$this->drawArgumentTable('Arguments and options:', $this->getCommandArguments($commandReflection));
 
