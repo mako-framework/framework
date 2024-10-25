@@ -104,13 +104,13 @@ class ReactorTest extends TestCase
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
 		$optionsTable = <<<'EOF'
-		--------------------------------------------------------------------------------
-		| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
-		--------------------------------------------------------------------------------
-		| command             | Command name                 | Yes                     |
-		| --help              | Displays helpful information | Yes                     |
-		| --mute              | Mutes all output             | Yes                     |
-		--------------------------------------------------------------------------------
+		┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+		┃ <green>Name</green> ┃ <green>Description</green>   ┃ <green>Optional</green> ┃
+		┣━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━┫
+		┃ command             ┃ Command name                 ┃ Yes                     ┃
+		┃ --help              ┃ Displays helpful information ┃ Yes                     ┃
+		┃ --mute              ┃ Mutes all output             ┃ Yes                     ┃
+		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 		EOF;
 
@@ -118,14 +118,14 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
 
-$commandsTable = <<<'EOF'
--------------------------------------------------------
-| <green>Command</green> | <green>Description</green> |
--------------------------------------------------------
-| foo                    | Command description.       |
--------------------------------------------------------
+		$commandsTable = <<<'EOF'
+		┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+		┃ <green>Command</green> ┃ <green>Description</green> ┃
+		┣━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+		┃ foo                    ┃ Command description.       ┃
+		┗━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-EOF;
+		EOF;
 
 		$output->shouldReceive('write')->once()->with($commandsTable, 1);
 
@@ -194,28 +194,29 @@ EOF;
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Global arguments and options:</yellow>');
 
-$optionsTable = <<<'EOF'
---------------------------------------------------------------------------------
-| <green>Name</green> | <green>Description</green>   | <green>Optional</green> |
---------------------------------------------------------------------------------
-| command             | Command name                 | Yes                     |
-| --help              | Displays helpful information | Yes                     |
-| --mute              | Mutes all output             | Yes                     |
---------------------------------------------------------------------------------
+		$optionsTable = <<<'EOF'
+		┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+		┃ <green>Name</green> ┃ <green>Description</green>   ┃ <green>Optional</green> ┃
+		┣━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━┫
+		┃ command             ┃ Command name                 ┃ Yes                     ┃
+		┃ --help              ┃ Displays helpful information ┃ Yes                     ┃
+		┃ --mute              ┃ Mutes all output             ┃ Yes                     ┃
+		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-EOF;
+		EOF;
+
 		$output->shouldReceive('write')->once()->with($optionsTable, 1);
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Available commands:</yellow>');
 
-$commandsTable = <<<'EOF'
--------------------------------------------------------
-| <green>Command</green> | <green>Description</green> |
--------------------------------------------------------
-| foo                    | Command description.       |
--------------------------------------------------------
+		$commandsTable = <<<'EOF'
+		┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+		┃ <green>Command</green> ┃ <green>Description</green> ┃
+		┣━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+		┃ foo                    ┃ Command description.       ┃
+		┗━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-EOF;
+		EOF;
 
 		$output->shouldReceive('write')->once()->with($commandsTable, 1);
 
@@ -595,14 +596,14 @@ EOF;
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments and options:</yellow>');
 
 		$argumentsTable = <<<'EOF'
-------------------------------------------------------------------------------
-| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
-------------------------------------------------------------------------------
-| arg2                | Argument description.      | Yes                     |
-| --option            | Option description.        | No                      |
-------------------------------------------------------------------------------
+		┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+		┃ <green>Name</green> ┃ <green>Description</green> ┃ <green>Optional</green> ┃
+		┣━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━┫
+		┃ arg2                ┃ Argument description.      ┃ Yes                     ┃
+		┃ --option            ┃ Option description.        ┃ No                      ┃
+		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-EOF;
+		EOF;
 
 		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
 
@@ -670,14 +671,14 @@ EOF;
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments and options:</yellow>');
 
 		$argumentsTable = <<<'EOF'
-------------------------------------------------------------------------------
-| <green>Name</green> | <green>Description</green> | <green>Optional</green> |
-------------------------------------------------------------------------------
-| arg2                | Argument description.      | Yes                     |
-| --option            | Option description.        | No                      |
-------------------------------------------------------------------------------
+		┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+		┃ <green>Name</green> ┃ <green>Description</green> ┃ <green>Optional</green> ┃
+		┣━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━┫
+		┃ arg2                ┃ Argument description.      ┃ Yes                     ┃
+		┃ --option            ┃ Option description.        ┃ No                      ┃
+		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-EOF;
+		EOF;
 
 		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
 

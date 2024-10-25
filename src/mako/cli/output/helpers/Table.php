@@ -12,7 +12,6 @@ use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
 
-use function array_sum;
 use function array_values;
 use function count;
 use function implode;
@@ -24,6 +23,61 @@ use function str_repeat;
 class Table
 {
 	use HelperTrait;
+
+	/**
+	 * Horizontal line.
+	 */
+	protected const string HORIZONTAL_LINE = '━';
+
+	/**
+	 * Vertical line.
+	 */
+	protected const string VERTICAL_LINE = '┃';
+
+	/**
+	 * Top left corner.
+	 */
+	protected const string CORNER_TOP_LEFT = '┏';
+
+	/**
+	 * Top right corner.
+	 */
+	protected const string CORNER_TOP_RIGHT = '┓';
+
+	/**
+	 * Down t-junction.
+	 */
+	protected const string T_JUNCTION_DOWN = '┳';
+
+	/**
+	 * Up t-junction.
+	 */
+	protected const string T_JUNCTION_UP = '┻';
+
+	/**
+	 * Left t-junction.
+	 */
+	protected const string T_JUNCTION_LEFT = '┣';
+
+	/**
+	 * Right t-junction.
+	 */
+	protected const string T_JUNCTION_RIGHT = '┫';
+
+	/**
+	 * Junction.
+	 */
+	protected const string JUNCTION = '╋';
+
+	/**
+	 * Bottom left corner.
+	 */
+	protected const string CORNER_BOTTOM_LEFT = '┗';
+
+	/**
+	 * Bottom right corner.
+	 */
+	protected const string CORNER_BOTTOM_RIGHT = '┛';
 
 	/**
 	 * Formatter.
@@ -90,11 +144,17 @@ class Table
 	/**
 	 * Builds a row separator.
 	 */
-	protected function buildRowSeparator(array $columnWidths, string $separator = '-'): string
+	protected function buildRowSeparator(array $columnWidths, string $junction, string $leftCorner, string $rightCorner): string
 	{
 		$columns = count($columnWidths);
 
-		return str_repeat($separator, array_sum($columnWidths) + (($columns * 4) - ($columns - 1))) . PHP_EOL;
+		$separator = $leftCorner;
+
+		for ($i = 0; $i < $columns; $i++) {
+			$separator .= str_repeat(static::HORIZONTAL_LINE, $columnWidths[$i] + 2) . ($i < $columns - 1 ? $junction : '');
+		}
+
+		return $separator . $rightCorner . PHP_EOL;
 	}
 
 	/**
@@ -108,7 +168,7 @@ class Table
 			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->stringWidthWithoutFormatting($value));
 		}
 
-		return '| ' . implode(' | ', $cells) . ' |' . PHP_EOL;
+		return static::VERTICAL_LINE . ' ' . implode(' ' . static::VERTICAL_LINE . ' ', $cells) . ' ' . static::VERTICAL_LINE . PHP_EOL;
 	}
 
 	/**
@@ -124,9 +184,9 @@ class Table
 
 		// Build table header
 
-		$table = $this->buildRowSeparator($columnWidths)
+		$table = $this->buildRowSeparator($columnWidths, static::T_JUNCTION_DOWN, static::CORNER_TOP_LEFT, static::CORNER_TOP_RIGHT)
 		. $this->buildTableRow($columnNames, $columnWidths)
-		. $this->buildRowSeparator($columnWidths);
+		. $this->buildRowSeparator($columnWidths, static::JUNCTION, static::T_JUNCTION_LEFT, static::T_JUNCTION_RIGHT);
 
 		// Add table rows
 
@@ -136,7 +196,7 @@ class Table
 
 		// Add bottom border
 
-		$table .= $this->buildRowSeparator($columnWidths);
+		$table .= $this->buildRowSeparator($columnWidths, static::T_JUNCTION_UP, static::CORNER_BOTTOM_LEFT, static::CORNER_BOTTOM_RIGHT);
 
 		// Return table
 

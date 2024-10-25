@@ -31,11 +31,11 @@ class TableTest extends TestCase
 		$table = new Table($output);
 
 		$expected  = '';
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Col1  |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Cell1 |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '┏━━━━━━━┓' . PHP_EOL;
+		$expected .= '┃ Col1  ┃' . PHP_EOL;
+		$expected .= '┣━━━━━━━┫' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃' . PHP_EOL;
+		$expected .= '┗━━━━━━━┛' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['Col1'], [['Cell1']]));
 	}
@@ -53,12 +53,12 @@ class TableTest extends TestCase
 		$table = new Table($output);
 
 		$expected  = '';
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Col1  |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Cell1 |' . PHP_EOL;
-		$expected .= '| Cell1 |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '┏━━━━━━━┓' . PHP_EOL;
+		$expected .= '┃ Col1  ┃' . PHP_EOL;
+		$expected .= '┣━━━━━━━┫' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃' . PHP_EOL;
+		$expected .= '┗━━━━━━━┛' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['Col1'], [['Cell1'], ['Cell1']]));
 	}
@@ -76,11 +76,11 @@ class TableTest extends TestCase
 		$table = new Table($output);
 
 		$expected  = '';
-		$expected .= '-----------------' . PHP_EOL;
-		$expected .= '| Col1  | Col2  |' . PHP_EOL;
-		$expected .= '-----------------' . PHP_EOL;
-		$expected .= '| Cell1 | Cell2 |' . PHP_EOL;
-		$expected .= '-----------------' . PHP_EOL;
+		$expected .= '┏━━━━━━━┳━━━━━━━┓' . PHP_EOL;
+		$expected .= '┃ Col1  ┃ Col2  ┃' . PHP_EOL;
+		$expected .= '┣━━━━━━━╋━━━━━━━┫' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃ Cell2 ┃' . PHP_EOL;
+		$expected .= '┗━━━━━━━┻━━━━━━━┛' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['Col1', 'Col2'], [['Cell1', 'Cell2']]));
 	}
@@ -98,12 +98,12 @@ class TableTest extends TestCase
 		$table = new Table($output);
 
 		$expected  = '';
-		$expected .= '-----------------' . PHP_EOL;
-		$expected .= '| Col1  | Col2  |' . PHP_EOL;
-		$expected .= '-----------------' . PHP_EOL;
-		$expected .= '| Cell1 | Cell2 |' . PHP_EOL;
-		$expected .= '| Cell1 | Cell2 |' . PHP_EOL;
-		$expected .= '-----------------' . PHP_EOL;
+		$expected .= '┏━━━━━━━┳━━━━━━━┓' . PHP_EOL;
+		$expected .= '┃ Col1  ┃ Col2  ┃' . PHP_EOL;
+		$expected .= '┣━━━━━━━╋━━━━━━━┫' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃ Cell2 ┃' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃ Cell2 ┃' . PHP_EOL;
+		$expected .= '┗━━━━━━━┻━━━━━━━┛' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['Col1', 'Col2'], [['Cell1', 'Cell2'], ['Cell1', 'Cell2']]));
 	}
@@ -128,11 +128,11 @@ class TableTest extends TestCase
 		$table = new Table($output);
 
 		$expected  = '';
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| <blue>Col1</blue>  |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Cell1 |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '┏━━━━━━━┓' . PHP_EOL;
+		$expected .= '┃ <blue>Col1</blue>  ┃' . PHP_EOL;
+		$expected .= '┣━━━━━━━┫' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃' . PHP_EOL;
+		$expected .= '┗━━━━━━━┛' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['<blue>Col1</blue>'], [['Cell1']]));
 	}
@@ -148,11 +148,11 @@ class TableTest extends TestCase
 		$output->shouldReceive('getFormatter')->once()->andReturn(null);
 
 		$expected  = '';
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Col1  |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
-		$expected .= '| Cell1 |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '┏━━━━━━━┓' . PHP_EOL;
+		$expected .= '┃ Col1  ┃' . PHP_EOL;
+		$expected .= '┣━━━━━━━┫' . PHP_EOL;
+		$expected .= '┃ Cell1 ┃' . PHP_EOL;
+		$expected .= '┗━━━━━━━┛' . PHP_EOL;
 
 		$output->shouldReceive('write')->once()->with($expected, Output::STANDARD);
 
