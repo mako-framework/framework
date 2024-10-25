@@ -13,10 +13,9 @@ use mako\gatekeeper\Gatekeeper;
 use mako\http\exceptions\ForbiddenException;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AuthorizationTraitTest extends TestCase
 {
 	/**

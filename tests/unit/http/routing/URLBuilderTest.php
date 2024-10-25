@@ -14,10 +14,9 @@ use mako\http\routing\Routes;
 use mako\http\routing\URLBuilder;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class URLBuilderTest extends TestCase
 {
 	/**

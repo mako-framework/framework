@@ -22,6 +22,7 @@ use mako\reactor\Reactor;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -64,9 +65,7 @@ class FooWithoutAttributes extends Command
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ReactorTest extends TestCase
 {
 	/**

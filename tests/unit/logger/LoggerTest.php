@@ -10,11 +10,10 @@ namespace mako\tests\unit\logger;
 use mako\logger\Logger;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use Psr\Log\LoggerInterface;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class LoggerTest extends TestCase
 {
 	/**

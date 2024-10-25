@@ -19,10 +19,9 @@ use mako\tests\unit\classes\preload\classes\CG;
 use mako\tests\unit\classes\preload\classes\CH;
 use mako\tests\unit\classes\preload\classes\CI;
 use mako\tests\unit\classes\preload\classes\CJ;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class PreloaderGeneratorTest extends TestCase
 {
 	/**

@@ -9,10 +9,9 @@ namespace mako\tests\unit\gatekeeper;
 
 use mako\gatekeeper\LoginStatus;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class LoginStatusTest extends TestCase
 {
 	/**

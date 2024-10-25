@@ -13,6 +13,7 @@ use mako\cli\output\Output;
 use mako\reactor\Command;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -46,9 +47,7 @@ class Bar extends Command
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CommandTest extends TestCase
 {
 	/**

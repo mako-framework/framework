@@ -14,10 +14,9 @@ use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\MissingArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ArgvParserTest extends TestCase
 {
 	/**

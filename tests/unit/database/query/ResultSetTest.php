@@ -12,10 +12,9 @@ use mako\database\query\ResultSet;
 use mako\pagination\PaginationInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ResultSetTest extends TestCase
 {
 	/**

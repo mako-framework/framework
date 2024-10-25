@@ -9,10 +9,9 @@ namespace mako\tests\unit\view\renderers\traits;
 
 use mako\tests\TestCase;
 use mako\view\renderers\traits\EscaperTrait;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class EscaperTraitTest extends TestCase
 {
 	/**

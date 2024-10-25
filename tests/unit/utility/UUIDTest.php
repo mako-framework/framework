@@ -10,10 +10,9 @@ namespace mako\tests\unit\utility;
 use mako\tests\TestCase;
 use mako\utility\exceptions\UUIDException;
 use mako\utility\UUID;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class UUIDTest extends TestCase
 {
 	/**

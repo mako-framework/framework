@@ -16,6 +16,7 @@ use mako\session\Session;
 use mako\session\stores\StoreInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -33,9 +34,7 @@ class TestSession extends Session
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class SessionTest extends TestCase
 {
 	/**

@@ -9,11 +9,10 @@ namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
 use mako\validator\rules\IP;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class IPTest extends TestCase
 {
 	/**

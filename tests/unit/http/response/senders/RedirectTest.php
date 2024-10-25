@@ -15,10 +15,9 @@ use mako\http\response\senders\Redirect;
 use mako\http\response\Status;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RedirectTest extends TestCase
 {
 	/**

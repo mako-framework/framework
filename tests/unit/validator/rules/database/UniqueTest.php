@@ -13,10 +13,9 @@ use mako\database\query\Query;
 use mako\tests\TestCase;
 use mako\validator\rules\database\Unique;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class UniqueTest extends TestCase
 {
 	/**

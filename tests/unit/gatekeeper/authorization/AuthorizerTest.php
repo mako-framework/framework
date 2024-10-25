@@ -15,6 +15,7 @@ use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -58,9 +59,7 @@ class BeforeNullPolicy extends Policy
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AuthorizerTest extends TestCase
 {
 	/**

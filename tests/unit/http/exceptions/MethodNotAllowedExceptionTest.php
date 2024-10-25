@@ -9,10 +9,9 @@ namespace mako\tests\unit\http\exceptions;
 
 use mako\http\exceptions\MethodNotAllowedException;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class MethodNotAllowedExceptionTest extends TestCase
 {
 	/**

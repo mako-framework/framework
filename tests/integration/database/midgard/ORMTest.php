@@ -16,6 +16,8 @@ use mako\database\query\Subquery;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
 use mako\utility\UUID;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -95,12 +97,10 @@ class Enum extends TestORM
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group integration
- * @group integration:database
- * @requires extension PDO
- * @requires extension pdo_sqlite
- */
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class ORMTest extends ORMTestCase
 {
 	/**

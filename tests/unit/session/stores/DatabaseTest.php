@@ -12,10 +12,9 @@ use mako\database\query\Query;
 use mako\session\stores\Database;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class DatabaseTest extends TestCase
 {
 	/**

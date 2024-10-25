@@ -18,6 +18,7 @@ use mako\http\routing\Route;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use Stringable;
 
 // --------------------------------------------------------------------------
@@ -180,9 +181,7 @@ class BaxMiddleware implements MiddlewareInterface
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class DispatcherTest extends TestCase
 {
 	/**

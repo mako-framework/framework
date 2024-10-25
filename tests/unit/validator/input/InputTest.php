@@ -11,10 +11,9 @@ use mako\tests\TestCase;
 use mako\validator\input\Input;
 use mako\validator\Validator;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class InputTest extends TestCase
 {
 	/**

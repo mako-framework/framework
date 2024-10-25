@@ -10,10 +10,9 @@ namespace mako\tests\unit\cli\input\arguments;
 use mako\cli\input\arguments\Argument;
 use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ArgumentTest extends TestCase
 {
 	/**

@@ -9,6 +9,7 @@ namespace mako\tests\unit\classes;
 
 use mako\classes\ClassInspector;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -53,9 +54,7 @@ class F extends E
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ClassInspectorTest extends TestCase
 {
 	/**

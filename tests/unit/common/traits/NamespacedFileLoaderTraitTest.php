@@ -9,6 +9,7 @@ namespace mako\tests\unit\common\traits;
 
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
 // --------------------------------------------------------------------------
@@ -34,9 +35,7 @@ class NamespacedFileLoader
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class NamespacedFileLoaderTraitTest extends TestCase
 {
 	/**

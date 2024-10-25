@@ -11,10 +11,9 @@ use mako\redis\Redis as RedisClient;
 use mako\session\stores\Redis;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RedisTest extends TestCase
 {
 	/**

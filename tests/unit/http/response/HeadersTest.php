@@ -9,10 +9,9 @@ namespace mako\tests\unit\http;
 
 use mako\http\response\Headers;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class HeadersTest extends TestCase
 {
 	/**

@@ -11,6 +11,7 @@ use mako\bus\event\EventBus;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -46,9 +47,7 @@ class UserCreatedHandler
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class EventBusTest extends TestCase
 {
 	/**

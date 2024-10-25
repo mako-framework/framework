@@ -15,11 +15,10 @@ use mako\tests\TestCase;
 use mako\view\View;
 use mako\view\ViewFactory;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class PaginationTest extends TestCase
 {
 	/**

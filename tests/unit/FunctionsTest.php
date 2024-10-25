@@ -8,14 +8,13 @@
 namespace mako\tests\unit;
 
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 use function mako\env;
 use function mako\f;
 use function mako\syringe\intersection;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FunctionsTest extends TestCase
 {
 	/**

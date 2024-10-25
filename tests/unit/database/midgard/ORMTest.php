@@ -13,6 +13,7 @@ use mako\database\midgard\ORM;
 use mako\database\midgard\traits\OptimisticLockingTrait;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -105,9 +106,7 @@ class TestCastingDate extends ORM
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ORMTest extends TestCase
 {
 	/**

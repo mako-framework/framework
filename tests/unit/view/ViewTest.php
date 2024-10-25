@@ -11,10 +11,9 @@ use mako\tests\TestCase;
 use mako\view\renderers\RendererInterface;
 use mako\view\View;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ViewTest extends TestCase
 {
 	/**

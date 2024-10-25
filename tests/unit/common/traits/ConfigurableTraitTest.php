@@ -9,6 +9,7 @@ namespace mako\tests\unit\common\traits;
 
 use mako\common\traits\ConfigurableTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -28,9 +29,7 @@ class Configurable
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ConfigurableTraitTest extends TestCase
 {
 	/**

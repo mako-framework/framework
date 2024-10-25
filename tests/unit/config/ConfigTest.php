@@ -11,10 +11,9 @@ use mako\config\Config;
 use mako\config\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ConfigTest extends TestCase
 {
 	/**

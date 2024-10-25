@@ -22,10 +22,9 @@ use mako\validator\input\http\InputInterface;
 use mako\validator\input\http\routing\middleware\InputValidation;
 use mako\view\ViewFactory;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class InputValidationTest extends TestCase
 {
 	/**

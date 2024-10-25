@@ -10,10 +10,9 @@ namespace mako\tests\unit\validator\rules\file;
 use mako\file\FileInfo;
 use mako\tests\TestCase;
 use mako\validator\rules\file\MimeType;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class MimeTypeTest extends TestCase
 {
 	/**

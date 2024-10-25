@@ -11,10 +11,9 @@ use BadMethodCallException;
 use mako\tests\TestCase;
 use mako\utility\Collection;
 use OutOfBoundsException;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CollectionTest extends TestCase
 {
 	/**

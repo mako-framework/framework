@@ -11,6 +11,8 @@ use DateTime;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -41,12 +43,10 @@ class TimestampedBar extends TestORM
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group integration
- * @group integration:database
- * @requires extension PDO
- * @requires extension pdo_sqlite
- */
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class TimestampedTest extends ORMTestCase
 {
 	/**

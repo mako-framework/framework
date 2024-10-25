@@ -11,6 +11,7 @@ use mako\redis\Connection;
 use mako\redis\exceptions\RedisException;
 use mako\redis\Redis;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // We're only testing a small set of Redis commands since we're just testing
@@ -18,10 +19,8 @@ use mako\tests\TestCase;
 // the different response types correctly.
 // --------------------------------------------------------------------------
 
-/**
- * @group integration
- * @group integration:redis
- */
+#[Group('integration')]
+#[Group('integration:redis')]
 class RedisTest extends TestCase
 {
 	/**

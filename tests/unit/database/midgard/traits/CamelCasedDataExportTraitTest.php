@@ -9,6 +9,7 @@ namespace mako\tests\unit\database\midgard\traits;
 
 use mako\database\midgard\traits\CamelCasedDataExportTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -26,9 +27,7 @@ class Test
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CamelCasedDataExportTraitTest extends TestCase
 {
 	/**

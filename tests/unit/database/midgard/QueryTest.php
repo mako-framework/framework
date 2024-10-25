@@ -15,6 +15,7 @@ use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -34,9 +35,7 @@ class ScopedModel extends ORM
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class QueryTest extends TestCase
 {
 	/**

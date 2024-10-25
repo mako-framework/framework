@@ -10,10 +10,9 @@ namespace mako\tests\unit\file;
 use mako\file\FileInfo;
 use mako\file\Finder;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FinderTest extends TestCase
 {
 	/**

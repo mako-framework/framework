@@ -12,6 +12,7 @@ use mako\syringe\exceptions\ContainerException;
 use mako\syringe\exceptions\UnableToInstantiateException;
 use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 use stdClass;
 
 use function mako\syringe\intersection;
@@ -212,9 +213,7 @@ class NullableIntersection
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ContainerTest extends TestCase
 {
 	/**

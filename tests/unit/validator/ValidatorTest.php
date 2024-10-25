@@ -15,6 +15,7 @@ use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\Validator;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use Throwable;
 
 use function mako\f;
@@ -32,9 +33,7 @@ class MyRule extends Rule implements RuleInterface
 	}
 }
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ValidatorTest extends TestCase
 {
 	/**

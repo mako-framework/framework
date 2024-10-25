@@ -13,10 +13,9 @@ use mako\tests\TestCase;
 use mako\validator\Validator;
 use mako\validator\ValidatorFactory;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ValidatorFactoryTest extends TestCase
 {
 	/**

@@ -12,10 +12,9 @@ use mako\i18n\I18n;
 use mako\i18n\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class I18nTest extends TestCase
 {
 	/**

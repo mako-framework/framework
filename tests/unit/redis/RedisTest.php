@@ -12,10 +12,9 @@ use mako\redis\exceptions\RedisException;
 use mako\redis\Redis;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RedisTest extends TestCase
 {
 	protected const int CRLF_LENGTH = 2;

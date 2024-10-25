@@ -11,10 +11,9 @@ use mako\http\request\UploadedFile;
 use mako\tests\TestCase;
 use mako\validator\rules\file\IsUploaded;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class IsUploadedTest extends TestCase
 {
 	/**

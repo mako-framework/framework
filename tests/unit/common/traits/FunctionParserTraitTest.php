@@ -9,6 +9,7 @@ namespace mako\tests\unit\common\traits;
 
 use mako\common\traits\FunctionParserTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
 // --------------------------------------------------------------------------
@@ -29,9 +30,7 @@ class Parser
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FunctionParserTraitTest extends TestCase
 {
 	/**

@@ -10,6 +10,7 @@ namespace mako\tests\unit\validator\rules;
 use mako\tests\TestCase;
 use mako\validator\exceptions\ValidatorException;
 use mako\validator\rules\Enum;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -31,9 +32,7 @@ enum BarEnum: int
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class EnumTest extends TestCase
 {
 	/**

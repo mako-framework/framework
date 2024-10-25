@@ -15,6 +15,8 @@ use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
 use mako\tests\integration\InMemoryDbTestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -39,12 +41,10 @@ enum UsernameEnum
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group integration
- * @group integration:database
- * @requires extension PDO
- * @requires extension pdo_sqlite
- */
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class BaseCompilerTest extends InMemoryDbTestCase
 {
 	public function setUp(): void

@@ -8,6 +8,8 @@
 namespace mako\tests\integration\database;
 
 use mako\tests\integration\InMemoryDbTestCase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -35,12 +37,10 @@ enum UsernameEnum
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group integration
- * @group integration:database
- * @requires extension PDO
- * @requires extension pdo_sqlite
- */
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class EnumTest extends InMemoryDbTestCase
 {
 	/**

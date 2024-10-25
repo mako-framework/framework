@@ -9,10 +9,9 @@ namespace mako\tests\unit\reactor\traits;
 
 use mako\reactor\traits\FireTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FireTraitTest extends TestCase
 {
 	/**

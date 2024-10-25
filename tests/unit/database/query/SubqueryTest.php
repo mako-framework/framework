@@ -9,10 +9,9 @@ namespace mako\tests\unit\database\query;
 
 use mako\database\query\Subquery;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class SubqueryTest extends TestCase
 {
 	/**

@@ -13,10 +13,9 @@ use mako\http\response\Headers;
 use mako\http\routing\middleware\Deprecated;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class DeprecatedTest extends TestCase
 {
 	/**

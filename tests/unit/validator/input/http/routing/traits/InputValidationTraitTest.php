@@ -13,10 +13,9 @@ use mako\http\request\Parameters;
 use mako\tests\TestCase;
 use mako\validator\input\http\routing\traits\InputValidationTrait;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class InputValidationTraitTest extends TestCase
 {
 	/**

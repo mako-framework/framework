@@ -9,10 +9,9 @@ namespace mako\tests\unit\common\traits;
 
 use mako\common\traits\SuggestionTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class SuggestionTraitTest extends TestCase
 {
 	/**

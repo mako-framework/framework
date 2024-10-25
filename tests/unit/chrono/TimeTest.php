@@ -12,10 +12,9 @@ use DateTimeZone;
 use mako\chrono\Time;
 use mako\chrono\TimeImmutable;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class TimeTest extends TestCase
 {
 	/**

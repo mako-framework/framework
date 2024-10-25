@@ -23,10 +23,9 @@ use mako\http\response\Status;
 use mako\session\Session as HttpSession;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group as GroupAttribute;
 
-/**
- * @group unit
- */
+#[GroupAttribute('unit')]
 class SessionTest extends TestCase
 {
 	/**

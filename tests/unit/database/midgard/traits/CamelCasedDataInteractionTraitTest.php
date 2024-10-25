@@ -10,12 +10,12 @@ namespace mako\tests\unit\database\midgard\traits;
 use mako\database\exceptions\DatabaseException;
 use mako\database\midgard\traits\CamelCasedDataInteractionTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
- * @group unit
- *
  * This only tests parts of the trait since it is meant to be used in a ORM context.
  */
+#[Group('unit')]
 class CamelCasedDataInteractionTraitTest extends TestCase
 {
 	protected function getClass(): object

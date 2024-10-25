@@ -11,11 +11,10 @@ use mako\cache\stores\File;
 use mako\file\FileSystem;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use stdClass;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FileTest extends TestCase
 {
 	/**

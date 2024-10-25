@@ -13,11 +13,10 @@ use mako\cli\output\Output;
 use mako\error\handlers\cli\DevelopmentHandler;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class DevelopmentHandlerTest extends TestCase
 {
 	/**

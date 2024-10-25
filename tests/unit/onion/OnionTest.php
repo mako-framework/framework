@@ -10,6 +10,7 @@ namespace mako\tests\unit\onion;
 use mako\onion\exceptions\OnionException;
 use mako\onion\Onion;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -90,9 +91,7 @@ class BazMiddleware1
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class OnionTest extends TestCase
 {
 	/**

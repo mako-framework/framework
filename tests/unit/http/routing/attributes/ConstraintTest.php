@@ -9,10 +9,9 @@ namespace mako\tests\unit\http\routing\attributes;
 
 use mako\http\routing\attributes\Constraint;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ConstraintTest extends TestCase
 {
 	/**

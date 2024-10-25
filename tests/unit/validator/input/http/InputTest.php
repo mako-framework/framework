@@ -13,10 +13,9 @@ use mako\http\routing\URLBuilder;
 use mako\tests\TestCase;
 use mako\validator\input\http\Input;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class InputTest extends TestCase
 {
 	/**

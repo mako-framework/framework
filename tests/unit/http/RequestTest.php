@@ -13,11 +13,10 @@ use mako\http\routing\Route;
 use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RequestTest extends TestCase
 {
 	/**

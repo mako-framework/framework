@@ -11,10 +11,9 @@ use mako\file\FileInfo;
 use mako\tests\TestCase;
 use mako\validator\rules\file\Hmac;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class HmacTest extends TestCase
 {
 	/**

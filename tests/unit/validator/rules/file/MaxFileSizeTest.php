@@ -9,12 +9,11 @@ namespace mako\tests\unit\validator\rules\file;
 
 use mako\tests\TestCase;
 use mako\validator\rules\file\MaxFileSize;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 use SplFileInfo;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class MaxFileSizeTest extends TestCase
 {
 	/**

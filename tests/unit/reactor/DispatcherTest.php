@@ -12,10 +12,9 @@ use mako\reactor\Dispatcher;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class DispatcherTest extends TestCase
 {
 	/**

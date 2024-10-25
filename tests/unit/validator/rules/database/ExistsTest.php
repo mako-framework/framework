@@ -13,10 +13,9 @@ use mako\database\query\Query;
 use mako\tests\TestCase;
 use mako\validator\rules\database\Exists;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ExistsTest extends TestCase
 {
 	/**

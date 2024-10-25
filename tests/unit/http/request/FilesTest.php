@@ -10,10 +10,9 @@ namespace mako\tests\unit\http\request;
 use mako\http\request\Files;
 use mako\http\request\UploadedFile;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FilesTest extends TestCase
 {
 	/**

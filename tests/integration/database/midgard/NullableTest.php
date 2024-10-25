@@ -10,7 +10,13 @@ namespace mako\tests\integration\database\midgard;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\NullableTrait;
 use mako\tests\integration\ORMTestCase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class NullableTest extends ORMTestCase
 {
 	/**

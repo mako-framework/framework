@@ -12,10 +12,9 @@ use mako\pixl\Image;
 use mako\pixl\processors\ProcessorInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ImageTest extends TestCase
 {
 	/**

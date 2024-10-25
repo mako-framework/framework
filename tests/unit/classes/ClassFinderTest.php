@@ -15,10 +15,9 @@ use mako\tests\unit\classes\classes\BazClass;
 use mako\tests\unit\classes\classes\FooClass;
 use mako\tests\unit\classes\classes\FooInterface;
 use mako\tests\unit\classes\classes\FooTrait;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ClassFinderTest extends TestCase
 {
 	/**

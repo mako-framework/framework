@@ -9,10 +9,9 @@ namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
 use mako\validator\rules\AlphanumericDash;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AlphanumericDashTest extends TestCase
 {
 	/**

@@ -9,10 +9,9 @@ namespace mako\tests\unit\validator\rules\traits;
 
 use mako\tests\TestCase;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ValidatesWhenEmptyTraitTest extends TestCase
 {
 	/**

@@ -12,6 +12,7 @@ use mako\bus\query\QueryBus;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -42,9 +43,7 @@ function create_user_handler(GetUserQuery $getUser): GetUserQuery
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class QueryBusTest extends TestCase
 {
 	/**

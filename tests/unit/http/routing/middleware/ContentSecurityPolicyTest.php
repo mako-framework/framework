@@ -15,10 +15,9 @@ use mako\syringe\Container;
 use mako\tests\TestCase;
 use mako\view\ViewFactory;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ContentSecurityPolicyTest extends TestCase
 {
 	/**

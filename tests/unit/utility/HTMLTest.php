@@ -10,10 +10,9 @@ namespace mako\tests\unit\utility;
 use BadMethodCallException;
 use mako\tests\TestCase;
 use mako\utility\HTML;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class HTMLTest extends TestCase
 {
 	/**

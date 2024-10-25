@@ -11,10 +11,9 @@ use mako\http\routing\exceptions\RoutingException;
 use mako\http\routing\Route;
 use mako\http\routing\Routes;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RoutesTest extends TestCase
 {
 	/**

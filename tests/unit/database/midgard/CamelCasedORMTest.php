@@ -10,6 +10,7 @@ namespace mako\tests\unit\database\midgard;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\CamelCasedTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -36,9 +37,7 @@ class CamelCasedORM extends ORM
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CamelCasedORMTest extends TestCase
 {
 	/**

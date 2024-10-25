@@ -14,10 +14,9 @@ use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class UserRepositoryTest extends TestCase
 {
 	/**

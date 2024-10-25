@@ -13,10 +13,9 @@ use mako\validator\rules\I18nAwareInterface;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\I18nAwareTrait;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class I18nAwareTraitTest extends TestCase
 {
 	/**

@@ -19,11 +19,10 @@ use mako\http\response\Status;
 use mako\tests\TestCase;
 use mako\view\ViewFactory;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ProductionHandlerTest extends TestCase
 {
 	/**

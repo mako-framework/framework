@@ -16,11 +16,10 @@ use mako\http\response\senders\Redirect;
 use mako\http\response\Status;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 use ValueError;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ResponseTest extends TestCase
 {
 	/**

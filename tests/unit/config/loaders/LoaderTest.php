@@ -12,10 +12,9 @@ use mako\config\loaders\Loader;
 use mako\file\FileSystem;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class LoaderTest extends TestCase
 {
 	/**

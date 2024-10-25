@@ -9,10 +9,9 @@ namespace mako\tests\unit\session\stores;
 
 use mako\session\stores\NullStore;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class NullStoreTest extends TestCase
 {
 	/**

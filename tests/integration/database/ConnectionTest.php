@@ -11,13 +11,13 @@ use mako\database\connections\Connection;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\Helper;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
-/**
- * @group integration
- * @group integration:database
- * @requires extension PDO
- * @requires extension pdo_sqlite
- */
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class ConnectionTest extends TestCase
 {
 	/**

@@ -11,10 +11,9 @@ use mako\file\FileInfo;
 use mako\tests\TestCase;
 use mako\validator\rules\file\Hash;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class HashTest extends TestCase
 {
 	/**

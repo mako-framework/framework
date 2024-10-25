@@ -10,10 +10,9 @@ namespace mako\tests\unit\redis;
 use mako\redis\exceptions\RedisException;
 use mako\redis\Message;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class MessageTest extends TestCase
 {
 	/**

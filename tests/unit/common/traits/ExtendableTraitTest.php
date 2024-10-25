@@ -10,6 +10,7 @@ namespace mako\tests\unit\common\traits;
 use BadMethodCallException;
 use mako\common\traits\ExtendableTrait;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -28,9 +29,7 @@ class Extended
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ExtendableTraitTest extends TestCase
 {
 	/**

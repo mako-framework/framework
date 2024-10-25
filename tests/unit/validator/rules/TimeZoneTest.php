@@ -11,10 +11,9 @@ use DateTimeZone;
 
 use mako\tests\TestCase;
 use mako\validator\rules\TimeZone;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class TimeZoneTest extends TestCase
 {
 	/**

@@ -10,10 +10,9 @@ namespace mako\tests\unit\http\request;
 use mako\http\exceptions\BadRequestException;
 use mako\http\request\Body;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class BodyTest extends TestCase
 {
 	/**

@@ -23,6 +23,7 @@ use mako\http\routing\Routes;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -48,9 +49,7 @@ class BarConstraint implements ConstraintInterface
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RouterTest extends TestCase
 {
 	/**

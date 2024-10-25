@@ -9,6 +9,7 @@ namespace mako\tests\unit\syringe;
 
 use mako\syringe\Container;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -33,9 +34,7 @@ class BaxChild extends Bax
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ContainerAwareTest extends TestCase
 {
 	/**

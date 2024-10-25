@@ -10,10 +10,9 @@ namespace mako\tests\unit\utility;
 use mako\tests\TestCase;
 use mako\utility\exceptions\NumException;
 use mako\utility\Num;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class NumTest extends TestCase
 {
 	/**

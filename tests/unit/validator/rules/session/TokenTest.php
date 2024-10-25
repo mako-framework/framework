@@ -11,10 +11,9 @@ use mako\session\Session;
 use mako\tests\TestCase;
 use mako\validator\rules\session\Token;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class TokenTest extends TestCase
 {
 	/**

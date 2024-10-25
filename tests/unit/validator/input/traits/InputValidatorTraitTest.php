@@ -15,10 +15,9 @@ use mako\validator\input\traits\InputValidationTrait;
 use mako\validator\Validator;
 use mako\validator\ValidatorFactory;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class InputValidatorTraitTest extends TestCase
 {
 	/**

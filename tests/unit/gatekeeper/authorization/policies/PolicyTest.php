@@ -9,10 +9,9 @@ namespace mako\tests\unit\gatekeeper\authorization\policies;
 
 use mako\gatekeeper\authorization\policies\Policy;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class PolicyTest extends TestCase
 {
 	/**

@@ -10,6 +10,7 @@ namespace mako\tests\cache\stores;
 use mako\cache\stores\Store;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -27,9 +28,7 @@ abstract class TestStore extends Store
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class StoreTest extends TestCase
 {
 	/**

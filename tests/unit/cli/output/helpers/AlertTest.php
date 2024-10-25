@@ -12,10 +12,9 @@ use mako\cli\output\helpers\Alert;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AlertTest extends TestCase
 {
 	/**

@@ -11,6 +11,7 @@ use mako\http\routing\attributes\Constraint;
 use mako\http\routing\attributes\Middleware;
 use mako\http\routing\Route;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -45,9 +46,7 @@ class AttributeController
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RouteTest extends TestCase
 {
 	/**

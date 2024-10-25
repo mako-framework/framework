@@ -12,10 +12,9 @@ use mako\cli\input\Input;
 use mako\cli\input\reader\ReaderInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class InputTest extends TestCase
 {
 	/**

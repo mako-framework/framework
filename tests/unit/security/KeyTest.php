@@ -9,10 +9,9 @@ namespace mako\tests\unit\security;
 
 use mako\security\Key;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class KeyTest extends TestCase
 {
 	/**

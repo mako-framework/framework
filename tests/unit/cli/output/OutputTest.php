@@ -13,10 +13,9 @@ use mako\cli\output\Output;
 use mako\cli\output\writer\WriterInterface;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class OutputTest extends TestCase
 {
 	/**

@@ -11,10 +11,9 @@ use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ResultSetTest extends TestCase
 {
 	/**

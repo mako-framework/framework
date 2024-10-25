@@ -10,6 +10,8 @@ namespace mako\tests\integration\database\midgard\relations;
 use Generator;
 use mako\tests\integration\ORMTestCase;
 use mako\tests\integration\TestORM;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -34,12 +36,10 @@ class HasOnePolymorphicImage extends TestORM
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group integration
- * @group integration:database
- * @requires extension PDO
- * @requires extension pdo_sqlite
- */
+#[Group('integration')]
+#[Group('integration:database')]
+#[RequiresPhpExtension('pdo')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class HasOnePolymorphicTest extends ORMTestCase
 {
 	/**

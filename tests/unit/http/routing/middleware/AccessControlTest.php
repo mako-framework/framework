@@ -14,10 +14,9 @@ use mako\http\response\Headers as ResponseHeaders;
 use mako\http\routing\middleware\AccessControl;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AccessControlTest extends TestCase
 {
 	/**

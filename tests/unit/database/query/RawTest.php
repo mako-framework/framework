@@ -9,10 +9,9 @@ namespace mako\tests\unit\database\query;
 
 use mako\database\query\Raw;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RawTest extends TestCase
 {
 	/**

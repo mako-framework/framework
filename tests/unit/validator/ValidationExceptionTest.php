@@ -11,10 +11,9 @@ use mako\tests\TestCase;
 use mako\validator\exceptions\ValidationException;
 use mako\validator\input\InputInterface;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ValidationExceptionTest extends TestCase
 {
 	/**

@@ -14,10 +14,9 @@ use mako\http\response\builders\JSON;
 use mako\http\response\Status;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class JSONTest extends TestCase
 {
 	/**

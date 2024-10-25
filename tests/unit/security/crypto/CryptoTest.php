@@ -13,10 +13,9 @@ use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CryptoTest extends TestCase
 {
 	/**

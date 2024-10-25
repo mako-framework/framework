@@ -11,10 +11,9 @@ use InvalidArgumentException;
 use mako\file\Permission;
 use mako\file\Permissions;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class PermissionsTest extends TestCase
 {
 	/**

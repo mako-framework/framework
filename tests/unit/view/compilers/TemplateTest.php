@@ -11,10 +11,9 @@ use mako\file\FileSystem;
 use mako\tests\TestCase;
 use mako\view\compilers\Template;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class TemplateTest extends TestCase
 {
 	protected $cachePath = '/cache';

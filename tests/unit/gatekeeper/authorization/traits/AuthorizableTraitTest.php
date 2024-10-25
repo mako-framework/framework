@@ -13,10 +13,9 @@ use mako\gatekeeper\authorization\traits\AuthorizableTrait;
 use mako\gatekeeper\entities\user\User;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AuthorizableTraitTest extends TestCase
 {
 	/**

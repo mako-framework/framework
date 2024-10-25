@@ -9,10 +9,9 @@ namespace mako\tests\unit\utility\ip;
 
 use mako\tests\TestCase;
 use mako\utility\ip\IPv4;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class IPv4Test extends TestCase
 {
 	/**

@@ -11,10 +11,9 @@ use mako\http\request\Cookies;
 use mako\security\Signer;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CookiesTest extends TestCase
 {
 	/**

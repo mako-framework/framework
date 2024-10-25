@@ -10,10 +10,9 @@ namespace mako\tests\unit\utility;
 use mako\tests\TestCase;
 use mako\utility\Str;
 use mako\utility\str\Alternator;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class StrTest extends TestCase
 {
 	/**

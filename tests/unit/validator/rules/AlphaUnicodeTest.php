@@ -9,10 +9,9 @@ namespace mako\tests\unit\validator\rules;
 
 use mako\tests\TestCase;
 use mako\validator\rules\AlphaUnicode;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class AlphaUnicodeTest extends TestCase
 {
 	/**

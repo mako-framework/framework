@@ -9,11 +9,11 @@ namespace mako\tests\unit\security\crypto\encrypters;
 
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
-/**
- * @group unit
- * @requires extension openssl
- */
+#[Group('unit')]
+#[RequiresPhpExtension('openssl')]
 class OpenSSLTest extends TestCase
 {
 	/**

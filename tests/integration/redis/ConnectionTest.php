@@ -10,11 +10,10 @@ namespace mako\tests\integration\redis;
 use mako\redis\Connection;
 use mako\redis\exceptions\RedisException;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group integration
- * @group integration:redis
- */
+#[Group('integration')]
+#[Group('integration:redis')]
 class ConnectionTest extends TestCase
 {
 	/**

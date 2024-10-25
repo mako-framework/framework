@@ -9,10 +9,9 @@ namespace mako\tests\unit\security\password;
 
 use mako\security\password\Bcrypt;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class BcryptTest extends TestCase
 {
 	/**

@@ -10,10 +10,9 @@ namespace mako\tests\unit\chrono\stopwatch;
 use mako\chrono\stopwatch\Lap;
 use mako\chrono\stopwatch\Stopwatch;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class StopwatchTest extends TestCase
 {
 	/**

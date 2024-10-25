@@ -9,10 +9,9 @@ namespace mako\tests\unit\security\password;
 
 use mako\security\password\Argon2id;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class Argon2idTest extends TestCase
 {
 	/**

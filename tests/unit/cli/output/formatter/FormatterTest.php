@@ -10,10 +10,9 @@ namespace mako\tests\unit\cli\output\formatter;
 use mako\cli\output\formatter\exceptions\FormatterException;
 use mako\cli\output\formatter\Formatter;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class FormatterTest extends TestCase
 {
 	/**

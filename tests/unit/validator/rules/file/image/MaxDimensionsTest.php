@@ -11,10 +11,9 @@ use mako\file\FileInfo;
 use mako\tests\TestCase;
 use mako\validator\rules\file\image\MaxDimensions;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class MaxDimensionsTest extends TestCase
 {
 	/**

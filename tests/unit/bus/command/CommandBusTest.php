@@ -12,6 +12,7 @@ use mako\bus\command\exceptions\CommandBusException;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
 // START CLASSES
@@ -52,9 +53,7 @@ function create_user_handler(CreateUserCommand $createUser): void
 // END CLASSES
 // --------------------------------------------------------------------------
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class CommandBusTest extends TestCase
 {
 	/**

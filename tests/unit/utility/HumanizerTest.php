@@ -12,10 +12,9 @@ use mako\i18n\I18n;
 use mako\tests\TestCase;
 use mako\utility\Humanizer;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class HumanizerTest extends TestCase
 {
 	/**

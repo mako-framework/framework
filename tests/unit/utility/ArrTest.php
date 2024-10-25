@@ -10,11 +10,10 @@ namespace mako\tests\unit\utility;
 use mako\tests\TestCase;
 use mako\utility\Arr;
 use mako\utility\exceptions\ArrException;
+use PHPUnit\Framework\Attributes\Group;
 use stdClass;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class ArrTest extends TestCase
 {
 	/**

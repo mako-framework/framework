@@ -11,10 +11,9 @@ use mako\http\request\exceptions\UploadException;
 use mako\http\request\UploadedFile;
 use mako\tests\TestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class UploadedFileTest extends TestCase
 {
 	/**

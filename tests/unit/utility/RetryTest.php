@@ -10,12 +10,11 @@ namespace mako\tests\unit\utility;
 use InvalidArgumentException;
 use mako\tests\TestCase;
 use mako\utility\Retry;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 use Throwable;
 
-/**
- * @group unit
- */
+#[Group('unit')]
 class RetryTest extends TestCase
 {
 	protected function getCallable(): object
