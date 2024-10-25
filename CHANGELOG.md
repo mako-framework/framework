@@ -46,6 +46,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Reactor command names can now be registered with the `CommandName` attribute.
 * Reactor command descriptions can now be registered with the `CommandDescription` attribute.
 * Reactor command arguments can now be registered with the `Arguments` attribute.
+* New and improved look of rendered CLI tables.
 
 #### Changes
 
