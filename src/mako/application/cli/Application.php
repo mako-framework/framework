@@ -155,7 +155,7 @@ class Application extends BaseApplication
 
 		$this->container->registerInstance(SignalHandler::class, $signalHandler);
 
-		// Ensure that the cursor and stty are restored in case of a SIGINT call
+		// Ensure that the cursor and stty are restored in case of a SIGINT or SIGTERM call
 
 		if ($signalHandler->canHandleSignals()) {
 			$signalHandler->addHandler([SIGINT, SIGTERM], function ($signal, $isLast) use ($output): void {
