@@ -15,6 +15,7 @@ use function pcntl_fork;
 use function pcntl_wait;
 use function posix_getpid;
 use function posix_kill;
+use function sprintf;
 use function usleep;
 
 /**

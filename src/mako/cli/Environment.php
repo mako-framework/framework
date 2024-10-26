@@ -11,6 +11,7 @@ use function current;
 use function exec;
 use function mako\env;
 use function preg_match;
+use function shell_exec;
 
 /**
  * Environment.
