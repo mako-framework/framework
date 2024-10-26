@@ -48,7 +48,7 @@ class SignalHandler
 	}
 
 	/**
-	 * Registers a singal handler for the chosen signal.
+	 * Registers a signal handler for the chosen signal.
 	 */
 	public function addHandler(array|int $signal, callable $handler): void
 	{
