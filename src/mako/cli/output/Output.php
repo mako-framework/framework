@@ -34,27 +34,16 @@ class Output
 	protected bool $muted = false;
 
 	/**
-	 * Is the cursor hidden?
-	 */
-	protected bool $cursorHidden = false;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected WriterInterface $standard,
 		protected WriterInterface $error,
+		protected Environment $environment = new Environment,
+		protected ?Cursor $cursor = null,
 		protected ?FormatterInterface $formatter = null,
-		protected Environment $environment = new Environment
 	) {
-	}
-
-	/**
-	 * Destructor.
-	 */
-	public function __destruct()
-	{
-		$this->restoreCursor();
+		$this->cursor ??= new Cursor($this);
 	}
 
 	/**
@@ -87,6 +76,14 @@ class Output
 	public function getEnvironment(): Environment
 	{
 		return $this->environment;
+	}
+
+	/**
+	 * Returns the cursor.
+	 */
+	public function getCursor(): Cursor
+	{
+		return $this->cursor;
 	}
 
 	/**
@@ -173,7 +170,7 @@ class Output
 	public function clear(): void
 	{
 		if ($this->environment->hasAnsiSupport()) {
-			$this->write("\e[H\e[2J");
+			$this->cursor->clearScreen();
 		}
 	}
 
@@ -183,7 +180,7 @@ class Output
 	public function clearLine(): void
 	{
 		if ($this->environment->hasAnsiSupport()) {
-			$this->write("\r\33[2K");
+			$this->cursor->clearLine();
 		}
 	}
 
@@ -193,13 +190,7 @@ class Output
 	public function clearLines(int $lines): void
 	{
 		if ($this->environment->hasAnsiSupport()) {
-			for ($i = 0; $i < $lines; $i++) {
-				if ($i > 0) {
-					$this->write("\033[F");
-				}
-
-				$this->clearLine();
-			}
+			$this->cursor->clearLines($lines);
 		}
 	}
 
@@ -209,8 +200,7 @@ class Output
 	public function hideCursor(): void
 	{
 		if ($this->environment->hasAnsiSupport()) {
-			$this->write("\e[?25l");
-			$this->cursorHidden = true;
+			$this->cursor->hide();
 		}
 	}
 
@@ -220,18 +210,7 @@ class Output
 	public function showCursor(): void
 	{
 		if ($this->environment->hasAnsiSupport()) {
-			$this->write("\e[?25h");
-			$this->cursorHidden = false;
-		}
-	}
-
-	/**
-	 * Restores the cursor.
-	 */
-	public function restoreCursor(): void
-	{
-		if ($this->cursorHidden) {
-			$this->showCursor();
+			$this->cursor->show();
 		}
 	}
 }

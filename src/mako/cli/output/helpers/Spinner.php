@@ -58,14 +58,14 @@ class Spinner
 	/**
 	 * Draws the spinner.
 	 */
-	protected function spinner(string $message): void
+	protected function spinner(string $message, string $template): void
 	{
 		$i = 0;
 
 		$frames = count($this->frames);
 
 		while (true) {
-			$this->output->write("\r" . $this->frames[$i++ % $frames] . " {$message}");
+			$this->output->write("\r" . sprintf($template, $this->frames[$i++ % $frames]) . " {$message}");
 
 			usleep(static::TIME_BETWEEN_REDRAW);
 
@@ -78,7 +78,7 @@ class Spinner
 	/**
 	 * Draws the spinner.
 	 */
-	public function spin(string $message, callable $callback): mixed
+	public function spin(string $message, callable $callback, string $template = '%s'): mixed
 	{
 		$result = null;
 
@@ -109,7 +109,7 @@ class Spinner
 		else {
 			// We're in the child process so we'll display the spinner
 
-			$this->spinner($message);
+			$this->spinner($message, $template);
 		}
 
 		$this->output->showCursor();

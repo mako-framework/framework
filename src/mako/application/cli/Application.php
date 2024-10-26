@@ -76,7 +76,7 @@ class Application extends BaseApplication
 	 */
 	protected function outputFactory(): Output
 	{
-		return new Output(new Standard, new Error, new Formatter);
+		return new Output(new Standard, new Error, formatter: new Formatter);
 	}
 
 	/**
@@ -159,7 +159,7 @@ class Application extends BaseApplication
 
 		if ($signalHandler->canHandleSignals()) {
 			$signalHandler->addHandler(SIGINT, function ($signal, $isLast) use ($output): void {
-				$output->restoreCursor();
+				$output->getCursor()->restore();
 				if ($isLast) {
 					exit(130);
 				}

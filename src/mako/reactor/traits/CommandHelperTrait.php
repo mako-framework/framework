@@ -112,9 +112,9 @@ trait CommandHelperTrait
 	/**
 	 * Draws a spinner while executing the callback.
 	 */
-	protected function spinner(string $message, callable $callback, array $frames = Spinner::FRAMES): void
+	protected function spinner(string $message, callable $callback, string $template = '%s', array $frames = Spinner::FRAMES): void
 	{
-		(new Spinner($this->output, $frames))->spin($message, $callback);
+		(new Spinner($this->output, $frames))->spin($message, $callback, $template);
 	}
 
 	/**

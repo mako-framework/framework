@@ -65,7 +65,7 @@ class OutputTest extends TestCase
 
 		$env = new Environment;
 
-		$output = new Output($std, $err, null, $env);
+		$output = new Output($std, $err, $env);
 
 		$this->assertInstanceOf(Environment::class, $output->getEnvironment());
 
@@ -177,7 +177,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, null, $env);
+		$output = new Output($std, $err, $env);
 
 		$output->clear();
 	}
@@ -197,7 +197,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
- 		$output = new Output($std, $err, null, $env);
+ 		$output = new Output($std, $err, $env);
 
  		$output->clear();
  	}
@@ -217,7 +217,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, null, $env);
+		$output = new Output($std, $err, $env);
 
 		$output->clearLine();
 	}
@@ -237,7 +237,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, null, $env);
+		$output = new Output($std, $err, $env);
 
 		$output->clearLine();
 	}
@@ -250,7 +250,7 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->once()->with("\033[F");
+		$std->shouldReceive('write')->once()->with("\033[1A");
 
 		$std->shouldReceive('write')->times(2)->with("\r\33[2K");
 
@@ -259,7 +259,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, null, $env);
+		$output = new Output($std, $err, $env);
 
 		$output->clearLines(2);
 	}
@@ -279,7 +279,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, null, $env);
+		$output = new Output($std, $err, $env);
 
 		$output->clearLines(2);
 	}
@@ -350,7 +350,7 @@ class OutputTest extends TestCase
 		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
-		$output = new Output($std, $err, $formatter);
+		$output = new Output($std, $err, formatter: $formatter);
 
 		$this->assertInstanceOf(FormatterInterface::class, $output->getFormatter());
 	}
@@ -393,7 +393,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $formatter, $env);
+		$output = new Output($std, $err, $env, formatter: $formatter);
 
 		$output->write('hello, world!');
 	}
@@ -420,7 +420,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $formatter, $env);
+		$output = new Output($std, $err, $env, formatter: $formatter);
 
 		$output->write('hello, world!');
 	}
@@ -442,7 +442,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with('formatted');
 
-		$output = new Output($std, $err, $formatter);
+		$output = new Output($std, $err, formatter: $formatter);
 
 		$output->write('hello, world!');
 	}
