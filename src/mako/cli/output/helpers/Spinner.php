@@ -73,6 +73,10 @@ class Spinner
 			if (posix_kill(posix_getpid(), 0) === false) {
 				break;
 			}
+
+			if (posix_getppid() === 1) {
+				posix_kill(posix_getpid(), SIGKILL);
+			}
 		}
 	}
 
