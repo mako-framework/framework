@@ -155,11 +155,15 @@ class Application extends BaseApplication
 
 		$this->container->registerInstance(SignalHandler::class, $signalHandler);
 
-		// Ensure that the cursor is restored in case of a SIGINT call
+		// Ensure that the cursor and stty are restored in case of a SIGINT call
 
 		if ($signalHandler->canHandleSignals()) {
 			$signalHandler->addHandler(SIGINT, function ($signal, $isLast) use ($output): void {
 				$output->getCursor()->restore();
+				$output->getEnvironment()->restoreStty();
+
+				// If we're the last handler then we exit with status code 130 (SIGINT)
+
 				if ($isLast) {
 					exit(130);
 				}

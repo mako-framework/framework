@@ -20,30 +20,11 @@ use function trim;
 class Secret extends Question
 {
 	/**
-	 * Do we have stty support?
-	 */
-	protected static null|bool $hasStty = null;
-
-	/**
-	 * Do we have stty support?
-	 */
-	protected function hasStty(): bool
-	{
-		if (static::$hasStty === null) {
-			exec('stty 2>&1', $output, $status);
-
-			static::$hasStty = $status === 0;
-		}
-
-		return static::$hasStty;
-	}
-
-	/**
 	 * Writes question to output and returns hidden user input.
 	 */
 	public function ask(string $question, mixed $default = null, bool $fallback = false): mixed
 	{
-		if (PHP_OS_FAMILY === 'Windows' || $this->hasStty()) {
+		if (PHP_OS_FAMILY === 'Windows' || $this->output->getEnvironment()->hasStty()) {
 			$this->output->write(trim($question) . ' ');
 
 			if (PHP_OS_FAMILY === 'Windows') {

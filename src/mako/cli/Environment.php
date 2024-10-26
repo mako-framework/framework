@@ -33,6 +33,70 @@ class Environment
 	protected null|bool $hasAnsiSupport = null;
 
 	/**
+	 * Do we have stty support?
+	 */
+	protected null|bool $hasStty = null;
+
+	/**
+	 * Stty settings.
+	 */
+	protected ?string $sttySettings = null;
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct()
+	{
+		if ($this->hasStty()) {
+			$this->sttySettings = shell_exec('stty -g');
+		}
+	}
+
+	/**
+	 * Destructor.
+	 */
+	public function __destruct()
+	{
+		$this->restoreStty();
+	}
+
+	/**
+	 * Do we have ANSI support?
+	 */
+	public function hasAnsiSupport(): bool
+	{
+		if ($this->hasAnsiSupport === null) {
+			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (env('ANSICON') !== null || env('ConEmuANSI') === 'ON');
+		}
+
+		return $this->hasAnsiSupport;
+	}
+
+	/**
+	 * Do we have stty support?
+	 */
+	public function hasStty(): bool
+	{
+		if ($this->hasStty === null) {
+			exec('stty 2>&1', $output, $status);
+
+			$this->hasStty = $status === 0;
+		}
+
+		return $this->hasStty;
+	}
+
+	/**
+	 * Restores the stty settings.
+	 */
+	public function restoreStty(): void
+	{
+		if ($this->sttySettings !== null) {
+			exec("stty {$this->sttySettings}");
+		}
+	}
+
+	/**
 	 * Attempts to get dimensions for Windows.
 	 */
 	protected function getDimensionsForWindows(): ?array
@@ -92,17 +156,5 @@ class Environment
 	public function getHeight(): int
 	{
 		return $this->getDimensions()['height'];
-	}
-
-	/**
-	 * Do we have ANSI support?
-	 */
-	public function hasAnsiSupport(): bool
-	{
-		if ($this->hasAnsiSupport === null) {
-			$this->hasAnsiSupport = PHP_OS_FAMILY !== 'Windows' || (env('ANSICON') !== null || env('ConEmuANSI') === 'ON');
-		}
-
-		return $this->hasAnsiSupport;
 	}
 }
