@@ -32,6 +32,7 @@ use mako\cli\output\formatter\Formatter;
 use mako\cli\output\Output;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
+use mako\cli\signals\SignalHandler;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\Finder;
 use mako\http\routing\Routes;
@@ -76,6 +77,14 @@ class Application extends BaseApplication
 	protected function outputFactory(): Output
 	{
 		return new Output(new Standard, new Error, new Formatter);
+	}
+
+	/**
+	 * Creates a signal handler instance.
+	 */
+	protected function signalHandlerFactory(): SignalHandler
+	{
+		return new SignalHandler;
 	}
 
 	/**
@@ -134,9 +143,30 @@ class Application extends BaseApplication
 	 */
 	protected function startReactor(): void
 	{
+		// Register input, output and signal handler instances
+
 		$this->container->registerSingleton([Input::class, 'input'], fn () => $this->inputFactory());
 
-		$this->container->registerSingleton([Output::class, 'output'], fn () => $this->outputFactory());
+		$output = $this->outputFactory();
+
+		$this->container->registerInstance([Output::class, 'output'], $output);
+
+		$signalHandler = $this->signalHandlerFactory();
+
+		$this->container->registerInstance(SignalHandler::class, $signalHandler);
+
+		// Ensure that the cursor is restored in case of a SIGINT call
+
+		if ($signalHandler->canHandleSignals()) {
+			$signalHandler->addHandler(SIGINT, function ($signal, $isLast) use ($output): void {
+				$output->restoreCursor();
+				if ($isLast) {
+					exit(130);
+				}
+			});
+		}
+
+		// Create reactor instance
 
 		$this->reactor = $this->reactorFactory();
 

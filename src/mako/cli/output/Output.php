@@ -34,6 +34,11 @@ class Output
 	protected bool $muted = false;
 
 	/**
+	 * Is the cursor hidden?
+	 */
+	protected bool $cursorHidden = false;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct(
@@ -42,6 +47,14 @@ class Output
 		protected ?FormatterInterface $formatter = null,
 		protected Environment $environment = new Environment
 	) {
+	}
+
+	/**
+	 * Destructor.
+	 */
+	public function __destruct()
+	{
+		$this->restoreCursor();
 	}
 
 	/**
@@ -187,6 +200,38 @@ class Output
 
 				$this->clearLine();
 			}
+		}
+	}
+
+	/**
+	 * Hides the cursor.
+	 */
+	public function hideCursor(): void
+	{
+		if ($this->environment->hasAnsiSupport()) {
+			$this->write("\e[?25l");
+			$this->cursorHidden = true;
+		}
+	}
+
+	/**
+	 * Shows the cursor.
+	 */
+	public function showCursor(): void
+	{
+		if ($this->environment->hasAnsiSupport()) {
+			$this->write("\e[?25h");
+			$this->cursorHidden = false;
+		}
+	}
+
+	/**
+	 * Restores the cursor.
+	 */
+	public function restoreCursor(): void
+	{
+		if ($this->cursorHidden) {
+			$this->showCursor();
 		}
 	}
 }

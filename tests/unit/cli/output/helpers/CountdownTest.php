@@ -24,6 +24,9 @@ class CountdownTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+
 		$output->shouldReceive('write')->once()->with("\r5     ");
 		$output->shouldReceive('write')->once()->with("\r5 .   ");
 		$output->shouldReceive('write')->once()->with("\r5 ..  ");
@@ -65,6 +68,9 @@ class CountdownTest extends TestCase
 	{
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
 
 		$output->shouldReceive('write')->once()->with("\r2     ");
 		$output->shouldReceive('write')->once()->with("\r2 .   ");

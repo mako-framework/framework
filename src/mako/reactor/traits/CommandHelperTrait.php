@@ -16,6 +16,7 @@ use mako\cli\output\helpers\Bell;
 use mako\cli\output\helpers\Countdown;
 use mako\cli\output\helpers\OrderedList;
 use mako\cli\output\helpers\ProgressBar;
+use mako\cli\output\helpers\Spinner;
 use mako\cli\output\helpers\Table;
 use mako\cli\output\helpers\UnorderedList;
 use mako\cli\output\Output;
@@ -106,6 +107,14 @@ trait CommandHelperTrait
 		$progressBar->draw();
 
 		return $progressBar;
+	}
+
+	/**
+	 * Draws a spinner while executing the callback.
+	 */
+	protected function spinner(string $message, callable $callback, array $frames = Spinner::FRAMES): void
+	{
+		(new Spinner($this->output, $frames))->spin($message, $callback);
 	}
 
 	/**
