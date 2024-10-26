@@ -68,8 +68,6 @@ class Spinner
 		while (true) {
 			$this->output->write("\r" . sprintf($template, $this->frames[$i++ % $frames]) . " {$message}");
 
-			usleep(static::TIME_BETWEEN_REDRAW);
-
 			if (posix_kill(posix_getpid(), 0) === false) {
 				break;
 			}
@@ -77,6 +75,8 @@ class Spinner
 			if (posix_getppid() === 1) {
 				posix_kill(posix_getpid(), SIGKILL);
 			}
+
+			usleep(static::TIME_BETWEEN_REDRAW);
 		}
 	}
 
