@@ -12,7 +12,7 @@ use mako\cli\output\Output;
 use function str_repeat;
 
 /**
- * Terminal bell helper.
+ * Bell helper.
  */
 class Bell
 {

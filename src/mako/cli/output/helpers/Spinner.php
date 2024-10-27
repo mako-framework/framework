@@ -20,7 +20,7 @@ use function sprintf;
 use function usleep;
 
 /**
- * Spinner.
+ * Spinner helper.
  */
 class Spinner
 {
