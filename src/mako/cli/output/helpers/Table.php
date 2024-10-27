@@ -9,6 +9,7 @@ namespace mako\cli\output\helpers;
 
 use mako\cli\exceptions\CliException;
 use mako\cli\output\formatter\FormatterInterface;
+use mako\cli\output\helpers\table\Border;
 use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
 
@@ -25,61 +26,6 @@ class Table
 	use HelperTrait;
 
 	/**
-	 * Horizontal line.
-	 */
-	protected const string HORIZONTAL_LINE = '━';
-
-	/**
-	 * Vertical line.
-	 */
-	protected const string VERTICAL_LINE = '┃';
-
-	/**
-	 * Top left corner.
-	 */
-	protected const string CORNER_TOP_LEFT = '┏';
-
-	/**
-	 * Top right corner.
-	 */
-	protected const string CORNER_TOP_RIGHT = '┓';
-
-	/**
-	 * Down t-junction.
-	 */
-	protected const string T_JUNCTION_DOWN = '┳';
-
-	/**
-	 * Up t-junction.
-	 */
-	protected const string T_JUNCTION_UP = '┻';
-
-	/**
-	 * Left t-junction.
-	 */
-	protected const string T_JUNCTION_LEFT = '┣';
-
-	/**
-	 * Right t-junction.
-	 */
-	protected const string T_JUNCTION_RIGHT = '┫';
-
-	/**
-	 * Junction.
-	 */
-	protected const string JUNCTION = '╋';
-
-	/**
-	 * Bottom left corner.
-	 */
-	protected const string CORNER_BOTTOM_LEFT = '┗';
-
-	/**
-	 * Bottom right corner.
-	 */
-	protected const string CORNER_BOTTOM_RIGHT = '┛';
-
-	/**
 	 * Formatter.
 	 */
 	protected null|FormatterInterface $formatter = null;
@@ -88,7 +34,8 @@ class Table
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Output $output
+		protected Output $output,
+		protected Border $borderStyle = new Border
 	) {
 		$this->formatter = $output->getFormatter();
 	}
@@ -151,7 +98,7 @@ class Table
 		$separator = $leftCorner;
 
 		for ($i = 0; $i < $columns; $i++) {
-			$separator .= str_repeat(static::HORIZONTAL_LINE, $columnWidths[$i] + 2) . ($i < $columns - 1 ? $junction : '');
+			$separator .= str_repeat($this->borderStyle->getHorizontalLine(), $columnWidths[$i] + 2) . ($i < $columns - 1 ? $junction : '');
 		}
 
 		return $separator . $rightCorner . PHP_EOL;
@@ -168,7 +115,9 @@ class Table
 			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->stringWidthWithoutFormatting($value));
 		}
 
-		return static::VERTICAL_LINE . ' ' . implode(' ' . static::VERTICAL_LINE . ' ', $cells) . ' ' . static::VERTICAL_LINE . PHP_EOL;
+		return $this->borderStyle->getVerticalLine()
+		. ' ' . implode(' ' . $this->borderStyle->getVerticalLine() . ' ', $cells)
+		. ' ' . $this->borderStyle->getVerticalLine() . PHP_EOL;
 	}
 
 	/**
@@ -184,9 +133,9 @@ class Table
 
 		// Build table header
 
-		$table = $this->buildRowSeparator($columnWidths, static::T_JUNCTION_DOWN, static::CORNER_TOP_LEFT, static::CORNER_TOP_RIGHT)
+		$table = $this->buildRowSeparator($columnWidths, $this->borderStyle->getTJunctionDown(), $this->borderStyle->getTopLeftCorner(), $this->borderStyle->getTopRightCorner())
 		. $this->buildTableRow($columnNames, $columnWidths)
-		. $this->buildRowSeparator($columnWidths, static::JUNCTION, static::T_JUNCTION_LEFT, static::T_JUNCTION_RIGHT);
+		. $this->buildRowSeparator($columnWidths, $this->borderStyle->getJunction(), $this->borderStyle->getTJunctionLeft(), $this->borderStyle->getTJunctionRight());
 
 		// Add table rows
 
@@ -196,7 +145,7 @@ class Table
 
 		// Add bottom border
 
-		$table .= $this->buildRowSeparator($columnWidths, static::T_JUNCTION_UP, static::CORNER_BOTTOM_LEFT, static::CORNER_BOTTOM_RIGHT);
+		$table .= $this->buildRowSeparator($columnWidths, $this->borderStyle->getTJunctionUp(), $this->borderStyle->getBottomLeftCorner(), $this->borderStyle->getBottomRightCorner());
 
 		// Return table
 

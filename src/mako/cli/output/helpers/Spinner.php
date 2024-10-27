@@ -7,6 +7,7 @@
 
 namespace mako\cli\output\helpers;
 
+use mako\cli\output\helpers\spinner\Frames;
 use mako\cli\output\Output;
 
 use function count;
@@ -24,16 +25,6 @@ use function usleep;
 class Spinner
 {
 	/**
-	 * Spinner frames.
-	 */
-	public const array FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-
-	/**
-	 * Time between redraw in microseconds.
-	 */
-	protected const int TIME_BETWEEN_REDRAW = 100000;
-
-	/**
 	 * Can we fork the process?
 	 */
 	protected bool $canFork;
@@ -43,7 +34,7 @@ class Spinner
 	 */
 	public function __construct(
 		protected Output $output,
-		protected array $frames = Spinner::FRAMES,
+		protected Frames $frames = new Frames,
 	) {
 		$this->canFork = $this->canFork();
 	}
@@ -63,10 +54,14 @@ class Spinner
 	{
 		$i = 0;
 
-		$frames = count($this->frames);
+		$frames = $this->frames->getFrames();
+
+		$frameCount = count($frames);
+
+		$timeBetweenRedraw = $this->frames->getTimeBetweenRedraw();
 
 		while (true) {
-			$this->output->write("\r" . sprintf($template, $this->frames[$i++ % $frames]) . " {$message}");
+			$this->output->write("\r" . sprintf($template, $frames[$i++ % $frameCount]) . " {$message}");
 
 			if (posix_kill(posix_getpid(), 0) === false) {
 				break;
@@ -76,7 +71,7 @@ class Spinner
 				posix_kill(posix_getpid(), SIGKILL);
 			}
 
-			usleep(static::TIME_BETWEEN_REDRAW);
+			usleep($timeBetweenRedraw);
 		}
 	}
 

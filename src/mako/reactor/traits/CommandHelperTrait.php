@@ -17,7 +17,9 @@ use mako\cli\output\helpers\Countdown;
 use mako\cli\output\helpers\OrderedList;
 use mako\cli\output\helpers\ProgressBar;
 use mako\cli\output\helpers\Spinner;
+use mako\cli\output\helpers\spinner\Frames;
 use mako\cli\output\helpers\Table;
+use mako\cli\output\helpers\table\Border;
 use mako\cli\output\helpers\UnorderedList;
 use mako\cli\output\Output;
 use mako\syringe\traits\ContainerAwareTrait;
@@ -112,7 +114,7 @@ trait CommandHelperTrait
 	/**
 	 * Draws a spinner while executing the callback.
 	 */
-	protected function spinner(string $message, callable $callback, string $template = '%s', array $frames = Spinner::FRAMES): void
+	protected function spinner(string $message, callable $callback, string $template = '%s', Frames $frames = new Frames): void
 	{
 		(new Spinner($this->output, $frames))->spin($message, $callback, $template);
 	}
@@ -120,9 +122,9 @@ trait CommandHelperTrait
 	/**
 	 * Draws a table.
 	 */
-	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD): void
+	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD, Border $borderStyle = new Border): void
 	{
-		(new Table($this->output))->draw($columnNames, $rows, $writer);
+		(new Table($this->output, $borderStyle))->draw($columnNames, $rows, $writer);
 	}
 
 	/**

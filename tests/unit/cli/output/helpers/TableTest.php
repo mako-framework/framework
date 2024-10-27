@@ -10,6 +10,7 @@ namespace mako\tests\unit\cli\output\helpers;
 use mako\cli\exceptions\CliException;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\helpers\Table;
+use mako\cli\output\helpers\table\AsciiBorder;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -36,6 +37,28 @@ class TableTest extends TestCase
 		$expected .= '┣━━━━━━━┫' . PHP_EOL;
 		$expected .= '┃ Cell1 ┃' . PHP_EOL;
 		$expected .= '┗━━━━━━━┛' . PHP_EOL;
+
+		$this->assertSame($expected, $table->render(['Col1'], [['Cell1']]));
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicTableWithAsciiBorder(): void
+	{
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+
+		$table = new Table($output, new AsciiBorder);
+
+		$expected  = '';
+		$expected .= '---------' . PHP_EOL;
+		$expected .= '| Col1  |' . PHP_EOL;
+		$expected .= '---------' . PHP_EOL;
+		$expected .= '| Cell1 |' . PHP_EOL;
+		$expected .= '---------' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['Col1'], [['Cell1']]));
 	}
