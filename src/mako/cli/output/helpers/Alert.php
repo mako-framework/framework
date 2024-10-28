@@ -8,21 +8,24 @@
 namespace mako\cli\output\helpers;
 
 use mako\cli\output\formatter\FormatterInterface;
+use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
 
+use function array_map;
 use function explode;
 use function implode;
-use function mb_strlen;
-use function preg_replace;
+use function max;
+use function preg_split;
 use function sprintf;
 use function str_repeat;
-use function trim;
 
 /**
  * Alert helper.
  */
 class Alert
 {
+	use HelperTrait;
+
 	/**
 	 * Alert padding.
 	 */
@@ -80,19 +83,31 @@ class Alert
 	 */
 	protected function wordWrap(string $string, int $width): string
 	{
-		return trim(preg_replace(sprintf('/(.{1,%1$u})(?:\s|$)|(.{%1$u})/uS', $width), '$1$2' . PHP_EOL, $string));
-	}
+		$characters = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
 
-	/**
-	 * Escapes style tags if we have a formatter.
-	 */
-	protected function escape(string $string): string
-	{
-		if ($this->formatter !== null) {
-			return $this->formatter->escape($string);
+		$lines = [];
+		$line = '';
+
+		foreach ($characters as $character) {
+			if ($character === PHP_EOL) {
+				$lines[] = $line;
+				$line = '';
+				continue;
+			}
+
+			$line .= $character;
+
+			if ($this->getVisibleStringWidth($line) >= $width - 1) {
+				$lines[] = $line;
+				$line = '';
+			}
 		}
 
-		return $string;
+		if ($line !== '') {
+			$lines[] = $line;
+		}
+
+		return implode(PHP_EOL, array_map('trim', $lines));
 	}
 
 	/**
@@ -105,7 +120,7 @@ class Alert
 		$lines = explode(PHP_EOL, PHP_EOL . $this->wordWrap($string, $lineWidth) . PHP_EOL);
 
 		foreach ($lines as $key => $value) {
-			$value = $this->escape($value) . str_repeat(' ', $lineWidth - mb_strlen($value));
+			$value = $value . str_repeat(' ', max(0, $lineWidth - $this->getVisibleStringWidth($value)));
 
 			$lines[$key] = sprintf('%1$s%2$s%1$s', str_repeat(' ', static::PADDING), $value);
 		}

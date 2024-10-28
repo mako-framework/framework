@@ -8,6 +8,7 @@
 namespace mako\cli\output\helpers\traits;
 
 use function mb_strwidth;
+use function preg_replace;
 
 /**
  * Helper trait.
