@@ -70,7 +70,8 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 
 #### Improvements
 
-* Various improvements and optimizations.
+* Text in CLI alerts can now be styled and the alerts will render properly with text consisting of characters of varying width.
+* Various other improvements and optimizations.
 
 > Check out the upgrade guide for details on how to upgrade from `10.0.*.`
 
