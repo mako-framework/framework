@@ -98,7 +98,10 @@ class DevelopmentHandler implements HandlerInterface
 		}
 
 		$trace = $this->escape(
-			implode(PHP_EOL, array_map(fn ($str) => str_replace($cwd, '.', " {$str}"), explode(PHP_EOL, $exception->getTraceAsString())))
+			implode(PHP_EOL, array_map(
+				fn ($str) => str_replace($cwd, '.', " {$str}"),
+				explode(PHP_EOL, $exception->getTraceAsString())
+			))
 		);
 
 		$this->output->errorLn($alert . PHP_EOL . $info . PHP_EOL . $trace . PHP_EOL);
