@@ -19,8 +19,20 @@ class HyperlinkTest extends TestCase
 	/**
 	 *
 	 */
+	protected function getHashAndUrl(): array
+	{
+		$url = 'https://example.org';
+
+		return [hash('xxh128', $url), $url];
+	}
+
+	/**
+	 *
+	 */
 	public function testRenderWithHyperlinkSupport(): void
 	{
+		[$hash, $url] = $this->getHashAndUrl();
+
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
@@ -33,13 +45,13 @@ class HyperlinkTest extends TestCase
 
 		$hyperlink->shouldReceive('hasHyperlinkSupport')->andReturn(true);
 
-		$link1 = $hyperlink->render('https://example.org');
+		$link1 = $hyperlink->render($url);
 
-		$link2 = $hyperlink->render('https://example.org', 'Example');
+		$link2 = $hyperlink->render($url, 'Example');
 
-		$this->assertSame("\033]8;id=a7e05a2cf451704d0710759e269cbc8a;https://example.org\033\\https://example.org\033]8;;\033\\", $link1);
+		$this->assertSame("\033]8;id={$hash};{$url}\033\\{$url}\033]8;;\033\\", $link1);
 
-		$this->assertSame("\033]8;id=a7e05a2cf451704d0710759e269cbc8a;https://example.org\033\\Example\033]8;;\033\\", $link2);
+		$this->assertSame("\033]8;id={$hash};{$url}\033\\Example\033]8;;\033\\", $link2);
 	}
 
 	/**
@@ -47,6 +59,8 @@ class HyperlinkTest extends TestCase
 	 */
 	public function testRenderWithoutHyperlinkSupport(): void
 	{
+		[, $url] = $this->getHashAndUrl();
+
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
@@ -59,13 +73,13 @@ class HyperlinkTest extends TestCase
 
 		$hyperlink->shouldReceive('hasHyperlinkSupport')->andReturn(false);
 
-		$link1 = $hyperlink->render('https://example.org');
+		$link1 = $hyperlink->render($url);
 
-		$link2 = $hyperlink->render('https://example.org', 'Example');
+		$link2 = $hyperlink->render($url, 'Example');
 
-		$this->assertSame('https://example.org', $link1);
+		$this->assertSame($url, $link1);
 
-		$this->assertSame('Example (https://example.org)', $link2);
+		$this->assertSame("Example ({$url})", $link2);
 	}
 
 	/**
@@ -73,12 +87,14 @@ class HyperlinkTest extends TestCase
 	 */
 	public function testDrawWithHyperlinkSupport(): void
 	{
+		[$hash, $url] = $this->getHashAndUrl();
+
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with("\033]8;id=a7e05a2cf451704d0710759e269cbc8a;https://example.org\033\\https://example.org\033]8;;\033\\", 1);
+		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\{$url}\033]8;;\033\\", 1);
 
-		$output->shouldReceive('write')->once()->with("\033]8;id=a7e05a2cf451704d0710759e269cbc8a;https://example.org\033\\Example\033]8;;\033\\", 1);
+		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\Example\033]8;;\033\\", 1);
 
 		/** @var \mako\cli\output\helpers\Hyperlink|\Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
@@ -89,9 +105,9 @@ class HyperlinkTest extends TestCase
 
 		$hyperlink->shouldReceive('hasHyperlinkSupport')->andReturn(true);
 
-		$hyperlink->draw('https://example.org');
+		$hyperlink->draw($url);
 
-		$hyperlink->draw('https://example.org', 'Example');
+		$hyperlink->draw($url, 'Example');
 	}
 
 	/**
@@ -99,12 +115,14 @@ class HyperlinkTest extends TestCase
 	 */
 	public function testDrawWithoutHyperlinkSupport(): void
 	{
+		[, $url] = $this->getHashAndUrl();
+
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('https://example.org', 1);
+		$output->shouldReceive('write')->once()->with($url, 1);
 
-		$output->shouldReceive('write')->once()->with('Example (https://example.org)', 1);
+		$output->shouldReceive('write')->once()->with("Example ({$url})", 1);
 
 		/** @var \mako\cli\output\helpers\Hyperlink|\Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
@@ -115,8 +133,8 @@ class HyperlinkTest extends TestCase
 
 		$hyperlink->shouldReceive('hasHyperlinkSupport')->andReturn(false);
 
-		$hyperlink->draw('https://example.org');
+		$hyperlink->draw($url);
 
-		$hyperlink->draw('https://example.org', 'Example');
+		$hyperlink->draw($url, 'Example');
 	}
 }
