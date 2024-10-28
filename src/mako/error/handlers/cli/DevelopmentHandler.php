@@ -8,6 +8,7 @@
 namespace mako\error\handlers\cli;
 
 use ErrorException;
+use mako\cli\output\helpers\Alert;
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
 use Throwable;
@@ -74,20 +75,25 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	public function handle(Throwable $exception): mixed
 	{
-		$type = $this->escape($this->determineExceptionType($exception));
+		$alert = (new Alert($this->output))->render(
+			"<bold>{$this->escape($this->determineExceptionType($exception))}</bold> [ {$exception->getCode()} ]",
+			Alert::DANGER,
+			Output::ERROR
+		);
 
-		$message = $this->escape($exception->getMessage());
+		$info = "<red><bold>{$this->escape($exception->getMessage())}</bold></red>";
 
 		if (!empty($exception->getFile())) {
-			$message .= PHP_EOL
+			$info .= PHP_EOL
 			. PHP_EOL
-			. "Error location: {$this->escape($exception->getFile())}"
-			. " on line {$this->escape($exception->getLine())}";
+			. "The error occured in <bold>{$this->escape($exception->getFile())}</bold>"
+			. " on line <bold>{$exception->getLine()}</bold>"
+			. PHP_EOL;
 		}
 
 		$trace = $this->escape($exception->getTraceAsString());
 
-		$this->output->errorLn("<bg_red><white>{$type}: {$message}" . PHP_EOL . PHP_EOL . $trace . PHP_EOL . '</white></bg_red>');
+		$this->output->errorLn($alert . PHP_EOL . $info . PHP_EOL . $trace);
 
 		return false;
 	}
