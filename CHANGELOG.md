@@ -48,7 +48,8 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Reactor command arguments can now be registered with the `Arguments` attribute.
 * Added new `Cursor` class that makes it easier to control the CLI cursor.
 * Added a signal handler to make it easier to handle async process control signals.
-* Added a spinner CLI output helper.
+* Added a CLI spinner output helper.
+* Added a CLI hyperlink helper.
 * New and improved look of rendered CLI tables.
 
 #### Changes
