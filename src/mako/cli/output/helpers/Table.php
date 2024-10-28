@@ -68,14 +68,14 @@ class Table
 		// First we'll get the width of the column names
 
 		foreach (array_values($columnNames) as $key => $value) {
-			$columnWidths[$key] = $this->stringWidthWithoutFormatting($value);
+			$columnWidths[$key] = $this->getVisibleStringWidth($value);
 		}
 
 		// Then we'll go through each row and check if the cells are wider than the column names
 
 		foreach ($rows as $row) {
 			foreach (array_values($row) as $key => $value) {
-				$width = $this->stringWidthWithoutFormatting($value);
+				$width = $this->getVisibleStringWidth($value);
 
 				if ($width > $columnWidths[$key]) {
 					$columnWidths[$key] = $width;
@@ -112,7 +112,7 @@ class Table
 		$cells = [];
 
 		foreach (array_values($colums) as $key => $value) {
-			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->stringWidthWithoutFormatting($value));
+			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->getVisibleStringWidth($value));
 		}
 
 		return $this->borderStyle->getVerticalLine()

@@ -17,10 +17,20 @@ use function mb_strwidth;
 trait HelperTrait
 {
 	/**
-	 * Returns the width of the string without formatting.
+	 * Returns the visible width of the string without formatting.
 	 */
-	protected function stringWidthWithoutFormatting(string $string): int
+	protected function getVisibleStringWidth(string $string): int
 	{
-		return (int) mb_strwidth($this->formatter !== null ? $this->formatter->stripTags($string) : $string);
+		// Strip tags if a formatter is set
+
+		$string = $this->formatter !== null ? $this->formatter->stripTags($string) : $string;
+
+		// Strip ANSI codes and OSC sequences
+
+		$string =  preg_replace('/\033\[[0-?9;]*[mK]|(\033\]8;.*?\033\\\)/', '', $string);
+
+		// Return the width of the string
+
+		return (int) mb_strwidth($string);
 	}
 }
