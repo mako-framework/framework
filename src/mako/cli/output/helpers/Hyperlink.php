@@ -10,6 +10,7 @@ namespace mako\cli\output\helpers;
 use mako\cli\output\Output;
 
 use function hash;
+use function in_array;
 use function mako\env;
 use function sprintf;
 
