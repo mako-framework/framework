@@ -14,7 +14,12 @@ use mako\error\handlers\HandlerInterface;
 use Throwable;
 
 use function array_keys;
+use function array_map;
+use function explode;
+use function getcwd;
+use function implode;
 use function in_array;
+use function str_replace;
 
 /**
  * Development handler.
@@ -80,19 +85,23 @@ class DevelopmentHandler implements HandlerInterface
 			Alert::DANGER
 		);
 
-		$info = "<red><bold>{$this->escape($exception->getMessage())}</bold></red>";
+		$info = " <red><bold>{$this->escape($exception->getMessage())}</bold></red>";
+
+		$cwd = getcwd();
 
 		if (!empty($exception->getFile())) {
 			$info .= PHP_EOL
 			. PHP_EOL
-			. "The error occured in <bold>{$this->escape($exception->getFile())}</bold>"
+			. " The error occured in <bold>{$this->escape(str_replace($cwd, '.', $exception->getFile()))}</bold>"
 			. " on line <bold>{$exception->getLine()}</bold>"
 			. PHP_EOL;
 		}
 
-		$trace = $this->escape($exception->getTraceAsString());
+		$trace = $this->escape(
+			implode(PHP_EOL, array_map(fn ($str) => str_replace($cwd, '.', " {$str}"), explode(PHP_EOL, $exception->getTraceAsString())))
+		);
 
-		$this->output->errorLn($alert . PHP_EOL . $info . PHP_EOL . $trace);
+		$this->output->errorLn($alert . PHP_EOL . $info . PHP_EOL . $trace . PHP_EOL);
 
 		return false;
 	}
