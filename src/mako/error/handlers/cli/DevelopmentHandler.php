@@ -77,8 +77,7 @@ class DevelopmentHandler implements HandlerInterface
 	{
 		$alert = (new Alert($this->output))->render(
 			"<bold>{$this->escape($this->determineExceptionType($exception))}</bold> [ {$exception->getCode()} ]",
-			Alert::DANGER,
-			Output::ERROR
+			Alert::DANGER
 		);
 
 		$info = "<red><bold>{$this->escape($exception->getMessage())}</bold></red>";
