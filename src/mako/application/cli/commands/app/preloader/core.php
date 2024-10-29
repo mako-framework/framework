@@ -4,6 +4,7 @@ return
 [
 	mako\application\Application::class,
 	mako\application\CurrentApplication::class,
+	mako\application\DeferredTasks::class,
 	mako\application\services\BusService::class,
 	mako\application\services\CacheService::class,
 	mako\application\services\CryptoService::class,
