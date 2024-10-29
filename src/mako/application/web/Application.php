@@ -66,6 +66,7 @@ class Application extends BaseApplication
 		if ($this->container->has(DeferredTasks::class)) {
 			if (function_exists('fastcgi_finish_request')) {
 				if ($this->container->has(Session::class)) {
+					/** @var Session $session */
 					$session = $this->container->get(Session::class);
 					$session->disableAutoCommit();
 					$session->commit();
