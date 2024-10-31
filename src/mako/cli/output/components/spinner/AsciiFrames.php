@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers\spinner;
+namespace mako\cli\output\components\spinner;
 
 /**
  * Ascii frames.

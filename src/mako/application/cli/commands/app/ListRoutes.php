@@ -9,7 +9,7 @@ namespace mako\application\cli\commands\app;
 
 use Closure;
 use mako\cli\input\arguments\Argument;
-use mako\cli\output\helpers\Alert;
+use mako\cli\output\components\Alert;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\Route;
 use mako\http\routing\Router;

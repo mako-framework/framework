@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers\traits;
+namespace mako\cli\output\components\traits;
 
 use function array_map;
 use function implode;

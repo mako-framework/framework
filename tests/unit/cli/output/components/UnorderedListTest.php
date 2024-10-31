@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\output\helpers;
+namespace mako\tests\unit\cli\output\components;
 
-use mako\cli\output\helpers\UnorderedList;
+use mako\cli\output\components\UnorderedList;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;

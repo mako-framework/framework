@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers;
+namespace mako\cli\output\components;
 
 use mako\cli\exceptions\CliException;
 use mako\cli\output\Output;
@@ -19,7 +19,7 @@ use function str_repeat;
 use function strlen;
 
 /**
- * Progress bar helper.
+ * Progress bar component.
  */
 class ProgressBar
 {

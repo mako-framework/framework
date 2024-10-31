@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\output\helpers;
+namespace mako\tests\unit\cli\output\components;
 
-use mako\cli\output\helpers\Countdown;
+use mako\cli\output\components\Countdown;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -49,7 +49,7 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		/** @var \mako\cli\output\helpers\Countdown|\Mockery\MockInterface $countdown */
+		/** @var \mako\cli\output\components\Countdown|\Mockery\MockInterface $countdown */
 		$countdown = Mockery::mock(Countdown::class, [$output]);
 
 		$countdown->shouldAllowMockingProtectedMethods();
@@ -82,7 +82,7 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		/** @var \mako\cli\output\helpers\Countdown|\Mockery\MockInterface $countdown */
+		/** @var \mako\cli\output\components\Countdown|\Mockery\MockInterface $countdown */
 		$countdown = Mockery::mock(Countdown::class, [$output]);
 
 		$countdown->shouldAllowMockingProtectedMethods();

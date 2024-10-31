@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers\table;
+namespace mako\cli\output\components\table;
 
 /**
  * Border.

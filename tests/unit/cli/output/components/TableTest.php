@@ -5,12 +5,12 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\output\helpers;
+namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\exceptions\CliException;
+use mako\cli\output\components\Table;
+use mako\cli\output\components\table\AsciiBorder;
 use mako\cli\output\formatter\FormatterInterface;
-use mako\cli\output\helpers\Table;
-use mako\cli\output\helpers\table\AsciiBorder;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;

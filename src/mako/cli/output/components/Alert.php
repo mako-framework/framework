@@ -5,10 +5,10 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers;
+namespace mako\cli\output\components;
 
+use mako\cli\output\components\traits\HelperTrait;
 use mako\cli\output\formatter\FormatterInterface;
-use mako\cli\output\helpers\traits\HelperTrait;
 use mako\cli\output\Output;
 
 use function explode;
@@ -18,7 +18,7 @@ use function sprintf;
 use function str_repeat;
 
 /**
- * Alert helper.
+ * Alert component.
  */
 class Alert
 {

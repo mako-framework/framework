@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers;
+namespace mako\cli\output\components;
 
 use mako\cli\output\Output;
 
@@ -15,7 +15,7 @@ use function mako\env;
 use function sprintf;
 
 /**
- * Hyperlink helper.
+ * Hyperlink component.
  */
 class Hyperlink
 {

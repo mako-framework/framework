@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers;
+namespace mako\cli\output\components;
 
 use mako\cli\output\Output;
 
@@ -13,7 +13,7 @@ use function is_array;
 use function str_repeat;
 
 /**
- * Unordered list helper.
+ * Unordered list component.
  */
 class UnorderedList
 {

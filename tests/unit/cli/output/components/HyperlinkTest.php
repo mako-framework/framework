@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\output\helpers;
+namespace mako\tests\unit\cli\output\components;
 
-use mako\cli\output\helpers\Hyperlink;
+use mako\cli\output\components\Hyperlink;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -36,7 +36,7 @@ class HyperlinkTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		/** @var \mako\cli\output\helpers\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();
@@ -64,7 +64,7 @@ class HyperlinkTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		/** @var \mako\cli\output\helpers\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();
@@ -96,7 +96,7 @@ class HyperlinkTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\Example\033]8;;\033\\", 1);
 
-		/** @var \mako\cli\output\helpers\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();
@@ -124,7 +124,7 @@ class HyperlinkTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with("Example ({$url})", 1);
 
-		/** @var \mako\cli\output\helpers\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();

@@ -11,7 +11,7 @@ use mako\cli\input\arguments\Argument;
 use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
-use mako\cli\output\helpers\Table;
+use mako\cli\output\components\Table;
 use mako\cli\output\Output;
 use mako\common\traits\SuggestionTrait;
 use mako\reactor\attributes\Arguments;

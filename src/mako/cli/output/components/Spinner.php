@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers;
+namespace mako\cli\output\components;
 
-use mako\cli\output\helpers\spinner\Frames;
+use mako\cli\output\components\spinner\Frames;
 use mako\cli\output\Output;
 
 use function count;
@@ -21,7 +21,7 @@ use function sprintf;
 use function usleep;
 
 /**
- * Spinner helper.
+ * Spinner component.
  */
 class Spinner
 {

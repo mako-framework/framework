@@ -60,6 +60,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Renamed the `UUID::sequential()` method to `UUID::v4Sequential()`.
 * Renamed the `ErrorHandler::handle()` method to `ErrorHandler::addHandler()`.
 * Renamed the `ErrorHandler::handler()` method to `ErrorHandler::handle()`.
+* Renamed the `mako\cli\output\helpers` namespace to `mako\cli\output\components`.
 
 #### Deprecations
 

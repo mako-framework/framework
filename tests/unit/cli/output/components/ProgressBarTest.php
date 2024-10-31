@@ -5,10 +5,10 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\output\helpers;
+namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\exceptions\CliException;
-use mako\cli\output\helpers\ProgressBar;
+use mako\cli\output\components\ProgressBar;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;

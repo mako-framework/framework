@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\helpers;
+namespace mako\cli\output\components;
 
 use mako\cli\output\Output;
 
@@ -15,7 +15,7 @@ use function strlen;
 use function usleep;
 
 /**
- * Countdown helper.
+ * Countdown component.
  */
 class Countdown
 {

@@ -8,7 +8,7 @@
 namespace mako\error\handlers\cli;
 
 use ErrorException;
-use mako\cli\output\helpers\Alert;
+use mako\cli\output\components\Alert;
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
 use Throwable;
