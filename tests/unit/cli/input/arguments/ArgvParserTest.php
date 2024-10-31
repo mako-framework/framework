@@ -351,7 +351,7 @@ class ArgvParserTest extends TestCase
 		$exptected =
 		[
 			'foo' => 'oo',
-			'bar'   => 'bar',
+			'bar' => 'bar',
 		];
 
 		$this->assertSame($exptected, $parser->parse(true));
