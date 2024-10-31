@@ -27,8 +27,6 @@ class NamedArgument extends Argument
 
 		$names[] = "--{$name}";
 
-		$name = implode('|', $names);
-
-		parent::__construct($name, $description, $options, $default);
+		parent::__construct(implode('|', $names), $description, $options, $default);
 	}
 }
