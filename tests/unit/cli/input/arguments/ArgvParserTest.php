@@ -336,4 +336,24 @@ class ArgvParserTest extends TestCase
 
 		$this->assertSame($exptected, $parser->parse(true));
 	}
+
+	/**
+	 *
+	 */
+	public function testAliasFollowedByPositional(): void
+	{
+		$parser = new ArgvParser(['-foo', 'bar'],
+		[
+			new Argument('-f|--foo'),
+			new Argument('bar'),
+		]);
+
+		$exptected =
+		[
+			'foo' => 'oo',
+			'bar'   => 'bar',
+		];
+
+		$this->assertSame($exptected, $parser->parse(true));
+	}
 }
