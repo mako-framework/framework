@@ -214,7 +214,7 @@ class ArgvParser
 	/**
 	 * Stores option values.
 	 */
-	protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens, bool $isAlias = false): void
+	protected function storeOptionValue(Argument $argument, string $token, ?string $value, array &$tokens, bool $skipNext = false): void
 	{
 		if ($argument->isBool()) {
 			if ($value !== null) {
@@ -223,7 +223,7 @@ class ArgvParser
 
 			$value = true;
 		}
-		elseif ((!$isAlias || $value === null) && ($next = current($tokens)) !== false && strpos($next, '-') !== 0) {
+		elseif ((!$skipNext || $value === null) && ($next = current($tokens)) !== false && strpos($next, '-') !== 0) {
 			$value = array_shift($tokens);
 		}
 
@@ -245,7 +245,7 @@ class ArgvParser
 			return;
 		}
 
-		$this->storeOptionValue($argument, $token, $value, $tokens);
+		$this->storeOptionValue($argument, $token, $value, $tokens, $value !== null);
 	}
 
 	/**
