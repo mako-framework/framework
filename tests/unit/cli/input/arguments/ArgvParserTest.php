@@ -340,7 +340,7 @@ class ArgvParserTest extends TestCase
 	/**
 	 *
 	 */
-	public function testAliasFollowedByPositional(): void
+	public function testAliasWithoutSpaceFollowedByPositional(): void
 	{
 		$parser = new ArgvParser(['-foo', 'bar'],
 		[
