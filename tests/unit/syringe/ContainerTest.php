@@ -545,6 +545,23 @@ class ContainerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testCallOnInvokableObject(): void
+	{
+		$object = new class {
+			public function __invoke()
+			{
+				return 'foobar';
+			}
+		};
+
+		$container = new Container;
+
+		$this->assertSame('foobar', $container->call($object));
+	}
+
+	/**
+	 *
+	 */
 	public function testContextualDependencies(): void
 	{
 		$container = new Container;

@@ -28,6 +28,7 @@ use function array_values;
 use function count;
 use function is_array;
 use function is_int;
+use function is_object;
 use function vsprintf;
 
 /**
@@ -509,6 +510,10 @@ class Container
 	 */
 	public function call(callable $callable, array $parameters = []): mixed
 	{
+		if (is_object($callable) && ($callable instanceof Closure) === false) {
+			$callable = [$callable, '__invoke'];
+		}
+
 		if (is_array($callable)) {
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
 
