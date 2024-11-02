@@ -111,6 +111,6 @@ trait ProgressTrait
 	 */
 	public function remove(): void
 	{
-		$this->output->getCursor()->clearLines($this->progress === $this->itemCount ? 2 : 1);
+		$this->output->clearLines($this->progress === $this->itemCount ? 2 : 1);
 	}
 }

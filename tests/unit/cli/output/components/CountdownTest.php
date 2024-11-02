@@ -8,7 +8,6 @@
 namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\output\components\Countdown;
-use mako\cli\output\Cursor;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -22,16 +21,13 @@ class CountdownTest extends TestCase
 	 */
 	public function testCountdownFromDefault(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->once();
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->times(2)->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->once()->with("\r5     ");
 		$output->shouldReceive('write')->once()->with("\r5 .   ");
 		$output->shouldReceive('write')->once()->with("\r5 ..  ");
@@ -71,16 +67,13 @@ class CountdownTest extends TestCase
 	 */
 	public function testCountdownFrom2(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->once();
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->times(2)->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->once()->with("\r2     ");
 		$output->shouldReceive('write')->once()->with("\r2 .   ");
 		$output->shouldReceive('write')->once()->with("\r2 ..  ");

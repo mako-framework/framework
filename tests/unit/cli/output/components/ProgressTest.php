@@ -10,7 +10,6 @@ namespace mako\tests\unit\cli\output\components;
 use mako\cli\exceptions\CliException;
 use mako\cli\output\components\Progress;
 use mako\cli\output\components\progress\AsciiProgressBar;
-use mako\cli\output\Cursor;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -265,17 +264,12 @@ class ProgressTest extends TestCase
 	 */
 	public function testRemoveIncomplete(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('clearLines')->once()->with(1);
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────   0% ");
+		$output->shouldReceive('clearLines')->once()->with(1);
 
-		$output->shouldReceive('getCursor')->once()->andReturn($cursor);
+		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────   0% ");
 
 		$progressBar = new Progress($output, 10);
 
@@ -289,13 +283,10 @@ class ProgressTest extends TestCase
 	 */
 	public function testRemoveComplete(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('clearLines')->once()->with(2);
-
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('clearLines')->once()->with(2);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ██──────────────────  10% ");
@@ -309,8 +300,6 @@ class ProgressTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r09/10 ██████████████████──  90% ");
 		$output->shouldReceive('write')->once()->with("\r10/10 ████████████████████ 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
-
-		$output->shouldReceive('getCursor')->once()->andReturn($cursor);
 
 		$progressBar = new class ($output, 10) extends Progress {
 			protected function shouldRedraw(): bool

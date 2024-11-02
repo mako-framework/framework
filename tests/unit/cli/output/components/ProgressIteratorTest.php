@@ -9,7 +9,6 @@ namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\output\components\progress\AsciiProgressBar;
 use mako\cli\output\components\ProgressIterator;
-use mako\cli\output\Cursor;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -23,16 +22,12 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithZeroItems(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->times(2);
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\r0/0 ████████████████████ 100% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
@@ -49,16 +44,12 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithItems(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->times(2);
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ██──────────────────  10% ");
@@ -90,16 +81,12 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithCustomWidth(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->times(2);
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ████────────────────────────────────────  10% ");
@@ -131,16 +118,12 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithCustomTemplates(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->times(2);
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ==------------------  10% ");
@@ -172,16 +155,12 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithDescription(): void
 	{
-		/** @var Cursor|\Mockery\MockInterface $cursor */
-		$cursor = Mockery::mock(Cursor::class);
-
-		$cursor->shouldReceive('hide')->once();
-		$cursor->shouldReceive('restore')->times(2);
-
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getCursor')->andReturn($cursor);
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 00/10 ────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 01/10 ██──────────────────  10% ");

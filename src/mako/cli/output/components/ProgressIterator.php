@@ -52,7 +52,7 @@ class ProgressIterator implements IteratorAggregate
 	 */
 	public function __destruct()
 	{
-		$this->output->getCursor()->restore();
+		$this->output->restoreCursor();
 	}
 
 	/**
@@ -60,7 +60,7 @@ class ProgressIterator implements IteratorAggregate
 	 */
 	public function getIterator(): Generator
 	{
-		$this->output->getCursor()->hide();
+		$this->output->hideCursor();
 
 		$this->draw();
 
@@ -70,6 +70,6 @@ class ProgressIterator implements IteratorAggregate
 			$this->advance();
 		}
 
-		$this->output->getCursor()->restore();
+		$this->output->showCursor();
 	}
 }

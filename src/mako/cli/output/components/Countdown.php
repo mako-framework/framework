@@ -33,6 +33,14 @@ class Countdown
 	}
 
 	/**
+	 * Destructor.
+	 */
+	public function __destruct()
+	{
+		$this->output->restoreCursor();
+	}
+
+	/**
 	 * Delay execution by SLEEP_TIME microseconds.
 	 */
 	protected function sleep(): void
@@ -45,7 +53,7 @@ class Countdown
 	 */
 	public function draw(int $from = 5): void
 	{
-		$this->output->getCursor()->hide();
+		$this->output->hideCursor();
 
 		$dots = 0;
 
@@ -69,6 +77,6 @@ class Countdown
 
 		$this->output->write("\r" . str_repeat(' ', $totalLength) . "\r");
 
-		$this->output->getCursor()->restore();
+		$this->output->showCursor();
 	}
 }

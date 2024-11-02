@@ -219,4 +219,14 @@ class Output
 			$this->cursor->show();
 		}
 	}
+
+	/**
+	 * Restores the cursor.
+	 */
+	public function restoreCursor(): void
+	{
+		if ($this->environment->hasAnsiSupport()) {
+			$this->cursor->restore();
+		}
+	}
 }

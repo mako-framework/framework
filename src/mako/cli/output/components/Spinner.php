@@ -40,6 +40,14 @@ class Spinner
 	}
 
 	/**
+	 * Destructor.
+	 */
+	public function __destruct()
+	{
+		$this->output->restoreCursor();
+	}
+
+	/**
 	 * Returns TRUE if we can fork the process and FALSE if not.
 	 */
 	protected function canFork(): bool
@@ -82,7 +90,7 @@ class Spinner
 	{
 		$result = null;
 
-		$this->output->getCursor()->hide();
+		$this->output->hideCursor();
 
 		$pid = $this->canFork ? pcntl_fork() : -1;
 
@@ -93,7 +101,7 @@ class Spinner
 
 			$result = $callback();
 
-			$this->output->getCursor()->clearLine();
+			$this->output->clearLine();
 		}
 		elseif ($pid) {
 			// We're in the parent process so we'll execute the callback here
@@ -104,7 +112,7 @@ class Spinner
 
 			pcntl_wait($status);
 
-			$this->output->getCursor()->clearLine();
+			$this->output->clearLine();
 		}
 		else {
 			// We're in the child process so we'll display the spinner
@@ -112,7 +120,7 @@ class Spinner
 			$this->spinner($message);
 		}
 
-		$this->output->getCursor()->restore();
+		$this->output->showCursor();
 
 		return $result;
 	}
