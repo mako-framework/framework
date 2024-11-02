@@ -17,8 +17,8 @@ use function strlen;
 /**
  * Progress trait.
  *
- * @property \mako\cli\output\Output               $output
- * @property \mako\cli\output\progress\progressBar $progressBar
+ * @property \mako\cli\output\Output                          $output
+ * @property \mako\cli\output\components\progress\ProgressBar $progressBar
  */
 trait ProgressTrait
 {
