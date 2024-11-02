@@ -68,7 +68,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Deprecated the `Command::$description` property. Use the `CommandDescription` attribute instead.
 * Deprecated the `Command::getCommand()` method.
 * Deprecated the `Command::getDescription()` method.
-* Deprecated the `Command::getArguments()` method. Use the `Arguments` attribute instead.
+* Deprecated the `Command::getArguments()` method. Use the `CommandArguments` attribute instead.
 
 #### Improvements
 
