@@ -26,6 +26,8 @@ class ProgressTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->never();
 
 		$progressBar = new Progress($output, 0);
@@ -40,6 +42,10 @@ class ProgressTest extends TestCase
 	{
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ██──────────────────  10% ");
@@ -76,6 +82,10 @@ class ProgressTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ████────────────────────────────────────  10% ");
 		$output->shouldReceive('write')->once()->with("\r02/10 ████████────────────────────────────────  20% ");
@@ -110,6 +120,10 @@ class ProgressTest extends TestCase
 	{
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->once()->with("\r00/10 --------------------   0% ");
 		$output->shouldReceive('write')->once()->with("\r01/10 ==------------------  10% ");
@@ -146,6 +160,10 @@ class ProgressTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 00/10 ────────────────────   0% ");
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 01/10 ██──────────────────  10% ");
 		$output->shouldReceive('write')->once()->with("\rProcessing files: 02/10 ████────────────────  20% ");
@@ -181,6 +199,10 @@ class ProgressTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->times(102);
 
 		$progressBar = new class ($output, 100) extends Progress {
@@ -207,6 +229,9 @@ class ProgressTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('write')->times(3);
 
 		$progressBar = new Progress($output, 100, minTimeBetweenRedraw: 0.5);
@@ -229,6 +254,10 @@ class ProgressTest extends TestCase
 	{
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write');
 
@@ -267,6 +296,9 @@ class ProgressTest extends TestCase
 		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
+
 		$output->shouldReceive('clearLines')->once()->with(1);
 
 		$output->shouldReceive('write')->once()->with("\r00/10 ────────────────────   0% ");
@@ -285,6 +317,10 @@ class ProgressTest extends TestCase
 	{
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('clearLines')->once()->with(2);
 
@@ -326,6 +362,10 @@ class ProgressTest extends TestCase
 
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('showCursor')->once();
+		$output->shouldReceive('restoreCursor'); // Destructor
 
 		$output->shouldReceive('write')->times(12);
 

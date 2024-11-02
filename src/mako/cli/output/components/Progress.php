@@ -39,12 +39,24 @@ class Progress
 	}
 
 	/**
+	 * Destructor.
+	 */
+	public function __destruct()
+	{
+		$this->output->restoreCursor();
+	}
+
+	/**
 	 * Draws the progressbar.
 	 */
 	public function draw(): void
 	{
 		if ($this->itemCount === 0) {
 			return;
+		}
+
+		if ($this->progress === 0) {
+			$this->output->hideCursor();
 		}
 
 		$this->baseDraw();
@@ -60,5 +72,9 @@ class Progress
 		}
 
 		$this->baseAdvance();
+
+		if ($this->progress === $this->itemCount) {
+			$this->output->showCursor();
+		}
 	}
 }
