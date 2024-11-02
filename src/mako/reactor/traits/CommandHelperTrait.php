@@ -7,6 +7,7 @@
 
 namespace mako\reactor\traits;
 
+use Countable;
 use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\Question;
 use mako\cli\input\helpers\Secret;
@@ -15,7 +16,8 @@ use mako\cli\output\components\Alert;
 use mako\cli\output\components\Bell;
 use mako\cli\output\components\Countdown;
 use mako\cli\output\components\OrderedList;
-use mako\cli\output\components\ProgressBar;
+use mako\cli\output\components\Progress;
+use mako\cli\output\components\ProgressIterator;
 use mako\cli\output\components\Spinner;
 use mako\cli\output\components\spinner\Frames;
 use mako\cli\output\components\Table;
@@ -23,6 +25,7 @@ use mako\cli\output\components\table\Border;
 use mako\cli\output\components\UnorderedList;
 use mako\cli\output\Output;
 use mako\syringe\traits\ContainerAwareTrait;
+use Traversable;
 
 use function str_repeat;
 
@@ -91,24 +94,54 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
+	 *
+	 * @deprecated
 	 */
-	protected function progressBar(int $items, float $minTimeBetweenRedraw = 0.1, ?string $prefix = null): ProgressBar
+	protected function progressBar(int $items, float $minTimeBetweenRedraw = 0.1, ?string $prefix = null): Progress
 	{
-		$progressBar = new ProgressBar($this->output, $items, $minTimeBetweenRedraw);
-
-		$progressBar->setWidth(50);
-
-		$progressBar->setEmptyTemplate('<red>░</red>');
-
-		$progressBar->setFilledTemplate('<green>▓</green>');
-
-		if ($prefix !== null) {
-			$progressBar->setPrefix($prefix);
-		}
+		$progressBar = new Progress(
+			$this->output,
+			$items,
+			description: $prefix ?? '',
+			width: 50,
+			minTimeBetweenRedraw: $minTimeBetweenRedraw
+		);
 
 		$progressBar->draw();
 
 		return $progressBar;
+	}
+
+	/**
+	 * Draws a progress bar and returns a progress instance.
+	 */
+	protected function progress(int $itemCount, string $description = '', int $width = 50, float $minTimeBetweenRedraw = 0.1): Progress
+	{
+		$progressBar = new Progress(
+			$this->output,
+			$itemCount,
+			$description,
+			$width,
+			$minTimeBetweenRedraw
+		);
+
+		$progressBar->draw();
+
+		return $progressBar;
+	}
+
+	/**
+	 * Returns a progress iterator instance.
+	 */
+	protected function progressIterator(array|(Countable&Traversable) $items, string $description = '', int $width = 50, float $minTimeBetweenRedraw = 0.1): ProgressIterator
+	{
+		return new ProgressIterator(
+			$this->output,
+			$items,
+			$description,
+			$width,
+			$minTimeBetweenRedraw
+		);
 	}
 
 	/**

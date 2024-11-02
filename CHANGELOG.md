@@ -50,6 +50,8 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added a signal handler to make it easier to handle async process control signals.
 * Added a CLI spinner output component.
 * Added a CLI hyperlink component.
+* Added a CLI progress component.
+* Added a CLI progress iterator component.
 * New and improved look of rendered CLI tables.
 * Added a simple way to defer small tasks until after the response has been sent to the client when using FastCGI.
 
@@ -69,6 +71,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Deprecated the `Command::getCommand()` method.
 * Deprecated the `Command::getDescription()` method.
 * Deprecated the `Command::getArguments()` method. Use the `CommandArguments` attribute instead.
+* Deprecated the `Command::progressBar()` method. Use the `Command::progress()` or `Command::progressIterator()` methods instead.
 
 #### Improvements
 
