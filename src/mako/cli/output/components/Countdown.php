@@ -45,7 +45,7 @@ class Countdown
 	 */
 	public function draw(int $from = 5): void
 	{
-		$this->output->hideCursor();
+		$this->output->getCursor()->hide();
 
 		$dots = 0;
 
@@ -69,6 +69,6 @@ class Countdown
 
 		$this->output->write("\r" . str_repeat(' ', $totalLength) . "\r");
 
-		$this->output->showCursor();
+		$this->output->getCursor()->restore();
 	}
 }

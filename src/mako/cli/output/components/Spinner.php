@@ -83,7 +83,7 @@ class Spinner
 	{
 		$result = null;
 
-		$this->output->hideCursor();
+		$this->output->getCursor()->hide();
 
 		$pid = $this->canFork ? pcntl_fork() : -1;
 
@@ -94,7 +94,7 @@ class Spinner
 
 			$result = $callback();
 
-			$this->output->clearLine();
+			$this->output->getCursor()->clearLine();
 		}
 		elseif ($pid) {
 			// We're in the parent process so we'll execute the callback here
@@ -105,7 +105,7 @@ class Spinner
 
 			pcntl_wait($status);
 
-			$this->output->clearLine();
+			$this->output->getCursor()->clearLine();
 		}
 		else {
 			// We're in the child process so we'll display the spinner
@@ -113,7 +113,7 @@ class Spinner
 			$this->spinner($message, $template);
 		}
 
-		$this->output->showCursor();
+		$this->output->getCursor()->restore();
 
 		return $result;
 	}

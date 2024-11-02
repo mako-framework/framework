@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\output\components\Spinner;
+use mako\cli\output\Cursor;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -21,12 +22,18 @@ class SpinnerTest extends TestCase
 	 */
 	public function testStaticSpinner(): void
 	{
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('hide')->once();
+		$cursor->shouldReceive('restore')->once();
+		$cursor->shouldReceive('clearLine')->once();
+
+		/** @var \Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('hideCursor')->once();
+		$output->shouldReceive('getCursor')->times(3)->andReturn($cursor);
 		$output->shouldReceive('write')->once()->with('Doing something...');
-		$output->shouldReceive('clearLine')->once();
-		$output->shouldReceive('showCursor')->once();
 
 		$spinner = new class($output) extends Spinner {
 			protected function canFork(): bool
