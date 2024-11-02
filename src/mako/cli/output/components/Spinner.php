@@ -17,7 +17,6 @@ use function pcntl_wait;
 use function posix_getpid;
 use function posix_getppid;
 use function posix_kill;
-use function sprintf;
 use function usleep;
 
 /**
@@ -51,7 +50,7 @@ class Spinner
 	/**
 	 * Draws the spinner.
 	 */
-	protected function spinner(string $message, string $template): void
+	protected function spinner(string $message): void
 	{
 		$i = 0;
 
@@ -62,7 +61,7 @@ class Spinner
 		$timeBetweenRedraw = $this->frames->getTimeBetweenRedraw();
 
 		while (true) {
-			$this->output->write("\r" . sprintf($template, $frames[$i++ % $frameCount]) . " {$message}");
+			$this->output->write("\r" . $frames[$i++ % $frameCount] . " {$message}");
 
 			if (posix_kill(posix_getpid(), 0) === false) {
 				break;
@@ -79,7 +78,7 @@ class Spinner
 	/**
 	 * Draws the spinner.
 	 */
-	public function spin(string $message, callable $callback, string $template = '%s'): mixed
+	public function spin(string $message, callable $callback): mixed
 	{
 		$result = null;
 
@@ -110,7 +109,7 @@ class Spinner
 		else {
 			// We're in the child process so we'll display the spinner
 
-			$this->spinner($message, $template);
+			$this->spinner($message);
 		}
 
 		$this->output->getCursor()->restore();

@@ -7,6 +7,9 @@
 
 namespace mako\cli\output\components\spinner;
 
+use function array_map;
+use function sprintf;
+
 /**
  * Frames.
  */
@@ -23,11 +26,19 @@ class Frames
 	protected const array FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
 	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		protected string $template = '%s'
+	) {
+	}
+
+	/**
 	 * Returns the spinner frames.
 	 */
 	public function getFrames(): array
 	{
-		return static::FRAMES;
+		return array_map(fn ($frame) => sprintf($this->template, $frame), static::FRAMES);
 	}
 
 	/**

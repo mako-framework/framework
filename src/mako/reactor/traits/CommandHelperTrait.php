@@ -17,6 +17,7 @@ use mako\cli\output\components\Bell;
 use mako\cli\output\components\Countdown;
 use mako\cli\output\components\OrderedList;
 use mako\cli\output\components\Progress;
+use mako\cli\output\components\progress\ProgressBar;
 use mako\cli\output\components\ProgressIterator;
 use mako\cli\output\components\Spinner;
 use mako\cli\output\components\spinner\Frames;
@@ -115,14 +116,15 @@ trait CommandHelperTrait
 	/**
 	 * Draws a progress bar and returns a progress instance.
 	 */
-	protected function progress(int $itemCount, string $description = '', int $width = 50, float $minTimeBetweenRedraw = 0.1): Progress
+	protected function progress(int $itemCount, string $description = '', int $width = 50, float $minTimeBetweenRedraw = 0.1, ProgressBar $progressBar = new ProgressBar): Progress
 	{
 		$progressBar = new Progress(
 			$this->output,
 			$itemCount,
 			$description,
 			$width,
-			$minTimeBetweenRedraw
+			$minTimeBetweenRedraw,
+			$progressBar
 		);
 
 		$progressBar->draw();
@@ -133,23 +135,24 @@ trait CommandHelperTrait
 	/**
 	 * Returns a progress iterator instance.
 	 */
-	protected function progressIterator(array|(Countable&Traversable) $items, string $description = '', int $width = 50, float $minTimeBetweenRedraw = 0.1): ProgressIterator
+	protected function progressIterator(array|(Countable&Traversable) $items, string $description = '', int $width = 50, float $minTimeBetweenRedraw = 0.1, ProgressBar $progressBar = new ProgressBar): ProgressIterator
 	{
 		return new ProgressIterator(
 			$this->output,
 			$items,
 			$description,
 			$width,
-			$minTimeBetweenRedraw
+			$minTimeBetweenRedraw,
+			$progressBar
 		);
 	}
 
 	/**
 	 * Draws a spinner while executing the callback.
 	 */
-	protected function spinner(string $message, callable $callback, string $template = '%s', Frames $frames = new Frames): void
+	protected function spinner(string $message, callable $callback, Frames $frames = new Frames): void
 	{
-		(new Spinner($this->output, $frames))->spin($message, $callback, $template);
+		(new Spinner($this->output, $frames))->spin($message, $callback);
 	}
 
 	/**

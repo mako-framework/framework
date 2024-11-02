@@ -7,6 +7,8 @@
 
 namespace mako\cli\output\components\progress;
 
+use function sprintf;
+
 /**
  * Progress bar.
  */
@@ -23,11 +25,20 @@ class ProgressBar
 	protected const string FILLED = '█';
 
 	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		protected string $emptyTemplate = '%s',
+		protected string $filledTemplate = '%s'
+	) {
+	}
+
+	/**
 	 * Returns the empty progress bar character.
 	 */
 	public function getEmpty(): string
 	{
-		return static::EMPTY;
+		return sprintf($this->emptyTemplate, static::EMPTY);
 	}
 
 	/**
@@ -35,6 +46,6 @@ class ProgressBar
 	 */
 	public function getFilled(): string
 	{
-		return static::FILLED;
+		return sprintf($this->filledTemplate, static::FILLED);
 	}
 }
