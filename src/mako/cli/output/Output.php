@@ -9,6 +9,8 @@ namespace mako\cli\output;
 
 use mako\cli\Environment;
 use mako\cli\output\formatter\FormatterInterface;
+use mako\cli\output\writer\Error;
+use mako\cli\output\writer\Standard;
 use mako\cli\output\writer\WriterInterface;
 
 use function var_export;
@@ -37,8 +39,8 @@ class Output
 	 * Constructor.
 	 */
 	public function __construct(
-		protected WriterInterface $standard,
-		protected WriterInterface $error,
+		protected WriterInterface $standard = new Standard,
+		protected WriterInterface $error = new Error,
 		protected Environment $environment = new Environment,
 		protected ?Cursor $cursor = null,
 		protected ?FormatterInterface $formatter = null,
