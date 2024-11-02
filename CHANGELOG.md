@@ -45,7 +45,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added `FileInfo::getPermissions()` method that returns a `Permissions` instance.
 * Reactor command names can now be registered with the `CommandName` attribute.
 * Reactor command descriptions can now be registered with the `CommandDescription` attribute.
-* Reactor command arguments can now be registered with the `Arguments` attribute.
+* Reactor command arguments can now be registered with the `CommandArguments` attribute.
 * Added new `Cursor` class that makes it easier to control the CLI cursor.
 * Added a signal handler to make it easier to handle async process control signals.
 * Added a CLI spinner output helper.

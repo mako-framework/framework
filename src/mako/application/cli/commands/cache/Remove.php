@@ -9,14 +9,14 @@ namespace mako\application\cli\commands\cache;
 
 use mako\cache\CacheManager;
 use mako\cli\input\arguments\Argument;
-use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
 /**
  * Command that removes the chosen key from the cache.
  */
 #[CommandDescription('Removes the chosen key from the cache.')]
-#[Arguments(
+#[CommandArguments(
 	new Argument('-c|--configuration', 'Configuration name', Argument::IS_OPTIONAL),
 	new Argument('-k|--key', 'Cache key'),
 )]

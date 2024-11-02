@@ -52,7 +52,9 @@ class ValidationException extends ValidatorException
 	{
 		$message = rtrim($this->message, '.');
 
-		$errors = implode(', ', array_map(static fn ($value) => rtrim(mb_convert_case(mb_substr($value, 0, 1), MB_CASE_LOWER) . mb_substr($value, 1), '.'), $this->errors));
+		$errors = implode(', ', array_map(static fn ($value) => rtrim(
+			mb_convert_case(mb_substr($value, 0, 1), MB_CASE_LOWER) . mb_substr($value, 1), '.'
+		), $this->errors));
 
 		return "{$message}: {$errors}.";
 	}

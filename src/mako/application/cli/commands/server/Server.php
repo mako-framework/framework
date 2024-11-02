@@ -9,7 +9,7 @@ namespace mako\application\cli\commands\server;
 
 use mako\application\Application;
 use mako\cli\input\arguments\Argument;
-use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
@@ -27,7 +27,7 @@ use function sprintf;
  * Server command.
  */
 #[CommandDescription('Starts the local development server.')]
-#[Arguments(
+#[CommandArguments(
 	new Argument('-a|--address', 'Address to run the server on', Argument::IS_OPTIONAL),
 	new Argument('-d|--docroot', 'Path to the document root', Argument::IS_OPTIONAL),
 	new Argument('-p|--port', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),

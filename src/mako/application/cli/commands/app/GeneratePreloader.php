@@ -13,7 +13,7 @@ use mako\cli\input\arguments\Argument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
-use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
@@ -25,7 +25,7 @@ use function sprintf;
  * Command that generates an opcache preloader script.
  */
 #[CommandDescription('Generates a opcache preloader script.')]
-#[Arguments(
+#[CommandArguments(
 	new Argument('-i|--ignore-core-classes', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
 	new Argument('-o|--output-path', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
 )]

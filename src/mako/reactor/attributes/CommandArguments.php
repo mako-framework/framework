@@ -11,10 +11,10 @@ use Attribute;
 use mako\cli\input\arguments\Argument;
 
 /**
- * Arguments attribute.
+ * Command arguments attribute.
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-class Arguments
+class CommandArguments
 {
 	/**
 	 * Arguments.

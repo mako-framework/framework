@@ -9,14 +9,14 @@ namespace mako\application\cli\commands\migrations;
 
 use mako\application\cli\commands\migrations\traits\RollbackTrait;
 use mako\cli\input\arguments\Argument;
-use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
 /**
  * Command that rolls back the last batch of migrations.
  */
 #[CommandDescription('Resets the database schema.')]
-#[Arguments(
+#[CommandArguments(
 	new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
 	new Argument('-f|--force', 'Force the schema reset?', Argument::IS_BOOL),
 )]

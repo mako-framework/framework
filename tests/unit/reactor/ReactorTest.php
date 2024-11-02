@@ -13,7 +13,7 @@ use mako\cli\input\arguments\exceptions\InvalidArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
-use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 use mako\reactor\attributes\CommandName;
 use mako\reactor\Command;
@@ -30,7 +30,7 @@ use PHPUnit\Framework\Attributes\Group;
 
 #[CommandName('foo')]
 #[CommandDescription('Command description.')]
-#[Arguments(
+#[CommandArguments(
 	new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
 	new Argument('--option', 'Option description.'),
 )]

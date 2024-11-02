@@ -8,7 +8,7 @@
 namespace mako\tests\unit\reactor\attributes;
 
 use mako\cli\input\arguments\Argument;
-use mako\reactor\attributes\Arguments;
+use mako\reactor\attributes\CommandArguments;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
@@ -26,7 +26,7 @@ class ArgumentsTest extends TestCase
 		/** @var Argument&\Mockery\LegacyMockInterface&\Mockery\MockInterface $arg2 */
 		$arg2 = Mockery::mock(Argument::class);
 
-		$arguments = new Arguments($arg1, $arg2);
+		$arguments = new CommandArguments($arg1, $arg2);
 
 		$this->assertInstanceOf(Argument::class, $arguments->getArguments()[0]);
 		$this->assertInstanceOf(Argument::class, $arguments->getArguments()[1]);
