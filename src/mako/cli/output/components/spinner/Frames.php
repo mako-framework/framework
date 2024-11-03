@@ -18,7 +18,7 @@ class Frames
 	/**
 	 * Time between redraw in microseconds.
 	 */
-	protected const int TIME_BETWEEN_REDRAW = 100000;
+	protected const int TIME_BETWEEN_REDRAW = 100_000;
 
 	/**
 	 * Spinner frames.

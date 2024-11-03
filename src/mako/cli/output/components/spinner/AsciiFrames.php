@@ -15,7 +15,7 @@ class AsciiFrames extends Frames
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const int TIME_BETWEEN_REDRAW = 200000;
+	protected const int TIME_BETWEEN_REDRAW = 200_000;
 
 	/**
 	 * {@inheritDoc}
