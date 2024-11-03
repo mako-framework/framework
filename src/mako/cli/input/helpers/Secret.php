@@ -30,13 +30,10 @@ class Secret extends Question
 			$this->displayPrompt($question);
 
 			if ($hasStty) {
-				$settings = shell_exec('stty -g');
-
-				exec('stty -echo');
-
-				$answer = $this->input->read();
-
-				exec("stty {$settings}");
+				$answer = $this->output->getEnvironment()->sttySandBox(function (): string {
+					exec('stty -echo');
+					return $this->input->read();
+				});
 			}
 			else {
 				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')));

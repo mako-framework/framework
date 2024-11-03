@@ -9,7 +9,6 @@ namespace mako\cli\output;
 
 use function exec;
 use function fgetc;
-use function shell_exec;
 use function sscanf;
 
 /**
@@ -143,37 +142,31 @@ class Cursor
 	/*
 	 * Returns the cursor position.
 	 *
-	 * @return array{row: int, column: int}|null
+	 * @return array{row: int, column: int}
 	 */
-	public function getPosition(): ?array
+	public function getPosition(): array
 	{
-		$settings = shell_exec('stty -g');
+		$response = $this->output->getEnvironment()->sttySandBox(function (): string {
+			exec('stty -echo -icanon');
 
-		exec('stty -echo -icanon');
+			$this->output->write("\033[6n");
 
-		$this->output->write("\033[6n");
+			$response = '';
 
-		$response = '';
+			while (true) {
+				$char = fgetc(STDIN);
 
-		while (true) {
-			$char = fgetc(STDIN);
+				if ($char === 'R') {
+					return "{$response}R";
+				}
 
-			if ($char === 'R') {
-				break;
+				$response .= $char;
 			}
-
-			$response .= $char;
-		}
-
-		exec("stty {$settings}");
+		});
 
 		sscanf($response, "\033[%d;%dR", $row, $column);
 
-		if (isset($row, $column)) {
-			return ['row' => $row, 'column' => $column];
-		}
-
-		return null;
+		return ['row' => $row, 'column' => $column];
 	}
 
 	/**

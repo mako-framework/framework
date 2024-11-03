@@ -98,6 +98,21 @@ class Environment
 	}
 
 	/**
+	 * Executes a callable in a stty sandbox.
+	 */
+	public function sttySandBox(callable $callable): mixed
+	{
+		$settings = shell_exec('stty -g');
+
+		try {
+			return $callable();
+		}
+		finally {
+			exec("stty {$settings}");
+		}
+	}
+
+	/**
 	 * Attempts to get dimensions for Windows.
 	 */
 	protected function getDimensionsForWindows(): ?array
