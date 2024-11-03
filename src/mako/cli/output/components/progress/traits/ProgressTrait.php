@@ -40,7 +40,7 @@ trait ProgressTrait
 	{
 		$fill = (int) floor($percent * $this->width);
 
-		$progress = number_format($percent * 100, 2, '.', '');
+		$progress = number_format($percent * 100, 2, '.');
 
 		return str_pad($this->progress, strlen($this->itemCount), '0', STR_PAD_LEFT)
 		. "/{$this->itemCount} "
