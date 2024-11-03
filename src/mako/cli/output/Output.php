@@ -82,7 +82,7 @@ class Output
 	/**
 	 * Returns the cursor.
 	 */
-	public function getCursor(): Cursor
+	public function getCursor(): ?Cursor
 	{
 		return $this->cursor;
 	}
@@ -170,7 +170,7 @@ class Output
 	 */
 	public function clear(): void
 	{
-		if ($this->environment->hasAnsiSupport()) {
+		if ($this->cursor && $this->environment->hasAnsiSupport()) {
 			$this->cursor->clearScreen();
 		}
 	}
@@ -180,7 +180,7 @@ class Output
 	 */
 	public function clearLine(): void
 	{
-		if ($this->environment->hasAnsiSupport()) {
+		if ($this->cursor && $this->environment->hasAnsiSupport()) {
 			$this->cursor->clearLine();
 		}
 	}
@@ -190,7 +190,7 @@ class Output
 	 */
 	public function clearLines(int $lines): void
 	{
-		if ($this->environment->hasAnsiSupport()) {
+		if ($this->cursor && $this->environment->hasAnsiSupport()) {
 			$this->cursor->clearLines($lines);
 		}
 	}
@@ -200,7 +200,7 @@ class Output
 	 */
 	public function hideCursor(): void
 	{
-		if ($this->environment->hasAnsiSupport()) {
+		if ($this->cursor && $this->environment->hasAnsiSupport()) {
 			$this->cursor->hide();
 		}
 	}
@@ -210,7 +210,7 @@ class Output
 	 */
 	public function showCursor(): void
 	{
-		if ($this->environment->hasAnsiSupport()) {
+		if ($this->cursor && $this->environment->hasAnsiSupport()) {
 			$this->cursor->show();
 		}
 	}
@@ -220,7 +220,7 @@ class Output
 	 */
 	public function restoreCursor(): void
 	{
-		if ($this->environment->hasAnsiSupport()) {
+		if ($this->cursor && $this->environment->hasAnsiSupport()) {
 			$this->cursor->restore();
 		}
 	}

@@ -194,14 +194,17 @@ class OutputTest extends TestCase
  		$std = $this->getWriter();
  		$err = $this->getWriter();
 
- 		$std->shouldReceive('write')->never();
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('clearScreen')->never();
 
 		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
- 		$output = new Output($std, $err, $env);
+ 		$output = new Output($std, $err, $env, cursor: $cursor);
 
  		$output->clear();
  	}
@@ -237,14 +240,17 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->never();
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('clearLine')->never();
 
 		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env);
+		$output = new Output($std, $err, $env, cursor: $cursor);
 
 		$output->clearLine();
 	}
@@ -280,16 +286,157 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->never();
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('clearLines')->never();
 
 		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env);
+		$output = new Output($std, $err, $env, cursor: $cursor);
 
 		$output->clearLines(2);
+	}
+
+	/**
+	 *
+	 */
+	public function testHideCursorWithAnsiSupport(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('hide')->once();
+
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, $env, cursor: $cursor);
+
+		$output->hideCursor();
+	}
+
+	/**
+	 *
+	 */
+	public function testHideCursorWithNoAnsiSupport(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('hide')->never();
+
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output($std, $err, $env, cursor: $cursor);
+
+		$output->hideCursor();
+	}
+
+	/**
+	 *
+	 */
+	public function testShowCursorWithAnsiSupport(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('show')->once();
+
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, $env, cursor: $cursor);
+
+		$output->showCursor();
+	}
+
+	/**
+	 *
+	 */
+	public function testShowCursorWithNoAnsiSupport(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('show')->never();
+
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output($std, $err, $env, cursor: $cursor);
+
+		$output->showCursor();
+	}
+
+	/**
+	 *
+	 */
+	public function testRestoreCursorWithAnsiSupport(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('restore')->once();
+
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$output = new Output($std, $err, $env, cursor: $cursor);
+
+		$output->restoreCursor();
+	}
+
+	/**
+	 *
+	 */
+	public function testRestoreCursorWithNoAnsiSupport(): void
+	{
+		$std = $this->getWriter();
+		$err = $this->getWriter();
+
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('restore')->never();
+
+		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output($std, $err, $env, cursor: $cursor);
+
+		$output->restoreCursor();
 	}
 
 	/**
