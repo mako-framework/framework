@@ -22,4 +22,12 @@ class Reader implements ReaderInterface
 	{
 		return trim(fgets(STDIN));
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function readCharacter(): string
+	{
+		return fgetc(STDIN);
+	}
 }

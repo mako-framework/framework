@@ -16,4 +16,9 @@ interface ReaderInterface
 	 * Reads and returns user input.
 	 */
 	public function read(): string;
+
+	/**
+	 * Reads and returns a single character.
+	 */
+	public function readCharacter(): string;
 }
