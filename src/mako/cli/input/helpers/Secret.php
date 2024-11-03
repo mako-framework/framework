@@ -30,7 +30,7 @@ class Secret extends Question
 			$this->displayPrompt($question);
 
 			if ($hasStty) {
-				$answer = $this->output->getEnvironment()->sttySandBox(function (): string {
+				$answer = $this->output->getEnvironment()->sttySandbox(function (): string {
 					exec('stty -echo');
 					return $this->input->read();
 				});

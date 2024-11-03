@@ -146,7 +146,7 @@ class Cursor
 	 */
 	public function getPosition(): array
 	{
-		$response = $this->output->getEnvironment()->sttySandBox(function (): string {
+		$response = $this->output->getEnvironment()->sttySandbox(function (): string {
 			exec('stty -echo -icanon');
 
 			$this->output->write("\033[6n");

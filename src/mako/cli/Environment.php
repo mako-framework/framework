@@ -100,7 +100,7 @@ class Environment
 	/**
 	 * Executes a callable in a stty sandbox.
 	 */
-	public function sttySandBox(callable $callable): mixed
+	public function sttySandbox(callable $callable): mixed
 	{
 		$settings = shell_exec('stty -g');
 
