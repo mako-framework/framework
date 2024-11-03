@@ -24,13 +24,12 @@ class Secret extends Question
 	 */
 	public function ask(string $question, mixed $default = null, bool $fallback = false): mixed
 	{
-		if (PHP_OS_FAMILY === 'Windows' || $this->output->getEnvironment()->hasStty()) {
-			$this->output->write(trim($question) . ' ');
+		$hasStty = $this->output->getEnvironment()->hasStty();
 
-			if (PHP_OS_FAMILY === 'Windows') {
-				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')));
-			}
-			else {
+		if (PHP_OS_FAMILY === 'Windows' || $hasStty) {
+			$this->displayPrompt($question);
+
+			if ($hasStty) {
 				$settings = shell_exec('stty -g');
 
 				exec('stty -echo');
@@ -39,16 +38,19 @@ class Secret extends Question
 
 				exec("stty {$settings}");
 			}
+			else {
+				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')));
+			}
 
 			$this->output->write(PHP_EOL);
 
 			return empty($answer) ? $default : $answer;
 		}
-		elseif ($fallback) {
+
+		if ($fallback) {
 			return parent::ask($question, $default);
 		}
-		else {
-			throw new CliException('Unable to hide the user input.');
-		}
+
+		throw new CliException('Unable to hide the user input.');
 	}
 }

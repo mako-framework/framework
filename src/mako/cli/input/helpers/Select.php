@@ -23,7 +23,8 @@ class Select
 	 */
 	public function __construct(
 		protected Input $input,
-		protected Output $output
+		protected Output $output,
+		protected string $prompt = '>'
 	) {
 	}
 
@@ -38,7 +39,7 @@ class Select
 			$output .= ($key + 1) . ') ' . $option . PHP_EOL;
 		}
 
-		return "{$output}> ";
+		return "{$output}{$this->prompt} ";
 	}
 
 	/**
@@ -52,10 +53,22 @@ class Select
 
 		$this->output->write($this->buildOptionsList($options));
 
-		$key = (int) $this->input->read() - 1;
+		$input = $this->input->read();
 
-		if (isset($options[$key])) {
-			return $key;
+		if (is_numeric($input)) {
+
+			$key = (int) $input - 1;
+
+			if (isset($options[$key])) {
+				return $key;
+			}
+		}
+		else {
+			$key = array_search(mb_strtolower($input), array_map(fn ($value) => mb_strtolower($value), $options));
+
+			if ($key !== false) {
+				return $key;
+			}
 		}
 
 		return $this->ask($question, $options);

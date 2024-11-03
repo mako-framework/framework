@@ -30,9 +30,29 @@ class QuestionTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Username: ');
+		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
 
 		$question = new Question($input, $output);
+
+		$this->assertSame('foobar', $question->ask('Username:'));
+	}
+
+	/**
+	 *
+	 */
+	public function testQuestionWithCustomPrompt(): void
+	{
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('read')->once()->andReturn('foobar');
+
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '[ ');
+
+		$question = new Question($input, $output, '[');
 
 		$this->assertSame('foobar', $question->ask('Username:'));
 	}
@@ -50,7 +70,7 @@ class QuestionTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Username: ');
+		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
 
 		$question = new Question($input, $output);
 
@@ -70,7 +90,7 @@ class QuestionTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Username: ');
+		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
 
 		$question = new Question($input, $output);
 

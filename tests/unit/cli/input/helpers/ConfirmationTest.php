@@ -30,7 +30,7 @@ class ConfirmationTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Delete all files? [y/N] ');
+		$output->shouldReceive('write')->once()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
 
 		$confirmation = new Confirmation($input, $output);
 
@@ -50,7 +50,7 @@ class ConfirmationTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Delete all files? [y/N] ');
+		$output->shouldReceive('write')->once()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
 
 		$confirmation = new Confirmation($input, $output);
 
@@ -70,7 +70,7 @@ class ConfirmationTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Delete all files? [y/N] ');
+		$output->shouldReceive('write')->once()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
 
 		$confirmation = new Confirmation($input, $output);
 
@@ -90,7 +90,7 @@ class ConfirmationTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Delete all files? [Y/n] ');
+		$output->shouldReceive('write')->once()->with('Delete all files? [Y/n]' . PHP_EOL . '> ');
 
 		$confirmation = new Confirmation($input, $output);
 
@@ -110,7 +110,7 @@ class ConfirmationTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with('Delete all files? [j/N] ');
+		$output->shouldReceive('write')->once()->with('Delete all files? [j/N]' . PHP_EOL . '> ');
 
 		$confirmation = new Confirmation($input, $output);
 
@@ -131,7 +131,7 @@ class ConfirmationTest extends TestCase
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->twice()->with('Delete all files? [y/N] ');
+		$output->shouldReceive('write')->twice()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
 
 		$confirmation = new Confirmation($input, $output);
 

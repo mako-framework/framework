@@ -10,8 +10,6 @@ namespace mako\cli\input\helpers;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
-use function trim;
-
 /**
  * Question helper.
  */
@@ -22,8 +20,17 @@ class Question
 	 */
 	public function __construct(
 		protected Input $input,
-		protected Output $output
+		protected Output $output,
+		protected string $prompt = '>'
 	) {
+	}
+
+	/**
+	 * Writes question to output.
+	 */
+	protected function displayPrompt(string $question): void
+	{
+		$this->output->write($question . PHP_EOL . "{$this->prompt} ");
 	}
 
 	/**
@@ -31,7 +38,7 @@ class Question
 	 */
 	public function ask(string $question, mixed $default = null): mixed
 	{
-		$this->output->write(trim($question) . ' ');
+		$this->displayPrompt($question);
 
 		$answer = $this->input->read();
 

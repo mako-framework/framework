@@ -20,12 +20,56 @@ class SelectTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSelectAndPickFirstOption(): void
+	public function testSelectAndPickFirstOptionWithNumericInput(): void
 	{
 		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1');
+
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with('1) Burgers' . PHP_EOL . '2) Sushi' . PHP_EOL . '> ');
+
+		$select = new Select($input, $output);
+
+		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectAndPickFirstOptionWithNumericInputAndCustomPrompt(): void
+	{
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('read')->once()->andReturn('1');
+
+		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with('1) Burgers' . PHP_EOL . '2) Sushi' . PHP_EOL . '[ ');
+
+		$select = new Select($input, $output, '[');
+
+		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+	}
+
+	/**
+	 *
+	 */
+	public function testSelectAndPickFirstOptionWithTextInput(): void
+	{
+		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
+
+		$input->shouldReceive('read')->once()->andReturn('burgers');
 
 		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
 		$output = Mockery::mock(Output::class);
