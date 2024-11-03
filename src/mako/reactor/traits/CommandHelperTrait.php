@@ -192,32 +192,32 @@ trait CommandHelperTrait
 	/**
 	 * Writes question to output and returns boolesn value corresponding to the chosen value.
 	 */
-	protected function confirm(string $question, string $default = 'n')
+	protected function confirm(string $question, string $default = 'n', string $prompt = '<purple><bold>></bold></purple>'): bool
 	{
-		return (new Confirmation($this->input, $this->output))->ask($question, $default);
+		return (new Confirmation($this->input, $this->output, $prompt))->ask($question, $default);
 	}
 
 	/**
 	 * Writes question to output and returns user input.
 	 */
-	protected function question(string $question, mixed $default = null): mixed
+	protected function question(string $question, mixed $default = null, string $prompt = '<purple><bold>></bold></purple>'): mixed
 	{
-		return (new Question($this->input, $this->output))->ask($question, $default);
+		return (new Question($this->input, $this->output, $prompt))->ask($question, $default);
 	}
 
 	/**
 	 * Prints out a list of options and returns the array key of the chosen value.
 	 */
-	protected function select(string $question, array $options): int
+	protected function select(string $question, array $options, string $prompt = '<purple><bold>></bold></purple>'): int
 	{
-		return (new Select($this->input, $this->output))->ask($question, $options);
+		return (new Select($this->input, $this->output, $prompt))->ask($question, $options);
 	}
 
 	/**
 	 * Writes question to output and returns hidden user input.
 	 */
-	protected function secret(string $question, mixed $default = null, bool $fallback = false): mixed
+	protected function secret(string $question, mixed $default = null, bool $fallback = false, string $prompt = '<purple><bold>></bold></purple>'): mixed
 	{
-		return (new Secret($this->input, $this->output))->ask($question, $default, $fallback);
+		return (new Secret($this->input, $this->output, $prompt))->ask($question, $default, $fallback);
 	}
 }
