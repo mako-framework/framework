@@ -10,6 +10,7 @@ namespace mako\cli\output\components\progress\traits;
 use function floor;
 use function microtime;
 use function min;
+use function number_format;
 use function str_pad;
 use function str_repeat;
 use function strlen;
@@ -39,11 +40,13 @@ trait ProgressTrait
 	{
 		$fill = (int) floor($percent * $this->width);
 
+		$progress = number_format($percent * 100, 2, '.', '');
+
 		return str_pad($this->progress, strlen($this->itemCount), '0', STR_PAD_LEFT)
 		. "/{$this->itemCount} "
 		. str_repeat($this->progressBar->getFilled(), $fill)
 		. str_repeat($this->progressBar->getEmpty(), ($this->width - $fill))
-		. str_pad(' ' . ((int) ($percent * 100)) . '% ', 6, ' ', STR_PAD_LEFT);
+		. str_pad(" {$progress}% ", 9, ' ', STR_PAD_LEFT);
 	}
 
 	/**
