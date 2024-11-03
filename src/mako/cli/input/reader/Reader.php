@@ -7,6 +7,7 @@
 
 namespace mako\cli\input\reader;
 
+use function fgetc;
 use function fgets;
 use function trim;
 

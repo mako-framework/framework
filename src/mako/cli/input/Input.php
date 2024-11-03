@@ -33,6 +33,14 @@ class Input
 	}
 
 	/**
+	 * Reads and returns a single character.
+	 */
+	public function readCharacter(): string
+	{
+		return $this->reader->readCharacter();
+	}
+
+	/**
 	 * Returns the argument parser.
 	 */
 	public function getArgumentParser(): ArgvParser

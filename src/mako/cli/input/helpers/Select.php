@@ -10,7 +10,11 @@ namespace mako\cli\input\helpers;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
+use function array_map;
+use function array_search;
 use function array_values;
+use function is_numeric;
+use function mb_strtolower;
 use function trim;
 
 /**

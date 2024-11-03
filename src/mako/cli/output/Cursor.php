@@ -7,6 +7,11 @@
 
 namespace mako\cli\output;
 
+use function exec;
+use function fgetc;
+use function shell_exec;
+use function sscanf;
+
 /**
  * Cursor.
  */
@@ -133,6 +138,42 @@ class Cursor
 	public function moveToEndOfLine(): void
 	{
 		$this->right(9999);
+	}
+
+	/*
+	 * Returns the cursor position.
+	 *
+	 * @return array{row: int, column: int}|null
+	 */
+	public function getPosition(): ?array
+	{
+		$settings = shell_exec('stty -g');
+
+		exec('stty -echo -icanon');
+
+		$this->output->write("\033[6n");
+
+		$response = '';
+
+		while (true) {
+			$char = fgetc(STDIN);
+
+			if ($char === 'R') {
+				break;
+			}
+
+			$response .= $char;
+		}
+
+		exec("stty {$settings}");
+
+		sscanf($response, "\033[%d;%dR", $row, $col);
+
+		if (isset($row, $col)) {
+			return ['row' => $row, 'column' => $col];
+		}
+
+		return null;
 	}
 
 	/**
