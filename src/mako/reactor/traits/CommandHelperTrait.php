@@ -117,8 +117,10 @@ trait CommandHelperTrait
 	 * Draws a progress bar and returns a progress instance.
 	 */
 	protected function progress(
-		int $itemCount, string $description = '',
-		int $width = 50, float $minTimeBetweenRedraw = 0.1,
+		int $itemCount,
+		string $description = '',
+		int $width = 50,
+		float $minTimeBetweenRedraw = 0.1,
 		ProgressBar $progressBar = new ProgressBar('<red><faded>%s</faded></red>', '<green>%s</green>')
 	): Progress {
 		$progressBar = new Progress(
@@ -140,7 +142,8 @@ trait CommandHelperTrait
 	 */
 	protected function progressIterator(
 		array|(Countable&Traversable) $items,
-		string $description = '', int $width = 50,
+		string $description = '',
+		int $width = 50,
 		float $minTimeBetweenRedraw = 0.1,
 		ProgressBar $progressBar = new ProgressBar('<red><faded>%s</faded></red>', '<green>%s</green>')
 	): ProgressIterator {
