@@ -167,10 +167,10 @@ class Cursor
 
 		exec("stty {$settings}");
 
-		sscanf($response, "\033[%d;%dR", $row, $col);
+		sscanf($response, "\033[%d;%dR", $row, $column);
 
-		if (isset($row, $col)) {
-			return ['row' => $row, 'column' => $col];
+		if (isset($row, $column)) {
+			return ['row' => $row, 'column' => $column];
 		}
 
 		return null;
