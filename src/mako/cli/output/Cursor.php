@@ -51,7 +51,7 @@ class Cursor
 	 */
 	public function hide(): void
 	{
-		$this->output->write("\e[?25l");
+		$this->output->write("\033[?25l");
 
 		$this->hidden = true;
 	}
@@ -61,7 +61,7 @@ class Cursor
 	 */
 	public function show(): void
 	{
-		$this->output->write("\e[?25h");
+		$this->output->write("\033[?25h");
 
 		$this->hidden = false;
 	}
@@ -211,7 +211,7 @@ class Cursor
 	 */
 	public function clearScreen(): void
 	{
-		$this->output->write("\e[H\e[2J");
+		$this->output->write("\033[H\033[2J");
 	}
 
 	/**
@@ -219,6 +219,6 @@ class Cursor
 	 */
 	public function clearScreenFromCursor(): void
 	{
-		$this->output->write("\e[J");
+		$this->output->write("\033[J");
 	}
 }

@@ -170,7 +170,7 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->once()->with("\e[H\e[2J");
+		$std->shouldReceive('write')->once()->with("\033[H\033[2J");
 
 		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
