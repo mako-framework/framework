@@ -68,11 +68,24 @@ class ArgvParser
 	/**
 	 * Constructor.
 	 */
-	public function __construct(
+	final public function __construct(
 		protected array $argv,
 		array $arguments = []
 	) {
 	   $this->addArguments($arguments);
+	}
+
+	/**
+	 * Creates a new instance from the $_SERVER['argv'] array.
+	 */
+	public static function fromArgv(): static
+	{
+		/** @var array $argv */
+		$argv = $_SERVER['argv'];
+
+		array_shift($argv); // Remove the script name
+
+		return new static($argv);
 	}
 
 	/**

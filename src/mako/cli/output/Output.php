@@ -36,11 +36,6 @@ class Output
 	protected bool $muted = false;
 
 	/**
-	 * Cursor.
-	 */
-	protected Cursor $cursor;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
@@ -48,8 +43,8 @@ class Output
 		protected WriterInterface $error = new Error,
 		protected Environment $environment = new Environment,
 		protected ?FormatterInterface $formatter = null,
+		protected ?Cursor $cursor = null
 	) {
-		$this->cursor = new Cursor($this);
 	}
 
 	/**

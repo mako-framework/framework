@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output;
 
 use mako\cli\Environment;
+use mako\cli\output\Cursor;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 use mako\cli\output\writer\WriterInterface;
@@ -170,14 +171,17 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->once()->with("\033[H\033[2J");
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		$cursor->shouldReceive('clearScreen')->once();
+
+		/** @var Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env);
+		$output = new Output($std, $err, $env, cursor: $cursor);
 
 		$output->clear();
 	}
@@ -210,14 +214,17 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->once()->with("\r\33[2K");
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('clearLine')->once();
 
 		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env);
+		$output = new Output($std, $err, $env, cursor: $cursor);
 
 		$output->clearLine();
 	}
@@ -250,16 +257,17 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$std->shouldReceive('write')->once()->with("\033[1A");
+		/** @var Cursor|\Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
 
-		$std->shouldReceive('write')->times(2)->with("\r\33[2K");
+		$cursor->shouldReceive('clearLines')->once()->with(2);
 
 		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env);
+		$output = new Output($std, $err, $env, cursor: $cursor);
 
 		$output->clearLines(2);
 	}

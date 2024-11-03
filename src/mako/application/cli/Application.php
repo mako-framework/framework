@@ -28,10 +28,13 @@ use mako\cli\input\arguments\exceptions\ArgumentException;
 use mako\cli\input\arguments\exceptions\UnexpectedValueException;
 use mako\cli\input\Input;
 use mako\cli\input\reader\Reader;
+use mako\cli\input\reader\ReaderInterface;
+use mako\cli\output\Cursor;
 use mako\cli\output\formatter\Formatter;
 use mako\cli\output\Output;
 use mako\cli\output\writer\Error;
 use mako\cli\output\writer\Standard;
+use mako\cli\output\writer\WriterInterface;
 use mako\cli\signals\SignalHandler;
 use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\Finder;
@@ -42,7 +45,6 @@ use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
 use ReflectionClass;
 
-use function array_shift;
 use function file_get_contents;
 use function ob_start;
 use function putenv;
@@ -59,24 +61,51 @@ class Application extends BaseApplication
 	protected Reactor $reactor;
 
 	/**
+	 * Creates a reader instance.
+	 */
+	protected function readerFactory(): Reader
+	{
+		return new Reader;
+	}
+
+	/**
+	 * Creates a standard writer instance.
+	 */
+	protected function standardWriterFactory(): Standard
+	{
+		return new Standard;
+	}
+
+	/**
+	 * Creates an error writer instance.
+	 */
+	protected function errorWriterFactory(): Error
+	{
+		return new Error;
+	}
+
+	/**
 	 * Creates a input instance.
 	 */
-	protected function inputFactory(): Input
+	protected function inputFactory(Reader $reader): Input
 	{
-		/** @var array $argv */
-		$argv = $_SERVER['argv'];
+		return new Input($reader, ArgvParser::fromArgv());
+	}
 
-		array_shift($argv); // Remove the script name
-
-		return new Input(new Reader, new ArgvParser($argv));
+	/**
+	 * Creates a cursor instance.
+	 */
+	public function cursorFactory(WriterInterface $writer, ReaderInterface $reader): Cursor
+	{
+		return new Cursor($writer, $reader);
 	}
 
 	/**
 	 * Creates an output instance.
 	 */
-	protected function outputFactory(): Output
+	protected function outputFactory(Standard $standard, Error $error, Cursor $cursor): Output
 	{
-		return new Output(new Standard, new Error, formatter: new Formatter);
+		return new Output($standard, $error, formatter: new Formatter, cursor: $cursor);
 	}
 
 	/**
@@ -143,11 +172,15 @@ class Application extends BaseApplication
 	 */
 	protected function startReactor(): void
 	{
+		$reader = $this->readerFactory();
+		$standard = $this->standardWriterFactory();
+		$error = $this->errorWriterFactory();
+
 		// Register input, output and signal handler instances
 
-		$this->container->registerSingleton([Input::class, 'input'], fn () => $this->inputFactory());
+		$this->container->registerInstance([Input::class, 'input'], $this->inputFactory($reader));
 
-		$output = $this->outputFactory();
+		$output = $this->outputFactory($standard, $error, $this->cursorFactory($standard, $reader));
 
 		$this->container->registerInstance([Output::class, 'output'], $output);
 

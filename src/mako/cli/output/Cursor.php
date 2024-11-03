@@ -7,8 +7,11 @@
 
 namespace mako\cli\output;
 
+use mako\cli\input\reader\ReaderInterface;
+use mako\cli\output\writer\WriterInterface;
+use mako\cli\traits\SttySandboxTrait;
+
 use function exec;
-use function fgetc;
 use function sscanf;
 
 /**
@@ -16,6 +19,8 @@ use function sscanf;
  */
 class Cursor
 {
+	use SttySandboxTrait;
+
 	/**
 	 * Is the cursor hidden?
 	 */
@@ -25,7 +30,8 @@ class Cursor
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Output $output
+		protected WriterInterface $writer,
+		protected ReaderInterface $reader,
 	) {
 	}
 
@@ -50,7 +56,7 @@ class Cursor
 	 */
 	public function hide(): void
 	{
-		$this->output->write("\033[?25l");
+		$this->writer->write("\033[?25l");
 
 		$this->hidden = true;
 	}
@@ -60,7 +66,7 @@ class Cursor
 	 */
 	public function show(): void
 	{
-		$this->output->write("\033[?25h");
+		$this->writer->write("\033[?25h");
 
 		$this->hidden = false;
 	}
@@ -80,7 +86,7 @@ class Cursor
 	 */
 	public function beginningOfLine(): void
 	{
-		$this->output->write("\r");
+		$this->writer->write("\r");
 	}
 
 	/**
@@ -88,7 +94,7 @@ class Cursor
 	 */
 	public function up(int $lines = 1): void
 	{
-		$this->output->write("\033[{$lines}A");
+		$this->writer->write("\033[{$lines}A");
 	}
 
 	/**
@@ -96,15 +102,7 @@ class Cursor
 	 */
 	public function down(int $lines = 1): void
 	{
-		$this->output->write("\033[{$lines}B");
-	}
-
-	/**
-	 * Moves the cursor right.
-	 */
-	public function right(int $columns = 1): void
-	{
-		$this->output->write("\033[{$columns}C");
+		$this->writer->write("\033[{$lines}B");
 	}
 
 	/**
@@ -112,7 +110,15 @@ class Cursor
 	 */
 	public function left(int $columns = 1): void
 	{
-		$this->output->write("\033[{$columns}D");
+		$this->writer->write("\033[{$columns}D");
+	}
+
+	/**
+	 * Moves the cursor right.
+	 */
+	public function right(int $columns = 1): void
+	{
+		$this->writer->write("\033[{$columns}C");
 	}
 
 	/**
@@ -120,7 +126,7 @@ class Cursor
 	 */
 	public function moveTo(int $row, int $column): void
 	{
-		$this->output->write("\033[{$row};{$column}H");
+		$this->writer->write("\033[{$row};{$column}H");
 	}
 
 	/**
@@ -128,7 +134,7 @@ class Cursor
 	 */
 	public function moveToBeginningOfLine(): void
 	{
-		$this->output->write("\r");
+		$this->writer->write("\r");
 	}
 
 	/**
@@ -146,15 +152,15 @@ class Cursor
 	 */
 	public function getPosition(): array
 	{
-		$response = $this->output->getEnvironment()->sttySandbox(function (): string {
+		$response = $this->sttySandbox(function (): string {
 			exec('stty -echo -icanon');
 
-			$this->output->write("\033[6n");
+			$this->writer->write("\033[6n");
 
 			$response = '';
 
 			while (true) {
-				$char = fgetc(STDIN);
+				$char = $this->reader->readCharacter();
 
 				if ($char === 'R') {
 					return "{$response}R";
@@ -174,7 +180,7 @@ class Cursor
 	 */
 	public function clearLine(): void
 	{
-		$this->output->write("\r\33[2K");
+		$this->writer->write("\r\33[2K");
 	}
 
 	/**
@@ -182,7 +188,7 @@ class Cursor
 	 */
 	public function clearLineFromCursor(): void
 	{
-		$this->output->write("\33[K");
+		$this->writer->write("\33[K");
 	}
 
 	/**
@@ -204,7 +210,7 @@ class Cursor
 	 */
 	public function clearScreen(): void
 	{
-		$this->output->write("\033[H\033[2J");
+		$this->writer->write("\033[H\033[2J");
 	}
 
 	/**
@@ -212,6 +218,6 @@ class Cursor
 	 */
 	public function clearScreenFromCursor(): void
 	{
-		$this->output->write("\033[J");
+		$this->writer->write("\033[J");
 	}
 }
