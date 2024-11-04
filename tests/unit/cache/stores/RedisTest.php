@@ -298,9 +298,29 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('flushdb')->once();
+		$client->shouldReceive('keys')->once()->with('*')->andReturn(['foo', 'bar']);
+
+		$client->shouldReceive('del')->once()->with('foo', 'bar')->andReturn(2);
 
 		$redis = new Redis($client);
+
+		$redis->clear();
+	}
+
+	/**
+	 *
+	 */
+	public function testClearWithPrefix(): void
+	{
+		$client = $this->getRedisClient();
+
+		$client->shouldReceive('keys')->once()->with('prefix.*')->andReturn(['prefix.foo', 'prefix.bar']);
+
+		$client->shouldReceive('del')->once()->with('prefix.foo', 'prefix.bar')->andReturn(2);
+
+		$redis = new Redis($client);
+
+		$redis->setPrefix('prefix');
 
 		$redis->clear();
 	}

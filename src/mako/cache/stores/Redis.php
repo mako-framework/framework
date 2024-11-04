@@ -9,6 +9,7 @@ namespace mako\cache\stores;
 
 use mako\redis\Redis as RedisClient;
 
+use function array_chunk;
 use function is_numeric;
 use function serialize;
 use function unserialize;
@@ -112,6 +113,14 @@ class Redis extends Store implements IncrementDecrementInterface
 	 */
 	public function clear(): bool
 	{
-		return (bool) $this->redis->flushdb();
+		$keys = $this->redis->keys($this->getPrefixedKey('*'));
+
+		if (!empty($keys)) {
+			foreach (array_chunk($keys, 100) as $chunk) {
+				$this->redis->del(...$chunk);
+			}
+		}
+
+		return true;
 	}
 }
