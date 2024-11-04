@@ -63,6 +63,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Renamed the `ErrorHandler::handle()` method to `ErrorHandler::addHandler()`.
 * Renamed the `ErrorHandler::handler()` method to `ErrorHandler::handle()`.
 * Renamed the `mako\cli\output\helpers` namespace to `mako\cli\output\components`.
+* The Redis cache `clear` implementation will no longer flush the entire database but instead just deleted the cached keys.
 
 #### Deprecations
 
@@ -1752,7 +1753,6 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 * Removed support for "piped" validation rules.
 * New syntax for passing parameters to middleware.
 * New syntax for passing parameters to validation rules.
-* The Redis cache `clear` implementation will no longer flush the entire database but instead just deleted the cached keys.
 
 #### Bugfixes
 
