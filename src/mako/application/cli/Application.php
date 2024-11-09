@@ -173,14 +173,14 @@ class Application extends BaseApplication
 	protected function startReactor(): void
 	{
 		$reader = $this->readerFactory();
-		$standard = $this->standardWriterFactory();
-		$error = $this->errorWriterFactory();
+		$standardOutput = $this->standardWriterFactory();
+		$errorOutput = $this->errorWriterFactory();
 
 		// Register input, output and signal handler instances
 
 		$this->container->registerInstance([Input::class, 'input'], $this->inputFactory($reader));
 
-		$output = $this->outputFactory($standard, $error, $this->cursorFactory($standard, $reader));
+		$output = $this->outputFactory($standardOutput, $errorOutput, $this->cursorFactory($standardOutput, $reader));
 
 		$this->container->registerInstance([Output::class, 'output'], $output);
 
