@@ -13,8 +13,8 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Added support for deletes with joins to the MySQL query compiler.
 * The database library will use the new driver specific PDO sub-classes.
 * Added upsert functionality to the query builder. The feature is currently supported by the `MySQL`, `PostgreSQL` and `SQLite` compilers.
-* The `Time::createFromTimestamp()` and `TimeImmutable::createFromTimestamp()` methods now support microtime precision.
-* The `Time::createFromFormat()` and `TimeImmutable::createFromFormat()` methods now support microtime precision.
+* The `Time::createFromTimestamp()` and `TimeImmutable::createFromTimestamp()` methods now support microsecond precision.
+* The `Time::createFromFormat()` and `TimeImmutable::createFromFormat()` methods now support microsecond precision.
 * It is now possible to customize how JSON request bodies are decoded using the following methods:
 	- `Body::setJsonMaxDepth()` to set the maximum JSON nesting level.
 	- `Body::setJsonFlags()` to set the JSON decoding options.
