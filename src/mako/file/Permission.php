@@ -68,7 +68,7 @@ enum Permission: int
 			throw new InvalidArgumentException(vsprintf('The integer [ %s ] does not represent a valid octal between 0o000 and 0o777.', [$permissions]));
 		}
 
-		$permission = empty($permission) ? 0o000 : static::calculate(...$permission);
+		$permission = empty($permission) ? 0o000 : self::calculate(...$permission);
 
 		if ($permission === 0o000) {
 			return $permissions === 0o000;

@@ -46,14 +46,10 @@ trait NullableTrait
 	{
 		return [
 			'beforeInsert' => [
-				function ($values, $query): array {
-					return $this->setEmptyNullablesToNull($values);
-				},
+				fn ($values, $query): array => $this->setEmptyNullablesToNull($values),
 			],
 			'beforeUpdate' => [
-				function ($values, $query): array {
-					return $this->setEmptyNullablesToNull($values);
-				},
+				fn ($values, $query): array => $this->setEmptyNullablesToNull($values),
 			],
 		];
 	}

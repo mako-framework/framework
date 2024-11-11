@@ -41,7 +41,7 @@ abstract class Writer implements WriterInterface
 	public function isDirect(): bool
 	{
 		if ($this->isDirect === null) {
-			$this->isDirect = (0020000 === (fstat($this->stream)['mode'] & 0170000));
+			$this->isDirect = (0o020000 === (fstat($this->stream)['mode'] & 0o170000));
 		}
 
 		return $this->isDirect;

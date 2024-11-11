@@ -115,8 +115,8 @@ class UUID
 			'%s-%s-%x-%x-%s',
 			substr($hash, 0, 8),
 			substr($hash, 8, 4),
-			(hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x3000,
-			(hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
+			(hexdec(substr($hash, 12, 4)) & 0x0FFF) | 0x3000,
+			(hexdec(substr($hash, 16, 4)) & 0x3FFF) | 0x8000,
 			substr($hash, 20, 12)
 		);
 	}
@@ -128,9 +128,9 @@ class UUID
 	{
 		$random = random_bytes(16);
 
-		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
+		$random[6] = chr(ord($random[6]) & 0x0F | 0x40);
 
-		$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
+		$random[8] = chr(ord($random[8]) & 0x3F | 0x80);
 
 		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
 	}
@@ -144,9 +144,9 @@ class UUID
 
 		$random = hex2bin(dechex((int) ($sec . substr($usec, 2, 5))) . bin2hex(random_bytes(10)));
 
-		$random[6] = chr(ord($random[6]) & 0x0f | 0x40);
+		$random[6] = chr(ord($random[6]) & 0x0F | 0x40);
 
-		$random[8] = chr(ord($random[8]) & 0x3f | 0x80);
+		$random[8] = chr(ord($random[8]) & 0x3F | 0x80);
 
 		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
 	}
@@ -162,8 +162,8 @@ class UUID
 			'%s-%s-%x-%x-%s',
 			substr($hash, 0, 8),
 			substr($hash, 8, 4),
-			(hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x5000,
-			(hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
+			(hexdec(substr($hash, 12, 4)) & 0x0FFF) | 0x5000,
+			(hexdec(substr($hash, 16, 4)) & 0x3FFF) | 0x8000,
 			substr($hash, 20, 12)
 		);
 	}

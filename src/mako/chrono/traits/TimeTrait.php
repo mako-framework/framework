@@ -70,12 +70,12 @@ trait TimeTrait
 	 */
 	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null): static
 	{
-		$year     = (($timestamp >> 25) & 0x7f) + 1980;
-		$mon      = ($timestamp >> 21) & 0x0f;
-		$mday     = ($timestamp >> 16) & 0x1f;
-		$hours    = ($timestamp >> 11) & 0x1f;
-		$minutes  = ($timestamp >> 5) & 0x3f;
-		$seconds  = 2 * ($timestamp & 0x1f);
+		$year     = (($timestamp >> 25) & 0x7F) + 1980;
+		$mon      = ($timestamp >> 21) & 0x0F;
+		$mday     = ($timestamp >> 16) & 0x1F;
+		$hours    = ($timestamp >> 11) & 0x1F;
+		$minutes  = ($timestamp >> 5) & 0x3F;
+		$seconds  = 2 * ($timestamp & 0x1F);
 
 		$timestamp = mktime($hours, $minutes, $seconds, $mon, $mday, $year);
 

@@ -38,8 +38,6 @@ class CacheService extends Service
 
 		// Register the default cache store
 
-		$this->container->registerSingleton(StoreInterface::class, static function ($container) {
-			return $container->get(CacheManager::class)->getInstance();
-		});
+		$this->container->registerSingleton(StoreInterface::class, static fn ($container) => $container->get(CacheManager::class)->getInstance());
 	}
 }

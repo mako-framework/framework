@@ -74,7 +74,7 @@ trait EscaperTrait
 		// The following replaces characters undefined in HTML with the
 		// hex entity for the Unicode replacement character.
 
-		if (($ord <= 0x1f && $chr !== "\t" && $chr !== "\n" && $chr !== "\r") || ($ord >= 0x7f && $ord <= 0x9f)) {
+		if (($ord <= 0x1F && $chr !== "\t" && $chr !== "\n" && $chr !== "\r") || ($ord >= 0x7F && $ord <= 0x9F)) {
 			return '&#xFFFD;';
 		}
 

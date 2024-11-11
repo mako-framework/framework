@@ -38,9 +38,7 @@ class ViewFactoryService extends Service
 
 			// Register template renderer
 
-			$factory->extend('.tpl.php', function () use ($fileSystem) {
-				return new Template($fileSystem, $this->getStoragePath());
-			});
+			$factory->extend('.tpl.php', fn () => new Template($fileSystem, $this->getStoragePath()));
 
 			// Return factory instance
 
