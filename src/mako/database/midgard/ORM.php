@@ -757,7 +757,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		if ($this->primaryKeyType !== static::PRIMARY_KEY_TYPE_NONE) {
 			$this->columns[$this->primaryKey] = match ($this->primaryKeyType) {
-				static::PRIMARY_KEY_TYPE_UUID   => UUID::v4(),
+				static::PRIMARY_KEY_TYPE_UUID   => UUID::v4Sequential(),
 				static::PRIMARY_KEY_TYPE_CUSTOM => $this->generatePrimaryKey(),
 			};
 		}
