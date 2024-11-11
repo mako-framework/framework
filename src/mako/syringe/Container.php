@@ -299,7 +299,7 @@ class Container
 				try {
 					return $this->get($parameterClassName);
 				}
-				catch (UnableToInstantiateException | UnableToResolveParameterException $e) {
+				catch (UnableToInstantiateException|UnableToResolveParameterException $e) {
 					if ($parameter->allowsNull()) {
 						return null;
 					}

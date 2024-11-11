@@ -152,7 +152,7 @@ class Application extends BaseApplication
 		try {
 			$arguments = $arguments->parse(true);
 		}
-		catch (ArgumentException | UnexpectedValueException $e) {
+		catch (ArgumentException|UnexpectedValueException $e) {
 			$this->reactor->getOutput()->errorLn("<red>{$e->getMessage()}</red>");
 
 			exit(CommandInterface::STATUS_ERROR);

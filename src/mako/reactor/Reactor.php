@@ -372,7 +372,7 @@ class Reactor
 
 			return $this->registerCommandArgumentsAndDispatch($command);
 		}
-		catch (ArgumentException | UnexpectedValueException $e) {
+		catch (ArgumentException|UnexpectedValueException $e) {
 			$this->output->errorLn("<red>{$e->getMessage()}</red>");
 
 			return CommandInterface::STATUS_ERROR;
