@@ -191,7 +191,7 @@ class Application extends BaseApplication
 		// Ensure that the cursor and stty are restored in case of a SIGINT or SIGTERM call
 
 		if ($signalHandler->canHandleSignals()) {
-			$signalHandler->addHandler([SIGINT, SIGTERM], function ($signal, $isLast) use ($output): void {
+			$signalHandler->addHandler([SIGINT, SIGTERM], static function ($signal, $isLast) use ($output): void {
 				$output->restoreCursor();
 				$output->getEnvironment()->restoreStty();
 

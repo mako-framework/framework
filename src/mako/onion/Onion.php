@@ -83,7 +83,7 @@ class Onion
 	 */
 	protected function buildLayerClosure(object $layer, Closure $next): Closure
 	{
-		return fn (...$arguments) => $layer->execute(...[...$arguments, $next]);
+		return static fn (...$arguments) => $layer->execute(...[...$arguments, $next]);
 	}
 
 	/**

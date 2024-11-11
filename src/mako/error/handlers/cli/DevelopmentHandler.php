@@ -99,7 +99,7 @@ class DevelopmentHandler implements HandlerInterface
 
 		$trace = $this->escape(
 			implode(PHP_EOL, array_map(
-				fn ($str) => str_replace($cwd, '.', " {$str}"),
+				static fn ($str) => str_replace($cwd, '.', " {$str}"),
 				explode(PHP_EOL, $exception->getTraceAsString())
 			))
 		);

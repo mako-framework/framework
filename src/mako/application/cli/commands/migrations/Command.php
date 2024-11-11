@@ -249,7 +249,7 @@ abstract class Command extends BaseCommand
 		$migrationWrapper = $this->buildMigrationWrapper($migration, $migrationInstance, $method, $batch);
 
 		if ($migrationInstance->useTransaction()) {
-			$migrationInstance->getConnection()->transaction(function () use ($migrationWrapper): void {
+			$migrationInstance->getConnection()->transaction(static function () use ($migrationWrapper): void {
 				$migrationWrapper();
 			});
 

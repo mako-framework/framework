@@ -90,7 +90,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 		if (!empty($metadata)) {
 			$meta = $xml->addChild('metadata');
 
-			($builder = function ($xml, $metadata) use (&$builder) {
+			($builder = static function ($xml, $metadata) use (&$builder) {
 				foreach ($metadata as $key => $value) {
 					if (is_array($value)) {
 						$child = $xml->addChild($key);
