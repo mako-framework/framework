@@ -111,7 +111,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 		$xml->addChild('file', $exception->getFile());
 
-		$xml->addChild('line', $exception->getLine());
+		$xml->addChild('line', (string) $exception->getLine());
 
 		$xml->addChild('exception_id', $this->exceptionId);
 

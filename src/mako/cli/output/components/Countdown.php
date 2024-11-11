@@ -57,13 +57,13 @@ class Countdown
 
 		$dots = 0;
 
-		$fromLength = strlen($from);
+		$fromLength = strlen((string) $from);
 
 		$totalLength = $fromLength + 5;
 
 		do {
 			do {
-				$numbers = str_pad($from, $fromLength, '0', STR_PAD_LEFT);
+				$numbers = str_pad((string) $from, $fromLength, '0', STR_PAD_LEFT);
 
 				$this->output->write("\r" . str_pad($numbers . ' ' . str_repeat('.', $dots) . ' ', $totalLength, ' '));
 

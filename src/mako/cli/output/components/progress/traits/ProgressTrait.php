@@ -42,7 +42,7 @@ trait ProgressTrait
 
 		$progress = number_format($percent * 100, 2, '.');
 
-		return str_pad($this->progress, strlen($this->itemCount), '0', STR_PAD_LEFT)
+		return str_pad((string) $this->progress, strlen((string) $this->itemCount), '0', STR_PAD_LEFT)
 		. "/{$this->itemCount} "
 		. str_repeat($this->progressBar->getFilled(), $fill)
 		. str_repeat($this->progressBar->getEmpty(), ($this->width - $fill))

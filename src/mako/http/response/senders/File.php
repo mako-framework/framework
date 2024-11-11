@@ -256,7 +256,7 @@ class File implements ResponseSenderInterface
 
 				$range = ['start' => 0, 'end' => $this->fileSize - 1];
 
-				$response->headers->add('Content-Length', $this->fileSize);
+				$response->headers->add('Content-Length', (string) $this->fileSize);
 			}
 			else {
 				// Valid range so we'll need to tell the client which range we're sending
@@ -266,7 +266,7 @@ class File implements ResponseSenderInterface
 
 				$response->headers->add('Content-Range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 
-				$response->headers->add('Content-Length', $range['end'] - $range['start'] + 1);
+				$response->headers->add('Content-Length', (string) ($range['end'] - $range['start'] + 1));
 			}
 
 			// Send headers and the requested byte range

@@ -25,7 +25,6 @@ use function count;
 use function explode;
 use function implode;
 use function in_array;
-use function is_string;
 use function strlen;
 use function substr;
 use function trim;
@@ -192,9 +191,9 @@ class Redis
 	 */
 	protected function createClusterClient(string $server): Redis
 	{
-		[$server, $port] = explode(':', $server, 2);
+		[$host, $port] = explode(':', $server, 2);
 
-		return new static(new Connection($server, $port, $this->connection->getOptions()), [
+		return new static(new Connection($host, (int) $port, $this->connection->getOptions()), [
 			'resp'     => $this->resp,
 			'username' => $this->username,
 			'password' => $this->password,
@@ -641,10 +640,6 @@ class Redis
 	 */
 	public function executeCommand(string $command, mixed ...$arguments): mixed
 	{
-		if (is_string($command)) {
-			$command = explode(' ', $command);
-		}
-
-		return $this->buildAndSendCommandAndReturnResponse($command, $arguments);
+		return $this->buildAndSendCommandAndReturnResponse(explode(' ', $command), $arguments);
 	}
 }

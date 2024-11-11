@@ -54,7 +54,7 @@ class OrderedList
 			}
 		}
 
-		$number = strlen($count);
+		$number = strlen((string) $count);
 
 		$marker = strlen(sprintf($this->formatter === null ? $marker : $this->formatter->stripTags($marker), '')) + $number;
 
@@ -66,7 +66,7 @@ class OrderedList
 	 */
 	protected function buildListItem(string $item, string $marker, int $width, int $number, int $nestingLevel, int $parentWidth): string
 	{
-		$marker = str_repeat(' ', $width - strlen($number)) . sprintf($marker, $number);
+		$marker = str_repeat(' ', $width - strlen((string) $number)) . sprintf($marker, $number);
 
 		return str_repeat($this->padding, $nestingLevel) . str_repeat(' ', $parentWidth) . "{$marker} {$item}" . PHP_EOL;
 	}

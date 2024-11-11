@@ -234,7 +234,7 @@ class Str
 	 */
 	public static function increment(string $string, int $start = 1, string $separator = '_'): string
 	{
-		preg_match('/(.+)' . preg_quote($separator) . '([0-9]+)$/', $string, $matches);
+		preg_match('/(.+)' . preg_quote($separator, delimiter: '/') . '([0-9]+)$/', $string, $matches);
 
 		return isset($matches[2]) ? "{$matches[1]}{$separator}" . ((int) $matches[2] + 1) : "{$string}{$separator}{$start}";
 	}

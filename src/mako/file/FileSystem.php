@@ -256,7 +256,7 @@ class FileSystem
 	/**
 	 * Writes the supplied data to a file.
 	 */
-	public static function put(string $path, mixed $data, bool $lock = false): false|string
+	public static function put(string $path, mixed $data, bool $lock = false): false|int
 	{
 		return file_put_contents($path, $data, $lock ? LOCK_EX : 0);
 	}
@@ -264,7 +264,7 @@ class FileSystem
 	/**
 	 * Prepends the supplied data to a file.
 	 */
-	public static function prepend(string $path, mixed $data, bool $lock = false): false|string
+	public static function prepend(string $path, mixed $data, bool $lock = false): false|int
 	{
 		return file_put_contents($path, $data . file_get_contents($path), $lock ? LOCK_EX : 0);
 	}
@@ -272,7 +272,7 @@ class FileSystem
 	/**
 	 * Appends the supplied data to a file.
 	 */
-	public static function append(string $path, mixed $data, bool $lock = false): false|string
+	public static function append(string $path, mixed $data, bool $lock = false): false|int
 	{
 		return file_put_contents($path, $data, $lock ? FILE_APPEND | LOCK_EX : FILE_APPEND);
 	}
