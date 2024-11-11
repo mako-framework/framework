@@ -140,7 +140,7 @@ class ListRoutes extends Command
 				$labelAndValues['Pattern'] = $this->output->getFormatter()->escape($route->getRegex());
 			}
 
-			$maxLabelLength = max(array_map('mb_strwidth', array_keys($labelAndValues)));
+			$maxLabelLength = max(array_map(mb_strwidth(...), array_keys($labelAndValues)));
 
 			foreach ($labelAndValues as $label => $value) {
 				$label = str_pad($label, $maxLabelLength, ' ');

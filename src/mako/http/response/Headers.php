@@ -94,7 +94,7 @@ class Headers implements Countable, IteratorAggregate
 				return in_array($value, $this->headers[$this->normalizeName($name)]['value']);
 			}
 
-			return in_array(strtolower($value), array_map('strtolower', $this->headers[$this->normalizeName($name)]['value']));
+			return in_array(strtolower($value), array_map(strtolower(...), $this->headers[$this->normalizeName($name)]['value']));
 		}
 
 		return false;

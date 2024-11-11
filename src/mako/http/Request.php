@@ -461,7 +461,7 @@ class Request
 				$ips = $this->server->get('HTTP_X_FORWARDED_FOR');
 
 				if (!empty($ips)) {
-					$ips = array_reverse(array_map('trim', explode(',', $ips)));
+					$ips = array_reverse(array_map(trim(...), explode(',', $ips)));
 
 					foreach ($ips as $key => $value) {
 						if ($this->isTrustedProxy($value) === false) {

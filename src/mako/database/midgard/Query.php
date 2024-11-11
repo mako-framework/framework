@@ -305,7 +305,7 @@ class Query extends QueryBuilder
 			$currentIncludes = $this->model->getIncludes();
 
 			if (!empty($currentIncludes)) {
-				$withCriterion = array_filter(array_keys($includes), 'is_string');
+				$withCriterion = array_filter(array_keys($includes), is_string(...));
 
 				if (!empty($withCriterion)) {
 					foreach ($currentIncludes as $key => $value) {

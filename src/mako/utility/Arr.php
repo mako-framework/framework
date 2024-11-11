@@ -141,7 +141,7 @@ class Arr
 	 */
 	public static function isAssoc(array $array): bool
 	{
-		return count(array_filter(array_keys($array), 'is_string')) === count($array);
+		return count(array_filter(array_keys($array), is_string(...))) === count($array);
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Arr
 		$expanded = [];
 
 		foreach ($keys as $key) {
-			[$first, $remaining] = array_map('trim', explode('*', $key, 2), ['.', '.']);
+			[$first, $remaining] = array_map(trim(...), explode('*', $key, 2), ['.', '.']);
 
 			if (empty($first)) {
 				$value = $array;

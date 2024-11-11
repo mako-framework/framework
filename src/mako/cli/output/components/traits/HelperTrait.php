@@ -67,6 +67,6 @@ trait HelperTrait
 			$lines[] = $line;
 		}
 
-		return implode(PHP_EOL, array_map('trim', $lines));
+		return implode(PHP_EOL, array_map(trim(...), $lines));
 	}
 }

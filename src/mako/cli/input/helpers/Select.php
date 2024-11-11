@@ -68,7 +68,7 @@ class Select
 			}
 		}
 		else {
-			$key = array_search(mb_strtolower($input), array_map(fn ($value) => mb_strtolower($value), $options));
+			$key = array_search(mb_strtolower($input), array_map(mb_strtolower(...), $options));
 
 			if ($key !== false) {
 				return $key;
