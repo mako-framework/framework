@@ -18,8 +18,8 @@ use mako\gatekeeper\exceptions\GatekeeperException;
  *
  * @method   int                              getId()
  * @property int                              $id
- * @property \mako\utility\Time               $created_at
- * @property \mako\utility\Time               $updated_at
+ * @property \mako\chrono\Time                $created_at
+ * @property \mako\chrono\Time                $updated_at
  * @property string                           $name
  * @property \mako\database\midgard\ResultSet $users
  */

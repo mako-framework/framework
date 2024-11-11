@@ -19,8 +19,8 @@ use SensitiveParameter;
 /**
  * Base adapter.
  *
- * @method mako\gatekeeper\repositories\group\GroupRepository getGroupRepository()
- * @method mako\gatekeeper\repositories\user\UserRepository   getUserRepository()
+ * @method \mako\gatekeeper\repositories\group\GroupRepository getGroupRepository()
+ * @method \mako\gatekeeper\repositories\user\UserRepository   getUserRepository()
  */
 abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLoginInterface
 {

@@ -1,10 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Variable \\$start might not be defined\\.$#"
-			count: 1
-			path: src/mako/database/connections/Connection.php
-		-
 			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet<TKey of \\(int\\|string\\), TValue of mako\\\\database\\\\midgard\\\\ORM>\\:\\:including\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ResultSet.php
@@ -20,10 +16,6 @@ parameters:
 			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$response\\.#"
 			count: 1
 			path: src/mako/http/traits/ContentNegotiationTrait.php
-		-
-			message: "#^Creating callable from a non-native method stdClass::(beforeAction|afterAction)()#"
-			count: 2
-			path: src/mako/http/routing/Dispatcher.php
 		-
 			message: "#^PHPDoc tag @return with type mako\\\\utility\\\\Collection<int, mako\\\\utility\\\\Collection<int, TValue>> is incompatible with native type static\\(mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue>\\)\\.$#"
 			count: 1
@@ -46,5 +38,9 @@ parameters:
 			path: src/mako/database/connections/Connection.php
 		-
 			message: "#^Call to protected method orderMiddlewareByPriority\\(\\) of class mako\\\\http\\\\routing\\\\Dispatcher\\.$#"
+			count: 1
+			path: src/mako/application/cli/commands/app/ListRoutes.php
+		-
+			message: "#^PHPDoc tag @var with type mako\\\\http\\\\routing\\\\Dispatcher is not subtype of native type \\$this\\(mako\\\\application\\\\cli\\\\commands\\\\app\\\\ListRoutes\\)\\.$#"
 			count: 1
 			path: src/mako/application/cli/commands/app/ListRoutes.php
