@@ -27,7 +27,7 @@ trait JsonPathBuilderTrait
 				$path .= "[{$segment}]";
 			}
 			else {
-				$path .= '.' . '"' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
+				$path .= '."' . str_replace(['"', "'"], ['\\\"', "''"], $segment) . '"';
 			}
 		}
 
