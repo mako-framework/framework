@@ -79,7 +79,7 @@ class Memcache extends Store
 	 */
 	public function has(string $key): bool
 	{
-		return ($this->memcache->get($this->getPrefixedKey($key)) !== false);
+		return $this->memcache->get($this->getPrefixedKey($key)) !== false;
 	}
 
 	/**

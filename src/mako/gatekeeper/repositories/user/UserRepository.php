@@ -77,7 +77,7 @@ class UserRepository implements UserRepositoryInterface
 		$user = $this->getModel();
 
 		foreach ($properties as $property => $value) {
-			$user->$property = $value;
+			$user->{$property} = $value;
 		}
 
 		$user->generateAccessToken();
@@ -132,7 +132,7 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @return \mako\gatekeeper\entities\user\User|null
+	 * @return User|null
 	 */
 	public function getByIdentifier(int|string $identifier): ?User
 	{

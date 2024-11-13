@@ -92,12 +92,12 @@ class Query
 	/**
 	 * Limit.
 	 */
-	protected null|int $limit = null;
+	protected ?int $limit = null;
 
 	/**
 	 * Offset.
 	 */
-	protected null|int $offset = null;
+	protected ?int $offset = null;
 
 	/**
 	 * Lock.
@@ -107,7 +107,7 @@ class Query
 	/**
 	 * Prefix.
 	 */
-	protected null|string $prefix = null;
+	protected ?string $prefix = null;
 
 	/**
 	 * Is the query in subquery context?
@@ -150,7 +150,7 @@ class Query
 		$leave = ['connection', 'helper', 'compiler', 'paginationFactory'];
 
 		foreach (array_diff_key(get_class_vars(self::class), array_flip($leave)) as $property => $default) {
-			$this->$property = $default;
+			$this->{$property} = $default;
 		}
 	}
 

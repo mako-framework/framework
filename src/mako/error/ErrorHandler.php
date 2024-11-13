@@ -61,7 +61,7 @@ class ErrorHandler
 	/**
 	 * Exception id.
 	 */
-	protected null|string $exceptionId = null;
+	protected ?string $exceptionId = null;
 
 	/**
 	 * Constructor.

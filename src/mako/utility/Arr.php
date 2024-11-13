@@ -152,7 +152,7 @@ class Arr
 		$plucked = [];
 
 		foreach ($array as $value) {
-			$plucked[] = is_object($value) ? $value->$key : $value[$key];
+			$plucked[] = is_object($value) ? $value->{$key} : $value[$key];
 		}
 
 		return $plucked;

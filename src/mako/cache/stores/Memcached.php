@@ -96,7 +96,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 */
 	public function has(string $key): bool
 	{
-		return ($this->memcached->get($this->getPrefixedKey($key)) !== false);
+		return $this->memcached->get($this->getPrefixedKey($key)) !== false;
 	}
 
 	/**

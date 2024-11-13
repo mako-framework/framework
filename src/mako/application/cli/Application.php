@@ -246,7 +246,7 @@ class Application extends BaseApplication
 				$attributes = $reflection->getAttributes(CommandName::class);
 
 				if (empty($attributes)) {
-					/** @var \mako\reactor\CommandInterface $command */
+					/** @var CommandInterface $command */
 					$command = $reflection->newInstanceWithoutConstructor();
 
 					$command = $command->getCommand();

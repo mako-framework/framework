@@ -207,7 +207,7 @@ class Query extends QueryBuilder
 	public function increment(string $column, int $increment = 1): int
 	{
 		if ($this->model->isPersisted()) {
-			$this->model->$column += $increment;
+			$this->model->{$column} += $increment;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
@@ -227,7 +227,7 @@ class Query extends QueryBuilder
 	public function decrement(string $column, int $decrement = 1): int
 	{
 		if ($this->model->isPersisted()) {
-			$this->model->$column -= $decrement;
+			$this->model->{$column} -= $decrement;
 
 			$this->where($this->model->getPrimaryKey(), '=', $this->model->getPrimaryKeyValue());
 		}
@@ -380,8 +380,8 @@ class Query extends QueryBuilder
 
 			[$relation, $alias] = $this->parseRelationCountName($relation);
 
-			/** @var \mako\database\midgard\relations\Relation $countQuery */
-			$countQuery = $this->model->$relation()->getRelationCountQuery()->inSubqueryContext();
+			/** @var relations\Relation $countQuery */
+			$countQuery = $this->model->{$relation}()->getRelationCountQuery()->inSubqueryContext();
 
 			if ($criteria !== null) {
 				$criteria($countQuery);
@@ -462,7 +462,7 @@ class Query extends QueryBuilder
 
 			$forward = $includes['forward'][$methodName] ?? [];
 
-			$results[0]->$methodName()->eagerLoad($results, $propertyName, $criteria, $forward);
+			$results[0]->{$methodName}()->eagerLoad($results, $propertyName, $criteria, $forward);
 		}
 	}
 

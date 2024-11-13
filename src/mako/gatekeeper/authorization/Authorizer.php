@@ -66,6 +66,6 @@ class Authorizer implements AuthorizerInterface
 			return $isAuthorized;
 		}
 
-		return $policy->$action($user, $entity, ...$parameters);
+		return $policy->{$action}($user, $entity, ...$parameters);
 	}
 }

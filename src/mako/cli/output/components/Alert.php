@@ -62,7 +62,7 @@ class Alert
 	/**
 	 * Formatter.
 	 */
-	protected null|FormatterInterface $formatter = null;
+	protected ?FormatterInterface $formatter = null;
 
 	/**
 	 * Constructor.

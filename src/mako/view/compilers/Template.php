@@ -239,7 +239,7 @@ class Template
 		// Compile template
 
 		foreach ($this->compileOrder as $method) {
-			$contents = $this->$method($contents);
+			$contents = $this->{$method}($contents);
 		}
 
 		// Store compiled template

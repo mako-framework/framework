@@ -47,7 +47,7 @@ class Reactor
 	/**
 	 * Logo.
 	 */
-	protected null|string $logo = null;
+	protected ?string $logo = null;
 
 	/**
 	 * Constructor.
@@ -188,7 +188,7 @@ class Reactor
 		$attributes = $class->getAttributes(CommandDescription::class);
 
 		if (empty($attributes)) {
-			/** @var \mako\reactor\CommandInterface $command */
+			/** @var CommandInterface $command */
 			$command = $class->newInstanceWithoutConstructor();
 
 			return $command->getDescription();
@@ -219,7 +219,7 @@ class Reactor
 		$attributes = $class->getAttributes(CommandArguments::class);
 
 		if (empty($attributes)) {
-			/** @var \mako\reactor\CommandInterface $command */
+			/** @var CommandInterface $command */
 			$command = $class->newInstanceWithoutConstructor();
 
 			return $command->getArguments();

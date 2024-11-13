@@ -31,12 +31,12 @@ class Environment
 	/**
 	 * Do we have ANSI support?
 	 */
-	protected null|bool $hasAnsiSupport = null;
+	protected ?bool $hasAnsiSupport = null;
 
 	/**
 	 * Do we have stty support?
 	 */
-	protected null|bool $hasStty = null;
+	protected ?bool $hasStty = null;
 
 	/**
 	 * Stty settings.

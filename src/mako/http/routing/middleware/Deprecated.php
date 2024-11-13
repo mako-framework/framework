@@ -19,12 +19,12 @@ class Deprecated implements MiddlewareInterface
 	/**
 	 * Deprecation date.
 	 */
-	protected null|DateTimeInterface $deprecationDate = null;
+	protected ?DateTimeInterface $deprecationDate = null;
 
 	/**
 	 * Sunset date.
 	 */
-	protected null|DateTimeInterface $sunsetDate = null;
+	protected ?DateTimeInterface $sunsetDate = null;
 
 	/**
 	 * Constructor.

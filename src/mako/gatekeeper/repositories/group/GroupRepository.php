@@ -50,7 +50,7 @@ class GroupRepository implements GroupRepositoryInterface
 		$group = $this->getModel();
 
 		foreach ($properties as $property => $value) {
-			$group->$property = $value;
+			$group->{$property} = $value;
 		}
 
 		$group->save();

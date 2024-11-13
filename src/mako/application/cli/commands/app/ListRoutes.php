@@ -87,7 +87,7 @@ class ListRoutes extends Command
 
 		$matched = 0;
 
-		/** @var \mako\http\routing\Route $route */
+		/** @var Route $route */
 		foreach ($routes->getRoutes() as $route) {
 			if ($filter !== null && !$this->routeMatches($filter, $route)) {
 				continue;
@@ -96,7 +96,7 @@ class ListRoutes extends Command
 			$matched++;
 
 			$middleware = (function ($middleware) {
-				/** @var \mako\http\routing\Dispatcher $this */
+				/** @var Dispatcher $this */
 				return $this->orderMiddlewareByPriority($middleware);
 			})
 			->bindTo($dispatcher, Dispatcher::class)([

@@ -28,7 +28,7 @@ class Table
 	/**
 	 * Formatter.
 	 */
-	protected null|FormatterInterface $formatter = null;
+	protected ?FormatterInterface $formatter = null;
 
 	/**
 	 * Constructor.

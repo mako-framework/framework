@@ -282,7 +282,7 @@ class FileSystem
 	 */
 	public static function truncate(string $path, bool $lock = false): bool
 	{
-		return (0 === file_put_contents($path, null, $lock ? LOCK_EX : 0));
+		return 0 === file_put_contents($path, null, $lock ? LOCK_EX : 0);
 	}
 
 	/**
@@ -354,7 +354,7 @@ class FileSystem
 	/**
 	 * Returns a SplFileObject.
 	 *
-	 * @return \SplFileObject
+	 * @return SplFileObject
 	 */
 	public function file(string $path, string $openMode = 'r', bool $useIncludePath = false)
 	{

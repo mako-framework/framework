@@ -22,7 +22,7 @@ abstract class Input implements InputInterface
 	/**
 	 * Error message.
 	 */
-	protected null|string $errorMessage = null;
+	protected ?string $errorMessage = null;
 
 	/**
 	 * Validation extensions.

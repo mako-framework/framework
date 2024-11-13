@@ -15,7 +15,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * Prefix.
 	 */
-	protected null|string $prefix = null;
+	protected ?string $prefix = null;
 
 	/**
 	 * Sets the cache key prefix.

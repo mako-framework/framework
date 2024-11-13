@@ -29,8 +29,8 @@ use function random_bytes;
  *
  * @method   int                              getId()
  * @property int                              $id
- * @property \mako\chrono\Time                $created_at
- * @property \mako\chrono\Time                $updated_at
+ * @property Time                             $created_at
+ * @property Time                             $updated_at
  * @property string                           $email
  * @property string                           $username
  * @property string                           $password
@@ -40,8 +40,8 @@ use function random_bytes;
  * @property int                              $activated
  * @property int                              $banned
  * @property int                              $failed_attempts
- * @property \mako\chrono\Time|null           $last_fail_at
- * @property \mako\chrono\Time|null           $locked_until
+ * @property Time|null                        $last_fail_at
+ * @property Time|null                        $locked_until
  * @property \mako\database\midgard\ResultSet $groups
  */
 class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface

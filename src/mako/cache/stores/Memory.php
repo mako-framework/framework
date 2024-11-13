@@ -64,7 +64,7 @@ class Memory extends Store implements IncrementDecrementInterface
 	 */
 	public function has(string $key): bool
 	{
-		return (isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time());
+		return isset($this->cache[$key]) && $this->cache[$key]['ttl'] > time();
 	}
 
 	/**

@@ -57,7 +57,7 @@ class PreloaderGenerator
 			}
 		}
 		elseif ($type instanceof ReflectionIntersectionType) {
-			/** @var \ReflectionNamedType $intersectionType */
+			/** @var ReflectionNamedType $intersectionType */
 			foreach ($type->getTypes() as $intersectionType) {
 				$class = $intersectionType->getName();
 
@@ -67,7 +67,7 @@ class PreloaderGenerator
 			}
 		}
 		elseif ($type instanceof ReflectionUnionType) {
-			/** @var \ReflectionIntersectionType|\ReflectionNamedType $unionType */
+			/** @var ReflectionIntersectionType|ReflectionNamedType $unionType */
 			foreach ($type->getTypes() as $unionType) {
 				if ($unionType instanceof ReflectionIntersectionType) {
 					$classes = [...$classes, ...$this->getTypeClasses($unionType)];

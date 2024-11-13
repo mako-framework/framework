@@ -102,7 +102,7 @@ trait CamelCasedDataInteractionTrait
 		elseif ($this->isRelation($name)) {
 			// The column is a relation. Lazy load the record(s) and cache them
 
-			return $this->related[$name] = $this->$name()->getRelated();
+			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 
 		// All options have been exhausted so we'll throw an exception

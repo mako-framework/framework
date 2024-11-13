@@ -62,7 +62,7 @@ class Argument
 	/**
 	 * Argument alias.
 	 */
-	protected null|string $alias = null;
+	protected ?string $alias = null;
 
 	/**
 	 * Is the argument positional?

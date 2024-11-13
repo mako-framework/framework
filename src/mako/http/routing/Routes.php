@@ -98,17 +98,17 @@ class Routes
 		if ($option === 'middleware' || $option === 'constraint') {
 			foreach ((array) $value as $parameters) {
 				if (is_string($parameters)) {
-					$route->$option($parameters);
+					$route->{$option}($parameters);
 				}
 				else {
-					$route->$option($parameters[0], ...$parameters[1]);
+					$route->{$option}($parameters[0], ...$parameters[1]);
 				}
 			}
 
 			return;
 		}
 
-		$route->$option($value);
+		$route->{$option}($value);
 	}
 
 	/**

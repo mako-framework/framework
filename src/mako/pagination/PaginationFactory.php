@@ -21,12 +21,12 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * URL builder instance.
 	 */
-	protected null|URLBuilder $urlBuilder = null;
+	protected ?URLBuilder $urlBuilder = null;
 
 	/**
 	 * View factory instance.
 	 */
-	protected null|ViewFactory $viewFactory = null;
+	protected ?ViewFactory $viewFactory = null;
 
 	/**
 	 * Constructor.

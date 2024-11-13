@@ -432,7 +432,7 @@ class Container
 	{
 		$class = $this->resolveAlias($class);
 
-		return (isset($this->hints[$class]) || isset($this->instances[$class]));
+		return isset($this->hints[$class]) || isset($this->instances[$class]);
 	}
 
 	/**

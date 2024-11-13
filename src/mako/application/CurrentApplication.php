@@ -19,7 +19,7 @@ class CurrentApplication
 	/**
 	 * Current application instance.
 	 */
-	protected static null|Application $application = null;
+	protected static ?Application $application = null;
 
 	/**
 	 * Constructor.

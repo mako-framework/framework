@@ -161,7 +161,7 @@ trait TimestampedTrait
 					continue 2;
 				}
 
-				$relation = $related->$nested();
+				$relation = $related->{$nested}();
 			}
 
 			$relation->update([$relation->getModel()->getUpdatedAtColumn() => null]);

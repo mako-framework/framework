@@ -93,6 +93,6 @@ abstract class ConnectionManager
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{
-		return $this->getConnection()->$name(...$arguments);
+		return $this->getConnection()->{$name}(...$arguments);
 	}
 }

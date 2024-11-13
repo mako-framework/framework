@@ -56,7 +56,7 @@ abstract class AdapterManager
 	protected function factory(string $adapterName, array $configuration = []): mixed
 	{
 		if (method_exists($this, ($method = "{$adapterName}Factory"))) {
-			return $this->$method($configuration);
+			return $this->{$method}($configuration);
 		}
 		elseif (isset($this->extensions[$adapterName])) {
 			$adapter = $this->extensions[$adapterName];
@@ -95,6 +95,6 @@ abstract class AdapterManager
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{
-		return $this->getInstance()->$name(...$arguments);
+		return $this->getInstance()->{$name}(...$arguments);
 	}
 }

@@ -26,7 +26,7 @@ trait ProgressTrait
 	/**
 	 * Time of last redraw.
 	 */
-	protected null|float $lastRedraw = null;
+	protected ?float $lastRedraw = null;
 
 	/**
 	 * Progress status.

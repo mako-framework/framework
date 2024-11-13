@@ -79,12 +79,12 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Connection name to use for the model.
 	 */
-	protected null|string $connectionName = null;
+	protected ?string $connectionName = null;
 
 	/**
 	 * Connection manager instance.
 	 */
-	protected static null|ConnectionManager $connectionManager = null;
+	protected static ?ConnectionManager $connectionManager = null;
 
 	/**
 	 * ORM query builder hooks.
@@ -248,11 +248,11 @@ abstract class ORM implements JsonSerializable, Stringable
 
 			foreach (ClassInspector::getTraits(static::class) as $trait) {
 				if (method_exists($this, $getter = "get{$this->getClassShortName($trait)}Hooks")) {
-					static::$traitHooks[static::class] = array_merge_recursive(static::$traitHooks[static::class], $this->$getter());
+					static::$traitHooks[static::class] = array_merge_recursive(static::$traitHooks[static::class], $this->{$getter}());
 				}
 
 				if (method_exists($this, $getter = "get{$this->getClassShortName($trait)}Casts")) {
-					static::$traitCasts[static::class] += $this->$getter();
+					static::$traitCasts[static::class] += $this->{$getter}();
 				}
 			}
 		}
@@ -506,7 +506,7 @@ abstract class ORM implements JsonSerializable, Stringable
 		elseif ($this->isRelation($name)) {
 			// The column is a relation. Lazy load the record(s) and cache them
 
-			return $this->related[$name] = $this->$name()->getRelated();
+			return $this->related[$name] = $this->{$name}()->getRelated();
 		}
 
 		// All options have been exhausted so we'll throw an exception
@@ -943,7 +943,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{
-		return $this->getQuery()->$name(...$arguments);
+		return $this->getQuery()->{$name}(...$arguments);
 	}
 
 	/**
@@ -951,6 +951,6 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	public static function __callStatic(string $name, array $arguments): mixed
 	{
-		return (new static)->getQuery()->$name(...$arguments);
+		return (new static)->getQuery()->{$name}(...$arguments);
 	}
 }

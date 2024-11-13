@@ -109,7 +109,7 @@ class Route
 
 		/** @var \ReflectionAttribute $attribute */
 		foreach ($attributes as $attribute) {
-			$attributeValues = [...$attributeValues, ...[$attribute->newInstance()->$method()]];
+			$attributeValues = [...$attributeValues, ...[$attribute->newInstance()->{$method}()]];
 		}
 
 		return $attributeValues;

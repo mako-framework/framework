@@ -53,12 +53,12 @@ class Connection
 	/**
 	 * Database username.
 	 */
-	protected null|string $username;
+	protected ?string $username;
 
 	/**
 	 * Database password.
 	 */
-	protected null|string $password;
+	protected ?string $password;
 
 	/**
 	 * Enable the query log?
@@ -88,7 +88,7 @@ class Connection
 	/**
 	 * PDO object.
 	 */
-	protected null|PDO $pdo;
+	protected ?PDO $pdo;
 
 	/**
 	 * Transaction nesting level.
@@ -369,7 +369,7 @@ class Connection
 	 */
 	protected function isConnectionLostAndShouldItBeReestablished(): bool
 	{
-		return ($this->reconnect === true && $this->inTransaction() === false && $this->isAlive() === false);
+		return $this->reconnect === true && $this->inTransaction() === false && $this->isAlive() === false;
 	}
 
 	/**

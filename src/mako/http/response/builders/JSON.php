@@ -23,12 +23,12 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * Callback.
 	 */
-	protected null|string $callback = null;
+	protected ?string $callback = null;
 
 	/**
 	 * HTTP status code.
 	 */
-	protected null|Status $status = null;
+	protected ?Status $status = null;
 
 	/**
 	 * Constructor.

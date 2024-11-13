@@ -27,17 +27,17 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * User repository.
 	 */
-	protected null|UserRepository $userRepository = null;
+	protected ?UserRepository $userRepository = null;
 
 	/**
 	 * Group repository.
 	 */
-	protected null|GroupRepository $groupRepository = null;
+	protected ?GroupRepository $groupRepository = null;
 
 	/**
 	 * User entity.
 	 */
-	protected null|User $user = null;
+	protected ?User $user = null;
 
 	/**
 	 * {@inheritDoc}

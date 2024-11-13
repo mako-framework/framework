@@ -119,6 +119,6 @@ class Gatekeeper
 	 */
 	public function __call(string $name, array $arguments): mixed
 	{
-		return $this->adapter()->$name(...$arguments);
+		return $this->adapter()->{$name}(...$arguments);
 	}
 }
