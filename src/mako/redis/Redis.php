@@ -19,6 +19,7 @@ use mako\redis\traits\RedisQueryEngineTrait;
 use mako\redis\traits\TDigestTrait;
 use mako\redis\traits\TimeSeriesTrait;
 use mako\redis\traits\TopKTrait;
+use SensitiveParameter;
 
 use function array_unique;
 use function count;
@@ -79,26 +80,6 @@ class Redis
 	public const int RESP3 = 3;
 
 	/**
-	 * RESP version the connection was created with.
-	 */
-	protected int $resp = Redis::RESP2;
-
-	/**
-	 * Redis username.
-	 */
-	protected ?string $username = null;
-
-	/**
-	 * Redis password.
-	 */
-	protected ?string $password = null;
-
-	/**
-	 * Redis database.
-	 */
-	protected ?int $database = null;
-
-	/**
 	 * Is pipelining enabled?
 	 */
 	protected bool $pipelined = false;
@@ -128,29 +109,29 @@ class Redis
 	 */
 	final public function __construct(
 		protected Connection $connection,
-		array $options = []
+		#[SensitiveParameter] protected array $options = []
 	) {
 		// Switch protocol to RESP3
 
 		if (!empty($options['resp']) && $options['resp'] === static::RESP3) {
-			$this->hello($this->resp = static::RESP3);
+			$this->hello(static::RESP3);
 		}
 
 		// Authenticate
 
 		if (!empty($options['password'])) {
 			if (empty($options['username'])) {
-				$this->auth($this->password = $options['password']);
+				$this->auth($options['password']);
 			}
 			else {
-				$this->auth($this->username = $options['username'], $this->password = $options['password']);
+				$this->auth($options['username'], $options['password']);
 			}
 		}
 
 		// Select database
 
 		if (!empty($options['database'])) {
-			$this->select($this->database = $options['database']);
+			$this->select($options['database']);
 		}
 	}
 
@@ -159,7 +140,7 @@ class Redis
 	 */
 	public function getRespVersion(): int
 	{
-		return $this->resp;
+		return $this->options['resp'] ?? static::RESP2;
 	}
 
 	/**
@@ -193,12 +174,7 @@ class Redis
 	{
 		[$host, $port] = explode(':', $server, 2);
 
-		return new static(new Connection($host, (int) $port, $this->connection->getOptions()), [
-			'resp'     => $this->resp,
-			'username' => $this->username,
-			'password' => $this->password,
-			'database' => $this->database,
-		]);
+		return new static(new Connection($host, (int) $port, $this->connection->getOptions()), $this->options);
 	}
 
 	/**
