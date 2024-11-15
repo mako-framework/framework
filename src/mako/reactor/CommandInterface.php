@@ -23,6 +23,16 @@ interface CommandInterface
 	public const int STATUS_ERROR = 1;
 
 	/**
+	 * Incorrect usage status code.
+	 */
+	public const int STATUS_INCORRECT_USAGE = 2;
+
+	/**
+	 * Unknown command status code.
+	 */
+	public const int STATUS_UNKNOWN_COMMAND = 127;
+
+	/**
 	 * Returns the command.
 	 *
 	 * @deprecated

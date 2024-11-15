@@ -289,7 +289,7 @@ class Reactor
 
 		$this->listCommands();
 
-		return CommandInterface::STATUS_ERROR;
+		return CommandInterface::STATUS_UNKNOWN_COMMAND;
 	}
 
 	/**
@@ -375,7 +375,7 @@ class Reactor
 		catch (ArgumentException|UnexpectedValueException $e) {
 			$this->output->errorLn("<red>{$e->getMessage()}</red>");
 
-			return CommandInterface::STATUS_ERROR;
+			return CommandInterface::STATUS_INCORRECT_USAGE;
 		}
 	}
 }
