@@ -41,7 +41,7 @@ trait C
 
 class D implements IC, ID
 {
-use B, C;
+use B; use C;
 }
 class E extends D
 {

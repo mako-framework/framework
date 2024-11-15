@@ -22,12 +22,12 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationYes(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('y');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
@@ -42,12 +42,12 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationNo(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('n');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
@@ -62,12 +62,12 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationDefaultNo(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [y/N]' . PHP_EOL . '> ');
@@ -82,12 +82,12 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationDefaultYes(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [Y/n]' . PHP_EOL . '> ');
@@ -102,12 +102,12 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationYesCustom(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('j');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Delete all files? [j/N]' . PHP_EOL . '> ');
@@ -122,13 +122,13 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testConfirmationWithInvalidInput(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('x');
 		$input->shouldReceive('read')->once()->andReturn('y');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->twice()->with('Delete all files? [y/N]' . PHP_EOL . '> ');

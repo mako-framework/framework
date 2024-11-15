@@ -34,7 +34,7 @@ class ViewTest extends TestCase
 
 		$total = [...$variables, ...$initial];
 
-		/** @var \mako\view\renderers\RendererInterface|\Mockery\MockInterface $renderer */
+		/** @var Mockery\MockInterface|RendererInterface $renderer */
 		$renderer = Mockery::mock(RendererInterface::class);
 
 		$renderer->shouldReceive('render')->once()->with('TestView', $total)->andReturn('The new contents');
@@ -66,7 +66,7 @@ class ViewTest extends TestCase
 
 		$total = [...$variables, ...$initial];
 
-		/** @var \mako\view\renderers\RendererInterface|\Mockery\MockInterface $renderer */
+		/** @var Mockery\MockInterface|RendererInterface $renderer */
 		$renderer = Mockery::mock(RendererInterface::class);
 
 		$renderer->shouldReceive('render')->once()->with('TestView', $total)->andReturn('The new contents');

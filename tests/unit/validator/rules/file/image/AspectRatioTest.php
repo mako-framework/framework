@@ -31,10 +31,10 @@ class AspectRatioTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
+		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		/** @var \mako\validator\rules\file\image\AspectRatio|\Mockery\MockInterface $rule */
+		/** @var AspectRatio|Mockery\MockInterface $rule */
 		$rule = Mockery::mock(AspectRatio::class, [4, 3]);
 
 		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();
@@ -49,10 +49,10 @@ class AspectRatioTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
+		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		/** @var \mako\validator\rules\file\image\AspectRatio|\Mockery\MockInterface $rule */
+		/** @var AspectRatio|Mockery\MockInterface $rule */
 		$rule = Mockery::mock(AspectRatio::class, [14, 9]);
 
 		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();

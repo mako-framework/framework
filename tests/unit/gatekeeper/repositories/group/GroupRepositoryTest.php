@@ -19,18 +19,18 @@ use PHPUnit\Framework\Attributes\Group as GroupAttribute;
 class GroupRepositoryTest extends TestCase
 {
 	/**
-	 * @return \mako\gatekeeper\repositories\group\GroupRepository|\Mockery\MockInterface
+	 * @return GroupRepository|Mockery\MockInterface
 	 */
 	protected function getRepository(?Closure $callback = null)
 	{
-		/** @var \mako\gatekeeper\repositories\group\GroupRepositoryInterface|\Mockery\MockInterface $repository */
+		/** @var \mako\gatekeeper\repositories\group\GroupRepositoryInterface|Mockery\MockInterface $repository */
 		$repository = Mockery::mock(GroupRepository::class . '[getModel]', ['mocked']);
 
 		$repository = $repository->makePartial();
 
 		$repository->shouldAllowMockingProtectedMethods();
 
-		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|\Mockery\MockInterface */
+		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|Mockery\MockInterface */
 		$group = Mockery::mock(Group::class);
 
 		$group = $group->makePartial();

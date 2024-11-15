@@ -53,7 +53,7 @@ class QueryBusTest extends TestCase
 	{
 		$query = new GetUserQuery('freost');
 
-		/** @var Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with(GetUserHandler::class)->andReturn(new GetUserHandler);
@@ -74,7 +74,7 @@ class QueryBusTest extends TestCase
 	{
 		$query = new GetUserQuery('freost');
 
-		/** @var Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new QueryBus($container);
@@ -93,7 +93,7 @@ class QueryBusTest extends TestCase
 	{
 		$query = new GetUserQuery('freost');
 
-		/** @var Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new QueryBus($container);
@@ -113,7 +113,7 @@ class QueryBusTest extends TestCase
 		$this->expectException(QueryBusException::class);
 		$this->expectExceptionMessage('No handler has been registered for [ mako\tests\unit\bus\query\GetUserQuery ] queries.');
 
-		/** @var Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new QueryBus($container);

@@ -29,12 +29,10 @@ abstract class InMemoryDbTestCase extends TestCase
 
 		$configs =
 		[
-			'sqlite' =>
-			[
+			'sqlite' => [
 				'dsn'         => 'sqlite::memory:',
 				'log_queries' => true,
-				'queries'     =>
-				[
+				'queries'     => [
 					"PRAGMA encoding = 'UTF-8'",
 				],
 			],

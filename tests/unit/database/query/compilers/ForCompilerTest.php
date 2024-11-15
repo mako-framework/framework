@@ -20,11 +20,11 @@ use PHPUnit\Framework\Attributes\Group;
 class ForCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\Connection|\Mockery\MockInterface
+	 * @return Connection|Mockery\MockInterface
 	 */
 	protected function getConnection($compiler)
 	{
-		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

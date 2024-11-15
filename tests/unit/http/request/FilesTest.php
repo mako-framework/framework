@@ -22,8 +22,7 @@ class FilesTest extends TestCase
 	{
 		return
 		[
-			'upload' =>
-			[
+			'upload' => [
 				'name'     => 'foo',
 				'tmp_name' => '/tmp/qwerty',
 				'type'     => 'foo/bar',
@@ -40,8 +39,7 @@ class FilesTest extends TestCase
 	{
 		return
 		[
-			'upload' =>
-			[
+			'upload' => [
 				'name'     => ['foo', 'bar'],
 				'tmp_name' => ['/tmp/qwerty', '/tmp/azerty'],
 				'type'     => ['foo/bar', 'foo/bar'],

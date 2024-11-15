@@ -23,7 +23,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			public function validateWhenEmpty(): bool
@@ -42,7 +42,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnTrue();
@@ -59,7 +59,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageFromPackage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			public function validateWhenEmpty(): bool
@@ -78,7 +78,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('package::validate.overrides.messages.foobar.barfoo')->andReturnTrue();
@@ -95,7 +95,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testCustomErrorMessageWithParameters(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			protected $foo = 'foovalue';
@@ -120,7 +120,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnTrue();
@@ -137,7 +137,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldName(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			public function validateWhenEmpty(): bool
@@ -156,7 +156,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
@@ -179,7 +179,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testTranslatedFieldNames(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			protected $foo = 'foovalue';
@@ -206,7 +206,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
@@ -233,7 +233,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testDefaultI18nMessage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			public function validateWhenEmpty(): bool
@@ -252,7 +252,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
@@ -273,7 +273,7 @@ class I18nAwareTraitTest extends TestCase
 	 */
 	public function testDefaultMessage(): void
 	{
-		$rule = new class implements RuleInterface, I18nAwareInterface {
+		$rule = new class implements I18nAwareInterface, RuleInterface {
 			use I18nAwareTrait;
 
 			public function validateWhenEmpty(): bool
@@ -292,7 +292,7 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();

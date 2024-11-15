@@ -41,7 +41,7 @@ class ReadOnlyTest extends ORMTestCase
 
 		$dateTime = new DateTime;
 
-		$user = new TestUserReadOnly();
+		$user = new TestUserReadOnly;
 
 		$user->username = 'bax';
 

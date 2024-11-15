@@ -67,7 +67,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testBeforeTrue(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new BeforeTruePolicy);
@@ -84,7 +84,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testBeforeFalse(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeFalsePolicy::class)->once()->andReturn(new BeforeFalsePolicy);
@@ -101,7 +101,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testBeforeNullWithTrue(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
@@ -123,7 +123,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testBeforeNullWithFalse(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
@@ -145,7 +145,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testBeforeNullWithAdditionalParametersAndTrue(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
@@ -167,7 +167,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testThatBeforeGetsTheExpectedParameters(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface {
@@ -185,7 +185,7 @@ class AuthorizerTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeTruePolicy::class)->once()->andReturn(new class implements PolicyInterface {
@@ -207,7 +207,7 @@ class AuthorizerTest extends TestCase
 	 */
 	public function testThatUpdateGetsTheExpectedParameters(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
@@ -225,7 +225,7 @@ class AuthorizerTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
@@ -243,7 +243,7 @@ class AuthorizerTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->with(BeforeNullPolicy::class)->once()->andReturn(new class extends BeforeNullPolicy {
@@ -269,7 +269,7 @@ class AuthorizerTest extends TestCase
 
 		$this->expectExceptionMessage('There is no authorization policy registered for [ mako\tests\unit\gatekeeper\authorization\TestEntity ] entities.');
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$authorizer = new Authorizer($container);

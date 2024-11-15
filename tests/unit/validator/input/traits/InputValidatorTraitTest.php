@@ -28,7 +28,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class {
 			use InputValidationTrait;
 
-			public $container, $validator;
+			public $container;
+			public $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -41,14 +42,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		//
 
-		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		/** @var Input|Mockery\MockInterface $fooInput */
 		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
@@ -61,14 +62,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with('FooInput')->andReturn($fooInput);
 
 		//
 
-		/** @var \mako\validator\ValidatorFactory|\Mockery\MockInterface $validatorFactory */
+		/** @var Mockery\MockInterface|ValidatorFactory $validatorFactory */
 		$validatorFactory = Mockery::mock(ValidatorFactory::class);
 
 		$validatorFactory->shouldReceive('create')->once()->with($input, $rules, false)->andReturn($validator);
@@ -92,7 +93,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class {
 			use InputValidationTrait;
 
-			public $container, $validator;
+			public $container;
+			public $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -106,14 +108,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		//
 
-		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		/** @var Input|Mockery\MockInterface $fooInput */
 		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
@@ -126,14 +128,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with('FooInput')->andReturn($fooInput);
 
 		//
 
-		/** @var \mako\validator\ValidatorFactory|\Mockery\MockInterface $validatorFactory */
+		/** @var Mockery\MockInterface|ValidatorFactory $validatorFactory */
 		$validatorFactory = Mockery::mock(ValidatorFactory::class);
 
 		$validatorFactory->shouldReceive('create')->once()->with($input, $additionalRules, false)->andReturn($validator);
@@ -157,7 +159,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class {
 			use InputValidationTrait;
 
-			public $container, $validator;
+			public $container;
+			public $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -170,7 +173,7 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
@@ -179,7 +182,7 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		/** @var Input|Mockery\MockInterface $fooInput */
 		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
@@ -192,14 +195,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with('FooInput')->andReturn($fooInput);
 
 		//
 
-		/** @var \mako\validator\ValidatorFactory|\Mockery\MockInterface $validatorFactory */
+		/** @var Mockery\MockInterface|ValidatorFactory $validatorFactory */
 		$validatorFactory = Mockery::mock(ValidatorFactory::class);
 
 		$validatorFactory->shouldReceive('create')->once()->with($input, $rules, false)->andReturn($validator);
@@ -225,7 +228,8 @@ class InputValidatorTraitTest extends TestCase
 		$class = new class {
 			use InputValidationTrait;
 
-			public $container, $validator;
+			public $container;
+			public $validator;
 
 			public function validateInput($input, array $rules = []): array
 			{
@@ -238,19 +242,19 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\exceptions\ValidationException|\Mockery\MockInterface $exception */
+		/** @var Mockery\MockInterface|ValidationException $exception */
 		$exception = Mockery::mock(ValidationException::class);
 
 		//
 
-		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('getValidatedInput')->once()->andThrow($exception);
 
 		//
 
-		/** @var \mako\validator\input\http\Input|\Mockery\MockInterface $fooInput */
+		/** @var Input|Mockery\MockInterface $fooInput */
 		$fooInput = Mockery::mock(Input::class);
 
 		$fooInput->shouldReceive('getInput')->once()->andReturn($input);
@@ -263,14 +267,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with('FooInput')->andReturn($fooInput);
 
 		//
 
-		/** @var \mako\validator\ValidatorFactory|\Mockery\MockInterface $validatorFactory */
+		/** @var Mockery\MockInterface|ValidatorFactory $validatorFactory */
 		$validatorFactory = Mockery::mock(ValidatorFactory::class);
 
 		$validatorFactory->shouldReceive('create')->once()->with($input, $rules, false)->andReturn($validator);
@@ -311,14 +315,14 @@ class InputValidatorTraitTest extends TestCase
 
 		//
 
-		/** @var \mako\validator\Validator|Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('getValidatedInput')->once()->andReturn($input);
 
 		//
 
-		/** @var \mako\validator\ValidatorFactory|\Mockery\MockInterface $validatorFactory */
+		/** @var Mockery\MockInterface|ValidatorFactory $validatorFactory */
 		$validatorFactory = Mockery::mock(ValidatorFactory::class);
 
 		$validatorFactory->shouldReceive('create')->once()->with($input, $rules, false)->andReturn($validator);

@@ -42,7 +42,7 @@ class ValidatorTest extends TestCase
 	protected function attributeSpy(Validator $validator, string $attribute): array
 	{
 		return (function () use ($attribute) {
-			return $this->$attribute;
+			return $this->{$attribute};
 		})->bindTo($validator, Validator::class)();
 	}
 
@@ -128,8 +128,7 @@ class ValidatorTest extends TestCase
 	{
 		$input =
 		[
-			'users' =>
-			[
+			'users' => [
 				['foo' => ''],
 				['foo' => ''],
 				['foo' => ''],
@@ -169,8 +168,7 @@ class ValidatorTest extends TestCase
 	{
 		$input =
 		[
-			'users' =>
-			[
+			'users' => [
 				['foo' => ['bar' => '']],
 				['foo' => ['bar' => '']],
 				['foo' => ['bar' => '']],
@@ -364,15 +362,15 @@ class ValidatorTest extends TestCase
 			'foo' => ['bar::baz'],
 		];
 
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var \mako\validator\Validator|\Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class, [$input, $ruleSets, $i18n])->makePartial();
 
 		$validator->shouldAllowMockingProtectedMethods();
 
-		$rule = new class($this) implements RuleInterface, I18nAwareInterface {
+		$rule = new class($this) implements I18nAwareInterface, RuleInterface {
 			protected $i18n;
 
 			public function __construct(
@@ -459,7 +457,7 @@ class ValidatorTest extends TestCase
 		try {
 			$validator->getValidatedInput();
 		}
-		catch (Throwable | ValidationException $e) {
+		catch (Throwable|ValidationException $e) {
 			$this->assertInstanceOf(ValidationException::class, $e);
 
 			$this->assertSame(['password' => 'The password field is required.'], $e->getErrors());

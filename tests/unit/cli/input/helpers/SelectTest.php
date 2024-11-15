@@ -22,12 +22,12 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickFirstOptionWithNumericInput(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
@@ -44,12 +44,12 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickFirstOptionWithNumericInputAndCustomPrompt(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
@@ -66,12 +66,12 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickFirstOptionWithTextInput(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('burgers');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
@@ -88,12 +88,12 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickSecondOption(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('2');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
@@ -110,14 +110,14 @@ class SelectTest extends TestCase
 	 */
 	public function testSelectAndPickFirstOptionAfterPickingInvalidOption(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('3');
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('writeLn')->twice()->with('Favorite food?');

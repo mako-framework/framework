@@ -36,7 +36,7 @@ class StoreTest extends TestCase
 	 */
 	protected function getStore()
 	{
-		/** @var \Mockery\MockInterface $mock */
+		/** @var Mockery\MockInterface $mock */
 		$mock =  Mockery::mock(TestStore::class . '[put,has,get,remove,clear]');
 
 		return $mock->makePartial();

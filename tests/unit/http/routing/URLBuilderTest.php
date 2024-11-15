@@ -20,11 +20,11 @@ use PHPUnit\Framework\Attributes\Group;
 class URLBuilderTest extends TestCase
 {
 	/**
-	 * @return \mako\http\Request|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Request
 	 */
 	public function getRequest($langPrefix = '')
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getPath')->andReturn('/foo/bar');
@@ -39,21 +39,21 @@ class URLBuilderTest extends TestCase
 	}
 
 	/**
-	 * @return \mako\http\routing\Routes|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Routes
 	 */
 	public function getRoutes()
 	{
-		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route1 */
+		/** @var Mockery\MockInterface|Route $route1 */
 		$route1 = Mockery::mock(Route::class);
 
 		$route1->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}');
 
-		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route2 */
+		/** @var Mockery\MockInterface|Route $route2 */
 		$route2 = Mockery::mock(Route::class);
 
 		$route2->shouldReceive('getRoute')->andReturn('/article/{id}/{slug}?');
 
-		/** @var \mako\http\routing\Routes|\Mockery\MockInterface $routes */
+		/** @var Mockery\MockInterface|Routes $routes */
 		$routes = Mockery::mock(Routes::class);
 
 		$routes->shouldReceive('getNamedRoute')->withArgs(['foo'])->andReturn($route1);
@@ -94,7 +94,7 @@ class URLBuilderTest extends TestCase
 	 */
 	public function testBaseWithConfiguredURL(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('');
@@ -177,7 +177,7 @@ class URLBuilderTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->times(2)->andReturn([]);
@@ -204,7 +204,7 @@ class URLBuilderTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);

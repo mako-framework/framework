@@ -33,10 +33,10 @@ class HyperlinkTest extends TestCase
 	{
 		[$hash, $url] = $this->getHashAndUrl();
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var Hyperlink|Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();
@@ -61,10 +61,10 @@ class HyperlinkTest extends TestCase
 	{
 		[, $url] = $this->getHashAndUrl();
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var Hyperlink|Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();
@@ -89,14 +89,14 @@ class HyperlinkTest extends TestCase
 	{
 		[$hash, $url] = $this->getHashAndUrl();
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\{$url}\033]8;;\033\\", 1);
 
 		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\Example\033]8;;\033\\", 1);
 
-		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var Hyperlink|Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();
@@ -117,14 +117,14 @@ class HyperlinkTest extends TestCase
 	{
 		[, $url] = $this->getHashAndUrl();
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with($url, 1);
 
 		$output->shouldReceive('write')->once()->with("Example ({$url})", 1);
 
-		/** @var \mako\cli\output\components\Hyperlink|\Mockery\MockInterface $hyperlink */
+		/** @var Hyperlink|Mockery\MockInterface $hyperlink */
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
 		$hyperlink->makePartial();

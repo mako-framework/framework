@@ -22,12 +22,12 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestion(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('foobar');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
@@ -42,12 +42,12 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestionWithCustomPrompt(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('foobar');
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '[ ');
@@ -62,12 +62,12 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestionWithNoInputAndNullDefault(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
@@ -82,12 +82,12 @@ class QuestionTest extends TestCase
 	 */
 	public function testQuestionWithNoInputAndCustomDefault(): void
 	{
-		/** @var \mako\cli\input\Input|\Mockery\MockInterface $input */
+		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');

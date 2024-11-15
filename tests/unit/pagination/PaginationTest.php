@@ -22,7 +22,7 @@ use RuntimeException;
 class PaginationTest extends TestCase
 {
 	/**
-	 * @return \mako\http\Request|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Request
 	 */
 	public function getRequest()
 	{
@@ -30,7 +30,7 @@ class PaginationTest extends TestCase
 	}
 
 	/**
-	 * @return \mako\view\ViewFactory|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|ViewFactory
 	 */
 	public function getViewFactory()
 	{
@@ -38,7 +38,7 @@ class PaginationTest extends TestCase
 	}
 
 	/**
-	 * @return \mako\view\View|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|View
 	 */
 	public function getView()
 	{
@@ -46,7 +46,7 @@ class PaginationTest extends TestCase
 	}
 
 	/**
-	 * @return \mako\http\routing\URLBuilder|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|URLBuilder
 	 */
 	public function getURLBuilder()
 	{
@@ -218,7 +218,7 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 1]);
@@ -248,34 +248,28 @@ class PaginationTest extends TestCase
 			'last'            => 'http://example.org/?page=10',
 			'next'            => 'http://example.org/?page=2',
 			'previous'        => null,
-			'pages'           =>
-			[
-				0 =>
-				[
+			'pages'           => [
+				0 => [
 					'url'        => 'http://example.org/?page=1',
 					'number'     => 1,
 					'is_current' => true,
 				],
-				1 =>
-				[
+				1 => [
 					'url'        => 'http://example.org/?page=2',
 					'number'     => 2,
 					'is_current' => false,
 				],
-				2 =>
-				[
+				2 => [
 					'url'        => 'http://example.org/?page=3',
 					'number'     => 3,
 					'is_current' => false,
 				],
-				3 =>
-				[
+				3 => [
 					'url'       => 'http://example.org/?page=4',
 					'number'    => 4,
 					'is_current'=> false,
 				],
-				4 =>
-				[
+				4 => [
 					'url'        => 'http://example.org/?page=5',
 					'number'     => 5,
 					'is_current' => false,
@@ -307,7 +301,7 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 2]);
@@ -337,34 +331,28 @@ class PaginationTest extends TestCase
 			'last'            => 'http://example.org/?page=10',
 			'next'            => 'http://example.org/?page=3',
 			'previous'        => 'http://example.org/?page=1',
-			'pages'           =>
-			[
-				0 =>
-				[
+			'pages'           => [
+				0 => [
 					'url'        => 'http://example.org/?page=1',
 					'number'     => 1,
 					'is_current' => false,
 				],
-				1 =>
-				[
+				1 => [
 					'url'        => 'http://example.org/?page=2',
 					'number'     => 2,
 					'is_current' => true,
 				],
-				2 =>
-				[
+				2 => [
 					'url'        => 'http://example.org/?page=3',
 					'number'     => 3,
 					'is_current' => false,
 				],
-				3 =>
-				[
+				3 => [
 					'url'       => 'http://example.org/?page=4',
 					'number'    => 4,
 					'is_current'=> false,
 				],
-				4 =>
-				[
+				4 => [
 					'url'        => 'http://example.org/?page=5',
 					'number'     => 5,
 					'is_current' => false,
@@ -396,7 +384,7 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 10]);
@@ -426,34 +414,28 @@ class PaginationTest extends TestCase
 			'last'            => 'http://example.org/?page=10',
 			'next'            => null,
 			'previous'        => 'http://example.org/?page=9',
-			'pages'           =>
-			[
-				0 =>
-				[
+			'pages'           => [
+				0 => [
 					'url'        => 'http://example.org/?page=6',
 					'number'     => 6,
 					'is_current' => false,
 				],
-				1 =>
-				[
+				1 => [
 					'url'        => 'http://example.org/?page=7',
 					'number'     => 7,
 					'is_current' => false,
 				],
-				2 =>
-				[
+				2 => [
 					'url'        => 'http://example.org/?page=8',
 					'number'     => 8,
 					'is_current' => false,
 				],
-				3 =>
-				[
+				3 => [
 					'url'       => 'http://example.org/?page=9',
 					'number'    => 9,
 					'is_current'=> false,
 				],
-				4 =>
-				[
+				4 => [
 					'url'        => 'http://example.org/?page=10',
 					'number'     => 10,
 					'is_current' => true,

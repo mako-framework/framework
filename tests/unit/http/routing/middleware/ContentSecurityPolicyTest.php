@@ -25,16 +25,16 @@ class ContentSecurityPolicyTest extends TestCase
 	 */
 	public function testWithDefaultConfig(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "base-uri 'self'; default-src 'self'; object-src 'none'");
@@ -61,16 +61,16 @@ class ContentSecurityPolicyTest extends TestCase
 	 */
 	public function testWithReportOnly(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy-Report-Only', "base-uri 'self'; default-src 'self'; object-src 'none'");
@@ -99,16 +99,16 @@ class ContentSecurityPolicyTest extends TestCase
 	 */
 	public function testWithCustomCsp(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "block-all-mixed-content; default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval' 'none'");
@@ -142,25 +142,25 @@ class ContentSecurityPolicyTest extends TestCase
 	 */
 	public function testWithCustomCspWithNonce(): void
 	{
-		/** @var \mako\view\ViewFactory|\Mockery\MockInterface $viewFactory */
+		/** @var Mockery\MockInterface|ViewFactory $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('assign')->once()->with('_csp_nonce_', 'foobar');
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('has')->once()->with(ViewFactory::class)->andReturn(true);
 
 		$container->shouldReceive('get')->once()->with(ViewFactory::class)->andReturn($viewFactory);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "default-src 'nonce-foobar'");
@@ -197,25 +197,25 @@ class ContentSecurityPolicyTest extends TestCase
 	 */
 	public function testWithCustomCspWithNonceAndCustomNonceVariableName(): void
 	{
-		/** @var \mako\view\ViewFactory|\Mockery\MockInterface $viewFactory */
+		/** @var Mockery\MockInterface|ViewFactory $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('assign')->once()->with('cspNonce', 'foobar');
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('has')->once()->with(ViewFactory::class)->andReturn(true);
 
 		$container->shouldReceive('get')->once()->with(ViewFactory::class)->andReturn($viewFactory);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('Content-Security-Policy', "default-src 'nonce-foobar'");
@@ -254,16 +254,16 @@ class ContentSecurityPolicyTest extends TestCase
 	 */
 	public function testWithCustomCspWithReportTo(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		$headers->shouldReceive('add')->once()->with('Report-To', '{"group":"csp-endpoint","max-age":10886400,"endpoints":[{"url":"https:\/\/example.com\/csp-reports"}]}');
@@ -288,8 +288,7 @@ class ContentSecurityPolicyTest extends TestCase
 				[
 					'group'     => 'csp-endpoint',
 					'max-age'   => 10886400,
-					'endpoints' =>
-					[
+					'endpoints' => [
 						['url' => 'https://example.com/csp-reports'],
 					],
 				],

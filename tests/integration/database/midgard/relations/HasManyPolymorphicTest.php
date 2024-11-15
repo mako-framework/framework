@@ -182,7 +182,7 @@ class HasManyPolymorphicTest extends ORMTestCase
 	{
 		$article = HasManyPolymorphicArticle::get(1);
 
-		$comment = new HasManyPolymorphicComment();
+		$comment = new HasManyPolymorphicComment;
 
 		$comment->created_at = '2014-04-30 15:02:10';
 

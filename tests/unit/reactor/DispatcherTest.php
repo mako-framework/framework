@@ -22,7 +22,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testDispatch(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$command = Mockery::mock(CommandInterface::class);
@@ -43,7 +43,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testDispatchWithExitCode(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$command = Mockery::mock(CommandInterface::class);
@@ -64,7 +64,7 @@ class DispatcherTest extends TestCase
 	 */
 	public function testDispatchWithNonIntExitCode(): void
 	{
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$command = Mockery::mock(CommandInterface::class);

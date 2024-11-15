@@ -24,7 +24,7 @@ use function mako\syringe\intersection;
 class Foo
 {
 	public function __construct(
-		public \StdClass $stdClass
+		public stdClass $stdClass
 	) {
 	}
 }

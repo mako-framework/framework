@@ -161,7 +161,7 @@ class HasOneTest extends ORMTestCase
 	 */
 	public function testCreateRelated(): void
 	{
-		$user = new HasOneUser();
+		$user = new HasOneUser;
 
 		$user->created_at = '2014-04-30 14:12:43';
 
@@ -171,7 +171,7 @@ class HasOneTest extends ORMTestCase
 
 		$user->save();
 
-		$profile = new HasOneProfile();
+		$profile = new HasOneProfile;
 
 		$profile->interests = 'gaming';
 

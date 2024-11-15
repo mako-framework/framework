@@ -62,7 +62,7 @@ class InputTest extends TestCase
 			}
 		};
 
-		/** @var \mako\validator\Validator|\Mockery\MockInterface $validator */
+		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('addRule')->never();
@@ -85,7 +85,7 @@ class InputTest extends TestCase
 		$this->assertNull($input->getErrorMessage());
 
 		$input = new class extends Input {
-			protected null|string $errorMessage = 'Invalid input.';
+			protected ?string $errorMessage = 'Invalid input.';
 
 			public function getInput(): array
 			{

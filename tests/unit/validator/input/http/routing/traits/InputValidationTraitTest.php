@@ -23,10 +23,10 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedInputWithArray(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $parameters */
+		/** @var Mockery\MockInterface|Parameters $parameters */
 		$parameters = Mockery::mock(Parameters::class);
 
 		$request->shouldReceive('getData')->once()->andReturn($parameters);
@@ -59,7 +59,7 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedInputWithString(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->never();
@@ -90,10 +90,10 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedFilesWithArray(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\request\Files|\Mockery\MockInterface $files */
+		/** @var Files|Mockery\MockInterface $files */
 		$files = Mockery::mock(Files::class);
 
 		(function () use ($files): void {
@@ -128,7 +128,7 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedFilesWithString(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->never();

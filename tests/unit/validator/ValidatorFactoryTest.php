@@ -24,7 +24,7 @@ class ValidatorFactoryTest extends TestCase
 	protected function attributeSpy(Validator $validator, string $attribute): array
 	{
 		return (function () use ($attribute) {
-			return $this->$attribute;
+			return $this->{$attribute};
 		})->bindTo($validator, Validator::class)();
 	}
 
@@ -33,10 +33,10 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	public function testCreate(): void
 	{
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$factory = new ValidatorFactory($i18n, $container);
@@ -59,10 +59,10 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	public function testCreateWithoutRules(): void
 	{
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$factory = new ValidatorFactory($i18n, $container);
@@ -83,10 +83,10 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	public function testExtend(): void
 	{
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var \mako\syringe\Container|\Mockery\MockInterface $container */
+		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$factory = new ValidatorFactory($i18n, $container);

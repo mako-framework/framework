@@ -18,7 +18,7 @@ use stdClass;
 class FileTest extends TestCase
 {
 	/**
-	 * @return \mako\file\FileSystem|\Mockery\MockInterface
+	 * @return FileSystem|Mockery\MockInterface
 	 */
 	public function getFileSystem()
 	{
@@ -26,7 +26,7 @@ class FileTest extends TestCase
 	}
 
 	/**
-	 * @return \Mockery\MockInterface|\stdClass
+	 * @return Mockery\MockInterface|stdClass
 	 */
 	public function getSplFileObject()
 	{

@@ -20,7 +20,7 @@ use PHPUnit\Framework\Attributes\Group;
 class OutputTest extends TestCase
 {
 	/**
-	 * @return \mako\cli\output\writer\WriterInterface|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|WriterInterface
 	 */
 	public function getWriter()
 	{
@@ -28,7 +28,7 @@ class OutputTest extends TestCase
 	}
 
 	/**
-	 * @return \mako\cli\output\formatter\FormatterInterface|\Mockery\MockInterface
+	 * @return FormatterInterface|Mockery\MockInterface
 	 */
 	public function getFormatter()
 	{
@@ -171,12 +171,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('clearScreen')->once();
 
-		/** @var Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -194,12 +194,12 @@ class OutputTest extends TestCase
  		$std = $this->getWriter();
  		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('clearScreen')->never();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -217,12 +217,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('clearLine')->once();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -240,12 +240,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('clearLine')->never();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -263,12 +263,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('clearLines')->once()->with(2);
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -286,12 +286,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('clearLines')->never();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -309,12 +309,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('hide')->once();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -332,12 +332,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('hide')->never();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -355,12 +355,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('show')->once();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -378,12 +378,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('show')->never();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -401,12 +401,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('restore')->once();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -424,12 +424,12 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		/** @var Cursor|\Mockery\MockInterface $cursor */
+		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('restore')->never();
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
@@ -543,7 +543,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('isDirect')->once()->andReturn(true);
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
@@ -570,7 +570,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with('formatted');
 
-		/** @var \mako\cli\Environment|\Mockery\MockInterface $env */
+		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);

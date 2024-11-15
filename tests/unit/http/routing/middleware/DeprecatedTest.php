@@ -45,13 +45,13 @@ class DeprecatedTest extends TestCase
 	{
 		$middleware = new Deprecated('2021-02-01');
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		(function () use ($headers): void {
@@ -71,13 +71,13 @@ class DeprecatedTest extends TestCase
 	{
 		$middleware = new Deprecated(null, '2021-02-01');
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		(function () use ($headers): void {
@@ -96,13 +96,13 @@ class DeprecatedTest extends TestCase
 	{
 		$middleware = new Deprecated('2020-01-01', '2021-02-01');
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $headers */
+		/** @var Headers|Mockery\MockInterface $headers */
 		$headers = Mockery::mock(Headers::class);
 
 		(function () use ($headers): void {

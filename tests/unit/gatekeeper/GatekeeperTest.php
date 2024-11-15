@@ -22,7 +22,7 @@ class GatekeeperTest extends TestCase
 	public function testConstructorWithFactory(): void
 	{
 		$factory = function () {
-			/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+			/** @var AdapterInterface|Mockery\MockInterface $adapter */
 			$adapter = Mockery::mock(AdapterInterface::class);
 
 			$adapter->shouldReceive('hello')->once();
@@ -40,7 +40,7 @@ class GatekeeperTest extends TestCase
 	 */
 	public function testConstructorWithInstance(): void
 	{
-		/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+		/** @var AdapterInterface|Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
@@ -57,7 +57,7 @@ class GatekeeperTest extends TestCase
 	 */
 	public function testExtendWithFactory(): void
 	{
-		/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+		/** @var AdapterInterface|Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
@@ -65,7 +65,7 @@ class GatekeeperTest extends TestCase
 		$gatekeeper = new Gatekeeper($adapter);
 
 		$factory = function () {
-			/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+			/** @var AdapterInterface|Mockery\MockInterface $adapter */
 			$adapter = Mockery::mock(AdapterInterface::class);
 
 			$adapter->shouldReceive('getName')->once()->andReturn('barfoo');
@@ -83,14 +83,14 @@ class GatekeeperTest extends TestCase
 	 */
 	public function testExtendWithInstance(): void
 	{
-		/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+		/** @var AdapterInterface|Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
 		$gatekeeper = new Gatekeeper($adapter);
 
-		/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+		/** @var AdapterInterface|Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->twice()->andReturn('barfoo');
@@ -105,14 +105,14 @@ class GatekeeperTest extends TestCase
 	 */
 	public function testExtendWithInstanceAndNewDefault(): void
 	{
-		/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+		/** @var AdapterInterface|Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->once()->andReturn('foobar');
 
 		$gatekeeper = new Gatekeeper($adapter);
 
-		/** @var \mako\gatekeeper\adapters\AdapterInterface|\Mockery\MockInterface $adapter */
+		/** @var AdapterInterface|Mockery\MockInterface $adapter */
 		$adapter = Mockery::mock(AdapterInterface::class);
 
 		$adapter->shouldReceive('getName')->twice()->andReturn('barfoo');

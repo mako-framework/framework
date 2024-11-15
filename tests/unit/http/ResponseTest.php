@@ -23,7 +23,7 @@ use ValueError;
 class ResponseTest extends TestCase
 {
 	/**
-	 * @return \mako\http\Request|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Request
 	 */
 	public function getRequest()
 	{

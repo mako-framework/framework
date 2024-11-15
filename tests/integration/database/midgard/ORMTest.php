@@ -286,7 +286,7 @@ class ORMTest extends ORMTestCase
 	{
 		$dateTime = new DateTime;
 
-		$user = new TestUser();
+		$user = new TestUser;
 
 		$user->username = 'bax';
 

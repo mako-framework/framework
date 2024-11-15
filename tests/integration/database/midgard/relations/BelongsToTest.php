@@ -178,6 +178,6 @@ class BelongsToTest extends ORMTestCase
 
 		$this->expectExceptionMessage('Unable to fetch related records for non-persisted models.');
 
-		(new BelongsToProfile())->user;
+		(new BelongsToProfile)->user;
 	}
 }

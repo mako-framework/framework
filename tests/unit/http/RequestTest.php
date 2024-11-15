@@ -688,7 +688,7 @@ class RequestTest extends TestCase
 	 */
 	public function testSignedCookie(): void
 	{
-		/** @var \mako\security\Signer|\Mockery\MockInterface $signer */
+		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->withArgs(['bar'])->andReturn('bar');
@@ -717,7 +717,7 @@ class RequestTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$request = new Request();
+		$request = new Request;
 
 		$request->getCookies()->getSigned('foo');
 	}
@@ -923,9 +923,9 @@ class RequestTest extends TestCase
 	 */
 	public function testSetRoute(): void
 	{
-		$request = new Request();
+		$request = new Request;
 
-		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
+		/** @var Mockery\MockInterface|Route $route */
 		$route = Mockery::mock(Route::class);
 
 		$request->setRoute($route);
@@ -942,11 +942,11 @@ class RequestTest extends TestCase
 	 */
 	public function testGetRoute(): void
 	{
-		$request = new Request();
+		$request = new Request;
 
 		$this->assertNull($request->getRoute());
 
-		/** @var \mako\http\routing\Route|\Mockery\MockInterface $route */
+		/** @var Mockery\MockInterface|Route $route */
 		$route = Mockery::mock(Route::class);
 
 		$request->setRoute($route);
@@ -959,7 +959,7 @@ class RequestTest extends TestCase
 	 */
 	public function testSetAndGetAttribute(): void
 	{
-		$request = new Request();
+		$request = new Request;
 
 		$this->assertNull($request->getAttribute('foo'));
 
@@ -979,10 +979,8 @@ class RequestTest extends TestCase
 	{
 		$request =
 		[
-			'files' =>
-			[
-				'upload' =>
-				[
+			'files' => [
+				'upload' => [
 					'name'     => 'foo',
 					'tmp_name' => '/tmp/qwerty',
 					'type'     => 'foo/bar',
@@ -1030,10 +1028,8 @@ class RequestTest extends TestCase
 	{
 		$request =
 		[
-			'files' =>
-			[
-				'upload' =>
-				[
+			'files' => [
+				'upload' => [
 					'name'     => ['foo', 'bar'],
 					'tmp_name' => ['/tmp/qwerty', '/tmp/azerty'],
 					'type'     => ['foo/bar', 'foo/bar'],

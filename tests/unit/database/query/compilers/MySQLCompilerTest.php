@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class MySQLCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\MySQL|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|MySQL
 	 */
 	protected function getConnection()
 	{
-		/** @var \mako\database\connections\MySQL|\Mockery\MockInterface $connection */
+		/** @var Mockery\MockInterface|MySQL $connection */
 		$connection = Mockery::mock(MySQL::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

@@ -107,7 +107,7 @@ class CamelCasedORMTest extends TestCase
 	 */
 	public function testSetAndGetRawColumnValues(): void
 	{
-		$model = new CamelCasedORM();
+		$model = new CamelCasedORM;
 
 		$model->setRawColumnValue('jsonColumn', [1, 2, 3]);
 
@@ -123,7 +123,7 @@ class CamelCasedORMTest extends TestCase
 
 		//
 
-		$model = new CamelCasedORM();
+		$model = new CamelCasedORM;
 
 		$model->jsonColumn = [1, 2, 3];
 

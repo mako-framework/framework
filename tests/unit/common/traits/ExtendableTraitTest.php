@@ -57,7 +57,7 @@ class ExtendableTraitTest extends TestCase
 	{
 		$this->expectException(BadMethodCallException::class);
 
-		$collection = new Extended();
+		$collection = new Extended;
 
 		$collection->nope();
 	}

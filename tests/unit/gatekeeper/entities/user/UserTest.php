@@ -184,13 +184,13 @@ class UserTest extends TestCase
 	{
 		$user = new User([], false, true, true);
 
-		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|\Mockery\MockInterface $group1 */
+		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|Mockery\MockInterface $group1 */
 		$group1 = Mockery::mock(Group::class);
 
 		$group1->shouldReceive('getId')->andReturn(1);
 		$group1->shouldReceive('getName')->andReturn('foo');
 
-		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|\Mockery\MockInterface $group2 */
+		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|Mockery\MockInterface $group2 */
 		$group2 = Mockery::mock(Group::class);
 
 		$group2->shouldReceive('getId')->andReturn(2);

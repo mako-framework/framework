@@ -26,7 +26,8 @@ class AuthorizationTraitTest extends TestCase
 		$class = new class {
 			use AuthorizationTrait;
 
-			public $gatekeeper, $authorizer;
+			public $gatekeeper;
+			public $authorizer;
 
 			public function test(): void
 			{
@@ -53,7 +54,8 @@ class AuthorizationTraitTest extends TestCase
 		$class = new class {
 			use AuthorizationTrait;
 
-			public $gatekeeper, $authorizer;
+			public $gatekeeper;
+			public $authorizer;
 
 			public function test(): void
 			{
@@ -82,7 +84,8 @@ class AuthorizationTraitTest extends TestCase
 		$class = new class {
 			use AuthorizationTrait;
 
-			public $gatekeeper, $authorizer;
+			public $gatekeeper;
+			public $authorizer;
 
 			public function test(): void
 			{

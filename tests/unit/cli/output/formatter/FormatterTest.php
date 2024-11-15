@@ -20,7 +20,7 @@ class FormatterTest extends TestCase
 	 */
 	public function testBasicFormatter(): void
 	{
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$this->assertSame("\033[34mfoo\033[0m", $formatter->format('<blue>foo</blue>'));
 
@@ -32,7 +32,7 @@ class FormatterTest extends TestCase
 	 */
 	public function testTagEscaping(): void
 	{
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$this->assertSame('<blue>foo</blue>', $formatter->format('\<blue>foo\</blue>'));
 	}
@@ -42,7 +42,7 @@ class FormatterTest extends TestCase
 	 */
 	public function testCustomStyle(): void
 	{
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$formatter->addStyle('my_style', ['black', 'bg_green']);
 
@@ -54,7 +54,7 @@ class FormatterTest extends TestCase
 	 */
 	public function testEscape(): void
 	{
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$this->assertSame('\<blue>foo\</blue>', $formatter->escape('<blue>foo</blue>'));
 	}
@@ -64,7 +64,7 @@ class FormatterTest extends TestCase
 	 */
 	public function testStripTags(): void
 	{
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$this->assertSame('foo', $formatter->stripTags('<blue>foo</blue>'));
 
@@ -76,7 +76,7 @@ class FormatterTest extends TestCase
 	 */
 	public function testStripSGR(): void
 	{
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$this->assertSame('foo', $formatter->stripSGR($formatter->format('<blue>foo</blue>')));
 	}
@@ -90,7 +90,7 @@ class FormatterTest extends TestCase
 
 		$this->expectExceptionMessage('Undefined formatting tag [ fail ] detected.');
 
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$formatter->format('<fail>hello</fail>');
 	}
@@ -104,7 +104,7 @@ class FormatterTest extends TestCase
 
 		$this->expectExceptionMessage('Detected incorrectly nested formatting tag.');
 
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$formatter->format('<blue>he<green>llo</blue></green>');
 	}
@@ -118,7 +118,7 @@ class FormatterTest extends TestCase
 
 		$this->expectExceptionMessage('Detected missing formatting close tag');
 
-		$formatter = new Formatter();
+		$formatter = new Formatter;
 
 		$formatter->format('<blue>hello');
 	}

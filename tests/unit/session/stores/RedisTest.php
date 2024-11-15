@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Group;
 class RedisTest extends TestCase
 {
 	/**
-	 * @return \mako\redis\Redis|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|RedisClient
 	 */
 	public function getRedisClient()
 	{

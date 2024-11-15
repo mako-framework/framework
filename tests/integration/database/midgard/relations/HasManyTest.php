@@ -174,7 +174,7 @@ class HasManyTest extends ORMTestCase
 	{
 		$user = HasManyUser::get(1);
 
-		$article = new HasManyArticle();
+		$article = new HasManyArticle;
 
 		$article->created_at = '2014-04-30 15:02:10';
 

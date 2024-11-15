@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class HumanizerTest extends TestCase
 {
 	/**
-	 * @return \mako\i18n\I18n|\Mockery\MockInterface
+	 * @return I18n|Mockery\MockInterface
 	 */
 	public function getI18n()
 	{
-		/** @var \mako\i18n\I18n|\Mockery\MockInterface $i18n */
+		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('get')->andReturnUsing(function ($key, $params = []) {

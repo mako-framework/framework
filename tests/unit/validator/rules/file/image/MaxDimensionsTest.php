@@ -31,10 +31,10 @@ class MaxDimensionsTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
+		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		/** @var \mako\validator\rules\file\image\MaxDimensions|\Mockery\MockInterface $rule */
+		/** @var MaxDimensions|Mockery\MockInterface $rule */
 		$rule = Mockery::mock(MaxDimensions::class, [800, 600]);
 
 		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();
@@ -49,10 +49,10 @@ class MaxDimensionsTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
+		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
-		/** @var \mako\validator\rules\file\image\MaxDimensions|\Mockery\MockInterface $rule */
+		/** @var MaxDimensions|Mockery\MockInterface $rule */
 		$rule = Mockery::mock(MaxDimensions::class, [800, 600]);
 
 		$rule = $rule->shouldAllowMockingProtectedMethods()->makePartial();

@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class SQLiteCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\SQLite|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|SQLite
 	 */
 	protected function getConnection()
 	{
-		/** @var \mako\database\connections\SQLite|\Mockery\MockInterface $connection */
+		/** @var Mockery\MockInterface|SQLite $connection */
 		$connection = Mockery::mock(SQLite::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

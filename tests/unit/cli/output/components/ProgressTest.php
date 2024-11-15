@@ -23,7 +23,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressWithZeroItems(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('restoreCursor'); // Destructor
@@ -40,7 +40,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testBasicProgress(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -79,7 +79,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressWithCustomWidth(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -118,7 +118,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressWithCustomTemplates(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -157,7 +157,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressWithDescription(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -196,7 +196,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressWith100ItemsAndDefaultMinTimeBetweenRedraw(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -226,7 +226,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressTimeBetweenRedraw(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -252,7 +252,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testProgressWith100ItemsAndCustomMinTimeBetweenRedraw(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -293,7 +293,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testRemoveIncomplete(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -315,7 +315,7 @@ class ProgressTest extends TestCase
 	 */
 	public function testRemoveComplete(): void
 	{
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -360,7 +360,7 @@ class ProgressTest extends TestCase
 	{
 		$this->expectException(CliException::class);
 
-		/** @var \mako\cli\output\Output|\Mockery\MockInterface $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();

@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class PostgresCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\Postgres|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Postgres
 	 */
 	protected function getConnection()
 	{
-		/** @var \mako\database\connections\Postgres|\Mockery\MockInterface $connection */
+		/** @var Mockery\MockInterface|Postgres $connection */
 		$connection = Mockery::mock(Postgres::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

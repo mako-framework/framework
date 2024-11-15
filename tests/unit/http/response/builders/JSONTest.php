@@ -24,10 +24,10 @@ class JSONTest extends TestCase
 	 */
 	public function testBuild(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('application/json');
@@ -50,10 +50,10 @@ class JSONTest extends TestCase
 	 */
 	public function testBuildWithStatus(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('application/json');
@@ -78,10 +78,10 @@ class JSONTest extends TestCase
 	 */
 	public function testBuildWithCharset(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('application/json');
@@ -106,10 +106,10 @@ class JSONTest extends TestCase
 	 */
 	public function testBuildWithStatusAndCharsetFromConstructor(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('application/json');
@@ -136,19 +136,19 @@ class JSONTest extends TestCase
 	 */
 	public function testBuildWithJsonpWithCallback(): void
 	{
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('get')->once()->with('callback')->andReturn('jsonp');
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($query): void {
 			$this->query = $query;
 		})->bindTo($request, Request::class)();
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('text/javascript');
@@ -169,19 +169,19 @@ class JSONTest extends TestCase
 	 */
 	public function testBuildWithJsonpWithInvalidCallback(): void
 	{
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('get')->once()->with('callback')->andReturn('foo bar');
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($query): void {
 			$this->query = $query;
 		})->bindTo($request, Request::class)();
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('text/javascript');
@@ -202,19 +202,19 @@ class JSONTest extends TestCase
 	 */
 	public function testBuildWithJsonpWithoutCallback(): void
 	{
-		/** @var \mako\http\request\Parameters|\Mockery\MockInterface $query */
+		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('get')->once()->with('callback')->andReturn(null);
 
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($query): void {
 			$this->query = $query;
 		})->bindTo($request, Request::class)();
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setType')->once()->with('application/json');

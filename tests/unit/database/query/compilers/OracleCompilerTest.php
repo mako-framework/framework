@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class OracleCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\Oracle|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Oracle
 	 */
 	protected function getConnection()
 	{
-		/** @var \mako\database\connections\Oracle|\Mockery\MockInterface */
+		/** @var Mockery\MockInterface|Oracle */
 		$connection = Mockery::mock(Oracle::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

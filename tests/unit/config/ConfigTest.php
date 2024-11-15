@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Group;
 class ConfigTest extends TestCase
 {
 	/**
-	 * @return \mako\config\loaders\LoaderInterface|\Mockery\MockInterface
+	 * @return LoaderInterface|Mockery\MockInterface
 	 */
 	public function getLoader()
 	{

@@ -52,7 +52,7 @@ class TestUser2 extends TestUser1
 
 	public function fake_relation()
 	{
-		return new FakeRelation();
+		return new FakeRelation;
 	}
 }
 
@@ -114,7 +114,7 @@ class ORMTest extends TestCase
 	 */
 	public function testGetTableName(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$this->assertEquals('users', $user->getTable());
 	}
@@ -124,7 +124,7 @@ class ORMTest extends TestCase
 	 */
 	public function testGetPrimaryKey(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$this->assertEquals('id', $user->getPrimaryKey());
 	}
@@ -144,11 +144,11 @@ class ORMTest extends TestCase
 	 */
 	public function testGetForeignKey(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$this->assertEquals('test_user1_id', $user->getForeignKey());
 
-		$user = new TestUser3();
+		$user = new TestUser3;
 
 		$this->assertEquals('testuser3', $user->getForeignKey());
 	}
@@ -158,7 +158,7 @@ class ORMTest extends TestCase
 	 */
 	public function testGetClass(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$this->assertEquals('\\' . TestUser1::class, $user->getClass());
 	}
@@ -180,7 +180,7 @@ class ORMTest extends TestCase
 	 */
 	public function testSetAndGetIncludes(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$this->assertEquals(['profile'], $user->getIncludes());
 
@@ -194,7 +194,7 @@ class ORMTest extends TestCase
 	 */
 	public function testSetAndGetRelated(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$this->assertEmpty($user->getRelated());
 
@@ -220,7 +220,7 @@ class ORMTest extends TestCase
 	 */
 	public function testSetandGetColumn(): void
 	{
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$user->array = [1, 2, 3];
 
@@ -234,7 +234,7 @@ class ORMTest extends TestCase
 
 		//
 
-		$user = new TestUser1();
+		$user = new TestUser1;
 
 		$user->setColumnValue('array', [1, 2, 3]);
 
@@ -248,7 +248,7 @@ class ORMTest extends TestCase
 
 		//
 
-		$user = new TestUser2();
+		$user = new TestUser2;
 
 		$user->array = [1, 2, 3];
 
@@ -262,7 +262,7 @@ class ORMTest extends TestCase
 
 		//
 
-		$user = new TestUser2();
+		$user = new TestUser2;
 
 		$user->setColumnValue('array', [1, 2, 3]);
 
@@ -276,7 +276,7 @@ class ORMTest extends TestCase
 
 		//
 
-		$user = new TestUser2();
+		$user = new TestUser2;
 
 		$user->setRawColumnValue('array', [1, 2, 3]);
 
@@ -284,7 +284,7 @@ class ORMTest extends TestCase
 
 		//
 
-		$user = new TestUser2();
+		$user = new TestUser2;
 
 		$this->assertEquals('fake relation', $user->fake_relation);
 	}
@@ -294,7 +294,7 @@ class ORMTest extends TestCase
 	 */
 	public function testAssign(): void
 	{
-		$user = new TestUser3();
+		$user = new TestUser3;
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1]);
 
@@ -308,7 +308,7 @@ class ORMTest extends TestCase
 
 		//
 
-		$user = new TestUser3();
+		$user = new TestUser3;
 
 		$user->assign(['username' => 'foo', 'email' => 'bar', 'is_admin' => 1, 'id' => 1], false, false);
 
@@ -360,7 +360,7 @@ class ORMTest extends TestCase
 	 */
 	public function testGetColumnWithNullValue(): void
 	{
-		$user = new TestUser4();
+		$user = new TestUser4;
 
 		$this->assertNull($user->optional);
 
@@ -512,7 +512,7 @@ class ORMTest extends TestCase
 
 		//
 
-		/** @var \mako\tests\unit\database\midgard\TestCastingDate|\Mockery\MockInterface $cast */
+		/** @var Mockery\MockInterface|TestCastingDate $cast */
 		$cast = Mockery::mock(TestCastingDate::class);
 
 		$cast->shouldAllowMockingProtectedMethods();
@@ -531,7 +531,7 @@ class ORMTest extends TestCase
 	 */
 	public function testToArray(): void
 	{
-		$user = new TestUser4();
+		$user = new TestUser4;
 
 		$this->assertEquals(['username' => 'foo', 'array' => [1, 2, 3], 'optional' => null], $user->toArray());
 
@@ -547,7 +547,7 @@ class ORMTest extends TestCase
 	 */
 	public function testJsonSerialize(): void
 	{
-		$user = new TestUser4();
+		$user = new TestUser4;
 
 		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', json_encode($user));
 
@@ -561,7 +561,7 @@ class ORMTest extends TestCase
 	 */
 	public function testToJson(): void
 	{
-		$user = new TestUser4();
+		$user = new TestUser4;
 
 		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', $user->toJson());
 
@@ -577,7 +577,7 @@ class ORMTest extends TestCase
 	 */
 	public function testToString(): void
 	{
-		$user = new TestUser4();
+		$user = new TestUser4;
 
 		$this->assertEquals('{"username":"foo","array":[1,2,3],"optional":null}', (string) $user);
 

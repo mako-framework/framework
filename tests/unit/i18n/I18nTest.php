@@ -30,7 +30,7 @@ class I18nTest extends TestCase
 	];
 
 	/**
-	 * @return \mako\i18n\loaders\LoaderInterface|\Mockery\MockInterface
+	 * @return LoaderInterface|Mockery\MockInterface
 	 */
 	public function getLoader()
 	{

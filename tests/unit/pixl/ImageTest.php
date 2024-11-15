@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 class ImageTest extends TestCase
 {
 	/**
-	 * @return \mako\pixl\processors\ProcessorInterface|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|ProcessorInterface
 	 */
 	public function getProcessor()
 	{

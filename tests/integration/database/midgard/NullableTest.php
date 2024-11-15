@@ -22,7 +22,7 @@ class NullableTest extends ORMTestCase
 	/**
 	 * Returns a ORM instance.
 	 *
-	 * @return \mako\database\midgard\ORM
+	 * @return ORM
 	 */
 	protected function getNullable(): ORM
 	{

@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-class WithCountOfUser extends TestOrm
+class WithCountOfUser extends TestORM
 {
 	protected string $tableName = 'users';
 

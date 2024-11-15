@@ -21,7 +21,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testGetItems(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertEquals([], $collection->getItems());
 
@@ -37,7 +37,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testPut(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertInstanceOf(Collection::class, $collection->put('foo', 'bar'));
 		$this->assertInstanceOf(Collection::class, $collection->put(0, 'baz'));
@@ -51,7 +51,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testHas(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertFalse($collection->has('foo'));
 
@@ -75,7 +75,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testGet(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertNull($collection->get('foo'));
 
@@ -103,7 +103,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testRemove(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$collection->put('foo', true);
 
@@ -133,7 +133,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testOffsetExists(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertFalse(isset($collection[0]));
 
@@ -173,7 +173,7 @@ class CollectionTest extends TestCase
 
 		$this->expectExceptionMessage('Undefined offset [ 0 ].');
 
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$collection[0];
 	}
@@ -183,7 +183,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testOffsetSet(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$collection[] = 'barfoo';
 
@@ -215,7 +215,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testCount(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertEquals(0, count($collection));
 
@@ -249,7 +249,7 @@ class CollectionTest extends TestCase
 	 */
 	public function testIsEmpty(): void
 	{
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$this->assertTrue($collection->isEmpty());
 
@@ -409,7 +409,7 @@ class CollectionTest extends TestCase
 	{
 		Collection::addMethod('increaseByOne', function (): void {
 			foreach ($this->items as $key => $value) {
-				$this->items[$key] += 1;
+				++$this->items[$key];
 			}
 		});
 
@@ -427,7 +427,7 @@ class CollectionTest extends TestCase
 	{
 		$this->expectException(BadMethodCallException::class);
 
-		$collection = new Collection();
+		$collection = new Collection;
 
 		$collection->nope();
 	}

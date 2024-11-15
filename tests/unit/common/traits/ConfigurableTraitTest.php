@@ -21,7 +21,7 @@ class Configurable
 
 	public function getConfiguration($name)
 	{
-		return isset($this->configurations[$name]) ? $this->configurations[$name] : null;
+		return $this->configurations[$name] ?? null;
 	}
 }
 

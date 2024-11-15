@@ -50,10 +50,10 @@ class GroupTest extends TestCase
 
 		$this->expectExceptionMessage('You can only add a user to a group that exist in the database.');
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface $user */
+		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
-		$group = new Group();
+		$group = new Group;
 
 		$group->addUser($user);
 	}
@@ -67,7 +67,7 @@ class GroupTest extends TestCase
 
 		$this->expectExceptionMessage('You can only add a user that exist in the database to a group.');
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface $user */
+		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
 		$user->shouldReceive('isPersisted')->once()->andReturn(false);
@@ -86,10 +86,10 @@ class GroupTest extends TestCase
 
 		$this->expectExceptionMessage('You can only remove a user from a group that exist in the database.');
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface $user */
+		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
-		$group = new Group();
+		$group = new Group;
 
 		$group->removeUser($user);
 	}
@@ -103,7 +103,7 @@ class GroupTest extends TestCase
 
 		$this->expectExceptionMessage('You can only remove a user that exist in the database from a group.');
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface $user */
+		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
 		$user->shouldReceive('isPersisted')->once()->andReturn(false);
@@ -122,10 +122,10 @@ class GroupTest extends TestCase
 
 		$this->expectExceptionMessage('You can only check if a user is a member of a group that exist in the database.');
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface $user */
+		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
-		$group = new Group();
+		$group = new Group;
 
 		$group->isMember($user);
 	}
@@ -139,7 +139,7 @@ class GroupTest extends TestCase
 
 		$this->expectExceptionMessage('You can only check if a user that exist in the database is a member of a group.');
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|\Mockery\MockInterface $user */
+		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
 		$user->shouldReceive('isPersisted')->once()->andReturn(false);

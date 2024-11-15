@@ -19,11 +19,11 @@ use PHPUnit\Framework\Attributes\Group;
 class QueryTest extends TestCase
 {
 	/**
-	 * @return \mako\database\query\Query
+	 * @return Query
 	 */
 	public function getQuery()
 	{
-		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

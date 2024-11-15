@@ -21,7 +21,7 @@ class OneTimeTokenTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		/** @var \mako\session\Session|\Mockery\MockInterface $session */
+		/** @var Mockery\MockInterface|Session $session */
 		$session = Mockery::mock(Session::class);
 
 		$rule = new OneTimeToken($session);
@@ -34,7 +34,7 @@ class OneTimeTokenTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		/** @var \mako\session\Session|\Mockery\MockInterface $session */
+		/** @var Mockery\MockInterface|Session $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('validateOneTimeToken')->once()->with('foobar')->andReturnTrue();
@@ -49,7 +49,7 @@ class OneTimeTokenTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		/** @var \mako\session\Session|\Mockery\MockInterface $session */
+		/** @var Mockery\MockInterface|Session $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('validateOneTimeToken')->once()->with('foobar')->andReturnFalse();

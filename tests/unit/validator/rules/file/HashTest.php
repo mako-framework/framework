@@ -33,7 +33,7 @@ class HashTest extends TestCase
 	{
 		$rule = new Hash('hash');
 
-		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
+		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
 		$fileInfo->shouldReceive('validateHash')->once()->with('hash', 'sha256')->andReturn(true);
@@ -48,7 +48,7 @@ class HashTest extends TestCase
 	{
 		$rule = new Hash('hash');
 
-		/** @var \mako\file\FileInfo|\Mockery\MockInterface $fileInfo */
+		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
 		$fileInfo->shouldReceive('validateHash')->once()->with('hash', 'sha256')->andReturn(false);

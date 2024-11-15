@@ -25,15 +25,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSend(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
@@ -58,15 +58,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithConstructorStatus(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
@@ -91,15 +91,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithStatus(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
@@ -126,15 +126,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithStatus301(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
@@ -161,15 +161,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithStatus302(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
@@ -196,15 +196,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithStatus303(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::SEE_OTHER);
@@ -231,15 +231,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithStatus307(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::TEMPORARY_REDIRECT);
@@ -266,15 +266,15 @@ class RedirectTest extends TestCase
 	 */
 	public function testSendWithStatus308(): void
 	{
-		/** @var \mako\http\Request|\Mockery\MockInterface $request */
+		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var \mako\http\response\Headers|\Mockery\MockInterface $responseHeaders */
+		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org');
 
-		/** @var \mako\http\Response|\Mockery\MockInterface $response */
+		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::PERMANENT_REDIRECT);

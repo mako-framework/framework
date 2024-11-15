@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Group;
 class FileTest extends TestCase
 {
 	/**
-	 * @return \mako\file\FileSystem|\Mockery\MockInterface
+	 * @return FileSystem|Mockery\MockInterface
 	 */
 	public function getFileSystem()
 	{

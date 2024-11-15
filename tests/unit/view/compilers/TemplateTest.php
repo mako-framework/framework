@@ -21,11 +21,11 @@ class TemplateTest extends TestCase
 	protected $templateName = 'template';
 
 	/**
-	 * @return \mako\file\FileSystem|\Mockery\MockInterface
+	 * @return FileSystem|Mockery\MockInterface
 	 */
 	public function getFileSystem($template, $compiled)
 	{
-		/** @var \mako\file\FileSystem|\Mockery\MockInterface $fileSystem */
+		/** @var FileSystem|Mockery\MockInterface $fileSystem */
 		$fileSystem = Mockery::mock(FileSystem::class);
 
 		$fileSystem->shouldReceive('get')->with($this->templateName)->once()->andReturn($template);

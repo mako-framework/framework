@@ -87,7 +87,7 @@ class CookiesTest extends TestCase
 	 */
 	public function testAddSigned(): void
 	{
-		/** @var \mako\security\Signer|\Mockery\MockInterface $signer */
+		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('sign')->once()->with('bar')->andReturn('signedbar');
@@ -132,7 +132,7 @@ class CookiesTest extends TestCase
 	 */
 	public function testGetSigned(): void
 	{
-		/** @var \mako\security\Signer|\Mockery\MockInterface $signer */
+		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->once()->with('signedbar')->andReturn('bar');

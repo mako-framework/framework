@@ -22,7 +22,7 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithZeroItems(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -44,7 +44,7 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithItems(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -81,7 +81,7 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithUnevenItems(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -119,7 +119,7 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithCustomWidth(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -156,7 +156,7 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithCustomTemplates(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();
@@ -193,7 +193,7 @@ class ProgressIteratorTest extends TestCase
 	 */
 	public function testProgressWithDescription(): void
 	{
-		/** @var \Mockery\MockInterface|Output $output */
+		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();

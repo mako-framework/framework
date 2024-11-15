@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class FirebirdCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\Connection|\Mockery\MockInterface
+	 * @return \mako\database\connections\Connection|Mockery\MockInterface
 	 */
 	protected function getConnection()
 	{
-		/** @var \mako\database\connections\Firebird|\Mockery\MockInterface $connection */
+		/** @var Firebird|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Firebird::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

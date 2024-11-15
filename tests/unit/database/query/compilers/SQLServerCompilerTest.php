@@ -18,11 +18,11 @@ use PHPUnit\Framework\Attributes\Group;
 class SQLServerCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\SQLServer|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|SQLServer
 	 */
 	protected function getConnection()
 	{
-		/** @var \mako\database\connections\SQLServer|\Mockery\MockInterface $connection */
+		/** @var Mockery\MockInterface|SQLServer $connection */
 		$connection = Mockery::mock(SQLServer::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 class DatabaseTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\Connection|\Mockery\MockInterface
+	 * @return Connection|Mockery\MockInterface
 	 */
 	public function getDatabaseConnection()
 	{
@@ -26,7 +26,7 @@ class DatabaseTest extends TestCase
 	}
 
 	/**
-	 * @return \mako\database\query\Query|\Mockery\MockInterface
+	 * @return Mockery\MockInterface|Query
 	 */
 	public function getQueryBuilder()
 	{

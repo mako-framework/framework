@@ -22,9 +22,9 @@ class CursorTest extends TestCase
 	 */
 	public function testUp(): void
 	{
-		/** @var \Mockery\MockInterface|WriterInterface $writer */
+		/** @var Mockery\MockInterface|WriterInterface $writer */
 		$writer = Mockery::mock(WriterInterface::class);
-		/** @var \Mockery\MockInterface|ReaderInterface $reader */
+		/** @var Mockery\MockInterface|ReaderInterface $reader */
 		$reader = Mockery::mock(ReaderInterface::class);
 
 		$cursor = new Cursor($writer, $reader);
@@ -41,9 +41,9 @@ class CursorTest extends TestCase
 	 */
 	public function testDown(): void
 	{
-		/** @var \Mockery\MockInterface|WriterInterface $writer */
+		/** @var Mockery\MockInterface|WriterInterface $writer */
 		$writer = Mockery::mock(WriterInterface::class);
-		/** @var \Mockery\MockInterface|ReaderInterface $reader */
+		/** @var Mockery\MockInterface|ReaderInterface $reader */
 		$reader = Mockery::mock(ReaderInterface::class);
 
 		$cursor = new Cursor($writer, $reader);
@@ -60,9 +60,9 @@ class CursorTest extends TestCase
 	 */
 	public function testLeft(): void
 	{
-		/** @var \Mockery\MockInterface|WriterInterface $writer */
+		/** @var Mockery\MockInterface|WriterInterface $writer */
 		$writer = Mockery::mock(WriterInterface::class);
-		/** @var \Mockery\MockInterface|ReaderInterface $reader */
+		/** @var Mockery\MockInterface|ReaderInterface $reader */
 		$reader = Mockery::mock(ReaderInterface::class);
 
 		$cursor = new Cursor($writer, $reader);
@@ -79,9 +79,9 @@ class CursorTest extends TestCase
 	 */
 	public function testRight(): void
 	{
-		/** @var \Mockery\MockInterface|WriterInterface $writer */
+		/** @var Mockery\MockInterface|WriterInterface $writer */
 		$writer = Mockery::mock(WriterInterface::class);
-		/** @var \Mockery\MockInterface|ReaderInterface $reader */
+		/** @var Mockery\MockInterface|ReaderInterface $reader */
 		$reader = Mockery::mock(ReaderInterface::class);
 
 		$cursor = new Cursor($writer, $reader);
@@ -98,9 +98,9 @@ class CursorTest extends TestCase
 	 */
 	public function testMoveTo(): void
 	{
-		/** @var \Mockery\MockInterface|WriterInterface $writer */
+		/** @var Mockery\MockInterface|WriterInterface $writer */
 		$writer = Mockery::mock(WriterInterface::class);
-		/** @var \Mockery\MockInterface|ReaderInterface $reader */
+		/** @var Mockery\MockInterface|ReaderInterface $reader */
 		$reader = Mockery::mock(ReaderInterface::class);
 
 		$cursor = new Cursor($writer, $reader);
@@ -115,9 +115,9 @@ class CursorTest extends TestCase
 	 */
 	public function testClearLines(): void
 	{
-		/** @var \Mockery\MockInterface|WriterInterface $writer */
+		/** @var Mockery\MockInterface|WriterInterface $writer */
 		$writer = Mockery::mock(WriterInterface::class);
-		/** @var \Mockery\MockInterface|ReaderInterface $reader */
+		/** @var Mockery\MockInterface|ReaderInterface $reader */
 		$reader = Mockery::mock(ReaderInterface::class);
 
 		$cursor = new Cursor($writer, $reader);

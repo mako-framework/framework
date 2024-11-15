@@ -23,7 +23,7 @@ class UniqueTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		/** @var \mako\database\ConnectionManager|\Mockery\MockInterface $database */
+		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$rule = new Unique('table', 'column', null, null, $database);
@@ -36,7 +36,7 @@ class UniqueTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		/** @var \mako\database\query\Query|\Mockery\MockInterface $builder */
+		/** @var Mockery\MockInterface|Query $builder */
 		$builder = Mockery::mock(Query::class);
 
 		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
@@ -45,12 +45,12 @@ class UniqueTest extends TestCase
 
 		$builder->shouldReceive('count')->once()->andReturn(0);
 
-		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
-		/** @var \mako\database\ConnectionManager|\Mockery\MockInterface $database */
+		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
@@ -65,7 +65,7 @@ class UniqueTest extends TestCase
 	 */
 	public function testWithValidValueAndAllowedValue(): void
 	{
-		/** @var \mako\database\query\Query|\Mockery\MockInterface $builder */
+		/** @var Mockery\MockInterface|Query $builder */
 		$builder = Mockery::mock(Query::class);
 
 		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
@@ -76,12 +76,12 @@ class UniqueTest extends TestCase
 
 		$builder->shouldReceive('count')->once()->andReturn(0);
 
-		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
-		/** @var \mako\database\ConnectionManager|\Mockery\MockInterface $database */
+		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
@@ -96,7 +96,7 @@ class UniqueTest extends TestCase
 	 */
 	public function testWithSameValueAsTheAllowedValue(): void
 	{
-		/** @var \mako\database\ConnectionManager|\Mockery\MockInterface $database */
+		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$rule = new Unique('users', 'email', 'foo@example.org', 'foobar', $database);
@@ -109,7 +109,7 @@ class UniqueTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		/** @var \mako\database\query\Query|\Mockery\MockInterface $builder */
+		/** @var Mockery\MockInterface|Query $builder */
 		$builder = Mockery::mock(Query::class);
 
 		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
@@ -118,12 +118,12 @@ class UniqueTest extends TestCase
 
 		$builder->shouldReceive('count')->once()->andReturn(1);
 
-		/** @var \mako\database\connections\Connection|\Mockery\MockInterface $connection */
+		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
-		/** @var \mako\database\ConnectionManager|\Mockery\MockInterface $database */
+		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);

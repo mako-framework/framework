@@ -21,7 +21,7 @@ class RoutesTest extends TestCase
 	 */
 	public function testRouteRegistration1(): void
 	{
-		$routes = new Routes();
+		$routes = new Routes;
 
 		$routes->get('/foo', fn () => 'Hello, world!');
 
@@ -37,7 +37,7 @@ class RoutesTest extends TestCase
 	 */
 	public function testRouteRegistration2(): void
 	{
-		$routes = new Routes();
+		$routes = new Routes;
 
 		$routes->get('/foo', fn () => 'Hello, world!');
 
@@ -75,7 +75,7 @@ class RoutesTest extends TestCase
 	 */
 	public function testNamedRoute(): void
 	{
-		$routes = new Routes();
+		$routes = new Routes;
 
 		$routes->get('/foo', fn () => 'Hello, world!', 'foo');
 
@@ -93,7 +93,7 @@ class RoutesTest extends TestCase
 	{
 		$this->expectException(RoutingException::class);
 
-		$routes = new Routes();
+		$routes = new Routes;
 
 		$routes->getNamedRoute('foo');
 	}
@@ -103,7 +103,7 @@ class RoutesTest extends TestCase
 	 */
 	public function testGroup(): void
 	{
-		$routes = new Routes();
+		$routes = new Routes;
 
 		$routes->group(['prefix' => 'baz'], function ($routes): void {
 			$routes->get('/foo', fn () => 'Hello, world!');
@@ -123,7 +123,7 @@ class RoutesTest extends TestCase
 	 */
 	public function testNestedGroup(): void
 	{
-		$routes = new Routes();
+		$routes = new Routes;
 
 		$routes->group(['prefix' => 'baz'], function ($routes): void {
 			$routes->group(['prefix' => 'bax'], function ($routes): void {
