@@ -142,8 +142,14 @@ class Connection
 	 */
 	protected function appendReadErrorReason($message): string
 	{
-		if (stream_get_meta_data($this->connection)['timed_out']) {
+		$metadata = stream_get_meta_data($this->connection);
+
+		if ($metadata['timed_out']) {
 			return "{$message} The stream timed out while waiting for data.";
+		}
+
+		if ($metadata['blocked']) {
+			return "{$message} The stream is in blocking I/O mode.";
 		}
 
 		return $message;
