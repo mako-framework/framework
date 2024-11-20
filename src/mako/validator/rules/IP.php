@@ -11,7 +11,6 @@ use mako\validator\exceptions\ValidatorException;
 
 use function filter_var;
 use function sprintf;
-use function vsprintf;
 
 /**
  * IP rule.
@@ -40,7 +39,7 @@ class IP extends Rule implements RuleInterface
 			'v4'    => FILTER_FLAG_IPV4,
 			'v6'    => FILTER_FLAG_IPV6,
 			null    => 0,
-			default => throw new ValidatorException(vsprintf('Invalid IP version [ %s ]. The accepted versions are v4 and v6.', [$this->version])),
+			default => throw new ValidatorException(sprintf('Invalid IP version [ %s ]. The accepted versions are v4 and v6.', $this->version)),
 		};
 	}
 

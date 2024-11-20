@@ -10,7 +10,7 @@ namespace mako\redis;
 use mako\common\ConnectionManager as BaseConnectionManager;
 use mako\redis\exceptions\RedisException;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Redis connection manager.
@@ -27,7 +27,7 @@ class ConnectionManager extends BaseConnectionManager
 	protected function connect(string $connection): Redis
 	{
 		if (!isset($this->configurations[$connection])) {
-			throw new RedisException(vsprintf('[ %s ] has not been defined in the redis configuration.', [$connection]));
+			throw new RedisException(sprintf('[ %s ] has not been defined in the redis configuration.', $connection));
 		}
 
 		$config = $this->configurations[$connection];

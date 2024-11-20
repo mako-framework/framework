@@ -13,7 +13,7 @@ use mako\common\traits\ConfigurableTrait;
 use mako\syringe\Container;
 
 use function method_exists;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Adapter manager.
@@ -68,7 +68,7 @@ abstract class AdapterManager
 			return $this->container->get($adapter, $configuration);
 		}
 
-		throw new AdapterManagerException(vsprintf('A factory method for the [ %s ] adapter has not been defined.', [$adapterName]));
+		throw new AdapterManagerException(sprintf('A factory method for the [ %s ] adapter has not been defined.', $adapterName));
 	}
 
 	/**

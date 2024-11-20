@@ -19,7 +19,6 @@ use function str_replace;
 use function strlen;
 use function strpos;
 use function substr;
-use function vsprintf;
 
 /**
  * Formatter.
@@ -141,7 +140,7 @@ class Formatter implements FormatterInterface
 			return $codes;
 		}
 
-		throw new FormatterException(vsprintf('Undefined formatting tag [ %s ] detected.', [$tag]));
+		throw new FormatterException(sprintf('Undefined formatting tag [ %s ] detected.', $tag));
 	}
 
 	/**

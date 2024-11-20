@@ -10,7 +10,7 @@ namespace mako\redis;
 use mako\redis\exceptions\RedisException;
 use Stringable;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Redis pub/sub message.
@@ -74,7 +74,7 @@ class Message implements Stringable
 				$this->type    = $response[0];
 				break;
 			default:
-				throw new RedisException(vsprintf('Unable to parse message of type [ %s ].', [$response[0]]));
+				throw new RedisException(sprintf('Unable to parse message of type [ %s ].', $response[0]));
 		}
 	}
 

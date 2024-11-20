@@ -16,8 +16,8 @@ use mako\reactor\Command;
 use Throwable;
 
 use function gmdate;
+use function sprintf;
 use function str_replace;
-use function vsprintf;
 
 /**
  * Command that creates a migration.
@@ -72,6 +72,6 @@ class Create extends Command
 			return static::STATUS_ERROR;
 		}
 
-		$this->write(vsprintf('Migration created at [ %s ].', [$path]));
+		$this->write(sprintf('Migration created at [ %s ].', $path));
 	}
 }

@@ -26,10 +26,10 @@ use function count;
 use function explode;
 use function implode;
 use function in_array;
+use function sprintf;
 use function strlen;
 use function substr;
 use function trim;
-use function vsprintf;
 
 /**
  * Redis client.
@@ -412,7 +412,7 @@ class Redis
 
 		return match ($type) {
 			'MOVED', 'ASK' => $this->getClusterClient($error)->sendCommandAndGetResponse($this->lastCommand),
-			default        => throw new RedisException(vsprintf('%s.', [$response])),
+			default        => throw new RedisException(sprintf('%s.', $response)),
 		};
 	}
 
@@ -425,7 +425,7 @@ class Redis
 
 		$response = substr($this->connection->read($length + static::CRLF_LENGTH), 0, -static::CRLF_LENGTH);
 
-		throw new RedisException(vsprintf('%s.', [$response]));
+		throw new RedisException(sprintf('%s.', $response));
 	}
 
 	/**
@@ -452,7 +452,7 @@ class Redis
 			'!'     => $this->handleBulkErrorResponse($response),
 			'_'     => null,
 			'.'     => static::END,
-			default => throw new RedisException(vsprintf('Unable to handle server response [ %s ].', [$response])),
+			default => throw new RedisException(sprintf('Unable to handle server response [ %s ].', $response)),
 		};
 	}
 

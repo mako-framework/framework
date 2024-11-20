@@ -25,7 +25,6 @@ use function str_replace;
 use function str_split;
 use function strlen;
 use function substr;
-use function vsprintf;
 
 /**
  * Class that generates and validates UUIDs.
@@ -101,7 +100,19 @@ class UUID
 			throw new UUIDException('The input must be exactly 16 bytes.');
 		}
 
-		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
+		$chunks = str_split(bin2hex($bytes), 4);
+
+		return sprintf(
+			'%s%s-%s-%s-%s-%s%s%s',
+			$chunks[0],
+			$chunks[1],
+			$chunks[2],
+			$chunks[3],
+			$chunks[4],
+			$chunks[5],
+			$chunks[6],
+			$chunks[7]
+		);
 	}
 
 	/**
@@ -132,7 +143,19 @@ class UUID
 
 		$random[8] = chr(ord($random[8]) & 0x3F | 0x80);
 
-		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
+		$chunks = str_split(bin2hex($random), 4);
+
+		return sprintf(
+			'%s%s-%s-%s-%s-%s%s%s',
+			$chunks[0],
+			$chunks[1],
+			$chunks[2],
+			$chunks[3],
+			$chunks[4],
+			$chunks[5],
+			$chunks[6],
+			$chunks[7]
+		);
 	}
 
 	/**
@@ -148,7 +171,19 @@ class UUID
 
 		$random[8] = chr(ord($random[8]) & 0x3F | 0x80);
 
-		return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($random), 4));
+		$chunks = str_split(bin2hex($random), 4);
+
+		return sprintf(
+			'%s%s-%s-%s-%s-%s%s%s',
+			$chunks[0],
+			$chunks[1],
+			$chunks[2],
+			$chunks[3],
+			$chunks[4],
+			$chunks[5],
+			$chunks[6],
+			$chunks[7]
+		);
 	}
 
 	/**

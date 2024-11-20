@@ -13,7 +13,7 @@ use mako\syringe\Container;
 
 use function array_push;
 use function array_unshift;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Middleware stack.
@@ -110,7 +110,7 @@ class Onion
 		// Check if the middleware implements the expected interface
 
 		if ($this->expectedInterface !== null && ($middleware instanceof $this->expectedInterface) === false) {
-			throw new OnionException(vsprintf('The Onion instance expects the middleware to be an instance of [ %s ].', [$this->expectedInterface]));
+			throw new OnionException(sprintf('The Onion instance expects the middleware to be an instance of [ %s ].', $this->expectedInterface));
 		}
 
 		// Return middleware instance

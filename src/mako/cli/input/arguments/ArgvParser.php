@@ -18,10 +18,10 @@ use function array_shift;
 use function current;
 use function explode;
 use function preg_match;
+use function sprintf;
 use function strlen;
 use function strpos;
 use function substr;
-use function vsprintf;
 
 /**
  * Argument parser.
@@ -111,7 +111,7 @@ class ArgvParser
 	{
 		if (!isset($this->map[$name])) {
 			if ($this->ignoreUnknownArguments === false) {
-				throw new InvalidArgumentException(vsprintf('Unknown argument [ %s ].', [$name]), $this->findArgumentSuggestion($name));
+				throw new InvalidArgumentException(sprintf('Unknown argument [ %s ].', $name), $this->findArgumentSuggestion($name));
 			}
 
 			return null;
@@ -142,14 +142,14 @@ class ArgvParser
 		// Ensure that the argument name is unique
 
 		if (isset($this->arguments[$normalizedName])) {
-			throw new ArgumentException(vsprintf('Ambiguous argument name. [ %s ] will collide with [ %s ].', [$name, $this->arguments[$normalizedName]->getName()]));
+			throw new ArgumentException(sprintf('Ambiguous argument name. [ %s ] will collide with [ %s ].', $name, $this->arguments[$normalizedName]->getName()));
 		}
 
 		// Check if the argument has an alias and that it's unique
 
 		if (!empty($alias = $argument->getAlias())) {
 			if (isset($this->map[$alias])) {
-				throw new ArgumentException(vsprintf('Duplicate alias detected [ %s ]. The alias of [ %s ] will collide with the alias of [ %s ].', [$alias, $name, $this->getArgument($alias)->getName()]));
+				throw new ArgumentException(sprintf('Duplicate alias detected [ %s ]. The alias of [ %s ] will collide with the alias of [ %s ].', $alias, $name, $this->getArgument($alias)->getName()));
 			}
 
 			$this->map[$alias] = $normalizedName;
@@ -189,14 +189,14 @@ class ArgvParser
 	{
 		if ($argument->isInt()) {
 			if (preg_match(static::INT_REGEX, $value) !== 1) {
-				throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects an integer.', [$token ?? $argument->getName()]));
+				throw new UnexpectedValueException(sprintf('The [ %s ] argument expects an integer.', $token ?? $argument->getName()));
 			}
 
 			$value = (int) $value;
 		}
 		elseif ($argument->isFloat()) {
 			if (preg_match(static::FLOAT_REGEX, $value) !== 1) {
-				throw new UnexpectedValueException(vsprintf('The [ %s ] argument expects a float.', [$token ?? $argument->getName()]));
+				throw new UnexpectedValueException(sprintf('The [ %s ] argument expects a float.', $token ?? $argument->getName()));
 			}
 
 			$value = (float) $value;
@@ -211,7 +211,7 @@ class ArgvParser
 	protected function storeValue(Argument $argument, ?string $token, null|bool|string $value): void
 	{
 		if ($value === null) {
-			throw new ArgumentException(vsprintf('Missing value for argument [ %s ].', [$token]));
+			throw new ArgumentException(sprintf('Missing value for argument [ %s ].', $token));
 		}
 
 	   $value = $this->castValue($argument, $token, $value);
@@ -231,7 +231,7 @@ class ArgvParser
 	{
 		if ($argument->isBool()) {
 			if ($value !== null) {
-				throw new ArgumentException(vsprintf('The [ %s ] argument is a boolean and does not accept values.', [$token]));
+				throw new ArgumentException(sprintf('The [ %s ] argument is a boolean and does not accept values.', $token));
 			}
 
 			$value = true;
@@ -296,7 +296,7 @@ class ArgvParser
 	{
 		if (empty($positionals)) {
 			if ($this->ignoreUnknownArguments === false) {
-				throw new InvalidArgumentException(vsprintf('Unknown positional argument with value [ %s ].', [$token]));
+				throw new InvalidArgumentException(sprintf('Unknown positional argument with value [ %s ].', $token));
 			}
 
 			return;
@@ -352,7 +352,7 @@ class ArgvParser
 			foreach ($this->arguments as $normalizedName => $argument) {
 				if (!isset($this->parsed[$normalizedName])) {
 					if (!$argument->isOptional()) {
-						throw new MissingArgumentException(vsprintf('Missing required argument [ %s ].', [$argument->getName()]));
+						throw new MissingArgumentException(sprintf('Missing required argument [ %s ].', $argument->getName()));
 					}
 
 					$this->parsed[$normalizedName] = $argument->getDefaultValue();

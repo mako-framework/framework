@@ -50,12 +50,12 @@ use function ob_start;
 use function pathinfo;
 use function preg_match;
 use function round;
+use function sprintf;
 use function str_repeat;
 use function str_replace;
 use function strlen;
 use function strtolower;
 use function substr;
-use function vsprintf;
 
 /**
  * GD processor.
@@ -110,7 +110,7 @@ class GD implements ProcessorInterface
 		$imageInfo = getimagesize($file);
 
 		if ($imageInfo === false) {
-			throw new ProcessorException(vsprintf('Unable to process the image [ %s ].', [$file]));
+			throw new ProcessorException(sprintf('Unable to process the image [ %s ].', $file));
 		}
 
 		return $imageInfo;
@@ -125,7 +125,7 @@ class GD implements ProcessorInterface
 			IMAGETYPE_JPEG => imagecreatefromjpeg($image),
 			IMAGETYPE_GIF  => imagecreatefromgif($image),
 			IMAGETYPE_PNG  => imagecreatefrompng($image),
-			default        => throw new ProcessorException(vsprintf('Unable to open [ %s ]. Unsupported image type.', [pathinfo($image, PATHINFO_EXTENSION)])),
+			default        => throw new ProcessorException(sprintf('Unable to open [ %s ]. Unsupported image type.', pathinfo($image, PATHINFO_EXTENSION))),
 		};
 	}
 
@@ -139,7 +139,7 @@ class GD implements ProcessorInterface
 		$hex = str_replace('#', '', $hex);
 
 		if (preg_match('/^([a-f0-9]{3}){1,2}$/i', $hex) !== 1) {
-			throw new ProcessorException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
+			throw new ProcessorException(sprintf('Invalid HEX value [ %s ].', $hex));
 		}
 
 		if (strlen($hex) === 3) {
@@ -684,7 +684,7 @@ class GD implements ProcessorInterface
 				imagepng($this->image, quality: (int) (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
-				throw new ProcessorException(vsprintf('Unsupported image type [ %s ].', [$type]));
+				throw new ProcessorException(sprintf('Unsupported image type [ %s ].', $type));
 		}
 
 		return ob_get_clean();
@@ -716,7 +716,7 @@ class GD implements ProcessorInterface
 				imagepng($this->image, $file, (int) (9 - (round(($quality / 100) * 9))));
 				break;
 			default:
-				throw new ProcessorException(vsprintf('Unable to save as [ %s ]. Unsupported image format.', [$extension]));
+				throw new ProcessorException(sprintf('Unable to save as [ %s ]. Unsupported image format.', $extension));
 		}
 	}
 }

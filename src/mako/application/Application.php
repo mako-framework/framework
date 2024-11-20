@@ -22,7 +22,7 @@ use function mb_regex_encoding;
 use function microtime;
 use function rtrim;
 use function setlocale;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Application.
@@ -167,7 +167,7 @@ abstract class Application
 	public function getPackage(string $package): Package
 	{
 		if (!isset($this->packages[$package])) {
-			throw new ApplicationException(vsprintf('Unknown package [ %s ].', [$package]));
+			throw new ApplicationException(sprintf('Unknown package [ %s ].', $package));
 		}
 
 		return $this->packages[$package];

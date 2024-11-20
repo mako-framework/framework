@@ -34,9 +34,9 @@ use function array_unshift;
 use function array_values;
 use function count;
 use function shuffle;
+use function sprintf;
 use function uasort;
 use function usort;
-use function vsprintf;
 
 /**
  * Collection.
@@ -178,7 +178,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 			return $this->items[$offset];
 		}
 
-		throw new OutOfBoundsException(vsprintf('Undefined offset [ %s ].', [$offset]));
+		throw new OutOfBoundsException(sprintf('Undefined offset [ %s ].', $offset));
 	}
 
 	/**

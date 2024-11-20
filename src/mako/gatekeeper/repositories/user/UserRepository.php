@@ -13,7 +13,7 @@ use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
 
 use function in_array;
-use function vsprintf;
+use function sprintf;
 
 /**
  * User repository.
@@ -51,7 +51,7 @@ class UserRepository implements UserRepositoryInterface
 	public function setIdentifier(string $identifier): void
 	{
 		if (!in_array($identifier, ['email', 'username', 'id'])) {
-			throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+			throw new GatekeeperException(sprintf('Invalid identifier [ %s ].', $identifier));
 		}
 
 		$this->identifier = $identifier;
@@ -140,7 +140,7 @@ class UserRepository implements UserRepositoryInterface
 			'email'    => $this->getByEmail($identifier),
 			'username' => $this->getByUsername($identifier),
 			'id'       => $this->getById($identifier),
-			default    => throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier])),
+			default    => throw new GatekeeperException(sprintf('Invalid identifier [ %s ].', $identifier)),
 		};
 	}
 }

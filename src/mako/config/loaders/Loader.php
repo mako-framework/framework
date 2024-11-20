@@ -11,9 +11,9 @@ use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\config\loaders\exceptions\LoaderException;
 use mako\file\FileSystem;
 
+use function sprintf;
 use function strpos;
 use function substr_replace;
-use function vsprintf;
 
 /**
  *  Loader.
@@ -57,6 +57,6 @@ class Loader implements LoaderInterface
 			}
 		}
 
-		throw new LoaderException(vsprintf('The [ %s ] config file does not exist.', [$file]));
+		throw new LoaderException(sprintf('The [ %s ] config file does not exist.', $file));
 	}
 }

@@ -29,7 +29,6 @@ use function ob_end_clean;
 use function ob_get_level;
 use function sprintf;
 use function substr;
-use function vsprintf;
 
 /**
  * File response.
@@ -69,7 +68,7 @@ class File implements ResponseSenderInterface
 		protected string $filePath
 	) {
 		if ($this->fileSystem->has($this->filePath) === false || $this->fileSystem->isReadable($this->filePath) === false) {
-			throw new HttpException(vsprintf('File [ %s ] is not readable.', [$this->filePath]));
+			throw new HttpException(sprintf('File [ %s ] is not readable.', $this->filePath));
 		}
 
 		$this->fileSize = $this->fileSystem->size($this->filePath);

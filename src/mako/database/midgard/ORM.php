@@ -43,11 +43,11 @@ use function is_array;
 use function is_object;
 use function json_encode;
 use function method_exists;
+use function sprintf;
 use function strlen;
 use function strpos;
 use function strrpos;
 use function substr;
-use function vsprintf;
 
 /**
  * ORM.
@@ -430,7 +430,7 @@ abstract class ORM implements JsonSerializable, Stringable
 				'date'   => ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value),
 				'string' => (string) $value,
 				'enum'   => is_object($value) ? $value : $extra::from($value),
-				default  => throw new DatabaseException(vsprintf('Unsupported type [ %s ].', [$type])),
+				default  => throw new DatabaseException(sprintf('Unsupported type [ %s ].', $type)),
 			};
 		}
 
@@ -511,7 +511,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		// All options have been exhausted so we'll throw an exception
 
-		throw new DatabaseException(vsprintf('Unknown column or relation [ %s ].', [$name]));
+		throw new DatabaseException(sprintf('Unknown column or relation [ %s ].', $name));
 	}
 
 	/**
@@ -741,7 +741,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	 */
 	protected function generatePrimaryKey(): mixed
 	{
-		throw new DatabaseException(vsprintf('The [ %s::generatePrimaryKey() ] method must be implemented.', [static::class]));
+		throw new DatabaseException(sprintf('The [ %s::generatePrimaryKey() ] method must be implemented.', static::class));
 	}
 
 	/**

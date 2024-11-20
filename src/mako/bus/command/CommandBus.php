@@ -11,7 +11,7 @@ use mako\bus\command\exceptions\CommandBusException;
 use mako\bus\traits\SingleHandlerTrait;
 use mako\syringe\Container;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Command bus.
@@ -33,7 +33,7 @@ class CommandBus implements CommandBusInterface
 	 */
 	protected function getUnableToResolveException(object $object): CommandBusException
 	{
-		return new CommandBusException(vsprintf('No handler has been registered for [ %s ] commands.', [$object::class]));
+		return new CommandBusException(sprintf('No handler has been registered for [ %s ] commands.', $object::class));
 	}
 
 	/**

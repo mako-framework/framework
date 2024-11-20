@@ -24,7 +24,7 @@ use mako\file\FileSystem;
 use mako\redis\ConnectionManager as RedisConnectionManager;
 use mako\syringe\Container;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Cache manager.
@@ -125,7 +125,7 @@ class CacheManager extends AdapterManager
 	protected function instantiate(string $configuration): StoreInterface
 	{
 		if (!isset($this->configurations[$configuration])) {
-			throw new CacheException(vsprintf('[ %s ] has not been defined in the cache configuration.', [$configuration]));
+			throw new CacheException(sprintf('[ %s ] has not been defined in the cache configuration.', $configuration));
 		}
 
 		$configuration = $this->configurations[$configuration];

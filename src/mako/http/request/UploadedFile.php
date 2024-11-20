@@ -12,7 +12,6 @@ use mako\http\request\exceptions\UploadException;
 
 use function is_uploaded_file;
 use function move_uploaded_file;
-use function vsprintf;
 
 /**
  * Uploaded file.
@@ -112,7 +111,7 @@ class UploadedFile extends FileInfo
 	public function moveTo(string $path): bool
 	{
 		if ($this->hasError()) {
-			throw new UploadException(vsprintf('%s', [$this->getErrorMessage()]), $this->getErrorCode());
+			throw new UploadException($this->getErrorMessage(), $this->getErrorCode());
 		}
 
 		if ($this->isUploaded() === false) {

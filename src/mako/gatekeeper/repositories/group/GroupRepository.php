@@ -11,7 +11,7 @@ use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\exceptions\GatekeeperException;
 
 use function in_array;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Group repository.
@@ -64,7 +64,7 @@ class GroupRepository implements GroupRepositoryInterface
 	public function setIdentifier(string $identifier): void
 	{
 		if (!in_array($identifier, ['name', 'id'])) {
-			throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier]));
+			throw new GatekeeperException(sprintf('Invalid identifier [ %s ].', $identifier));
 		}
 
 		$this->identifier = $identifier;
@@ -94,7 +94,7 @@ class GroupRepository implements GroupRepositoryInterface
 		return match ($this->identifier) {
 			'name'  => $this->getByName($identifier),
 			'id'    => $this->getById($identifier),
-			default => throw new GatekeeperException(vsprintf('Invalid identifier [ %s ].', [$identifier])),
+			default => throw new GatekeeperException(sprintf('Invalid identifier [ %s ].', $identifier)),
  		};
 	}
 }

@@ -24,6 +24,7 @@ use function array_map;
 use function implode;
 use function is_array;
 use function max;
+use function mb_strwidth;
 use function str_contains;
 use function str_pad;
 

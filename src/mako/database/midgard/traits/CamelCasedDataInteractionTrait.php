@@ -12,7 +12,7 @@ use mako\utility\Str;
 
 use function array_key_exists;
 use function method_exists;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Camel cased data interaction trait.
@@ -107,7 +107,7 @@ trait CamelCasedDataInteractionTrait
 
 		// All options have been exhausted so we'll throw an exception
 
-		throw new DatabaseException(vsprintf('Unknown column or relation [ %s ].', [$name]));
+		throw new DatabaseException(sprintf('Unknown column or relation [ %s ].', $name));
 	}
 
 	/**

@@ -12,7 +12,7 @@ use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
 use function count;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Command that checks if there are any outstanding migrations.
@@ -34,7 +34,7 @@ class Status extends Command
 		if (($count = count($migrations)) > 0) {
 			$message = $count === 1 ? 'There is %s outstanding migration:' : 'There are %s outstanding migrations:';
 
-			$this->write(vsprintf($message, ["<yellow>{$count}</yellow>"]) . PHP_EOL);
+			$this->write(sprintf($message, "<yellow>{$count}</yellow>") . PHP_EOL);
 
 			$this->outputMigrationList($migrations);
 		}

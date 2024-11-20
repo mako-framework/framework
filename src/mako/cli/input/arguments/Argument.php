@@ -15,9 +15,9 @@ use function explode;
 use function is_array;
 use function ltrim;
 use function preg_match;
+use function sprintf;
 use function str_replace;
 use function strpos;
-use function vsprintf;
 
 /**
  * Argument.
@@ -121,7 +121,7 @@ class Argument
 	protected function getValidatedName(string $name): string
 	{
 		if (preg_match(static::NAME_REGEX, $name) !== 1) {
-			throw new ArgumentException(vsprintf('Invalid argument name [ %s ].', [$name]));
+			throw new ArgumentException(sprintf('Invalid argument name [ %s ].', $name));
 		}
 
 		return $name;
@@ -133,7 +133,7 @@ class Argument
 	protected function getValidatedAlias(string $alias): string
 	{
 		if (preg_match(static::ALIAS_REGEX, $alias) !== 1) {
-			throw new ArgumentException(vsprintf('Invalid argument alias [ %s ].', [$alias]));
+			throw new ArgumentException(sprintf('Invalid argument alias [ %s ].', $alias));
 		}
 
 		return $alias;

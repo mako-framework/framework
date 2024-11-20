@@ -14,8 +14,8 @@ use mako\pixl\processors\exceptions\ProcessorException;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
 
 use function preg_match;
+use function sprintf;
 use function strpos;
-use function vsprintf;
 
 /**
  * ImageMagick processor.
@@ -54,7 +54,7 @@ class ImageMagick implements ProcessorInterface
 	public function normalizeHex(string $hex): string
 	{
 		if (preg_match('/^(#?[a-f0-9]{3}){1,2}$/i', $hex) !== 1) {
-			throw new ProcessorException(vsprintf('Invalid HEX value [ %s ].', [$hex]));
+			throw new ProcessorException(sprintf('Invalid HEX value [ %s ].', $hex));
 		}
 
 		return (strpos($hex, '#') !== 0) ? "#{$hex}" : $hex;
@@ -290,7 +290,7 @@ class ImageMagick implements ProcessorInterface
 	{
 		if ($type !== null) {
 			if (!$this->image->setImageFormat($type)) {
-				throw new ProcessorException(vsprintf('Unsupported image type [ %s ].', [$type]));
+				throw new ProcessorException(sprintf('Unsupported image type [ %s ].', $type));
 			}
 		}
 

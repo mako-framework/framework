@@ -11,7 +11,7 @@ use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 use mako\i18n\loaders\exceptions\LoaderException;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Language loader.
@@ -60,7 +60,7 @@ class Loader implements LoaderInterface
 		}
 
 		if ($strings === false) {
-			throw new LoaderException(vsprintf('The [ %s ] language pack does not have a [ %s ] file.', [$language, $file]));
+			throw new LoaderException(sprintf('The [ %s ] language pack does not have a [ %s ] file.', $language, $file));
 		}
 
 		return $strings;

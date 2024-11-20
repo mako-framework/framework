@@ -11,7 +11,7 @@ use mako\bus\query\exceptions\QueryBusException;
 use mako\bus\traits\SingleHandlerTrait;
 use mako\syringe\Container;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Query bus.
@@ -33,7 +33,7 @@ class QueryBus implements QueryBusInterface
 	 */
 	protected function getUnableToResolveException(object $object): QueryBusException
 	{
-		return new QueryBusException(vsprintf('No handler has been registered for [ %s ] queries.', [$object::class]));
+		return new QueryBusException(sprintf('No handler has been registered for [ %s ] queries.', $object::class));
 	}
 
 	/**

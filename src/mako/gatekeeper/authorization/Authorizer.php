@@ -13,7 +13,7 @@ use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\syringe\Container;
 
 use function is_object;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Authorizer.
@@ -49,7 +49,7 @@ class Authorizer implements AuthorizerInterface
 		$entityClass = is_object($entity) ? $entity::class : $entity;
 
 		if (!isset($this->policies[$entityClass])) {
-			throw new AuthorizerException(vsprintf('There is no authorization policy registered for [ %s ] entities.', [$entityClass]));
+			throw new AuthorizerException(sprintf('There is no authorization policy registered for [ %s ] entities.', $entityClass));
 		}
 
 		return $this->container->get($this->policies[$entityClass]);

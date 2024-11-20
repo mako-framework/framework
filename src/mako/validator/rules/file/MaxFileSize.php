@@ -15,7 +15,6 @@ use function is_numeric;
 use function sprintf;
 use function strtolower;
 use function substr;
-use function vsprintf;
 
 /**
  * Max file size rule.
@@ -52,7 +51,7 @@ class MaxFileSize extends Rule implements RuleInterface
 				'eib'   => $size * (1024 ** 6),
 				'zib'   => $size * (1024 ** 7),
 				'yib'   => $size * (1024 ** 8),
-				default => throw new ValidatorException(vsprintf('Invalid unit type [ %s ].', [$unit])),
+				default => throw new ValidatorException(sprintf('Invalid unit type [ %s ].', $unit)),
 			};
 		}
 

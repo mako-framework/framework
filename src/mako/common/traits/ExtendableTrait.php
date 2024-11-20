@@ -10,7 +10,7 @@ namespace mako\common\traits;
 use BadMethodCallException;
 use Closure;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Extendable trait.
@@ -36,7 +36,7 @@ trait ExtendableTrait
 	public function __call(string $name, array $arguments): mixed
 	{
 		if (!isset(static::$_extensions[$name])) {
-			throw new BadMethodCallException(vsprintf('Call to undefined method [ %s::%s() ].', [static::class, $name]));
+			throw new BadMethodCallException(sprintf('Call to undefined method [ %s::%s() ].', static::class, $name));
 		}
 
 		return static::$_extensions[$name]->bindTo($this, static::class)(...$arguments);
@@ -48,7 +48,7 @@ trait ExtendableTrait
 	public static function __callStatic(string $name, array $arguments): mixed
 	{
 		if (!isset(static::$_extensions[$name])) {
-			throw new BadMethodCallException(vsprintf('Call to undefined method [ %s::%s() ].', [static::class, $name]));
+			throw new BadMethodCallException(sprintf('Call to undefined method [ %s::%s() ].', static::class, $name));
 		}
 
 		return static::$_extensions[$name]->bindTo(null, static::class)(...$arguments);

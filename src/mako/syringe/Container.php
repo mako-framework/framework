@@ -29,7 +29,7 @@ use function count;
 use function is_array;
 use function is_int;
 use function is_object;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Dependecy injection container.
@@ -151,7 +151,7 @@ class Container
 		$hint = $this->resolveAlias($hint);
 
 		if (!isset($this->hints[$hint])) {
-			throw new ContainerException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
+			throw new ContainerException(sprintf('Unable to replace [ %s ] as it hasn\'t been registered.', $hint));
 		}
 
 		$this->hints[$hint]['class'] = $class;
@@ -179,7 +179,7 @@ class Container
 		$hint = $this->resolveAlias($hint);
 
 		if (!isset($this->instances[$hint])) {
-			throw new ContainerException(vsprintf('Unable to replace [ %s ] as it hasn\'t been registered.', [$hint]));
+			throw new ContainerException(sprintf('Unable to replace [ %s ] as it hasn\'t been registered.', $hint));
 		}
 
 		$this->instances[$hint] = $instance;
@@ -323,7 +323,7 @@ class Container
 
 		// We have exhausted all our options. All we can do now is throw an exception
 
-		throw new UnableToResolveParameterException(vsprintf('Unable to resolve the [ $%s ] parameter of [ %s ].', [$parameter->getName(), $this->getDeclaringFunction($parameter)]));
+		throw new UnableToResolveParameterException(sprintf('Unable to resolve the [ $%s ] parameter of [ %s ].', $parameter->getName(), $this->getDeclaringFunction($parameter)));
 	}
 
 	/**
@@ -382,7 +382,7 @@ class Container
 		// Check that it's possible to instantiate the class
 
 		if (!$class->isInstantiable()) {
-			throw new UnableToInstantiateException(vsprintf('Unable to create a [ %s ] instance.', [$class->getName()]));
+			throw new UnableToInstantiateException(sprintf('Unable to create a [ %s ] instance.', $class->getName()));
 		}
 
 		// Get the class constructor

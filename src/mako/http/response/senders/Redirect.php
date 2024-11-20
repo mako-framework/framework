@@ -14,7 +14,7 @@ use mako\http\response\Status;
 
 use function in_array;
 use function is_int;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Redirect response.
@@ -80,7 +80,7 @@ class Redirect implements ResponseSenderInterface
 		$status = is_int($status) ? Status::from($status) : $status;
 
 		if (!in_array($status, self::SUPPORTED_STATUS_CODES)) {
-			throw new HttpException(vsprintf('Unsupported redirect status code [ %s ].', [$status->value]));
+			throw new HttpException(sprintf('Unsupported redirect status code [ %s ].', $status->value));
 		}
 
 		$this->status = $status;

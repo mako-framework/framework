@@ -16,6 +16,7 @@ use function is_string;
 use function localeconv;
 use function number_format;
 use function preg_replace_callback;
+use function sprintf;
 use function stripos;
 use function strpos;
 use function vsprintf;
@@ -98,7 +99,7 @@ class I18n
 		}
 
 		if (empty($this->inflections[$language])) {
-			throw new I18nException(vsprintf('The [ %s ] language pack does not include any inflection rules.', [$language]));
+			throw new I18nException(sprintf('The [ %s ] language pack does not include any inflection rules.', $language));
 		}
 
 		$pluralizer = $this->inflections[$language]['pluralize'];

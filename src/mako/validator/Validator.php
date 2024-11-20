@@ -88,8 +88,8 @@ use function class_exists;
 use function compact;
 use function in_array;
 use function preg_match;
+use function sprintf;
 use function strpos;
-use function vsprintf;
 
 /**
  * Input validation.
@@ -317,7 +317,7 @@ class Validator
 			return $name;
 		}
 
-		throw new ValidatorException(vsprintf('Call to undefined validation rule [ %s ].', [$name]));
+		throw new ValidatorException(sprintf('Call to undefined validation rule [ %s ].', $name));
 	}
 
 	/**

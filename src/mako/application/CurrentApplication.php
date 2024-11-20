@@ -9,7 +9,7 @@ namespace mako\application;
 
 use RuntimeException;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Holds the current application instance.
@@ -26,7 +26,7 @@ class CurrentApplication
 	 */
 	final public function __construct()
 	{
-		throw new RuntimeException(vsprintf('%s can not be instantiated.', [static::class]));
+		throw new RuntimeException(sprintf('%s can not be instantiated.', static::class));
 	}
 
 	/**

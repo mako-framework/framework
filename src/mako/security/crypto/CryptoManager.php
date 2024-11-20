@@ -14,7 +14,7 @@ use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Key;
 use mako\security\Signer;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * Crypto manager.
@@ -39,7 +39,7 @@ class CryptoManager extends AdapterManager
 	protected function instantiate(string $configuration): Crypto
 	{
 		if (!isset($this->configurations[$configuration])) {
-			throw new CryptoException(vsprintf('[ %s ] has not been defined in the crypto configuration.', [$configuration]));
+			throw new CryptoException(sprintf('[ %s ] has not been defined in the crypto configuration.', $configuration));
 		}
 
 		$configuration = $this->configurations[$configuration];

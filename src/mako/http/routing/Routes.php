@@ -13,7 +13,7 @@ use mako\http\routing\exceptions\RoutingException;
 
 use function array_pop;
 use function is_string;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Route collection.
@@ -72,7 +72,7 @@ class Routes
 	public function getNamedRoute(string $name): Route
 	{
 		if (!isset($this->namedRoutes[$name])) {
-			throw new RoutingException(vsprintf('No route named [ %s ] has been defined.', [$name]));
+			throw new RoutingException(sprintf('No route named [ %s ] has been defined.', $name));
 		}
 
 		return $this->namedRoutes[$name];

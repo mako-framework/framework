@@ -12,8 +12,8 @@ use mako\common\traits\exceptions\FunctionParserTraitException;
 use function json_decode;
 use function json_last_error;
 use function preg_match;
+use function sprintf;
 use function strpos;
-use function vsprintf;
 
 /**
  * Function parser trait.
@@ -26,7 +26,7 @@ trait FunctionParserTrait
 	protected function splitFunctionAndParameters(string $function): array
 	{
 		if (preg_match('/^([a-z0-9_:.\\\\]+)\((.*)\)$/i', $function, $matches) !== 1) {
-			throw new FunctionParserTraitException(vsprintf('[ %s ] does not match the expected function pattern.', [$function]));
+			throw new FunctionParserTraitException(sprintf('[ %s ] does not match the expected function pattern.', $function));
 		}
 
 		return [$matches[1], $matches[2]];

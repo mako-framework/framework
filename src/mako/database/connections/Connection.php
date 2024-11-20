@@ -35,10 +35,10 @@ use function is_string;
 use function microtime;
 use function preg_replace;
 use function preg_replace_callback;
+use function sprintf;
 use function str_repeat;
 use function strpos;
 use function trim;
-use function vsprintf;
 
 /**
  * Database connection.
@@ -247,7 +247,7 @@ class Connection
 			}
 		}
 		catch (PDOException $e) {
-			throw new DatabaseException(vsprintf('Failed to connect to the [ %s ] database. %s', [$this->name, $e->getMessage()]), previous: $e);
+			throw new DatabaseException(sprintf('Failed to connect to the [ %s ] database. %s', $this->name, $e->getMessage()), previous: $e);
 		}
 
 		// Run queries
@@ -399,7 +399,7 @@ class Connection
 				$type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
 			}
 			else {
-				throw new DatabaseException(vsprintf('Unable to bind object of type [ %s ] to the prepared statement.', [$value::class]));
+				throw new DatabaseException(sprintf('Unable to bind object of type [ %s ] to the prepared statement.', $value::class));
 			}
 		}
 		else {

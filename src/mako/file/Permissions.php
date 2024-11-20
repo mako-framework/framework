@@ -10,8 +10,8 @@ namespace mako\file;
 use InvalidArgumentException;
 
 use function decoct;
+use function sprintf;
 use function str_pad;
-use function vsprintf;
 
 /**
  * File permission collection.
@@ -39,7 +39,7 @@ class Permissions
 	public static function fromInt(int $permissions): static
 	{
 		if ($permissions < Permission::NONE->value || $permissions > Permission::FULL->value) {
-			throw new InvalidArgumentException(vsprintf('The integer [ %s ] does not represent a valid octal between 0o000 and 0o777.', [$permissions]));
+			throw new InvalidArgumentException(sprintf('The integer [ %s ] does not represent a valid octal between 0o000 and 0o777.', $permissions));
 		}
 
 		if ($permissions === Permission::NONE->value) {

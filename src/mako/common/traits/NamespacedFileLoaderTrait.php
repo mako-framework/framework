@@ -11,9 +11,9 @@ use mako\common\traits\exceptions\NamespacedFileLoaderTraitException;
 
 use function array_unshift;
 use function explode;
+use function sprintf;
 use function str_replace;
 use function strpos;
-use function vsprintf;
 
 /**
  * Namespaced file loader trait.
@@ -75,7 +75,7 @@ trait NamespacedFileLoaderTrait
 			[$namespace, $file] = explode('::', $file, 2);
 
 			if (!isset($this->namespaces[$namespace])) {
-				throw new NamespacedFileLoaderTraitException(vsprintf('The [ %s ] namespace does not exist.', [$namespace]));
+				throw new NamespacedFileLoaderTraitException(sprintf('The [ %s ] namespace does not exist.', $namespace));
 			}
 
 			$path = $this->namespaces[$namespace];

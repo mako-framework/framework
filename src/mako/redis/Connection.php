@@ -18,6 +18,7 @@ use function fread;
 use function fwrite;
 use function is_resource;
 use function min;
+use function sprintf;
 use function stream_context_create;
 use function stream_get_meta_data;
 use function stream_set_timeout;
@@ -25,7 +26,6 @@ use function stream_socket_client;
 use function strlen;
 use function substr;
 use function trim;
-use function vsprintf;
 
 /**
  * Redis connection.
@@ -133,7 +133,7 @@ class Connection
 			return $connection;
 		}
 		catch (Throwable $e) {
-			throw new RedisException(trim(vsprintf('Failed to connect to [ %s ]. %s', [$this->name ?? "{$host}:{$port}", $errstr ?? ''])), (int) ($errno ?? 0), $e);
+			throw new RedisException(trim(sprintf('Failed to connect to [ %s ]. %s', $this->name ?? "{$host}:{$port}", $errstr ?? '')), (int) ($errno ?? 0), $e);
 		}
 	}
 

@@ -15,7 +15,7 @@ use function is_writable;
 use function max;
 use function min;
 use function pathinfo;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Image manipulation class.
@@ -87,7 +87,7 @@ class Image
 		// Make sure that the image exists
 
 		if (file_exists($this->image) === false) {
-			throw new PixlException(vsprintf('The image [ %s ] does not exist.', [$this->image]));
+			throw new PixlException(sprintf('The image [ %s ] does not exist.', $this->image));
 		}
 
 		// Set the image
@@ -191,7 +191,7 @@ class Image
 		// Check if the image exists
 
 		if (file_exists($file) === false) {
-			throw new PixlException(vsprintf('The watermark image [ %s ] does not exist.', [$file]));
+			throw new PixlException(sprintf('The watermark image [ %s ] does not exist.', $file));
 		}
 
 		// Make sure that opacity is between 0 and 100
@@ -320,14 +320,14 @@ class Image
 
 		if (file_exists($file)) {
 			if (!is_writable($file)) {
-				throw new PixlException(vsprintf('The file [ %s ] isn\'t writable.', [$file]));
+				throw new PixlException(sprintf('The file [ %s ] isn\'t writable.', $file));
 			}
 		}
 		else {
 			$pathInfo = pathinfo($file);
 
 			if (!is_writable($pathInfo['dirname'])) {
-				throw new PixlException(vsprintf('The directory [ %s ] isn\'t writable.', [$pathInfo['dirname']]));
+				throw new PixlException(sprintf('The directory [ %s ] isn\'t writable.', $pathInfo['dirname']));
 			}
 		}
 

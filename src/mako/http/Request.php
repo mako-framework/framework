@@ -39,6 +39,7 @@ use function stripos;
 use function strlen;
 use function strpos;
 use function strtoupper;
+use function trim;
 
 /**
  * Executes requets.

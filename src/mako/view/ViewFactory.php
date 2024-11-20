@@ -15,7 +15,7 @@ use mako\view\exceptions\ViewException;
 use mako\view\renderers\PHP;
 use mako\view\renderers\RendererInterface;
 
-use function vsprintf;
+use function sprintf;
 
 /**
  * View factory.
@@ -151,7 +151,7 @@ class ViewFactory
 			// We didn't find the view so we'll throw an exception or return false
 
 			if ($throwException) {
-				throw new ViewException(vsprintf('The [ %s ] view does not exist.', [$view]));
+				throw new ViewException(sprintf('The [ %s ] view does not exist.', $view));
 			}
 
 			return false;

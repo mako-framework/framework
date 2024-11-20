@@ -12,6 +12,7 @@ use function implode;
 use function mb_strwidth;
 use function preg_replace;
 use function preg_split;
+use function trim;
 
 /**
  * Helper trait.

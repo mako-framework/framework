@@ -28,7 +28,7 @@ use mako\database\query\helpers\Postgres as PostgresHelper;
 
 use function explode;
 use function in_array;
-use function vsprintf;
+use function sprintf;
 
 /**
  * Database connection manager.
@@ -154,7 +154,7 @@ class ConnectionManager extends BaseConnectionManager
 	protected function connect(string $connectionName): Connection
 	{
 		if (!isset($this->configurations[$connectionName])) {
-			throw new DatabaseException(vsprintf('[ %s ] has not been defined in the database configuration.', [$connectionName]));
+			throw new DatabaseException(sprintf('[ %s ] has not been defined in the database configuration.', $connectionName));
 		}
 
 		$config = $this->configurations[$connectionName];
