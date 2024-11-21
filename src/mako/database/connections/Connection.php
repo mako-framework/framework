@@ -19,6 +19,7 @@ use PDO;
 use PDOException;
 use PDOStatement;
 use SensitiveParameter;
+use Stringable;
 use Throwable;
 use UnitEnum;
 
@@ -390,13 +391,17 @@ class Connection
 			$type = PDO::PARAM_NULL;
 		}
 		elseif (is_object($value)) {
-			if ($value instanceof TypeInterface) {
+			if ($value instanceof UnitEnum) {
+				$value = $value->value ?? $value->name;
+				$type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+			}
+			elseif ($value instanceof TypeInterface) {
 				$value = $value->getValue();
 				$type = $value->getType();
 			}
-			elseif ($value instanceof UnitEnum) {
-				$value = $value->value ?? $value->name;
-				$type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+			elseif ($value instanceof Stringable) {
+				$value = (string) $value;
+				$type = PDO::PARAM_STR;
 			}
 			else {
 				throw new DatabaseException(sprintf('Unable to bind object of type [ %s ] to the prepared statement.', $value::class));
