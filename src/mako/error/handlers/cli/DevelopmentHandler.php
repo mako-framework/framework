@@ -39,7 +39,7 @@ class DevelopmentHandler implements HandlerInterface
 	 */
 	protected function escape(string $string): string
 	{
-		if (($formatter = $this->output->getFormatter()) === null) {
+		if (($formatter = $this->output->formatter) === null) {
 			return $string;
 		}
 

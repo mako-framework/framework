@@ -39,7 +39,7 @@ class Hyperlink
 	 */
 	protected function hasHyperlinkSupport(): bool
 	{
-		return $this->output->getEnvironment()->hasAnsiSupport() && !in_array(env('TERM_PROGRAM'), static::UNSUPPORTED_TERMINALS);
+		return $this->output->environment->hasAnsiSupport() && !in_array(env('TERM_PROGRAM'), static::UNSUPPORTED_TERMINALS);
 	}
 
 	/**

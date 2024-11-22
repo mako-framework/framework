@@ -48,6 +48,9 @@ class OutputTest extends TestCase
 		$this->assertInstanceOf(WriterInterface::class, $output->getWriter());
 		$this->assertInstanceOf(WriterInterface::class, $output->getWriter(Output::STANDARD));
 		$this->assertInstanceOf(WriterInterface::class, $output->getWriter(Output::ERROR));
+		$this->assertInstanceOf(WriterInterface::class, $output->standard);
+		$this->assertInstanceOf(WriterInterface::class, $output->error);
+
 	}
 
 	/**
@@ -58,19 +61,46 @@ class OutputTest extends TestCase
 		$std = $this->getWriter();
 		$err = $this->getWriter();
 
-		$output = new Output($std, $err);
+		$output = new Output;
 
+		$this->assertInstanceOf(Environment::class, $output->environment);
 		$this->assertInstanceOf(Environment::class, $output->getEnvironment());
 
 		//
 
 		$env = new Environment;
 
-		$output = new Output($std, $err, $env);
+		$output = new Output(environment: $env);
 
+		$this->assertInstanceOf(Environment::class, $output->environment);
 		$this->assertInstanceOf(Environment::class, $output->getEnvironment());
 
+		$this->assertSame($env, $output->environment);
 		$this->assertSame($env, $output->getEnvironment());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetCursor(): void
+	{
+		$output = new Output;
+
+		$this->assertNull($output->cursor);
+		$this->assertNull($output->getCursor());
+
+		//
+
+		/** @var Cursor|Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$output = new Output(cursor: $cursor);
+
+		$this->assertInstanceOf(Cursor::class, $output->cursor);
+		$this->assertInstanceOf(Cursor::class, $output->getCursor());
+
+		$this->assertSame($cursor, $output->cursor);
+		$this->assertSame($cursor, $output->getCursor());
 	}
 
 	/**
@@ -488,12 +518,10 @@ class OutputTest extends TestCase
 	 */
 	public function testGetNullFormatter(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
+		$output = new Output;
 
-		$output = new Output($std, $err);
-
-		$this->assertSame(null, $output->getFormatter());
+		$this->assertNull($output->formatter);
+		$this->assertNull($output->getFormatter());
 	}
 
 	/**
@@ -501,12 +529,11 @@ class OutputTest extends TestCase
 	 */
 	public function testGetFormatter(): void
 	{
-		$std       = $this->getWriter();
-		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
-		$output = new Output($std, $err, formatter: $formatter);
+		$output = new Output(formatter: $formatter);
 
+		$this->assertInstanceOf(FormatterInterface::class, $output->formatter);
 		$this->assertInstanceOf(FormatterInterface::class, $output->getFormatter());
 	}
 

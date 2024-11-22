@@ -193,7 +193,7 @@ class Application extends BaseApplication
 		if ($signalHandler->canHandleSignals()) {
 			$signalHandler->addHandler([SIGINT, SIGTERM], static function ($signal, $isLast) use ($output): void {
 				$output->restoreCursor();
-				$output->getEnvironment()->restoreStty();
+				$output->environment->restoreStty();
 
 				// If we're the last handler then we exit with status code 130 (SIGINT) or 143 (SIGTERM)
 
