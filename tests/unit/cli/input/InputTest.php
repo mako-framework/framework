@@ -54,6 +54,7 @@ class InputTest extends TestCase
 
 		$input = new Input($reader, $arguments);
 
+		$this->assertInstanceOf(ArgvParser::class, $input->argumentParser);
 		$this->assertInstanceOf(ArgvParser::class, $input->getArgumentParser());
 	}
 

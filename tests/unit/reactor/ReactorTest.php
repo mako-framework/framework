@@ -80,7 +80,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
 
@@ -171,7 +173,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn(null);
 
@@ -262,7 +266,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foobar');
 
@@ -310,7 +316,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
 
@@ -367,7 +375,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
 
@@ -424,7 +434,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
@@ -476,7 +488,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
@@ -528,7 +542,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
@@ -578,7 +594,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 
@@ -655,7 +673,9 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		$input->shouldReceive('getArgumentParser')->andReturn($argvParser);
+		(function () use ($argvParser) {
+			$this->argumentParser = $argvParser;
+		})->bindTo($input, Input::class)();
 
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
 

@@ -139,7 +139,7 @@ class Application extends BaseApplication
 	 */
 	protected function registerAndhandleGlobalArguments(): void
 	{
-		$arguments = $this->reactor->getInput()->getArgumentParser();
+		$arguments = $this->reactor->input->argumentParser;
 
 		// Register global arguments
 
