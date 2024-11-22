@@ -40,17 +40,13 @@ class OutputTest extends TestCase
 	 */
 	public function testGetWriter(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
-		$output = new Output($std, $err);
+		$output = new Output;
 
 		$this->assertInstanceOf(WriterInterface::class, $output->getWriter());
 		$this->assertInstanceOf(WriterInterface::class, $output->getWriter(Output::STANDARD));
 		$this->assertInstanceOf(WriterInterface::class, $output->getWriter(Output::ERROR));
 		$this->assertInstanceOf(WriterInterface::class, $output->standard);
 		$this->assertInstanceOf(WriterInterface::class, $output->error);
-
 	}
 
 	/**
@@ -58,9 +54,6 @@ class OutputTest extends TestCase
 	 */
 	public function testGetEnvironment(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		$output = new Output;
 
 		$this->assertInstanceOf(Environment::class, $output->environment);
@@ -109,11 +102,10 @@ class OutputTest extends TestCase
 	public function testWrite(): void
 	{
 		$std = $this->getWriter();
-		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->once()->with('hello, world!');
 
-		$output = new Output($std, $err);
+		$output = new Output(standard: $std);
 
 		$output->write('hello, world!');
 	}
@@ -123,12 +115,11 @@ class OutputTest extends TestCase
 	 */
 	public function testWriteWithErrorParam(): void
 	{
-		$std = $this->getWriter();
 		$err = $this->getWriter();
 
 		$err->shouldReceive('write')->once()->with('hello, world!');
 
-		$output = new Output($std, $err);
+		$output = new Output(error: $err);
 
 		$output->write('hello, world!', Output::ERROR);
 	}
@@ -139,11 +130,10 @@ class OutputTest extends TestCase
 	public function testWriteLn(): void
 	{
 		$std = $this->getWriter();
-		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->once()->with('hello, world!' . PHP_EOL);
 
-		$output = new Output($std, $err);
+		$output = new Output(standard: $std);
 
 		$output->writeLn('hello, world!');
 	}
@@ -153,12 +143,11 @@ class OutputTest extends TestCase
 	 */
 	public function testWriteLnWithErrorParam(): void
 	{
-		$std = $this->getWriter();
 		$err = $this->getWriter();
 
 		$err->shouldReceive('write')->once()->with('hello, world!' . PHP_EOL);
 
-		$output = new Output($std, $err);
+		$output = new Output(error: $err);
 
 		$output->writeLn('hello, world!', Output::ERROR);
 	}
@@ -168,12 +157,11 @@ class OutputTest extends TestCase
 	 */
 	public function testError(): void
 	{
-		$std = $this->getWriter();
 		$err = $this->getWriter();
 
 		$err->shouldReceive('write')->once()->with('hello, world!');
 
-		$output = new Output($std, $err);
+		$output = new Output(error: $err);
 
 		$output->error('hello, world!');
 	}
@@ -183,12 +171,11 @@ class OutputTest extends TestCase
 	 */
 	public function testErrorLn(): void
 	{
-		$std = $this->getWriter();
 		$err = $this->getWriter();
 
 		$err->shouldReceive('write')->once()->with('hello, world!' . PHP_EOL);
 
-		$output = new Output($std, $err);
+		$output = new Output(error: $err);
 
 		$output->errorLn('hello, world!');
 	}
@@ -198,9 +185,6 @@ class OutputTest extends TestCase
 	 */
 	public function testClearWithAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -211,7 +195,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->clear();
 	}
@@ -221,9 +205,6 @@ class OutputTest extends TestCase
 	 */
 	public function testClearWithNoAnsiSupport(): void
 	{
- 		$std = $this->getWriter();
- 		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -234,7 +215,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
- 		$output = new Output($std, $err, $env, cursor: $cursor);
+ 		$output = new Output(environment: $env, cursor: $cursor);
 
  		$output->clear();
  	}
@@ -244,9 +225,6 @@ class OutputTest extends TestCase
 	 */
 	public function testClearLineWithAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -257,7 +235,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->clearLine();
 	}
@@ -267,9 +245,6 @@ class OutputTest extends TestCase
 	 */
 	public function testClearLineWithNoAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -280,7 +255,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->clearLine();
 	}
@@ -290,9 +265,6 @@ class OutputTest extends TestCase
 	 */
 	public function testClearLinesWithAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -303,7 +275,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->clearLines(2);
 	}
@@ -313,9 +285,6 @@ class OutputTest extends TestCase
 	 */
 	public function testClearLinesWithNoAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -326,7 +295,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->clearLines(2);
 	}
@@ -336,9 +305,6 @@ class OutputTest extends TestCase
 	 */
 	public function testHideCursorWithAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -349,7 +315,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->hideCursor();
 	}
@@ -359,9 +325,6 @@ class OutputTest extends TestCase
 	 */
 	public function testHideCursorWithNoAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -372,7 +335,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->hideCursor();
 	}
@@ -382,9 +345,6 @@ class OutputTest extends TestCase
 	 */
 	public function testShowCursorWithAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -395,7 +355,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->showCursor();
 	}
@@ -405,9 +365,6 @@ class OutputTest extends TestCase
 	 */
 	public function testShowCursorWithNoAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -418,7 +375,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->showCursor();
 	}
@@ -428,9 +385,6 @@ class OutputTest extends TestCase
 	 */
 	public function testRestoreCursorWithAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -441,7 +395,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->restoreCursor();
 	}
@@ -451,9 +405,6 @@ class OutputTest extends TestCase
 	 */
 	public function testRestoreCursorWithNoAnsiSupport(): void
 	{
-		$std = $this->getWriter();
-		$err = $this->getWriter();
-
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
@@ -464,7 +415,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env, cursor: $cursor);
+		$output = new Output(environment: $env, cursor: $cursor);
 
 		$output->restoreCursor();
 	}
@@ -475,11 +426,10 @@ class OutputTest extends TestCase
 	public function testMute(): void
 	{
 		$std = $this->getWriter();
-		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->never()->with('hello, world!');
 
-		$output = new Output($std, $err);
+		$output = new Output(standard: $std);
 
 		$output->mute();
 
@@ -494,11 +444,10 @@ class OutputTest extends TestCase
 	public function testUnmute(): void
 	{
 		$std = $this->getWriter();
-		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->once()->with('hello, world!');
 
-		$output = new Output($std, $err);
+		$output = new Output(standard: $std);
 
 		$output->mute();
 
@@ -542,11 +491,9 @@ class OutputTest extends TestCase
 	 */
 	public function testSetFormatter(): void
 	{
-		$std       = $this->getWriter();
-		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
-		$output = new Output($std, $err);
+		$output = new Output;
 
 		$this->assertSame(null, $output->getFormatter());
 
@@ -561,7 +508,6 @@ class OutputTest extends TestCase
 	public function testWriteWithFormatterWithAnsiSupport(): void
 	{
 		$std       = $this->getWriter();
-		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
 		$formatter->shouldReceive('format')->once()->with('hello, world!')->andReturn('formatted');
@@ -575,7 +521,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
-		$output = new Output($std, $err, $env, formatter: $formatter);
+		$output = new Output(standard: $std, environment: $env, formatter: $formatter);
 
 		$output->write('hello, world!');
 	}
@@ -586,7 +532,6 @@ class OutputTest extends TestCase
 	public function testWriteWithFormatterWithoutAnsiSupport(): void
 	{
 		$std       = $this->getWriter();
-		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
 		$formatter->shouldReceive('stripTags')->once()->with('hello, world!')->andReturn('stripped');
@@ -602,7 +547,7 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
 
-		$output = new Output($std, $err, $env, formatter: $formatter);
+		$output = new Output(standard: $std, environment: $env, formatter: $formatter);
 
 		$output->write('hello, world!');
 	}
@@ -613,7 +558,6 @@ class OutputTest extends TestCase
 	public function testWriteWithFormatterAndRedirectedOutput(): void
 	{
 		$std       = $this->getWriter();
-		$err       = $this->getWriter();
 		$formatter = $this->getFormatter();
 
 		$std->shouldReceive('isDirect')->once()->andReturn(false);
@@ -624,7 +568,7 @@ class OutputTest extends TestCase
 
 		$std->shouldReceive('write')->once()->with('formatted');
 
-		$output = new Output($std, $err, formatter: $formatter);
+		$output = new Output(standard: $std, formatter: $formatter);
 
 		$output->write('hello, world!');
 	}
@@ -635,11 +579,10 @@ class OutputTest extends TestCase
 	public function testDump(): void
 	{
 		$std = $this->getWriter();
-		$err = $this->getWriter();
 
 		$std->shouldReceive('write')->once()->with("'foobar'" . PHP_EOL);
 
-		$output = new Output($std, $err);
+		$output = new Output(standard: $std);
 
 		$output->dump('foobar');
 	}
