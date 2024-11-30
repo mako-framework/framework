@@ -139,7 +139,7 @@ class Application extends BaseApplication
 	 */
 	protected function registerAndhandleGlobalArguments(): void
 	{
-		$arguments = $this->reactor->getInput()->getArgumentParser();
+		$arguments = $this->reactor->input->argumentParser;
 
 		// Register global arguments
 
@@ -153,7 +153,7 @@ class Application extends BaseApplication
 			$arguments = $arguments->parse(true);
 		}
 		catch (ArgumentException|UnexpectedValueException $e) {
-			$this->reactor->getOutput()->errorLn("<red>{$e->getMessage()}</red>");
+			$this->reactor->output->errorLn("<red>{$e->getMessage()}</red>");
 
 			exit(CommandInterface::STATUS_ERROR);
 		}
@@ -193,7 +193,7 @@ class Application extends BaseApplication
 		if ($signalHandler->canHandleSignals()) {
 			$signalHandler->addHandler([SIGINT, SIGTERM], static function ($signal, $isLast) use ($output): void {
 				$output->restoreCursor();
-				$output->getEnvironment()->restoreStty();
+				$output->environment->restoreStty();
 
 				// If we're the last handler then we exit with status code 130 (SIGINT) or 143 (SIGTERM)
 

@@ -60,20 +60,13 @@ class Alert
 	protected int $width;
 
 	/**
-	 * Formatter.
-	 */
-	protected ?FormatterInterface $formatter = null;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected Output $output,
 		?int $width = null
 	) {
-		$this->width = $width ?? $output->getEnvironment()->getWidth();
-
-		$this->formatter = $output->getFormatter();
+		$this->width = $width ?? $output->environment->getWidth();
 	}
 
 	/**

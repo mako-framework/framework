@@ -53,8 +53,8 @@ class Reactor
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Input $input,
-		protected Output $output,
+		public protected(set) Input $input,
+		public protected(set) Output $output,
 		protected Container $container = new Container,
 		?Dispatcher $dispatcher = null
 	) {
@@ -98,7 +98,7 @@ class Reactor
 	 */
 	protected function setup(): void
 	{
-		$arguments = $this->input->getArgumentParser();
+		$arguments = $this->input->argumentParser;
 
 		// Register default reactor arguments
 
@@ -173,7 +173,7 @@ class Reactor
 
 		// Display global arguments and options if there are any
 
-		$arguments = $this->input->getArgumentParser()->getArguments();
+		$arguments = $this->input->argumentParser->getArguments();
 
 		ksort($arguments);
 
@@ -337,9 +337,9 @@ class Reactor
 	{
 		$commandReflection = new ReflectionClass($this->commands[$command]);
 
-		$globalArgumentNames = array_keys($this->input->getArgumentParser()->getArguments());
+		$globalArgumentNames = array_keys($this->input->argumentParser->getArguments());
 
-		$this->input->getArgumentParser()->clearCache()->addArguments($this->getCommandArguments($commandReflection));
+		$this->input->argumentParser->clearCache()->addArguments($this->getCommandArguments($commandReflection));
 
 		$filteredArguments = array_diff_key($this->input->getArguments(), array_flip($globalArgumentNames));
 
