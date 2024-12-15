@@ -33,9 +33,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 	- Time series
 	- Top-k
 * Added `Redis::executeCommand()` helper method that makes it possible to call commands not yet supported by the client.
-* Added `Permission` enum with the following methods to make it easier to interact with file permissions:
-	- `Permission::calculate()`
-	- `Permission::hasPermissions()`
+* Added `Permission` enum to make it easier to interact with file permissions.
 * Added `Permissions` class that can be used to interact with a set of `Permission` enum instances.
 * Added `FileSystem::setPermissions()` method that accepts an integer or a `Permissions` instance.
 * Added `FileSystem::hasPermissions()` method that accepts an integer or a `Permissions` instance.
