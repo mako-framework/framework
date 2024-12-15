@@ -7,10 +7,6 @@
 
 namespace mako\file;
 
-use InvalidArgumentException;
-
-use function sprintf;
-
 /**
  * File permissions.
  */
@@ -57,23 +53,5 @@ enum Permission: int
 		}
 
 		return $permissions;
-	}
-
-	/**
-	 * Returns TRUE if the permissions contain the specified permissions and FALSE if not.
-	 */
-	public static function hasPermissions(int $permissions, Permission ...$permission): bool
-	{
-		if ($permissions < 0o000 || $permissions > 0o777) {
-			throw new InvalidArgumentException(sprintf('The integer [ %s ] does not represent a valid octal between 0o000 and 0o777.', $permissions));
-		}
-
-		$permission = empty($permission) ? 0o000 : self::calculate(...$permission);
-
-		if ($permission === 0o000) {
-			return $permissions === 0o000;
-		}
-
-		return ($permissions & $permission) === $permission;
 	}
 }

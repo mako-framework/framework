@@ -72,46 +72,4 @@ class PermissionTest extends TestCase
 			Permission::PUBLIC_EXECUTE)
 		);
 	}
-
-	/**
-	 *
-	 */
-	public function testHasPermissionsWithInvalidPermissions(): void
-	{
-		$this->expectException(InvalidArgumentException::class);
-
-		$this->expectExceptionMessage('The integer [ 1337 ] does not represent a valid octal between 0o000 and 0o777.');
-
-		Permission::hasPermissions(1337, Permission::NONE);
-	}
-
-	/**
-	 *
-	 */
-	public function testHasPermissions(): void
-	{
-		$this->assertTrue(Permission::hasPermissions(0o777, Permission::OWNER_FULL));
-
-		$this->assertTrue(Permission::hasPermissions(0o777, Permission::OWNER_FULL, Permission::GROUP_FULL));
-
-		$this->assertTrue(Permission::hasPermissions(0o777, Permission::OWNER_FULL, Permission::GROUP_FULL, Permission::PUBLIC_FULL));
-
-		$this->assertTrue(Permission::hasPermissions(0o755, Permission::OWNER_FULL));
-
-		$this->assertFalse(Permission::hasPermissions(0o755, Permission::GROUP_WRITE));
-
-		$this->assertFalse(Permission::hasPermissions(0o755, Permission::PUBLIC_WRITE));
-	}
-
-	/**
-	 *
-	 */
-	public function testHasPermissionsWithNoPermissions(): void
-	{
-		$this->assertTrue(Permission::hasPermissions(0o000));
-
-		$this->assertTrue(Permission::hasPermissions(0o000, Permission::NONE));
-
-		$this->assertFalse(Permission::hasPermissions(0o777, Permission::NONE));
-	}
 }
