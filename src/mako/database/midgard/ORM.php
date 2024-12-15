@@ -759,6 +759,7 @@ abstract class ORM implements JsonSerializable, Stringable
 			$this->columns[$this->primaryKey] = match ($this->primaryKeyType) {
 				static::PRIMARY_KEY_TYPE_UUID   => UUID::v4Sequential(),
 				static::PRIMARY_KEY_TYPE_CUSTOM => $this->generatePrimaryKey(),
+				default                         => throw new DatabaseException('Invalid primary key type.'),
 			};
 		}
 
