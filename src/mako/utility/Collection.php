@@ -218,7 +218,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 *
-	 * @return \ArrayIterator<TKey, TValue>
+	 * @return ArrayIterator<TKey, TValue>
 	 */
 	public function getIterator(): ArrayIterator
 	{
