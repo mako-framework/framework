@@ -28,9 +28,9 @@ class Permissions
 	/**
 	 * Constructor.
 	 */
-	final public function __construct(Permission ...$permission)
+	final public function __construct(Permission ...$permissions)
 	{
-		$this->permissions = empty($permission) ? [Permission::NONE] : $permission;
+		$this->permissions = empty($permissions) ? [Permission::NONE] : $permissions;
 	}
 
 	/**
@@ -78,17 +78,9 @@ class Permissions
 	/**
 	 * Returns TRUE if the permissions contain the specified permissions and FALSE if not.
 	 */
-	public function hasPermissions(Permission ...$permission): bool
+	public function hasPermissions(Permission ...$permissions): bool
 	{
-		$permissions = Permission::calculate(...$this->permissions);
-
-		$permission = empty($permission) ? 0o000 : Permission::calculate(...$permission);
-
-		if ($permission === 0o000) {
-			return $permissions === 0o000;
-		}
-
-		return ($permissions & $permission) === $permission;
+		return Permission::hasPermissions(Permission::calculate(...$this->permissions), ...$permissions);
 	}
 
 	/**
