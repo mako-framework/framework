@@ -48,6 +48,12 @@ class PermissionsTest extends TestCase
 		$permissions = Permissions::fromInt(0o444);
 
 		$this->assertSame([Permission::OWNER_READ, Permission::GROUP_READ, Permission::PUBLIC_READ], $permissions->getPermissions());
+
+		//
+
+		$permissions = Permissions::fromInt(0o666);
+
+		$this->assertSame([Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::GROUP_READ, Permission::GROUP_WRITE, Permission::PUBLIC_READ, Permission::PUBLIC_WRITE], $permissions->getPermissions());
 	}
 
 	/**

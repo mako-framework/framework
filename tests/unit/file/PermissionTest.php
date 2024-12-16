@@ -26,31 +26,61 @@ class PermissionTest extends TestCase
 
 		$this->assertSame(0o000, Permission::calculate(Permission::NONE));
 
-		$this->assertSame(0o400, Permission::calculate(Permission::OWNER_READ));
-
-		$this->assertSame(0o200, Permission::calculate(Permission::OWNER_WRITE));
+		//
 
 		$this->assertSame(0o100, Permission::calculate(Permission::OWNER_EXECUTE));
 
+		$this->assertSame(0o200, Permission::calculate(Permission::OWNER_WRITE));
+
+		$this->assertSame(0o300, Permission::calculate(Permission::OWNER_EXECUTE_WRITE));
+
+		$this->assertSame(0o400, Permission::calculate(Permission::OWNER_READ));
+
+		$this->assertSame(0o500, Permission::calculate(Permission::OWNER_EXECUTE_READ));
+
+		$this->assertSame(0o600, Permission::calculate(Permission::OWNER_WRITE_READ));
+
 		$this->assertSame(0o700, Permission::calculate(Permission::OWNER_FULL));
 
-		$this->assertSame(0o040, Permission::calculate(Permission::GROUP_READ));
-
-		$this->assertSame(0o020, Permission::calculate(Permission::GROUP_WRITE));
+		//
 
 		$this->assertSame(0o010, Permission::calculate(Permission::GROUP_EXECUTE));
 
+		$this->assertSame(0o020, Permission::calculate(Permission::GROUP_WRITE));
+
+		$this->assertSame(0o030, Permission::calculate(Permission::GROUP_EXECUTE_WRITE));
+
+		$this->assertSame(0o040, Permission::calculate(Permission::GROUP_READ));
+
+		$this->assertSame(0o050, Permission::calculate(Permission::GROUP_EXECUTE_READ));
+
+		$this->assertSame(0o060, Permission::calculate(Permission::GROUP_WRITE_READ));
+
 		$this->assertSame(0o070, Permission::calculate(Permission::GROUP_FULL));
 
-		$this->assertSame(0o004, Permission::calculate(Permission::PUBLIC_READ));
+		//
+
+		$this->assertSame(0o001, Permission::calculate(Permission::PUBLIC_EXECUTE));
 
 		$this->assertSame(0o002, Permission::calculate(Permission::PUBLIC_WRITE));
 
-		$this->assertSame(0o001, Permission::calculate(Permission::PUBLIC_EXECUTE));
+		$this->assertSame(0o003, Permission::calculate(Permission::PUBLIC_EXECUTE_WRITE));
+
+		$this->assertSame(0o004, Permission::calculate(Permission::PUBLIC_READ));
+
+		$this->assertSame(0o005, Permission::calculate(Permission::PUBLIC_EXECUTE_READ));
+
+		$this->assertSame(0o006, Permission::calculate(Permission::PUBLIC_WRITE_READ));
 
 		$this->assertSame(0o007, Permission::calculate(Permission::PUBLIC_FULL));
 
 		// Test combinations
+
+		$this->assertSame(0o666, Permission::calculate(
+			Permission::OWNER_WRITE_READ,
+			Permission::GROUP_WRITE_READ,
+			Permission::PUBLIC_WRITE_READ)
+		);
 
 		$this->assertSame(0o777, Permission::calculate(
 			Permission::OWNER_FULL,
@@ -90,6 +120,8 @@ class PermissionTest extends TestCase
 	 */
 	public function testHasPermissions(): void
 	{
+		$this->assertTrue(Permission::hasPermissions(0o666, Permission::OWNER_WRITE_READ));
+
 		$this->assertTrue(Permission::hasPermissions(0o777, Permission::OWNER_FULL));
 
 		$this->assertTrue(Permission::hasPermissions(0o777, Permission::OWNER_FULL, Permission::GROUP_FULL));

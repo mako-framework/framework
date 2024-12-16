@@ -46,17 +46,21 @@ class Permissions
 			return new static;
 		}
 
+		$basePermissions = [
+			Permission::OWNER_READ,
+			Permission::OWNER_WRITE,
+			Permission::OWNER_EXECUTE,
+			Permission::GROUP_READ,
+			Permission::GROUP_WRITE,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_WRITE,
+			Permission::PUBLIC_EXECUTE,
+		];
+
 		$permission = [];
 
-		foreach (Permission::cases() as $case) {
-			if ($case === Permission::NONE
-				|| $case === Permission::OWNER_FULL
-				|| $case === Permission::GROUP_FULL
-				|| $case === Permission::PUBLIC_FULL
-				|| $case === Permission::FULL) {
-				continue;
-			}
-
+		foreach ($basePermissions as $case) {
 			if (($permissions & $case->value) === $case->value) {
 				$permission[] = $case;
 			}
