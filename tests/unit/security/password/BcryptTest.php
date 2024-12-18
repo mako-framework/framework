@@ -27,7 +27,7 @@ class BcryptTest extends TestCase
 			}
 		};
 
-		$this->assertSame(['cost' => 10], $hasher->normalizeOptions([]));
+		$this->assertSame(['cost' => PHP_VERSION_ID >= 80400 ? 12 : 10], $hasher->normalizeOptions([]));
 
 		$this->assertSame(['cost' => 10], $hasher->normalizeOptions(['cost' => 10]));
 
