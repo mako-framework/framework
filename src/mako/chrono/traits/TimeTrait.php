@@ -95,18 +95,7 @@ trait TimeTrait
 	#[\ReturnTypeWillChange]
 	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null)
 	{
-		if ($timeZone !== null) {
-			if (($timeZone instanceof DateTimeZone) === false) {
-				$timeZone = new DateTimeZone($timeZone);
-			}
-
-			$dateTime = parent::createFromFormat($format, $time, $timeZone);
-		}
-		else {
-			$dateTime = parent::createFromFormat($format, $time);
-		}
-
-		return new static($dateTime->format('Y-m-d\TH:i:s'), $dateTime->getTimeZone());
+		return new static(parent::createFromFormat($format, $time)->format('Y-m-d\TH:i:s.u'), $timeZone);
 	}
 
 	/**

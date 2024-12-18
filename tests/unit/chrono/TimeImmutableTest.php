@@ -165,6 +165,12 @@ class TimeImmutableTest extends TestCase
 
 		//
 
+		$time = Time::createFromTimestamp(431093532.123);
+
+		$this->assertSame('431093532.123000', $time->format('U.u'));
+
+		//
+
 		$time = TimeImmutable::createFromTimestamp(431093532, 'Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());

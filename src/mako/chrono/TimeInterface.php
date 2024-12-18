@@ -74,7 +74,7 @@ interface TimeInterface extends DateTimeInterface
 	 *
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null);
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null);
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
