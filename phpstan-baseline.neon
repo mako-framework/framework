@@ -32,3 +32,11 @@ parameters:
 			message: "#^PHPDoc tag @return with type mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue> is not subtype of native type static\\(mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue>\\)\\.$#"
 			count: 5
 			path: src/mako/utility/Collection.php
+		-
+			message: "#^Call to an undefined static method DateTime::createFromTimestamp\\(\\)\\.$#"
+			count: 1
+			path: src/mako/chrono/traits/TimeTrait.php
+		-
+			message: "#^Call to an undefined static method DateTimeImmutable::createFromTimestamp\\(\\)\\.$#"
+			count: 1
+			path: src/mako/chrono/traits/TimeTrait.php
