@@ -85,6 +85,14 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 
 --------------------------------------------------------
 
+### 10.0.11 <small>(2024-12-18)</small>
+
+#### Bugfixes
+
+* PHP 8.4 compatibility.
+
+--------------------------------------------------------
+
 ### 10.0.10 <small>(2024-08-25)</small>
 
 #### Bugfixes

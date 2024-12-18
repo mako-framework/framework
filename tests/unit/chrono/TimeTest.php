@@ -202,6 +202,12 @@ class TimeTest extends TestCase
 
 		//
 
+		$time = Time::createFromTimestamp(431093532.123);
+
+		$this->assertSame('431093532.123000', $time->format('U.u'));
+
+		//
+
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
