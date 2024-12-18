@@ -59,7 +59,8 @@ trait TimeTrait
 	 *
 	 * @return false|static
 	 */
-	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null): static
+	#[\ReturnTypeWillChange]
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null)
 	{
 		if (PHP_VERSION_ID >= 80400) {
 			return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timeZone);
