@@ -440,7 +440,7 @@ class Request
 	/**
 	 * Returns the data of the current request method.
 	 */
-	public function getData(): Parameters
+	public function getData(): Body|Parameters
 	{
 		return $this->data;
 	}
