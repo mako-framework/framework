@@ -17,7 +17,7 @@ use function trim;
 /**
  * Helper trait.
  *
- * @property \mako\cli\output\formatter\FormatterInterface|null $formatter
+ * @property \mako\cli\output\Output $output
  */
 trait HelperTrait
 {
@@ -28,7 +28,7 @@ trait HelperTrait
 	{
 		// Strip tags if a formatter is set
 
-		$string = $this->formatter !== null ? $this->formatter->stripTags($string) : $string;
+		$string = $this->output->formatter !== null ? $this->output->formatter->stripTags($string) : $string;
 
 		// Strip ANSI codes and OSC sequences
 

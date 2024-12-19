@@ -21,12 +21,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php-version: "8.3"
-            experimental: false
-            #composer-options: "--ignore-platform-reqs"
           - php-version: "8.4"
             experimental: true
-            composer-options: "--ignore-platform-reqs"
+            #composer-options: "--ignore-platform-reqs"
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v4"

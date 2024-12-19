@@ -20,7 +20,7 @@ class Input
 	 */
 	public function __construct(
 		protected ReaderInterface $reader,
-		protected ArgvParser $arguments
+		public protected(set) ArgvParser $argumentParser
 	) {
 	}
 
@@ -45,7 +45,7 @@ class Input
 	 */
 	public function getArgumentParser(): ArgvParser
 	{
-		return $this->arguments;
+		return $this->argumentParser;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Input
 	 */
 	public function getArguments(): array
 	{
-		return $this->arguments->parse();
+		return $this->argumentParser->parse();
 	}
 
 	/**
@@ -61,6 +61,6 @@ class Input
 	 */
 	public function getArgument(int|string $name, mixed $default = null): mixed
 	{
-		return $this->arguments->getArgumentValue($name, $default);
+		return $this->argumentParser->getArgumentValue($name, $default);
 	}
 }
