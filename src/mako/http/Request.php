@@ -115,7 +115,7 @@ class Request
 	/**
 	 * Request data of the current request method.
 	 */
-	public Parameters $data {
+	public Body|Parameters $data {
 		get {
 			if ($this->realMethod === 'GET') {
 				return $this->query;
