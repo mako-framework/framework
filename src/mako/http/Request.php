@@ -89,12 +89,44 @@ class Request
 	/**
 	 * Raw request body.
 	 */
-	protected ?string $rawBody = null;
+	public protected(set) ?string $rawBody = null {
+		get {
+			if ($this->rawBody === null) {
+				$this->rawBody = file_get_contents('php://input');
+			}
+
+			return $this->rawBody;
+		}
+	}
 
 	/**
 	 * Parsed request body.
 	 */
-	protected ?Body $parsedBody = null;
+	public protected(set) ?Body $body = null {
+		get {
+			if ($this->body === null) {
+				$this->body = new Body($this->rawBody, $this->getContentType());
+			}
+
+			return $this->body;
+		}
+	}
+
+	/**
+	 * Request data of the current request method.
+	 */
+	public Parameters $data {
+		get {
+			if ($this->realMethod === 'GET') {
+				return $this->query;
+			}
+			elseif ($this->realMethod === 'POST' && $this->hasFormData()) {
+				return $this->post;
+			}
+
+			return $this->body;
+		}
+	}
 
 	/**
 	 * Content type.
@@ -322,10 +354,6 @@ class Request
 	 */
 	public function getRawBody(): string
 	{
-		if ($this->rawBody === null) {
-			$this->rawBody = file_get_contents('php://input');
-		}
-
 		return $this->rawBody;
 	}
 
@@ -392,11 +420,7 @@ class Request
 	 */
 	public function getBody(): Body
 	{
-		if ($this->parsedBody === null) {
-			$this->parsedBody = new Body($this->getRawBody(), $this->getContentType());
-		}
-
-		return $this->parsedBody;
+		return $this->body;
 	}
 
 	/**
@@ -418,14 +442,7 @@ class Request
 	 */
 	public function getData(): Parameters
 	{
-		if ($this->realMethod === 'GET') {
-			return $this->getQuery();
-		}
-		elseif ($this->realMethod === 'POST' && $this->hasFormData()) {
-			return $this->getPost();
-		}
-
-		return $this->getBody();
+		return $this->data;
 	}
 
 	/**

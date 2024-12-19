@@ -829,6 +829,8 @@ class RequestTest extends TestCase
 	{
 		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
 
+		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->rawBody);
+
 		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->getRawBody());
 	}
 
@@ -883,6 +885,18 @@ class RequestTest extends TestCase
 
 		$request = new Request(['server' => $server, 'body' => json_encode($body)]);
 
+		$this->assertNull($request->body->get('bar'));
+
+		$this->assertFalse($request->body->get('bar', false));
+
+		$this->assertEquals('bar', $request->body->get('foo'));
+
+		$this->assertEquals('bax', $request->body->get('baz.0'));
+
+		$this->assertEquals($body, $request->body->all());
+
+		//
+
 		$this->assertNull($request->getBody()->get('bar'));
 
 		$this->assertFalse($request->getBody()->get('bar', false));
@@ -906,6 +920,18 @@ class RequestTest extends TestCase
 		$server['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
 
 		$request = new Request(['server' => $server, 'body' => http_build_query($body)]);
+
+		$this->assertNull($request->body->get('bar'));
+
+		$this->assertFalse($request->body->get('bar', false));
+
+		$this->assertEquals('bar', $request->body->get('foo'));
+
+		$this->assertEquals('bax', $request->body->get('baz.0'));
+
+		$this->assertEquals($body, $request->body->all());
+
+		//
 
 		$this->assertNull($request->getBody()->get('bar'));
 
@@ -1093,6 +1119,8 @@ class RequestTest extends TestCase
 
 		$request = new Request(['get' => $get]);
 
+		$this->assertSame($request->data->all(), $request->getQuery()->all());
+
 		$this->assertSame($request->getData()->all(), $request->getQuery()->all());
 	}
 
@@ -1109,6 +1137,8 @@ class RequestTest extends TestCase
 
 		$request = new Request(['post' => $post, 'server' => $server]);
 
+		$this->assertSame($request->data->all(), $request->getPost()->all());
+
 		$this->assertSame($request->getData()->all(), $request->getPost()->all());
 
 		//
@@ -1116,6 +1146,8 @@ class RequestTest extends TestCase
 		$server = ['REQUEST_METHOD' => 'POST', 'CONTENT_TYPE' => 'multipart/form-data'] + $this->getServerData();
 
 		$request = new Request(['post' => $post, 'server' => $server]);
+
+		$this->assertSame($request->data->all(), $request->getPost()->all());
 
 		$this->assertSame($request->getData()->all(), $request->getPost()->all());
 	}
@@ -1132,6 +1164,14 @@ class RequestTest extends TestCase
 		$server = ['REQUEST_METHOD' => 'POST', 'CONTENT_TYPE' => 'application/json'] + $this->getServerData();
 
 		$request = new Request(['body' => json_encode($body), 'server' => $server]);
+
+		$this->assertSame($request->data->all(), $request->body->all());
+
+		$this->assertSame($request->getData()->all(), $request->body->all());
+
+		//
+
+		$this->assertSame($request->data->all(), $request->getBody()->all());
 
 		$this->assertSame($request->getData()->all(), $request->getBody()->all());
 	}
