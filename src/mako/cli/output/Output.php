@@ -39,11 +39,11 @@ class Output
 	 * Constructor.
 	 */
 	public function __construct(
-		protected WriterInterface $standard = new Standard,
-		protected WriterInterface $error = new Error,
-		protected Environment $environment = new Environment,
-		protected ?FormatterInterface $formatter = null,
-		protected ?Cursor $cursor = null
+		public protected(set) WriterInterface $standard = new Standard,
+		public protected(set) WriterInterface $error = new Error,
+		public protected(set) Environment $environment = new Environment,
+		public protected(set) ?FormatterInterface $formatter = null,
+		public protected(set) ?Cursor $cursor = null
 	) {
 	}
 
