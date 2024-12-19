@@ -89,15 +89,7 @@ class Request
 	/**
 	 * Raw request body.
 	 */
-	public protected(set) ?string $rawBody = null {
-		get {
-			if ($this->rawBody === null) {
-				$this->rawBody = file_get_contents('php://input');
-			}
-
-			return $this->rawBody;
-		}
-	}
+	protected ?string $rawBody = null;
 
 	/**
 	 * Parsed request body.
@@ -105,7 +97,7 @@ class Request
 	public protected(set) ?Body $body = null {
 		get {
 			if ($this->body === null) {
-				$this->body = new Body($this->rawBody, $this->getContentType());
+				$this->body = new Body($this->getRawBody(), $this->getContentType());
 			}
 
 			return $this->body;
@@ -354,6 +346,10 @@ class Request
 	 */
 	public function getRawBody(): string
 	{
+		if ($this->rawBody === null) {
+			$this->rawBody = file_get_contents('php://input');
+		}
+
 		return $this->rawBody;
 	}
 

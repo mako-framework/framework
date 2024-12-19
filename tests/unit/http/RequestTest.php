@@ -829,8 +829,6 @@ class RequestTest extends TestCase
 	{
 		$request = new Request(['body' => '{"foo":"bar","baz":["bax"]}']);
 
-		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->rawBody);
-
 		$this->assertEquals('{"foo":"bar","baz":["bax"]}', $request->getRawBody());
 	}
 
