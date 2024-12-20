@@ -26,7 +26,7 @@ class Secret extends Question
 	 */
 	public function ask(string $question, mixed $default = null, bool $fallback = false): mixed
 	{
-		$hasStty = $this->output->getEnvironment()->hasStty();
+		$hasStty = $this->output->environment->hasStty();
 
 		if (PHP_OS_FAMILY === 'Windows' || $hasStty) {
 			$this->displayPrompt($question);

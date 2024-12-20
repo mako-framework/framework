@@ -27,7 +27,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output);
 
@@ -49,7 +51,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output, new AsciiBorder);
 
@@ -71,7 +75,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output);
 
@@ -94,7 +100,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output);
 
@@ -116,7 +124,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output);
 
@@ -136,9 +146,6 @@ class TableTest extends TestCase
 	 */
 	public function testStyledContent(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
-		$output = Mockery::mock(Output::class);
-
 		/** @var FormatterInterface|Mockery\MockInterface $formatter */
 		$formatter = Mockery::mock(FormatterInterface::class);
 
@@ -146,7 +153,12 @@ class TableTest extends TestCase
 
 		$formatter->shouldReceive('stripTags')->times(2)->with('Cell1')->andReturn('Cell1');
 
-		$output->shouldReceive('getFormatter')->once()->andReturn($formatter);
+		/** @var Mockery\MockInterface|Output $output */
+		$output = Mockery::mock(Output::class);
+
+		(function () use ($formatter) {
+			$this->formatter = $formatter;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output);
 
@@ -168,7 +180,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$expected  = '';
 		$expected .= '┏━━━━━━━┓' . PHP_EOL;
@@ -194,7 +208,9 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->once()->andReturn(null);
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$table = new Table($output);
 

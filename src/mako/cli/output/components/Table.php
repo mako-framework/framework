@@ -26,18 +26,12 @@ class Table
 	use HelperTrait;
 
 	/**
-	 * Formatter.
-	 */
-	protected ?FormatterInterface $formatter = null;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected Output $output,
 		protected Border $borderStyle = new Border
 	) {
-		$this->formatter = $output->getFormatter();
 	}
 
 	/**

@@ -26,17 +26,11 @@ class OrderedList
 	protected string $padding = '  ';
 
 	/**
-	 * Formatter instance.
-	 */
-	protected ?FormatterInterface $formatter = null;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected Output $output
 	) {
-		$this->formatter = $output->getFormatter();
 	}
 
 	/**
@@ -56,7 +50,7 @@ class OrderedList
 
 		$number = strlen((string) $count);
 
-		$marker = strlen(sprintf($this->formatter === null ? $marker : $this->formatter->stripTags($marker), '')) + $number;
+		$marker = strlen(sprintf($this->output->formatter === null ? $marker : $this->output->formatter->stripTags($marker), '')) + $number;
 
 		return ['number' => $number, 'marker' => $marker];
 	}

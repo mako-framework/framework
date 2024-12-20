@@ -8,6 +8,7 @@
 namespace mako\reactor\traits;
 
 use Countable;
+use Deprecated;
 use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\Question;
 use mako\cli\input\helpers\Secret;
@@ -95,9 +96,8 @@ trait CommandHelperTrait
 
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
-	 *
-	 * @deprecated
 	 */
+	#[Deprecated('use the "progress" method instead.', since: 'Mako 11.0.0')]
 	protected function progressBar(int $items, float $minTimeBetweenRedraw = 0.1, ?string $prefix = null): Progress
 	{
 		$progressBar = new Progress(

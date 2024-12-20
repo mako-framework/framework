@@ -5,3 +5,5 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	universalObjectCratesClasses:
 		- mako\database\query\Result
+	ignoreErrors:
+		- identifier: trait.unused

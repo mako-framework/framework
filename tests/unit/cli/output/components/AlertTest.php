@@ -22,17 +22,18 @@ class AlertTest extends TestCase
 	 */
 	public function testRender(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
-		$output = Mockery::mock(Output::class);
-
 		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('getWidth')->once()->andReturn(15);
 
-		$output->shouldReceive('getEnvironment')->once()->andReturn($env);
+		/** @var Mockery\MockInterface|Output $output */
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		(function () use ($env) {
+			$this->formatter = null;
+			$this->environment = $env;
+		})->bindTo($output, Output::class)();
 
 		$alert = new Alert($output);
 
@@ -57,6 +58,10 @@ class AlertTest extends TestCase
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
+
+		(function () {
+			$this->formatter = null;
+		})->bindTo($output, Output::class)();
 
 		$alert = new Alert($output, 15);
 
@@ -86,17 +91,18 @@ class AlertTest extends TestCase
 		. '               '
 		. PHP_EOL;
 
-		/** @var Mockery\MockInterface|Output $output */
-		$output = Mockery::mock(Output::class);
-
 		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('getWidth')->once()->andReturn(15);
 
-		$output->shouldReceive('getEnvironment')->once()->andReturn($env);
+		/** @var Mockery\MockInterface|Output $output */
+		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('getFormatter')->andReturn(null);
+		(function () use ($env) {
+			$this->formatter = null;
+			$this->environment = $env;
+		})->bindTo($output, Output::class)();
 
 		$output->shouldReceive('write')->once()->with($expected, Output::STANDARD);
 
