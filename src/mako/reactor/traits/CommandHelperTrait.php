@@ -160,9 +160,9 @@ trait CommandHelperTrait
 	/**
 	 * Draws a spinner while executing the callback.
 	 */
-	protected function spinner(string $message, callable $callback, Frames $frames = new Frames('<green>%s</green>')): void
+	protected function spinner(string $message, callable $callback, Frames $frames = new Frames('<green>%s</green>')): mixed
 	{
-		(new Spinner($this->output, $frames))->spin($message, $callback);
+		return (new Spinner($this->output, $frames))->spin($message, $callback);
 	}
 
 	/**
