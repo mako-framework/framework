@@ -115,6 +115,8 @@ return
 	mako\http\response\senders\Stream::class,
 	mako\http\response\Status::class,
 	mako\http\response\traits\PatternMatcherTrait::class,
+	mako\http\routing\attributes\Constraint::class,
+	mako\http\routing\attributes\Middleware::class,
 	mako\http\routing\constraints\ConstraintInterface::class,
 	mako\http\routing\Controller::class,
 	mako\http\routing\Dispatcher::class,
