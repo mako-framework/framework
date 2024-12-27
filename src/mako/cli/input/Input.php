@@ -19,7 +19,7 @@ class Input
 	 * Constructor.
 	 */
 	public function __construct(
-		protected ReaderInterface $reader,
+		public protected(set) ReaderInterface $reader,
 		public protected(set) ArgvParser $argumentParser
 	) {
 	}
