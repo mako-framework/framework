@@ -18,7 +18,7 @@ use function substr_replace;
 /**
  *  Loader.
  */
-class Loader implements LoaderInterface
+class Loader implements NamespacedLoaderInterface
 {
 	use NamespacedFileLoaderTrait;
 

@@ -8,14 +8,15 @@
 namespace mako\application;
 
 use mako\config\Config;
+use mako\config\loaders\NamespacedLoaderInterface as NamespacedConfigLoaderInterface;
 use mako\file\FileSystem;
 use mako\i18n\I18n;
+use mako\i18n\loaders\NamespacedLoaderInterface as NamespacedI18nLoaderInterface;
 use mako\syringe\Container;
 use mako\view\ViewFactory;
 use ReflectionClass;
 
 use function dirname;
-use function method_exists;
 use function str_replace;
 use function strrpos;
 use function strtolower;
@@ -155,7 +156,7 @@ abstract class Package
 		if ($fileSystem->isDirectory($path = $this->getConfigPath())) {
 			$configLoader = $this->container->get(Config::class)->getLoader();
 
-			if (method_exists($configLoader, 'registerNamespace')) {
+			if ($configLoader instanceof NamespacedConfigLoaderInterface) {
 				$configLoader->registerNamespace($this->getFileNamespace(), $path);
 			}
 		}
@@ -165,7 +166,7 @@ abstract class Package
 		if ($fileSystem->isDirectory($path = $this->getI18nPath()) && $this->container->has(I18n::class)) {
 			$i18nLoader = $this->container->get(I18n::class)->getLoader();
 
-			if (method_exists($i18nLoader, 'registerNamespace')) {
+			if ($i18nLoader instanceof NamespacedI18nLoaderInterface) {
 				$i18nLoader->registerNamespace($this->getFileNamespace(), $path);
 			}
 		}

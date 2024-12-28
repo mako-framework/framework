@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Language loader.
  */
-class Loader implements LoaderInterface
+class Loader implements NamespacedLoaderInterface
 {
 	use NamespacedFileLoaderTrait;
 
