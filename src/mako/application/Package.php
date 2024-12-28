@@ -7,7 +7,6 @@
 
 namespace mako\application;
 
-use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\config\Config;
 use mako\file\FileSystem;
 use mako\i18n\I18n;
@@ -15,9 +14,8 @@ use mako\syringe\Container;
 use mako\view\ViewFactory;
 use ReflectionClass;
 
-use function class_uses;
 use function dirname;
-use function in_array;
+use function method_exists;
 use function str_replace;
 use function strrpos;
 use function strtolower;
@@ -157,7 +155,7 @@ abstract class Package
 		if ($fileSystem->isDirectory($path = $this->getConfigPath())) {
 			$configLoader = $this->container->get(Config::class)->getLoader();
 
-			if (in_array(NamespacedFileLoaderTrait::class, class_uses($configLoader))) {
+			if (method_exists($configLoader, 'registerNamespace')) {
 				$configLoader->registerNamespace($this->getFileNamespace(), $path);
 			}
 		}
@@ -167,7 +165,7 @@ abstract class Package
 		if ($fileSystem->isDirectory($path = $this->getI18nPath()) && $this->container->has(I18n::class)) {
 			$i18nLoader = $this->container->get(I18n::class)->getLoader();
 
-			if (in_array(NamespacedFileLoaderTrait::class, class_uses($i18nLoader))) {
+			if (method_exists($i18nLoader, 'registerNamespace')) {
 				$i18nLoader->registerNamespace($this->getFileNamespace(), $path);
 			}
 		}
