@@ -471,6 +471,10 @@ class Container
 
 	/**
 	 * Returns a class instance.
+	 *
+	 * @template T of object
+	 * @param  class-string<T> $class
+	 * @return T
 	 */
 	public function get(string $class, array $parameters = [], bool $reuseInstance = true): object
 	{
@@ -499,6 +503,10 @@ class Container
 
 	/**
 	 * Returns a fresh class instance even if the class is registered as a singleton.
+	 *
+	 * @template T of object
+	 * @param  class-string<T> $class
+	 * @return T
 	 */
 	public function getFresh(string $class, array $parameters = []): object
 	{
