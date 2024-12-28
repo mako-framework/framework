@@ -8,7 +8,6 @@
 namespace mako\cli\output\components;
 
 use mako\cli\output\components\traits\HelperTrait;
-use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 
 use function explode;

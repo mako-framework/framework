@@ -7,7 +7,6 @@
 
 namespace mako\cli\output\components;
 
-use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 
 use function is_array;

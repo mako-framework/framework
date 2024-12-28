@@ -10,7 +10,6 @@ namespace mako\cli\output\components;
 use mako\cli\exceptions\CliException;
 use mako\cli\output\components\table\Border;
 use mako\cli\output\components\traits\HelperTrait;
-use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 
 use function array_values;
