@@ -19,6 +19,11 @@ use mako\tests\unit\classes\preload\classes\CG;
 use mako\tests\unit\classes\preload\classes\CH;
 use mako\tests\unit\classes\preload\classes\CI;
 use mako\tests\unit\classes\preload\classes\CJ;
+use mako\tests\unit\classes\preload\classes\CK;
+use mako\tests\unit\classes\preload\classes\CL;
+use mako\tests\unit\classes\preload\classes\CM;
+use mako\tests\unit\classes\preload\classes\CN;
+use mako\tests\unit\classes\preload\classes\CO;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
@@ -301,5 +306,132 @@ class PreloaderGeneratorTest extends TestCase
 		EOF;
 
 		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CJ::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassAttributes(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/AA.php',
+		  1 => '$classPath/classes/CK.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CK::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithClassAttributesWithTraits(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/AB.php',
+		  1 => '$classPath/classes/CL.php',
+		  2 => '$classPath/classes/TA.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CL::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithPropertyWithAttributes(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/AA.php',
+		  1 => '$classPath/classes/CM.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CM::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithMethodWithAttributes(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/AA.php',
+		  1 => '$classPath/classes/CN.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CN::class]));
+	}
+
+	/**
+	 *
+	 */
+	public function testGeneratePreloaderWithMethodWithArgumentsWithAttributes(): void
+	{
+		$classPath = __DIR__;
+
+		$expectedClassLoader = <<<EOF
+		<?php
+
+		\$files = array (
+		  0 => '$classPath/classes/AB.php',
+		  1 => '$classPath/classes/CO.php',
+		  2 => '$classPath/classes/TA.php',
+		);
+
+		foreach(\$files as \$file)
+		{
+			opcache_compile_file(\$file);
+		}
+
+		EOF;
+
+		$this->assertSame($expectedClassLoader, (new PreloaderGenerator)->generatePreloader([CO::class]));
 	}
 }

@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\classes;
 
+use Attribute;
 use mako\classes\ClassInspector;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
@@ -14,6 +15,11 @@ use PHPUnit\Framework\Attributes\Group;
 // --------------------------------------------------------------------------
 // START CLASSES
 // --------------------------------------------------------------------------
+
+#[Attribute()]
+class AA
+{
+}
 
 interface IA
 {
@@ -33,7 +39,7 @@ trait A
 }
 trait B
 {
-use A;
+	use A;
 }
 trait C
 {
@@ -41,12 +47,16 @@ trait C
 
 class D implements IC, ID
 {
-use B; use C;
+	use B; use C;
 }
 class E extends D
 {
 }
 class F extends E
+{
+}
+#[AA]
+class G
 {
 }
 
@@ -57,6 +67,16 @@ class F extends E
 #[Group('unit')]
 class ClassInspectorTest extends TestCase
 {
+	/**
+	 *
+	 */
+	public function testGetAttributes(): void
+	{
+		$attributes = ClassInspector::getAttributes(G::class);
+
+		$this->assertSame([AA::class], $attributes);
+	}
+
 	/**
 	 *
 	 */

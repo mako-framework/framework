@@ -30,7 +30,7 @@ class PreloaderGenerator
 	/**
 	 * Preloader template.
 	 */
-	protected string $template = <<<'EOF'
+	protected const string TEMPLATE = <<<'EOF'
 	<?php
 
 	$files = %s;
@@ -41,6 +41,24 @@ class PreloaderGenerator
 	}
 
 	EOF;
+
+	/**
+	 * Returns the user defined attributes.
+	 */
+	protected function getUserDefinedAttributes(array $attributes): array
+	{
+		$userDefinedAttributes = [];
+
+		foreach ($attributes as $attribute) {
+			$name = $attribute->getName();
+
+			if ((new ReflectionClass($name))->isUserDefined()) {
+				$userDefinedAttributes[] = $name;
+			}
+		}
+
+		return $userDefinedAttributes;
+	}
 
 	/**
 	 * Get class names from reflection type.
@@ -94,12 +112,18 @@ class PreloaderGenerator
 		do {
 			$previous = $classes;
 
-			// Add missing parent classes, interfaces and traits
+			// Add missing attributes, parent classes, interfaces and traits
 
 			$merged = [];
 
 			foreach ($classes as $class) {
 				$merged[] = $class;
+
+				foreach (ClassInspector::getAttributes($class) as $attribute) {
+					if ((new ReflectionClass($attribute))->isUserDefined()) {
+						$merged[] = $attribute;
+					}
+				}
 
 				foreach (ClassInspector::getParents($class) as $parent) {
 					if ((new ReflectionClass($parent))->isUserDefined()) {
@@ -132,13 +156,25 @@ class PreloaderGenerator
 				$reflection = new ReflectionClass($class);
 
 				foreach ($reflection->getProperties() as $property) {
+					if (!empty(($attributes = $property->getAttributes()))) {
+						$merged = [...$merged, ...$this->getUserDefinedAttributes($attributes)];
+					}
+
 					if (($type = $property->getType()) !== null) {
 						$merged = [...$merged, ...$this->getTypeClasses($type)];
 					}
 				}
 
 				foreach ($reflection->getMethods() as $method) {
+					if (!empty(($attributes = $method->getAttributes()))) {
+						$merged = [...$merged, ...$this->getUserDefinedAttributes($attributes)];
+					}
+
 					foreach ($method->getParameters() as $parameter) {
+						if (!empty(($attributes = $parameter->getAttributes()))) {
+							$merged = [...$merged, ...$this->getUserDefinedAttributes($attributes)];
+						}
+
 						if (($type = $parameter->getType()) !== null) {
 							$merged = [...$merged, ...$this->getTypeClasses($type)];
 						}
@@ -176,6 +212,6 @@ class PreloaderGenerator
 
 		sort($classes);
 
-		return sprintf($this->template, var_export($classes, true));
+		return sprintf(static::TEMPLATE, var_export($classes, true));
 	}
 }
