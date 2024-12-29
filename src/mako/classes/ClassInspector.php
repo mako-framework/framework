@@ -7,6 +7,10 @@
 
 namespace mako\classes;
 
+use ReflectionAttribute;
+use ReflectionClass;
+
+use function array_map;
 use function array_pop;
 use function class_implements;
 use function class_parents;
@@ -18,6 +22,17 @@ use function get_parent_class;
  */
 class ClassInspector
 {
+	/**
+	 * Returns an array of all the attributes of the class.
+	 */
+	public static function getAttributes(object|string $class): array
+	{
+		return array_map(
+			fn (ReflectionAttribute $reflection) => $reflection->getName(),
+			(new ReflectionClass($class))->getAttributes()
+		);
+	}
+
 	/**
 	 * Returns an array of all the parent classes of the class.
 	 */
