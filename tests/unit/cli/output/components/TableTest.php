@@ -27,7 +27,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -51,7 +51,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -75,7 +75,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -100,7 +100,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -124,7 +124,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -156,7 +156,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () use ($formatter) {
+		(function () use ($formatter): void {
 			$this->formatter = $formatter;
 		})->bindTo($output, Output::class)();
 
@@ -180,7 +180,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -208,7 +208,7 @@ class TableTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 

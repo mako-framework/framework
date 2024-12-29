@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\Group;
 // START CLASSES
 // --------------------------------------------------------------------------
 
-#[Attribute()]
+#[Attribute]
 class AA
 {
 }

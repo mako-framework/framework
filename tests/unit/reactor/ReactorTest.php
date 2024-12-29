@@ -80,7 +80,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -93,7 +93,7 @@ class ReactorTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -173,7 +173,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -188,7 +188,7 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('mute')->once();
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -266,7 +266,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -279,7 +279,7 @@ class ReactorTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -316,7 +316,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -331,7 +331,7 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('write')->times(3);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -375,7 +375,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -390,7 +390,7 @@ class ReactorTest extends TestCase
 
 		$output->shouldReceive('write')->times(3);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -434,7 +434,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -488,7 +488,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -542,7 +542,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -594,7 +594,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -609,7 +609,7 @@ class ReactorTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -673,7 +673,7 @@ class ReactorTest extends TestCase
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		(function () use ($argvParser) {
+		(function () use ($argvParser): void {
 			$this->argumentParser = $argvParser;
 		})->bindTo($input, Input::class)();
 
@@ -688,7 +688,7 @@ class ReactorTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 

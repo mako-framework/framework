@@ -24,7 +24,7 @@ class OrderedListTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function() {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -46,7 +46,7 @@ class OrderedListTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function() {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -72,7 +72,7 @@ class OrderedListTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function() {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -94,7 +94,7 @@ class OrderedListTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function() {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -118,7 +118,7 @@ class OrderedListTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function() {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 

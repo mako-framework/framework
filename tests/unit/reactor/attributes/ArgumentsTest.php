@@ -21,9 +21,9 @@ class ArgumentsTest extends TestCase
 	 */
 	public function testGetArguments(): void
 	{
-		/** @var Argument&\Mockery\LegacyMockInterface&\Mockery\MockInterface $arg1 */
+		/** @var Argument&Mockery\LegacyMockInterface&Mockery\MockInterface $arg1 */
 		$arg1 = Mockery::mock(Argument::class);
-		/** @var Argument&\Mockery\LegacyMockInterface&\Mockery\MockInterface $arg2 */
+		/** @var Argument&Mockery\LegacyMockInterface&Mockery\MockInterface $arg2 */
 		$arg2 = Mockery::mock(Argument::class);
 
 		$arguments = new CommandArguments($arg1, $arg2);

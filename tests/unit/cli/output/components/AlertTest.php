@@ -30,7 +30,7 @@ class AlertTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () use ($env) {
+		(function () use ($env): void {
 			$this->formatter = null;
 			$this->environment = $env;
 		})->bindTo($output, Output::class)();
@@ -59,7 +59,7 @@ class AlertTest extends TestCase
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
 
-		(function () {
+		(function (): void {
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
@@ -99,7 +99,7 @@ class AlertTest extends TestCase
 		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
-		(function () use ($env) {
+		(function () use ($env): void {
 			$this->formatter = null;
 			$this->environment = $env;
 		})->bindTo($output, Output::class)();
