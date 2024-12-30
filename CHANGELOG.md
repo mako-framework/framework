@@ -14,6 +14,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * The database library will use the new driver specific PDO sub-classes.
 * Added upsert functionality to the query builder. The feature is currently supported by the `MySQL`, `PostgreSQL` and `SQLite` compilers.
 * The database library now allows you to bind stringable objects as query parameters.
+* Added `ConnectionManager::getOpenConnections()` method.
 * The `Time::createFromTimestamp()` and `TimeImmutable::createFromTimestamp()` methods now support microsecond precision.
 * The `Time::createFromFormat()` and `TimeImmutable::createFromFormat()` methods now support microsecond precision.
 * It is now possible to customize how JSON request bodies are decoded using the following methods:
