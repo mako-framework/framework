@@ -46,6 +46,14 @@ abstract class ConnectionManager
 	}
 
 	/**
+	 * Returns all open connections.
+	 */
+	public function getOpenConnections(): array
+	{
+		return $this->connections;
+	}
+
+	/**
 	 * Closes the chosen connection.
 	 */
 	public function close(?string $connection = null): void

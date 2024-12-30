@@ -16,8 +16,9 @@ use function sprintf;
  * Redis connection manager.
  *
  * @mixin \mako\redis\Redis
- * @method \mako\redis\Redis connection($connection = null)
- * @method \mako\redis\Redis getConnection($connection = null)
+ * @method \mako\redis\Redis   connection($connection = null)
+ * @method \mako\redis\Redis   getConnection($connection = null)
+ * @method \mako\redis\Redis[] getOpenConnections()
  */
 class ConnectionManager extends BaseConnectionManager
 {
