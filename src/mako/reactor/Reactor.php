@@ -19,12 +19,12 @@ use mako\reactor\attributes\CommandDescription;
 use mako\syringe\Container;
 use ReflectionClass;
 
+use function array_column;
 use function array_diff_key;
 use function array_filter;
 use function array_flip;
 use function array_keys;
 use function array_map;
-use function implode;
 use function ksort;
 
 /**
@@ -141,15 +141,31 @@ class Reactor
 	{
 		$argInfo = [];
 
+		/** @var Argument $argument */
 		foreach ($arguments as $argument) {
 			$argInfo[] = [
-				implode(' | ', array_filter([$argument->getAlias(), $argument->getName()])),
+				$argument->getName(),
+				$argument->getAlias() ?? '',
 				$argument->getDescription(),
 				$argument->isOptional() ? 'Yes' : 'No',
 			];
 		}
 
-		$this->drawTable($heading, ['Name', 'Description', 'Optional'], $argInfo);
+		$headers = ['Name', 'Alias', 'Description', 'Optional'];
+
+		// Remove the alias column if there are no aliases
+
+		if (empty(array_filter(array_column($argInfo, 1)))) {
+			unset($headers[1]);
+
+			foreach ($argInfo as $key => $_) {
+				unset($argInfo[$key][1]);
+			}
+		}
+
+		// Draw the table
+
+		$this->drawTable($heading, $headers, $argInfo);
 	}
 
 	/**
