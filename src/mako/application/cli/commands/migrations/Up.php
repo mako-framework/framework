@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\migrations;
 
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
@@ -16,7 +17,7 @@ use mako\reactor\attributes\CommandDescription;
  */
 #[CommandDescription('Runs all outstanding migrations.')]
 #[CommandArguments(
-	new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+	new NamedArgument('database', 'd', 'Sets which database connection to use', Argument::IS_OPTIONAL),
 )]
 class Up extends Command
 {

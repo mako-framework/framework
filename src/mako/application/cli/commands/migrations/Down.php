@@ -9,6 +9,7 @@ namespace mako\application\cli\commands\migrations;
 
 use mako\application\cli\commands\migrations\traits\RollbackTrait;
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
@@ -17,8 +18,8 @@ use mako\reactor\attributes\CommandDescription;
  */
 #[CommandDescription('Rolls back the last batch of migrations.')]
 #[CommandArguments(
-	new Argument('-b|--batches', 'Number of batches to roll back', Argument::IS_OPTIONAL | Argument::IS_INT),
-	new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+	new NamedArgument('batches', 'b', 'Number of batches to roll back', Argument::IS_OPTIONAL | Argument::IS_INT),
+	new NamedArgument('database', 'd', 'Sets which database connection to use', Argument::IS_OPTIONAL),
 )]
 class Down extends Command
 {

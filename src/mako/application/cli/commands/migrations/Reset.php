@@ -9,6 +9,7 @@ namespace mako\application\cli\commands\migrations;
 
 use mako\application\cli\commands\migrations\traits\RollbackTrait;
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
@@ -17,8 +18,8 @@ use mako\reactor\attributes\CommandDescription;
  */
 #[CommandDescription('Resets the database schema.')]
 #[CommandArguments(
-	new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
-	new Argument('-f|--force', 'Force the schema reset?', Argument::IS_BOOL),
+	new NamedArgument('database', 'd', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+	new NamedArgument('force', 'f', 'Force the schema reset?', Argument::IS_BOOL),
 )]
 class Reset extends Command
 {

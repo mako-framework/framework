@@ -10,6 +10,7 @@ namespace mako\application\cli\commands\app;
 use mako\application\Application;
 use mako\classes\preload\PreloaderGenerator;
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
@@ -26,8 +27,8 @@ use function sprintf;
  */
 #[CommandDescription('Generates a opcache preloader script.')]
 #[CommandArguments(
-	new Argument('-i|--ignore-core-classes', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
-	new Argument('-o|--output-path', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
+	new NamedArgument('ignore-core-classes', 'i', 'Should the default selection of core classes be ignored?', Argument::IS_BOOL),
+	new NamedArgument('output-path', 'o', 'Path to where the preloder script should be written', Argument::IS_OPTIONAL),
 )]
 class GeneratePreloader extends Command
 {

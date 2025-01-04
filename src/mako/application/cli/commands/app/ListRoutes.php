@@ -9,6 +9,7 @@ namespace mako\application\cli\commands\app;
 
 use Closure;
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\cli\output\components\Alert;
 use mako\http\routing\Dispatcher;
 use mako\http\routing\Route;
@@ -33,8 +34,8 @@ use function str_pad;
  */
 #[CommandDescription('Lists all registered routes.')]
 #[CommandArguments(
-	new Argument('-f|--filter', 'Filter routes using the route action, name or path', Argument::IS_OPTIONAL),
-	new Argument('-d|--detailed', 'Show more information about the route', Argument::IS_BOOL | Argument::IS_OPTIONAL),
+	new NamedArgument('filter', 'f', 'Filter routes using the route action, name or path', Argument::IS_OPTIONAL),
+	new NamedArgument('detailed', 'd', 'Show more information about the route', Argument::IS_BOOL | Argument::IS_OPTIONAL),
 )]
 class ListRoutes extends Command
 {

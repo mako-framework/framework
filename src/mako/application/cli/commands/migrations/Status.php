@@ -8,6 +8,7 @@
 namespace mako\application\cli\commands\migrations;
 
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 
@@ -19,8 +20,8 @@ use function sprintf;
  */
 #[CommandDescription('Checks if there are any outstanding migrations.')]
 #[CommandArguments(
-	new Argument('-d|--database', 'Sets which database connection to use', Argument::IS_OPTIONAL),
-	new Argument('-e|--exit-code', 'Exits with 1 if there are outstanding migrations and 0 if there are none', Argument::IS_BOOL),
+	new NamedArgument('database', 'd', 'Sets which database connection to use', Argument::IS_OPTIONAL),
+	new NamedArgument('exit-code', 'e', 'Exits with 1 if there are outstanding migrations and 0 if there are none', Argument::IS_BOOL),
 )]
 class Status extends Command
 {

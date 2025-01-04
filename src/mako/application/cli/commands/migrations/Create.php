@@ -9,6 +9,7 @@ namespace mako\application\cli\commands\migrations;
 
 use mako\application\Application;
 use mako\cli\input\arguments\Argument;
+use mako\cli\input\arguments\NamedArgument;
 use mako\file\FileSystem;
 use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
@@ -24,8 +25,8 @@ use function str_replace;
  */
 #[CommandDescription('Creates a new migration.')]
 #[CommandArguments(
-	new Argument('-d|--description', 'Migration description', Argument::IS_OPTIONAL),
-	new Argument('-p|--package', 'Package name', Argument::IS_OPTIONAL),
+	new NamedArgument('description', 'd', 'Migration description', Argument::IS_OPTIONAL),
+	new NamedArgument('package', 'p', 'Package name', Argument::IS_OPTIONAL),
 )]
 class Create extends Command
 {
