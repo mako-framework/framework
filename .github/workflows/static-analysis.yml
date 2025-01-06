@@ -33,8 +33,4 @@ jobs:
             --no-interaction
             --no-progress
       - name: "Run analysis"
-        run: >-
-          ./vendor/bin/phpstan analyze src
-          --no-progress
-          --memory-limit=-1
-          -c phpstan.neon
+        run: "composer phpstan"

@@ -47,11 +47,4 @@ jobs:
             --no-progress
             ${{ matrix.composer-options }}
       - name: "Run tests"
-        run: >-
-          ./vendor/bin/phpunit
-          --display-incomplete
-          --display-skipped
-          --display-deprecations
-          --display-errors
-          --display-notices
-          --display-warning
+        run: "composer phpunit"
