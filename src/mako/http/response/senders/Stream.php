@@ -101,7 +101,9 @@ class Stream implements ResponseSenderInterface
 	{
 		// Erase output buffers and disable output buffering
 
-		while (ob_get_level() > 0) ob_end_clean();
+		while (ob_get_level() > 0) {
+			ob_end_clean();
+		}
 
 		// Send the stream
 

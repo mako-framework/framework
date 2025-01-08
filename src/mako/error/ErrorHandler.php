@@ -214,7 +214,9 @@ class ErrorHandler
 	 */
 	protected function clearOutputBuffers(): void
 	{
-		while (ob_get_level() > 0) ob_end_clean();
+		while (ob_get_level() > 0) {
+			ob_end_clean();
+		}
 	}
 
 	/**

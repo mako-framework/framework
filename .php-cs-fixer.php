@@ -21,6 +21,7 @@ return (new Config)->setRules
 	'combine_nested_dirname' => true,
 	'concat_space' => ['spacing' => 'one'],
 	'constant_case' => true,
+	'control_structure_braces' => true,
 	'declare_equal_normalize' => true,
 	'declare_parentheses' => true,
 	'dir_constant' => true,
