@@ -1,3 +1,19 @@
+### 11.1.0 <small>(2025-??-??)</small>
+
+#### New
+
+* Added a statistics utility class with the following methods:
+	- `Statistics::mean()`
+	- `Statistics::median()`
+	- `Statistics::mode()`
+	- `Statistics::midrange()`
+	- `Statistics::sampleVariance()`
+	- `Statistics::populationVariance()`
+
+#### Changes
+
+* Command argument aliases are now shown in a separate column.
+
 ### 11.0.0 <small>(2025-01-03)</small>
 
 The major version bump is due to upping the required PHP version from `8.1` to `8.4` and a several breaking changes. Most applications built using Mako `10` should run on Mako `11` with just a few simple adjustments.
