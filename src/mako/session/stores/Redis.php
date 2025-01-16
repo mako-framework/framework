@@ -33,8 +33,6 @@ class Redis implements StoreInterface
 	 */
 	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
-		//$this->redis->setex("{$this->prefix}{$sessionId}", $dataTTL, serialize($sessionData));
-
 		$this->redis->set("{$this->prefix}{$sessionId}", serialize($sessionData), 'EX', $dataTTL);
 	}
 
