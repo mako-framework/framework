@@ -86,6 +86,7 @@ class Statistics
 
 	/**
 	 * Returns the variance of the numbers in the array.
+	 * This variant is used when the array represents a sample of the population (data-set).
 	 */
 	public static function sampleVariance(array $numbers): float|int
 	{
@@ -108,6 +109,7 @@ class Statistics
 
 	/**
 	 * Returns the variance of the numbers in the array.
+	 * This variant is used when the array represents the entire population (data-set).
 	 */
 	public static function populationVariance(array $numbers): float|int
 	{
