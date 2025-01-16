@@ -52,7 +52,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setex')->once()->with('foo', 3600, 123)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('foo', 123, 'EX', 3600)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -62,7 +62,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setex')->once()->with('foo', 3600, serialize('foo'))->andReturn(true);
+		$client->shouldReceive('set')->once()->with('foo', serialize('foo'), 'EX', 3600)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -76,7 +76,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setnx')->once()->with('foo', 123)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('foo', 123, 'NX')->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -86,7 +86,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setnx')->once()->with('foo', serialize('foo'))->andReturn(true);
+		$client->shouldReceive('set')->once()->with('foo', serialize('foo'), 'NX')->andReturn(true);
 
 		$redis = new Redis($client);
 

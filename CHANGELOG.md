@@ -1,3 +1,11 @@
+### 10.0.12 <small>(2025-01-16)</small>
+
+#### Compatibility
+
+* Replaced the deprecated SETEX and SETNX redis command calls with SET with the EX and NX options.
+
+--------------------------------------------------------
+
 ### 10.0.11 <small>(2024-12-18)</small>
 
 #### Bugfixes

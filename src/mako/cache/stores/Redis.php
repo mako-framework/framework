@@ -40,7 +40,7 @@ class Redis extends Store implements IncrementDecrementInterface
 			return (bool) $this->redis->set($key, $data);
 		}
 
-		return (bool) $this->redis->setex($key, $ttl, $data);
+		return (bool) $this->redis->set($key, $data, 'EX', $ttl);
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Redis extends Store implements IncrementDecrementInterface
 		$data = is_numeric($data) ? $data : serialize($data);
 
 		if ($ttl === 0) {
-			return (bool) $this->redis->setnx($key, $data);
+			return (bool) $this->redis->set($key, $data, 'NX');
 		}
 
 		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
