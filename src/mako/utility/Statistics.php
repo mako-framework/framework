@@ -60,23 +60,9 @@ class Statistics
 	}
 
 	/**
-	 * Returns the mode of the values in the array.
+	 * Calculates the mode(s) of the values in the array.
 	 */
-	public static function mode(array $values): mixed
-	{
-		if (empty($values)) {
-			throw new StatisticsException('The array can not be empty.');
-		}
-
-		$frequency = array_count_values($values);
-
-		return array_keys($frequency, max($frequency))[0];
-	}
-
-	/**
-	 * Returns the modes of the values in the array.
-	 */
-	public static function multimode(array $values): array
+	protected static function calculateMode(array $values): mixed
 	{
 		if (empty($values)) {
 			throw new StatisticsException('The array can not be empty.');
@@ -85,6 +71,22 @@ class Statistics
 		$frequency = array_count_values($values);
 
 		return array_keys($frequency, max($frequency));
+	}
+
+	/**
+	 * Returns the mode of the values in the array.
+	 */
+	public static function mode(array $values): mixed
+	{
+		return static::calculateMode($values)[0];
+	}
+
+	/**
+	 * Returns the modes of the values in the array.
+	 */
+	public static function multimode(array $values): array
+	{
+		return static::calculateMode($values);
 	}
 
 	/**
