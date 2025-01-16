@@ -6,6 +6,7 @@
 	- `Statistics::mean()`
 	- `Statistics::median()`
 	- `Statistics::mode()`
+	- `Statistics::multimode()`
 	- `Statistics::midrange()`
 	- `Statistics::sampleVariance()`
 	- `Statistics::populationVariance()`

@@ -74,6 +74,20 @@ class Statistics
 	}
 
 	/**
+	 * Returns the modes of the values in the array.
+	 */
+	public static function multimode(array $values): array
+	{
+		if (empty($values)) {
+			throw new StatisticsException('The array can not be empty.');
+		}
+
+		$frequency = array_count_values($values);
+
+		return array_keys($frequency, max($frequency));
+	}
+
+	/**
 	 * Returns the midrange of the numbers in the array.
 	 */
 	public static function midrange(array $numbers): float|int

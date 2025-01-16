@@ -78,6 +78,28 @@ class StatisticsTest extends TestCase
 	/**
 	 *
 	 */
+	public function testMultimode(): void
+	{
+		$this->assertSame([3], Statistics::multimode([1, 3, 3, 3, 5, 7, 7, 9]));
+		$this->assertSame([1], Statistics::multimode([1, 1, -3, 3, 7, -9]));
+		$this->assertSame(['red', 'green'], Statistics::multimode(['red', 'green', 'blue', 'red', 'green']));
+		$this->assertSame([1, 3], Statistics::multimode([1, 1, 3, 3, 7, -9]));
+		$this->assertSame([1, 3, 7], Statistics::multimode([1, 1, 3, 3, 7, 7, -9]));
+	}
+
+	/**
+	 *
+	 */
+	public function testMultimodeWithEmptyArray(): void
+	{
+		$this->expectException(StatisticsException::class);
+
+		Statistics::multimode([]);
+	}
+
+	/**
+	 *
+	 */
 	public function testMidrange(): void
 	{
 		$this->assertSame(7, Statistics::midrange([1, 3, 5, 7, 9, 11, 13]));
