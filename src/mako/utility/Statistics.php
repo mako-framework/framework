@@ -16,6 +16,7 @@ use function count;
 use function max;
 use function min;
 use function sort;
+use function sqrt;
 
 /**
  * Class containing statistic helper methods.
@@ -85,8 +86,25 @@ class Statistics
 	}
 
 	/**
+	 * Calculates the variance of the numbers in the array.
+	 */
+	protected static function calculateVarianceNumerator(array $numbers): float|int
+	{
+		$mean = self::mean($numbers);
+
+		$variance = 0;
+
+		foreach ($numbers as $number) {
+			$variance += ($number - $mean) ** 2;
+		}
+
+		return $variance;
+	}
+
+	/**
 	 * Returns the variance of the numbers in the array.
-	 * This variant is used when the array represents a sample of the population (data-set).
+	 * This variant should be used when the array represents
+	 * a sample of the population (data-set).
 	 */
 	public static function sampleVariance(array $numbers): float|int
 	{
@@ -96,20 +114,13 @@ class Statistics
 			throw new StatisticsException('The array can not be empty.');
 		}
 
-		$mean = self::mean($numbers);
-
-		$variance = 0;
-
-		foreach ($numbers as $number) {
-			$variance += ($number - $mean) ** 2;
-		}
-
-		return $variance / ($count - 1);
+		return static::calculateVarianceNumerator($numbers) / ($count - 1);
 	}
 
 	/**
 	 * Returns the variance of the numbers in the array.
-	 * This variant is used when the array represents the entire population (data-set).
+	 * This variant should be used when the array represents
+	 * the entire population (data-set).
 	 */
 	public static function populationVariance(array $numbers): float|int
 	{
@@ -119,14 +130,26 @@ class Statistics
 			throw new StatisticsException('The array can not be empty.');
 		}
 
-		$mean = self::mean($numbers);
+		return static::calculateVarianceNumerator($numbers) / $count;
+	}
 
-		$variance = 0;
+	/**
+	 * Returns the standard deviation of the numbers in the array.
+	 * This variant should be used when the array represents
+	 * a sample of the population (data-set).
+	 */
+	public static function sampleStandardDeviation(array $numbers): float|int
+	{
+		return sqrt(self::sampleVariance($numbers));
+	}
 
-		foreach ($numbers as $number) {
-			$variance += ($number - $mean) ** 2;
-		}
-
-		return $variance / $count;
+	/**
+	 * Returns the standard deviation of the numbers in the array.
+	 * This variant should be used when the array represents
+	 * the entire population (data-set).
+	 */
+	public static function populationStandardDeviation(array $numbers): float|int
+	{
+		return sqrt(self::populationVariance($numbers));
 	}
 }

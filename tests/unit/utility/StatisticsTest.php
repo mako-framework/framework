@@ -126,4 +126,56 @@ class StatisticsTest extends TestCase
 		$this->assertEqualsWithDelta(53.1025, Statistics::populationVariance([-11, 5.5, -3.4, 7.1]), 0.0001);
 		$this->assertEqualsWithDelta(1302.6875, Statistics::populationVariance([1, 30, 50, 100]), 0.0001);
 	}
+
+	/**
+	 *
+	 */
+	public function testPopulationVarianceWithEmptyArray(): void
+	{
+		$this->expectException(StatisticsException::class);
+
+		Statistics::populationVariance([]);
+	}
+
+	/**
+	 *
+	 */
+	public function testsampleStandardDeviation(): void
+	{
+		$this->assertEqualsWithDelta(3.7416573867739413, Statistics::sampleStandardDeviation([1, 3, 5, 7, 9, 11]), 0.0000000000000001);
+		$this->assertEqualsWithDelta(0.6925797186365384, Statistics::sampleStandardDeviation([2, 2.5, 1.25, 3.1, 1.75, 2.8]), 0.0000000000000001);
+		$this->assertEqualsWithDelta(8.414471660973929, Statistics::sampleStandardDeviation([-11, 5.5, -3.4, 7.1]), 0.00000000000001);
+		$this->assertEqualsWithDelta(41.67633221226008, Statistics::sampleStandardDeviation([1, 30, 50, 100]), 0.00000000000001);
+	}
+
+	/**
+	 *
+	 */
+	public function testSampleStandardDeviationWithEmptyArray(): void
+	{
+		$this->expectException(StatisticsException::class);
+
+		Statistics::sampleStandardDeviation([]);
+	}
+
+	/**
+	 *
+	 */
+	public function testPopulationStandardDeviation(): void
+	{
+		$this->assertEqualsWithDelta(3.415650255319866, Statistics::populationStandardDeviation([1, 3, 5, 7, 9, 11]), 0.000000000000001);
+		$this->assertEqualsWithDelta(0.6322358912796886, Statistics::populationStandardDeviation([2, 2.5, 1.25, 3.1, 1.75, 2.8]), 0.0000000000000001);
+		$this->assertEqualsWithDelta(7.287146217827662, Statistics::populationStandardDeviation([-11, 5.5, -3.4, 7.1]), 0.000000000000001);
+		$this->assertEqualsWithDelta(36.09276243237694, Statistics::populationStandardDeviation([1, 30, 50, 100]), 0.00000000000001);
+	}
+
+	/**
+	 *
+	 */
+	public function testPopulationStandardDeviationWithEmptyArray(): void
+	{
+		$this->expectException(StatisticsException::class);
+
+		Statistics::populationStandardDeviation([]);
+	}
 }

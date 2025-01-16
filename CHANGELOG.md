@@ -9,6 +9,8 @@
 	- `Statistics::midrange()`
 	- `Statistics::sampleVariance()`
 	- `Statistics::populationVariance()`
+	- `Statistics::sampleStandardDeviation()`
+	- `Statistics::populationStandardDeviation()`
 
 #### Changes
 
