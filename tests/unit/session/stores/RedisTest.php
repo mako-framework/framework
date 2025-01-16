@@ -31,7 +31,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('setex')->once()->with('sess_123', 123, serialize(['data']));
+		$client->shouldReceive('set')->once()->with('sess_123', serialize(['data']), 'EX', 123);
 
 		$redis = new Redis($client);
 
