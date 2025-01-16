@@ -1,3 +1,11 @@
+### 10.0.12, 11.0.1 <small>(2025-01-16)</small>
+
+#### Compatibility
+
+* Replaced the deprecated SETEX and SETNX redis command calls with SET with the EX and NX options.
+
+--------------------------------------------------------
+
 ### 11.0.0 <small>(2025-01-03)</small>
 
 The major version bump is due to upping the required PHP version from `8.1` to `8.4` and a several breaking changes. Most applications built using Mako `10` should run on Mako `11` with just a few simple adjustments.
