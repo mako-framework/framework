@@ -19,6 +19,14 @@
 
 --------------------------------------------------------
 
+### 11.0.2 <small>(2025-01-17)</small>
+
+#### New
+
+* Added `RedisException::getStreamMetadata()` method to assist in debugging of read errors.
+
+--------------------------------------------------------
+
 ### 10.0.12, 11.0.1 <small>(2025-01-16)</small>
 
 #### Compatibility

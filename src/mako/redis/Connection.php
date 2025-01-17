@@ -138,21 +138,18 @@ class Connection
 	}
 
 	/**
-	 * Appends the read error reason to the error message if possible.
+	 * Returns the message with the read error reason to the
+	 * error message if possible along with the stream metadata.
 	 */
-	protected function appendReadErrorReason($message): string
+	protected function getMessageAndStreamMetadata($message): array
 	{
 		$metadata = stream_get_meta_data($this->connection);
 
 		if ($metadata['timed_out']) {
-			return "{$message} The stream timed out while waiting for data.";
+			$message = "{$message} The stream timed out while waiting for data.";
 		}
 
-		if ($metadata['blocked']) {
-			return "{$message} The stream is in blocking I/O mode.";
-		}
-
-		return $message;
+		return ['message' => $message, 'streamMetadata' => $metadata];
 	}
 
 	/**
@@ -163,7 +160,7 @@ class Connection
 		$line = fgets($this->connection);
 
 		if ($line === false || $line === '') {
-			throw new RedisException($this->appendReadErrorReason('Failed to read line from the server.'));
+			throw new RedisException(...$this->getMessageAndStreamMetadata('Failed to read line from the server.'));
 		}
 
 		return $line;
@@ -182,7 +179,7 @@ class Connection
 			$chunk = fread($this->connection, min($bytesLeft, 4096));
 
 			if ($chunk === false) {
-				throw new RedisException($this->appendReadErrorReason('Failed to read data from the server.'));
+				throw new RedisException(...$this->getMessageAndStreamMetadata('Failed to read data from the server.'));
 			}
 
 			$data .= $chunk;
