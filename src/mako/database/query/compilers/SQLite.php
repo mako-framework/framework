@@ -108,4 +108,16 @@ class SQLite extends Compiler
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function updateAndReturn(array $values, array $return): array
+	{
+		$query = $this->update($values);
+
+		$query['sql'] .= ' RETURNING ' . $this->columns($return);
+
+		return $query;
+	}
 }

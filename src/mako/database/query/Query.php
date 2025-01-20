@@ -1216,7 +1216,7 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns an array containing all of the result set rows.
+	 * Executes a SELECT query and returns an array or result set containing all of the result set rows.
 	 */
 	protected function fetchAll(bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
 	{
@@ -1228,7 +1228,7 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns an array containing all of the result set rows.
+	 * Executes a SELECT query and returns a result set containing all of the result set rows.
 	 *
 	 * @return ResultSet<int, Result>
 	 */
@@ -1488,6 +1488,28 @@ class Query
 		$query = $this->compiler->update($values);
 
 		return $this->connection->queryAndCount($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Updates data from the chosen table and returns an array or result set.
+	 */
+	protected function updateAndReturnAll(array $values, array $return, bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
+	{
+		$query = $this->compiler->updateAndReturn($values, $return);
+
+		$results = $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
+
+		return $returnResultSet ? $this->createResultSet($results) : $results;
+	}
+
+	/**
+	 * Updates data from the chosen table and returns a result set.
+	 *
+	 * @return ResultSet<int, Result>
+	 */
+	public function updateAndReturn(array $values, array $return = ['*']): ResultSet
+	{
+		return $this->updateAndReturnAll($values, $return, true, PDO::FETCH_CLASS, Result::class);
 	}
 
 	/**

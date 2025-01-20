@@ -75,4 +75,16 @@ class Firebird extends Compiler
 
 		return $lock === true ? ' FOR UPDATE WITH LOCK' : ($lock === false ? ' WITH LOCK' : " {$lock}");
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function updateAndReturn(array $values, array $return): array
+	{
+		$query = $this->update($values);
+
+		$query['sql'] .= ' RETURNING ' . $this->columns($return);
+
+		return $query;
+	}
 }

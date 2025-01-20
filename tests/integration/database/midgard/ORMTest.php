@@ -676,4 +676,19 @@ class ORMTest extends ORMTestCase
 
 		$this->assertSame(3, count($counters));
 	}
+
+	/**
+	 *
+	 */
+	public function testUpdateAndReturn(): void
+	{
+		$updated = (new TestUser)->where('id', '=', 1)->updateAndReturn(['username' => 'bax'], ['username']);
+
+		$this->assertInstanceOf(ResultSet::class, $updated);
+		$this->assertInstanceOf(TestUser::class, $updated[0]);
+
+		$this->assertEquals(1, $updated[0]->id);
+		$this->assertEquals('bax', $updated[0]->username);
+		$this->assertSame(['id' => 1, 'username' => 'bax'], $updated[0]->toArray());
+	}
 }
