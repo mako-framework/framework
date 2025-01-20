@@ -83,7 +83,7 @@ class Firebird extends Compiler
 	{
 		$query = $this->update($values);
 
-		$query['sql'] .= ' RETURNING ' . $this->columns($return);
+		$query['sql'] .= ' RETURNING ' . $this->columnNames($return);
 
 		return $query;
 	}
