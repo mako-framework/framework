@@ -1216,7 +1216,7 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns an array or result set containing all of the result set rows.
+	 * Executes a SELECT query and returns an array or result set containing all of the matching rows.
 	 */
 	protected function fetchAll(bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
 	{
@@ -1228,7 +1228,7 @@ class Query
 	}
 
 	/**
-	 * Executes a SELECT query and returns a result set containing all of the result set rows.
+	 * Executes a SELECT query and returns a result set containing all of the matching rows.
 	 *
 	 * @return ResultSet<int, Result>
 	 */
