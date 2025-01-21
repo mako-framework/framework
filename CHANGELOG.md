@@ -12,6 +12,7 @@
 	- `Statistics::populationVariance()`
 	- `Statistics::sampleStandardDeviation()`
 	- `Statistics::populationStandardDeviation()`
+* Added "update and return" functionality to the query builder. The feature is currently supported by the `Firebird`, `PostgreSQL`, `SQLite` and `SQL Server` compilers.
 
 #### Changes
 

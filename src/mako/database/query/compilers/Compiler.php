@@ -829,6 +829,16 @@ class Compiler
 	}
 
 	/**
+	 * Compiles an UPDATE query with a RETURNING clause.
+	 *
+	 * @return array{sql: string, params: array}
+	 */
+	public function updateAndReturn(array $values, array $return): array
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support update and return queries.', static::class));
+	}
+
+	/**
 	 * Compiles a DELETE query.
 	 *
 	 * @return array{sql: string, params: array}

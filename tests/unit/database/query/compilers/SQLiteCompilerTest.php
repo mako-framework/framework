@@ -329,4 +329,19 @@ class SQLiteCompilerTest extends TestCase
 		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) ON CONFLICT ("foo", "bar") DO UPDATE SET "foo" = ?', $query['sql']);
 		$this->assertEquals(['bar', 'dupe'], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testUpdateAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->updateAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ? RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar', 1], $query['params']);
+	}
 }

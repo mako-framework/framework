@@ -202,6 +202,42 @@ class Query extends QueryBuilder
 	}
 
 	/**
+	 * Updates data from the chosen table and returns a result set.
+	 *
+	 * @return ResultSet<int, TClass>
+	 */
+	public function updateAndReturn(array $values, array $return = ['*']): ResultSet
+	{
+		// Execute "beforeUpdate" hooks
+
+		foreach ($this->model->getHooks('beforeUpdate') as $hook) {
+			$values = $hook($values, $this);
+		}
+
+		// Update record(s)
+
+		if ($return !== ['*']) {
+			$return = array_unique([$this->model->getPrimaryKey(), ...$return]);
+		}
+
+		$updated = $this->updateAndReturnAll($values, $return, false, PDO::FETCH_ASSOC);
+
+		// Execute "afterUpdate" hooks
+
+		foreach ($this->model->getHooks('afterUpdate') as $hook) {
+			$hook($updated);
+		}
+
+		// Return updated records
+
+		if (!empty($updated)) {
+			$updated = $this->hydrateModelsAndLoadIncludes($updated);
+		}
+
+		return $this->createResultSet($updated);
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function increment(string $column, int $increment = 1): int

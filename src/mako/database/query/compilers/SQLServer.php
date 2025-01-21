@@ -11,6 +11,7 @@ use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
 
+use function implode;
 use function str_replace;
 
 /**
@@ -113,5 +114,25 @@ class SQLServer extends Compiler
 		}
 
 		return '';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function updateAndReturn(array $values, array $return): array
+	{
+		foreach ($return as $key => $column) {
+			$return[$key] = "inserted.{$this->columnName($column)}";
+		}
+
+		$sql = $this->query->getPrefix()
+		. 'UPDATE '
+		. $this->escapeTableName($this->query->getTable())
+		. ' SET '
+		. $this->updateColumns($values)
+		. ' OUTPUT ' . implode(', ', $return)
+		. $this->wheres($this->query->getWheres());
+
+		return ['sql' => $sql, 'params' => $this->params];
 	}
 }

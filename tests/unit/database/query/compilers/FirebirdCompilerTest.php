@@ -315,4 +315,19 @@ class FirebirdCompilerTest extends TestCase
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR CAST("date" AS DATE) = ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05'], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testUpdateAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->where('id', '=', 1);
+
+		$query = $query->getCompiler()->updateAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ? RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar', 1], $query['params']);
+	}
 }

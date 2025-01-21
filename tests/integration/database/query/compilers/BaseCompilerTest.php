@@ -10,6 +10,8 @@ namespace mako\tests\integration\database\query\compilers;
 use LogicException;
 use mako\database\exceptions\NotFoundException;
 use mako\database\query\Query;
+use mako\database\query\Result;
+use mako\database\query\ResultSet;
 use mako\database\query\Subquery;
 use mako\pagination\PaginationFactoryInterface;
 use mako\pagination\PaginationInterface;
@@ -454,5 +456,23 @@ class BaseCompilerTest extends InMemoryDbTestCase
 		$user = $query->table('users')->where('username', '=', UsernameEnum::foo)->first();
 
 		$this->assertSame(UsernameEnum::foo->name, $user->username);
+	}
+
+	/**
+	 *
+	 */
+	public function testUpdateAndReturn(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$updated = $query->table('users')->where('id', '=', 1)->updateAndReturn(['username' => 'bax'], ['id', 'username']);
+
+		$this->assertInstanceOf(ResultSet::class, $updated);
+		$this->assertInstanceOf(Result::class, $updated[0]);
+
+		$this->assertSame(1, $updated[0]->id);
+		$this->assertSame('bax', $updated[0]->username);
+
+		$this->assertEquals('UPDATE "users" SET "username" = \'bax\' WHERE "id" = 1 RETURNING "id", "username"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 }
