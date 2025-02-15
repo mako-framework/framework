@@ -20,7 +20,7 @@ class RateLimiter implements RateLimiterInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected StoreInterface $storage,
+		protected StoreInterface $store,
 		protected ContextInterface $context
 	) {
 	}
@@ -38,7 +38,7 @@ class RateLimiter implements RateLimiterInterface
 	 */
 	public function isLimitReached(string $action, int $maxAttempts): bool
 	{
-		return $this->storage->getHits($this->getKey($action)) >= $maxAttempts;
+		return $this->store->getHits($this->getKey($action)) >= $maxAttempts;
 	}
 
 	/**
@@ -46,7 +46,7 @@ class RateLimiter implements RateLimiterInterface
 	 */
 	public function getRemaining(string $action, int $maxAttempts): int
 	{
-		return $maxAttempts - $this->storage->getHits($this->getKey($action));
+		return $maxAttempts - $this->store->getHits($this->getKey($action));
 	}
 
 	/**
@@ -54,7 +54,7 @@ class RateLimiter implements RateLimiterInterface
 	 */
 	public function getRetryAfter(string $action): ?DateTimeInterface
 	{
-		return $this->storage->getExpiration($this->getKey($action));
+		return $this->store->getExpiration($this->getKey($action));
 	}
 
 	/**
@@ -62,6 +62,6 @@ class RateLimiter implements RateLimiterInterface
 	 */
 	public function increment(string $action, DateTimeInterface $expiresAt): int
 	{
-		return $this->storage->increment($this->getKey($action), $expiresAt);
+		return $this->store->increment($this->getKey($action), $expiresAt);
 	}
 }
