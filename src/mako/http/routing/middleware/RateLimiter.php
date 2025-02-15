@@ -28,7 +28,7 @@ class RateLimiter implements MiddlewareInterface
 	public function __construct(
 		protected RateLimiterInterface $rateLimiter,
 		protected int $maxRequests,
-		protected int|string $resetIn,
+		protected DateTimeInterface|int|string $resetAfter,
 		protected bool $setRateLimitHeaders = true,
 	) {
 	}
@@ -38,13 +38,17 @@ class RateLimiter implements MiddlewareInterface
 	 */
 	protected function getExpirationTime(): DateTimeInterface
 	{
-		if (is_string($this->resetIn)) {
-			return new DateTime($this->resetIn);
+		if ($this->resetAfter instanceof DateTimeInterface) {
+			return $this->resetAfter;
+		}
+
+		if (is_string($this->resetAfter)) {
+			return new DateTime($this->resetAfter);
 		}
 
 		$expirationTime = new DateTime;
 
-		$expirationTime->setTimestamp($expirationTime->getTimestamp() + $this->resetIn);
+		$expirationTime->setTimestamp($expirationTime->getTimestamp() + $this->resetAfter);
 
 		return $expirationTime;
 	}
