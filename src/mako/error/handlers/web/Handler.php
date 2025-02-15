@@ -9,14 +9,12 @@ namespace mako\error\handlers\web;
 
 use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\http\exceptions\HttpStatusException;
-use mako\http\exceptions\MethodNotAllowedException;
+use mako\http\exceptions\ProvidesHeadersInterface;
 use mako\http\Response;
 use mako\http\response\Status;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\utility\UUID;
 use Throwable;
-
-use function implode;
 
 /**
  * Base handler.
@@ -59,8 +57,10 @@ abstract class Handler implements ProvidesExceptionIdInterface
 	 */
 	protected function sendResponse(Response $response, Throwable $exception): void
 	{
-		if ($exception instanceof MethodNotAllowedException) {
-			$response->headers->add('Allow', implode(',', $exception->getAllowedMethods()));
+		if ($exception instanceof ProvidesHeadersInterface) {
+			foreach ($exception->getHeaders() as $name => $value) {
+				$response->headers->add($name, $value);
+			}
 		}
 
 		$response->send();
