@@ -7,12 +7,12 @@
 
 namespace mako\throttle\store;
 
-use DateTime;
 use DateTimeInterface;
 use mako\chrono\Time;
 use mako\redis\Redis as RedisClient;
 
 use function hash;
+use function time;
 
 /**
  * Redis store.
@@ -61,7 +61,7 @@ class Redis implements StoreInterface
 	{
 		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
 
-		$ttl = $expiresAt->getTimestamp() - (new DateTime)->getTimestamp();
+		$ttl = $expiresAt->getTimestamp() - time();
 
 		$this->redis->eval($lua, 1, $this->getKey($key), $ttl, 0);
 
