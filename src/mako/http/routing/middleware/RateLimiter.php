@@ -30,6 +30,7 @@ class RateLimiter implements MiddlewareInterface
 		protected int $maxRequests,
 		protected DateTimeInterface|int|string $resetAfter,
 		protected bool $setRateLimitHeaders = true,
+		protected ?string $action = null
 	) {
 	}
 
@@ -58,7 +59,7 @@ class RateLimiter implements MiddlewareInterface
 	 */
 	protected function getAction(Request $request): string
 	{
-		return $request->getPath();
+		return $request->getRoute()->getRoute();
 	}
 
 	/**
@@ -66,7 +67,7 @@ class RateLimiter implements MiddlewareInterface
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		$action = $this->getAction($request);
+		$action = $this->action ?? $this->getAction($request);
 
 		if ($this->rateLimiter->isLimitReached($action, $this->maxRequests)) {
 			throw new TooManyRequestsException($this->rateLimiter->getRetryAfter($action));
