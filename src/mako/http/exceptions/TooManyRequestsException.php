@@ -46,14 +46,6 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 	 */
 	public function getHeaders(): array
 	{
-		return $this->headers;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getHeaders(): array
-	{
 		if ($this->retryAfter !== null) {
 			return ['Retry-After' => $this->retryAfter->format(DateTimeInterface::RFC7231)];
 		}
