@@ -23,6 +23,7 @@ use SensitiveParameter;
 use function hash;
 use function is_int;
 use function random_bytes;
+use function time;
 
 /**
  * User.
@@ -317,7 +318,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 */
 	public function isLocked(): bool
 	{
-		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= Time::now()->getTimestamp();
+		return $this->locked_until !== null && $this->locked_until->getTimestamp() >= time();
 	}
 
 	/**

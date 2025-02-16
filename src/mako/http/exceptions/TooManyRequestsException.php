@@ -17,6 +17,11 @@ use Throwable;
 class TooManyRequestsException extends HttpStatusException implements ProvidesHeadersInterface
 {
 	/**
+	 * Headers.
+	 */
+	protected $headers = [];
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected string $defaultMessage = 'You have made too many requests to the server.';
@@ -30,6 +35,18 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 		protected ?DateTimeInterface $retryAfter = null)
 	{
 		parent::__construct(Status::TOO_MANY_REQUESTS, $message, $previous);
+
+		if ($retryAfter !== null) {
+			$this->headers['Retry-After'] = $retryAfter->format(DateTimeInterface::RFC7231);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getHeaders(): array
+	{
+		return $this->headers;
 	}
 
 	/**
