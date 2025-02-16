@@ -35,10 +35,6 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 		protected ?DateTimeInterface $retryAfter = null)
 	{
 		parent::__construct(Status::TOO_MANY_REQUESTS, $message, $previous);
-
-		if ($retryAfter !== null) {
-			$this->headers['Retry-After'] = $retryAfter->format(DateTimeInterface::RFC7231);
-		}
 	}
 
 	/**
