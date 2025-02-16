@@ -10,10 +10,12 @@ namespace mako\http\exceptions;
 use mako\http\response\Status;
 use Throwable;
 
+use function implode;
+
 /**
  * Method not allowed exception.
  */
-class MethodNotAllowedException extends HttpStatusException
+class MethodNotAllowedException extends HttpStatusException implements ProvidesHeadersInterface
 {
 	/**
 	 * {@inheritDoc}
@@ -37,5 +39,13 @@ class MethodNotAllowedException extends HttpStatusException
 	public function getAllowedMethods(): array
 	{
 		return $this->allowedMethods;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getHeaders(): array
+	{
+		return ['Allow' => implode(',', $this->allowedMethods)];
 	}
 }

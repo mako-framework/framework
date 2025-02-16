@@ -17,10 +17,20 @@ class MethodNotAllowedExceptionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testFailedConnection(): void
+	public function testGetAllowedMethods(): void
 	{
 		$exception = new MethodNotAllowedException(['GET', 'POST']);
 
 		$this->assertSame(['GET', 'POST'], $exception->getAllowedMethods());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetHeaders(): void
+	{
+		$exception = new MethodNotAllowedException(['GET', 'POST']);
+
+		$this->assertSame(['Allow' => 'GET,POST'], $exception->getHeaders());
 	}
 }
