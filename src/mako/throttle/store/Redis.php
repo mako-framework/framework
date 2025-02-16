@@ -61,7 +61,7 @@ class Redis implements StoreInterface
 	{
 		$key = $this->getKey($key);
 
-		[, $count] = $this->redis->pipeline(static function ($redis) use ($key, $expiresAt) {
+		[, $count] = $this->redis->pipeline(static function ($redis) use ($key, $expiresAt): void {
 			$redis->set($key, 0, 'NX', 'EX', $expiresAt->getTimestamp() - time());
 			$redis->incrBy($key, 1);
 		});
