@@ -65,6 +65,6 @@ class Redis implements StoreInterface
 
 		$this->redis->eval($lua, 1, $this->getKey($key), $ttl, 0);
 
-		return $this->redis->incrby($this->getKey($key), 1);
+		return $this->redis->incrBy($this->getKey($key), 1);
 	}
 }

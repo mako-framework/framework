@@ -20,7 +20,7 @@ class TooManyRequestsExceptionTest extends TestCase
 	 */
 	public function testGetAllowedMethods(): void
 	{
-		$exception = new TooManyRequestsException();
+		$exception = new TooManyRequestsException;
 
 		$this->assertSame([], $exception->getHeaders());
 	}

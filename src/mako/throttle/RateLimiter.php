@@ -30,7 +30,7 @@ class RateLimiter implements RateLimiterInterface
 	 */
 	protected function getKey(string $action): string
 	{
-		return $this->context->getIdentifier() . ':' . $action;
+		return "{$this->context->getIdentifier()}:{$action}";
 	}
 
 	/**
