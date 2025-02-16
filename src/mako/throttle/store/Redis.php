@@ -59,8 +59,13 @@ class Redis implements StoreInterface
 	 */
 	public function increment(string $key, DateTimeInterface $expiresAt): int
 	{
-		$this->redis->set($this->getKey($key), 0, 'NX', 'EX', $expiresAt->getTimestamp() - time());
+		$key = $this->getKey($key);
 
-		return $this->redis->incrBy($this->getKey($key), 1);
+		[, $count] = $this->redis->pipeline(static function ($redis) use ($key, $expiresAt) {
+			$redis->set($key, 0, 'NX', 'EX', $expiresAt->getTimestamp() - time());
+			$redis->incrBy($key, 1);
+		});
+
+		return $count;
 	}
 }

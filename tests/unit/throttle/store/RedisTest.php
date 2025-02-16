@@ -85,9 +85,7 @@ class RedisTest extends TestCase
 		/** @var Mockery\MockInterface&Redis $redis */
 		$redis = Mockery::mock(Redis::class);
 
-		$redis->shouldReceive('set')->once()->withSomeOfArgs(0, 'NX', 'EX');
-
-		$redis->shouldReceive('incrBy')->once()->withSomeOfArgs(1)->andReturn(42);
+		$redis->shouldReceive('pipeline')->once()->andReturn([true, 42]);
 
 		$store = new RedisStore($redis);
 
