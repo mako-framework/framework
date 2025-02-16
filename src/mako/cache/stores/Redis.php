@@ -57,9 +57,7 @@ class Redis extends Store implements IncrementDecrementInterface
 			return (bool) $this->redis->set($key, $data, 'NX');
 		}
 
-		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
-
-		return (bool) $this->redis->eval($lua, 1, $key, $ttl, $data);
+		return (bool) $this->redis->set($key, $data, 'NX', 'EX', $ttl);
 	}
 
 	/**

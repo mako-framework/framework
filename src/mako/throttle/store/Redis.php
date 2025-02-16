@@ -59,11 +59,7 @@ class Redis implements StoreInterface
 	 */
 	public function increment(string $key, DateTimeInterface $expiresAt): int
 	{
-		$lua = "return redis.call('exists', KEYS[1]) == 0 and redis.call('setex', KEYS[1], ARGV[1], ARGV[2])";
-
-		$ttl = $expiresAt->getTimestamp() - time();
-
-		$this->redis->eval($lua, 1, $this->getKey($key), $ttl, 0);
+		$this->redis->set($this->getKey($key), 0, 'NX', 'EX', $expiresAt->getTimestamp() - time());
 
 		return $this->redis->incrBy($this->getKey($key), 1);
 	}

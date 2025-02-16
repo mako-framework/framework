@@ -19,7 +19,7 @@ class MethodNotAllowedExceptionTest extends TestCase
 	 */
 	public function testGetAllowedMethods(): void
 	{
-		$exception = new MethodNotAllowedException(['GET', 'POST']);
+		$exception = new MethodNotAllowedException(allowedMethods: ['GET', 'POST']);
 
 		$this->assertSame(['GET', 'POST'], $exception->getAllowedMethods());
 	}
@@ -29,8 +29,18 @@ class MethodNotAllowedExceptionTest extends TestCase
 	 */
 	public function testGetHeaders(): void
 	{
-		$exception = new MethodNotAllowedException(['GET', 'POST']);
+		$exception = new MethodNotAllowedException(allowedMethods: ['GET', 'POST']);
 
 		$this->assertSame(['Allow' => 'GET,POST'], $exception->getHeaders());
+	}
+
+	/**
+	 *
+	 */
+	public function testGetHeadersWithNoAllowedMethods(): void
+	{
+		$exception = new MethodNotAllowedException;
+
+		$this->assertSame([], $exception->getHeaders());
 	}
 }

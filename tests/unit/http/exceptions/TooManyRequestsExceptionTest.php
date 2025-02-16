@@ -32,7 +32,7 @@ class TooManyRequestsExceptionTest extends TestCase
 	{
 		$now = new DateTime;
 
-		$exception = new TooManyRequestsException($now);
+		$exception = new TooManyRequestsException(retryAfter: $now);
 
 		$this->assertSame(['Retry-After' => $now->format(DateTime::RFC7231)], $exception->getHeaders());
 	}
