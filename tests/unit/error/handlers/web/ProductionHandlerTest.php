@@ -228,7 +228,7 @@ class ProductionHandlerTest extends TestCase
 			}
 		};
 
-		$this->assertFalse($handler->handle(new MethodNotAllowedException(['GET', 'POST'])));
+		$this->assertFalse($handler->handle(new MethodNotAllowedException(allowedMethods: ['GET', 'POST'])));
 	}
 
 	/**

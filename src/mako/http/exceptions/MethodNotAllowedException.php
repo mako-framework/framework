@@ -26,9 +26,9 @@ class MethodNotAllowedException extends HttpStatusException implements ProvidesH
 	 * Constructor.
 	 */
 	public function __construct(
-		protected array $allowedMethods = [],
 		string $message = '',
-		?Throwable $previous = null
+		?Throwable $previous = null,
+		protected array $allowedMethods = []
 	) {
 		parent::__construct(Status::METHOD_NOT_ALLOWED, $message, $previous);
 	}
@@ -46,6 +46,10 @@ class MethodNotAllowedException extends HttpStatusException implements ProvidesH
 	 */
 	public function getHeaders(): array
 	{
-		return ['Allow' => implode(',', $this->allowedMethods)];
+		if (!empty($this->allowedMethods)) {
+			return ['Allow' => implode(',', $this->allowedMethods)];
+		}
+
+		return [];
 	}
 }

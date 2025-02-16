@@ -70,7 +70,7 @@ class RateLimiter implements MiddlewareInterface
 		$action = $this->action ?? $this->getAction($request);
 
 		if ($this->rateLimiter->isLimitReached($action, $this->maxRequests)) {
-			throw new TooManyRequestsException($this->rateLimiter->getRetryAfter($action));
+			throw new TooManyRequestsException(retryAfter: $this->rateLimiter->getRetryAfter($action));
 		}
 
 		$hits = $this->rateLimiter->increment($action, $this->getExpirationTime());

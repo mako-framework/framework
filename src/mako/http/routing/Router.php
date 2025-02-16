@@ -157,7 +157,7 @@ class Router
 	protected function methodNotAllowedRoute(array $allowedMethods): Route
 	{
 		return new Route([], '', static function () use ($allowedMethods): void {
-			throw new MethodNotAllowedException($allowedMethods);
+			throw new MethodNotAllowedException(allowedMethods: $allowedMethods);
 		}, 'router:405');
 	}
 
