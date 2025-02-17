@@ -10,7 +10,6 @@ namespace mako\throttle\stores;
 use DateTime;
 use DateTimeInterface;
 
-use function apcu_add;
 use function apcu_fetch;
 use function apcu_inc;
 use function apcu_key_info;
@@ -65,10 +64,6 @@ class APCu implements StoreInterface
 	 */
 	public function increment(string $key, DateTimeInterface $expiresAt): int
 	{
-		$key = $this->getKey($key);
-
-		apcu_add($key, 0, $expiresAt->getTimestamp() - time());
-
-		return apcu_inc($key);
+		return apcu_inc($this->getKey($key), 1, ttl: $expiresAt->getTimestamp() - time());
 	}
 }
