@@ -8,14 +8,11 @@
 namespace mako\http\routing\middleware;
 
 use Closure;
-use DateTime;
-use DateTimeInterface;
+use DateInterval;
 use mako\http\exceptions\TooManyRequestsException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\throttle\RateLimiterInterface;
-
-use function is_string;
 
 /**
  * Rate limiter middleware.
@@ -28,30 +25,22 @@ class RateLimiter implements MiddlewareInterface
 	public function __construct(
 		protected RateLimiterInterface $rateLimiter,
 		protected int $maxRequests,
-		protected DateTimeInterface|int|string $resetAfter,
+		protected DateInterval|string $resetAfter,
 		protected bool $setRateLimitHeaders = true,
 		protected ?string $action = null
 	) {
 	}
 
 	/**
-	 * Returns the expiration time.
+	 * Returns the expiration interval.
 	 */
-	protected function getExpirationTime(): DateTimeInterface
+	protected function getResetAfter(): DateInterval
 	{
-		if ($this->resetAfter instanceof DateTimeInterface) {
+		if ($this->resetAfter instanceof DateInterval) {
 			return $this->resetAfter;
 		}
 
-		if (is_string($this->resetAfter)) {
-			return new DateTime($this->resetAfter);
-		}
-
-		$expirationTime = new DateTime;
-
-		$expirationTime->setTimestamp($expirationTime->getTimestamp() + $this->resetAfter);
-
-		return $expirationTime;
+		return DateInterval::createFromDateString($this->resetAfter);
 	}
 
 	/**
@@ -73,7 +62,7 @@ class RateLimiter implements MiddlewareInterface
 			throw new TooManyRequestsException(retryAfter: $this->rateLimiter->getRetryAfter($action));
 		}
 
-		$hits = $this->rateLimiter->increment($action, $this->getExpirationTime());
+		$hits = $this->rateLimiter->increment($action, $this->getResetAfter());
 
 		if ($this->setRateLimitHeaders) {
 			$response->headers->add('X-RateLimit-Limit', $this->maxRequests);

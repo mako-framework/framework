@@ -7,6 +7,7 @@
 
 namespace mako\throttle;
 
+use DateInterval;
 use DateTimeInterface;
 
 /**
@@ -32,5 +33,5 @@ interface RateLimiterInterface
 	/**
 	 * Increments the number of attempts for the action.
 	 */
-	public function increment(string $action, DateTimeInterface $expiresAt): int;
+	public function increment(string $action, DateInterval $resetAfter): int;
 }

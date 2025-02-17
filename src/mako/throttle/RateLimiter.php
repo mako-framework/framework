@@ -7,6 +7,8 @@
 
 namespace mako\throttle;
 
+use DateInterval;
+use DateTime;
 use DateTimeInterface;
 use mako\throttle\context\ContextInterface;
 use mako\throttle\store\StoreInterface;
@@ -60,8 +62,8 @@ class RateLimiter implements RateLimiterInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function increment(string $action, DateTimeInterface $expiresAt): int
+	public function increment(string $action, DateInterval $resetAfter): int
 	{
-		return $this->store->increment($this->getKey($action), $expiresAt);
+		return $this->store->increment($this->getKey($action), (new DateTime)->add($resetAfter));
 	}
 }

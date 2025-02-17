@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\throttle;
 
+use DateInterval;
 use DateTime;
 use DateTimeInterface;
 use mako\tests\TestCase;
@@ -124,12 +125,12 @@ class RateLimiterTest extends TestCase
 	 */
 	public function testIncrement(): void
 	{
-		$expiresAt = new DateTime;
+		$expireAfter = new DateInterval('PT0S');
 
 		/** @var Mockery\MockInterface&StoreInterface $store */
 		$store = Mockery::mock(StoreInterface::class);
 
-		$store->shouldReceive('increment')->once()->with('foo:bar', $expiresAt)->andReturn(5);
+		$store->shouldReceive('increment')->once()->with('foo:bar', Mockery::type(DateTimeInterface::class))->andReturn(5);
 
 		/** @var ContextInterface&Mockery\MockInterface $context */
 		$context = Mockery::mock(ContextInterface::class);
@@ -138,6 +139,6 @@ class RateLimiterTest extends TestCase
 
 		$rateLimiter = new RateLimiter($store, $context);
 
-		$this->assertSame(5, $rateLimiter->increment('bar', $expiresAt));
+		$this->assertSame(5, $rateLimiter->increment('bar', $expireAfter));
 	}
 }
