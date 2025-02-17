@@ -29,13 +29,21 @@ class RateLimiterService extends Service
 	}
 
 	/**
+	 * Returns the context.
+	 */
+	protected function getContext(): Closure|string
+	{
+		return HttpUser::class;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function register(): void
 	{
 		$this->container->register(StoreInterface::class, $this->getStore());
 
-		$this->container->register(ContextInterface::class, HttpUser::class);
+		$this->container->register(ContextInterface::class, $this->getContext());
 
 		$this->container->registerSingleton([RateLimiterInterface::class, 'rateLimiter'], RateLimiter::class);
 	}
