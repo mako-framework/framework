@@ -11,7 +11,7 @@ use DateInterval;
 use DateTime;
 use DateTimeInterface;
 use mako\throttle\context\ContextInterface;
-use mako\throttle\store\StoreInterface;
+use mako\throttle\stores\StoreInterface;
 
 /**
  * Rate limiter.

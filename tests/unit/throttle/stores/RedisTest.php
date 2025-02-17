@@ -5,12 +5,12 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\throttle\store;
+namespace mako\tests\unit\throttle\stores;
 
 use DateTime;
 use mako\redis\Redis;
 use mako\tests\TestCase;
-use mako\throttle\store\Redis as RedisStore;
+use mako\throttle\stores\Redis as RedisStore;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
 

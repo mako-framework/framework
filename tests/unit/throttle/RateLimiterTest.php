@@ -13,7 +13,7 @@ use DateTimeInterface;
 use mako\tests\TestCase;
 use mako\throttle\context\ContextInterface;
 use mako\throttle\RateLimiter;
-use mako\throttle\store\StoreInterface;
+use mako\throttle\stores\StoreInterface;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
 

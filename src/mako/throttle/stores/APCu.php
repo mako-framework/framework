@@ -5,25 +5,27 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\throttle\store;
+namespace mako\throttle\stores;
 
 use DateTime;
 use DateTimeInterface;
-use mako\redis\Redis as RedisClient;
 
+use function apcu_add;
+use function apcu_fetch;
+use function apcu_inc;
+use function apcu_key_info;
 use function hash;
 use function time;
 
 /**
- * Redis store.
+ * APCu store.
  */
-class Redis implements StoreInterface
+class APCu implements StoreInterface
 {
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
-		protected RedisClient $redis,
 		protected string $prefix = 'throttle:'
 	) {
 	}
@@ -41,7 +43,7 @@ class Redis implements StoreInterface
 	 */
 	public function getHits(string $key): int
 	{
-		return (int) $this->redis->get($this->getKey($key));
+		return apcu_fetch($this->getKey($key)) ?: 0;
 	}
 
 	/**
@@ -49,15 +51,13 @@ class Redis implements StoreInterface
 	 */
 	public function getExpiration(string $key): ?DateTimeInterface
 	{
-		$ttl = $this->redis->ttl($this->getKey($key));
+		$info = apcu_key_info($this->getKey($key));
 
-		if ($ttl < 0) {
+		if ($info === null) {
 			return null;
 		}
 
-		$dateTime = new DateTime;
-
-		return $dateTime->setTimestamp($dateTime->getTimestamp() + $ttl);
+		return DateTime::createFromTimestamp($info['creation_time'] + $info['ttl']);
 	}
 
 	/**
@@ -67,11 +67,8 @@ class Redis implements StoreInterface
 	{
 		$key = $this->getKey($key);
 
-		[, $count] = $this->redis->pipeline(static function ($redis) use ($key, $expiresAt): void {
-			$redis->set($key, 0, 'NX', 'EX', $expiresAt->getTimestamp() - time());
-			$redis->incrBy($key, 1);
-		});
+		apcu_add($key, 0, $expiresAt->getTimestamp() - time());
 
-		return $count;
+		return apcu_inc($key);
 	}
 }
