@@ -9,7 +9,9 @@ namespace mako\http\routing\middleware;
 
 use Closure;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use mako\http\Request;
 use mako\http\Response;
 use RuntimeException;
@@ -36,11 +38,11 @@ class Deprecated implements MiddlewareInterface
 		}
 
 		if ($deprecationDate !== null) {
-			$this->deprecationDate = $deprecationDate instanceof DateTimeInterface ? $deprecationDate : new DateTime($deprecationDate);
+			$this->deprecationDate = $deprecationDate instanceof DateTimeInterface ? $deprecationDate : new DateTime($deprecationDate, new DateTimeZone('UTC'));
 		}
 
 		if ($sunsetDate !== null) {
-			$this->sunsetDate = $sunsetDate instanceof DateTimeInterface ? $sunsetDate : new DateTime($sunsetDate);
+			$this->sunsetDate = $sunsetDate instanceof DateTimeInterface ? $sunsetDate : new DateTime($sunsetDate, new DateTimeZone('UTC'));
 		}
 
 		if ($deprecationDate !== null && $sunsetDate !== null && $this->deprecationDate->getTimestamp() >= $this->sunsetDate->getTimestamp()) {
@@ -57,7 +59,15 @@ class Deprecated implements MiddlewareInterface
 		}
 
 		if ($this->sunsetDate !== null) {
-			$response->headers->add('Sunset', $this->sunsetDate->format(DateTime::RFC7231));
+			$sunsetDate = $this->sunsetDate;
+
+			// Ensure that the sunset header is a UTC date
+
+			if ($sunsetDate->getTimezone()->getName() !== 'UTC' && ($sunsetDate instanceof DateTime || $sunsetDate instanceof DateTimeImmutable)) {
+				$sunsetDate = $sunsetDate->setTimezone(new DateTimeZone('UTC'));
+			}
+
+			$response->headers->add('Sunset', $sunsetDate->format(DateTime::RFC7231));
 		}
 
 		return $next($request, $response);

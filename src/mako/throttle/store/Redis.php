@@ -7,8 +7,8 @@
 
 namespace mako\throttle\store;
 
+use DateTime;
 use DateTimeInterface;
-use mako\chrono\Time;
 use mako\redis\Redis as RedisClient;
 
 use function hash;
@@ -51,7 +51,13 @@ class Redis implements StoreInterface
 	{
 		$ttl = $this->redis->ttl($this->getKey($key));
 
-		return $ttl > 0 ? Time::now()->forward($ttl) : null;
+		if ($ttl < 0) {
+			return null;
+		}
+
+		$dateTime = new DateTime;
+
+		return $dateTime->setTimestamp($dateTime->getTimestamp() + $ttl);
 	}
 
 	/**
