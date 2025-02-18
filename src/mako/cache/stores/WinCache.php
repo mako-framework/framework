@@ -7,9 +7,6 @@
 
 namespace mako\cache\stores;
 
-use mako\cache\exceptions\CacheException;
-
-use function function_exists;
 use function wincache_ucache_add;
 use function wincache_ucache_clear;
 use function wincache_ucache_delete;
@@ -22,16 +19,6 @@ use function wincache_ucache_set;
  */
 class WinCache extends Store
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct()
-	{
-		if (function_exists('wincache_ucache_set') === false) {
-			throw new CacheException('WinCache is not available on your system.');
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
