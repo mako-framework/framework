@@ -7,6 +7,8 @@
 
 namespace mako\redis\traits;
 
+use Deprecated;
+
 /**
  * Redis JSON commands.
  *
@@ -111,9 +113,7 @@ trait JsonTrait
 		return $this->buildAndSendCommandAndReturnResponse(['JSON.OBJLEN'], $arguments);
 	}
 
-	/**
-	 * @deprecated
-	 */
+	#[Deprecated(since: 'Redis.JSON 2.6')]
 	public function jsonResp(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['JSON.RESP'], $arguments);

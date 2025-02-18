@@ -7,6 +7,8 @@
 
 namespace mako\redis\traits;
 
+use Deprecated;
+
 /**
  * Redis top-k commands.
  *
@@ -21,9 +23,7 @@ trait TopKTrait
 		return $this->buildAndSendCommandAndReturnResponse(['TOPK.ADD'], $arguments);
 	}
 
-	/**
-	 * @deprecated
-	 */
+	#[Deprecated(since: 'Redis.Bloom 2.4')]
 	public function topKCount(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['TOPK.COUNT'], $arguments);
