@@ -16,6 +16,8 @@ use function wincache_ucache_set;
 
 /**
  * WinCache store.
+ *
+ * @deprecated
  */
 class WinCache extends Store
 {

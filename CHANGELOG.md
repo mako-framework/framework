@@ -21,6 +21,10 @@
 
 * Command argument aliases are now shown in a separate column.
 
+#### Deprecations
+
+* Deprecated the WinCache cache store.
+
 --------------------------------------------------------
 
 ### 11.0.2 <small>(2025-01-17)</small>

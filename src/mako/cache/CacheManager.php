@@ -7,6 +7,7 @@
 
 namespace mako\cache;
 
+use Deprecated;
 use mako\cache\exceptions\CacheException;
 use mako\cache\stores\APCu;
 use mako\cache\stores\Database;
@@ -114,6 +115,7 @@ class CacheManager extends AdapterManager
 	/**
 	 * Windows cache store factory.
 	 */
+	#[Deprecated('use any of the other cache stores', since: '11.1.0')]
 	protected function wincacheFactory(array $configuration): WinCache
 	{
 		return (new WinCache)->setPrefix($configuration['prefix'] ?? '');
