@@ -509,9 +509,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$response->setCompressionHandler(function (string $buffer, int $phase): string {
-			return $buffer;
-		});
+		$response->setCompressionHandler(fn (string $buffer, int $phase): string => $buffer);
 
 		$this->assertInstanceOf(Closure::class, $response->getCompressionHandler());
 	}
