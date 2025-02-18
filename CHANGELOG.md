@@ -16,6 +16,8 @@
 * HTTP exceptions can now provide response headers.
 * Added a rate limiter library with support for `APCu` and `Redis` stores.
 * Added a rate limiter HTTP middleware.
+* Added `Response::setCompressionHandler()` method.
+* Added `Response::getCompressionHandler()` method.
 
 #### Changes
 

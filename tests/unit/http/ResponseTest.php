@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http;
 
+use Closure;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
@@ -489,5 +490,29 @@ class ResponseTest extends TestCase
 		$response->headers->add('X-Foo', 'bar');
 
 		$this->assertTrue($response->headers->has('X-Foo'));
+	}
+
+	/**
+	 *
+	 */
+	public function testGetCompressionHandler(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$this->assertSame('ob_gzhandler', $response->getCompressionHandler());
+	}
+
+	/**
+	 *
+	 */
+	public function testSetCompressionHandler(): void
+	{
+		$response = new Response($this->getRequest());
+
+		$response->setCompressionHandler(function (string $buffer, int $phase): string {
+			return $buffer;
+		});
+
+		$this->assertInstanceOf(Closure::class, $response->getCompressionHandler());
 	}
 }

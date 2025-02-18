@@ -69,6 +69,11 @@ class Response
 	protected bool $outputCompression = false;
 
 	/**
+	 * Output compression handler.
+	 */
+	protected $outputCompressionHandler = 'ob_gzhandler';
+
+	/**
 	 * Enable response cache?
 	 */
 	protected bool $responseCache = false;
@@ -349,6 +354,24 @@ class Response
 	}
 
 	/**
+	 * Sets the output compression handler.
+	 */
+	public function setCompressionHandler(callable $handler): Response
+	{
+		$this->outputCompressionHandler = $handler;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the output compression handler.
+	 */
+	public function getCompressionHandler(): callable
+	{
+		return $this->outputCompressionHandler;
+	}
+
+	/**
 	 * Send output to browser.
 	 */
 	public function send(): void
@@ -398,7 +421,7 @@ class Response
 			// Start compressed output buffering if output compression is enabled
 
 			if ($this->outputCompression) {
-				ob_start('ob_gzhandler');
+				ob_start($this->outputCompressionHandler);
 			}
 
 			echo $this->body;
