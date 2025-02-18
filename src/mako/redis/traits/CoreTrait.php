@@ -192,13 +192,13 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SHARDS'], $arguments);
 	}
 
-	#[Deprecated('use the clusterReplicas method instead', since: 'Redis 5.0.0')]
+	#[Deprecated('use the "clusterReplicas" method instead', since: 'Redis 5.0.0')]
 	public function clusterSlaves(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLAVES'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the clusterShards method', since: 'Redis 7.0.0')]
+	#[Deprecated('it can be replaced by the "clusterShards" method', since: 'Redis 7.0.0')]
 	public function clusterSlots(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLOTS'], $arguments);
@@ -521,25 +521,25 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['GEOPOS'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the geoSearch and geoSearchStore methods with the BYRADIUS argument', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "geoSearch" and "geoSearchStore" methods with the BYRADIUS argument', since: 'Redis 6.2.0')]
 	public function geoRadius(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUS'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the geoSearch method with the BYRADIUS argument', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "geoSearch" method with the BYRADIUS argument', since: 'Redis 6.2.0')]
 	public function getRadiusRo(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUS_RO'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the geoSearch and geoSearchStore methods with the BYRADIUS and FROMMEMBER arguments', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "geoSearch" and "geoSearchStore" methods with the BYRADIUS and FROMMEMBER arguments', since: 'Redis 6.2.0')]
 	public function geoRadiusByMember(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUSBYMEMBER'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the geoSearch method with the BYRADIUS and FROMMEMBER arguments', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "geoSearch" method with the BYRADIUS and FROMMEMBER arguments', since: 'Redis 6.2.0')]
 	public function getRadiusByMemberRo(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GEORADIUSBYMEMBER_RO'], $arguments);
@@ -617,7 +617,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['HMGET'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the hSet method with multiple field-value pairs', since: 'Redis 4.0.0')]
+	#[Deprecated('it can be replaced by the "hSet" method with multiple field-value pairs', since: 'Redis 4.0.0')]
 	public function hMSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['HMSET'], $arguments);
@@ -732,7 +732,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['BRPOP'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the blMove method with the RIGHT and LEFT arguments', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "blMove" method with the RIGHT and LEFT arguments', since: 'Redis 6.2.0')]
 	public function brPopLPush(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['BRPOPLPUSH'], $arguments);
@@ -808,7 +808,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['RPOP'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the lMove method with the RIGHT and LEFT arguments', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "lMove" method with the RIGHT and LEFT arguments', since: 'Redis 6.2.0')]
 	public function rPopLPush(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['RPOPLPUSH'], $arguments);
@@ -1193,7 +1193,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['SHUTDOWN'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the replicaOf method', since: 'Redis 5.0.0')]
+	#[Deprecated('it can be replaced by the "replicaOf" method', since: 'Redis 5.0.0')]
 	public function slaveOf(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SLAVEOF'], $arguments);
@@ -1413,13 +1413,13 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['ZRANGE'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the zRange method with the BYLEX argument', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "zRange" method with the BYLEX argument', since: 'Redis 6.2.0')]
 	public function zRangeByLex(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZRANGEBYLEX'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the zRange method with the BYSCORE argument', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "zRange" method with the BYSCORE argument', since: 'Redis 6.2.0')]
 	public function zRangeByScore(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZRANGEBYSCORE'], $arguments);
@@ -1455,19 +1455,19 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['ZREMRANGEBYSCORE'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the zRange method with the REV argument', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "zRange" method with the REV argument', since: 'Redis 6.2.0')]
 	public function zRevRange(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZREVRANGE'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the zRange method with the REV and BYLEX arguments', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "zRange" method with the REV and BYLEX arguments', since: 'Redis 6.2.0')]
 	public function zRevRangeByLex(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZREVRANGEBYLEX'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the zRange method with the REV and BYSCORE arguments', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "zRange" method with the REV and BYSCORE arguments', since: 'Redis 6.2.0')]
 	public function zRevRangeByScore(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ZREVRANGEBYSCORE'], $arguments);
@@ -1642,7 +1642,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['GETRANGE'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the set method with the GET argument', since: 'Redis 6.2.0')]
+	#[Deprecated('it can be replaced by the "set" method with the GET argument', since: 'Redis 6.2.0')]
 	public function getSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GETSET'], $arguments);
@@ -1683,7 +1683,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['MSETNX'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the set method with the PX argument', since: 'Redis 2.6.12')]
+	#[Deprecated('it can be replaced by the "set" method with the PX argument', since: 'Redis 2.6.12')]
 	public function pSetEx(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['PSETEX'], $arguments);
@@ -1694,13 +1694,13 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['SET'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the set method with the EX argument', since: 'Redis 2.6.12')]
+	#[Deprecated('it can be replaced by the "set" method with the EX argument', since: 'Redis 2.6.12')]
 	public function setEx(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SETEX'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the set method with the NX argument', since: 'Redis 2.6.12')]
+	#[Deprecated('it can be replaced by the "set" method with the NX argument', since: 'Redis 2.6.12')]
 	public function setNx(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SETNX'], $arguments);
@@ -1716,7 +1716,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['STRLEN'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the getRange method', since: 'Redis 2.0.0')]
+	#[Deprecated('it can be replaced by the "getRange" method', since: 'Redis 2.0.0')]
 	public function subStr(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SUBSTR'], $arguments);

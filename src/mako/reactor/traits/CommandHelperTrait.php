@@ -97,7 +97,7 @@ trait CommandHelperTrait
 	/**
 	 * Draws a progress bar and returns a progress bar instance.
 	 */
-	#[Deprecated('use the "progress" method instead.', since: 'Mako 11.0.0')]
+	#[Deprecated('use the "progress" method instead', since: 'Mako 11.0.0')]
 	protected function progressBar(int $items, float $minTimeBetweenRedraw = 0.1, ?string $prefix = null): Progress
 	{
 		$progressBar = new Progress(
