@@ -14,7 +14,7 @@
 	- `Statistics::populationStandardDeviation()`
 * Added "update and return" functionality to the query builder. The feature is currently supported by the `Firebird`, `PostgreSQL`, `SQLite` and `SQL Server` compilers.
 * HTTP exceptions can now provide response headers.
-* Added a rate limiter library with support for APCu and Redis stores.
+* Added a rate limiter library with support for `APCu` and `Redis` stores.
 * Added a rate limiter HTTP middleware.
 
 #### Changes
