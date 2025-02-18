@@ -115,7 +115,7 @@ class CacheManager extends AdapterManager
 	/**
 	 * Windows cache store factory.
 	 */
-	#[Deprecated('use any of the other cache stores', since: '11.1.0')]
+	#[Deprecated('use any of the other cache stores', since: 'Mako 11.1.0')]
 	protected function wincacheFactory(array $configuration): WinCache
 	{
 		return (new WinCache)->setPrefix($configuration['prefix'] ?? '');

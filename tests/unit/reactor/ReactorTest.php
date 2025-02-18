@@ -666,6 +666,8 @@ class ReactorTest extends TestCase
 	 */
 	public function testDisplayCommandHelpWithoutAttributes(): void
 	{
+		$level = error_reporting(error_reporting() & ~E_USER_DEPRECATED);
+
 		$argvParser = new ArgvParser([]);
 
 		//
@@ -738,5 +740,7 @@ class ReactorTest extends TestCase
 		$exitCode = $reactor->run();
 
 		$this->assertSame(0, $exitCode);
+
+		error_reporting($level);
 	}
 }
