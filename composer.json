@@ -53,11 +53,11 @@
         }
     },
     "suggest": {
+        "ext-apcu": "Required to use the APCu cache, rate limiter and session stores",
         "ext-openssl": "Required to use the crypto library",
         "ext-pcntl": "Required to use the CLI signal handler and to animate the spinner",
         "ext-pdo": "Required to use the database library",
-        "ext-simplexml": "Required if you want the error handlers to be able to serve XML",
-        "ext-apcu": "Required to use the APCu cache, rate limiter and session stores"
+        "ext-simplexml": "Required if you want the error handlers to be able to serve XML"
     },
     "scripts": {
         "phpunit": "phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning --display-phpunit-deprecations",
