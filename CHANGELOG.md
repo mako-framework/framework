@@ -25,6 +25,8 @@
 
 * Deprecated the WinCache cache store.
 
+> All deprecated features will be removed in Mako 12.0.
+
 --------------------------------------------------------
 
 ### 11.0.2 <small>(2025-01-17)</small>
