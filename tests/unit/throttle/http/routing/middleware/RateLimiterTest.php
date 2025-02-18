@@ -5,16 +5,16 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\http\routing\middleware;
+namespace mako\tests\unit\throttle\http\routing\middleware;
 
 use DateTime;
 use mako\http\exceptions\TooManyRequestsException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Headers as ResponseHeaders;
-use mako\http\routing\middleware\RateLimiter;
 use mako\http\routing\Route;
 use mako\tests\TestCase;
+use mako\throttle\http\routing\middleware\RateLimiter;
 use mako\throttle\RateLimiterInterface;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;

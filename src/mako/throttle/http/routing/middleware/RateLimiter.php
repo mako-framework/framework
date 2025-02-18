@@ -5,13 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\routing\middleware;
+namespace mako\throttle\http\routing\middleware;
 
 use Closure;
 use DateInterval;
 use mako\http\exceptions\TooManyRequestsException;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\routing\middleware\MiddlewareInterface;
 use mako\throttle\RateLimiterInterface;
 
 /**
