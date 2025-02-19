@@ -33,6 +33,22 @@ class RateLimiter implements MiddlewareInterface
 	}
 
 	/**
+	 * Should we rate limit the request?
+	 */
+	protected function shouldRateLimit(): bool
+	{
+		return true;
+	}
+
+	/**
+	 * Returns the action.
+	 */
+	protected function getAction(Request $request): string
+	{
+		return $request->getRoute()->getRoute();
+	}
+
+	/**
 	 * Returns the expiration interval.
 	 */
 	protected function getResetAfter(): DateInterval
@@ -45,30 +61,24 @@ class RateLimiter implements MiddlewareInterface
 	}
 
 	/**
-	 * Returns the action.
-	 */
-	protected function getAction(Request $request): string
-	{
-		return $request->getRoute()->getRoute();
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		$action = $this->action ?? $this->getAction($request);
+		if ($this->shouldRateLimit()) {
+			$action = $this->action ?? $this->getAction($request);
 
-		if ($this->rateLimiter->isLimitReached($action, $this->maxRequests)) {
-			throw new TooManyRequestsException(retryAfter: $this->rateLimiter->getRetryAfter($action));
-		}
+			if ($this->rateLimiter->isLimitReached($action, $this->maxRequests)) {
+				throw new TooManyRequestsException(retryAfter: $this->rateLimiter->getRetryAfter($action));
+			}
 
-		$hits = $this->rateLimiter->increment($action, $this->getResetAfter());
+			$hits = $this->rateLimiter->increment($action, $this->getResetAfter());
 
-		if ($this->setRateLimitHeaders) {
-			$response->headers->add('X-RateLimit-Limit', $this->maxRequests);
-			$response->headers->add('X-RateLimit-Remaining', $this->maxRequests - $hits);
-			$response->headers->add('X-RateLimit-Reset', $this->rateLimiter->getRetryAfter($action)->getTimestamp());
+			if ($this->setRateLimitHeaders) {
+				$response->headers->add('X-RateLimit-Limit', $this->maxRequests);
+				$response->headers->add('X-RateLimit-Remaining', $this->maxRequests - $hits);
+				$response->headers->add('X-RateLimit-Reset', $this->rateLimiter->getRetryAfter($action)->getTimestamp());
+			}
 		}
 
 		return $next($request, $response);
