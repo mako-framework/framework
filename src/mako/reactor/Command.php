@@ -7,7 +7,6 @@
 
 namespace mako\reactor;
 
-use Deprecated;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\reactor\traits\CommandHelperTrait;
@@ -41,7 +40,6 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	#[Deprecated('update your commands to use the "CommandName" attribute instead', since: 'Mako 11.0.0')]
 	public function getCommand(): ?string
 	{
 		return $this->command ?? null;
@@ -50,7 +48,6 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	#[Deprecated('update your commands to use the "CommandDescription" attribute instead', since: 'Mako 11.0.0')]
 	public function getDescription(): string
 	{
 		return $this->description ?? '';
@@ -59,7 +56,6 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	#[Deprecated('update your commands to use the "CommandArguments" attribute instead', since: 'Mako 11.0.0')]
 	public function getArguments(): array
 	{
 		return [];
