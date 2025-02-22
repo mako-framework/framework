@@ -238,7 +238,7 @@ class Application extends BaseApplication
 		if ($commandsDirectory !== null) {
 			$finder = new ClassFinder(new Finder((array) $commandsDirectory));
 
-			$finder->excludeInterfaces()->excludeAbstractClasses()->excludeTraits();
+			$finder->excludeAbstractClasses()->excludeEnums()->excludeInterfaces()->excludeTraits();
 
 			foreach ($finder->findImplementing(CommandInterface::class) as $commandClass) {
 				$reflection = new ReflectionClass($commandClass);

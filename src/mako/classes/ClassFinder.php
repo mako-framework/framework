@@ -44,6 +44,11 @@ class ClassFinder
 	protected bool $includeInterfaces = true;
 
 	/**
+	 * Should enums be included?
+	 */
+	protected bool $includeEnums = true;
+
+	/**
 	 * Should traits be included?
 	 */
 	protected bool $includeTraits = true;
@@ -132,6 +137,30 @@ class ClassFinder
 	}
 
 	/**
+	 * Includes enums.
+	 *
+	 * @return $this
+	 */
+	public function includeEnums(): static
+	{
+		$this->includeEnums = true;
+
+		return $this;
+	}
+
+	/**
+	 * Excludes enums.
+	 *
+	 * @return $this
+	 */
+	public function excludeEnums(): static
+	{
+		$this->includeEnums = false;
+
+		return $this;
+	}
+
+	/**
 	 * Includes traits.
 	 *
 	 * @return $this
@@ -170,6 +199,10 @@ class ClassFinder
 			$tokens[] = T_INTERFACE;
 		}
 
+		if ($this->includeEnums) {
+			$tokens[] = T_ENUM;
+		}
+
 		if ($this->includeTraits) {
 			$tokens[] = T_TRAIT;
 		}
@@ -205,7 +238,7 @@ class ClassFinder
 				$namespace .= '\\';
 			}
 
-			if (in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT]) && T_WHITESPACE === $tokens[$i + 1][0] && T_STRING === $tokens[$i + 2][0]) {
+			if (in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_ENUM, T_TRAIT]) && T_WHITESPACE === $tokens[$i + 1][0] && T_STRING === $tokens[$i + 2][0]) {
 				if (in_array($tokens[$i][0], $allowedClasslikeTokens) && ($this->includeAbstractClasses || (!isset($tokens[$i - 2]) || !is_array($tokens[$i - 2]) || $tokens[$i - 2][0] !== T_ABSTRACT))) {
 					return $namespace . $tokens[$i + 2][1];
 				}

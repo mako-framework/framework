@@ -13,6 +13,7 @@ use mako\tests\TestCase;
 use mako\tests\unit\classes\classes\BarClass;
 use mako\tests\unit\classes\classes\BazClass;
 use mako\tests\unit\classes\classes\FooClass;
+use mako\tests\unit\classes\classes\FooEnum;
 use mako\tests\unit\classes\classes\FooInterface;
 use mako\tests\unit\classes\classes\FooTrait;
 use PHPUnit\Framework\Attributes\Group;
@@ -30,6 +31,7 @@ class ClassFinderTest extends TestCase
 			BarClass::class,
 			BazClass::class,
 			FooClass::class,
+			FooEnum::class,
 			FooInterface::class,
 			FooTrait::class,
 		];
@@ -52,6 +54,7 @@ class ClassFinderTest extends TestCase
 	{
 		$expectedClasses =
 		[
+			FooEnum::class,
 			FooInterface::class,
 			FooTrait::class,
 		];
@@ -76,6 +79,7 @@ class ClassFinderTest extends TestCase
 		[
 			BarClass::class,
 			BazClass::class,
+			FooEnum::class,
 			FooInterface::class,
 			FooTrait::class,
 		];
@@ -101,12 +105,38 @@ class ClassFinderTest extends TestCase
 			BarClass::class,
 			BazClass::class,
 			FooClass::class,
+			FooEnum::class,
 			FooTrait::class,
 		];
 
 		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
 
 		$classes = iterator_to_array($finder->excludeInterfaces()->find());
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testClassFinderWithExludedEnums(): void
+	{
+		$expectedClasses =
+		[
+			BarClass::class,
+			BazClass::class,
+			FooClass::class,
+			FooInterface::class,
+			FooTrait::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$classes = iterator_to_array($finder->excludeEnums()->find());
 
 		sort($expectedClasses);
 
@@ -125,6 +155,7 @@ class ClassFinderTest extends TestCase
 			BarClass::class,
 			BazClass::class,
 			FooClass::class,
+			FooEnum::class,
 			FooInterface::class,
 		];
 
