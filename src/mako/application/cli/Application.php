@@ -236,9 +236,11 @@ class Application extends BaseApplication
 		$commandsDirectory = $this->config->get('application.commands_directory');
 
 		if ($commandsDirectory !== null) {
-			$finder = new ClassFinder(new Finder((array) $commandsDirectory));
-
-			$finder->excludeAbstractClasses()->excludeEnums()->excludeInterfaces()->excludeTraits();
+			$finder = (new ClassFinder(new Finder((array) $commandsDirectory)))
+			->excludeAbstractClasses()
+			->excludeEnums()
+			->excludeInterfaces()
+			->excludeTraits();
 
 			foreach ($finder->findImplementing(CommandInterface::class) as $commandClass) {
 				$reflection = new ReflectionClass($commandClass);
