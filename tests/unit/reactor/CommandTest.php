@@ -55,8 +55,6 @@ class CommandTest extends TestCase
 	 */
 	public function testGetDescription(): void
 	{
-		$level = error_reporting(error_reporting() & ~E_USER_DEPRECATED);
-
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
@@ -78,8 +76,6 @@ class CommandTest extends TestCase
 		};
 
 		$this->assertEquals('Command description.', $command->getDescription());
-
-		error_reporting($level);
 	}
 
 	/**
