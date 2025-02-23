@@ -258,7 +258,7 @@ class ClassFinder
 		/** @var string $file */
 		foreach ($this->finder->find() as $file) {
 			if (($class = $this->findClassInFile($file)) !== null) {
-				yield $class;
+				yield $file => $class;
 			}
 		}
 	}
@@ -276,9 +276,9 @@ class ClassFinder
 	 */
 	public function findImplementing(string $interfaceName): Generator
 	{
-		foreach ($this->findClasses() as $class) {
+		foreach ($this->findClasses() as $file => $class) {
 			if (is_subclass_of($class, $interfaceName)) {
-				yield $class;
+				yield $file => $class;
 			}
 		}
 	}
@@ -288,9 +288,9 @@ class ClassFinder
 	 */
 	public function findExtending(string $className): Generator
 	{
-		foreach ($this->findClasses() as $class) {
+		foreach ($this->findClasses() as $file => $class) {
 			if (is_subclass_of($class, $className)) {
-				yield $class;
+				yield $file => $class;
 			}
 		}
 	}
@@ -300,9 +300,9 @@ class ClassFinder
 	 */
 	public function findUsing(string $traitName): Generator
 	{
-		foreach ($this->findClasses() as $class) {
+		foreach ($this->findClasses() as $file => $class) {
 			if (isset(ClassInspector::getTraits($class)[$traitName])) {
-				yield $class;
+				yield $file => $class;
 			}
 		}
 	}

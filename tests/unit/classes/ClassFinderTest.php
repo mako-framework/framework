@@ -28,21 +28,20 @@ class ClassFinderTest extends TestCase
 	{
 		$expectedClasses =
 		[
-			BarClass::class,
-			BazClass::class,
-			FooClass::class,
-			FooEnum::class,
-			FooInterface::class,
-			FooTrait::class,
+			__DIR__ . '/classes/BarClass.php' => BarClass::class,
+			__DIR__ . '/classes/BazClass.php' => BazClass::class,
+			__DIR__ . '/classes/FooClass.php' => FooClass::class,
+			__DIR__ . '/classes/FooEnum.php' => FooEnum::class,
+			__DIR__ . '/classes/FooInterface.php' => FooInterface::class,
+			__DIR__ . '/classes/FooTrait.php' => FooTrait::class,
 		];
 
 		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
 
 		$classes = iterator_to_array($finder->find());
 
-		sort($expectedClasses);
-
-		sort($classes);
+		asort($expectedClasses);
+		asort($classes);
 
 		$this->assertSame($expectedClasses, $classes);
 	}
