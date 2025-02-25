@@ -102,7 +102,7 @@ class Response
 	/**
 	 * Sets the response body.
 	 */
-	public function setBody(null|float|int|ResponseBuilderInterface|ResponseSenderInterface|string|Stringable $body): Response
+	public function setBody(mixed $body): Response
 	{
 		$this->body = $body;
 

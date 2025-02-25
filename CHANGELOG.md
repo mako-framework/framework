@@ -1,3 +1,11 @@
+### 11.1.1 <small>(2025-02-25)</small>
+
+#### Changes
+
+* Loosen type accepted by `Response::setBody()`.
+
+--------------------------------------------------------
+
 ### 11.1.0 <small>(2025-02-19)</small>
 
 #### New
