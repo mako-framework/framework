@@ -368,11 +368,13 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 			$reflection->getReturnType() instanceof ReflectionNamedType &&
 			$reflection->getReturnType()->getName() === 'void';
 
-		foreach ($this->items as $key => $value) {
-			if ($callableHasVoidReturnType) {
+		if ($callableHasVoidReturnType) {
+			foreach ($this->items as $key => $value) {
 				$callable($value, $key);
 			}
-			else {
+		}
+		else {
+			foreach ($this->items as $key => $value) {
 				$this->items[$key] = $callable($value, $key);
 			}
 		}
