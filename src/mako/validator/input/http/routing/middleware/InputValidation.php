@@ -237,14 +237,16 @@ class InputValidation implements MiddlewareInterface
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		$this->request = $request;
-
 		$this->response = $response;
+
+		// Assign errors and old input to the view if the session and view factory are available
 
 		if ($this->session !== null && $this->viewFactory !== null) {
 			$this->viewFactory->assign($this->errorsVariableName, $this->session->getFlash($this->errorsFlashKey));
-
 			$this->viewFactory->assign($this->oldInputVariableName, $this->session->getFlash($this->oldInputFlashKey));
 		}
+
+		// Execute the next middleware and handle any validation exceptions
 
 		try {
 			return $next($request, $response);
