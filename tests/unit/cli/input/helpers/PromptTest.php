@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\cli\input\helpers;
 
-use mako\cli\input\helpers\Question;
+use mako\cli\input\helpers\Prompt;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -15,12 +15,12 @@ use Mockery;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
-class QuestionTest extends TestCase
+class PromptTest extends TestCase
 {
 	/**
 	 *
 	 */
-	public function testQuestion(): void
+	public function testPrompt(): void
 	{
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
@@ -32,7 +32,7 @@ class QuestionTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
 
-		$question = new Question($input, $output);
+		$question = new Prompt($input, $output);
 
 		$this->assertSame('foobar', $question->ask('Username:'));
 	}
@@ -52,7 +52,7 @@ class QuestionTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '[ ');
 
-		$question = new Question($input, $output, '[');
+		$question = new Prompt($input, $output, '[');
 
 		$this->assertSame('foobar', $question->ask('Username:'));
 	}
@@ -72,7 +72,7 @@ class QuestionTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
 
-		$question = new Question($input, $output);
+		$question = new Prompt($input, $output);
 
 		$this->assertSame(null, $question->ask('Username:'));
 	}
@@ -92,7 +92,7 @@ class QuestionTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
 
-		$question = new Question($input, $output);
+		$question = new Prompt($input, $output);
 
 		$this->assertSame('foobar', $question->ask('Username:', 'foobar'));
 	}

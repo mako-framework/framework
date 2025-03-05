@@ -11,9 +11,9 @@ use mako\cli\input\Input;
 use mako\cli\output\Output;
 
 /**
- * Question helper.
+ * Prompt helper.
  */
-class Question
+class Prompt
 {
 	/**
 	 * Constructor.
@@ -21,24 +21,24 @@ class Question
 	public function __construct(
 		protected Input $input,
 		protected Output $output,
-		protected string $prompt = '>'
+		protected string $inputPrefix = '>'
 	) {
 	}
 
 	/**
-	 * Writes question to output.
+	 * Writes prompt to output.
 	 */
-	protected function displayPrompt(string $question): void
+	protected function displayPrompt(string $prompt): void
 	{
-		$this->output->write($question . PHP_EOL . "{$this->prompt} ");
+		$this->output->write($prompt . PHP_EOL . "{$this->inputPrefix} ");
 	}
 
 	/**
-	 * Writes question to output and returns user input.
+	 * Writes prompt to output and returns user input.
 	 */
-	public function ask(string $question, mixed $default = null): mixed
+	public function ask(string $prompt, mixed $default = null): mixed
 	{
-		$this->displayPrompt($question);
+		$this->displayPrompt($prompt);
 
 		$answer = $this->input->read();
 

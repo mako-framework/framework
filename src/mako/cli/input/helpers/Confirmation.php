@@ -16,7 +16,7 @@ use function trim;
 /**
  * Confirmation helper.
  */
-class Confirmation extends Question
+class Confirmation extends Prompt
 {
 	/**
 	 * Returns an array where all array keys lower case.
@@ -49,16 +49,16 @@ class Confirmation extends Question
 	/**
 	 * Asks user for confirmation and returns value corresponding to the chosen value.
 	 */
-	public function ask(string $question, $default = 'n', ?array $options = null): mixed
+	public function ask(string $prompt, $default = 'n', ?array $options = null): mixed
 	{
 		$options = $options === null ? ['y' => true, 'n' => false] : $this->normalizeKeys($options);
 
-		$input = parent::ask(trim($question) . " [{$this->getOptions($options, $default)}]");
+		$input = parent::ask(trim($prompt) . " [{$this->getOptions($options, $default)}]");
 
 		$input = mb_strtolower(empty($input) ? $default : $input);
 
 		if (!isset($options[$input])) {
-			return $this->ask($question, $default, $options);
+			return $this->ask($prompt, $default, $options);
 		}
 
 		return $options[$input];

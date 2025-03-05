@@ -10,7 +10,7 @@ namespace mako\reactor\traits;
 use Countable;
 use Deprecated;
 use mako\cli\input\helpers\Confirmation;
-use mako\cli\input\helpers\Question;
+use mako\cli\input\helpers\Prompt;
 use mako\cli\input\helpers\Secret;
 use mako\cli\input\helpers\Select;
 use mako\cli\output\components\Alert;
@@ -192,32 +192,41 @@ trait CommandHelperTrait
 	/**
 	 * Writes question to output and returns boolesn value corresponding to the chosen value.
 	 */
-	protected function confirm(string $question, string $default = 'n', string $prompt = '<purple><bold>></bold></purple>'): bool
+	protected function confirm(string $question, string $default = 'n', string $inputPrefix = '<purple><bold>></bold></purple>'): bool
 	{
-		return (new Confirmation($this->input, $this->output, $prompt))->ask($question, $default);
+		return (new Confirmation($this->input, $this->output, $inputPrefix))->ask($question, $default);
 	}
 
 	/**
-	 * Writes question to output and returns user input.
+	 * Prompts the user for input and returns the user input.
 	 */
+	protected function input(string $prompt, mixed $default = null, string $inputPrefix = '<purple><bold>></bold></purple>'): mixed
+	{
+		return (new Prompt($this->input, $this->output, $inputPrefix))->ask($prompt, $default);
+	}
+
+	/**
+	 * Prompts the user for input and returns the user input.
+	 */
+	#[Deprecated('use the "input" method instead', since: 'Mako 11.2.0')]
 	protected function question(string $question, mixed $default = null, string $prompt = '<purple><bold>></bold></purple>'): mixed
 	{
-		return (new Question($this->input, $this->output, $prompt))->ask($question, $default);
+		return $this->input($question, $default, $prompt);
 	}
 
 	/**
 	 * Prints out a list of options and returns the array key of the chosen value.
 	 */
-	protected function select(string $question, array $options, string $prompt = '<purple><bold>></bold></purple>'): int
+	protected function select(string $question, array $options, string $inputPrefix = '<purple><bold>></bold></purple>'): int
 	{
-		return (new Select($this->input, $this->output, $prompt))->ask($question, $options);
+		return (new Select($this->input, $this->output, $inputPrefix))->ask($question, $options);
 	}
 
 	/**
 	 * Writes question to output and returns hidden user input.
 	 */
-	protected function secret(string $question, mixed $default = null, bool $fallback = false, string $prompt = '<purple><bold>></bold></purple>'): mixed
+	protected function secret(string $question, mixed $default = null, bool $fallback = false, string $inputPrefix = '<purple><bold>></bold></purple>'): mixed
 	{
-		return (new Secret($this->input, $this->output, $prompt))->ask($question, $default, $fallback);
+		return (new Secret($this->input, $this->output, $inputPrefix))->ask($question, $default, $fallback);
 	}
 }

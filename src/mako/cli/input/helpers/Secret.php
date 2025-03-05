@@ -18,18 +18,19 @@ use function trim;
 /**
  * Secret helper.
  */
-class Secret extends Question
+class Secret extends Prompt
 {
 	use SttySandboxTrait;
+
 	/**
-	 * Writes question to output and returns hidden user input.
+	 * Writes prompt to output and returns user input.
 	 */
-	public function ask(string $question, mixed $default = null, bool $fallback = false): mixed
+	public function ask(string $prompt, mixed $default = null, bool $fallback = false): mixed
 	{
 		$hasStty = $this->output->environment->hasStty();
 
 		if (PHP_OS_FAMILY === 'Windows' || $hasStty) {
-			$this->displayPrompt($question);
+			$this->displayPrompt($prompt);
 
 			if ($hasStty) {
 				$answer = $this->sttySandbox(function (): string {
@@ -47,7 +48,7 @@ class Secret extends Question
 		}
 
 		if ($fallback) {
-			return parent::ask($question, $default);
+			return parent::ask($prompt, $default);
 		}
 
 		throw new CliException('Unable to hide the user input.');

@@ -4,6 +4,12 @@
 
 * The class finder can now find enums.
 
+#### Deprecations
+
+* Deprecated the `Command::question()` method. Use the `Command::input()` method instead.
+
+> All deprecated features will be removed in Mako 12.0.
+
 --------------------------------------------------------
 
 ### 11.1.1 <small>(2025-02-25)</small>
