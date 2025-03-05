@@ -7,6 +7,7 @@
 
 namespace mako\cli\output;
 
+use Deprecated;
 use mako\cli\input\reader\ReaderInterface;
 use mako\cli\output\writer\WriterInterface;
 use mako\cli\traits\SttySandboxTrait;
@@ -84,6 +85,7 @@ class Cursor
 	/**
 	 * Moves the cursor to the beginning of the line.
 	 */
+	#[Deprecated('use the "moveToBeginningOfLine" method instead', 'Mako 11.2.0')]
 	public function beginningOfLine(): void
 	{
 		$this->writer->write("\r");
