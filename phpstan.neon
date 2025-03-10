@@ -7,4 +7,3 @@ parameters:
 		- mako\database\query\Result
 	ignoreErrors:
 		- identifier: trait.unused
-		- identifier: unset.possiblyHookedProperty
