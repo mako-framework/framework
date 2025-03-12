@@ -148,4 +148,39 @@ class LabelsAndValuesTest extends TestCase
 
 		$this->assertSame($expected, $labelsValues->render($labelsAndValues));
 	}
+
+	/**
+	 *
+	 */
+	public function testDrawWithMinSeparators(): void
+	{
+		/** @var Environment|Mockery\MockInterface $environment */
+		$environment = Mockery::mock(Environment::class);
+
+		$environment->shouldReceive('getWidth')->once()->andReturn(0);
+
+		/** @var Mockery\MockInterface|Output $output */
+		$output = Mockery::mock(Output::class);
+
+		(function () use ($environment): void {
+			$this->formatter = null;
+			$this->environment = $environment;
+		})->bindTo($output, Output::class)();
+
+		$labelsAndValues = [
+			'Files ok'      => '164,089,973',
+			'Files missing' => '1,342,659',
+			'Total files'   => '165,432,632',
+		];
+
+		$labelsValues = new LabelsAndValues($output, minSeparatorCount: 5);
+
+		$expected  = 'Files ok ........ 164,089,973' . PHP_EOL;
+		$expected .= 'Files missing ..... 1,342,659' . PHP_EOL;
+		$expected .= 'Total files ..... 165,432,632' . PHP_EOL;
+
+		$output->shouldReceive('write')->once()->with($expected, 1);
+
+		$labelsValues->draw($labelsAndValues);
+	}
 }
