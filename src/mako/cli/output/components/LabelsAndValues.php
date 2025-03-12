@@ -18,7 +18,7 @@ use function str_repeat;
 /**
  * Labels and values component.
  */
-class LabelsValues
+class LabelsAndValues
 {
 	use HelperTrait;
 

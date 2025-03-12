@@ -16,6 +16,7 @@ use mako\cli\input\helpers\Select;
 use mako\cli\output\components\Alert;
 use mako\cli\output\components\Bell;
 use mako\cli\output\components\Countdown;
+use mako\cli\output\components\LabelsAndValues;
 use mako\cli\output\components\OrderedList;
 use mako\cli\output\components\Progress;
 use mako\cli\output\components\progress\ProgressBar;
@@ -228,5 +229,24 @@ trait CommandHelperTrait
 	protected function secret(string $question, mixed $default = null, bool $fallback = false, string $inputPrefix = '<purple><bold>></bold></purple>'): mixed
 	{
 		return (new Secret($this->input, $this->output, $inputPrefix))->ask($question, $default, $fallback);
+	}
+
+	/**
+	 * Draws labels and values.
+	 */
+	protected function labelsAndValues(
+		array $labelsAndValues,
+		float|int $widthPercent = 0,
+		int $maxWidth = PHP_INT_MAX,
+		int $minSeparatorCount = 5,
+		string $separatorTemplate = '<faded>%s</faded>'
+	): void {
+		(new LabelsAndValues(
+			$this->output,
+			$widthPercent,
+			$maxWidth,
+			$minSeparatorCount,
+			$separatorTemplate)
+		)->draw($labelsAndValues);
 	}
 }

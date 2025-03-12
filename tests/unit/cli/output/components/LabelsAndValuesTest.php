@@ -8,14 +8,14 @@
 namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\Environment;
-use mako\cli\output\components\LabelsValues;
+use mako\cli\output\components\LabelsAndValues;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
-class LabelsValuesTest extends TestCase
+class LabelsAndValuesTest extends TestCase
 {
 	/**
 	 *
@@ -41,7 +41,7 @@ class LabelsValuesTest extends TestCase
 			'Total files'   => '165,432,632',
 		];
 
-		$labelsValues = new LabelsValues($output);
+		$labelsValues = new LabelsAndValues($output);
 
 		$expected  = 'Files ok ............................................................................... 164,089,973' . PHP_EOL;
 		$expected .= 'Files missing ............................................................................ 1,342,659' . PHP_EOL;
@@ -74,7 +74,7 @@ class LabelsValuesTest extends TestCase
 			'Total files'   => '165,432,632',
 		];
 
-		$labelsValues = new LabelsValues($output, 50);
+		$labelsValues = new LabelsAndValues($output, 50);
 
 		$expected  = 'Files ok ............................. 164,089,973' . PHP_EOL;
 		$expected .= 'Files missing .......................... 1,342,659' . PHP_EOL;
@@ -107,7 +107,7 @@ class LabelsValuesTest extends TestCase
 			'Total files'   => '165,432,632',
 		];
 
-		$labelsValues = new LabelsValues($output, 50, 40);
+		$labelsValues = new LabelsAndValues($output, 50, 40);
 
 		$expected  = 'Files ok ................... 164,089,973' . PHP_EOL;
 		$expected .= 'Files missing ................ 1,342,659' . PHP_EOL;
@@ -140,7 +140,7 @@ class LabelsValuesTest extends TestCase
 			'Total files'   => '165,432,632',
 		];
 
-		$labelsValues = new LabelsValues($output, minSeparatorCount: 5);
+		$labelsValues = new LabelsAndValues($output, minSeparatorCount: 5);
 
 		$expected  = 'Files ok ........ 164,089,973' . PHP_EOL;
 		$expected .= 'Files missing ..... 1,342,659' . PHP_EOL;
