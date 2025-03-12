@@ -90,9 +90,7 @@ class LabelsValues
 		$output = [];
 
 		foreach ($labelsAndValues as $label => $value) {
-			$labelValueWidth = $this->getVisibleStringWidth("{$label}{$value}");
-
-			$times = $width - $labelValueWidth - static::MARGIN_WIDTH;
+			$times = $width - $this->getVisibleStringWidth("{$label}{$value}") - static::MARGIN_WIDTH;
 
 			$output[] = "{$label} " . sprintf($this->separatorTemplate, str_repeat(static::SEPARATOR, $times)) . " {$value}";
 		}
