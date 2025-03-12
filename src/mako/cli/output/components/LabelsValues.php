@@ -61,7 +61,7 @@ class LabelsValues
 	}
 
 	/**
-	 * Returns the mode.
+	 * Should we use the minimum number of separators?
 	 */
 	protected function useMinSeparators(int $width, int $longestLabeValuelWidth, int $minSeparators): bool
 	{
