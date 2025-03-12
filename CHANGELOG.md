@@ -3,6 +3,7 @@
 #### New
 
 * The class finder can now find enums.
+* Added a CLI output component that makes it easy to print a set of aligned labels and values.
 
 #### Deprecations
 
