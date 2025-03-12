@@ -10,7 +10,6 @@ namespace mako\cli\output\components;
 use mako\cli\output\components\traits\HelperTrait;
 use mako\cli\output\Output;
 
-use function array_keys;
 use function implode;
 use function min;
 use function sprintf;
@@ -34,16 +33,6 @@ class LabelsValues
 	protected const int MARGIN_WIDTH = 2;
 
 	/**
-	 * Percentage mode.
-	 */
-	protected const int MODE_PCT = 1;
-
-	/**
-	 * Minimum width mode.
-	 */
-	protected const int MODE_MIN = 2;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
@@ -56,43 +45,33 @@ class LabelsValues
 	}
 
 	/**
-	 * Returns the width of the longest label.
+	 * Returns the width of the longest label and value combination.
 	 */
-	protected function getLongestLabelWidth(array $labels): int
+	protected function getLongestLabelValueWidth(array $labelsAndValues): int
 	{
-		$longestLabel = 0;
+		$longest = 0;
 
-		foreach ($labels as $label) {
-			if ($this->getVisibleStringWidth($label) > $longestLabel) {
-				$longestLabel = $this->getVisibleStringWidth($label);
+		foreach ($labelsAndValues as $label => $value) {
+			if (($width = $this->getVisibleStringWidth("{$label}{$value}")) > $longest) {
+				$longest = $width;
 			}
 		}
 
-		return $longestLabel;
+		return $longest;
 	}
 
 	/**
 	 * Returns the mode.
 	 */
-	protected function getMode(array $labelsAndValues, int $width, int $minSeparators): int
+	protected function useMinSeparators(int $width, int $longestLabeValuelWidth, int $minSeparators): bool
 	{
-		$longest = 0;
-
-		foreach ($labelsAndValues as $label => $value) {
-			$labelValueWidth = $this->getVisibleStringWidth("{$label}{$value}");
-
-			if ($labelValueWidth > $longest) {
-				$longest = $labelValueWidth;
-			}
-		}
-
-		$separatorWidth = $width - $longest - static::MARGIN_WIDTH;
+		$separatorWidth = $width - $longestLabeValuelWidth - static::MARGIN_WIDTH;
 
 		if ($separatorWidth < 0 || $separatorWidth < $minSeparators) {
-			return static::MODE_MIN;
+			return true;
 		}
 
-		return static::MODE_PCT;
+		return false;
 	}
 
 	/**
@@ -102,20 +81,18 @@ class LabelsValues
 	{
 		$width = min($this->maxWidth, (int) $this->output->environment->getWidth() * (min($this->widthPercent, 100.0) / 100.0));
 
-		$mode = $this->getMode($labelsAndValues, $width, $this->minSeparatorCount);
+		$longestLabeValuelWidth = $this->getLongestLabelValueWidth($labelsAndValues);
 
-		$longestLabelWidth = $this->getLongestLabelWidth(array_keys($labelsAndValues));
+		if ($this->useMinSeparators($width, $longestLabeValuelWidth, $this->minSeparatorCount)) {
+			$width = $longestLabeValuelWidth + static::MARGIN_WIDTH + $this->minSeparatorCount;
+		}
 
 		$output = [];
 
 		foreach ($labelsAndValues as $label => $value) {
-			$labelWidth = $this->getVisibleStringWidth($label);
-			$valueWidth = $this->getVisibleStringWidth($value);
+			$labelValueWidth = $this->getVisibleStringWidth("{$label}{$value}");
 
-			$times = match ($mode) {
-				static::MODE_PCT => (int) ($width - $labelWidth - $valueWidth - static::MARGIN_WIDTH),
-				static::MODE_MIN => (int) $this->minSeparatorCount + ($longestLabelWidth - $labelWidth),
-			};
+			$times = $width - $labelValueWidth - static::MARGIN_WIDTH;
 
 			$output[] = "{$label} " . sprintf($this->separatorTemplate, str_repeat(static::SEPARATOR, $times)) . " {$value}";
 		}
