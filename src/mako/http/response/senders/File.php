@@ -76,6 +76,8 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the filename.
+	 *
+	 * @return $this
 	 */
 	public function setName(string $name): File
 	{
@@ -86,6 +88,8 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the content disposition.
+	 *
+	 * @return $this
 	 */
 	public function setDisposition(string $disposition): File
 	{
@@ -96,6 +100,8 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the response content type.
+	 *
+	 * @return $this
 	 */
 	public function setType(string $type): File
 	{
@@ -106,6 +112,8 @@ class File implements ResponseSenderInterface
 
 	/**
 	 * Sets the callback closure.
+	 *
+	 * @return $this
 	 */
 	public function done(Closure $callback): File
 	{

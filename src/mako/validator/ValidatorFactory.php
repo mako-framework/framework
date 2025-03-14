@@ -31,6 +31,8 @@ class ValidatorFactory
 
 	/**
 	 * Registers a custom validation rule.
+	 *
+	 * @return $this
 	 */
 	public function extend(string $rule, string $ruleClass): ValidatorFactory
 	{

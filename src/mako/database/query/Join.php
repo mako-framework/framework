@@ -62,6 +62,8 @@ class Join
 
 	/**
 	 * Adds a ON condition to the join.
+	 *
+	 * @return $this
 	 */
 	public function on(Closure|Raw|string $column1, ?string $operator = null, null|Raw|string $column2 = null, string $separator = 'AND'): Join
 	{

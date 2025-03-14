@@ -57,6 +57,8 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a response header.
+	 *
+	 * @return $this
 	 */
 	public function add(string $name, string $value, bool $replace = true): Headers
 	{
@@ -102,6 +104,8 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Removes a header.
+	 *
+	 * @return $this
 	 */
 	public function remove(string $name): Headers
 	{
@@ -112,6 +116,8 @@ class Headers implements Countable, IteratorAggregate
 
 	/**
 	 * Clears all the headers.
+	 *
+	 * @return $this
 	 */
 	public function clear(): Headers
 	{

@@ -26,6 +26,8 @@ class Subquery
 
 	/**
 	 * Sets the subquery alias.
+	 *
+	 * @return $this
 	 */
 	public function as(string $alias): Subquery
 	{

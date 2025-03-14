@@ -54,6 +54,8 @@ class Dispatcher
 
 	/**
 	 * Sets middleware priority.
+	 *
+	 * @return $this
 	 */
 	public function setMiddlewarePriority(string $middleware, int $priority): Dispatcher
 	{
@@ -64,6 +66,8 @@ class Dispatcher
 
 	/**
 	 * Resets middleware priority.
+	 *
+	 * @return $this
 	 */
 	public function resetMiddlewarePriority(): Dispatcher
 	{
@@ -74,6 +78,8 @@ class Dispatcher
 
 	/**
 	 * Sets the chosen middleware as global.
+	 *
+	 * @return $this
 	 */
 	public function registerGlobalMiddleware(string $middleware, mixed ...$parameters): Dispatcher
 	{

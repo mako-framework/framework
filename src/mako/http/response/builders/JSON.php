@@ -46,6 +46,8 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Enables JSONP support.
+	 *
+	 * @return $this
 	 */
 	public function asJsonpWith(string $callback): JSON
 	{
@@ -56,6 +58,8 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Sets the response character set.
+	 *
+	 * @return $this
 	 */
 	public function setCharset(string $charset): JSON
 	{
@@ -74,6 +78,8 @@ class JSON implements ResponseBuilderInterface
 
 	/**
 	 * Sets the HTTP status code.
+	 *
+	 * @return $this
 	 */
 	public function setStatus(int|Status $status): JSON
 	{

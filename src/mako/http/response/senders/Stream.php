@@ -39,6 +39,8 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Sets the response content type.
+	 *
+	 * @return $this
 	 */
 	public function setType(string $contentType): Stream
 	{
@@ -57,6 +59,8 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Sets the response character set.
+	 *
+	 * @return $this
 	 */
 	public function setCharset(string $charset): Stream
 	{

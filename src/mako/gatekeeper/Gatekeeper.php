@@ -76,6 +76,8 @@ class Gatekeeper
 
 	/**
 	 * Registers a new adapter.
+	 *
+	 * @return $this
 	 */
 	public function extend(AdapterInterface|array $adapter): Gatekeeper
 	{
@@ -86,6 +88,8 @@ class Gatekeeper
 
 	/**
 	 * Sets the defaut adapter name.
+	 *
+	 * @return $this
 	 */
 	public function useAsDefaultAdapter(string $name): Gatekeeper
 	{

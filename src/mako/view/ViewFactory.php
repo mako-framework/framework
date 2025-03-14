@@ -80,6 +80,8 @@ class ViewFactory
 
 	/**
 	 * Sets the charset.
+	 *
+	 * @return $this
 	 */
 	public function setCharset(string $charset): ViewFactory
 	{
@@ -90,6 +92,8 @@ class ViewFactory
 
 	/**
 	 * Registers a custom view renderer.
+	 *
+	 * @return $this
 	 */
 	public function extend(string $extension, Closure|string $renderer): ViewFactory
 	{
@@ -100,6 +104,8 @@ class ViewFactory
 
 	/**
 	 * Assign a global view variable that will be available in all views.
+	 *
+	 * @return $this
 	 */
 	public function assign(string $name, mixed $value): ViewFactory
 	{
@@ -110,6 +116,8 @@ class ViewFactory
 
 	/**
 	 * Assign variables that should be auto assigned to views upon creation.
+	 *
+	 * @return $this
 	 */
 	public function autoAssign($view, callable $variables): ViewFactory
 	{
@@ -122,6 +130,8 @@ class ViewFactory
 
 	/**
 	 * Clears the autoassign variables.
+	 *
+	 * @return $this
 	 */
 	public function clearAutoAssignVariables(): ViewFactory
 	{

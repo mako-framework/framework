@@ -32,6 +32,8 @@ trait I18nAwareTrait
 
 	/**
 	 * Sets the I18n instance.
+	 *
+	 * @return $this
 	 */
 	public function setI18n(I18n $i18n): I18nAwareInterface
 	{
