@@ -202,6 +202,8 @@ class Validator
 
 	/**
 	 * Registers a custom validation rule.
+	 *
+	 * @return $this
 	 */
 	public function extend(string $rule, string $ruleClass): Validator
 	{
@@ -266,6 +268,8 @@ class Validator
 
 	/**
 	 * Adds validation rules to input field.
+	 *
+	 * @return $this
 	 */
 	public function addRules(string $field, array $ruleSet): Validator
 	{
@@ -276,6 +280,8 @@ class Validator
 
 	/**
 	 * Adds validation rules to input field if the condition is met.
+	 *
+	 * @return $this
 	 */
 	public function addRulesIf(string $field, array $ruleSet, bool|Closure $condition): Validator
 	{

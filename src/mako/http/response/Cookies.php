@@ -67,6 +67,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Set default options values.
+	 *
+	 * @return $this
 	 */
 	public function setOptions(array $defaults): Cookies
 	{
@@ -77,6 +79,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a unsigned cookie.
+	 *
+	 * @return $this
 	 */
 	public function add(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false): Cookies
 	{
@@ -94,6 +98,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a raw unsigned cookie.
+	 *
+	 * @return $this
 	 */
 	public function addRaw(string $name, string $value, int $ttl = 0, array $options = []): Cookies
 	{
@@ -102,6 +108,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a signed cookie.
+	 *
+	 * @return $this
 	 */
 	public function addSigned(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false): Cookies
 	{
@@ -114,6 +122,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Adds a raw signed cookie.
+	 *
+	 * @return $this
 	 */
 	public function addRawSigned(string $name, string $value, int $ttl, array $options = []): Cookies
 	{
@@ -130,6 +140,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Removes a cookie.
+	 *
+	 * @return $this
 	 */
 	public function remove(string $name): Cookies
 	{
@@ -140,16 +152,18 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Deletes a cookie.
+	 *
+	 * @return $this
 	 */
 	public function delete(string $name, array $options = []): Cookies
 	{
-		$this->add($name, '', -3600, $options);
-
-		return $this;
+		return $this->add($name, '', -3600, $options);
 	}
 
 	/**
 	 * Clears all the cookies.
+	 *
+	 * @return $this
 	 */
 	public function clear(): Cookies
 	{
@@ -160,6 +174,8 @@ class Cookies implements Countable, IteratorAggregate
 
 	/**
 	 * Clears all the cookies except those that patch the provided names or patterns.
+	 *
+	 * @return $this
 	 */
 	public function clearExcept(array $cookies): Cookies
 	{

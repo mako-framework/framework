@@ -101,6 +101,8 @@ class Response
 
 	/**
 	 * Sets the response body.
+	 *
+	 * @return $this
 	 */
 	public function setBody(mixed $body): Response
 	{
@@ -119,6 +121,8 @@ class Response
 
 	/**
 	 * Clears the response body.
+	 *
+	 * @return $this
 	 */
 	public function clearBody(): Response
 	{
@@ -129,6 +133,8 @@ class Response
 
 	/**
 	 * Sets the response content type.
+	 *
+	 * @return $this
 	 */
 	public function setType(string $contentType, ?string $charset = null): Response
 	{
@@ -151,6 +157,8 @@ class Response
 
 	/**
 	 * Sets the response character set.
+	 *
+	 * @return $this
 	 */
 	public function setCharset(string $charset): Response
 	{
@@ -169,6 +177,8 @@ class Response
 
 	/**
 	 * Sets the HTTP status.
+	 *
+	 * @return $this
 	 */
 	public function setStatus(int|Status $status): Response
 	{
@@ -203,6 +213,8 @@ class Response
 
 	/**
 	 * Clears the response body, cookies and headers.
+	 *
+	 * @return $this
 	 */
 	public function clear(): Response
 	{
@@ -217,6 +229,8 @@ class Response
 
 	/**
 	 * Clears the response body in addition to cookies and headers that don't match the provided names or patterns.
+	 *
+	 * @return $this
 	 */
 	public function clearExcept(array $exceptions): Response
 	{
@@ -315,6 +329,8 @@ class Response
 
 	/**
 	 * Enables ETag response cache.
+	 *
+	 * @return $this
 	 */
 	public function enableCaching(): Response
 	{
@@ -325,6 +341,8 @@ class Response
 
 	/**
 	 * Disables ETag response cache.
+	 *
+	 * @return $this
 	 */
 	public function disableCaching(): Response
 	{
@@ -335,6 +353,8 @@ class Response
 
 	/**
 	 * Enables output compression.
+	 *
+	 * @return $this
 	 */
 	public function enableCompression(): Response
 	{
@@ -345,6 +365,8 @@ class Response
 
 	/**
 	 * Disables output compression.
+	 *
+	 * @return $this
 	 */
 	public function disableCompression(): Response
 	{
@@ -355,6 +377,8 @@ class Response
 
 	/**
 	 * Sets the output compression handler.
+	 *
+	 * @return $this
 	 */
 	public function setCompressionHandler(callable $handler): Response
 	{

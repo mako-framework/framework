@@ -145,6 +145,8 @@ class Image
 
 	/**
 	 * Rotates the image using the given angle in degrees.
+	 *
+	 * @return $this
 	 */
 	public function rotate(int $degrees): Image
 	{
@@ -155,6 +157,8 @@ class Image
 
 	/**
 	 * Resizes the image to the chosen size.
+	 *
+	 * @return $this
 	 */
 	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): Image
 	{
@@ -165,6 +169,8 @@ class Image
 
 	/**
 	 * Crops the image.
+	 *
+	 * @return $this
 	 */
 	public function crop(int $width, int $height, int $x, int $y): Image
 	{
@@ -175,6 +181,8 @@ class Image
 
 	/**
 	 * Flips the image.
+	 *
+	 * @return $this
 	 */
 	public function flip(int $direction = Image::FLIP_HORIZONTAL): Image
 	{
@@ -185,6 +193,8 @@ class Image
 
 	/**
 	 * Adds a watermark to the image.
+	 *
+	 * @return $this
 	 */
 	public function watermark(string $file, int $position = Image::WATERMARK_TOP_LEFT, int $opacity = 100): Image
 	{
@@ -207,6 +217,8 @@ class Image
 
 	/**
 	 * Adjust image brightness.
+	 *
+	 * @return $this
 	 */
 	public function brightness(int $level = 50): Image
 	{
@@ -223,6 +235,8 @@ class Image
 
 	/**
 	 * Converts image to greyscale.
+	 *
+	 * @return $this
 	 */
 	public function greyscale(): Image
 	{
@@ -233,6 +247,8 @@ class Image
 
 	/**
 	 * Converts image to sepia.
+	 *
+	 * @return $this
 	 */
 	public function sepia(): Image
 	{
@@ -243,6 +259,8 @@ class Image
 
 	/**
 	 * Converts image to bitonal.
+	 *
+	 * @return $this
 	 */
 	public function bitonal(): Image
 	{
@@ -253,6 +271,8 @@ class Image
 
 	/**
 	 * Colorizes the image.
+	 *
+	 * @return $this
 	 */
 	public function colorize(string $color): Image
 	{
@@ -263,6 +283,8 @@ class Image
 
 	/**
 	 * Sharpens the image.
+	 *
+	 * @return $this
 	 */
 	public function sharpen(): Image
 	{
@@ -273,6 +295,8 @@ class Image
 
 	/**
 	 * Pixelates the image.
+	 *
+	 * @return $this
 	 */
 	public function pixelate(int $pixelSize = 10): Image
 	{
@@ -283,6 +307,8 @@ class Image
 
 	/**
 	 * Negates the image.
+	 *
+	 * @return $this
 	 */
 	public function negate(): Image
 	{
@@ -293,6 +319,8 @@ class Image
 
 	/**
 	 * Adds a border to the image.
+	 *
+	 * @return $this
 	 */
 	public function border(string $color = '#000', int $thickness = 5): Image
 	{

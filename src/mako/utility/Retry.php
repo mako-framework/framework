@@ -47,6 +47,8 @@ class Retry
 
 	/**
 	 * Sets the number of attempts.
+	 *
+	 * @return $this
 	 */
 	public function setAttempts(int $attempts): Retry
 	{
@@ -57,6 +59,8 @@ class Retry
 
 	/**
 	 * Sets the time we want to want to wait between each attempt in microseconds.
+	 *
+	 * @return $this
 	 */
 	public function setWait(int $wait): Retry
 	{
@@ -67,6 +71,8 @@ class Retry
 
 	/**
 	 * Enables exponential waiting.
+	 *
+	 * @return $this
 	 */
 	public function exponentialWait(): Retry
 	{
@@ -77,6 +83,8 @@ class Retry
 
 	/**
 	 * Sets the decider that decides whether or not we should retry.
+	 *
+	 * @return $this
 	 */
 	public function setDecider(callable $decider): Retry
 	{

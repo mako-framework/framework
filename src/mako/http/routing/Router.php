@@ -45,6 +45,8 @@ class Router
 
 	/**
 	 * Sets the chosen constraint as global.
+	 *
+	 * @return $this
 	 */
 	public function registerGlobalConstraint(string $constraint, mixed ...$parameters): Router
 	{

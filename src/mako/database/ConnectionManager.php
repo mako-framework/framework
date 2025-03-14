@@ -171,6 +171,8 @@ class ConnectionManager extends BaseConnectionManager
 
 	/**
 	 * Adds a database connection to the connection manager.
+	 *
+	 * @return $this
 	 */
 	public function setConnection(Connection $connection): ConnectionManager
 	{

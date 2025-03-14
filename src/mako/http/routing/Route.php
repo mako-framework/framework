@@ -177,6 +177,8 @@ class Route
 
 	/**
 	 * Adds a prefix to the route.
+	 *
+	 * @return $this
 	 */
 	public function prefix(string $prefix): Route
 	{
@@ -189,6 +191,8 @@ class Route
 
 	/**
 	 * Sets the custom patterns.
+	 *
+	 * @return $this
 	 */
 	public function patterns(array $patterns): Route
 	{
@@ -199,6 +203,8 @@ class Route
 
 	/**
 	 * Adds a middleware.
+	 *
+	 * @return $this
 	 */
 	public function middleware(string $middleware, mixed ...$parameters): Route
 	{
@@ -209,6 +215,8 @@ class Route
 
 	/**
 	 * Adds a constraint.
+	 *
+	 * @return $this
 	 */
 	public function constraint(string $constraint, mixed ...$parameters): Route
 	{
