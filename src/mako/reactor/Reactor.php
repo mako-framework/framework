@@ -413,7 +413,7 @@ class Reactor
 				$argumentName = $this->argument->getName();
 				$argumentDescription = $this->argument->getDescription();
 
-				$prompt = "Please enter a value for the missing required argument <yellow>{$argumentName}</yellow>";
+				$prompt = "Please enter a value for the missing required argument [ <yellow>{$argumentName}</yellow> ]";
 
 				if (!empty($argumentDescription)) {
 					$prompt .= PHP_EOL . "<faded>{$argumentDescription}</faded>";
