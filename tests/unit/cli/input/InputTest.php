@@ -28,6 +28,42 @@ class InputTest extends TestCase
 	/**
 	 *
 	 */
+	public function testIsInteractive(): void
+	{
+		$reader = $this->getReader();
+
+		/** @var ArgvParser|Mockery\MockInterface $arguments */
+		$arguments = Mockery::mock(ArgvParser::class);
+
+		$input = new Input($reader, $arguments);
+
+		$this->assertTrue($input->isInteractive());
+	}
+
+	/**
+	 *
+	 */
+	public function testToggleInteractivity(): void
+	{
+		$reader = $this->getReader();
+
+		/** @var ArgvParser|Mockery\MockInterface $arguments */
+		$arguments = Mockery::mock(ArgvParser::class);
+
+		$input = new Input($reader, $arguments);
+
+		$input->makeNonInteractive();
+
+		$this->assertFalse($input->isInteractive());
+
+		$input->makeInteractive();
+
+		$this->assertTrue($input->isInteractive());
+	}
+
+	/**
+	 *
+	 */
 	public function testRead(): void
 	{
 		$reader = $this->getReader();

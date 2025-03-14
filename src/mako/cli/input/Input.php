@@ -16,12 +16,41 @@ use mako\cli\input\reader\ReaderInterface;
 class Input
 {
 	/**
+	 * Is the input interactive?
+	 */
+	protected $isInteractive = true;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		public protected(set) ReaderInterface $reader,
 		public protected(set) ArgvParser $argumentParser
 	) {
+	}
+
+	/**
+	 * Makes the input interactive.
+	 */
+	public function makeInteractive(): void
+	{
+		$this->isInteractive = true;
+	}
+
+	/**
+	 * Makes the input non-interactive.
+	 */
+	public function makeNonInteractive(): void
+	{
+		$this->isInteractive = false;
+	}
+
+	/**
+	 * Is the input interactive?
+	 */
+	public function isInteractive(): bool
+	{
+		return $this->isInteractive;
 	}
 
 	/**
@@ -51,9 +80,9 @@ class Input
 	/**
 	 * Returns all the arguments passed to the script.
 	 */
-	public function getArguments(): array
+	public function getArguments(bool $forceParse = false): array
 	{
-		return $this->argumentParser->parse();
+		return $this->argumentParser->parse(forceParse: $forceParse);
 	}
 
 	/**

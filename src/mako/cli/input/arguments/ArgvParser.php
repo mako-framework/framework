@@ -122,6 +122,8 @@ class ArgvParser
 
 	/**
 	 * Clears the parsed argument cache.
+	 *
+	 * @return $this
 	 */
 	public function clearCache(): ArgvParser
 	{
@@ -316,11 +318,19 @@ class ArgvParser
 	}
 
 	/**
+	 * Sets the value of an argument.
+	 */
+	public function setValue(string $argumentName, bool|string $value): void
+	{
+		$this->storeValue($this->getArgument($argumentName), null, $value);
+	}
+
+	/**
 	 * Parses the arguments.
 	 */
-	public function parse(bool $ignoreUnknownArguments = false): array
+	public function parse(bool $ignoreUnknownArguments = false, bool $forceParse = false): array
 	{
-		if (empty($this->parsed)) {
+		if ($forceParse || empty($this->parsed)) {
 			$this->ignoreUnknownArguments = $ignoreUnknownArguments;
 
 			// Parse input
@@ -352,12 +362,19 @@ class ArgvParser
 			foreach ($this->arguments as $normalizedName => $argument) {
 				if (!isset($this->parsed[$normalizedName])) {
 					if (!$argument->isOptional()) {
-						throw new MissingArgumentException(sprintf('Missing required argument [ %s ].', $argument->getName()));
+						throw new MissingArgumentException(
+							sprintf('Missing required argument [ %s ].', $argument->getName()),
+							argument: $argument
+						);
 					}
 
 					$this->parsed[$normalizedName] = $argument->getDefaultValue();
 				}
 			}
+
+			// Reset the ignore unknown arguments flag
+
+			$this->ignoreUnknownArguments = false;
 		}
 
 		return $this->parsed;
