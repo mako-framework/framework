@@ -88,6 +88,8 @@ class ReactorTest extends TestCase
 
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
+
 		//
 
 		/** @var Mockery\MockInterface|Output $output */
@@ -114,6 +116,7 @@ class ReactorTest extends TestCase
 		┃ command             ┃ Command name                 ┃ Yes                     ┃
 		┃ --help              ┃ Displays helpful information ┃ Yes                     ┃
 		┃ --mute              ┃ Mutes all output             ┃ Yes                     ┃
+		┃ --non-interactive   ┃ Disables interactive mode    ┃ Yes                     ┃
 		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 		EOF;
@@ -181,6 +184,8 @@ class ReactorTest extends TestCase
 
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(true);
 
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
+
 		//
 
 		/** @var Mockery\MockInterface|Output $output */
@@ -209,6 +214,7 @@ class ReactorTest extends TestCase
 		┃ command             ┃ Command name                 ┃ Yes                     ┃
 		┃ --help              ┃ Displays helpful information ┃ Yes                     ┃
 		┃ --mute              ┃ Mutes all output             ┃ Yes                     ┃
+		┃ --non-interactive   ┃ Disables interactive mode    ┃ Yes                     ┃
 		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 		EOF;
@@ -274,6 +280,8 @@ class ReactorTest extends TestCase
 
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
+
 		//
 
 		/** @var Mockery\MockInterface|Output $output */
@@ -323,6 +331,8 @@ class ReactorTest extends TestCase
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
 
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
 
 		//
 
@@ -382,6 +392,8 @@ class ReactorTest extends TestCase
 		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('sevrer');
 
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
+
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
 
 		//
 
@@ -444,6 +456,8 @@ class ReactorTest extends TestCase
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
+
 		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
 
 		//
@@ -497,6 +511,8 @@ class ReactorTest extends TestCase
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
+
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
 
 		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo']);
 
@@ -552,6 +568,8 @@ class ReactorTest extends TestCase
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(false);
 
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
+
 		$input->shouldReceive('getArguments')->once()->andReturn(['command' => 'foo', 'test' => 'bar']);
 
 		//
@@ -603,6 +621,8 @@ class ReactorTest extends TestCase
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(true);
+
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
 
 		//
 
@@ -682,6 +702,8 @@ class ReactorTest extends TestCase
 		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
 
 		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(true);
+
+		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
 
 		//
 

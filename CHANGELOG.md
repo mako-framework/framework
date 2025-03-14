@@ -4,6 +4,12 @@
 
 * The class finder can now find enums.
 * Added a CLI output component that makes it easy to print a set of aligned labels and values.
+* Reactor CLI commands can now prompt for missing arguments if they use the `PromptForMissingArguments` attribute.
+* Added new methods to the CLI `Input` class:
+	- `Input::makeNonInteractive()`
+	- `Input::makeInteractive()`
+	- `Input::isInteractive()`
+* Added global `--non-interactive` reactor argument.
 
 #### Deprecations
 

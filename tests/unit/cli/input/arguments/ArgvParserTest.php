@@ -376,4 +376,24 @@ class ArgvParserTest extends TestCase
 
 		$this->assertSame($exptected, $parser->parse(true));
 	}
+
+	/**
+	 *
+	 */
+	public function testSetValue(): void
+	{
+		$parser = new ArgvParser([],
+		[
+			new Argument('--foo'),
+		]);
+
+		$exptected =
+		[
+			'foo' => 'foo value',
+		];
+
+		$parser->setValue('--foo', 'foo value');
+
+		$this->assertSame($exptected, $parser->parse(true));
+	}
 }
