@@ -9,6 +9,7 @@ namespace mako\tests\unit\cli\input\helpers;
 
 use mako\cli\Environment;
 use mako\cli\input\helpers\Select;
+use mako\cli\input\helpers\select\AsciiTheme;
 use mako\cli\input\helpers\select\Theme;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
@@ -394,6 +395,39 @@ class SelectTest extends TestCase
 
 		> ● Burgers
 		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndPickFirstOptionWithAsciiTheme(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks(theme: new AsciiTheme);
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> [ ] Burgers
+		  [ ] Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::RIGHT->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> [X] Burgers
+		  [ ] Sushi
 
 		OUTPUT);
 
