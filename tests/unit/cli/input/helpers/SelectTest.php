@@ -9,6 +9,7 @@ namespace mako\tests\unit\cli\input\helpers;
 
 use mako\cli\Environment;
 use mako\cli\input\helpers\Select;
+use mako\cli\input\helpers\select\Theme;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Cursor;
@@ -126,12 +127,11 @@ class SelectTest extends TestCase
 		>
 		OUTPUT . ' ');
 
-		$select = new Select($input, $output);
+		$select = new Select($input, $output, allowMultiple: true);
 
 		$this->assertSame([0, 1], $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
-			allowMultiple: true
+			['Burgers', 'Sushi']
 		));
 	}
 
@@ -165,13 +165,11 @@ class SelectTest extends TestCase
 		>
 		OUTPUT . ' ');
 
-		$select = new Select($input, $output);
+		$select = new Select($input, $output, returnKey: false, allowMultiple: true);
 
 		$this->assertSame(['Burgers', 'Sushi'], $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
-			returnKey: false,
-			allowMultiple: true
+			['Burgers', 'Sushi']
 		));
 	}
 
@@ -303,12 +301,11 @@ class SelectTest extends TestCase
 		>
 		OUTPUT . ' ');
 
-		$select = new Select($input, $output);
+		$select = new Select($input, $output, allowEmptySelection: true);
 
 		$this->assertSame(null, $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
-			allowEmptySelection: true
+			['Burgers', 'Sushi']
 		));
 	}
 
@@ -321,8 +318,14 @@ class SelectTest extends TestCase
 	 * 	Mockery\MockInterface|Select
 	 * }
 	 */
-	protected function getInteractiveMocks(): array
-	{
+	protected function getInteractiveMocks(
+		string $invalidChoiceMessage = 'Invalid choice. Please try again.',
+		string $choiceRequiredMessage = 'You need to make a selection.',
+		Theme $theme = new Theme,
+		bool $returnKey = true,
+		bool $allowMultiple = false,
+		bool $allowEmptySelection = false
+	): array {
 		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
@@ -348,7 +351,16 @@ class SelectTest extends TestCase
 		})->bindTo($output, Output::class)();
 
 		/** @var Mockery\MockInterface|Select $select */
-		$select = Mockery::mock(Select::class, [$input, $output]);
+		$select = Mockery::mock(Select::class, [
+			$input,
+			$output,
+			$invalidChoiceMessage,
+			$choiceRequiredMessage,
+			$theme,
+			$returnKey,
+			$allowMultiple,
+			$allowEmptySelection,
+		]);
 
 		$select->makePartial();
 
@@ -440,7 +452,7 @@ class SelectTest extends TestCase
 	 */
 	public function testInteractiveSelectAndPickMultipleOptions(): void
 	{
-		[$input, , , $output, $select] = $this->getInteractiveMocks();
+		[$input, , , $output, $select] = $this->getInteractiveMocks(allowMultiple: true);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
 
@@ -482,8 +494,7 @@ class SelectTest extends TestCase
 
 		$this->assertSame([0, 1], $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
-			allowMultiple: true
+			['Burgers', 'Sushi']
 		));
 	}
 
@@ -492,7 +503,7 @@ class SelectTest extends TestCase
 	 */
 	public function testInteractiveSelectAndPickMultipleOptionsAndReturnValues(): void
 	{
-		[$input, , , $output, $select] = $this->getInteractiveMocks();
+		[$input, , , $output, $select] = $this->getInteractiveMocks(returnKey: false, allowMultiple: true);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
 
@@ -534,9 +545,7 @@ class SelectTest extends TestCase
 
 		$this->assertSame(['Burgers', 'Sushi'], $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
-			returnKey: false,
-			allowMultiple: true
+			['Burgers', 'Sushi']
 		));
 	}
 
@@ -582,7 +591,7 @@ class SelectTest extends TestCase
 
 		$this->assertSame(0, $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
+			['Burgers', 'Sushi']
 		));
 	}
 
@@ -591,7 +600,7 @@ class SelectTest extends TestCase
 	 */
 	public function testInteractiveSelectAndNoOption(): void
 	{
-		[$input, , , $output, $select] = $this->getInteractiveMocks();
+		[$input, , , $output, $select] = $this->getInteractiveMocks(allowEmptySelection: true);
 
 		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
 
@@ -606,8 +615,7 @@ class SelectTest extends TestCase
 
 		$this->assertSame(null, $select->ask(
 			'Favorite food?',
-			['Burgers', 'Sushi'],
-			allowEmptySelection: true
+			['Burgers', 'Sushi']
 		));
 	}
 }

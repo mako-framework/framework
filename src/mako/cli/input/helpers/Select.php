@@ -56,20 +56,18 @@ class Select
 		protected Output $output,
 		protected string $invalidChoiceMessage = 'Invalid choice. Please try again.',
 		protected string $choiceRequiredMessage = 'You need to make a selection.',
-		protected Theme $theme = new Theme
+		protected Theme $theme = new Theme,
+		protected bool $returnKey = true,
+		protected bool $allowMultiple = false,
+		protected bool $allowEmptySelection = false,
 	) {
 	}
 
 	/**
 	 * Returns the key or value of the chosen option.
 	 */
-	protected function nonInteractiveSelect(
-		array $options,
-		bool $returnKey,
-		bool $allowMultiple,
-		bool $allowEmptySelection,
-		callable $optionFormatter
-	): mixed {
+	protected function nonInteractiveSelect(array $options, callable $optionFormatter): mixed
+	{
 		$keys = array_keys($options);
 
 		$displayInvalidChoiceMessage = false;
@@ -106,7 +104,7 @@ class Select
 		// Process the user input
 
 		if (empty($input)) {
-			if ($allowEmptySelection) {
+			if ($this->allowEmptySelection) {
 				return null;
 			}
 
@@ -122,18 +120,18 @@ class Select
 		foreach ($possibleKeys as $possibleKey) {
 			$key = $keys[(int) $possibleKey - 1] ?? false;
 
-			if ($key === false || $allowMultiple === false && count($possibleKeys) > 1) {
+			if ($key === false || $this->allowMultiple === false && count($possibleKeys) > 1) {
 				$displayInvalidChoiceMessage = true;
 
 				goto render_list;
 			}
 
-			$selection[] = $returnKey ? $key : $options[$key];
+			$selection[] = $this->returnKey ? $key : $options[$key];
 		}
 
 		// Return the selection
 
-		return $allowMultiple ? $selection : $selection[0];
+		return $this->allowMultiple ? $selection : $selection[0];
 	}
 
 	/**
@@ -221,9 +219,9 @@ class Select
 	/**
 	 * Toggles the selection of the current option.
 	 */
-	protected function toggleSelection(bool $allowMultiple): void
+	protected function toggleSelection(): void
 	{
-		if (!$allowMultiple) {
+		if (!$this->allowMultiple) {
 			$this->unselectAllExceptCurrent();
 		}
 
@@ -233,13 +231,13 @@ class Select
 	/**
 	 * Returns the chosen selection.
 	 */
-	protected function getSelection(bool $returnKey, bool $allowMultiple): mixed
+	protected function getSelection(): mixed
 	{
 		$selection = [];
 
 		foreach ($this->optionsState as $option) {
 			if ($option['selected']) {
-				$selection[] = $returnKey ? $option['key'] : $option['value'];
+				$selection[] = $this->returnKey ? $option['key'] : $option['value'];
 			}
 		}
 
@@ -247,24 +245,19 @@ class Select
 			return null;
 		}
 
-		return $allowMultiple ? $selection : $selection[0];
+		return $this->allowMultiple ? $selection : $selection[0];
 	}
 
 	/**
 	 * Returns the chosen selection.
 	 */
-	protected function interactiveSelect(
-		array $options,
-		bool $returnKey,
-		bool $allowMultiple,
-		bool $allowEmptySelection,
-		callable $optionFormatter
-	): mixed {
+	protected function interactiveSelect(array $options, callable $optionFormatter): mixed
+	{
 		$this->buildInitialState($options);
 
 		$this->output->cursor->hide();
 
-		$selection = $this->sttySandbox(function () use ($returnKey, $allowMultiple, $allowEmptySelection, $optionFormatter): mixed {
+		$selection = $this->sttySandbox(function () use ($optionFormatter): mixed {
 			$this->setSttySettings('-echo -icanon');
 
 			while (true) {
@@ -279,12 +272,12 @@ class Select
 					$this->moveCursorDown();
 				}
 				elseif ($input === Key::SPACE || $input === Key::LEFT || $input === Key::RIGHT) {
-					$this->toggleSelection($allowMultiple);
+					$this->toggleSelection();
 				}
 				elseif ($input === Key::ENTER) {
-					$selection = $this->getSelection($returnKey, $allowMultiple);
+					$selection = $this->getSelection();
 
-					if ($allowEmptySelection || $selection !== null) {
+					if ($this->allowEmptySelection || $selection !== null) {
 						if ($this->showChoiceRequiredMessage) {
 							$this->output->cursor->up(2);
 							$this->output->cursor->clearScreenFromCursor();
@@ -308,22 +301,16 @@ class Select
 	/**
 	 * Prints out a list of options and returns the selection.
 	 */
-	public function ask(
-		string $question,
-		array $options,
-		bool $returnKey = true,
-		bool $allowMultiple = false,
-		bool $allowEmptySelection = false,
-		?callable $optionFormatter = null
-	): mixed {
+	public function ask(string $question, array $options, ?callable $optionFormatter = null): mixed
+	{
 		$this->output->writeLn(trim($question));
 
-		$optionFormatter ??= fn ($value) => $value;
+		$optionFormatter ??= fn (mixed $value): string => $value;
 
 		if (!$this->output->environment->hasStty() || $this->output->cursor === null) {
-			return $this->nonInteractiveSelect($options, $returnKey, $allowMultiple, $allowEmptySelection, $optionFormatter);
+			return $this->nonInteractiveSelect($options, $optionFormatter);
 		}
 
-		return $this->interactiveSelect($options, $returnKey, $allowMultiple, $allowEmptySelection, $optionFormatter);
+		return $this->interactiveSelect($options, $optionFormatter);
 	}
 }

@@ -222,21 +222,24 @@ trait CommandHelperTrait
 	protected function select(
 		string $question,
 		array $options,
+		string $invalidChoiceMessage = '<red>Invalid choice. Please try again.</red>',
+		string $choiceRequiredMessage = '<red>You need to make a selection.</red>',
+		SelectTheme $theme = new SelectTheme('<purple><bold>%s</bold></purple>'),
 		bool $returnKey = true,
 		bool $allowMultiple = false,
 		bool $allowEmptySelection = false,
-		?callable $valueFormatter = null,
-		string $invalidChoiceMessage = '<red>Invalid choice. Please try again.</red>',
-		string $choiceRequiredMessage = '<red>You need to make a selection.</red>',
-		SelectTheme $theme = new SelectTheme('<purple><bold>%s</bold></purple>')
+		?callable $optionFormatter = null
 	): mixed {
 		return (new Select(
 			$this->input,
 			$this->output,
 			$invalidChoiceMessage,
 			$choiceRequiredMessage,
-			$theme
-		))->ask($question, $options, $returnKey, $allowMultiple, $allowEmptySelection, $valueFormatter);
+			$theme,
+			$returnKey,
+			$allowMultiple,
+			$allowEmptySelection
+		))->ask($question, $options, $optionFormatter);
 	}
 
 	/**
