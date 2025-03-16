@@ -10,6 +10,7 @@ namespace mako\reactor\traits;
 use Countable;
 use Deprecated;
 use mako\cli\input\helpers\Confirmation;
+use mako\cli\input\helpers\confirmation\Theme as ConfirmationTheme;
 use mako\cli\input\helpers\Prompt;
 use mako\cli\input\helpers\Secret;
 use mako\cli\input\helpers\Select;
@@ -192,11 +193,22 @@ trait CommandHelperTrait
 	}
 
 	/**
-	 * Writes question to output and returns boolesn value corresponding to the chosen value.
+	 * Asks the user for confirmation.
 	 */
-	protected function confirm(string $question, string $default = 'n', string $inputPrefix = '<purple><bold>></bold></purple>'): bool
-	{
-		return (new Confirmation($this->input, $this->output, $inputPrefix))->ask($question, $default);
+	protected function confirm(
+		string $question,
+		bool $default = false,
+		string $trueLabel = 'Yes',
+		string $falseLabel = 'No',
+		ConfirmationTheme $theme = new ConfirmationTheme('<green>%s</green>', '<red>%s</red>', '<purple><bold>%s</bold></purple>')
+	): bool {
+		return (new Confirmation(
+			$this->input,
+			$this->output,
+			$trueLabel,
+			$falseLabel,
+			$theme
+		))->ask($question, $default);
 	}
 
 	/**
@@ -217,10 +229,10 @@ trait CommandHelperTrait
 	}
 
 	/**
-	 * Prints out a list of options and returns the array key of the chosen value.
+	 * Prints out a list of options and returns the chosen option(s).
 	 */
 	protected function select(
-		string $question,
+		string $label,
 		array $options,
 		string $invalidChoiceMessage = '<red>Invalid choice. Please try again.</red>',
 		string $choiceRequiredMessage = '<red>You need to make a selection.</red>',
@@ -239,7 +251,7 @@ trait CommandHelperTrait
 			$returnKey,
 			$allowMultiple,
 			$allowEmptySelection
-		))->ask($question, $options, $optionFormatter);
+		))->ask($label, $options, $optionFormatter);
 	}
 
 	/**

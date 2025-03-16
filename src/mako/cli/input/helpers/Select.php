@@ -18,7 +18,6 @@ use function array_keys;
 use function count;
 use function explode;
 use function implode;
-use function trim;
 
 /**
  * Select helper.
@@ -155,9 +154,9 @@ class Select
 	}
 
 	/**
-	 * Renders the list of options.
+	 * Renders the input.
 	 */
-	protected function renderOptions(callable $optionFormatter): void
+	protected function renderInput(callable $optionFormatter): void
 	{
 		$output = [];
 
@@ -261,7 +260,7 @@ class Select
 			$this->setSttySettings('-echo -icanon');
 
 			while (true) {
-				$this->renderOptions($optionFormatter);
+				$this->renderInput($optionFormatter);
 
 				$input = Key::tryFrom($this->input->readBytes(3));
 
@@ -301,9 +300,9 @@ class Select
 	/**
 	 * Prints out a list of options and returns the selection.
 	 */
-	public function ask(string $question, array $options, ?callable $optionFormatter = null): mixed
+	public function ask(string $label, array $options, ?callable $optionFormatter = null): mixed
 	{
-		$this->output->writeLn(trim($question));
+		$this->output->writeLn($label);
 
 		$optionFormatter ??= fn (mixed $option): string => $option;
 
