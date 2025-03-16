@@ -225,6 +225,7 @@ trait CommandHelperTrait
 		bool $returnKey = true,
 		bool $allowMultiple = false,
 		bool $allowEmptySelection = false,
+		?callable $valueFormatter = null,
 		string $invalidChoiceMessage = '<red>Invalid choice. Please try again.</red>',
 		string $choiceRequiredMessage = '<red>You need to make a selection.</red>',
 		SelectTheme $theme = new SelectTheme('<purple><bold>%s</bold></purple>')
@@ -235,7 +236,7 @@ trait CommandHelperTrait
 			$invalidChoiceMessage,
 			$choiceRequiredMessage,
 			$theme
-		))->ask($question, $options, $returnKey, $allowMultiple, $allowEmptySelection);
+		))->ask($question, $options, $returnKey, $allowMultiple, $allowEmptySelection, $valueFormatter);
 	}
 
 	/**

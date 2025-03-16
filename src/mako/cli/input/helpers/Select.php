@@ -67,7 +67,8 @@ class Select
 		array $options,
 		bool $returnKey,
 		bool $allowMultiple,
-		bool $allowEmptySelection
+		bool $allowEmptySelection,
+		callable $optionFormatter
 	): mixed {
 		$keys = array_keys($options);
 
@@ -93,7 +94,7 @@ class Select
 		}
 
 		foreach ($options as $option) {
-			$output .= ($i++) . ') ' . $option . PHP_EOL;
+			$output .= ($i++) . ') ' . $optionFormatter($option) . PHP_EOL;
 		}
 
 		$this->output->write("{$output}{$this->theme->getActivePointer()} ");
@@ -158,7 +159,7 @@ class Select
 	/**
 	 * Renders the list of options.
 	 */
-	protected function renderOptions(): void
+	protected function renderOptions(callable $optionFormatter): void
 	{
 		$output = [];
 
@@ -169,7 +170,7 @@ class Select
 
 			$selected = $option['selected'] ? $this->theme->getSelected() : $this->theme->getUnselected();
 
-			$output[] = "{$pointer} {$selected} {$option['value']}";
+			$output[] = "{$pointer} {$selected} {$optionFormatter($option['value'])}";
 		}
 
 		if ($this->showChoiceRequiredMessage) {
@@ -256,17 +257,18 @@ class Select
 		array $options,
 		bool $returnKey,
 		bool $allowMultiple,
-		bool $allowEmptySelection
+		bool $allowEmptySelection,
+		callable $optionFormatter
 	): mixed {
 		$this->buildInitialState($options);
 
 		$this->output->cursor->hide();
 
-		$selection = $this->sttySandbox(function () use ($returnKey, $allowMultiple, $allowEmptySelection): mixed {
+		$selection = $this->sttySandbox(function () use ($returnKey, $allowMultiple, $allowEmptySelection, $optionFormatter): mixed {
 			$this->setSttySettings('-echo -icanon');
 
 			while (true) {
-				$this->renderOptions();
+				$this->renderOptions($optionFormatter);
 
 				$input = Key::tryFrom($this->input->readBytes(3));
 
@@ -311,14 +313,17 @@ class Select
 		array $options,
 		bool $returnKey = true,
 		bool $allowMultiple = false,
-		bool $allowEmptySelection = false
+		bool $allowEmptySelection = false,
+		?callable $optionFormatter = null
 	): mixed {
 		$this->output->writeLn(trim($question));
 
+		$optionFormatter ??= fn ($value) => $value;
+
 		if (!$this->output->environment->hasStty() || $this->output->cursor === null) {
-			return $this->nonInteractiveSelect($options, $returnKey, $allowMultiple, $allowEmptySelection);
+			return $this->nonInteractiveSelect($options, $returnKey, $allowMultiple, $allowEmptySelection, $optionFormatter);
 		}
 
-		return $this->interactiveSelect($options, $returnKey, $allowMultiple, $allowEmptySelection);
+		return $this->interactiveSelect($options, $returnKey, $allowMultiple, $allowEmptySelection, $optionFormatter);
 	}
 }
