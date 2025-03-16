@@ -268,7 +268,7 @@ class Select
 			while (true) {
 				$this->renderOptions();
 
-				$input = Key::tryFrom($this->input->readCharacters(3));
+				$input = Key::tryFrom($this->input->readBytes(3));
 
 				if ($input === Key::UP) {
 					$this->moveCursorUp();

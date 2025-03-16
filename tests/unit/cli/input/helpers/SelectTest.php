@@ -376,7 +376,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::RIGHT->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::RIGHT->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -385,7 +385,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$this->assertSame(0, $select->ask(
 			'Favorite food?',
@@ -409,7 +409,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::DOWN->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::DOWN->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -418,7 +418,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::RIGHT->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::RIGHT->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -427,7 +427,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$this->assertSame(1, $select->ask(
 			'Favorite food?',
@@ -451,7 +451,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::SPACE->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -460,7 +460,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::UP->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::UP->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -469,7 +469,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::SPACE->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -478,7 +478,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$this->assertSame([0, 1], $select->ask(
 			'Favorite food?',
@@ -503,7 +503,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::SPACE->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -512,7 +512,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::UP->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::UP->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -521,7 +521,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::SPACE->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -530,7 +530,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$this->assertSame(['Burgers', 'Sushi'], $select->ask(
 			'Favorite food?',
@@ -556,7 +556,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -567,7 +567,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::LEFT->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::LEFT->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -578,7 +578,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$this->assertSame(0, $select->ask(
 			'Favorite food?',
@@ -602,7 +602,7 @@ class SelectTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
 
 		$this->assertSame(null, $select->ask(
 			'Favorite food?',

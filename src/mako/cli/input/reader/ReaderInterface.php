@@ -23,7 +23,7 @@ interface ReaderInterface
 	public function readCharacter(): string;
 
 	/**
-	 * Reads and returns a specified number of characters.
+	 * Reads and returns a specified number of bytes.
 	 */
-	public function readCharacters(int $length): string;
+	public function readBytes(int $length): string;
 }

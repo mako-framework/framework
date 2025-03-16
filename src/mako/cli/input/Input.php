@@ -70,11 +70,11 @@ class Input
 	}
 
 	/**
-	 * Reads and returns a specified number of characters.
+	 * Reads and returns a specified number of bytes.
 	 */
-	public function readCharacters(int $length): string
+	public function readBytes(int $length): string
 	{
-		return $this->reader->readCharacters($length);
+		return $this->reader->readBytes($length);
 	}
 
 	/**

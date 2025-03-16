@@ -36,7 +36,7 @@ class Reader implements ReaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function readCharacters(int $length): string
+	public function readBytes(int $length): string
 	{
 		return fread(STDIN, $length);
 	}
