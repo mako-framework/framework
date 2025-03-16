@@ -305,7 +305,7 @@ class Select
 	{
 		$this->output->writeLn(trim($question));
 
-		$optionFormatter ??= fn (mixed $value): string => $value;
+		$optionFormatter ??= fn (mixed $option): string => $option;
 
 		if (!$this->output->environment->hasStty() || $this->output->cursor === null) {
 			return $this->nonInteractiveSelect($options, $optionFormatter);

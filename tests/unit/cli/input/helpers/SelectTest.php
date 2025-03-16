@@ -442,6 +442,40 @@ class SelectTest extends TestCase
 	/**
 	 *
 	 */
+	public function testInteractiveSelectAndPickFirstOptionWithAsciiThemeAndCustomOptionFormatter(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks(theme: new AsciiTheme);
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> [ ] BURGERS
+		  [ ] SUSHI
+
+		OUTPUT);
+
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::RIGHT->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> [X] BURGERS
+		  [ ] SUSHI
+
+		OUTPUT);
+
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi'],
+			fn (mixed $option): string => strtoupper($option)
+		));
+	}
+
+	/**
+	 *
+	 */
 	public function testInteractiveSelectAndPickSecondOption(): void
 	{
 		[$input, , , $output, $select] = $this->getInteractiveMocks();
