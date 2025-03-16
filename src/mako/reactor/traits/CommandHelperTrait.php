@@ -248,14 +248,15 @@ trait CommandHelperTrait
 	protected function secret(
 		string $question,
 		mixed $default = null,
-		bool $fallback = false,
-		string $inputPrefix = '<purple><bold>></bold></purple>'
+		string $inputPrefix = '<purple><bold>></bold></purple>',
+		bool $fallback = false
 	): mixed {
 		return (new Secret(
 			$this->input,
 			$this->output,
-			$inputPrefix
-		))->ask($question, $default, $fallback);
+			$inputPrefix,
+			$fallback
+		))->ask($question, $default);
 	}
 
 	/**
