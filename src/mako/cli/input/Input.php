@@ -70,6 +70,14 @@ class Input
 	}
 
 	/**
+	 * Reads and returns a specified number of characters.
+	 */
+	public function readCharacters(int $length): string
+	{
+		return $this->reader->readCharacters($length);
+	}
+
+	/**
 	 * Returns the argument parser.
 	 */
 	public function getArgumentParser(): ArgvParser

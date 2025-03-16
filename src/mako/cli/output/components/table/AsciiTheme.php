@@ -8,9 +8,9 @@
 namespace mako\cli\output\components\table;
 
 /**
- * Ascii border.
+ * Ascii theme.
  */
-class AsciiBorder extends Border
+class AsciiTheme extends Theme
 {
 	/**
 	 * {@inheritDoc}

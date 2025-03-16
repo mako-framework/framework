@@ -10,7 +10,7 @@ namespace mako\cli\output\components;
 use Countable;
 use Generator;
 use IteratorAggregate;
-use mako\cli\output\components\progress\ProgressBar;
+use mako\cli\output\components\progress\Theme;
 use mako\cli\output\components\progress\traits\ProgressTrait;
 use mako\cli\output\Output;
 use Traversable;
@@ -38,7 +38,7 @@ class ProgressIterator implements IteratorAggregate
 		protected string $description = '',
 		protected int $width = 20,
 		protected float $minTimeBetweenRedraw = 0.1,
-		protected ProgressBar $progressBar = new ProgressBar
+		protected Theme $theme = new Theme
 	) {
 		$this->itemCount = count($items);
 

@@ -21,4 +21,9 @@ interface ReaderInterface
 	 * Reads and returns a single character.
 	 */
 	public function readCharacter(): string;
+
+	/**
+	 * Reads and returns a specified number of characters.
+	 */
+	public function readCharacters(int $length): string;
 }

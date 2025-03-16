@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\cli\output\components;
 
-use mako\cli\output\components\progress\AsciiProgressBar;
+use mako\cli\output\components\progress\AsciiTheme;
 use mako\cli\output\components\ProgressIterator;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -176,7 +176,7 @@ class ProgressIteratorTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ==================== 100.00% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progress = new class ($output, range(1, 10), progressBar: new AsciiProgressBar) extends ProgressIterator {
+		$progress = new class ($output, range(1, 10), theme: new AsciiTheme) extends ProgressIterator {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;

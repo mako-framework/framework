@@ -11,9 +11,9 @@ use function array_map;
 use function sprintf;
 
 /**
- * Frames.
+ * Base theme.
  */
-class Frames
+class Theme
 {
 	/**
 	 * Time between redraw in microseconds.

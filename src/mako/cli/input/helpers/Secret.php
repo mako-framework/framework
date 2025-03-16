@@ -8,10 +8,9 @@
 namespace mako\cli\input\helpers;
 
 use mako\cli\exceptions\CliException;
-use mako\cli\traits\SttySandboxTrait;
+use mako\cli\traits\SttyTrait;
 
 use function escapeshellcmd;
-use function exec;
 use function shell_exec;
 use function trim;
 
@@ -20,7 +19,7 @@ use function trim;
  */
 class Secret extends Prompt
 {
-	use SttySandboxTrait;
+	use SttyTrait;
 
 	/**
 	 * Writes prompt to output and returns user input.
@@ -34,7 +33,7 @@ class Secret extends Prompt
 
 			if ($hasStty) {
 				$answer = $this->sttySandbox(function (): string {
-					exec('stty -echo');
+					$this->setSttySettings('-echo');
 					return $this->input->read();
 				});
 			}

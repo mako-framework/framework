@@ -7,17 +7,22 @@
 
 namespace mako\cli;
 
+use mako\cli\traits\SttyTrait;
+
 use function current;
 use function exec;
 use function mako\env;
 use function preg_match;
-use function shell_exec;
 
 /**
  * Environment.
  */
 class Environment
 {
+	use SttyTrait {
+		hasStty as public;
+	}
+
 	/**
 	 * Default width.
 	 */
@@ -34,11 +39,6 @@ class Environment
 	protected ?bool $hasAnsiSupport = null;
 
 	/**
-	 * Do we have stty support?
-	 */
-	protected ?bool $hasStty = null;
-
-	/**
 	 * Stty settings.
 	 */
 	protected ?string $sttySettings = null;
@@ -49,7 +49,7 @@ class Environment
 	public function __construct()
 	{
 		if ($this->hasStty()) {
-			$this->sttySettings = shell_exec('stty -g');
+			$this->sttySettings = $this->getSttySettings();
 		}
 	}
 
@@ -74,26 +74,12 @@ class Environment
 	}
 
 	/**
-	 * Do we have stty support?
-	 */
-	public function hasStty(): bool
-	{
-		if ($this->hasStty === null) {
-			exec('stty 2>&1', $output, $status);
-
-			$this->hasStty = $status === 0;
-		}
-
-		return $this->hasStty;
-	}
-
-	/**
 	 * Restores the stty settings.
 	 */
 	public function restoreStty(): void
 	{
 		if ($this->sttySettings !== null) {
-			exec("stty {$this->sttySettings}");
+			$this->setSttySettings($this->sttySettings);
 		}
 	}
 

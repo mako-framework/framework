@@ -8,9 +8,9 @@
 namespace mako\cli\output\components\progress;
 
 /**
- * Ascii progress bar.
+ * Ascii theme.
  */
-class AsciiProgressBar extends ProgressBar
+class AsciiTheme extends Theme
 {
 	/**
 	 * Empty progress bar.

@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\cli\output\components\progress;
 
-use mako\cli\output\components\spinner\Frames;
+use mako\cli\output\components\spinner\Theme;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -19,7 +19,7 @@ class FramesTest extends TestCase
 	 */
 	public function testWithDefaultTemplate(): void
 	{
-		$frames = new Frames;
+		$frames = new Theme;
 
 		$this->assertSame(['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'], $frames->getFrames());
 	}
@@ -29,7 +29,7 @@ class FramesTest extends TestCase
 	 */
 	public function testWithCustomTemplate(): void
 	{
-		$frames = new Frames('x%sx');
+		$frames = new Theme('x%sx');
 
 		$this->assertSame(['x⠋x', 'x⠙x', 'x⠹x', 'x⠸x', 'x⠼x', 'x⠴x', 'x⠦x', 'x⠧x', 'x⠇x', 'x⠏x'], $frames->getFrames());
 	}

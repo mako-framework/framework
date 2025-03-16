@@ -9,7 +9,7 @@ namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\exceptions\CliException;
 use mako\cli\output\components\Table;
-use mako\cli\output\components\table\AsciiBorder;
+use mako\cli\output\components\table\AsciiTheme;
 use mako\cli\output\formatter\FormatterInterface;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -55,7 +55,7 @@ class TableTest extends TestCase
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
-		$table = new Table($output, new AsciiBorder);
+		$table = new Table($output, new AsciiTheme);
 
 		$expected  = '';
 		$expected .= '---------' . PHP_EOL;

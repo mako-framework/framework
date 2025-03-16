@@ -8,7 +8,7 @@
 namespace mako\cli\output\components;
 
 use mako\cli\exceptions\CliException;
-use mako\cli\output\components\progress\ProgressBar;
+use mako\cli\output\components\progress\Theme;
 use mako\cli\output\components\progress\traits\ProgressTrait;
 use mako\cli\output\Output;
 
@@ -31,7 +31,7 @@ class Progress
 		protected string $description = '',
 		protected int $width = 20,
 		protected float $minTimeBetweenRedraw = 0.1,
-		protected ProgressBar $progressBar = new ProgressBar
+		protected Theme $theme = new Theme
 	) {
 		if (!empty($description)) {
 			$this->description = "{$description} ";

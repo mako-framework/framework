@@ -18,8 +18,8 @@ use function strlen;
 /**
  * Progress trait.
  *
- * @property \mako\cli\output\Output                          $output
- * @property \mako\cli\output\components\progress\ProgressBar $progressBar
+ * @property \mako\cli\output\Output                    $output
+ * @property \mako\cli\output\components\progress\Theme $theme
  */
 trait ProgressTrait
 {
@@ -44,8 +44,8 @@ trait ProgressTrait
 
 		return str_pad((string) $this->progress, strlen((string) $this->itemCount), '0', STR_PAD_LEFT)
 		. "/{$this->itemCount} "
-		. str_repeat($this->progressBar->getFilled(), $fill)
-		. str_repeat($this->progressBar->getEmpty(), ($this->width - $fill))
+		. str_repeat($this->theme->getFilled(), $fill)
+		. str_repeat($this->theme->getEmpty(), ($this->width - $fill))
 		. str_pad(" {$progress}% ", 9, ' ', STR_PAD_LEFT);
 	}
 

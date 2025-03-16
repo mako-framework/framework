@@ -7,7 +7,7 @@
 
 namespace mako\cli\output\components;
 
-use mako\cli\output\components\spinner\Frames;
+use mako\cli\output\components\spinner\Theme;
 use mako\cli\output\Output;
 
 use function count;
@@ -34,7 +34,7 @@ class Spinner
 	 */
 	public function __construct(
 		protected Output $output,
-		protected Frames $frames = new Frames,
+		protected Theme $theme = new Theme,
 	) {
 		$this->canFork = $this->canFork();
 	}
@@ -62,11 +62,11 @@ class Spinner
 	{
 		$i = 0;
 
-		$frames = $this->frames->getFrames();
+		$frames = $this->theme->getFrames();
 
 		$frameCount = count($frames);
 
-		$timeBetweenRedraw = $this->frames->getTimeBetweenRedraw();
+		$timeBetweenRedraw = $this->theme->getTimeBetweenRedraw();
 
 		while (true) {
 			$this->output->write("\r" . $frames[$i++ % $frameCount] . " {$message}");
