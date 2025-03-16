@@ -10,6 +10,8 @@ namespace mako\tests\unit\cli\input\helpers;
 use mako\cli\Environment;
 use mako\cli\input\helpers\Select;
 use mako\cli\input\Input;
+use mako\cli\input\Key;
+use mako\cli\output\Cursor;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -296,5 +298,122 @@ class SelectTest extends TestCase
 			['Burgers', 'Sushi'],
 			allowEmptySelection: true
 		));
+	}
+
+	/**
+	 * @return array{
+	 * 	Mockery\MockInterface|Input,
+	 *	Mockery\MockInterface|Environment,
+	 *  Mockery\MockInterface|Cursor,
+	 * 	Mockery\MockInterface|Output,
+	 * 	Mockery\MockInterface|Select
+	 * }
+	 */
+	protected function getInteractiveMocks(): array
+	{
+		/** @var Input|Mockery\MockInterface $input */
+		$input = Mockery::mock(Input::class);
+
+		/** @var Environment|Mockery\MockInterface $environment */
+		$environment = Mockery::mock(Environment::class);
+
+		$environment->shouldReceive('hasStty')->once()->andReturn(true);
+
+		/** @var Cursor|Mockery\MockInterface $cursor */
+		$cursor = Mockery::mock(Cursor::class);
+
+		$cursor->shouldReceive('hide');
+		$cursor->shouldReceive('show');
+		$cursor->shouldReceive('clearScreenFromCursor');
+		$cursor->shouldReceive('up');
+
+		/** @var Mockery\MockInterface|Output $output */
+		$output = Mockery::mock(Output::class);
+
+		(function () use ($environment, $cursor): void {
+			$this->environment = $environment;
+			$this->cursor = $cursor;
+		})->bindTo($output, Output::class)();
+
+		/** @var Mockery\MockInterface|Select $select */
+		$select = Mockery::mock(Select::class, [$input, $output]);
+
+		$select->makePartial();
+
+		$select->shouldAllowMockingProtectedMethods();
+
+		$select->shouldReceive('getSttySettings');
+		$select->shouldReceive('setSttySettings');
+
+		return [$input, $environment, $cursor, $output, $select];
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndPickFirstOption(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks();
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::RIGHT->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ● Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndPickSecondOption(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks();
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::DOWN->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		  ○ Burgers
+		> ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::RIGHT->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		  ○ Burgers
+		> ● Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(1, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
 	}
 }
