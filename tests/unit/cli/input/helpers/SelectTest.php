@@ -52,7 +52,10 @@ class SelectTest extends TestCase
 
 		$select = new Select($input, $output);
 
-		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
 	}
 
 	/**
@@ -87,7 +90,10 @@ class SelectTest extends TestCase
 
 		$select = new Select($input, $output);
 
-		$this->assertSame(1, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+		$this->assertSame(1, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
 	}
 
 	/**
@@ -212,7 +218,10 @@ class SelectTest extends TestCase
 
 		$select = new Select($input, $output);
 
-		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
 	}
 
 	/**
@@ -258,7 +267,10 @@ class SelectTest extends TestCase
 
 		$select = new Select($input, $output);
 
-		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
 	}
 
 	/**
@@ -375,7 +387,10 @@ class SelectTest extends TestCase
 
 		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
 
-		$this->assertSame(0, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
 	}
 
 	/**
@@ -414,6 +429,185 @@ class SelectTest extends TestCase
 
 		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
 
-		$this->assertSame(1, $select->ask('Favorite food?', ['Burgers', 'Sushi']));
+		$this->assertSame(1, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi']
+		));
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndPickMultipleOptions(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks();
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ● Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::UP->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		  ● Burgers
+		> ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		  ● Burgers
+		> ● Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame([0, 1], $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi'],
+			allowMultiple: true
+		));
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndPickMultipleOptionsAndReturnValues(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks();
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ● Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::UP->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		  ● Burgers
+		> ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::SPACE->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		  ● Burgers
+		> ● Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(['Burgers', 'Sushi'], $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi'],
+			returnKey: false,
+			allowMultiple: true
+		));
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndPickFirstOptionAfterPickingNoOption(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks();
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		You need to make a selection.
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::LEFT->value);
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ● Burgers
+		  ○ Sushi
+
+		You need to make a selection.
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(0, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi'],
+		));
+	}
+
+	/**
+	 *
+	 */
+	public function testInteractiveSelectAndNoOption(): void
+	{
+		[$input, , , $output, $select] = $this->getInteractiveMocks();
+
+		$output->shouldReceive('writeLn')->once()->with('Favorite food?');
+
+		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
+
+		> ○ Burgers
+		  ○ Sushi
+
+		OUTPUT);
+
+		$input->shouldReceive('readCharacters')->once()->andReturn(Key::ENTER->value);
+
+		$this->assertSame(null, $select->ask(
+			'Favorite food?',
+			['Burgers', 'Sushi'],
+			allowEmptySelection: true
+		));
 	}
 }
