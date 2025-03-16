@@ -99,12 +99,12 @@ class Confirmation
 			while (true) {
 				$this->renderInput();
 
-				$input = Key::tryFrom($this->input->readBytes(3));
+				$key = Key::tryFrom($this->input->readBytes(3));
 
-				if ($input === Key::SPACE || $input === Key::LEFT || $input === Key::RIGHT) {
+				if ($key === Key::SPACE || $key === Key::LEFT || $key === Key::RIGHT) {
 					$this->toggleSelection();
 				}
-				elseif ($input === Key::ENTER) {
+				elseif ($key === Key::ENTER) {
 					return $this->currentSelection;
 				}
 			}

@@ -262,18 +262,18 @@ class Select
 			while (true) {
 				$this->renderInput($optionFormatter);
 
-				$input = Key::tryFrom($this->input->readBytes(3));
+				$key = Key::tryFrom($this->input->readBytes(3));
 
-				if ($input === Key::UP) {
+				if ($key === Key::UP) {
 					$this->moveCursorUp();
 				}
-				elseif ($input === Key::DOWN) {
+				elseif ($key === Key::DOWN) {
 					$this->moveCursorDown();
 				}
-				elseif ($input === Key::SPACE || $input === Key::LEFT || $input === Key::RIGHT) {
+				elseif ($key === Key::SPACE || $key === Key::LEFT || $key === Key::RIGHT) {
 					$this->toggleSelection();
 				}
-				elseif ($input === Key::ENTER) {
+				elseif ($key === Key::ENTER) {
 					$selection = $this->getSelection();
 
 					if ($this->allowEmptySelection || $selection !== null) {
