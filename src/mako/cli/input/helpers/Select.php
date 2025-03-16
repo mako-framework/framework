@@ -7,74 +7,309 @@
 
 namespace mako\cli\input\helpers;
 
+use mako\cli\input\helpers\select\Theme;
+use mako\cli\input\helpers\traits\InteractiveInputTrait;
 use mako\cli\input\Input;
+use mako\cli\input\Key;
 use mako\cli\output\Output;
+use mako\cli\traits\SttyTrait;
 
-use function array_map;
-use function array_search;
-use function array_values;
-use function is_numeric;
-use function mb_strtolower;
-use function trim;
+use function array_keys;
+use function count;
+use function explode;
+use function implode;
 
 /**
  * Select helper.
  */
 class Select
 {
+	use InteractiveInputTrait;
+	use SttyTrait;
+
+	/**
+	 * Current option.
+	 */
+	protected int $currentOption = 0;
+
+	/**
+	 * Number of options.
+	 */
+	protected int $optionsCount;
+
+	/**
+	 * Options state.
+	 */
+	protected array $optionsState;
+
+	/**
+	 * Show choice required message?
+	 */
+	protected bool $showChoiceRequiredMessage = false;
+
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected Input $input,
 		protected Output $output,
-		protected string $prompt = '>'
+		protected string $invalidChoiceMessage = 'Invalid choice. Please try again.',
+		protected string $choiceRequiredMessage = 'You need to make a selection.',
+		protected Theme $theme = new Theme,
+		protected bool $returnKey = true,
+		protected bool $allowMultiple = false,
+		protected bool $allowEmptySelection = false,
 	) {
 	}
 
 	/**
-	 * Returns a list of options.
+	 * Returns the key or value of the chosen option.
 	 */
-	protected function buildOptionsList(array $options): string
+	protected function nonInteractiveSelect(array $options, callable $optionFormatter): mixed
 	{
+		$keys = array_keys($options);
+
+		$displayInvalidChoiceMessage = false;
+		$displayChoiceRequiredMessage = false;
+
+		// Render the list of options and prompt the user for input
+
+		render_list:
+
 		$output = '';
 
-		foreach ($options as $key => $option) {
-			$output .= ($key + 1) . ') ' . $option . PHP_EOL;
+		$i = 1;
+
+		if ($displayInvalidChoiceMessage) {
+			$output .=  PHP_EOL . $this->invalidChoiceMessage . PHP_EOL . PHP_EOL;
+			$displayInvalidChoiceMessage = false;
 		}
 
-		return "{$output}{$this->prompt} ";
-	}
+		if ($displayChoiceRequiredMessage) {
+			$output .= PHP_EOL . $this->choiceRequiredMessage . PHP_EOL . PHP_EOL;
+			$displayChoiceRequiredMessage = false;
+		}
 
-	/**
-	 * Prints out a list of options and returns the array key of the chosen value.
-	 */
-	public function ask(string $question, array $options): int
-	{
-		$options = array_values($options);
+		foreach ($options as $option) {
+			$output .= ($i++) . ') ' . $optionFormatter($option) . PHP_EOL;
+		}
 
-		$this->output->writeLn(trim($question));
+		$this->output->write("{$output}{$this->theme->getActivePointer()} ");
 
-		$this->output->write($this->buildOptionsList($options));
+		// Read the user input
 
 		$input = $this->input->read();
 
-		if (is_numeric($input)) {
+		// Process the user input
 
-			$key = (int) $input - 1;
-
-			if (isset($options[$key])) {
-				return $key;
+		if (empty($input)) {
+			if ($this->allowEmptySelection) {
+				return null;
 			}
+
+			$displayChoiceRequiredMessage = true;
+
+			goto render_list;
+		}
+
+		$possibleKeys = explode(',', $input);
+
+		$selection = [];
+
+		foreach ($possibleKeys as $possibleKey) {
+			$key = $keys[(int) $possibleKey - 1] ?? false;
+
+			if ($key === false || $this->allowMultiple === false && count($possibleKeys) > 1) {
+				$displayInvalidChoiceMessage = true;
+
+				goto render_list;
+			}
+
+			$selection[] = $this->returnKey ? $key : $options[$key];
+		}
+
+		// Return the selection
+
+		return $this->allowMultiple ? $selection : $selection[0];
+	}
+
+	/**
+	 * Builds the initial state of the options.
+	 */
+	protected function buildInitialState(array $options): void
+	{
+		$this->optionsCount = count($options);
+
+		$this->optionsState = [];
+
+		$i = 0;
+
+		foreach ($options as $key => $option) {
+			$this->optionsState[$i++] = [
+				'key' => $key,
+				'value' => $option,
+				'selected' => false,
+			];
+		}
+	}
+
+	/**
+	 * Renders the input.
+	 */
+	protected function renderInput(callable $optionFormatter): void
+	{
+		$output = [];
+
+		$i = 0;
+
+		foreach ($this->optionsState as $option) {
+			$pointer = ($i++ === $this->currentOption ? $this->theme->getActivePointer() : $this->theme->getInactivePointer());
+
+			$selected = $option['selected'] ? $this->theme->getSelected() : $this->theme->getUnselected();
+
+			$output[] = "{$pointer} {$selected} {$optionFormatter($option['value'])}";
+		}
+
+		if ($this->showChoiceRequiredMessage) {
+			$output[] = PHP_EOL . $this->choiceRequiredMessage;
+		}
+
+		$this->render(PHP_EOL . implode(PHP_EOL, $output) . PHP_EOL);
+	}
+
+	/**
+	 * Moves the cursor up.
+	 */
+	protected function moveCursorUp(): void
+	{
+		if ($this->currentOption > 0) {
+			$this->currentOption--;
 		}
 		else {
-			$key = array_search(mb_strtolower($input), array_map(mb_strtolower(...), $options));
+			$this->currentOption = $this->optionsCount - 1;
+		}
+	}
 
-			if ($key !== false) {
-				return $key;
+	/**
+	 * Moves the cursor down.
+	 */
+	protected function moveCursorDown(): void
+	{
+		if ($this->currentOption < $this->optionsCount - 1) {
+			$this->currentOption++;
+		}
+		else {
+			$this->currentOption = 0;
+		}
+	}
+
+	/**
+	 * Unselects all options except the current one.
+	 */
+	protected function unselectAllExceptCurrent(): void
+	{
+		foreach ($this->optionsState as $i => $_) {
+			if ($i !== $this->currentOption) {
+				$this->optionsState[$i]['selected'] = false;
+			}
+		}
+	}
+
+	/**
+	 * Toggles the selection of the current option.
+	 */
+	protected function toggleSelection(): void
+	{
+		if (!$this->allowMultiple) {
+			$this->unselectAllExceptCurrent();
+		}
+
+		$this->optionsState[$this->currentOption]['selected'] = !$this->optionsState[$this->currentOption]['selected'];
+	}
+
+	/**
+	 * Returns the chosen selection.
+	 */
+	protected function getSelection(): mixed
+	{
+		$selection = [];
+
+		foreach ($this->optionsState as $option) {
+			if ($option['selected']) {
+				$selection[] = $this->returnKey ? $option['key'] : $option['value'];
 			}
 		}
 
-		return $this->ask($question, $options);
+		if (empty($selection)) {
+			return null;
+		}
+
+		return $this->allowMultiple ? $selection : $selection[0];
+	}
+
+	/**
+	 * Returns the chosen selection.
+	 */
+	protected function interactiveSelect(array $options, callable $optionFormatter): mixed
+	{
+		$this->buildInitialState($options);
+
+		$this->output->cursor->hide();
+
+		$selection = $this->sttySandbox(function () use ($optionFormatter): mixed {
+			$this->setSttySettings('-echo -icanon');
+
+			while (true) {
+				$this->renderInput($optionFormatter);
+
+				$input = Key::tryFrom($this->input->readBytes(3));
+
+				if ($input === Key::UP) {
+					$this->moveCursorUp();
+				}
+				elseif ($input === Key::DOWN) {
+					$this->moveCursorDown();
+				}
+				elseif ($input === Key::SPACE || $input === Key::LEFT || $input === Key::RIGHT) {
+					$this->toggleSelection();
+				}
+				elseif ($input === Key::ENTER) {
+					$selection = $this->getSelection();
+
+					if ($this->allowEmptySelection || $selection !== null) {
+						if ($this->showChoiceRequiredMessage) {
+							$this->output->cursor->up(2);
+							$this->output->cursor->clearScreenFromCursor();
+						}
+
+						return $selection;
+					}
+
+					$this->showChoiceRequiredMessage = true;
+				}
+			}
+		});
+
+		$this->resetNewlinesInLastRender();
+
+		$this->output->cursor->show();
+
+		return $selection;
+	}
+
+	/**
+	 * Prints out a list of options and returns the selection.
+	 */
+	public function ask(string $label, array $options, ?callable $optionFormatter = null): mixed
+	{
+		$this->output->writeLn($label);
+
+		$optionFormatter ??= fn (mixed $option): string => $option;
+
+		if (!$this->output->environment->hasStty() || $this->output->cursor === null) {
+			return $this->nonInteractiveSelect($options, $optionFormatter);
+		}
+
+		return $this->interactiveSelect($options, $optionFormatter);
 	}
 }

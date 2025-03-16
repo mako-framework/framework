@@ -11,6 +11,10 @@
 	- `Input::isInteractive()`
 * Added global `--non-interactive` reactor argument.
 
+#### Changes
+
+* The `select` and `confirm` CLI inputs are now interactive and more user friendly.
+
 #### Deprecations
 
 * Deprecated the `Command::question()` method. Use the `Command::input()` method instead.

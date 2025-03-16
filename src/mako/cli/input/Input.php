@@ -70,6 +70,14 @@ class Input
 	}
 
 	/**
+	 * Reads and returns a specified number of bytes.
+	 */
+	public function readBytes(int $length): string
+	{
+		return $this->reader->readBytes($length);
+	}
+
+	/**
 	 * Returns the argument parser.
 	 */
 	public function getArgumentParser(): ArgvParser

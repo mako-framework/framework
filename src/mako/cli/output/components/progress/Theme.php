@@ -10,9 +10,9 @@ namespace mako\cli\output\components\progress;
 use function sprintf;
 
 /**
- * Progress bar.
+ * Base theme.
  */
-class ProgressBar
+class Theme
 {
 	/**
 	 * Empty progress bar character.

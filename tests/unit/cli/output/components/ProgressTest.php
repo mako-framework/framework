@@ -9,7 +9,7 @@ namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\exceptions\CliException;
 use mako\cli\output\components\Progress;
-use mako\cli\output\components\progress\AsciiProgressBar;
+use mako\cli\output\components\progress\AsciiTheme;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -138,7 +138,7 @@ class ProgressTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r10/10 ==================== 100.00% ");
 		$output->shouldReceive('write')->once()->with(PHP_EOL);
 
-		$progressBar = new class ($output, 10, progressBar: new AsciiProgressBar) extends Progress {
+		$progressBar = new class ($output, 10, theme: new AsciiTheme) extends Progress {
 			protected function shouldRedraw(): bool
 			{
 				return ($this->progress % 1) === 0;

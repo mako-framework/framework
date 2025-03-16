@@ -9,6 +9,7 @@ namespace mako\cli\input\reader;
 
 use function fgetc;
 use function fgets;
+use function fread;
 use function trim;
 
 /**
@@ -30,5 +31,13 @@ class Reader implements ReaderInterface
 	public function readCharacter(): string
 	{
 		return fgetc(STDIN);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function readBytes(int $length): string
+	{
+		return fread(STDIN, $length);
 	}
 }

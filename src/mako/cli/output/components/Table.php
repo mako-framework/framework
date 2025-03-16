@@ -8,7 +8,7 @@
 namespace mako\cli\output\components;
 
 use mako\cli\exceptions\CliException;
-use mako\cli\output\components\table\Border;
+use mako\cli\output\components\table\Theme;
 use mako\cli\output\components\traits\HelperTrait;
 use mako\cli\output\Output;
 
@@ -29,7 +29,7 @@ class Table
 	 */
 	public function __construct(
 		protected Output $output,
-		protected Border $borderStyle = new Border
+		protected Theme $theme = new Theme
 	) {
 	}
 
@@ -91,7 +91,7 @@ class Table
 		$separator = $leftCorner;
 
 		for ($i = 0; $i < $columns; $i++) {
-			$separator .= str_repeat($this->borderStyle->getHorizontalLine(), $columnWidths[$i] + 2) . ($i < $columns - 1 ? $junction : '');
+			$separator .= str_repeat($this->theme->getHorizontalLine(), $columnWidths[$i] + 2) . ($i < $columns - 1 ? $junction : '');
 		}
 
 		return $separator . $rightCorner . PHP_EOL;
@@ -108,9 +108,9 @@ class Table
 			$cells[] = $value . str_repeat(' ', $columnWidths[$key] - $this->getVisibleStringWidth($value));
 		}
 
-		return $this->borderStyle->getVerticalLine()
-		. ' ' . implode(' ' . $this->borderStyle->getVerticalLine() . ' ', $cells)
-		. ' ' . $this->borderStyle->getVerticalLine() . PHP_EOL;
+		return $this->theme->getVerticalLine()
+		. ' ' . implode(' ' . $this->theme->getVerticalLine() . ' ', $cells)
+		. ' ' . $this->theme->getVerticalLine() . PHP_EOL;
 	}
 
 	/**
@@ -126,9 +126,9 @@ class Table
 
 		// Build table header
 
-		$table = $this->buildRowSeparator($columnWidths, $this->borderStyle->getTJunctionDown(), $this->borderStyle->getTopLeftCorner(), $this->borderStyle->getTopRightCorner())
+		$table = $this->buildRowSeparator($columnWidths, $this->theme->getTJunctionDown(), $this->theme->getTopLeftCorner(), $this->theme->getTopRightCorner())
 		. $this->buildTableRow($columnNames, $columnWidths)
-		. $this->buildRowSeparator($columnWidths, $this->borderStyle->getJunction(), $this->borderStyle->getTJunctionLeft(), $this->borderStyle->getTJunctionRight());
+		. $this->buildRowSeparator($columnWidths, $this->theme->getJunction(), $this->theme->getTJunctionLeft(), $this->theme->getTJunctionRight());
 
 		// Add table rows
 
@@ -138,7 +138,7 @@ class Table
 
 		// Add bottom border
 
-		$table .= $this->buildRowSeparator($columnWidths, $this->borderStyle->getTJunctionUp(), $this->borderStyle->getBottomLeftCorner(), $this->borderStyle->getBottomRightCorner());
+		$table .= $this->buildRowSeparator($columnWidths, $this->theme->getTJunctionUp(), $this->theme->getBottomLeftCorner(), $this->theme->getBottomRightCorner());
 
 		// Return table
 

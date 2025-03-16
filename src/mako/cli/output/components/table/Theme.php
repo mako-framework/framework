@@ -8,9 +8,9 @@
 namespace mako\cli\output\components\table;
 
 /**
- * Border.
+ * Base theme.
  */
-class Border
+class Theme
 {
 	/**
 	 * Horizontal line.

@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\cli\output\components\progress;
 
-use mako\cli\output\components\progress\ProgressBar;
+use mako\cli\output\components\progress\Theme;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -19,7 +19,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testWithDefaultTemplate(): void
 	{
-		$progressBar = new ProgressBar;
+		$progressBar = new Theme;
 
 		$this->assertSame('─', $progressBar->getEmpty());
 
@@ -31,7 +31,7 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testWithCustomTemplate(): void
 	{
-		$progressBar = new ProgressBar('x%sx', 'y%sy');
+		$progressBar = new Theme('x%sx', 'y%sy');
 
 		$this->assertSame('x─x', $progressBar->getEmpty());
 

@@ -10,9 +10,8 @@ namespace mako\cli\output;
 use Deprecated;
 use mako\cli\input\reader\ReaderInterface;
 use mako\cli\output\writer\WriterInterface;
-use mako\cli\traits\SttySandboxTrait;
+use mako\cli\traits\SttyTrait;
 
-use function exec;
 use function sscanf;
 
 /**
@@ -20,7 +19,7 @@ use function sscanf;
  */
 class Cursor
 {
-	use SttySandboxTrait;
+	use SttyTrait;
 
 	/**
 	 * Is the cursor hidden?
@@ -155,7 +154,7 @@ class Cursor
 	public function getPosition(): array
 	{
 		$response = $this->sttySandbox(function (): string {
-			exec('stty -echo -icanon');
+			$this->setSttySettings('-echo -icanon');
 
 			$this->writer->write("\033[6n");
 

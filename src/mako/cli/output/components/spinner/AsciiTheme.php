@@ -8,9 +8,9 @@
 namespace mako\cli\output\components\spinner;
 
 /**
- * Ascii frames.
+ * Ascii theme.
  */
-class AsciiFrames extends Frames
+class AsciiTheme extends Theme
 {
 	/**
 	 * {@inheritDoc}

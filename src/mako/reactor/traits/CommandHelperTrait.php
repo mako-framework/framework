@@ -10,21 +10,23 @@ namespace mako\reactor\traits;
 use Countable;
 use Deprecated;
 use mako\cli\input\helpers\Confirmation;
+use mako\cli\input\helpers\confirmation\Theme as ConfirmationTheme;
 use mako\cli\input\helpers\Prompt;
 use mako\cli\input\helpers\Secret;
 use mako\cli\input\helpers\Select;
+use mako\cli\input\helpers\select\Theme as SelectTheme;
 use mako\cli\output\components\Alert;
 use mako\cli\output\components\Bell;
 use mako\cli\output\components\Countdown;
 use mako\cli\output\components\LabelsAndValues;
 use mako\cli\output\components\OrderedList;
 use mako\cli\output\components\Progress;
-use mako\cli\output\components\progress\ProgressBar;
+use mako\cli\output\components\progress\Theme as ProgressTheme;
 use mako\cli\output\components\ProgressIterator;
 use mako\cli\output\components\Spinner;
-use mako\cli\output\components\spinner\Frames;
+use mako\cli\output\components\spinner\Theme as SpinnerTheme;
 use mako\cli\output\components\Table;
-use mako\cli\output\components\table\Border;
+use mako\cli\output\components\table\Theme as TableTheme;
 use mako\cli\output\components\UnorderedList;
 use mako\cli\output\Output;
 use mako\syringe\traits\ContainerAwareTrait;
@@ -122,7 +124,7 @@ trait CommandHelperTrait
 		string $description = '',
 		int $width = 50,
 		float $minTimeBetweenRedraw = 0.1,
-		ProgressBar $progressBar = new ProgressBar('<red><faded>%s</faded></red>', '<green>%s</green>')
+		ProgressTheme $theme = new ProgressTheme('<red><faded>%s</faded></red>', '<green>%s</green>')
 	): Progress {
 		$progressBar = new Progress(
 			$this->output,
@@ -130,7 +132,7 @@ trait CommandHelperTrait
 			$description,
 			$width,
 			$minTimeBetweenRedraw,
-			$progressBar
+			$theme
 		);
 
 		$progressBar->draw();
@@ -146,7 +148,7 @@ trait CommandHelperTrait
 		string $description = '',
 		int $width = 50,
 		float $minTimeBetweenRedraw = 0.1,
-		ProgressBar $progressBar = new ProgressBar('<red><faded>%s</faded></red>', '<green>%s</green>')
+		ProgressTheme $theme = new ProgressTheme('<red><faded>%s</faded></red>', '<green>%s</green>')
 	): ProgressIterator {
 		return new ProgressIterator(
 			$this->output,
@@ -154,24 +156,24 @@ trait CommandHelperTrait
 			$description,
 			$width,
 			$minTimeBetweenRedraw,
-			$progressBar
+			$theme
 		);
 	}
 
 	/**
 	 * Draws a spinner while executing the callback.
 	 */
-	protected function spinner(string $message, callable $callback, Frames $frames = new Frames('<green>%s</green>')): mixed
+	protected function spinner(string $message, callable $callback, SpinnerTheme $theme = new SpinnerTheme('<green>%s</green>')): mixed
 	{
-		return (new Spinner($this->output, $frames))->spin($message, $callback);
+		return (new Spinner($this->output, $theme))->spin($message, $callback);
 	}
 
 	/**
 	 * Draws a table.
 	 */
-	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD, Border $borderStyle = new Border): void
+	protected function table(array $columnNames, array $rows, int $writer = Output::STANDARD, TableTheme $theme = new TableTheme): void
 	{
-		(new Table($this->output, $borderStyle))->draw($columnNames, $rows, $writer);
+		(new Table($this->output, $theme))->draw($columnNames, $rows, $writer);
 	}
 
 	/**
@@ -191,11 +193,22 @@ trait CommandHelperTrait
 	}
 
 	/**
-	 * Writes question to output and returns boolesn value corresponding to the chosen value.
+	 * Asks the user for confirmation.
 	 */
-	protected function confirm(string $question, string $default = 'n', string $inputPrefix = '<purple><bold>></bold></purple>'): bool
-	{
-		return (new Confirmation($this->input, $this->output, $inputPrefix))->ask($question, $default);
+	protected function confirm(
+		string $question,
+		bool $default = false,
+		string $trueLabel = 'Yes',
+		string $falseLabel = 'No',
+		ConfirmationTheme $theme = new ConfirmationTheme('<green>%s</green>', '<red>%s</red>', '<purple><bold>%s</bold></purple>')
+	): bool {
+		return (new Confirmation(
+			$this->input,
+			$this->output,
+			$trueLabel,
+			$falseLabel,
+			$theme
+		))->ask($question, $default);
 	}
 
 	/**
@@ -216,19 +229,46 @@ trait CommandHelperTrait
 	}
 
 	/**
-	 * Prints out a list of options and returns the array key of the chosen value.
+	 * Prints out a list of options and returns the chosen option(s).
 	 */
-	protected function select(string $question, array $options, string $inputPrefix = '<purple><bold>></bold></purple>'): int
-	{
-		return (new Select($this->input, $this->output, $inputPrefix))->ask($question, $options);
+	protected function select(
+		string $label,
+		array $options,
+		string $invalidChoiceMessage = '<red>Invalid choice. Please try again.</red>',
+		string $choiceRequiredMessage = '<red>You need to make a selection.</red>',
+		SelectTheme $theme = new SelectTheme('<purple><bold>%s</bold></purple>'),
+		bool $returnKey = true,
+		bool $allowMultiple = false,
+		bool $allowEmptySelection = false,
+		?callable $optionFormatter = null
+	): mixed {
+		return (new Select(
+			$this->input,
+			$this->output,
+			$invalidChoiceMessage,
+			$choiceRequiredMessage,
+			$theme,
+			$returnKey,
+			$allowMultiple,
+			$allowEmptySelection
+		))->ask($label, $options, $optionFormatter);
 	}
 
 	/**
 	 * Writes question to output and returns hidden user input.
 	 */
-	protected function secret(string $question, mixed $default = null, bool $fallback = false, string $inputPrefix = '<purple><bold>></bold></purple>'): mixed
-	{
-		return (new Secret($this->input, $this->output, $inputPrefix))->ask($question, $default, $fallback);
+	protected function secret(
+		string $question,
+		mixed $default = null,
+		string $inputPrefix = '<purple><bold>></bold></purple>',
+		bool $fallback = false
+	): mixed {
+		return (new Secret(
+			$this->input,
+			$this->output,
+			$inputPrefix,
+			$fallback
+		))->ask($question, $default);
 	}
 
 	/**
