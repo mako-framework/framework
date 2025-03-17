@@ -8,10 +8,10 @@
 namespace mako\cli\input\helpers;
 
 use mako\cli\input\helpers\confirmation\Theme;
-use mako\cli\input\helpers\traits\InteractiveInputTrait;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Output;
+use mako\cli\output\traits\OutputTrait;
 use mako\cli\traits\SttyTrait;
 
 use function mb_strtolower;
@@ -22,7 +22,7 @@ use function mb_strtoupper;
  */
 class Confirmation
 {
-	use InteractiveInputTrait;
+	use OutputTrait;
 	use SttyTrait;
 
 	/**

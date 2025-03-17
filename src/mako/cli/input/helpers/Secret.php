@@ -52,7 +52,7 @@ class Secret extends Prompt
 				});
 			}
 			else {
-				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/resources/hiddeninput.exe')));
+				$answer = trim(shell_exec(escapeshellcmd(__DIR__ . '/secret/hiddeninput.exe')));
 			}
 
 			$this->output->write(PHP_EOL);

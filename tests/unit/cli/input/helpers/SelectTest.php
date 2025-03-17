@@ -651,8 +651,6 @@ class SelectTest extends TestCase
 		> ● Burgers
 		  ○ Sushi
 
-		You need to make a selection.
-
 		OUTPUT);
 
 		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);

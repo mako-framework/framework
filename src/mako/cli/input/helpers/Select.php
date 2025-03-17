@@ -8,10 +8,10 @@
 namespace mako\cli\input\helpers;
 
 use mako\cli\input\helpers\select\Theme;
-use mako\cli\input\helpers\traits\InteractiveInputTrait;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Output;
+use mako\cli\output\traits\OutputTrait;
 use mako\cli\traits\SttyTrait;
 
 use function array_keys;
@@ -24,7 +24,7 @@ use function implode;
  */
 class Select
 {
-	use InteractiveInputTrait;
+	use OutputTrait;
 	use SttyTrait;
 
 	/**
@@ -224,7 +224,11 @@ class Select
 			$this->unselectAllExceptCurrent();
 		}
 
-		$this->optionsState[$this->currentOption]['selected'] = !$this->optionsState[$this->currentOption]['selected'];
+		$selected = $this->optionsState[$this->currentOption]['selected'] = !$this->optionsState[$this->currentOption]['selected'];
+
+		if ($selected && $this->showChoiceRequiredMessage) {
+			$this->showChoiceRequiredMessage = false;
+		}
 	}
 
 	/**
@@ -277,11 +281,6 @@ class Select
 					$selection = $this->getSelection();
 
 					if ($this->allowEmptySelection || $selection !== null) {
-						if ($this->showChoiceRequiredMessage) {
-							$this->output->cursor->up(2);
-							$this->output->cursor->clearScreenFromCursor();
-						}
-
 						return $selection;
 					}
 

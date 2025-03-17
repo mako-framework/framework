@@ -5,16 +5,16 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers\traits;
+namespace mako\cli\output\traits;
 
 use function substr_count;
 
 /**
- * Interactive input trait.
+ * Output trait.
  *
  * @property \mako\cli\output\Output $output
  */
-trait InteractiveInputTrait
+trait OutputTrait
 {
 	/**
 	 * Number of newlines in the last render.
