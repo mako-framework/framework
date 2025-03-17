@@ -9,10 +9,10 @@ namespace mako\cli;
 
 use mako\cli\traits\SttyTrait;
 
-use function current;
-use function exec;
 use function mako\env;
-use function preg_match;
+use function shell_exec;
+use function sscanf;
+use function trim;
 
 /**
  * Environment.
@@ -106,10 +106,10 @@ class Environment
 
 		// Attempt to get dimensions from stty
 
-		exec('stty size', $output, $status);
+		$output = shell_exec('stty size 2> ' . (PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null'));
 
-		if ($status === 0 && preg_match('/^([0-9]+) ([0-9]+)$/', current($output), $matches) === 1) {
-			return ['width' => (int) $matches[2], 'height' => (int) $matches[1]];
+		if ($output !== null && sscanf(trim($output), '%d %d', $height, $width) === 2) {
+			return ['width' => $width, 'height' => $height];
 		}
 
 		// All attempts failed so we'll just return null

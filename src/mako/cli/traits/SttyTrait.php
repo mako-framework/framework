@@ -26,7 +26,7 @@ trait SttyTrait
 	protected function hasStty(): bool
 	{
 		if ($this->hasStty === null) {
-			exec('stty 2>&1', result_code: $status);
+			exec('stty > ' . (PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null') . ' 2>&1', result_code: $status);
 
 			$this->hasStty = $status === 0;
 		}
@@ -47,7 +47,7 @@ trait SttyTrait
 	 */
 	protected function setSttySettings(string $settings): void
 	{
-		exec("stty {$settings}");
+		shell_exec("stty {$settings} > " . (PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null') . ' 2>&1');
 	}
 
 	/**
