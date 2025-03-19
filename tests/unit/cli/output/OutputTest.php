@@ -521,6 +521,8 @@ class OutputTest extends TestCase
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
 
+		$env->shouldReceive('noColor')->andReturn(false);
+
 		$output = new Output(standard: $std, environment: $env, formatter: $formatter);
 
 		$output->write('hello, world!');
@@ -546,6 +548,34 @@ class OutputTest extends TestCase
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('hasAnsiSupport')->andReturn(false);
+
+		$output = new Output(standard: $std, environment: $env, formatter: $formatter);
+
+		$output->write('hello, world!');
+	}
+
+	/**
+	 *
+	 */
+	public function testWriteWithFormatterWithAnsiSupportAndNoColor(): void
+	{
+		$std       = $this->getWriter();
+		$formatter = $this->getFormatter();
+
+		$formatter->shouldReceive('stripTags')->once()->with('hello, world!')->andReturn('stripped');
+
+		$std->shouldReceive('isDirect')->never();
+
+		$formatter->shouldReceive('format')->once()->with('stripped')->andReturn('formatted');
+
+		$std->shouldReceive('write')->once()->with('formatted');
+
+		/** @var Environment|Mockery\MockInterface $env */
+		$env = Mockery::mock(Environment::class);
+
+		$env->shouldReceive('hasAnsiSupport')->andReturn(true);
+
+		$env->shouldReceive('noColor')->andReturn(true);
 
 		$output = new Output(standard: $std, environment: $env, formatter: $formatter);
 

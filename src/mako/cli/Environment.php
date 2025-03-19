@@ -39,6 +39,11 @@ class Environment
 	protected ?bool $hasAnsiSupport = null;
 
 	/**
+	 * Should we disable colors?
+	 */
+	protected ?bool $noColor = null;
+
+	/**
 	 * Stty settings.
 	 */
 	protected ?string $sttySettings = null;
@@ -71,6 +76,18 @@ class Environment
 		}
 
 		return $this->hasAnsiSupport;
+	}
+
+	/**
+	 * Should we disable colors?
+	 */
+	public function noColor(): bool
+	{
+		if ($this->noColor === null) {
+			$this->noColor = env('NO_COLOR') === '1';
+		}
+
+		return $this->noColor;
 	}
 
 	/**

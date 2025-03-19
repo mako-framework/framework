@@ -123,7 +123,7 @@ class Output
 		$writer = $this->getWriter($writer);
 
 		if ($this->formatter !== null) {
-			if ($this->environment->hasAnsiSupport() === false || $writer->isDirect() === false) {
+			if ($this->environment->hasAnsiSupport() === false || $this->environment->noColor() || $writer->isDirect() === false) {
 				$string = $this->formatter->stripTags($string);
 			}
 
