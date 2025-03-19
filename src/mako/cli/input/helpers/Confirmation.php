@@ -124,7 +124,7 @@ class Confirmation
 
 		$this->output->writeLn($question);
 
-		if (!$this->output->environment->hasStty() || $this->output->cursor === null) {
+		if (!$this->output->environment->hasStty() || !$this->output->environment->hasAnsiSupport() || $this->output->cursor === null) {
 			return $this->nonInteractiveConfirmation();
 		}
 

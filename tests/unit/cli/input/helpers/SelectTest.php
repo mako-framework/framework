@@ -334,6 +334,7 @@ class SelectTest extends TestCase
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(true);
+		$environment->shouldReceive('hasAnsiSupport')->once()->andReturn(true);
 
 		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);

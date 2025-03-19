@@ -305,7 +305,7 @@ class Select
 
 		$optionFormatter ??= fn (mixed $option): string => $option;
 
-		if (!$this->output->environment->hasStty() || $this->output->cursor === null) {
+		if (!$this->output->environment->hasStty() || !$this->output->environment->hasAnsiSupport() || $this->output->cursor === null) {
 			return $this->nonInteractiveSelect($options, $optionFormatter);
 		}
 
