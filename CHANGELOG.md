@@ -10,6 +10,7 @@
 	- `Input::makeInteractive()`
 	- `Input::isInteractive()`
 * Added global `--non-interactive` reactor argument.
+* Added `Environment::noColor()` method.
 * CLI output now respects the `NO_COLOR` environment variable.
 
 #### Changes
