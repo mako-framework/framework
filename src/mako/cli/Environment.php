@@ -123,7 +123,7 @@ class Environment
 
 		// Attempt to get dimensions from stty
 
-		$output = shell_exec('stty size 2> ' . (PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null'));
+		$output = shell_exec('stty size 2> /dev/null');
 
 		if ($output !== null && sscanf(trim($output), '%d %d', $height, $width) === 2) {
 			return ['width' => $width, 'height' => $height];
