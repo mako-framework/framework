@@ -289,4 +289,48 @@ class CookiesTest extends TestCase
 
 		$this->assertSame('signedbar', $foo['value']);
 	}
+
+	/**
+	 *
+	 */
+	public function testGroup(): void
+	{
+		$cookies = new Cookies;
+
+		$cookies->add('foo', '1', group: 'group1');
+		$cookies->add('bar', '2', group: 'group2');
+		$cookies->add('baz', '3');
+
+		$cookies = $cookies->all();
+
+		$this->assertSame('group1', $cookies['foo']['group']);
+		$this->assertSame('group2', $cookies['bar']['group']);
+		$this->assertNull($cookies['baz']['group']);
+	}
+
+	/**
+	 *
+	 */
+	public function testFilter(): void
+	{
+		$cookies = new Cookies;
+
+		$cookies->add('foo', '1', group: 'strictly_necessary');
+		$cookies->add('bar', '2', group: 'functional');
+		$cookies->add('baz', '3');
+		$cookies->add('qux', '4', group: 'tracking');
+
+		$this->assertCount(4, $cookies);
+
+		$cookies->filter(function ($cookie) {
+			return in_array($cookie['group'], ['strictly_necessary', 'functional']);
+		});
+
+		$this->assertCount(2, $cookies);
+
+		$cookies = $cookies->all();
+
+		$this->assertArrayHasKey('foo', $cookies);
+		$this->assertArrayHasKey('bar', $cookies);
+	}
 }

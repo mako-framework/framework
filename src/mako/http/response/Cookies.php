@@ -82,7 +82,7 @@ class Cookies implements Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function add(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false): Cookies
+	public function add(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false, ?string $group = null): Cookies
 	{
 		$expires = ($ttl === 0) ? 0 : (time() + $ttl);
 
@@ -90,6 +90,7 @@ class Cookies implements Countable, IteratorAggregate
 			'raw'     => $raw,
 			'name'    => $name,
 			'value'   => $value,
+			'group'   => $group,
 			'options' => ['expires' => $expires] + $options + $this->defaults,
 		];
 
@@ -101,9 +102,9 @@ class Cookies implements Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function addRaw(string $name, string $value, int $ttl = 0, array $options = []): Cookies
+	public function addRaw(string $name, string $value, int $ttl = 0, array $options = [], ?string $group = null): Cookies
 	{
-		return $this->add($name, $value, $ttl, $options, true);
+		return $this->add($name, $value, $ttl, $options, true, $group);
 	}
 
 	/**
@@ -111,13 +112,13 @@ class Cookies implements Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function addSigned(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false): Cookies
+	public function addSigned(string $name, string $value, int $ttl = 0, array $options = [], bool $raw = false, ?string $group = null): Cookies
 	{
 		if (empty($this->signer)) {
 			throw new HttpException('A [ Signer ] instance is required to sign cookies.');
 		}
 
-		return $this->add($name, $this->signer->sign($value), $ttl, $options, $raw);
+		return $this->add($name, $this->signer->sign($value), $ttl, $options, $raw, $group);
 	}
 
 	/**
@@ -125,9 +126,9 @@ class Cookies implements Countable, IteratorAggregate
 	 *
 	 * @return $this
 	 */
-	public function addRawSigned(string $name, string $value, int $ttl, array $options = []): Cookies
+	public function addRawSigned(string $name, string $value, int $ttl, array $options = [], ?string $group = null): Cookies
 	{
-		return $this->addSigned($name, $value, $ttl, $options, true);
+		return $this->addSigned($name, $value, $ttl, $options, true, $group);
 	}
 
 	/**
@@ -180,6 +181,16 @@ class Cookies implements Countable, IteratorAggregate
 	public function clearExcept(array $cookies): Cookies
 	{
 		$this->cookies = array_filter($this->cookies, fn ($key) => $this->matchesPatterns($key, $cookies), ARRAY_FILTER_USE_KEY);
+
+		return $this;
+	}
+
+	/**
+	 * Removes all the cookies that aren't matched by the provided callback.
+	 */
+	public function filter(callable $callback): Cookies
+	{
+		$this->cookies = array_filter($this->cookies, $callback);
 
 		return $this;
 	}
