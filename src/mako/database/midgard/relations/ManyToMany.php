@@ -71,7 +71,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function aggregate(string $function, array|Raw|string $column)
+	public function aggregate(string $function, array|Raw|string $column)
 	{
 		// Empty "alongWith" when performing aggregate queries
 

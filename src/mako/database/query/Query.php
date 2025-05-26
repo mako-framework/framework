@@ -1383,7 +1383,7 @@ class Query
 	 *
 	 * @return mixed|void
 	 */
-	protected function aggregate(string $function, array|Raw|string $column)
+	public function aggregate(string $function, array|Raw|string $column)
 	{
 		$this->select([new Raw(sprintf($function, is_array($column) ? $this->compiler->columns($column) : $this->compiler->column($column)))]);
 
@@ -1397,7 +1397,7 @@ class Query
 	/**
 	 * Returns the minimum value for the chosen column.
 	 */
-	public function min(string $column): mixed
+	public function min(Raw|string $column): mixed
 	{
 		return $this->aggregate('MIN(%s)', $column);
 	}
@@ -1405,7 +1405,7 @@ class Query
 	/**
 	 * Returns the maximum value for the chosen column.
 	 */
-	public function max(string $column): mixed
+	public function max(Raw|string $column): mixed
 	{
 		return $this->aggregate('MAX(%s)', $column);
 	}
@@ -1413,7 +1413,7 @@ class Query
 	/**
 	 * Returns sum of all the values in the chosen column.
 	 */
-	public function sum(string $column): mixed
+	public function sum(Raw|string $column): mixed
 	{
 		return $this->aggregate('SUM(%s)', $column);
 	}
@@ -1421,7 +1421,7 @@ class Query
 	/**
 	 * Returns the average value for the chosen column.
 	 */
-	public function avg(string $column): mixed
+	public function avg(Raw|string $column): mixed
 	{
 		return $this->aggregate('AVG(%s)', $column);
 	}
@@ -1437,7 +1437,7 @@ class Query
 	/**
 	 * Returns the number of distinct values of the chosen column.
 	 */
-	public function countDistinct(array|string $column): int
+	public function countDistinct(array|Raw|string $column): int
 	{
 		return (int) $this->aggregate('COUNT(DISTINCT %s)', $column);
 	}

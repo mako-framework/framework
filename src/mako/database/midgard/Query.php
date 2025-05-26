@@ -601,7 +601,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function aggregate(string $function, array|Raw|string $column)
+	public function aggregate(string $function, array|Raw|string $column)
 	{
 		// Empty "relationCounters" when performing aggregate queries
 

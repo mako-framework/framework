@@ -1,6 +1,14 @@
 ### 11.3.0 <small>(2025-??-??)</small>
 
 --------------------------------------------------------
+### 11.2.1 <small>(2025-05-26)</small>
+
+#### Improvements
+
+* All the query builder aggregate methods now also allow a `Raw` instance in addition to a column name.
+* The `Query::aggregate()` method is now public.
+
+--------------------------------------------------------
 
 ### 11.2.0 <small>(2025-03-24)</small>
 

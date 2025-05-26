@@ -1557,6 +1557,21 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testCountRawAggregate(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->count(new Raw('foo * bar'));
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT COUNT(foo * bar) FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testCountDistinctAggregate(): void
 	{
 		$query = $this->getBuilder();
