@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\SQLite;
+use mako\database\connections\SQLite as SQLiteConnection;
+use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class SQLiteCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|SQLite
+	 * @return Mockery\MockInterface|SQLiteConnection
 	 */
 	protected function getConnection()
 	{
-		/** @var Mockery\MockInterface|SQLite $connection */
-		$connection = Mockery::mock(SQLite::class);
+		/** @var Mockery\MockInterface|SQLiteConnection $connection */
+		$connection = Mockery::mock(SQLiteConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\SQLite($query);
+			return new SQLiteCompiler($query);
 		});
 
 		return $connection;

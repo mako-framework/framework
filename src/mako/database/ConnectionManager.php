@@ -10,6 +10,7 @@ namespace mako\database;
 use mako\common\ConnectionManager as BaseConnectionManager;
 use mako\database\connections\Connection;
 use mako\database\connections\Firebird as FirebirdConnection;
+use mako\database\connections\MariaDB as MariaDBConnection;
 use mako\database\connections\MySQL as MySQLConnection;
 use mako\database\connections\Oracle as OracleConnection;
 use mako\database\connections\Postgres as PostgresConnection;
@@ -18,6 +19,7 @@ use mako\database\connections\SQLServer as SQLServerConnection;
 use mako\database\exceptions\DatabaseException;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\compilers\Firebird as FirebirdCompiler;
+use mako\database\query\compilers\MariaDB as MariaDBCompiler;
 use mako\database\query\compilers\MySQL as MySQLCompiler;
 use mako\database\query\compilers\Oracle as OracleCompiler;
 use mako\database\query\compilers\Postgres as PostgresCompiler;
@@ -53,6 +55,7 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected array $connectionClasses = [
 		'firebird' => FirebirdConnection::class,
+		'mariadb'  => MariaDBConnection::class,
 		'mysql'    => MySQLConnection::class,
 		'oracle'   => OracleConnection::class,
 		'pgsql'    => PostgresConnection::class,
@@ -65,6 +68,7 @@ class ConnectionManager extends BaseConnectionManager
 	 */
 	protected array $queryCompilerClasses = [
 		'firebird' => FirebirdCompiler::class,
+		'mariadb'  => MariaDBCompiler::class,
 		'mysql'    => MySQLCompiler::class,
 		'oracle'   => OracleCompiler::class,
 		'pgsql'    => PostgresCompiler::class,
@@ -165,6 +169,8 @@ class ConnectionManager extends BaseConnectionManager
 		$compiler = $this->getQueryCompilerClass($driver);
 
 		$helper = $this->getQueryBuilderHelperClass($driver);
+
+		$config['dsn'] = str_replace('mariadb:', 'mysql:', $config['dsn']); // PDO doesn't support the "mariadb" DSN prefix, so we replace it with "mysql"
 
 		return new ($this->getConnectionClass($driver))($connectionName, $compiler, $helper, $config);
 	}

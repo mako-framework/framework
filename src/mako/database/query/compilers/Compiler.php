@@ -720,7 +720,7 @@ class Compiler
 	}
 
 	/**
-	 * Returns a INSERT query without values.
+	 * Returns an INSERT query without values.
 	 */
 	protected function insertWithoutValues(): string
 	{
@@ -728,7 +728,7 @@ class Compiler
 	}
 
 	/**
-	 * Returns a INSERT query with values.
+	 * Returns an INSERT query with values.
 	 */
 	protected function insertWithValues(array $values): string
 	{
@@ -741,7 +741,7 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a INSERT query.
+	 * Compiles an INSERT query.
 	 *
 	 * @return array{sql: string, params: array}
 	 */
@@ -754,7 +754,7 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a INSERT query with a RETURNING clause.
+	 * Compiles an INSERT query with a RETURNING clause.
 	 *
 	 * @return array{sql: string, params: array}
 	 */
@@ -764,7 +764,7 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a INSERT query with multiple row inserts.
+	 * Compiles an INSERT query with multiple row inserts.
 	 *
 	 * @return array{sql: string, params: array}
 	 */
@@ -822,7 +822,7 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a UPDATE query.
+	 * Compiles an UPDATE query.
 	 *
 	 * @return array{sql: string, params: array}
 	 */

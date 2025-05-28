@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\Postgres;
+use mako\database\connections\Postgres as PostgresConnection;
+use mako\database\query\compilers\Postgres as PostgresCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class PostgresCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|Postgres
+	 * @return Mockery\MockInterface|PostgresConnection
 	 */
 	protected function getConnection()
 	{
-		/** @var Mockery\MockInterface|Postgres $connection */
-		$connection = Mockery::mock(Postgres::class);
+		/** @var Mockery\MockInterface|PostgresConnection $connection */
+		$connection = Mockery::mock(PostgresConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\Postgres($query);
+			return new PostgresCompiler($query);
 		});
 
 		return $connection;

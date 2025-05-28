@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\SQLServer;
+use mako\database\connections\SQLServer as SQLServerConnection;
+use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class SQLServerCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|SQLServer
+	 * @return Mockery\MockInterface|SQLServerConnection
 	 */
 	protected function getConnection()
 	{
-		/** @var Mockery\MockInterface|SQLServer $connection */
-		$connection = Mockery::mock(SQLServer::class);
+		/** @var Mockery\MockInterface|SQLServerConnection $connection */
+		$connection = Mockery::mock(SQLServerConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\SQLServer($query);
+			return new SQLServerCompiler($query);
 		});
 
 		return $connection;
