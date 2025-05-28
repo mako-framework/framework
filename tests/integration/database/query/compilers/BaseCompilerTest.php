@@ -461,6 +461,27 @@ class BaseCompilerTest extends InMemoryDbTestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$inserted = $query->table('users')->insertAndReturn([
+			'created_at' => '2025-05-28 23:23:00',
+			'username'   => 'bax',
+			'email'      => 'bax@example.org',
+		], ['id', 'username']);
+
+		$this->assertInstanceOf(Result::class, $inserted);
+
+		$this->assertIsInt($inserted->id);
+		$this->assertSame('bax', $inserted->username);
+
+		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2025-05-28 23:23:00\', \'bax\', \'bax@example.org\') RETURNING "id", "username"', $this->connectionManager->getConnection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
 	public function testUpdateAndReturn(): void
 	{
 		$query = new Query($this->connectionManager->getConnection());

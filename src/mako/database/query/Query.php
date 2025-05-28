@@ -1453,6 +1453,24 @@ class Query
 	}
 
 	/**
+	 * Inserts a single row of data into the chosen table and returns the chosen columns of the resulting row.
+	 */
+	protected function insertAndReturnFirst(array $values = [], array $return = ['*'], mixed ...$fetchMode): mixed
+	{
+		$query = $this->compiler->insertAndReturn($values, $return);
+
+		return $this->connection->first($query['sql'], $query['params'], ...$fetchMode);
+	}
+
+	/**
+	 * Inserts a single row of data into the chosen table and returns the chosen columns of the resulting row.
+	 */
+	public function insertAndReturn(array $values = [], array $return = ['*']): object
+	{
+		return $this->insertAndReturnFirst($values, $return, PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
 	 * Inserts a single row of data into the chosen table and returns the auto increment id.
 	 */
 	public function insertAndGetId(array $values = [], string $primaryKey = 'id'): false|int

@@ -680,6 +680,24 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$inserted = (new TestUser)->insertAndReturn([
+			'created_at' => '2025-05-28 23:23:00',
+			'username'   => 'bax',
+			'email'      => 'bax@example.org',
+		]);
+
+		$this->assertInstanceOf(TestUser::class, $inserted);
+		$this->assertIsInt($inserted->id);
+		$this->assertSame('2025-05-28 23:23:00', $inserted->created_at);
+		$this->assertSame('bax', $inserted->username);
+		$this->assertSame('bax@example.org', $inserted->email);
+	}
+
+	/**
+	 *
+	 */
 	public function testUpdateAndReturn(): void
 	{
 		$updated = (new TestUser)->where('id', '=', 1)->updateAndReturn(['username' => 'bax'], ['username']);

@@ -754,6 +754,16 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a INSERT query with a RETURNING clause.
+	 *
+	 * @return array{sql: string, params: array}
+	 */
+	public function insertAndReturn(array $values, array $return): array
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert and return queries.', static::class));
+	}
+
+	/**
 	 * Compiles a INSERT query with multiple row inserts.
 	 *
 	 * @return array{sql: string, params: array}

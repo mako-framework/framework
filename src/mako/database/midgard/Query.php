@@ -123,6 +123,38 @@ class Query extends QueryBuilder
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @return TClass
+	 */
+	public function insertAndReturn(array $values = [], array $return = ['*']): ORM
+	{
+		// Execute "beforeInsert" hooks
+
+		foreach ($this->model->getHooks('beforeInsert') as $hook) {
+			$values = $hook($values, $this);
+		}
+
+		// Insert record
+
+		if ($return !== ['*']) {
+			$return = array_unique([$this->model->getPrimaryKey(), ...$return]);
+		}
+
+		$inserted = parent::insertAndReturnFirst($values, $return, PDO::FETCH_ASSOC);
+
+		// Execute "afterInsert" hooks
+
+		foreach ($this->model->getHooks('afterInsert') as $hook) {
+			$hook($inserted);
+		}
+
+		// Return inserted record
+
+		return $this->hydrateModelsAndLoadIncludes([$inserted])[0];
+	}
+
+	/**
+	 * {@inheritDoc}
 	 */
 	public function insertMultiple(array ...$values): bool
 	{

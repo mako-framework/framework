@@ -378,6 +378,19 @@ class PostgresCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testInsertOrUpdate(): void
 	{
 		$query = $this->getBuilder();
