@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\Firebird;
+use mako\database\connections\Firebird as FirebirdConnection;
+use mako\database\query\compilers\Firebird as FirebirdCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class FirebirdCompilerTest extends TestCase
 {
 	/**
-	 * @return \mako\database\connections\Connection|Mockery\MockInterface
+	 * @return FirebirdConnection|Mockery\MockInterface
 	 */
 	protected function getConnection()
 	{
-		/** @var Firebird|Mockery\MockInterface $connection */
-		$connection = Mockery::mock(Firebird::class);
+		/** @var FirebirdConnection|Mockery\MockInterface $connection */
+		$connection = Mockery::mock(FirebirdConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\Firebird($query);
+			return new FirebirdCompiler($query);
 		});
 
 		return $connection;
@@ -314,6 +315,32 @@ class FirebirdCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR CAST("date" AS DATE) = ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?), (?) RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
 	}
 
 	/**

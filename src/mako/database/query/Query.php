@@ -1453,6 +1453,24 @@ class Query
 	}
 
 	/**
+	 * Inserts a single row of data into the chosen table and returns the chosen columns of the resulting row.
+	 */
+	protected function insertAndReturnFirst(array $values = [], array $return = ['*'], mixed ...$fetchMode): mixed
+	{
+		$query = $this->compiler->insertAndReturn($values, $return);
+
+		return $this->connection->first($query['sql'], $query['params'], ...$fetchMode);
+	}
+
+	/**
+	 * Inserts a single row of data into the chosen table and returns the chosen columns of the resulting row.
+	 */
+	public function insertAndReturn(array $values = [], array $return = ['*']): object
+	{
+		return $this->insertAndReturnFirst($values, $return, PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
 	 * Inserts a single row of data into the chosen table and returns the auto increment id.
 	 */
 	public function insertAndGetId(array $values = [], string $primaryKey = 'id'): false|int
@@ -1468,6 +1486,28 @@ class Query
 		$query = $this->compiler->insertMultiple(...$values);
 
 		return $this->connection->query($query['sql'], $query['params']);
+	}
+
+	/**
+	 * Inserts multiple rows of data into the chosen table and returns an array or result set containing all of the inserted rows.
+	 */
+	protected function insertMultipleAndReturnAll(array $return, array $values, bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
+	{
+		$query = $this->compiler->insertMultipleAndReturn($return, ...$values);
+
+		$results = $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
+
+		return $returnResultSet ? $this->createResultSet($results) : $results;
+	}
+
+	/**
+	 * Inserts multiple rows of data into the chosen table and returns a result set containing all of the inserted rows.
+	 *
+	 * @return ResultSet<int, Result>
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): ResultSet
+	{
+		return $this->insertMultipleAndReturnAll($return, $values, true, PDO::FETCH_CLASS, Result::class);
 	}
 
 	/**

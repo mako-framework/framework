@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\SQLite;
+use mako\database\connections\SQLite as SQLiteConnection;
+use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class SQLiteCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|SQLite
+	 * @return Mockery\MockInterface|SQLiteConnection
 	 */
 	protected function getConnection()
 	{
-		/** @var Mockery\MockInterface|SQLite $connection */
-		$connection = Mockery::mock(SQLite::class);
+		/** @var Mockery\MockInterface|SQLiteConnection $connection */
+		$connection = Mockery::mock(SQLiteConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\SQLite($query);
+			return new SQLiteCompiler($query);
 		});
 
 		return $connection;
@@ -302,6 +303,32 @@ class SQLiteCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR "date" BETWEEN ? AND ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05 00:00:00.000', '2019-07-05 23:59:59.999'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?) RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?), (?) RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
 	}
 
 	/**

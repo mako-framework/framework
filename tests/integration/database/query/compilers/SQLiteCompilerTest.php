@@ -47,7 +47,7 @@ enum UsernameEnum
 #[Group('integration:database')]
 #[RequiresPhpExtension('pdo')]
 #[RequiresPhpExtension('pdo_sqlite')]
-class BaseCompilerTest extends InMemoryDbTestCase
+class SQLiteCompilerTest extends InMemoryDbTestCase
 {
 	public function setUp(): void
 	{
@@ -456,6 +456,61 @@ class BaseCompilerTest extends InMemoryDbTestCase
 		$user = $query->table('users')->where('username', '=', UsernameEnum::foo)->first();
 
 		$this->assertSame(UsernameEnum::foo->name, $user->username);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$inserted = $query->table('users')->insertAndReturn([
+			'created_at' => '2025-05-28 23:23:00',
+			'username'   => 'bax',
+			'email'      => 'bax@example.org',
+		], ['id', 'username']);
+
+		$this->assertInstanceOf(Result::class, $inserted);
+
+		$this->assertIsInt($inserted->id);
+		$this->assertSame('bax', $inserted->username);
+
+		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2025-05-28 23:23:00\', \'bax\', \'bax@example.org\') RETURNING "id", "username"', $this->connectionManager->getConnection()->getLog()[0]['query']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = new Query($this->connectionManager->getConnection());
+
+		$inserted = $query->table('users')->insertMultipleAndReturn(
+			['id', 'username'],
+			[
+				'created_at' => '2025-05-28 23:23:00',
+				'username'   => 'bax',
+				'email'      => 'bax@example.org',
+			],
+			[
+				'created_at' => '2025-05-28 23:23:00',
+				'username'   => 'fox',
+				'email'      => 'fox@example.org',
+			]
+		);
+
+		$this->assertInstanceOf(ResultSet::class, $inserted);
+
+		$this->assertInstanceOf(Result::class, $inserted[0]);
+		$this->assertIsInt($inserted[0]->id);
+		$this->assertSame('bax', $inserted[0]->username);
+
+		$this->assertInstanceOf(Result::class, $inserted[1]);
+		$this->assertIsInt($inserted[1]->id);
+		$this->assertSame('fox', $inserted[1]->username);
+
+		$this->assertEquals('INSERT INTO "users" ("created_at", "username", "email") VALUES (\'2025-05-28 23:23:00\', \'bax\', \'bax@example.org\'), (\'2025-05-28 23:23:00\', \'fox\', \'fox@example.org\') RETURNING "id", "username"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
 
 	/**

@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\SQLServer;
+use mako\database\connections\SQLServer as SQLServerConnection;
+use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class SQLServerCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|SQLServer
+	 * @return Mockery\MockInterface|SQLServerConnection
 	 */
 	protected function getConnection()
 	{
-		/** @var Mockery\MockInterface|SQLServer $connection */
-		$connection = Mockery::mock(SQLServer::class);
+		/** @var Mockery\MockInterface|SQLServerConnection $connection */
+		$connection = Mockery::mock(SQLServerConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\SQLServer($query);
+			return new SQLServerCompiler($query);
 		});
 
 		return $connection;
@@ -458,6 +459,45 @@ class SQLServerCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO [foobar] ([foo]) OUTPUT INSERTED.[id], INSERTED.[foo] VALUES (?)', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertAndReturnWithEmptyValues(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn([], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO [foobar] OUTPUT INSERTED.[id], INSERTED.[foo] DEFAULT VALUES', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+
+		$this->assertEquals('INSERT INTO [foobar] ([foo]) OUTPUT INSERTED.[id], INSERTED.[foo] VALUES (?), (?)', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testUpdateAndReturn(): void
 	{
 		$query = $this->getBuilder();
@@ -466,7 +506,7 @@ class SQLServerCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->updateAndReturn(['foo' => 'bar'], ['id', 'foo']);
 
-		$this->assertEquals('UPDATE [foobar] SET [foo] = ? OUTPUT inserted.[id], inserted.[foo] WHERE [id] = ?', $query['sql']);
+		$this->assertEquals('UPDATE [foobar] SET [foo] = ? OUTPUT INSERTED.[id], INSERTED.[foo] WHERE [id] = ?', $query['sql']);
 		$this->assertEquals(['bar', 1], $query['params']);
 	}
 }

@@ -123,6 +123,38 @@ class Query extends QueryBuilder
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @return TClass
+	 */
+	public function insertAndReturn(array $values = [], array $return = ['*']): ORM
+	{
+		// Execute "beforeInsert" hooks
+
+		foreach ($this->model->getHooks('beforeInsert') as $hook) {
+			$values = $hook($values, $this);
+		}
+
+		// Insert record
+
+		if ($return !== ['*']) {
+			$return = array_unique([$this->model->getPrimaryKey(), ...$return]);
+		}
+
+		$inserted = parent::insertAndReturnFirst($values, $return, PDO::FETCH_ASSOC);
+
+		// Execute "afterInsert" hooks
+
+		foreach ($this->model->getHooks('afterInsert') as $hook) {
+			$hook($inserted);
+		}
+
+		// Return inserted record
+
+		return $this->hydrateModelsAndLoadIncludes([$inserted])[0];
+	}
+
+	/**
+	 * {@inheritDoc}
 	 */
 	public function insertMultiple(array ...$values): bool
 	{
@@ -147,6 +179,44 @@ class Query extends QueryBuilder
 		// Return insert status
 
 		return $inserted;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): ResultSet
+	{
+		// Execute "beforeInsert" hooks
+
+		foreach ($values as $key => $rowValues) {
+			foreach ($this->model->getHooks('beforeInsert') as $hook) {
+				$values[$key] = $hook($rowValues, $this);
+			}
+		}
+
+		// Insert records
+
+		if ($return !== ['*']) {
+			$return = array_unique([$this->model->getPrimaryKey(), ...$return]);
+		}
+
+		$inserted = parent::insertMultipleAndReturnAll($return, $values, false, PDO::FETCH_ASSOC);
+
+		// Execute "afterInsert" hooks
+
+		foreach ($inserted as $row) {
+			foreach ($this->model->getHooks('afterInsert') as $hook) {
+				$hook($row);
+			}
+		}
+
+		// Return inserted records
+
+		if (!empty($inserted)) {
+			$inserted = $this->hydrateModelsAndLoadIncludes($inserted);
+		}
+
+		return $this->createResultSet($inserted);
 	}
 
 	/**
@@ -224,8 +294,10 @@ class Query extends QueryBuilder
 
 		// Execute "afterUpdate" hooks
 
-		foreach ($this->model->getHooks('afterUpdate') as $hook) {
-			$hook($updated);
+		foreach ($updated as $row) {
+			foreach ($this->model->getHooks('afterUpdate') as $hook) {
+				$hook($row);
+			}
 		}
 
 		// Return updated records

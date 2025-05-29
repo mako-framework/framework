@@ -720,7 +720,7 @@ class Compiler
 	}
 
 	/**
-	 * Returns a INSERT query without values.
+	 * Returns an INSERT query without values.
 	 */
 	protected function insertWithoutValues(): string
 	{
@@ -728,7 +728,7 @@ class Compiler
 	}
 
 	/**
-	 * Returns a INSERT query with values.
+	 * Returns an INSERT query with values.
 	 */
 	protected function insertWithValues(array $values): string
 	{
@@ -741,11 +741,11 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a INSERT query.
+	 * Compiles an INSERT query.
 	 *
 	 * @return array{sql: string, params: array}
 	 */
-	public function insert(array $values = []): array
+	public function insert(array $values): array
 	{
 		$sql = $this->query->getPrefix()
 		. (empty($values) ? $this->insertWithoutValues() : $this->insertWithValues($values));
@@ -754,7 +754,17 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a INSERT query with multiple row inserts.
+	 * Compiles an INSERT query with a RETURNING clause.
+	 *
+	 * @return array{sql: string, params: array}
+	 */
+	public function insertAndReturn(array $values, array $return): array
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert and return queries.', static::class));
+	}
+
+	/**
+	 * Compiles an INSERT query with multiple row inserts.
 	 *
 	 * @return array{sql: string, params: array}
 	 */
@@ -777,11 +787,21 @@ class Compiler
 	}
 
 	/**
+	 * Compiles an INSERT query with multiple row inserts and a RETURNING clause.
+	 *
+	 * @return array{sql: string, params: array}
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): array
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert multiple and return queries.', static::class));
+	}
+
+	/**
 	 * Compiles an INSERT OR UPDATE query.
 	 *
 	 * @return array{sql: string, params: array}
 	 */
-	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
+	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget): array
 	{
 		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert or update queries.', static::class));
 	}
@@ -812,7 +832,7 @@ class Compiler
 	}
 
 	/**
-	 * Compiles a UPDATE query.
+	 * Compiles an UPDATE query.
 	 *
 	 * @return array{sql: string, params: array}
 	 */

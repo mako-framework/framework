@@ -1,5 +1,15 @@
 ### 11.3.0 <small>(2025-??-??)</small>
 
+#### New
+
+* Added "insert and return" functionality to the query builder. The feature is currently supported by the `Firebird`, `MariaDB`, `PostgreSQL`, `SQLite` and `SQL Server` compilers.
+	- `Query::insertAndReturn()`
+	- `Query::insertMultipleAndReturn()`
+
+#### Changes
+
+* `MariaDB` now has its own connection and query compiler classes that extend the `MySQL` classes. Use the `mariadb:` prefix in your connection dsn instead of `mysql:` to take full advantage of the `MariaDB` features.
+
 --------------------------------------------------------
 ### 11.2.1 <small>(2025-05-26)</small>
 

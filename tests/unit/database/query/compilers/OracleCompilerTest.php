@@ -7,7 +7,8 @@
 
 namespace mako\tests\unit\database\query\compilers;
 
-use mako\database\connections\Oracle;
+use mako\database\connections\Oracle as OracleConnection;
+use mako\database\query\compilers\Oracle as OracleCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
@@ -18,17 +19,17 @@ use PHPUnit\Framework\Attributes\Group;
 class OracleCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|Oracle
+	 * @return Mockery\MockInterface|OracleConnection
 	 */
 	protected function getConnection()
 	{
-		/** @var Mockery\MockInterface|Oracle */
-		$connection = Mockery::mock(Oracle::class);
+		/** @var Mockery\MockInterface|OracleConnection */
+		$connection = Mockery::mock(OracleConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
 
 		$connection->shouldReceive('getQueryCompiler')->andReturnUsing(function ($query) {
-			return new \mako\database\query\compilers\Oracle($query);
+			return new OracleCompiler($query);
 		});
 
 		return $connection;

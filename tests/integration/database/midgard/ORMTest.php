@@ -680,6 +680,58 @@ class ORMTest extends ORMTestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$inserted = (new TestUser)->insertAndReturn([
+			'created_at' => '2025-05-28 23:23:00',
+			'username'   => 'bax',
+			'email'      => 'bax@example.org',
+		]);
+
+		$this->assertInstanceOf(TestUser::class, $inserted);
+		$this->assertIsInt($inserted->id);
+		$this->assertSame('2025-05-28 23:23:00', $inserted->created_at);
+		$this->assertSame('bax', $inserted->username);
+		$this->assertSame('bax@example.org', $inserted->email);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$inserted = (new TestUser)->insertMultipleAndReturn(
+			['*'],
+			[
+				'created_at' => '2025-05-28 23:23:00',
+				'username'   => 'bax',
+				'email'      => 'bax@example.org',
+			],
+			[
+				'created_at' => '2025-05-28 23:23:00',
+				'username'   => 'fox',
+				'email'      => 'fox@example.org',
+			]
+		);
+
+		$this->assertInstanceOf(ResultSet::class, $inserted);
+
+		$this->assertInstanceOf(TestUser::class, $inserted[0]);
+		$this->assertIsInt($inserted[0]->id);
+		$this->assertSame('2025-05-28 23:23:00', $inserted[0]->created_at);
+		$this->assertSame('bax', $inserted[0]->username);
+		$this->assertSame('bax@example.org', $inserted[0]->email);
+
+		$this->assertInstanceOf(TestUser::class, $inserted[1]);
+		$this->assertIsInt($inserted[1]->id);
+		$this->assertSame('2025-05-28 23:23:00', $inserted[1]->created_at);
+		$this->assertSame('fox', $inserted[1]->username);
+		$this->assertSame('fox@example.org', $inserted[1]->email);
+	}
+
+	/**
+	 *
+	 */
 	public function testUpdateAndReturn(): void
 	{
 		$updated = (new TestUser)->where('id', '=', 1)->updateAndReturn(['username' => 'bax'], ['username']);

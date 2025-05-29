@@ -13,6 +13,8 @@ use mako\database\query\Subquery;
 
 use function implode;
 use function str_replace;
+use function strpos;
+use function substr_replace;
 
 /**
  * Compiles SQL Server queries.
@@ -119,10 +121,52 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	public function insertAndReturn(array $values, array $return): array
+	{
+		foreach ($return as $key => $column) {
+			$return[$key] = "INSERTED.{$this->columnName($column)}";
+		}
+
+		$query = $this->insert($values);
+
+		$query['sql'] = substr_replace(
+			$query['sql'],
+			' OUTPUT ' . implode(', ', $return),
+			strpos($query['sql'], empty($values) ? 'DEFAULT' : 'VALUES') - 1,
+			0
+		);
+
+		return $query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): array
+	{
+		foreach ($return as $key => $column) {
+			$return[$key] = "INSERTED.{$this->columnName($column)}";
+		}
+
+		$query = $this->insertMultiple(...$values);
+
+		$query['sql'] = substr_replace(
+			$query['sql'],
+			' OUTPUT ' . implode(', ', $return),
+			strpos($query['sql'], 'VALUES') - 1,
+			0
+		);
+
+		return $query;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public function updateAndReturn(array $values, array $return): array
 	{
 		foreach ($return as $key => $column) {
-			$return[$key] = "inserted.{$this->columnName($column)}";
+			$return[$key] = "INSERTED.{$this->columnName($column)}";
 		}
 
 		$sql = $this->query->getPrefix()
