@@ -103,7 +103,7 @@ class SQLite extends Compiler
 	{
 		['sql' => $sql, 'params' => $params] = $this->insert($values);
 
-		$sql .= ' RETURNING ' . $this->columnNames($return);
+		$sql .= " RETURNING {$this->columnNames($return)}";
 
 		return ['sql' => $sql, 'params' => $params];
 	}
@@ -115,7 +115,7 @@ class SQLite extends Compiler
 	{
 		['sql' => $sql, 'params' => $params] = $this->insertMultiple(...$values);
 
-		$sql .= ' RETURNING ' . $this->columnNames($return);
+		$sql .= " RETURNING {$this->columnNames($return)}";
 
 		return ['sql' => $sql, 'params' => $params];
 	}
@@ -140,7 +140,7 @@ class SQLite extends Compiler
 	{
 		$query = $this->update($values);
 
-		$query['sql'] .= ' RETURNING ' . $this->columnNames($return);
+		$query['sql'] .= " RETURNING {$this->columnNames($return)}";
 
 		return $query;
 	}
