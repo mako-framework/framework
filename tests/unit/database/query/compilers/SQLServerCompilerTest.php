@@ -459,6 +459,45 @@ class SQLServerCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn(['foo' => 'bar'], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO [foobar] ([foo]) OUTPUT INSERTED.[id], INSERTED.[foo] VALUES (?)', $query['sql']);
+		$this->assertEquals(['bar'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertAndReturnWithEmptyValues(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertAndReturn([], ['id', 'foo']);
+
+		$this->assertEquals('INSERT INTO [foobar] OUTPUT INSERTED.[id], INSERTED.[foo] DEFAULT VALUES', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+
+		$this->assertEquals('INSERT INTO [foobar] ([foo]) OUTPUT INSERTED.[id], INSERTED.[foo] VALUES (?), (?)', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testUpdateAndReturn(): void
 	{
 		$query = $this->getBuilder();
