@@ -31,6 +31,7 @@ use mako\database\query\helpers\Postgres as PostgresHelper;
 use function explode;
 use function in_array;
 use function sprintf;
+use function str_replace;
 
 /**
  * Database connection manager.
