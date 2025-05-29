@@ -3,6 +3,8 @@
 #### New
 
 * Added "insert and return" functionality to the query builder. The feature is currently supported by the `Firebird`, `MariaDB`, `PostgreSQL` and `SQLite` compilers.
+	- `Query::insertAndReturn()`
+	- `Query::insertMultipleAndReturn()`
 
 #### Changes
 

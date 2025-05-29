@@ -787,6 +787,16 @@ class Compiler
 	}
 
 	/**
+	 * Compiles an INSERT query with multiple row inserts and a RETURNING clause.
+	 *
+	 * @return array{sql: string, params: array}
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): array
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert multiple and return queries.', static::class));
+	}
+
+	/**
 	 * Compiles an INSERT OR UPDATE query.
 	 *
 	 * @return array{sql: string, params: array}

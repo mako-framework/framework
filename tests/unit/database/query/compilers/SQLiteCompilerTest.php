@@ -321,6 +321,19 @@ class SQLiteCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+
+		$this->assertEquals('INSERT INTO "foobar" ("foo") VALUES (?), (?) RETURNING "id", "foo"', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testInsertOrUpdate(): void
 	{
 		$query = $this->getBuilder();

@@ -55,4 +55,17 @@ class MariaDBCompilerTest extends TestCase
 		$this->assertEquals('INSERT INTO `foobar` (`foo`) VALUES (?) RETURNING `id`, `foo`', $query['sql']);
 		$this->assertEquals(['bar'], $query['params']);
 	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+
+		$this->assertEquals('INSERT INTO `foobar` (`foo`) VALUES (?), (?) RETURNING `id`, `foo`', $query['sql']);
+		$this->assertEquals(['bar', 'baz'], $query['params']);
+	}
 }

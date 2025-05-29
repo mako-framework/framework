@@ -130,6 +130,19 @@ class TimestampedTest extends ORMTestCase
 	/**
 	 *
 	 */
+	public function testInsertAndReturn(): void
+	{
+		$now = new DateTime;
+
+		$inserted = (new TimestampedFoo)->insertAndReturn(['value' => 'test_insert2'], ['created_at', 'value']);
+
+		$this->assertSame($now->format('Y-m-d'), $inserted->created_at->format('Y-m-d'));
+		$this->assertSame('test_insert2', $inserted->value);
+	}
+
+	/**
+	 *
+	 */
 	public function testInsertMultiple(): void
 	{
 		$now = new DateTime;
@@ -139,6 +152,19 @@ class TimestampedTest extends ORMTestCase
 		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert2')->first()->created_at->format('Y-m-d'));
 
 		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert3')->first()->created_at->format('Y-m-d'));
+	}
+
+	/**
+	 *
+	 */
+	public function testInsertMultipleAndReturn(): void
+	{
+		$now = new DateTime;
+
+		$inserted = (new TimestampedFoo)->insertMultipleAndReturn(['created_at'], ['value' => 'test_insert4'], ['value' => 'test_insert5']);
+
+		$this->assertSame($now->format('Y-m-d'), $inserted[0]->created_at->format('Y-m-d'));
+		$this->assertSame($now->format('Y-m-d'), $inserted[1]->created_at->format('Y-m-d'));
 	}
 
 	/**

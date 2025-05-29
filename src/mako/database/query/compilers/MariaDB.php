@@ -23,4 +23,16 @@ class MariaDB extends MySQL
 
 		return ['sql' => $sql, 'params' => $params];
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): array
+	{
+		['sql' => $sql, 'params' => $params] = $this->insertMultiple(...$values);
+
+		$sql .= ' RETURNING ' . $this->columnNames($return);
+
+		return ['sql' => $sql, 'params' => $params];
+	}
 }

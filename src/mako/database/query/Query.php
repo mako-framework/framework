@@ -1489,6 +1489,28 @@ class Query
 	}
 
 	/**
+	 * Inserts multiple rows of data into the chosen table and returns an array or result set containing all of the inserted rows.
+	 */
+	protected function insertMultipleAndReturnAll(array $return, array $values, bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
+	{
+		$query = $this->compiler->insertMultipleAndReturn($return, ...$values);
+
+		$results = $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
+
+		return $returnResultSet ? $this->createResultSet($results) : $results;
+	}
+
+	/**
+	 * Inserts multiple rows of data into the chosen table and returns a result set containing all of the inserted rows.
+	 *
+	 * @return ResultSet<int, Result>
+	 */
+	public function insertMultipleAndReturn(array $return, array ...$values): ResultSet
+	{
+		return $this->insertMultipleAndReturnAll($return, $values, true, PDO::FETCH_CLASS, Result::class);
+	}
+
+	/**
 	 * Inserts or updates a row of data into the chosen table.
 	 */
 	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): bool
