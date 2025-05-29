@@ -122,7 +122,7 @@ class SQLServer extends Compiler
 	public function updateAndReturn(array $values, array $return): array
 	{
 		foreach ($return as $key => $column) {
-			$return[$key] = "inserted.{$this->columnName($column)}";
+			$return[$key] = "INSERTED.{$this->columnName($column)}";
 		}
 
 		$sql = $this->query->getPrefix()

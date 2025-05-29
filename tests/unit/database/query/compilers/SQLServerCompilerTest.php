@@ -467,7 +467,7 @@ class SQLServerCompilerTest extends TestCase
 
 		$query = $query->getCompiler()->updateAndReturn(['foo' => 'bar'], ['id', 'foo']);
 
-		$this->assertEquals('UPDATE [foobar] SET [foo] = ? OUTPUT inserted.[id], inserted.[foo] WHERE [id] = ?', $query['sql']);
+		$this->assertEquals('UPDATE [foobar] SET [foo] = ? OUTPUT INSERTED.[id], INSERTED.[foo] WHERE [id] = ?', $query['sql']);
 		$this->assertEquals(['bar', 1], $query['params']);
 	}
 }
