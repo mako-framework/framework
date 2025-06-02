@@ -40,7 +40,7 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 	/**
 	 * Returns the pagination.
 	 */
-	public function getPagination(): PaginationInterface
+	public function getPagination(): ?PaginationInterface
 	{
 		return $this->pagination;
 	}

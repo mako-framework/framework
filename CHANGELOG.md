@@ -9,6 +9,7 @@
 #### Changes
 
 * `MariaDB` now has its own connection and query compiler classes that extend the `MySQL` classes. Use the `mariadb:` prefix in your connection dsn instead of `mysql:` to take full advantage of the `MariaDB` features.
+* The `ResultSet::getPagination()` return type is now nullable.
 
 --------------------------------------------------------
 ### 11.2.1 <small>(2025-05-26)</small>
