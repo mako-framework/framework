@@ -93,8 +93,10 @@ abstract class BusService extends Service
 			$this->container->registerSingleton([EventBusInterface::class, 'eventBus'], static function ($container) use ($eventHandlers) {
 				$eventBus = new EventBus($container);
 
-				foreach ($eventHandlers as $event => $handler) {
-					$eventBus->registerHandler($event, $handler);
+				foreach ($eventHandlers as $event => $handlers) {
+					foreach ((array) $handlers as $handler) {
+						$eventBus->registerHandler($event, $handler);
+					}
 				}
 
 				return $eventBus;
