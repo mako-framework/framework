@@ -760,7 +760,7 @@ class Compiler
 	 */
 	public function insertAndReturn(array $values, array $return): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert and return queries.', static::class));
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "insert and return" queries.', static::class));
 	}
 
 	/**
@@ -793,7 +793,7 @@ class Compiler
 	 */
 	public function insertMultipleAndReturn(array $return, array ...$values): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert multiple and return queries.', static::class));
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "insert multiple and return" queries.', static::class));
 	}
 
 	/**
@@ -803,7 +803,7 @@ class Compiler
 	 */
 	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support insert or update queries.', static::class));
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "insert or update" queries.', static::class));
 	}
 
 	/**
@@ -855,7 +855,7 @@ class Compiler
 	 */
 	public function updateAndReturn(array $values, array $return): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support update and return queries.', static::class));
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "update and return" queries.', static::class));
 	}
 
 	/**
