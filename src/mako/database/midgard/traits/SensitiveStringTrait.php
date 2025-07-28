@@ -9,7 +9,6 @@ namespace mako\database\midgard\traits;
 
 use mako\database\types\SensitiveString;
 
-use function in_array;
 use function property_exists;
 
 /**
@@ -32,9 +31,9 @@ trait SensitiveStringTrait
 	{
 		$sensitiveStrings = $this->getSensitiveStringColumns();
 
-		foreach ($values as $column => $value) {
-			if (!empty($value) && in_array($column, $sensitiveStrings)) {
-				$values[$column] = new SensitiveString($value);
+		foreach ($sensitiveStrings as $sensitiveString) {
+			if (isset($values[$sensitiveString])) {
+				$values[$sensitiveString] = new SensitiveString($values[$sensitiveString]);
 			}
 		}
 

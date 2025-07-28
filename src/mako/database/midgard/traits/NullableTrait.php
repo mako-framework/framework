@@ -7,7 +7,6 @@
 
 namespace mako\database\midgard\traits;
 
-use function in_array;
 use function property_exists;
 
 /**
@@ -30,9 +29,9 @@ trait NullableTrait
 	{
 		$nullables = $this->getNullableColumns();
 
-		foreach ($values as $column => $value) {
-			if ($value === '' && in_array($column, $nullables)) {
-				$values[$column] = null;
+		foreach ($nullables as $nullable) {
+			if (isset($values[$nullable]) && $values[$nullable] === '') {
+				$values[$nullable] = null;
 			}
 		}
 
