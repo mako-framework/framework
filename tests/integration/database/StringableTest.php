@@ -21,7 +21,7 @@ class StringableTest extends InMemoryDbTestCase
 	/**
 	 *
 	 */
-	public function testBackedStringEnum(): void
+	public function testStringable(): void
 	{
 		$stringable = new class implements Stringable {
 			public string $email = 'foo@example.org';

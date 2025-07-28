@@ -5,6 +5,7 @@
 * Added "insert and return" functionality to the query builder. The feature is currently supported by the `Firebird`, `MariaDB`, `PostgreSQL`, `SQLite` and `SQL Server` compilers.
 	- `Query::insertAndReturn()`
 	- `Query::insertMultipleAndReturn()`
+* Added `SensitiveString` type to the database library. It can be used to encapsulate sensitive strings to prevent them from being logged in query logs.
 
 #### Changes
 

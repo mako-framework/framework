@@ -391,12 +391,12 @@ class Connection
 				$type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
 			}
 			elseif ($value instanceof TypeInterface) {
-				$value = $value->getValue();
 				$type = $value->getType();
+				$value = $value->getValue();
 			}
 			elseif ($value instanceof Stringable) {
-				$value = (string) $value;
 				$type = PDO::PARAM_STR;
+				$value = (string) $value;
 			}
 			else {
 				throw new DatabaseException(sprintf('Unable to bind object of type [ %s ] to the prepared statement.', $value::class));

@@ -11,6 +11,7 @@ use DateTimeInterface;
 use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
+use mako\database\midgard\traits\SensitiveStringTrait;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\traits\AuthorizableTrait;
@@ -48,6 +49,7 @@ use function time;
 class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface
 {
 	use AuthorizableTrait;
+	use SensitiveStringTrait;
 	use TimestampedTrait;
 
 	/**
@@ -59,6 +61,11 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 * Type casting.
 	 */
 	protected array $cast = ['last_fail_at' => 'date', 'locked_until' => 'date'];
+
+	/**
+	 * Sensitive strings.
+	 */
+	protected array $sensitiveStrings = ['password', 'action_token', 'access_token'];
 
 	/**
 	 * User groups.
