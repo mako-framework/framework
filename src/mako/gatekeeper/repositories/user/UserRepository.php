@@ -7,10 +7,12 @@
 
 namespace mako\gatekeeper\repositories\user;
 
+use mako\database\types\SensitiveString;
 use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\AuthorizerInterface;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
+use SensitiveParameter;
 
 use function in_array;
 use function sprintf;
@@ -92,17 +94,17 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * Fetches a user by its action token.
 	 */
-	public function getByActionToken(string $token): ?User
+	public function getByActionToken(#[SensitiveParameter] string $token): ?User
 	{
-		return $this->setAuthorizer($this->getModel()->where('action_token', '=', $token)->first());
+		return $this->setAuthorizer($this->getModel()->where('action_token', '=', new SensitiveString($token))->first());
 	}
 
 	/**
 	 * Fetches a user by its access token.
 	 */
-	public function getByAccessToken(string $token): ?User
+	public function getByAccessToken(#[SensitiveParameter] string $token): ?User
 	{
-		return $this->setAuthorizer($this->getModel()->where('access_token', '=', $token)->first());
+		return $this->setAuthorizer($this->getModel()->where('access_token', '=', new SensitiveString($token))->first());
 	}
 
 	/**

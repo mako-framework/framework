@@ -8,6 +8,7 @@
 namespace mako\tests\unit\gatekeeper\repositories\user;
 
 use Closure;
+use mako\database\types\SensitiveString;
 use mako\gatekeeper\authorization\AuthorizerInterface;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
@@ -111,7 +112,7 @@ class UserRepositoryTest extends TestCase
 	public function testGetByAccessToken(): void
 	{
 		$repository = $this->getRepository(function ($user): void {
-			$user->shouldReceive('where')->once()->with('access_token', '=', 'foobar')->andReturn($user);
+			$user->shouldReceive('where')->once()->with('access_token', '=', Mockery::on(fn ($arg) => ($arg instanceof SensitiveString && $arg->getValue() === 'foobar')))->andReturn($user);
 
 			$user->shouldReceive('first')->once()->andReturn($user);
 		});
@@ -125,7 +126,7 @@ class UserRepositoryTest extends TestCase
 	public function testGetByActionToken(): void
 	{
 		$repository = $this->getRepository(function ($user): void {
-			$user->shouldReceive('where')->once()->with('action_token', '=', 'foobar')->andReturn($user);
+			$user->shouldReceive('where')->once()->with('action_token', '=', Mockery::on(fn ($arg) => ($arg instanceof SensitiveString && $arg->getValue() === 'foobar')))->andReturn($user);
 
 			$user->shouldReceive('first')->once()->andReturn($user);
 		});
@@ -245,7 +246,7 @@ class UserRepositoryTest extends TestCase
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {
-			$user->shouldReceive('where')->once()->with('access_token', '=', 'foobar')->andReturn($user);
+			$user->shouldReceive('where')->once()->with('access_token', '=', Mockery::on(fn ($arg) => ($arg instanceof SensitiveString && $arg->getValue() === 'foobar')))->andReturn($user);
 
 			$user->shouldReceive('first')->once()->andReturn($user);
 
@@ -264,7 +265,7 @@ class UserRepositoryTest extends TestCase
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {
-			$user->shouldReceive('where')->once()->with('action_token', '=', 'foobar')->andReturn($user);
+			$user->shouldReceive('where')->once()->with('action_token', '=', Mockery::on(fn ($arg) => ($arg instanceof SensitiveString && $arg->getValue() === 'foobar')))->andReturn($user);
 
 			$user->shouldReceive('first')->once()->andReturn($user);
 
