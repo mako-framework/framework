@@ -50,7 +50,7 @@ class TimeImmutableTest extends TestCase
 	{
 		$time1 = new TimeImmutable('now', 'Europe/Oslo');
 
-		$time1->setTimestamp(0);
+		$time1 = $time1->setTimestamp(0);
 
 		$time2 = $time1->getMutable();
 
