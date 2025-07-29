@@ -22,8 +22,12 @@ jobs:
       matrix:
         include:
           - php-version: "8.4"
+            experimental: false
+            #composer-options: "--ignore-platform-reqs"
+          - php-version: "8.5"
             experimental: true
             #composer-options: "--ignore-platform-reqs"
+
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v4"
