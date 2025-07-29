@@ -20,6 +20,11 @@ use Throwable;
 class TooManyRequestsException extends HttpStatusException implements ProvidesHeadersInterface
 {
 	/**
+	 * RFC 7231 date format.
+	 */
+	protected const string RFC_7231_DATE = 'D, d M Y H:i:s \G\M\T';
+
+	/**
 	 * Headers.
 	 */
 	protected $headers = [];
@@ -54,7 +59,7 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 				$retryAfter = $retryAfter->setTimezone(new DateTimeZone('UTC'));
 			}
 
-			return ['Retry-After' => $retryAfter->format(DateTimeInterface::RFC7231)];
+			return ['Retry-After' => $retryAfter->format(static::RFC_7231_DATE)];
 		}
 
 		return [];
