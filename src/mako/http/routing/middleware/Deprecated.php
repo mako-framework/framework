@@ -19,6 +19,11 @@ use RuntimeException;
 class Deprecated implements MiddlewareInterface
 {
 	/**
+	 * RFC 7231 date format.
+	 */
+	protected const string RFC_7231_DATE = 'D, d M Y H:i:s \G\M\T';
+
+	/**
 	 * Deprecation date.
 	 */
 	protected ?DateTimeInterface $deprecationDate = null;
@@ -67,7 +72,7 @@ class Deprecated implements MiddlewareInterface
 				$sunsetDate = $sunsetDate->setTimezone(new DateTimeZone('UTC'));
 			}
 
-			$response->headers->add('Sunset', $sunsetDate->format(DateTime::RFC7231));
+			$response->headers->add('Sunset', $sunsetDate->format(static::RFC_7231_DATE));
 		}
 
 		return $next($request, $response);
