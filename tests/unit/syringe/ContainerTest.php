@@ -984,8 +984,16 @@ class ContainerTest extends TestCase
 
 		$this->assertSame('foobar', $returnValue);
 
+		//
+
 		$returnValue = $container->call(static fn (#[InjectString('barfoo')] string $string) => $string);
 
 		$this->assertSame('barfoo', $returnValue);
+
+		//
+
+		$returnValue = $container->call(static fn (#[InjectString('barfoo')] string $string) => $string, ['string' => 'baz']);
+
+		$this->assertSame('baz', $returnValue);
 	}
 }
