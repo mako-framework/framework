@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\syringe;
 
+use mako\syringe\attributes\InjectorInterface;
 use mako\syringe\Container;
 use mako\syringe\exceptions\ContainerException;
 use mako\syringe\exceptions\UnableToInstantiateException;
@@ -207,6 +208,20 @@ class NullableIntersection
 		public null|(IA&IB) $ab
 	) {
 	}
+}
+
+class InjectString implements InjectorInterface
+{
+	public function __construct(
+		protected string $string = 'foobar'
+	) {
+	}
+
+    public function getParameterValue(): string
+    {
+		return $this->string;
+	}
+
 }
 
 // --------------------------------------------------------------------------
@@ -956,5 +971,21 @@ class ContainerTest extends TestCase
 		$object = $container->get(NullableIntersection::class);
 
 		$this->assertNull($object->ab);
+	}
+
+	/**
+	 *
+	 */
+	public function testInjectorAttribute(): void
+	{
+		$container = new Container;
+
+		$returnValue = $container->call(static fn (#[InjectString] string $string) => $string);
+
+		$this->assertSame('foobar', $returnValue);
+
+		$returnValue = $container->call(static fn (#[InjectString('barfoo')] string $string) => $string);
+
+		$this->assertSame('barfoo', $returnValue);
 	}
 }
