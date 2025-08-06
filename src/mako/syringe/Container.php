@@ -228,7 +228,10 @@ class Container
 
 		// Return merged parameters
 
-		return array_replace($associativeReflectionParameters, $associativeProvidedParameters);
+		return array_replace(
+			$associativeReflectionParameters,
+			array_intersect_key($associativeProvidedParameters, $associativeReflectionParameters)
+		);
 	}
 
 	/**
@@ -345,7 +348,7 @@ class Container
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null, ?string $method = null): array
 	{
 		if (empty($reflectionParameters)) {
-			return array_values($providedParameters);
+			return [];
 		}
 
 		// Merge provided parameters with the ones we got using reflection
