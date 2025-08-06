@@ -261,10 +261,7 @@ class Container
 
 		if (!empty($attributes = $parameter->getAttributes(InjectorInterface::class, ReflectionAttribute::IS_INSTANCEOF))) {
 			/** @var InjectorInterface $injector */
-			$injector = $this->get($attributes[0]->getName(), [
-				...$attributes[0]->getArguments(),
-				...['__attribute__' => $attributes[0]],
-			]);
+			$injector = $this->get($attributes[0]->getName(), $attributes[0]->getArguments());
 
 			return $injector->getParameterValue();
 		}
