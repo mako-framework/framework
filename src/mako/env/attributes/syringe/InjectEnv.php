@@ -24,7 +24,6 @@ class InjectEnv implements InjectorInterface
 		protected mixed $default = null,
 		protected bool $isBool = false,
 		protected bool $localOnly = false
-
 	) {
 	}
 
