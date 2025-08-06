@@ -7,6 +7,7 @@
 
 namespace mako\env\attributes\syringe;
 
+use Attribute;
 use mako\syringe\attributes\InjectorInterface;
 
 use function mako\env;
@@ -14,6 +15,7 @@ use function mako\env;
 /**
  * Environment variable variable injector.
  */
+#[Attribute(Attribute::TARGET_PARAMETER)]
 class InjectEnv implements InjectorInterface
 {
 	/**
@@ -34,5 +36,4 @@ class InjectEnv implements InjectorInterface
     {
 		return env($this->variableName, $this->default, $this->isBool, $this->localOnly);
 	}
-
 }
