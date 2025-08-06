@@ -9,10 +9,12 @@ namespace mako\syringe;
 
 use Closure;
 use mako\classes\ClassInspector;
+use mako\syringe\attributes\InjectorInterface;
 use mako\syringe\exceptions\ContainerException;
 use mako\syringe\exceptions\UnableToInstantiateException;
 use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\syringe\traits\ContainerAwareTrait;
+use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionIntersectionType;
@@ -252,6 +254,17 @@ class Container
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null): mixed
 	{
+		// If the parameter has a injector attribute then we'll use that to resolve the value
+
+		if (!empty($attributes = $parameter->getAttributes(InjectorInterface::class, ReflectionAttribute::IS_INSTANCEOF))) {
+			/** @var InjectorInterface $injector */
+			$injector = $this->get($attributes[0]->getName(), $attributes[0]->getArguments());
+
+			return $injector->getParameterValue();
+		}
+
+		// Continue with normal parameter resolving
+
 		$parameterType = $parameter->getType();
 
 		// If the parameter should be a class instance then we'll try to resolve it using the container
