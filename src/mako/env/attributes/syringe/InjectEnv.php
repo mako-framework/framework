@@ -9,6 +9,7 @@ namespace mako\env\attributes\syringe;
 
 use Attribute;
 use mako\syringe\attributes\InjectorInterface;
+use ReflectionParameter;
 
 use function mako\env;
 
@@ -32,7 +33,7 @@ class InjectEnv implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function getParameterValue(): mixed
+    public function getParameterValue(ReflectionParameter $parameter): mixed
     {
 		return env($this->variableName, $this->default, $this->isBool, $this->localOnly);
 	}

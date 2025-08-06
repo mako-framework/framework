@@ -14,6 +14,7 @@ use mako\syringe\exceptions\UnableToInstantiateException;
 use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use ReflectionParameter;
 use stdClass;
 
 use function mako\syringe\intersection;
@@ -217,7 +218,7 @@ class InjectString implements InjectorInterface
 	) {
 	}
 
-    public function getParameterValue(): string
+    public function getParameterValue(ReflectionParameter $parameter): string
     {
 		return $this->string;
 	}

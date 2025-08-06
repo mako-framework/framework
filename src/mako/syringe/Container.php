@@ -263,7 +263,7 @@ class Container
 			/** @var InjectorInterface $injector */
 			$injector = $this->get($attributes[0]->getName(), $attributes[0]->getArguments());
 
-			return $injector->getParameterValue();
+			return $injector->getParameterValue($parameter);
 		}
 
 		// Continue with normal parameter resolving

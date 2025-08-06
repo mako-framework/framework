@@ -10,6 +10,7 @@ namespace mako\config\attributes\syringe;
 use Attribute;
 use mako\config\Config;
 use mako\syringe\attributes\InjectorInterface;
+use ReflectionParameter;
 
 /**
  * Config value injector.
@@ -30,7 +31,7 @@ class InjectConfig implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function getParameterValue(): mixed
+    public function getParameterValue(ReflectionParameter $parameter): mixed
     {
 		return $this->config->get($this->key, $this->default);
 	}
