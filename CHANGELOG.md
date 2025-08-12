@@ -6,6 +6,10 @@
 	- `InjectConfig` which allows you to inject a config value.
 	- `InjectEnv` which allows you to inject a environment variable value.
 
+#### Compatibility
+
+* PHP 8.5 compatibility.
+
 --------------------------------------------------------
 
 ### 11.3.0 <small>(2025-07-28)</small>
