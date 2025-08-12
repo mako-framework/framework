@@ -10,7 +10,6 @@ namespace mako\file;
 use SensitiveParameter;
 use SplFileInfo;
 
-use function finfo_close;
 use function finfo_file;
 use function finfo_open;
 use function hash_equals;
@@ -31,8 +30,6 @@ class FileInfo extends SplFileInfo
 
 		$mime = finfo_file($info, $this->getPathname());
 
-		finfo_close($info);
-
 		return $mime ?: null;
 	}
 
@@ -44,8 +41,6 @@ class FileInfo extends SplFileInfo
 		$info = finfo_open(FILEINFO_MIME_ENCODING);
 
 		$encoding = finfo_file($info, $this->getPathname());
-
-		finfo_close($info);
 
 		return $encoding ?: null;
 	}
