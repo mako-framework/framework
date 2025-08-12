@@ -30,7 +30,6 @@ use function imagecreatefromgif;
 use function imagecreatefromjpeg;
 use function imagecreatefrompng;
 use function imagecreatetruecolor;
-use function imagedestroy;
 use function imagefill;
 use function imagefilledrectangle;
 use function imagefilter;
@@ -234,8 +233,6 @@ class GD implements ProcessorInterface
 
 			imagecopy($temp, $this->image, 0, 0, 0, 0, $width, $height);
 
-			imagedestroy($this->image);
-
 			$this->image = $temp;
 		}
 
@@ -262,8 +259,6 @@ class GD implements ProcessorInterface
 
 		imagecopyresampled($resized, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $oldWidth, $oldHeight);
 
-		imagedestroy($this->image);
-
 		imagecolortransparent($resized, $transparent);
 
 		$this->image = $resized;
@@ -284,8 +279,6 @@ class GD implements ProcessorInterface
 		imagefill($crop, 0, 0, $transparent);
 
 		imagecopy($crop, $this->image, 0, 0, $x, $y, $oldWidth, $oldHeight);
-
-		imagedestroy($this->image);
 
 		imagecolortransparent($crop, $transparent);
 
@@ -320,8 +313,6 @@ class GD implements ProcessorInterface
 				imagecopy($flipped, $this->image, $x, 0, $width - $x - 1, 0, 1, $height);
 			}
 		}
-
-		imagedestroy($this->image);
 
 		imagecolortransparent($flipped, $transparent);
 
@@ -377,8 +368,6 @@ class GD implements ProcessorInterface
 		imagealphablending($this->image, true);
 
 		imagecopy($this->image, $watermark, $x, $y, 0, 0, $watermarkWidth, $watermarkHeight);
-
-		imagedestroy($watermark);
 	}
 
 	/**
@@ -414,8 +403,6 @@ class GD implements ProcessorInterface
 					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
 				}
 			}
-
-			imagedestroy($this->image);
 
 			$this->image = $temp;
 		}
@@ -457,8 +444,6 @@ class GD implements ProcessorInterface
 				}
 			}
 
-			imagedestroy($this->image);
-
 			$this->image = $temp;
 		}
 	}
@@ -495,8 +480,6 @@ class GD implements ProcessorInterface
 			}
 		}
 
-		imagedestroy($this->image);
-
 		$this->image = $temp;
 	}
 
@@ -529,8 +512,6 @@ class GD implements ProcessorInterface
 					}
 				}
 			}
-
-			imagedestroy($this->image);
 
 			$this->image = $temp;
 		}
@@ -571,8 +552,6 @@ class GD implements ProcessorInterface
 					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
 				}
 			}
-
-			imagedestroy($this->image);
 
 			$this->image = $temp;
 		}
@@ -629,8 +608,6 @@ class GD implements ProcessorInterface
 					imagesetpixel($temp, $x, $y, imagecolorat($this->image, $x, $y) ^ 0x00FFFFFF);
 				}
 			}
-
-			imagedestroy($this->image);
 
 			$this->image = $temp;
 		}
