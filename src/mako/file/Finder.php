@@ -74,7 +74,9 @@ class Finder
 	 */
 	protected function createIterator(string $path): Iterator
 	{
-		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::CURRENT_AS_PATHNAME | FilesystemIterator::SKIP_DOTS));
+		$iterator = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator($path, FilesystemIterator::CURRENT_AS_PATHNAME | FilesystemIterator::SKIP_DOTS)
+		);
 
 		if ($this->maxDepth !== null) {
 			$iterator->setMaxDepth($this->maxDepth);
