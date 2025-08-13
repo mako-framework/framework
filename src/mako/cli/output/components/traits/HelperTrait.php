@@ -53,6 +53,7 @@ trait HelperTrait
 			if ($character === PHP_EOL) {
 				$lines[] = $line;
 				$line = '';
+
 				continue;
 			}
 
