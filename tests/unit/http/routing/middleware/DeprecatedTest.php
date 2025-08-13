@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\http\routing\middleware;
 
+use mako\http\exceptions\GoneException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Headers;
@@ -110,6 +111,33 @@ class DeprecatedTest extends TestCase
 		})->bindTo($response, Response::class)();
 
 		$headers->shouldReceive('add')->once()->with('Deprecation', '@1577836800');
+
+		$headers->shouldReceive('add')->once()->with('Sunset', 'Mon, 01 Feb 2021 00:00:00 GMT');
+
+		$middleware->execute($request, $response, fn ($request, $response) => $response);
+	}
+
+	/**
+	 *
+	 */
+	public function testDisableAfterSunset(): void
+	{
+		$this->expectException(GoneException::class);
+
+		$middleware = new Deprecated(sunsetDate: '2021-02-01', disableAfterSunset: true);
+
+		/** @var Mockery\MockInterface|Request $request */
+		$request = Mockery::mock(Request::class);
+
+		/** @var Mockery\MockInterface|Response $response */
+		$response = Mockery::mock(Response::class);
+
+		/** @var Headers|Mockery\MockInterface $headers */
+		$headers = Mockery::mock(Headers::class);
+
+		(function () use ($headers): void {
+			$this->headers = $headers;
+		})->bindTo($response, Response::class)();
 
 		$headers->shouldReceive('add')->once()->with('Sunset', 'Mon, 01 Feb 2021 00:00:00 GMT');
 

@@ -5,6 +5,7 @@
 * The container can now resolve parameters with the help of custom injector attributes. The following attributes are included by default:
 	- `InjectConfig` which allows you to inject a config value.
 	- `InjectEnv` which allows you to inject a environment variable value.
+* Added `disableAfterSunset` option to the `Deprecated` middleware.
 
 #### Compatibility
 

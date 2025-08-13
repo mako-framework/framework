@@ -12,6 +12,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use mako\http\exceptions\GoneException;
 use mako\http\Request;
 use mako\http\Response;
 use RuntimeException;
@@ -36,8 +37,11 @@ class Deprecated implements MiddlewareInterface
 	/**
 	 * Constructor.
 	 */
-	public function __construct(null|DateTimeInterface|string $deprecationDate = null, null|DateTimeInterface|string $sunsetDate = null)
-	{
+	public function __construct(
+		null|DateTimeInterface|string $deprecationDate = null,
+		null|DateTimeInterface|string $sunsetDate = null,
+		protected bool $disableAfterSunset = false
+	) {
 		if ($deprecationDate === null && $sunsetDate === null) {
 			throw new RuntimeException('You must specify either a deprecation date or a sunset date or both.');
 		}
@@ -73,6 +77,12 @@ class Deprecated implements MiddlewareInterface
 			}
 
 			$response->headers->add('Sunset', $sunsetDate->format(static::RFC_7231_DATE));
+
+			// Throw a GoneException if automatic disabling is enabled and the current date is after the sunset date
+
+			if ($this->disableAfterSunset && new DateTime(timezone: new DateTimeZone('UTC')) > $sunsetDate) {
+				throw new GoneException;
+			}
 		}
 
 		return $next($request, $response);
