@@ -20,20 +20,12 @@ use RegexIterator;
 class Finder
 {
 	/**
-	 * The pattern that the files should match.
-	 */
-	protected ?string $pattern = null;
-
-	/**
-	 * Maximum search depth.
-	 */
-	protected ?int $maxDepth = null;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
-		protected array $paths
+		protected array $paths,
+		protected ?string $pattern = null,
+		protected ?int $maxDepth = null
 	) {
 	}
 
