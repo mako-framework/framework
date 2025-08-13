@@ -257,7 +257,7 @@ class Container
 	 */
 	protected function resolveParameter(ReflectionParameter $parameter, ?ReflectionClass $class = null, ?string $method = null): mixed
 	{
-		// If the parameter has a injector attribute then we'll use that to resolve the value
+		// If the parameter has an injector attribute then we'll use that to resolve the value
 
 		if (!empty($attributes = $parameter->getAttributes(InjectorInterface::class, ReflectionAttribute::IS_INSTANCEOF))) {
 			/** @var InjectorInterface $injector */
