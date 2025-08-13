@@ -54,7 +54,7 @@ class Deprecated implements MiddlewareInterface
 			$this->sunsetDate = $sunsetDate instanceof DateTimeInterface ? $sunsetDate : new DateTime($sunsetDate, new DateTimeZone('UTC'));
 		}
 
-		if ($deprecationDate !== null && $sunsetDate !== null && $this->deprecationDate->getTimestamp() >= $this->sunsetDate->getTimestamp()) {
+		if ($deprecationDate !== null && $sunsetDate !== null && $this->deprecationDate >= $this->sunsetDate) {
 			throw new RuntimeException('The deprecation date must be earlier than the sunset date.');
 		}
 	}

@@ -41,7 +41,7 @@ class After extends Rule implements RuleInterface
 			return false;
 		}
 
-		return $date->getTimestamp() > DateTime::createFromFormat($this->format, $this->date)->getTimestamp();
+		return $date > DateTime::createFromFormat($this->format, $this->date);
 	}
 
 	/**
