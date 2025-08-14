@@ -9,6 +9,7 @@ namespace mako\chrono;
 
 use DateTimeImmutable;
 use mako\chrono\traits\TimeTrait;
+use Override;
 
 /**
  * Extension of the PHP DateTimeImmutable class.
@@ -24,6 +25,7 @@ class TimeImmutable extends DateTimeImmutable implements TimeInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function copy(): static
 	{
 		return $this; // No need to clone the object as it's immutable

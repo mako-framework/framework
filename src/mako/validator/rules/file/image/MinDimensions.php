@@ -10,6 +10,7 @@ namespace mako\validator\rules\file\image;
 use mako\validator\rules\file\image\traits\GetImageSizeTrait;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 
 use function sprintf;
 
@@ -37,6 +38,7 @@ class MinDimensions extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		[$width, $height] = $this->getImageSize($value);
@@ -47,6 +49,7 @@ class MinDimensions extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s falls short of the minimum dimensions of %2$sx%3$s pixels.', $field, $this->width, $this->height);

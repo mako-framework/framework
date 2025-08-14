@@ -7,6 +7,8 @@
 
 namespace mako\security\password;
 
+use Override;
+
 use function max;
 use function min;
 
@@ -18,6 +20,7 @@ class Bcrypt extends Hasher
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function normalizeOptions(array $options): array
 	{
 		$options += [
@@ -32,6 +35,7 @@ class Bcrypt extends Hasher
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function getAlgorithm(): ?string
 	{
 		return PASSWORD_BCRYPT;

@@ -12,6 +12,7 @@ use mako\http\routing\URLBuilder;
 use mako\pagination\PaginationFactory;
 use mako\pagination\PaginationFactoryInterface;
 use mako\view\ViewFactory;
+use Override;
 
 /**
  * Pagination factory service.
@@ -21,6 +22,7 @@ class PaginationFactoryService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config;

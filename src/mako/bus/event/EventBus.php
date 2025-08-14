@@ -10,6 +10,7 @@ namespace mako\bus\event;
 use Generator;
 use mako\bus\traits\ResolveHandlerTrait;
 use mako\syringe\Container;
+use Override;
 
 /**
  * Event bus.
@@ -34,6 +35,7 @@ class EventBus implements EventBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function registerHandler(string $eventClass, callable|string $handler): void
 	{
 		$this->handlers[$eventClass][] = $handler;
@@ -54,6 +56,7 @@ class EventBus implements EventBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(object $event): void
 	{
 		/** @var callable $handler */

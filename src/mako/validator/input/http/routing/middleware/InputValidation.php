@@ -20,6 +20,7 @@ use mako\session\Session;
 use mako\validator\exceptions\ValidationException;
 use mako\validator\input\http\InputInterface;
 use mako\view\ViewFactory;
+use Override;
 
 use function array_diff_key;
 use function array_flip;
@@ -234,6 +235,7 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		$this->request = $request;

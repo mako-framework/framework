@@ -9,6 +9,7 @@ namespace mako\gatekeeper\repositories\group;
 
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\exceptions\GatekeeperException;
+use Override;
 
 use function in_array;
 use function sprintf;
@@ -45,6 +46,7 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function createGroup(array $properties = []): Group
 	{
 		$group = $this->getModel();
@@ -89,6 +91,7 @@ class GroupRepository implements GroupRepositoryInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getByIdentifier(int|string $identifier): ?Group
 	{
 		return match ($this->identifier) {

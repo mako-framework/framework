@@ -8,6 +8,7 @@
 namespace mako\session\stores;
 
 use mako\file\FileSystem;
+use Override;
 use SensitiveParameter;
 
 use function is_array;
@@ -41,6 +42,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		if ($this->fileSystem->isWritable($this->sessionPath)) {
@@ -51,6 +53,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		$sessionData = [];
@@ -65,6 +68,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 		if ($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isWritable($this->sessionFile($sessionId))) {
@@ -75,6 +79,7 @@ class File implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function gc(int $dataTTL): void
 	{
 		$files = $this->fileSystem->glob("{$this->sessionPath}/*");

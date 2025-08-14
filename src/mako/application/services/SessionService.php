@@ -20,6 +20,7 @@ use mako\session\stores\NullStore;
 use mako\session\stores\Redis;
 use mako\session\stores\StoreInterface;
 use mako\syringe\Container;
+use Override;
 
 /**
  * Session service.
@@ -79,6 +80,7 @@ class SessionService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$this->container->registerSingleton([Session::class, 'session'], function ($container) {

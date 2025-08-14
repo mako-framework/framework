@@ -10,6 +10,7 @@ namespace mako\bus\command;
 use mako\bus\command\exceptions\CommandBusException;
 use mako\bus\traits\SingleHandlerTrait;
 use mako\syringe\Container;
+use Override;
 
 use function sprintf;
 
@@ -31,6 +32,7 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function getUnableToResolveException(object $object): CommandBusException
 	{
 		return new CommandBusException(sprintf('No handler has been registered for [ %s ] commands.', $object::class));
@@ -39,6 +41,7 @@ class CommandBus implements CommandBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(object $command): void
 	{
 		$this->getHandler($command)($command);

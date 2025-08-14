@@ -11,6 +11,7 @@ use mako\application\services\Service;
 use mako\error\ErrorHandler;
 use mako\error\handlers\cli\DevelopmentHandler;
 use mako\error\handlers\cli\ProductionHandler;
+use Override;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -22,6 +23,7 @@ class ErrorHandlerService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config->get('application.error_handler');

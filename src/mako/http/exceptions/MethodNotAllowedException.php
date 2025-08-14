@@ -8,6 +8,7 @@
 namespace mako\http\exceptions;
 
 use mako\http\response\Status;
+use Override;
 use Throwable;
 
 use function implode;
@@ -44,6 +45,7 @@ class MethodNotAllowedException extends HttpStatusException implements ProvidesH
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getHeaders(): array
 	{
 		if (!empty($this->allowedMethods)) {

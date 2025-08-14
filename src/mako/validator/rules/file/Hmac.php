@@ -9,6 +9,7 @@ namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 use SensitiveParameter;
 
 use function sprintf;
@@ -36,6 +37,7 @@ class Hmac extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value->validateHmac($this->hmac, $this->key, $this->algorithm);
@@ -44,6 +46,7 @@ class Hmac extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s does not match the expected hmac.', $field);

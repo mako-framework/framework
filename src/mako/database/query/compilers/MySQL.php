@@ -8,6 +8,7 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
+use Override;
 
 use function str_replace;
 
@@ -26,6 +27,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function escapeIdentifier(string $identifier): string
 	{
 		return '`' . str_replace('`', '``', $identifier) . '`';
@@ -34,6 +36,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		return "{$column}->>'{$this->buildJsonPath($segments)}'";
@@ -42,6 +45,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
 		return "{$column} = JSON_SET({$column}, '{$this->buildJsonPath($segments)}', CAST({$param} AS JSON))";
@@ -50,6 +54,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		$date1 = "{$where['value1']} 00:00:00.000000";
@@ -61,6 +66,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function whereDate(array $where): string
 	{
 		switch ($where['operator']) {
@@ -97,6 +103,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function offset(?int $offset): string
 	{
 		if ($offset === null) {
@@ -109,6 +116,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function lock(null|bool|string $lock): string
 	{
 		if ($lock === null) {
@@ -121,6 +129,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function insertWithoutValues(): string
 	{
 		return "INSERT INTO {$this->escapeTableName($this->query->getTable())} () VALUES ()";
@@ -129,6 +138,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
 	{
 		$sql = $this->query->getPrefix()
@@ -142,6 +152,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function update(array $values): array
 	{
 		$sql = $this->query->getPrefix()
@@ -158,6 +169,7 @@ class MySQL extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function delete(array $tables = []): array
 	{
 		$sql = $this->query->getPrefix()

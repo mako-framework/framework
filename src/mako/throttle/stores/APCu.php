@@ -9,6 +9,7 @@ namespace mako\throttle\stores;
 
 use DateTime;
 use DateTimeInterface;
+use Override;
 
 use function apcu_fetch;
 use function apcu_inc;
@@ -40,6 +41,7 @@ class APCu implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getHits(string $key): int
 	{
 		return apcu_fetch($this->getKey($key)) ?: 0;
@@ -48,6 +50,7 @@ class APCu implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getExpiration(string $key): ?DateTimeInterface
 	{
 		$info = apcu_key_info($this->getKey($key));
@@ -62,6 +65,7 @@ class APCu implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $key, DateTimeInterface $expiresAt): int
 	{
 		return apcu_inc($this->getKey($key), 1, ttl: $expiresAt->getTimestamp() - time());

@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function is_numeric;
 use function sprintf;
 
@@ -18,6 +20,7 @@ class Numeric extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return is_numeric($value);
@@ -26,6 +29,7 @@ class Numeric extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field must contain a numeric value.', $field);

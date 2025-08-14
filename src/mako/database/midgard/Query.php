@@ -15,6 +15,7 @@ use mako\database\query\Query as QueryBuilder;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
 use mako\utility\Str;
+use Override;
 use PDO;
 
 use function array_filter;
@@ -66,6 +67,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getColumns(): array
 	{
 		if (empty($this->relationCounters)) {
@@ -86,6 +88,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function join(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null, string $type = 'INNER JOIN'): static
 	{
 		if (empty($this->joins) && $this->columns === ['*']) {
@@ -98,6 +101,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insert(array $values = []): bool
 	{
 		// Execute "beforeInsert" hooks
@@ -126,6 +130,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return TClass
 	 */
+	#[Override]
 	public function insertAndReturn(array $values = [], array $return = ['*']): ORM
 	{
 		// Execute "beforeInsert" hooks
@@ -156,6 +161,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertMultiple(array ...$values): bool
 	{
 		// Execute "beforeInsert" hooks
@@ -184,6 +190,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertMultipleAndReturn(array $return, array ...$values): ResultSet
 	{
 		// Execute "beforeInsert" hooks
@@ -222,6 +229,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): bool
 	{
 		// Execute "beforeInsert" hooks
@@ -248,6 +256,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function update(array $values): int
 	{
 		// Execute "beforeUpdate" hooks
@@ -312,6 +321,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $column, int $increment = 1): int
 	{
 		if ($this->model->isPersisted()) {
@@ -332,6 +342,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function decrement(string $column, int $decrement = 1): int
 	{
 		if ($this->model->isPersisted()) {
@@ -352,6 +363,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function delete(): int
 	{
 		// Execute "beforeDelete" hooks
@@ -661,6 +673,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null): void
 	{
 		if (empty($this->orderings)) {
@@ -673,6 +686,7 @@ class Query extends QueryBuilder
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function aggregate(string $function, array|Raw|string $column)
 	{
 		// Empty "relationCounters" when performing aggregate queries

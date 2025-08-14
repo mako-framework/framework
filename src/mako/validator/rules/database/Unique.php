@@ -10,6 +10,7 @@ namespace mako\validator\rules\database;
 use mako\database\ConnectionManager;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 
 use function sprintf;
 
@@ -38,6 +39,7 @@ class Unique extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		if ($this->allowed !== null && $this->allowed === $value) {
@@ -59,6 +61,7 @@ class Unique extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s must be unique.', $field);

@@ -10,6 +10,7 @@ namespace mako\validator\rules\file;
 use mako\http\request\UploadedFile;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 
 use function mb_strlen;
 use function sprintf;
@@ -35,6 +36,7 @@ class MaxFilenameLength extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		$filename = $value instanceof UploadedFile ? $value->getReportedFilename() : $value->getFilename();
@@ -45,6 +47,7 @@ class MaxFilenameLength extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s filename must be at most %2$s characters long.', $field, $this->maxLength);

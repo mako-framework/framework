@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use Override;
+
 use function wincache_ucache_add;
 use function wincache_ucache_clear;
 use function wincache_ucache_delete;
@@ -24,6 +26,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return wincache_ucache_set($this->getPrefixedKey($key), $data, $ttl);
@@ -32,6 +35,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return wincache_ucache_add($this->getPrefixedKey($key), $data, $ttl);
@@ -40,6 +44,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return wincache_ucache_exists($this->getPrefixedKey($key));
@@ -48,6 +53,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		$value = wincache_ucache_get($this->getPrefixedKey($key), $success);
@@ -58,6 +64,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return wincache_ucache_delete($this->getPrefixedKey($key));
@@ -66,6 +73,7 @@ class WinCache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		return wincache_ucache_clear();

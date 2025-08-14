@@ -10,6 +10,7 @@ namespace mako\throttle\stores;
 use DateTime;
 use DateTimeInterface;
 use mako\redis\Redis as RedisClient;
+use Override;
 
 use function hash;
 use function time;
@@ -39,6 +40,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getHits(string $key): int
 	{
 		return (int) $this->redis->get($this->getKey($key));
@@ -47,6 +49,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getExpiration(string $key): ?DateTimeInterface
 	{
 		$ttl = $this->redis->ttl($this->getKey($key));
@@ -61,6 +64,7 @@ class Redis implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $key, DateTimeInterface $expiresAt): int
 	{
 		$key = $this->getKey($key);

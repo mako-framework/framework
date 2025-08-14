@@ -7,6 +7,7 @@
 
 namespace mako\logger;
 
+use Override;
 use Psr\Log\LoggerInterface;
 use Stringable;
 
@@ -56,6 +57,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function emergency(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->emergency($message, $context + $this->context);
@@ -64,6 +66,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function alert(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->alert($message, $context + $this->context);
@@ -72,6 +75,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function critical(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->critical($message, $context + $this->context);
@@ -80,6 +84,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function error(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->error($message, $context + $this->context);
@@ -88,6 +93,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function warning(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->warning($message, $context + $this->context);
@@ -96,6 +102,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function notice(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->notice($message, $context + $this->context);
@@ -104,6 +111,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function info(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->info($message, $context + $this->context);
@@ -112,6 +120,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function debug(string|Stringable $message, array $context = []): void
 	{
 		$this->logger->debug($message, $context + $this->context);
@@ -120,6 +129,7 @@ class Logger implements LoggerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function log(mixed $level, string|Stringable $message, array $context = []): void
 	{
 		$this->logger->log($level, $message, $context + $this->context);

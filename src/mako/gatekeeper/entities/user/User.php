@@ -19,6 +19,7 @@ use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\security\password\Bcrypt;
 use mako\security\password\HasherInterface;
+use Override;
 use SensitiveParameter;
 
 use function hash;
@@ -102,6 +103,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getId(): mixed
 	{
 		return $this->id;
@@ -134,6 +136,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getUsername(): string
 	{
 		return $this->username;
@@ -278,6 +281,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function isMemberOf($group): bool
 	{
 		if (!$this->isPersisted) {

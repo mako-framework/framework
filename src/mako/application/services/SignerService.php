@@ -9,6 +9,7 @@ namespace mako\application\services;
 
 use mako\security\Key;
 use mako\security\Signer;
+use Override;
 
 /**
  * Signer service.
@@ -18,6 +19,7 @@ class SignerService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config;

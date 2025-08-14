@@ -8,6 +8,7 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
+use Override;
 
 /**
  * Compiles SQLite queries.
@@ -24,6 +25,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		return "JSON_EXTRACT({$column}, '{$this->buildJsonPath($segments)}')";
@@ -32,6 +34,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
 		return $column . " = JSON_SET({$column}, '{$this->buildJsonPath($segments)}', JSON({$param}))";
@@ -40,6 +43,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		$date1 = "{$where['value1']} 00:00:00.000";
@@ -51,6 +55,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function whereDate(array $where): string
 	{
 		switch ($where['operator']) {
@@ -87,6 +92,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function offset(?int $offset): string
 	{
 		if ($offset === null) {
@@ -99,6 +105,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertAndReturn(array $values, array $return): array
 	{
 		['sql' => $sql, 'params' => $params] = $this->insert($values);
@@ -111,6 +118,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertMultipleAndReturn(array $return, array ...$values): array
 	{
 		['sql' => $sql, 'params' => $params] = $this->insertMultiple(...$values);
@@ -123,6 +131,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
 	{
 		$sql = $sql = $this->query->getPrefix()
@@ -136,6 +145,7 @@ class SQLite extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function updateAndReturn(array $values, array $return): array
 	{
 		$query = $this->update($values);

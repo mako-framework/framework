@@ -17,6 +17,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Status;
 use mako\session\Session as HttpSession;
+use Override;
 use SensitiveParameter;
 
 use function array_replace_recursive;
@@ -72,6 +73,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getName(): string
 	{
 		return 'session';
@@ -80,6 +82,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function createUser(string $email, string $username, #[SensitiveParameter] string $password, bool $activate = false, array $properties = []): User
 	{
 		$properties = $properties + [
@@ -92,6 +95,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getUser(): ?UserEntityInterface
 	{
 		if ($this->user === null && $this->hasLoggedOut === false) {
@@ -176,6 +180,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false): LoginStatus
 	{
 		if (empty($identifier)) {
@@ -230,6 +235,7 @@ class Session extends Adapter
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function logout(): void
 	{
 		$this->session->regenerateId();

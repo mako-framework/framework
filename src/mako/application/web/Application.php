@@ -14,6 +14,7 @@ use mako\http\routing\Dispatcher;
 use mako\http\routing\Router;
 use mako\i18n\I18n;
 use mako\session\Session;
+use Override;
 
 use function fastcgi_finish_request;
 use function function_exists;
@@ -27,6 +28,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function initialize(): void
 	{
 		parent::initialize();
@@ -37,6 +39,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function run(): void
 	{
 		ob_start();

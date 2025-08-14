@@ -14,6 +14,7 @@ use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\gatekeeper\repositories\group\GroupRepositoryInterface;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\gatekeeper\repositories\user\UserRepositoryInterface;
+use Override;
 use SensitiveParameter;
 
 /**
@@ -42,6 +43,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function setUserRepository(UserRepositoryInterface $userRepository): void
 	{
 		$this->userRepository = $userRepository;
@@ -50,6 +52,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getUserRepository(): ?UserRepositoryInterface
 	{
 		return $this->userRepository;
@@ -58,6 +61,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function setGroupRepository(GroupRepositoryInterface $groupRepository): void
 	{
 		$this->groupRepository = $groupRepository;
@@ -66,6 +70,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getGroupRepository(): ?GroupRepositoryInterface
 	{
 		return $this->groupRepository;
@@ -74,6 +79,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function setUser(?UserEntityInterface $user): void
 	{
 		$this->user = $user;
@@ -82,6 +88,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function isGuest(): bool
 	{
 		return $this->getUser() === null;
@@ -90,6 +97,7 @@ abstract class Adapter implements AdapterInterface, WithGroupsInterface, WithLog
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function isLoggedIn(): bool
 	{
 		return $this->getUser() !== null;

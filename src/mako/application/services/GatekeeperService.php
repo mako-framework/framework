@@ -16,6 +16,7 @@ use mako\gatekeeper\repositories\user\UserRepository;
 use mako\http\Request;
 use mako\http\Response;
 use mako\session\Session as HttpSession;
+use Override;
 
 /**
  * Gatekeeper service.
@@ -25,6 +26,7 @@ class GatekeeperService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config->get('gatekeeper');

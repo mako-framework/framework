@@ -10,6 +10,7 @@ namespace mako\validator\rules\database;
 use mako\database\ConnectionManager;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 
 use function sprintf;
 
@@ -37,6 +38,7 @@ class Exists extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $this->database->getConnection($this->connection)
@@ -49,6 +51,7 @@ class Exists extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s doesn\'t exist.', $field);

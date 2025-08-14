@@ -7,6 +7,8 @@
 
 namespace mako\cli\output\writer;
 
+use Override;
+
 use function fstat;
 use function fwrite;
 
@@ -30,6 +32,7 @@ abstract class Writer implements WriterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function setStream($stream): void
 	{
 		$this->stream = $stream;
@@ -38,6 +41,7 @@ abstract class Writer implements WriterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function isDirect(): bool
 	{
 		if ($this->isDirect === null) {
@@ -50,6 +54,7 @@ abstract class Writer implements WriterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function write(string $string): void
 	{
 		fwrite($this->stream, $string);

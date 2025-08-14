@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function checkdnsrr;
 use function explode;
 use function sprintf;
@@ -28,6 +30,7 @@ class EmailDomain extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		if (empty($value) || strpos($value, '@') === false) {
@@ -42,6 +45,7 @@ class EmailDomain extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field must contain a valid e-mail address.', $field);

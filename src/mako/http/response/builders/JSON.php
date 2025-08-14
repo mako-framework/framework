@@ -10,6 +10,7 @@ namespace mako\http\response\builders;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Status;
+use Override;
 
 use function is_int;
 use function json_encode;
@@ -111,6 +112,7 @@ class JSON implements ResponseBuilderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function build(Request $request, Response $response): void
 	{
 		$json = json_encode($this->data, $this->options);

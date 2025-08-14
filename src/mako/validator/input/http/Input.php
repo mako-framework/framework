@@ -10,6 +10,7 @@ namespace mako\validator\input\http;
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\validator\input\Input as BaseInput;
+use Override;
 
 /**
  * HTTP input.
@@ -38,6 +39,7 @@ abstract class Input extends BaseInput implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getInput(): array
 	{
 		return $this->request->getData()->all();
@@ -46,6 +48,7 @@ abstract class Input extends BaseInput implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function shouldRedirect(): bool
 	{
 		return $this->shouldRedirect;
@@ -54,6 +57,7 @@ abstract class Input extends BaseInput implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getRedirectUrl(): string
 	{
 		return $this->urlBuilder->current();
@@ -62,6 +66,7 @@ abstract class Input extends BaseInput implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function shouldIncludeOldInput(): bool
 	{
 		return $this->shouldIncludeOldInput;
@@ -70,6 +75,7 @@ abstract class Input extends BaseInput implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getOldInput(): array
 	{
 		return $this->request->getData()->all();

@@ -17,6 +17,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogHandler;
 use Monolog\Logger as MonoLogger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Override;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -114,6 +115,7 @@ class LoggerService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config->get('application.logger');

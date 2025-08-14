@@ -8,6 +8,7 @@
 namespace mako\database\query\helpers;
 
 use mako\database\query\Query;
+use Override;
 
 /**
  * Query builder postgres helper.
@@ -17,6 +18,7 @@ class Postgres implements HelperInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertAndGetId(Query $query, array $values = [], ?string $primaryKey = null): false|int
 	{
 		if ($query->insert($values) === false) {

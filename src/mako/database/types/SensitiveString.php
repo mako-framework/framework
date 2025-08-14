@@ -7,6 +7,7 @@
 
 namespace mako\database\types;
 
+use Override;
 use PDO;
 use SensitiveParameter;
 
@@ -26,6 +27,7 @@ class SensitiveString implements TypeInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getType(): int
 	{
 		return $this->string === null ? PDO::PARAM_NULL : PDO::PARAM_STR;
@@ -34,6 +36,7 @@ class SensitiveString implements TypeInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getValue(): ?string
 	{
 		return $this->string;

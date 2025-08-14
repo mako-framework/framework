@@ -10,6 +10,7 @@ namespace mako\validator\rules\file;
 use mako\validator\exceptions\ValidatorException;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 
 use function is_numeric;
 use function sprintf;
@@ -61,6 +62,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value->getSize() <= $this->convertToBytes($this->maxSize);
@@ -69,6 +71,7 @@ class MaxFileSize extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s must be less than %2$s in size.', $field, $this->maxSize);

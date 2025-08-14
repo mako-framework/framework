@@ -20,6 +20,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\view\renderers\Template;
 use mako\view\ViewFactory;
+use Override;
 use Symfony\Component\VarDumper\Caster\Caster;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
@@ -367,6 +368,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(Throwable $exception): mixed
 	{
 		['type' => $type, 'body' => $body] = $this->buildResponse($exception);

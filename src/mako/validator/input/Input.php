@@ -8,6 +8,7 @@
 namespace mako\validator\input;
 
 use mako\validator\Validator;
+use Override;
 
 /**
  * Input.
@@ -32,6 +33,7 @@ abstract class Input implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getRules(): array
 	{
 		return $this->rules;
@@ -40,6 +42,7 @@ abstract class Input implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getExtensions(): array
 	{
 		return $this->extensions;
@@ -48,6 +51,7 @@ abstract class Input implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function addConditionalRules(Validator $validator): void
 	{
 		// Nothing here
@@ -56,6 +60,7 @@ abstract class Input implements InputInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(): ?string
 	{
 		return $this->errorMessage;

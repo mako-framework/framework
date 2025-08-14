@@ -7,6 +7,8 @@
 
 namespace mako\database\connections;
 
+use Override;
+
 /**
  * SQLServer database connection.
  */
@@ -15,6 +17,7 @@ class SQLServer extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function createSavepoint(): bool
 	{
 		return $this->pdo->exec("SAVE TRANSACTION transactionNestingLevel{$this->transactionNestingLevel}") !== false;
@@ -23,6 +26,7 @@ class SQLServer extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function rollBackSavepoint(): bool
 	{
 		return $this->pdo->exec("ROLLBACK TRANSACTION transactionNestingLevel{$this->transactionNestingLevel}") !== false;

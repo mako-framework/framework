@@ -12,6 +12,7 @@ use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\AuthorizerInterface;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
+use Override;
 use SensitiveParameter;
 
 use function in_array;
@@ -74,6 +75,7 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function createUser(array $properties = []): User
 	{
 		$user = $this->getModel();
@@ -136,6 +138,7 @@ class UserRepository implements UserRepositoryInterface
 	 *
 	 * @return User|null
 	 */
+	#[Override]
 	public function getByIdentifier(int|string $identifier): ?User
 	{
 		return match ($this->identifier) {

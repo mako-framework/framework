@@ -10,6 +10,7 @@ namespace mako\config\attributes\syringe;
 use Attribute;
 use mako\config\Config;
 use mako\syringe\attributes\InjectorInterface;
+use Override;
 use ReflectionParameter;
 
 /**
@@ -28,9 +29,10 @@ class InjectConfig implements InjectorInterface
 	) {
 	}
 
-    /**
-     * {@inheritDoc}
-     */
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
     public function getParameterValue(ReflectionParameter $parameter): mixed
     {
 		return $this->config->get($this->key, $this->default);

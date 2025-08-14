@@ -8,6 +8,7 @@
 namespace mako\bus\traits;
 
 use mako\bus\exceptions\BusException;
+use Override;
 
 /**
  * Single handler trait.
@@ -24,6 +25,7 @@ trait SingleHandlerTrait
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function registerHandler(string $className, callable|string $handler): void
 	{
 		$this->handlers[$className] = $handler;

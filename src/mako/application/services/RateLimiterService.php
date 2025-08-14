@@ -14,6 +14,7 @@ use mako\throttle\RateLimiter;
 use mako\throttle\RateLimiterInterface;
 use mako\throttle\stores\APCu;
 use mako\throttle\stores\StoreInterface;
+use Override;
 
 /**
  * Rate limiter service.
@@ -39,6 +40,7 @@ class RateLimiterService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$this->container->register(StoreInterface::class, $this->getStore());

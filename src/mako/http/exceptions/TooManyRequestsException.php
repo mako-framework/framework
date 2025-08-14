@@ -12,6 +12,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use mako\http\response\Status;
+use Override;
 use Throwable;
 
 /**
@@ -48,6 +49,7 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getHeaders(): array
 	{
 		if ($this->retryAfter !== null) {

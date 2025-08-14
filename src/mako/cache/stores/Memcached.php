@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use Memcached as PHPMemcached;
+use Override;
 
 use function time;
 
@@ -48,6 +49,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		if ($ttl !== 0) {
@@ -66,6 +68,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		if ($ttl !== 0) {
@@ -78,6 +81,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $key, int $step = 1): false|int
 	{
 		return $this->memcached->increment($this->getPrefixedKey($key), $step, $step);
@@ -86,6 +90,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function decrement(string $key, int $step = 1): false|int
 	{
 		return $this->memcached->decrement($this->getPrefixedKey($key), $step, $step);
@@ -94,6 +99,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return $this->memcached->get($this->getPrefixedKey($key)) !== false;
@@ -102,6 +108,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		$value = $this->memcached->get($this->getPrefixedKey($key));
@@ -116,6 +123,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return $this->memcached->delete($this->getPrefixedKey($key), 0);
@@ -124,6 +132,7 @@ class Memcached extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		return $this->memcached->flush();

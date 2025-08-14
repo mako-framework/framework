@@ -10,6 +10,7 @@ namespace mako\validator\rules\file;
 use mako\http\request\UploadedFile;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
+use Override;
 
 use function sprintf;
 
@@ -21,6 +22,7 @@ class IsUploaded extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value instanceof UploadedFile && $value->isUploaded() && $value->hasError() === false;
@@ -29,6 +31,7 @@ class IsUploaded extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s must be an uploaded file.', $field);

@@ -8,6 +8,7 @@
 namespace mako\validator\rules;
 
 use DateTime;
+use Override;
 
 use function sprintf;
 
@@ -33,6 +34,7 @@ class After extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		$date = DateTime::createFromFormat($this->format, $value);
@@ -47,6 +49,7 @@ class After extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field must contain a valid date after %2$s.', $field, $this->date);

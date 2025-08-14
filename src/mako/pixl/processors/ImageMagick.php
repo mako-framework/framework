@@ -12,6 +12,7 @@ use ImagickPixel;
 use mako\pixl\Image;
 use mako\pixl\processors\exceptions\ProcessorException;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
+use Override;
 
 use function preg_match;
 use function sprintf;
@@ -63,6 +64,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function open(string $image): void
 	{
 		$this->image = new Imagick($image);
@@ -71,6 +73,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function snapshot(): void
 	{
 		$this->snapshot = clone $this->image;
@@ -79,6 +82,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function restore(): void
 	{
 		if (!($this->snapshot instanceof Imagick)) {
@@ -93,6 +97,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getWidth(): int
 	{
 		return $this->image->getImageWidth();
@@ -101,6 +106,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getHeight(): int
 	{
 		return $this->image->getImageHeight();
@@ -109,6 +115,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getDimensions(): array
 	{
 		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
@@ -117,6 +124,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function rotate(int $degrees): void
 	{
 		$this->image->rotateImage(new ImagickPixel('none'), $degrees);
@@ -125,6 +133,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): void
 	{
 		$oldWidth  = $this->image->getImageWidth();
@@ -138,6 +147,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function crop(int $width, int $height, int $x, int $y): void
 	{
 		$this->image->cropImage($width, $height, $x, $y);
@@ -146,6 +156,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function flip(int $direction = Image::FLIP_HORIZONTAL): void
 	{
 		if ($direction ===  Image::FLIP_VERTICAL) {
@@ -163,6 +174,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function watermark(string $file, int $position = Image::WATERMARK_TOP_LEFT, int $opacity = 100): void
 	{
 		$watermark = new Imagick($file);
@@ -206,6 +218,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function brightness(int $level = 50): void
 	{
 		$this->image->modulateImage(100 + $level, 100, 100);
@@ -214,6 +227,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function greyscale(): void
 	{
 		$this->image->setImageType(Imagick::IMGTYPE_GRAYSCALE);
@@ -222,6 +236,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function sepia(): void
 	{
 		$this->image->sepiaToneImage(80);
@@ -230,6 +245,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function bitonal(): void
 	{
 		$this->image->quantizeImage(2, Imagick::COLORSPACE_GRAY, 5, false, true);
@@ -238,6 +254,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function colorize(string $color): void
 	{
 		$this->image->colorizeImage($this->normalizeHex($color), 1.0);
@@ -246,6 +263,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function sharpen(): void
 	{
 		$this->image->sharpenImage(0, 1);
@@ -254,6 +272,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function pixelate(int $pixelSize = 10): void
 	{
 		$width = $this->image->getImageWidth();
@@ -268,6 +287,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function negate(): void
 	{
 		$this->image->negateImage(false);
@@ -276,6 +296,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function border(string $color = '#000', int $thickness = 5): void
 	{
 		$this->image->shaveImage($thickness, $thickness);
@@ -286,6 +307,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getImageBlob(?string $type = null, int $quality = 95): string
 	{
 		if ($type !== null) {
@@ -306,6 +328,7 @@ class ImageMagick implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function save(string $file, int $quality = 95): void
 	{
 		// Set image quality

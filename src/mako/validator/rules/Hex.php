@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function preg_match;
 use function sprintf;
 
@@ -18,6 +20,7 @@ class Hex extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return preg_match('/^[a-f0-9]+$/i', $value) === 1;
@@ -26,6 +29,7 @@ class Hex extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field must contain a valid hexadecimal value.', $field);

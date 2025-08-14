@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use Memcache as PHPMemcache;
+use Override;
 
 use function time;
 
@@ -47,6 +48,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		if ($ttl !== 0) {
@@ -65,6 +67,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		if ($ttl !== 0) {
@@ -77,6 +80,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return $this->memcache->get($this->getPrefixedKey($key)) !== false;
@@ -85,6 +89,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		$success = false;
@@ -97,6 +102,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return $this->memcache->delete($this->getPrefixedKey($key), 0);
@@ -105,6 +111,7 @@ class Memcache extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		return $this->memcache->flush();

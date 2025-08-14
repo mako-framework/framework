@@ -9,6 +9,7 @@ namespace mako\validator\rules;
 
 use mako\utility\Arr;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
+use Override;
 
 use function in_array;
 use function sprintf;
@@ -23,6 +24,7 @@ class NotEmpty extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return !Arr::has($input, $field) || !in_array($value, ['', null, []], true);
@@ -31,6 +33,7 @@ class NotEmpty extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field can\'t be empty.', $field);

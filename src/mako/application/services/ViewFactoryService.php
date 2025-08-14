@@ -10,6 +10,7 @@ namespace mako\application\services;
 use mako\file\FileSystem;
 use mako\view\renderers\Template;
 use mako\view\ViewFactory;
+use Override;
 
 /**
  * View factory service.
@@ -27,6 +28,7 @@ class ViewFactoryService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$this->container->registerSingleton([ViewFactory::class, 'view'], function ($container) {

@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use Override;
+
 /**
  * Base store.
  */
@@ -48,6 +50,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
 	{
 		if ($this->has($key) === false) {
@@ -86,6 +89,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getOrElse(string $key, callable $data, int $ttl = 0): mixed
 	{
 		$cached = $this->get($key);

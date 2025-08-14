@@ -12,6 +12,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\syringe\Container;
 use mako\view\ViewFactory;
+use Override;
 
 use function base64_encode;
 use function implode;
@@ -145,6 +146,7 @@ class ContentSecurityPolicy implements MiddlewareInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		if (!empty($this->reportTo)) {

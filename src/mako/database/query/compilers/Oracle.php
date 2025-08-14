@@ -10,6 +10,7 @@ namespace mako\database\query\compilers;
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
+use Override;
 
 /**
  * Compiles Oracle queries.
@@ -26,6 +27,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		return "JSON_VALUE({$column}, '{$this->buildJsonPath($segments)}')";
@@ -34,6 +36,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function from(null|array|Raw|string|Subquery $table): string
 	{
 		return $table === null ? ' FROM "DUAL"' : parent::from($table);
@@ -42,6 +45,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		return "TO_CHAR({$this->columnName($where['column'])}, 'YYYY-MM-DD')" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
@@ -50,6 +54,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function whereDate(array $where): string
 	{
 		return "TO_CHAR({$this->columnName($where['column'])}, 'YYYY-MM-DD') {$where['operator']} {$this->param($where['value'])}";
@@ -58,6 +63,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function lock(null|bool|string $lock): string
 	{
 		if ($lock === null) {
@@ -70,6 +76,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function orderings(array $orderings): string
 	{
 		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
@@ -82,6 +89,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function limit(?int $limit): string
 	{
 		if ($limit === null) {
@@ -100,6 +108,7 @@ class Oracle extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function offset(?int $offset): string
 	{
 		if ($this->query->getLimit() === null && $offset !== null) {

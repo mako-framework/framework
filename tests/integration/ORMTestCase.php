@@ -7,6 +7,8 @@
 
 namespace mako\tests\integration;
 
+use Override;
+
 /**
  * ORM test case.
  */
@@ -15,6 +17,7 @@ abstract class ORMTestCase extends InMemoryDbTestCase
 	/**
 	 *{@inheritDoc}
 	 */
+	#[Override]
 	public function setup(): void
 	{
 		parent::setup();
@@ -27,6 +30,7 @@ abstract class ORMTestCase extends InMemoryDbTestCase
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function tearDown(): void
 	{
 		$this->connectionManager->getConnection('sqlite')->clearLog();

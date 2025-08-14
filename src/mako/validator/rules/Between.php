@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function sprintf;
 
 /**
@@ -31,6 +33,7 @@ class Between extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value >= $this->minimum && $value <= $this->maximum;
@@ -39,6 +42,7 @@ class Between extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The value of the %1$s field must be between %2$s and %3$s.', $field, $this->minimum, $this->maximum);

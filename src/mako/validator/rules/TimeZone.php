@@ -8,6 +8,7 @@
 namespace mako\validator\rules;
 
 use DateTimeZone;
+use Override;
 
 use function in_array;
 use function sprintf;
@@ -29,6 +30,7 @@ class TimeZone extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return in_array($value, DateTimeZone::listIdentifiers($this->group, $this->country));
@@ -37,6 +39,7 @@ class TimeZone extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field must contain a valid time zone.', $field);

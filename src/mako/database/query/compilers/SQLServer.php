@@ -10,6 +10,7 @@ namespace mako\database\query\compilers;
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
+use Override;
 
 use function implode;
 use function str_replace;
@@ -31,6 +32,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function escapeIdentifier(string $identifier): string
 	{
 		return '[' . str_replace(']', ']]', $identifier) . ']';
@@ -39,6 +41,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonGet(string $column, array $segments): string
 	{
 		return "JSON_VALUE({$column}, 'lax {$this->buildJsonPath($segments)}')";
@@ -47,6 +50,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
 		return "{$column} = JSON_MODIFY({$column}, 'lax {$this->buildJsonPath($segments)}', JSON_QUERY('{$param}'))";
@@ -55,6 +59,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function from(null|array|Raw|string|Subquery $from): string
 	{
 		$from = parent::from($from);
@@ -69,6 +74,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		return "CAST({$this->columnName($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";
@@ -77,6 +83,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function whereDate(array $where): string
 	{
 		return "CAST({$this->columnName($where['column'])} AS DATE) {$where['operator']} {$this->param($where['value'])}";
@@ -85,6 +92,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function orderings(array $orderings): string
 	{
 		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
@@ -97,6 +105,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function limit(?int $limit): string
 	{
 		if ($limit === null) {
@@ -109,6 +118,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function offset(?int $offset): string
 	{
 		if ($this->query->getLimit() === null && $offset !== null) {
@@ -121,6 +131,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertAndReturn(array $values, array $return): array
 	{
 		foreach ($return as $key => $column) {
@@ -142,6 +153,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function insertMultipleAndReturn(array $return, array ...$values): array
 	{
 		foreach ($return as $key => $column) {
@@ -163,6 +175,7 @@ class SQLServer extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function updateAndReturn(array $values, array $return): array
 	{
 		foreach ($return as $key => $column) {

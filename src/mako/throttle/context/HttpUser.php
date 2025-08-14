@@ -9,6 +9,7 @@ namespace mako\throttle\context;
 
 use mako\gatekeeper\Gatekeeper;
 use mako\http\Request;
+use Override;
 
 /**
  * HTTP user context.
@@ -27,6 +28,7 @@ class HttpUser implements ContextInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getIdentifier(): string
 	{
 		if ($this->gatekeeper !== null && $this->gatekeeper->isLoggedIn()) {

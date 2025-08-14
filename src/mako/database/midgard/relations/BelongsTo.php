@@ -9,6 +9,7 @@ namespace mako\database\midgard\relations;
 
 use Closure;
 use mako\database\midgard\ORM;
+use Override;
 
 use function array_filter;
 use function array_unique;
@@ -21,6 +22,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function getForeignKey(): string
 	{
 		if ($this->foreignKey === null) {
@@ -33,6 +35,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function keys(array $results): array
 	{
 		$keys = [];
@@ -49,6 +52,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function lazyCriterion(): void
 	{
 		$this->where("{$this->table}.{$this->model->getPrimaryKey()}", '=', $this->origin->getRawColumnValue($this->getForeignKey()));
@@ -57,6 +61,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->table}.{$this->model->getPrimaryKey()}", $keys);
@@ -67,6 +72,7 @@ class BelongsTo extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->table}.{$this->model->getPrimaryKey()}", '=', "{$this->origin->getTable()}.{$this->getForeignKey()}");

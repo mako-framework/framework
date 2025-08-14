@@ -13,6 +13,7 @@ use mako\bus\event\EventBus;
 use mako\bus\event\EventBusInterface;
 use mako\bus\query\QueryBus;
 use mako\bus\query\QueryBusInterface;
+use Override;
 
 /**
  * Bus service.
@@ -67,6 +68,7 @@ abstract class BusService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		// Register command bus

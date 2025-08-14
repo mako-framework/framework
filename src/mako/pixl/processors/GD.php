@@ -11,6 +11,7 @@ use GdImage;
 use mako\pixl\Image;
 use mako\pixl\processors\exceptions\ProcessorException;
 use mako\pixl\processors\traits\CalculateNewDimensionsTrait;
+use Override;
 
 use function abs;
 use function array_map;
@@ -158,6 +159,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function open(string $image): void
 	{
 		$this->imageInfo = $this->getImageInfo($image);
@@ -168,6 +170,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function snapshot(): void
 	{
 		$width  = imagesx($this->image);
@@ -181,6 +184,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function restore(): void
 	{
 		if (($this->snapshot instanceof GdImage) === false) {
@@ -195,6 +199,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getWidth(): int
 	{
 		return imagesx($this->image);
@@ -203,6 +208,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getHeight(): int
 	{
 		return imagesy($this->image);
@@ -211,6 +217,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getDimensions(): array
 	{
 		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
@@ -219,6 +226,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function rotate(int $degrees): void
 	{
 		$width  = imagesx($this->image);
@@ -244,6 +252,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE): void
 	{
 		$oldWidth  = imagesx($this->image);
@@ -267,6 +276,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function crop(int $width, int $height, int $x, int $y): void
 	{
 		$oldWidth  = imagesx($this->image);
@@ -288,6 +298,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function flip(int $direction = Image::FLIP_HORIZONTAL): void
 	{
 		$width  = imagesx($this->image);
@@ -322,6 +333,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function watermark(string $file, int $position = Image::WATERMARK_TOP_LEFT, int $opacity = 100): void
 	{
 		$watermark = $this->createImageResource($file, $this->getImageInfo($file));
@@ -373,6 +385,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function brightness(int $level = 50): void
 	{
 		$level *= 2.5;
@@ -411,6 +424,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function greyscale(): void
 	{
 		if ($this->hasFilters) {
@@ -451,6 +465,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function sepia(): void
 	{
 		$width  = imagesx($this->image);
@@ -486,6 +501,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function bitonal(): void
 	{
 		if ($this->hasFilters) {
@@ -520,6 +536,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function colorize(string $color): void
 	{
 		$rgb = $this->hexToRgb($color);
@@ -560,6 +577,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function sharpen(): void
 	{
 		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
@@ -572,6 +590,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function pixelate(int $pixelSize = 10): void
 	{
 		if ($this->hasFilters) {
@@ -590,6 +609,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function negate(): void
 	{
 		if ($this->hasFilters) {
@@ -616,6 +636,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function border(string $color = '#000', int $thickness = 5): void
 	{
 		$width  = imagesx($this->image);
@@ -636,6 +657,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getImageBlob(?string $type = null, int $quality = 95): string
 	{
 		$type ??= $this->imageInfo['mime'];
@@ -671,6 +693,7 @@ class GD implements ProcessorInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function save(string $file, int $quality = 95): void
 	{
 		// Get the file extension

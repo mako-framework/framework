@@ -15,6 +15,7 @@ use DateTimeZone;
 use mako\http\exceptions\GoneException;
 use mako\http\Request;
 use mako\http\Response;
+use Override;
 use RuntimeException;
 
 class Deprecated implements MiddlewareInterface
@@ -61,6 +62,7 @@ class Deprecated implements MiddlewareInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		if ($this->deprecationDate !== null) {

@@ -9,6 +9,7 @@ namespace mako\error\handlers\cli;
 
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
+use Override;
 use Throwable;
 
 /**
@@ -27,6 +28,7 @@ class ProductionHandler implements HandlerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(Throwable $exception): mixed
 	{
 		$this->output->errorLn('<bg_red><white>An error has occurred while executing your command.</white></bg_red>' . PHP_EOL);

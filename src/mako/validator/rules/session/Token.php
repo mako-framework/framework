@@ -11,6 +11,7 @@ use mako\session\Session;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
+use Override;
 use SensitiveParameter;
 
 /**
@@ -31,6 +32,7 @@ class Token extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(#[SensitiveParameter] mixed $value, string $field, array $input): bool
 	{
 		return $this->session->validateToken($value);
@@ -39,6 +41,7 @@ class Token extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return 'Invalid security token.';

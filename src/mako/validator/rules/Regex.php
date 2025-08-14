@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function preg_match;
 use function sprintf;
 
@@ -31,6 +33,7 @@ class Regex extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return preg_match($this->regex, $value) === 1;
@@ -39,6 +42,7 @@ class Regex extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The value of the %1$s field does not match the required format.', $field);

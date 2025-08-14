@@ -10,6 +10,7 @@ namespace mako\i18n\loaders;
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\file\FileSystem;
 use mako\i18n\loaders\exceptions\LoaderException;
+use Override;
 
 use function sprintf;
 
@@ -33,6 +34,7 @@ class Loader implements NamespacedLoaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function loadInflection(string $language): ?array
 	{
 		$path = $this->getFilePath('inflection', suffix: $language);
@@ -47,6 +49,7 @@ class Loader implements NamespacedLoaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function loadStrings(string $language, string $file): array
 	{
 		$strings = false;

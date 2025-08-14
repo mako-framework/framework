@@ -10,6 +10,7 @@ namespace mako\bus\query;
 use mako\bus\query\exceptions\QueryBusException;
 use mako\bus\traits\SingleHandlerTrait;
 use mako\syringe\Container;
+use Override;
 
 use function sprintf;
 
@@ -31,6 +32,7 @@ class QueryBus implements QueryBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function getUnableToResolveException(object $object): QueryBusException
 	{
 		return new QueryBusException(sprintf('No handler has been registered for [ %s ] queries.', $object::class));
@@ -39,6 +41,7 @@ class QueryBus implements QueryBusInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(object $query): mixed
 	{
 		return $this->getHandler($query)($query);

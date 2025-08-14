@@ -7,6 +7,7 @@
 
 namespace mako\database\types;
 
+use Override;
 use PDO;
 
 /**
@@ -17,6 +18,7 @@ class LargeObject extends Type
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getType(): int
 	{
 		return PDO::PARAM_LOB;

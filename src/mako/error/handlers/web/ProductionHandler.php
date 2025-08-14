@@ -12,6 +12,7 @@ use mako\http\exceptions\HttpStatusException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\view\ViewFactory;
+use Override;
 use Throwable;
 
 use function array_filter;
@@ -168,6 +169,7 @@ class ProductionHandler extends Handler implements HandlerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(Throwable $exception): mixed
 	{
 		['type' => $type, 'body' => $body] = $this->buildResponse($exception);

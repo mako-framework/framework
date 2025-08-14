@@ -8,6 +8,7 @@
 namespace mako\validator\rules;
 
 use mako\validator\exceptions\ValidatorException;
+use Override;
 
 use function enum_exists;
 use function method_exists;
@@ -32,6 +33,7 @@ class Enum extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		if (method_exists($this->enum, 'tryFrom')) {
@@ -50,6 +52,7 @@ class Enum extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The %1$s field must contain a valid enum value.', $field);

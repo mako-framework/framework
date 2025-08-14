@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function sprintf;
 
 /**
@@ -30,6 +32,7 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return $value >= $this->greaterThanOrEqualTo;
@@ -38,6 +41,7 @@ class GreaterThanOrEqualTo extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The value of the %1$s field must be greater than or equal to %2$s.', $field, $this->greaterThanOrEqualTo);

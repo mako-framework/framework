@@ -11,6 +11,7 @@ use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\pagination\exceptions\PaginationException;
 use mako\view\ViewFactory;
+use Override;
 
 use function ceil;
 use function json_encode;
@@ -87,6 +88,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function items(): int
 	{
 		return $this->items;
@@ -95,6 +97,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function itemsPerPage(): int
 	{
 		return $this->itemsPerPage;
@@ -103,6 +106,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function currentPage(): int
 	{
 		return $this->currentPage;
@@ -111,6 +115,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function isValidPage(): bool
 	{
 		return $this->currentPage <= $this->pages;
@@ -119,6 +124,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function numberOfPages(): int
 	{
 		return $this->pages;
@@ -127,6 +133,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function limit(): int
 	{
 		return $this->itemsPerPage;
@@ -135,6 +142,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function offset(): int
 	{
 		return $this->offset;
@@ -179,6 +187,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function toArray(): array
 	{
 		$pagination = [
@@ -211,6 +220,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function toJson(int $options = 0): string
 	{
 		return json_encode($this->toArray(), $options);

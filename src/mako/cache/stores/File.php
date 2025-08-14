@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\file\FileSystem;
+use Override;
 
 use function is_array;
 use function is_int;
@@ -43,6 +44,7 @@ class File extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
@@ -55,6 +57,7 @@ class File extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		if ($this->fileSystem->has($this->cacheFile($key))) {
@@ -73,6 +76,7 @@ class File extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		if ($this->fileSystem->has($this->cacheFile($key))) {
@@ -108,6 +112,7 @@ class File extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		if ($this->fileSystem->has($this->cacheFile($key))) {
@@ -120,6 +125,7 @@ class File extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		$files = $this->fileSystem->glob("{$this->cachePath}/*");

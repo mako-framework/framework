@@ -7,6 +7,8 @@
 
 namespace mako\http\request;
 
+use Override;
+
 use function array_keys;
 use function count;
 use function is_array;
@@ -76,6 +78,7 @@ class Files extends Parameters
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function add(string $name, $value): void
 	{
 		if (is_array($value)) {

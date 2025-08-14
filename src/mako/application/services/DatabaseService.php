@@ -11,6 +11,7 @@ use mako\database\ConnectionManager;
 use mako\database\connections\Connection;
 use mako\database\query\Query;
 use mako\pagination\PaginationFactoryInterface;
+use Override;
 
 /**
  * Database service.
@@ -20,6 +21,7 @@ class DatabaseService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config;

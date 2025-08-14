@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use mako\redis\Redis as RedisClient;
+use Override;
 
 use function array_chunk;
 use function is_numeric;
@@ -31,6 +32,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$key = $this->getPrefixedKey($key);
@@ -47,6 +49,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$key = $this->getPrefixedKey($key);
@@ -63,6 +66,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $key, int $step = 1): false|int
 	{
 		return $this->redis->incrby($this->getPrefixedKey($key), $step);
@@ -71,6 +75,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function decrement(string $key, int $step = 1): false|int
 	{
 		return $this->redis->decrby($this->getPrefixedKey($key), $step);
@@ -79,6 +84,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return (bool) $this->redis->exists($this->getPrefixedKey($key));
@@ -87,6 +93,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		$data = $this->redis->get($this->getPrefixedKey($key));
@@ -101,6 +108,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return (bool) $this->redis->del($this->getPrefixedKey($key));
@@ -109,6 +117,7 @@ class Redis extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		$keys = $this->redis->keys($this->getPrefixedKey('*'));

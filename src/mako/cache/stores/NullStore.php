@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use Override;
+
 /**
  * Null store.
  */
@@ -15,6 +17,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return true;
@@ -23,6 +26,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $key, int $step = 1): false|int
 	{
 		return 0 + $step;
@@ -31,6 +35,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function decrement(string $key, int $step = 1): false|int
 	{
 		return 0 - $step;
@@ -39,6 +44,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return false;
@@ -47,6 +53,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		return null;
@@ -55,6 +62,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return true;
@@ -63,6 +71,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		return true;

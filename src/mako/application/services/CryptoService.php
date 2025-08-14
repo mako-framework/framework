@@ -8,6 +8,7 @@
 namespace mako\application\services;
 
 use mako\security\crypto\CryptoManager;
+use Override;
 
 /**
  * Crypto service.
@@ -17,6 +18,7 @@ class CryptoService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config;

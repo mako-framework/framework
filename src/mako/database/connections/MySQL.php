@@ -7,6 +7,7 @@
 
 namespace mako\database\connections;
 
+use Override;
 use PDOStatement;
 
 use function is_bool;
@@ -19,6 +20,7 @@ class MySQL extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function bindParameter(PDOStatement $statement, int $key, $value): void
 	{
 		if (is_bool($value)) {

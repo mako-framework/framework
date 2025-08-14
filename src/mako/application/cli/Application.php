@@ -43,6 +43,7 @@ use mako\Mako;
 use mako\reactor\attributes\CommandName;
 use mako\reactor\CommandInterface;
 use mako\reactor\Reactor;
+use Override;
 use ReflectionClass;
 
 use function file_get_contents;
@@ -219,6 +220,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function initialize(): void
 	{
 		parent::initialize();
@@ -324,6 +326,7 @@ class Application extends BaseApplication
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function run(): never
 	{
 		ob_start();

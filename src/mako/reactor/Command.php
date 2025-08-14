@@ -10,6 +10,7 @@ namespace mako\reactor;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\reactor\traits\CommandHelperTrait;
+use Override;
 
 /**
  * Base command.
@@ -40,6 +41,7 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getCommand(): ?string
 	{
 		return $this->command ?? null;
@@ -48,6 +50,7 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getDescription(): string
 	{
 		return $this->description ?? '';
@@ -56,6 +59,7 @@ abstract class Command implements CommandInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getArguments(): array
 	{
 		return [];

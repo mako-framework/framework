@@ -8,6 +8,7 @@
 namespace mako\cli\output\formatter;
 
 use mako\cli\output\formatter\exceptions\FormatterException;
+use Override;
 
 use function array_pop;
 use function end;
@@ -206,6 +207,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function format(string $string): string
 	{
 		// Reset open tags
@@ -247,6 +249,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function escape(string $string): string
 	{
 		return preg_replace(static::TAG_REGEX, '\\\$0', $string);
@@ -255,6 +258,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function stripTags(string $string): string
 	{
 		return preg_replace(static::TAG_REGEX, '', $string);

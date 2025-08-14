@@ -7,6 +7,8 @@
 
 namespace mako\validator\rules;
 
+use Override;
+
 use function mb_strlen;
 use function sprintf;
 
@@ -31,6 +33,7 @@ class MaxLength extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
 		return mb_strlen($value) <= $this->maxLength;
@@ -39,6 +42,7 @@ class MaxLength extends Rule implements RuleInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The value of the %1$s field must be at most %2$s characters long.', $field, $this->maxLength);

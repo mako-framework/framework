@@ -10,6 +10,7 @@ namespace mako\http\routing\middleware;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
+use Override;
 
 /**
  * Security headers middleware.
@@ -36,6 +37,7 @@ class SecurityHeaders implements MiddlewareInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		foreach ($this->getHeaders() as $name => $value) {

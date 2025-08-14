@@ -11,6 +11,7 @@ use ErrorException;
 use mako\cli\output\components\Alert;
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
+use Override;
 use Throwable;
 
 use function array_keys;
@@ -78,6 +79,7 @@ class DevelopmentHandler implements HandlerInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function handle(Throwable $exception): mixed
 	{
 		$alert = (new Alert($this->output))->render(

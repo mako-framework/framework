@@ -14,6 +14,7 @@ use mako\http\Response;
 use mako\http\response\Status;
 use mako\http\traits\ContentNegotiationTrait;
 use mako\utility\UUID;
+use Override;
 use Throwable;
 
 /**
@@ -39,6 +40,7 @@ abstract class Handler implements ProvidesExceptionIdInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getExceptionId(): string
 	{
 		return $this->exceptionId;

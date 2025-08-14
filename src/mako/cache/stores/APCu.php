@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use Override;
+
 use function apcu_add;
 use function apcu_clear_cache;
 use function apcu_dec;
@@ -25,6 +27,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return apcu_store($this->getPrefixedKey($key), $data, $ttl);
@@ -33,6 +36,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
 	{
 		return apcu_add($this->getPrefixedKey($key), $data, $ttl);
@@ -41,6 +45,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function increment(string $key, int $step = 1): false|int
 	{
 		return apcu_inc($this->getPrefixedKey($key), $step);
@@ -49,6 +54,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function decrement(string $key, int $step = 1): false|int
 	{
 		return apcu_dec($this->getPrefixedKey($key), $step);
@@ -57,6 +63,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return apcu_exists($this->getPrefixedKey($key));
@@ -65,6 +72,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		$value = apcu_fetch($this->getPrefixedKey($key), $success);
@@ -75,6 +83,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getOrElse(string $key, callable $data, int $ttl = 0): mixed
 	{
 		return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
@@ -83,6 +92,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return apcu_delete($this->getPrefixedKey($key));
@@ -91,6 +101,7 @@ class APCu extends Store implements IncrementDecrementInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		return apcu_clear_cache();

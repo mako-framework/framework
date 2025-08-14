@@ -10,6 +10,7 @@ namespace mako\http\routing\middleware;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
+use Override;
 
 use function implode;
 use function in_array;
@@ -103,6 +104,7 @@ abstract class AccessControl implements MiddlewareInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		if ($this->allowsCredentials()) {

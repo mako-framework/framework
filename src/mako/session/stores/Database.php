@@ -9,6 +9,7 @@ namespace mako\session\stores;
 
 use mako\database\connections\Connection;
 use mako\database\query\Query;
+use Override;
 use SensitiveParameter;
 
 use function serialize;
@@ -41,6 +42,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void
 	{
 		$sessionData = serialize($sessionData);
@@ -60,6 +62,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function read(#[SensitiveParameter] string $sessionId): array
 	{
 		$sessionData = $this->table()->select(['data'])->where('id', '=', $sessionId)->column();
@@ -70,6 +73,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function delete(#[SensitiveParameter] string $sessionId): void
 	{
 		$this->table()->where('id', '=', $sessionId)->delete();
@@ -78,6 +82,7 @@ class Database implements StoreInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function gc(int $dataTTL): void
 	{
 		$this->table()->where('expires', '<', time())->delete();

@@ -7,6 +7,8 @@
 
 namespace mako\cli\input\reader;
 
+use Override;
+
 use function fgetc;
 use function fgets;
 use function fread;
@@ -20,6 +22,7 @@ class Reader implements ReaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function read(): string
 	{
 		return trim(fgets(STDIN));
@@ -28,6 +31,7 @@ class Reader implements ReaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function readCharacter(): string
 	{
 		return fgetc(STDIN);
@@ -36,6 +40,7 @@ class Reader implements ReaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function readBytes(int $length): string
 	{
 		return fread(STDIN, $length);

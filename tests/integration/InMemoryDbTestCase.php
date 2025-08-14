@@ -9,6 +9,7 @@ namespace mako\tests\integration;
 
 use mako\database\ConnectionManager;
 use mako\tests\TestCase;
+use Override;
 
 /**
  * In memory DB test case.
@@ -23,6 +24,7 @@ abstract class InMemoryDbTestCase extends TestCase
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function setup(): void
 	{
 		// Set up connection manager

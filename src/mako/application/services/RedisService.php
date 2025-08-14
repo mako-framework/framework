@@ -9,6 +9,7 @@ namespace mako\application\services;
 
 use mako\redis\ConnectionManager;
 use mako\redis\Redis;
+use Override;
 
 /**
  * Redis service.
@@ -18,6 +19,7 @@ class RedisService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config;

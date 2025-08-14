@@ -13,6 +13,7 @@ use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Status;
+use Override;
 
 use function basename;
 use function connection_aborted;
@@ -232,6 +233,7 @@ class File implements ResponseSenderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function send(Request $request, Response $response): void
 	{
 		// Add headers that should always be included

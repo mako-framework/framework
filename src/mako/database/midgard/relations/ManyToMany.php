@@ -14,6 +14,7 @@ use mako\database\midgard\ORM;
 use mako\database\midgard\ResultSet;
 use mako\database\query\Query;
 use mako\database\query\Raw;
+use Override;
 
 use function array_combine;
 use function array_diff;
@@ -59,6 +60,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getColumns(): array
 	{
 		if ($this->lazy) {
@@ -71,6 +73,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function aggregate(string $function, array|Raw|string $column)
 	{
 		// Empty "alongWith" when performing aggregate queries
@@ -145,6 +148,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function lazyCriterion(): void
 	{
 		$this->where("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', $this->origin->getPrimaryKeyValue());
@@ -153,6 +157,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function eagerCriterion(array $keys): static
 	{
 		$this->in("{$this->getJunctionTable()}.{$this->getForeignKey()}", $keys);
@@ -163,6 +168,7 @@ class ManyToMany extends Relation
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected function getRelationCountQuery(): static
 	{
 		$this->whereColumn("{$this->getJunctionTable()}.{$this->getForeignKey()}", '=', "{$this->origin->getTable()}.{$this->origin->getPrimaryKey()}");

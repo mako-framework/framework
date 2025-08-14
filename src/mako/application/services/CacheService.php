@@ -9,6 +9,7 @@ namespace mako\application\services;
 
 use mako\cache\CacheManager;
 use mako\cache\stores\StoreInterface;
+use Override;
 
 /**
  * Cache service.
@@ -18,6 +19,7 @@ class CacheService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$config = $this->config;

@@ -7,6 +7,7 @@
 
 namespace mako\security\crypto\encrypters;
 
+use Override;
 use SensitiveParameter;
 
 use function base64_decode;
@@ -40,6 +41,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function encrypt(#[SensitiveParameter] string $string): string
 	{
 		$iv = openssl_random_pseudo_bytes($this->ivSize);
@@ -52,6 +54,7 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function decrypt(#[SensitiveParameter] string $string): false|string
 	{
 		$string = base64_decode($string, true);

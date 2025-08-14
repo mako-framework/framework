@@ -14,6 +14,7 @@ use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\http\routing\URLBuilder;
 use mako\security\Signer;
+use Override;
 
 /**
  * HTTP service.
@@ -31,6 +32,7 @@ class HTTPService extends Service
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function register(): void
 	{
 		$app = $this->app;

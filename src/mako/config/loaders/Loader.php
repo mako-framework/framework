@@ -10,6 +10,7 @@ namespace mako\config\loaders;
 use mako\common\traits\NamespacedFileLoaderTrait;
 use mako\config\loaders\exceptions\LoaderException;
 use mako\file\FileSystem;
+use Override;
 
 use function sprintf;
 use function strpos;
@@ -35,6 +36,7 @@ class Loader implements NamespacedLoaderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function load(string $file, ?string $environment = null): array
 	{
 		$paths = $this->getCascadingFilePaths($file);

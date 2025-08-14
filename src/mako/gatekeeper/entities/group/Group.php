@@ -12,6 +12,7 @@ use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
+use Override;
 
 /**
  * Group.
@@ -43,6 +44,7 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getId(): mixed
 	{
 		return $this->id;
@@ -59,6 +61,7 @@ class Group extends ORM implements GroupEntityInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getName(): string
 	{
 		return $this->name;

@@ -7,6 +7,7 @@
 
 namespace mako\database\connections;
 
+use Override;
 use PDOException;
 
 /**
@@ -17,6 +18,7 @@ class Oracle extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function isAlive(): bool
 	{
 		try {

@@ -7,6 +7,8 @@
 
 namespace mako\database\types;
 
+use Override;
+
 /**
  * Abstract type.
  */
@@ -23,6 +25,7 @@ abstract class Type implements TypeInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getValue(): mixed
 	{
 		return $this->value;

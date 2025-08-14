@@ -11,6 +11,7 @@ use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Status;
+use Override;
 
 use function in_array;
 use function is_int;
@@ -161,6 +162,7 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function send(Request $request, Response $response): void
 	{
 		// Set status and location header

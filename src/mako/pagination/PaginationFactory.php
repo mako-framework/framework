@@ -10,6 +10,7 @@ namespace mako\pagination;
 use mako\http\Request;
 use mako\http\routing\URLBuilder;
 use mako\view\ViewFactory;
+use Override;
 
 use function max;
 
@@ -56,6 +57,7 @@ class PaginationFactory implements PaginationFactoryInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function create(int $items, ?int $itemsPerPage = null, array $options = []): PaginationInterface
 	{
 		$itemsPerPage ??= $this->options['items_per_page'];

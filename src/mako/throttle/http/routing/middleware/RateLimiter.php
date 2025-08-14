@@ -14,6 +14,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\throttle\RateLimiterInterface;
+use Override;
 
 /**
  * Rate limiter middleware.
@@ -63,6 +64,7 @@ class RateLimiter implements MiddlewareInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
 		if ($this->shouldRateLimit()) {

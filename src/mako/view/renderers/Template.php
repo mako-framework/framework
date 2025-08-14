@@ -9,6 +9,7 @@ namespace mako\view\renderers;
 
 use mako\file\FileSystem;
 use mako\view\compilers\Template as Compiler;
+use Override;
 
 use function array_pop;
 use function current;
@@ -102,6 +103,7 @@ class Template extends PHP
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function render(string $__view__, array $__variables__): string
 	{
 		$compiled = $this->getCompiledPath($__view__);

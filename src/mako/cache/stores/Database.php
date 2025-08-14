@@ -9,6 +9,7 @@ namespace mako\cache\stores;
 
 use mako\database\connections\Connection;
 use mako\database\query\Query;
+use Override;
 
 use function serialize;
 use function time;
@@ -40,6 +41,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function put(string $key, mixed $data, int $ttl = 0): bool
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
@@ -54,6 +56,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function has(string $key): bool
 	{
 		return (bool) $this->table()->where('key', '=', $this->getPrefixedKey($key))->where('lifetime', '>', time())->count();
@@ -62,6 +65,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function get(string $key): mixed
 	{
 		$key = $this->getPrefixedKey($key);
@@ -82,6 +86,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function remove(string $key): bool
 	{
 		return (bool) $this->table()->where('key', '=', $this->getPrefixedKey($key))->delete();
@@ -90,6 +95,7 @@ class Database extends Store
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function clear(): bool
 	{
 		$this->table()->delete();

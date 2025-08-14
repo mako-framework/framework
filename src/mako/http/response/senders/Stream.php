@@ -10,6 +10,7 @@ namespace mako\http\response\senders;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
+use Override;
 
 use function flush;
 use function ob_end_clean;
@@ -123,6 +124,7 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function send(Request $request, Response $response): void
 	{
 		$this->isCGI = $request->isCGI();
