@@ -212,6 +212,7 @@ class Pagination implements PaginationInterface
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 */
+	#[Override]
 	public function jsonSerialize(): mixed
 	{
 		return $this->toArray();

@@ -7,6 +7,7 @@
 
 namespace mako\utility\str;
 
+use Override;
 use Stringable;
 
 use function count;
@@ -38,6 +39,7 @@ class Alternator implements Stringable
 	/**
 	 * Returns a string.
 	 */
+	#[Override]
 	public function __toString(): string
 	{
 		return $this->strings[$this->counter++ % $this->stringCount];

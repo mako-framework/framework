@@ -13,6 +13,7 @@ use IteratorAggregate;
 use mako\cli\output\components\progress\Theme;
 use mako\cli\output\components\progress\traits\ProgressTrait;
 use mako\cli\output\Output;
+use Override;
 use Traversable;
 
 use function count;
@@ -58,6 +59,7 @@ class ProgressIterator implements IteratorAggregate
 	/**
 	 * Returns the iterator.
 	 */
+	#[Override]
 	public function getIterator(): Generator
 	{
 		$this->output->hideCursor();

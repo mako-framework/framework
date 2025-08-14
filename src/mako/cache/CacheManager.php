@@ -24,6 +24,7 @@ use mako\database\ConnectionManager as DatabaseConnectionManager;
 use mako\file\FileSystem;
 use mako\redis\ConnectionManager as RedisConnectionManager;
 use mako\syringe\Container;
+use Override;
 
 use function sprintf;
 
@@ -124,6 +125,7 @@ class CacheManager extends AdapterManager
 	/**
 	 * Returns a cache instance.
 	 */
+	#[Override]
 	protected function instantiate(string $configuration): StoreInterface
 	{
 		if (!isset($this->configurations[$configuration])) {

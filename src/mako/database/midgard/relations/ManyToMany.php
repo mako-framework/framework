@@ -205,6 +205,7 @@ class ManyToMany extends Relation
 	/**
 	 * Fetches a related result set from the database.
 	 */
+	#[Override]
 	protected function fetchRelated(): ResultSet
 	{
 		return $this->all();

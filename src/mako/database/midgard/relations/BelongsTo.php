@@ -109,6 +109,7 @@ class BelongsTo extends Relation
 	/**
 	 * Fetches a related record from the database.
 	 */
+	#[Override]
 	protected function fetchRelated(): ?ORM
 	{
 		if ($this->origin->getRawColumnValue($this->getForeignKey()) === null) {

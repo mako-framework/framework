@@ -12,6 +12,7 @@ use Countable;
 use IteratorAggregate;
 use mako\http\exceptions\HttpException;
 use mako\security\Signer;
+use Override;
 
 use function count;
 
@@ -32,6 +33,7 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Returns the numner of cookies.
 	 */
+	#[Override]
 	public function count(): int
 	{
 		return count($this->cookies);
@@ -40,6 +42,7 @@ class Cookies implements Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 */
+	#[Override]
 	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this->cookies);

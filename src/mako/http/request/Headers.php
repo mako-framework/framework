@@ -10,6 +10,7 @@ namespace mako\http\request;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use Override;
 
 use function array_merge;
 use function array_values;
@@ -59,6 +60,7 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns the numner of headers.
 	 */
+	#[Override]
 	public function count(): int
 	{
 		return count($this->headers);
@@ -67,6 +69,7 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 */
+	#[Override]
 	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this->headers);

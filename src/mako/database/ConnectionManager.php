@@ -27,6 +27,7 @@ use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\Helper;
 use mako\database\query\helpers\Postgres as PostgresHelper;
+use Override;
 
 use function explode;
 use function in_array;
@@ -157,6 +158,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Connects to the chosen database and returns the connection.
 	 */
+	#[Override]
 	protected function connect(string $connectionName): Connection
 	{
 		if (!isset($this->configurations[$connectionName])) {

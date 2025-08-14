@@ -285,6 +285,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return ResultSet<int, TClass>
 	 */
+	#[Override]
 	public function updateAndReturn(array $values, array $return = ['*']): ResultSet
 	{
 		// Execute "beforeUpdate" hooks
@@ -609,6 +610,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return TClass|null
 	 */
+	#[Override]
 	public function first(): ?ORM
 	{
 		$result = $this->fetchFirst(PDO::FETCH_ASSOC);
@@ -625,6 +627,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return TClass
 	 */
+	#[Override]
 	public function firstOrThrow(string $exception = NotFoundException::class): ORM
 	{
 		return $this->hydrateModelsAndLoadIncludes([$this->fetchFirstOrThrow($exception, PDO::FETCH_ASSOC)])[0];
@@ -636,6 +639,7 @@ class Query extends QueryBuilder
 	 * @param  array<int, TClass>     $results
 	 * @return ResultSet<int, TClass>
 	 */
+	#[Override]
 	protected function createResultSet(array $results): ResultSet
 	{
 		return new ResultSet($results);
@@ -646,6 +650,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return ResultSet<int, TClass>
 	 */
+	#[Override]
 	public function all(): ResultSet
 	{
 		$results = $this->fetchAll(false, PDO::FETCH_ASSOC);
@@ -662,6 +667,7 @@ class Query extends QueryBuilder
 	 *
 	 * @return Generator<int, TClass>
 	 */
+	#[Override]
 	public function yield(): Generator
 	{
 		/** @var array $row */

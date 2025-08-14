@@ -9,6 +9,7 @@ namespace mako\database\midgard\relations\traits;
 
 use mako\database\connections\Connection;
 use mako\database\midgard\ORM;
+use Override;
 
 /**
  * Has one or has many polymorphic relation.
@@ -35,6 +36,7 @@ trait HasOneOrManyPolymorphicTrait
 	/**
 	 * Creates a related record.
 	 */
+	#[Override]
 	public function create(array|ORM $related): ORM
 	{
 		if ($related instanceof $this->model) {

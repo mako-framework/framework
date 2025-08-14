@@ -9,6 +9,7 @@ namespace mako\database\midgard\relations;
 
 use Closure;
 use mako\database\midgard\ORM;
+use Override;
 
 /**
  * Has one relation.
@@ -42,6 +43,7 @@ class HasOne extends HasOneOrMany
 	/**
 	 * Fetches a related record from the database.
 	 */
+	#[Override]
 	protected function fetchRelated(): ?ORM
 	{
 		return $this->first();

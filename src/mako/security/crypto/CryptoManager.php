@@ -13,6 +13,7 @@ use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Key;
 use mako\security\Signer;
+use Override;
 
 use function sprintf;
 
@@ -36,6 +37,7 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Returns a crypto instance.
 	 */
+	#[Override]
 	protected function instantiate(string $configuration): Crypto
 	{
 		if (!isset($this->configurations[$configuration])) {

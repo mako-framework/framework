@@ -11,6 +11,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\http\response\traits\PatternMatcherTrait;
+use Override;
 
 use function array_column;
 use function array_filter;
@@ -34,6 +35,7 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Returns the numner of headers.
 	 */
+	#[Override]
 	public function count(): int
 	{
 		return count($this->headers);
@@ -42,6 +44,7 @@ class Headers implements Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 */
+	#[Override]
 	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this->all());

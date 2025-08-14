@@ -11,6 +11,7 @@ use mako\cli\exceptions\CliException;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\cli\traits\SttyTrait;
+use Override;
 
 use function escapeshellcmd;
 use function shell_exec;
@@ -38,6 +39,7 @@ class Secret extends Prompt
 	/**
 	 * Writes prompt to output and returns user input.
 	 */
+	#[Override]
 	public function ask(string $prompt, mixed $default = null): mixed
 	{
 		$hasStty = $this->output->environment->hasStty();

@@ -11,6 +11,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\utility\Arr;
+use Override;
 
 use function array_diff_key;
 use function array_flip;
@@ -33,6 +34,7 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Returns the numner of items in the collection.
 	 */
+	#[Override]
 	public function count(): int
 	{
 		return count($this->parameters);
@@ -41,6 +43,7 @@ class Parameters implements Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 */
+	#[Override]
 	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this->parameters);

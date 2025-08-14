@@ -12,6 +12,7 @@ use mako\database\exceptions\DatabaseException;
 use mako\database\midgard\ORM;
 use mako\database\midgard\Query;
 use mako\database\midgard\ResultSet;
+use Override;
 
 use function array_chunk;
 use function array_shift;
@@ -149,6 +150,7 @@ abstract class Relation extends Query
 	/**
 	 * Returns a single record from the database.
 	 */
+	#[Override]
 	public function first(): ?ORM
 	{
 		$this->adjustQuery();
@@ -159,6 +161,7 @@ abstract class Relation extends Query
 	/**
 	 * Returns a result set from the database.
 	 */
+	#[Override]
 	public function all(): ResultSet
 	{
 		$this->adjustQuery();

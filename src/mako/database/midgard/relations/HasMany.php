@@ -9,6 +9,7 @@ namespace mako\database\midgard\relations;
 
 use Closure;
 use mako\database\midgard\ResultSet;
+use Override;
 
 /**
  * Has many relation.
@@ -42,6 +43,7 @@ class HasMany extends HasOneOrMany
 	/**
 	 * Fetches a related result set from the database.
 	 */
+	#[Override]
 	protected function fetchRelated(): ResultSet
 	{
 		return $this->all();

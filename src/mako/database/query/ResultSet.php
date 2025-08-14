@@ -11,6 +11,7 @@ use JsonSerializable;
 use mako\pagination\PaginationInterface;
 use mako\utility\Arr;
 use mako\utility\Collection;
+use Override;
 use Stringable;
 
 use function json_encode;
@@ -72,6 +73,7 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 	 *
 	 * @return array|array{data: array, pagination: array}
 	 */
+	#[Override]
 	public function jsonSerialize(): array
 	{
 		if ($this->pagination === null) {
@@ -92,6 +94,7 @@ class ResultSet extends Collection implements JsonSerializable, Stringable
 	/**
 	 * Returns a json representation of the result set.
 	 */
+	#[Override]
 	public function __toString(): string
 	{
 		return $this->toJson();

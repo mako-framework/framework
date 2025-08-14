@@ -9,6 +9,7 @@ namespace mako\redis;
 
 use mako\common\ConnectionManager as BaseConnectionManager;
 use mako\redis\exceptions\RedisException;
+use Override;
 
 use function sprintf;
 
@@ -25,6 +26,7 @@ class ConnectionManager extends BaseConnectionManager
 	/**
 	 * Connects to the chosen redis configuration and returns the connection.
 	 */
+	#[Override]
 	protected function connect(string $connection): Redis
 	{
 		if (!isset($this->configurations[$connection])) {

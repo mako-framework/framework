@@ -8,6 +8,7 @@
 namespace mako\redis;
 
 use mako\redis\exceptions\RedisException;
+use Override;
 use Stringable;
 
 use function sprintf;
@@ -113,6 +114,7 @@ class Message implements Stringable
 	/**
 	 * Returns the message body.
 	 */
+	#[Override]
 	public function __toString(): string
 	{
 		return (string) $this->body;

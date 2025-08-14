@@ -8,6 +8,7 @@
 namespace mako\chrono\traits;
 
 use DateTimeZone;
+use Override;
 
 use function getdate;
 use function min;
@@ -33,6 +34,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance set to the current time.
 	 */
+	#[Override]
 	public static function now(null|DateTimeZone|string $timeZone = null): static
 	{
 		return new static('now', $timeZone);
@@ -41,6 +43,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified date.
 	 */
+	#[Override]
 	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null): static
 	{
 		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
@@ -55,6 +58,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 */
+	#[Override]
 	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null): static
 	{
 		return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timeZone);
@@ -63,6 +67,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
 	 */
+	#[Override]
 	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null): static
 	{
 		$year     = (($timestamp >> 25) & 0x7F) + 1980;
@@ -80,6 +85,7 @@ trait TimeTrait
 	/**
 	 * Returns a new instance according to the specified time string.
 	 */
+	#[Override]
 	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null): static
 	{
 		return new static(parent::createFromFormat($format, $time)->format('Y-m-d\TH:i:s.u'), $timeZone);
@@ -88,6 +94,7 @@ trait TimeTrait
 	/**
 	 * Sets the time zone.
 	 */
+	#[Override]
 	public function setTimezone(DateTimeZone|string $timeZone): static
 	{
 		if (($timeZone instanceof DateTimeZone) === false) {
@@ -102,6 +109,7 @@ trait TimeTrait
 	 *
 	 * @return $this|static
 	 */
+	#[Override]
 	public function forward(int $seconds): static
 	{
 		return $this->setTimestamp($this->getTimestamp() + $seconds);
@@ -112,6 +120,7 @@ trait TimeTrait
 	 *
 	 * @return $this|static
 	 */
+	#[Override]
 	public function rewind(int $seconds): static
 	{
 		return $this->setTimestamp($this->getTimestamp() - $seconds);
@@ -120,6 +129,7 @@ trait TimeTrait
 	/**
 	 * Returns the DOS timestamp.
 	 */
+	#[Override]
 	public function getDOSTimestamp(): int
 	{
 		$time = getdate($this->getTimestamp());
@@ -139,6 +149,7 @@ trait TimeTrait
 	/**
 	 * Returns TRUE if the year is a leap year and FALSE if not.
 	 */
+	#[Override]
 	public function isLeapYear(): bool
 	{
 		$year = $this->format('Y');
@@ -153,6 +164,7 @@ trait TimeTrait
 	/**
 	 * Returns an array containing the number of days in each month of the year.
 	 */
+	#[Override]
 	public function daysInMonths(): array
 	{
 		return [
@@ -174,6 +186,7 @@ trait TimeTrait
 	/**
 	 * Returns the number of days in the current or specified month.
 	 */
+	#[Override]
 	public function daysInMonth(): int
 	{
 		return $this->daysInMonths()[(int) $this->format('n') - 1];

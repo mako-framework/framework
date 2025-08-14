@@ -25,6 +25,7 @@ use mako\database\midgard\relations\HasOnePolymorphic;
 use mako\database\midgard\relations\ManyToMany;
 use mako\utility\Str;
 use mako\utility\UUID;
+use Override;
 use Stringable;
 
 use function array_diff;
@@ -918,6 +919,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 */
+	#[Override]
 	public function jsonSerialize(): mixed
 	{
 		return $this->toArray();
@@ -934,6 +936,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Returns a json representation of the record.
 	 */
+	#[Override]
 	public function __toString(): string
 	{
 		return $this->toJson();

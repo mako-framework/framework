@@ -13,6 +13,7 @@ use Countable;
 use IteratorAggregate;
 use mako\common\traits\ExtendableTrait;
 use OutOfBoundsException;
+use Override;
 use ReflectionFunction;
 use ReflectionNamedType;
 
@@ -162,6 +163,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param TKey $offset
 	 */
+	#[Override]
 	public function offsetExists(mixed $offset): bool
 	{
 		return isset($this->items[$offset]);
@@ -172,6 +174,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return TValue
 	 */
+	#[Override]
 	public function offsetGet(mixed $offset): mixed
 	{
 		if (array_key_exists($offset, $this->items)) {
@@ -187,6 +190,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * @param TKey|null $offset
 	 * @param TValue    $value
 	 */
+	#[Override]
 	public function offsetSet(mixed $offset, mixed $value): void
 	{
 		if ($offset === null) {
@@ -202,6 +206,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @param TKey $offset
 	 */
+	#[Override]
 	public function offsetUnset(mixed $offset): void
 	{
 		unset($this->items[$offset]);
@@ -210,6 +215,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the numner of items in the collection.
 	 */
+	#[Override]
 	public function count(): int
 	{
 		return count($this->items);
@@ -220,6 +226,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 *
 	 * @return ArrayIterator<TKey, TValue>
 	 */
+	#[Override]
 	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this->items);

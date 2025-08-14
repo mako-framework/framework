@@ -8,6 +8,7 @@
 namespace mako\view;
 
 use mako\view\renderers\RendererInterface;
+use Override;
 use Stringable;
 
 /**
@@ -62,6 +63,7 @@ class View implements Stringable
 	/**
 	 * Returns the rendered view.
 	 */
+	#[Override]
 	public function __toString(): string
 	{
 		return $this->render();

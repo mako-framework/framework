@@ -9,6 +9,7 @@ namespace mako\database\query;
 
 use AllowDynamicProperties;
 use JsonSerializable;
+use Override;
 use Stringable;
 
 use function get_object_vars;
@@ -31,6 +32,7 @@ class Result implements JsonSerializable, Stringable
 	/**
 	 * Returns data which can be serialized by json_encode().
 	 */
+	#[Override]
 	public function jsonSerialize(): mixed
 	{
 		return $this->toArray();
@@ -47,6 +49,7 @@ class Result implements JsonSerializable, Stringable
 	/**
 	 * Returns a json representation of the result.
 	 */
+	#[Override]
 	public function __toString(): string
 	{
 		return $this->toJson();
