@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\metadata;
+namespace mako\pixel\metadata\xmp;
 
 use FFI;
 use FFI\CData;
