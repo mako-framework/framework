@@ -7,12 +7,12 @@
 
 namespace mako\pixel\metadata\xmp\exceptions;
 
-use RuntimeException;
+use mako\pixel\exceptions\PixelException;
 
 /**
  * XMP exception.
  */
-class XmpException extends RuntimeException
+class XmpException extends PixelException
 {
 
 }
