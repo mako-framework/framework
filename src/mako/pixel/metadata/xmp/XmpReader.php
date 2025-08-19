@@ -56,7 +56,7 @@ class XmpReader
 	 */
 	public function __construct(
 		string $file,
-		?string $libraryPath = null,
+		?string $library = null,
 	) {
 		if (!file_exists($file)) {
 			throw new XmpException(sprintf('File [ %s ] does not exist.', $file));
@@ -67,7 +67,7 @@ class XmpReader
 		}
 
 		if (static::$ffi === null) {
-			static::initExempi($libraryPath);
+			static::initExempi($library);
 		}
 
 		$this->xmp = $this->loadXmp($file);
@@ -105,7 +105,7 @@ class XmpReader
 	/**
 	 * Initialize the Exempi library.
 	 */
-	protected static function initExempi(?string $libraryPath): void
+	protected static function initExempi(?string $library): void
 	{
 		// Create bindings
 
@@ -134,7 +134,7 @@ class XmpReader
 		void xmp_string_free(XmpStringPtr str);
 		CODE;
 
-		$library = $libraryPath ?: match (PHP_OS_FAMILY) {
+		$library ??= match (PHP_OS_FAMILY) {
 			'Windows' => 'libexempi.dll',
 			'Darwin' => 'libexempi.dylib',
 			'Linux' => 'libexempi.so',
