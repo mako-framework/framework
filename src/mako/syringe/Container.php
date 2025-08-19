@@ -24,6 +24,7 @@ use ReflectionParameter;
 use ReflectionUnionType;
 
 use function array_filter;
+use function array_intersect_key;
 use function array_keys;
 use function array_replace;
 use function array_values;
