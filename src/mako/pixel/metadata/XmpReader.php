@@ -21,6 +21,7 @@ use function dirname;
 use function file_exists;
 use function is_readable;
 use function preg_replace;
+use function register_shutdown_function;
 use function sprintf;
 use function str_contains;
 use function str_ends_with;
