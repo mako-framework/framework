@@ -10,7 +10,7 @@ namespace mako\pixel\metadata\xmp\properties;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use mako\pixel\metadata\xmp\properties\traits\ShortNameTrait;
+use mako\pixel\metadata\xmp\properties\traits\NameTrait;
 use Override;
 
 use function count;
@@ -20,7 +20,7 @@ use function count;
  */
 abstract class CollectionProperty implements Countable, IteratorAggregate
 {
-	use ShortNameTrait;
+	use NameTrait;
 
 	/**
 	 * Constructor.
@@ -28,7 +28,7 @@ abstract class CollectionProperty implements Countable, IteratorAggregate
 	public function __construct(
 		public protected(set) string $schema,
 		public protected(set) int $options,
-		public protected(set) string $name,
+		public protected(set) string $fullyQualifiedName,
 		public protected(set) array $values = []
 	) {
 	}

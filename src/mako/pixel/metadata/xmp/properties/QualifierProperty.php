@@ -7,14 +7,14 @@
 
 namespace mako\pixel\metadata\xmp\properties;
 
-use mako\pixel\metadata\xmp\properties\traits\ShortNameTrait;
+use mako\pixel\metadata\xmp\properties\traits\NameTrait;
 
 /**
  * Qualifier property.
  */
 class QualifierProperty
 {
-	use ShortNameTrait;
+	use NameTrait;
 
 	/**
 	 * Constructor.
@@ -22,7 +22,7 @@ class QualifierProperty
 	public function __construct(
 		public protected(set) string $schema,
 		public protected(set) int $options,
-		public protected(set) string $name,
+		public protected(set) string $fullyQualifiedName,
 		public protected(set) string $value
 	) {
 	}

@@ -326,7 +326,7 @@ class XmpReader
 		$unset = [];
 
 		foreach ($properties as $key => $property) {
-			$name = $property->name;
+			$name = $property->fullyQualifiedName;
 
 			if (str_ends_with($name, ']')) {
 				$this->appendChildProperty(

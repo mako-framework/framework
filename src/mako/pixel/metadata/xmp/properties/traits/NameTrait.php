@@ -12,11 +12,11 @@ use function strrchr;
 use function substr;
 
 /**
- * Short name trait.
+ * Name trait.
  */
-trait ShortNameTrait
+trait NameTrait
 {
-	public string $shortName {
+	public string $name {
 		get {
 			return preg_replace('/\[\d+\](?!.*\[\d+\])/', '', substr(strrchr($this->name, ':'), 1));
 		}
