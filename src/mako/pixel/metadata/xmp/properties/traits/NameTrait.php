@@ -13,12 +13,14 @@ use function substr;
 
 /**
  * Name trait.
+ *
+ * @property string $fullyQualifiedName
  */
 trait NameTrait
 {
 	public string $name {
 		get {
-			return preg_replace('/\[\d+\](?!.*\[\d+\])/', '', substr(strrchr($this->name, ':'), 1));
+			return preg_replace('/\[\d+\](?!.*\[\d+\])/', '', substr(strrchr($this->fullyQualifiedName, ':'), 1));
 		}
 	}
 }
