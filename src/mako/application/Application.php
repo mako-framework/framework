@@ -18,7 +18,6 @@ use function date_default_timezone_set;
 use function mako\env;
 use function mb_internal_encoding;
 use function mb_language;
-use function mb_regex_encoding;
 use function microtime;
 use function rtrim;
 use function setlocale;
@@ -215,8 +214,6 @@ abstract class Application
 		$this->charset = $config['charset'];
 
 		mb_language('uni');
-
-		mb_regex_encoding($this->charset);
 
 		mb_internal_encoding($this->charset);
 
