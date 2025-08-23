@@ -6,7 +6,6 @@ date_default_timezone_set('UTC');
 
 setlocale(LC_ALL, 'C');
 
-mb_language('uni');
 mb_internal_encoding('UTF-8');
 
 set_error_handler(function ($code, $message, $file, $line) {
