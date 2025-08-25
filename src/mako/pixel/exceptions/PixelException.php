@@ -5,14 +5,14 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixl\exceptions;
+namespace mako\pixel\exceptions;
 
 use RuntimeException;
 
 /**
- * Pixl exception.
+ * Pixel exception.
  */
-class PixlException extends RuntimeException
+class PixelException extends RuntimeException
 {
 
 }
