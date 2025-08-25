@@ -13,17 +13,17 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class MySQLCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|MySQLConnection
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): MockInterface&MySQLConnection
 	{
-		/** @var Mockery\MockInterface|MySQLConnection $connection */
 		$connection = Mockery::mock(MySQLConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

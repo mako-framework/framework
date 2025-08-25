@@ -33,10 +33,8 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	public function testCreate(): void
 	{
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$factory = new ValidatorFactory($i18n, $container);
@@ -59,10 +57,8 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	public function testCreateWithoutRules(): void
 	{
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$factory = new ValidatorFactory($i18n, $container);
@@ -83,10 +79,8 @@ class ValidatorFactoryTest extends TestCase
 	 */
 	public function testExtend(): void
 	{
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$factory = new ValidatorFactory($i18n, $container);

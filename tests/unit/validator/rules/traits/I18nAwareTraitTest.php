@@ -42,7 +42,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnTrue();
@@ -78,7 +77,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('package::validate.overrides.messages.foobar.barfoo')->andReturnTrue();
@@ -120,7 +118,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnTrue();
@@ -156,7 +153,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
@@ -206,7 +202,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
@@ -252,7 +247,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();
@@ -292,7 +286,6 @@ class I18nAwareTraitTest extends TestCase
 			}
 		};
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
 		$i18n->shouldReceive('has')->once()->with('validate.overrides.messages.foobar.barfoo')->andReturnFalse();

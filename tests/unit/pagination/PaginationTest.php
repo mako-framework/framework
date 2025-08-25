@@ -15,6 +15,7 @@ use mako\tests\TestCase;
 use mako\view\View;
 use mako\view\ViewFactory;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 
@@ -22,33 +23,33 @@ use RuntimeException;
 class PaginationTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|Request
+	 *
 	 */
-	public function getRequest()
+	public function getRequest(): MockInterface&Request
 	{
 		return Mockery::mock(Request::class);
 	}
 
 	/**
-	 * @return Mockery\MockInterface|ViewFactory
+	 *
 	 */
-	public function getViewFactory()
+	public function getViewFactory(): MockInterface&ViewFactory
 	{
 		return Mockery::mock(ViewFactory::class);
 	}
 
 	/**
-	 * @return Mockery\MockInterface|View
+	 *
 	 */
-	public function getView()
+	public function getView(): MockInterface&View
 	{
 		return Mockery::mock(View::class);
 	}
 
 	/**
-	 * @return Mockery\MockInterface|URLBuilder
+	 *
 	 */
-	public function getURLBuilder()
+	public function getURLBuilder(): MockInterface&URLBuilder
 	{
 		return Mockery::mock(URLBuilder::class);
 	}
@@ -218,7 +219,6 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 1]);
@@ -301,7 +301,6 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 2]);
@@ -384,7 +383,6 @@ class PaginationTest extends TestCase
 	{
 		$request = $this->getRequest();
 
-		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['page' => 10]);

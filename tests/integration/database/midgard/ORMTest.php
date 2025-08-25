@@ -8,7 +8,9 @@
 namespace mako\tests\integration\database\midgard;
 
 use DateTime;
+use Generator;
 use LogicException;
+use mako\chrono\Time;
 use mako\database\exceptions\NotFoundException;
 use mako\database\midgard\relations\HasOne;
 use mako\database\midgard\ResultSet;
@@ -238,7 +240,7 @@ class ORMTest extends ORMTestCase
 	{
 		$users = (new TestUser)->yield();
 
-		$this->assertInstanceOf('Generator', $users);
+		$this->assertInstanceOf(Generator::class, $users);
 
 		foreach ($users as $user) {
 			$this->assertInstanceOf(TestUser::class, $user);
@@ -448,7 +450,7 @@ class ORMTest extends ORMTestCase
 	{
 		$user = TestUserDateTime::get(1);
 
-		$this->assertInstanceOf('\mako\chrono\Time', $user->created_at);
+		$this->assertInstanceOf(Time::class, $user->created_at);
 	}
 
 	/**

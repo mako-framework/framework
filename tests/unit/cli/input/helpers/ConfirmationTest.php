@@ -27,17 +27,14 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testNonInteractiveConfirmationYes(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('y');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -58,17 +55,14 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testNonInteractiveConfirmationNo(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('no');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -89,17 +83,14 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testNonInteractiveConfirmationDefaultNo(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -120,17 +111,14 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testNonInteractiveConfirmationDefaultYes(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -151,17 +139,14 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testNonInteractiveConfirmationYesWithCustomLabels(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('ja');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -182,18 +167,15 @@ class ConfirmationTest extends TestCase
 	 */
 	public function testNonInteractiveConfirmationWithInvalidInput(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('x');
 		$input->shouldReceive('read')->once()->andReturn('y');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -211,11 +193,11 @@ class ConfirmationTest extends TestCase
 
 	/**
 	 * @return array{
-	 * 	Mockery\MockInterface|Input,
-	 *	Mockery\MockInterface|Environment,
-	 *  Mockery\MockInterface|Cursor,
-	 * 	Mockery\MockInterface|Output,
-	 * 	Mockery\MockInterface|Confirmation
+	 * 	Input&Mockery\MockInterface,
+	 *	Environment&Mockery\MockInterface,
+	 *  Cursor&Mockery\MockInterface,
+	 * 	Mockery\MockInterface&Output,
+	 * 	Confirmation&Mockery\MockInterface
 	 * }
 	 */
 	protected function getInteractiveMocks(
@@ -223,16 +205,13 @@ class ConfirmationTest extends TestCase
 		string $falseLabel = 'No',
 		Theme $theme = new Theme,
 	): array {
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(true);
 		$environment->shouldReceive('hasAnsiSupport')->once()->andReturn(true);
 
-		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('hide');
@@ -240,7 +219,6 @@ class ConfirmationTest extends TestCase
 		$cursor->shouldReceive('clearScreenFromCursor');
 		$cursor->shouldReceive('up');
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment, $cursor): void {
@@ -248,7 +226,6 @@ class ConfirmationTest extends TestCase
 			$this->cursor = $cursor;
 		})->bindTo($output, Output::class)();
 
-		/** @var Confirmation|Mockery\MockInterface $confirmation */
 		$confirmation = Mockery::mock(Confirmation::class, [
 			$input,
 			$output,

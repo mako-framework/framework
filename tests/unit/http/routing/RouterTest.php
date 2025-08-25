@@ -23,6 +23,7 @@ use mako\http\routing\Routes;
 use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
@@ -53,11 +54,10 @@ class BarConstraint implements ConstraintInterface
 class RouterTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|Request
+	 *
 	 */
-	public function getRequest()
+	public function getRequest(): MockInterface&Request
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->makePartial();
@@ -161,7 +161,6 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('en');
 
-		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
@@ -176,12 +175,10 @@ class RouterTest extends TestCase
 
 		//
 
-		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org/en/foo/?foo=bar');
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
@@ -246,7 +243,7 @@ class RouterTest extends TestCase
 
 		$action = $routed->getAction();
 
-		$this->assertInstanceOf('Closure', $action);
+		$this->assertInstanceOf(Closure::class, $action);
 
 		//
 
@@ -258,7 +255,6 @@ class RouterTest extends TestCase
 
 		$request->shouldReceive('getLanguagePrefix')->once()->andReturn('en');
 
-		/** @var Mockery\MockInterface|Parameters $query */
 		$query = Mockery::mock(Parameters::class);
 
 		$query->shouldReceive('all')->once()->andReturn(['foo' => 'bar']);
@@ -273,12 +269,10 @@ class RouterTest extends TestCase
 
 		//
 
-		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Location', 'http://example.org/index.php/en/foo/?foo=bar');
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
@@ -317,16 +311,14 @@ class RouterTest extends TestCase
 
 		$action = $routed->getAction();
 
-		$this->assertInstanceOf('Closure', $action);
+		$this->assertInstanceOf(Closure::class, $action);
 
 		//
 
-		/** @var Headers|Mockery\MockInterface $responseHeaders */
 		$responseHeaders = Mockery::mock(Headers::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Allow', 'POST,OPTIONS');
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -399,7 +391,6 @@ class RouterTest extends TestCase
 
 		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(BarConstraint::class);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with(BarConstraint::class, [])->andReturn(new BarConstraint);
@@ -430,7 +421,6 @@ class RouterTest extends TestCase
 
 		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo')->constraint(FooConstraint::class);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->times(2)->with(FooConstraint::class, [])->andReturn(new FooConstraint);
@@ -457,7 +447,6 @@ class RouterTest extends TestCase
 
 		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo');
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->times(2)->with(FooConstraint::class, [])->andReturn(new FooConstraint);

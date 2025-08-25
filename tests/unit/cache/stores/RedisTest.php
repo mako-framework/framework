@@ -11,15 +11,16 @@ use mako\cache\stores\Redis;
 use mako\redis\Redis as RedisClient;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class RedisTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|RedisClient
+	 *
 	 */
-	public function getRedisClient()
+	public function getRedisClient(): MockInterface&RedisClient
 	{
 		return Mockery::mock(RedisClient::class);
 	}

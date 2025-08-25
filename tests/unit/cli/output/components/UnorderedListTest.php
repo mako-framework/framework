@@ -21,7 +21,6 @@ class UnorderedListTest extends TestCase
 	 */
 	public function testBasicList(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$list = new UnorderedList($output);
@@ -39,7 +38,6 @@ class UnorderedListTest extends TestCase
 	 */
 	public function testNestedLists(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$list = new UnorderedList($output);
@@ -61,7 +59,6 @@ class UnorderedListTest extends TestCase
 	 */
 	public function testCustomMarker(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$list = new UnorderedList($output);
@@ -79,7 +76,6 @@ class UnorderedListTest extends TestCase
 	 */
 	public function testDraw(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$list = new UnorderedList($output);
@@ -99,7 +95,6 @@ class UnorderedListTest extends TestCase
 	 */
 	public function testDrawWithCustomMarker(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$list = new UnorderedList($output);

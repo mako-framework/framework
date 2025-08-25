@@ -12,15 +12,16 @@ use mako\i18n\loaders\exceptions\LoaderException;
 use mako\i18n\loaders\Loader;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class LoaderTest extends TestCase
 {
 	/**
-	 * @return FileSystem|Mockery\MockInterface
+	 *
 	 */
-	public function getFileSystem()
+	public function getFileSystem(): FileSystem&MockInterface
 	{
 		return Mockery::mock(FileSystem::class);
 	}

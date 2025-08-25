@@ -55,10 +55,8 @@ class CommandTest extends TestCase
 	 */
 	public function testGetDescription(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$command = new Foo($input, $output);
@@ -85,10 +83,8 @@ class CommandTest extends TestCase
 	{
 		$level = error_reporting(error_reporting() & ~E_USER_DEPRECATED);
 
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$command = new Foo($input, $output);

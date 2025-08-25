@@ -22,7 +22,6 @@ class RedisTest extends TestCase
 	 */
 	public function testGetHits(): void
 	{
-		/** @var Mockery\MockInterface&Redis $redis */
 		$redis = Mockery::mock(Redis::class);
 
 		$redis->shouldReceive('get')->once()->andReturn(42);
@@ -37,7 +36,6 @@ class RedisTest extends TestCase
 	 */
 	public function testGetHitsWithMissingKey(): void
 	{
-		/** @var Mockery\MockInterface&Redis $redis */
 		$redis = Mockery::mock(Redis::class);
 
 		$redis->shouldReceive('get')->once()->andReturn(null);
@@ -52,7 +50,6 @@ class RedisTest extends TestCase
 	 */
 	public function testGetExpiration(): void
 	{
-		/** @var Mockery\MockInterface&Redis $redis */
 		$redis = Mockery::mock(Redis::class);
 
 		$redis->shouldReceive('ttl')->once()->andReturn(3600);
@@ -67,7 +64,6 @@ class RedisTest extends TestCase
 	 */
 	public function testGetExpirationWithMissingKey(): void
 	{
-		/** @var Mockery\MockInterface&Redis $redis */
 		$redis = Mockery::mock(Redis::class);
 
 		$redis->shouldReceive('ttl')->once()->andReturn(-1);
@@ -82,7 +78,6 @@ class RedisTest extends TestCase
 	 */
 	public function testIncrement(): void
 	{
-		/** @var Mockery\MockInterface&Redis $redis */
 		$redis = Mockery::mock(Redis::class);
 
 		$redis->shouldReceive('pipeline')->once()->andReturn([true, 42]);

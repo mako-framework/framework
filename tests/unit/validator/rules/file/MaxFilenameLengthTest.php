@@ -34,7 +34,6 @@ class MaxFilenameLengthTest extends TestCase
 	{
 		$rule = new MaxFilenameLength(10);
 
-		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
 		$fileInfo->shouldReceive('getFilename')->once()->andReturn('foo.txt');
@@ -45,7 +44,6 @@ class MaxFilenameLengthTest extends TestCase
 
 		$rule = new MaxFilenameLength(10);
 
-		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(UploadedFile::class);
 
 		$fileInfo->shouldReceive('getReportedFilename')->once()->andReturn('foo.txt');
@@ -60,7 +58,6 @@ class MaxFilenameLengthTest extends TestCase
 	{
 		$rule = new MaxFilenameLength(5);
 
-		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(FileInfo::class);
 
 		$fileInfo->shouldReceive('getFilename')->once()->andReturn('foo.txt');
@@ -73,7 +70,6 @@ class MaxFilenameLengthTest extends TestCase
 
 		$rule = new MaxFilenameLength(5);
 
-		/** @var FileInfo|Mockery\MockInterface $fileInfo */
 		$fileInfo = Mockery::mock(UploadedFile::class);
 
 		$fileInfo->shouldReceive('getReportedFilename')->once()->andReturn('foo.txt');

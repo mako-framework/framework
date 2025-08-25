@@ -13,24 +13,23 @@ use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\gatekeeper\repositories\group\GroupRepository;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group as GroupAttribute;
 
 #[GroupAttribute('unit')]
 class GroupRepositoryTest extends TestCase
 {
 	/**
-	 * @return GroupRepository|Mockery\MockInterface
+	 *
 	 */
-	protected function getRepository(?Closure $callback = null)
+	protected function getRepository(?Closure $callback = null): GroupRepository&MockInterface
 	{
-		/** @var \mako\gatekeeper\repositories\group\GroupRepositoryInterface|Mockery\MockInterface $repository */
 		$repository = Mockery::mock(GroupRepository::class . '[getModel]', ['mocked']);
 
 		$repository = $repository->makePartial();
 
 		$repository->shouldAllowMockingProtectedMethods();
 
-		/** @var \mako\gatekeeper\entities\group\GroupEntityInterface|Mockery\MockInterface */
 		$group = Mockery::mock(Group::class);
 
 		$group = $group->makePartial();

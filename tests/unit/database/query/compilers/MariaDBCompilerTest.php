@@ -13,17 +13,17 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class MariaDBCompilerTest extends TestCase
 {
 	/**
-	 * @return MariaDBConnection|Mockery\MockInterface
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): MariaDBConnection&MockInterface
 	{
-		/** @var MariaDBConnection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(MariaDBConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

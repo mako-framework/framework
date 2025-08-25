@@ -11,6 +11,7 @@ use mako\cache\stores\File;
 use mako\file\FileSystem;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 use stdClass;
 
@@ -18,17 +19,17 @@ use stdClass;
 class FileTest extends TestCase
 {
 	/**
-	 * @return FileSystem|Mockery\MockInterface
+	 *
 	 */
-	public function getFileSystem()
+	public function getFileSystem(): FileSystem&MockInterface
 	{
 		return Mockery::mock(FileSystem::class);
 	}
 
 	/**
-	 * @return Mockery\MockInterface|stdClass
+	 *
 	 */
-	public function getSplFileObject()
+	public function getSplFileObject(): MockInterface&stdClass
 	{
 		return Mockery::mock(stdClass::class); // ... because SplFileObject can't be mocked
 	}

@@ -12,23 +12,24 @@ use mako\database\connections\Connection;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class DatabaseTest extends TestCase
 {
 	/**
-	 * @return Connection|Mockery\MockInterface
+	 *
 	 */
-	public function getDatabaseConnection()
+	public function getDatabaseConnection(): Connection&MockInterface
 	{
 		return Mockery::mock(Connection::class);
 	}
 
 	/**
-	 * @return Mockery\MockInterface|Query
+	 *
 	 */
-	public function getQueryBuilder()
+	public function getQueryBuilder(): MockInterface&Query
 	{
 		return Mockery::mock(Query::class);
 	}

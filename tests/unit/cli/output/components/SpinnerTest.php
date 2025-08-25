@@ -21,7 +21,6 @@ class SpinnerTest extends TestCase
 	 */
 	public function testStaticSpinner(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('hideCursor')->once();

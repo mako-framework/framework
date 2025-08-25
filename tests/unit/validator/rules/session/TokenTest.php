@@ -21,7 +21,6 @@ class TokenTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		/** @var Mockery\MockInterface|Session $session */
 		$session = Mockery::mock(Session::class);
 
 		$rule = new Token($session);
@@ -34,7 +33,6 @@ class TokenTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		/** @var Mockery\MockInterface|Session $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('validateToken')->once()->with('foobar')->andReturnTrue();
@@ -49,7 +47,6 @@ class TokenTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		/** @var Mockery\MockInterface|Session $session */
 		$session = Mockery::mock(Session::class);
 
 		$session->shouldReceive('validateToken')->once()->with('foobar')->andReturnFalse();

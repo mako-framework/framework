@@ -18,6 +18,7 @@ use mako\database\query\ResultSet;
 use mako\database\query\Subquery;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
@@ -38,11 +39,10 @@ class BaseCompilerTest extends TestCase
 	}
 
 	/**
-	 * @return Connection|Mockery\MockInterface
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): Connection&MockInterface
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
@@ -1836,7 +1836,7 @@ class BaseCompilerTest extends TestCase
 	 */
 	public function testBatch(): void
 	{
-		/** @var Mockery\MockInterface|Query $builder */
+		/** @var MockInterface&Query $builder */
 		$builder = Mockery::mock(Query::class . '[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
@@ -1863,7 +1863,7 @@ class BaseCompilerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Query $builder */
+		/** @var MockInterface&Query $builder */
 		$builder = Mockery::mock(Query::class . '[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);
@@ -1890,7 +1890,7 @@ class BaseCompilerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Query $builder */
+		/** @var MockInterface&Query $builder */
 		$builder = Mockery::mock(Query::class . '[limit,offset,all]', [$this->getConnection()]);
 
 		$builder->shouldReceive('limit')->once()->with(5);

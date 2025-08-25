@@ -30,14 +30,12 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithView(): void
 	{
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -46,7 +44,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->andReturn($response);
@@ -67,7 +64,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|ViewFactory $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
@@ -93,7 +89,6 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithRenderException(): void
 	{
-		/** @var Mockery\MockInterface|ViewFactory $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
@@ -108,14 +103,12 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -124,7 +117,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->andReturn($response);
@@ -160,14 +152,12 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testHttpExceptionWithView(): void
 	{
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -176,14 +166,12 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->once()->with('Allow', 'GET,POST');
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->andReturn($response);
@@ -208,7 +196,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|ViewFactory $viewFactory */
 		$viewFactory = Mockery::mock(ViewFactory::class);
 
 		$viewFactory->shouldReceive('registerNamespace')->once();
@@ -236,14 +223,12 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithoutView(): void
 	{
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -252,7 +237,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->andReturn($response);
@@ -283,14 +267,12 @@ class ProductionHandlerTest extends TestCase
 	 */
 	public function testRegularErrorWithoutViewWithResetExceptions(): void
 	{
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->twice()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -299,7 +281,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->with(['headers' => ['Access-Control-.*']])->andReturn($response);
@@ -336,12 +317,10 @@ class ProductionHandlerTest extends TestCase
 			return;
 		}
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('application/json');
@@ -383,12 +362,10 @@ class ProductionHandlerTest extends TestCase
 			return;
 		}
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('getType')->once()->andReturn('application/json');
@@ -430,14 +407,12 @@ class ProductionHandlerTest extends TestCase
 			return;
 		}
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -446,7 +421,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->andReturn($response);
@@ -490,14 +464,12 @@ class ProductionHandlerTest extends TestCase
 			return;
 		}
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('getAcceptableContentTypes')->once()->andReturn([]);
 
 		//
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
@@ -506,7 +478,6 @@ class ProductionHandlerTest extends TestCase
 
 		//
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$response->shouldReceive('clearExcept')->once()->andReturn($response);

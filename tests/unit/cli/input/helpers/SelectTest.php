@@ -27,17 +27,14 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndPickFirstOption(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -65,17 +62,14 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndPickSecondOption(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('2');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -103,17 +97,14 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndPickMultipleOptions(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1,2');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -141,17 +132,14 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndPickMultipleOptionsAndReturnValues(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('1,2');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -179,19 +167,16 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndPickFirstOptionAfterPickingInvalidOption(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('3');
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -228,19 +213,16 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndPickFirstOptionAfterPickingNoOption(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('');
 
 		$input->shouldReceive('read')->once()->andReturn('1');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -277,17 +259,14 @@ class SelectTest extends TestCase
 	 */
 	public function testNonInteractiveSelectAndNoOption(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('');
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(false);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -312,11 +291,11 @@ class SelectTest extends TestCase
 
 	/**
 	 * @return array{
-	 * 	Mockery\MockInterface|Input,
-	 *	Mockery\MockInterface|Environment,
-	 *  Mockery\MockInterface|Cursor,
-	 * 	Mockery\MockInterface|Output,
-	 * 	Mockery\MockInterface|Select
+	 * 	Input&Mockery\MockInterface,
+	 *	Environment&Mockery\MockInterface,
+	 *  Cursor&Mockery\MockInterface,
+	 * 	Mockery\MockInterface&Output,
+	 * 	Mockery\MockInterface&Select
 	 * }
 	 */
 	protected function getInteractiveMocks(
@@ -327,16 +306,13 @@ class SelectTest extends TestCase
 		bool $allowMultiple = false,
 		bool $allowEmptySelection = false
 	): array {
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('hasStty')->once()->andReturn(true);
 		$environment->shouldReceive('hasAnsiSupport')->once()->andReturn(true);
 
-		/** @var Cursor|Mockery\MockInterface $cursor */
 		$cursor = Mockery::mock(Cursor::class);
 
 		$cursor->shouldReceive('hide');
@@ -344,7 +320,6 @@ class SelectTest extends TestCase
 		$cursor->shouldReceive('clearScreenFromCursor');
 		$cursor->shouldReceive('up');
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment, $cursor): void {
@@ -352,7 +327,6 @@ class SelectTest extends TestCase
 			$this->cursor = $cursor;
 		})->bindTo($output, Output::class)();
 
-		/** @var Mockery\MockInterface|Select $select */
 		$select = Mockery::mock(Select::class, [
 			$input,
 			$output,

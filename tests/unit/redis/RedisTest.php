@@ -24,7 +24,6 @@ class RedisTest extends TestCase
 	 */
 	public function testResp3(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$5\r\nHELLO\r\n$1\r\n3\r\n");
@@ -39,7 +38,6 @@ class RedisTest extends TestCase
 	 */
 	public function testAuth(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n");
@@ -54,7 +52,6 @@ class RedisTest extends TestCase
 	 */
 	public function testAuthWithUsername(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*3\r\n$4\r\nAUTH\r\n$6\r\nfoobar\r\n$6\r\nfoobar\r\n");
@@ -69,7 +66,6 @@ class RedisTest extends TestCase
 	 */
 	public function testZeroDatabase(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->never()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n0\r\n");
@@ -84,7 +80,6 @@ class RedisTest extends TestCase
 	 */
 	public function testNonZeroDatabase(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nSELECT\r\n$1\r\n1\r\n");
@@ -99,7 +94,6 @@ class RedisTest extends TestCase
 	 */
 	public function testMethodCall(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*3\r\n$3\r\nSET\r\n$1\r\nx\r\n$1\r\n0\r\n");
@@ -116,7 +110,6 @@ class RedisTest extends TestCase
 	 */
 	public function testMultiWordMethodCall(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$6\r\nCONFIG\r\n$7\r\nREWRITE\r\n");
@@ -133,7 +126,6 @@ class RedisTest extends TestCase
 	 */
 	public function testDashSeparatedCommand(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once()->with("*2\r\n$7\r\nCLUSTER\r\n$16\r\nSET-CONFIG-EPOCH\r\n");
@@ -150,7 +142,6 @@ class RedisTest extends TestCase
 	 */
 	public function testSimpleStringResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -167,7 +158,6 @@ class RedisTest extends TestCase
 	 */
 	public function testBlobStringResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -186,7 +176,6 @@ class RedisTest extends TestCase
 	 */
 	public function testNullBlobStringResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -203,7 +192,6 @@ class RedisTest extends TestCase
 	 */
 	public function testStreamedBlobStringResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -234,7 +222,6 @@ class RedisTest extends TestCase
 	 */
 	public function testVerbatimStringResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -253,7 +240,6 @@ class RedisTest extends TestCase
 	 */
 	public function testNumberResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -270,7 +256,6 @@ class RedisTest extends TestCase
 	 */
 	public function testDoubleResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -287,7 +272,6 @@ class RedisTest extends TestCase
 	 */
 	public function testDoubleResponseWithInfinity(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -304,7 +288,6 @@ class RedisTest extends TestCase
 	 */
 	public function testDoubleResponseWithNegativeInfinity(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -321,7 +304,6 @@ class RedisTest extends TestCase
 	 */
 	public function testBigNumberResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -338,7 +320,6 @@ class RedisTest extends TestCase
 	 */
 	public function testBooleanResponseWithTrue(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -355,7 +336,6 @@ class RedisTest extends TestCase
 	 */
 	public function testBooleanResponseWithFalse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -372,7 +352,6 @@ class RedisTest extends TestCase
 	 */
 	public function testArrayResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -397,7 +376,6 @@ class RedisTest extends TestCase
 	 */
 	public function testArrayResponseWithMixedTypes(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -420,7 +398,6 @@ class RedisTest extends TestCase
 	 */
 	public function testEmptyArrayResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -437,7 +414,6 @@ class RedisTest extends TestCase
 	 */
 	public function testNullArrayResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -454,7 +430,6 @@ class RedisTest extends TestCase
 	 */
 	public function testStreamedArrayResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -477,7 +452,6 @@ class RedisTest extends TestCase
 	 */
 	public function testMapResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -502,7 +476,6 @@ class RedisTest extends TestCase
 	 */
 	public function testStreamedMapResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -529,7 +502,6 @@ class RedisTest extends TestCase
 	 */
 	public function testSetResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -558,7 +530,6 @@ class RedisTest extends TestCase
 	 */
 	public function testStreamedSetResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -583,7 +554,6 @@ class RedisTest extends TestCase
 	 */
 	public function testAttributeResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -624,7 +594,6 @@ class RedisTest extends TestCase
 	 */
 	public function testPushResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -653,7 +622,6 @@ class RedisTest extends TestCase
 
 		$this->expectExceptionMessage("ERR unknown command 'foobar'");
 
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -674,7 +642,6 @@ class RedisTest extends TestCase
 
 		$this->expectExceptionMessage("ERR unknown command 'foobar'");
 
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -693,7 +660,6 @@ class RedisTest extends TestCase
 	 */
 	public function testNullResponse(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -714,7 +680,6 @@ class RedisTest extends TestCase
 
 		$this->expectExceptionMessage('Unable to handle server response [ foobar ].');
 
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('write')->once();
@@ -731,7 +696,6 @@ class RedisTest extends TestCase
 	 */
 	public function testSubscribeTo(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$redis = new Redis($connection);
@@ -784,7 +748,6 @@ class RedisTest extends TestCase
 	 */
 	public function testSubscribeToPattern(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$redis = new Redis($connection);
@@ -837,7 +800,6 @@ class RedisTest extends TestCase
 	 */
 	public function testMonitor(): void
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$redis = new Redis($connection);
