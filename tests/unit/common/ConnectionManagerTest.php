@@ -57,13 +57,13 @@ class ConnectionManagerTest extends TestCase
 
 		$connection = $manager->getConnection();
 
-		$this->assertInstanceOf('mako\tests\unit\common\Connection', $connection);
+		$this->assertInstanceOf(Connection::class, $connection);
 
 		$this->assertSame('foo', $connection->getName());
 
 		$connection = $manager->getConnection('bar');
 
-		$this->assertInstanceOf('mako\tests\unit\common\Connection', $connection);
+		$this->assertInstanceOf(Connection::class, $connection);
 
 		$this->assertSame('bar', $connection->getName());
 	}

@@ -11,6 +11,7 @@ use mako\file\FileSystem;
 use mako\tests\TestCase;
 use mako\view\compilers\Template;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
@@ -21,11 +22,10 @@ class TemplateTest extends TestCase
 	protected $templateName = 'template';
 
 	/**
-	 * @return FileSystem|Mockery\MockInterface
+	 *
 	 */
-	public function getFileSystem($template, $compiled)
+	public function getFileSystem($template, $compiled): FileSystem&MockInterface
 	{
-		/** @var FileSystem|Mockery\MockInterface $fileSystem */
 		$fileSystem = Mockery::mock(FileSystem::class);
 
 		$fileSystem->shouldReceive('get')->with($this->templateName)->once()->andReturn($template);

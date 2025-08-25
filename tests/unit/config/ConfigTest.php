@@ -11,15 +11,16 @@ use mako\config\Config;
 use mako\config\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class ConfigTest extends TestCase
 {
 	/**
-	 * @return LoaderInterface|Mockery\MockInterface
+	 *
 	 */
-	public function getLoader()
+	public function getLoader(): LoaderInterface&MockInterface
 	{
 		return Mockery::mock(LoaderInterface::class);
 	}

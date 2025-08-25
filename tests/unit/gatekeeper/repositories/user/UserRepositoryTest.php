@@ -15,24 +15,23 @@ use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\gatekeeper\repositories\user\UserRepository;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class UserRepositoryTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|UserRepository
+	 *
 	 */
-	protected function getRepository(?Closure $callback = null, ?AuthorizerInterface $authorizer = null)
+	protected function getRepository(?Closure $callback = null, ?AuthorizerInterface $authorizer = null): MockInterface&UserRepository
 	{
-		/** @var \mako\gatekeeper\repositories\user\UserRepositoryInterface|Mockery\MockInterface $repository */
 		$repository = Mockery::mock(UserRepository::class, ['mocked', $authorizer]);
 
 		$repository = $repository->makePartial();
 
 		$repository->shouldAllowMockingProtectedMethods();
 
-		/** @var \mako\gatekeeper\entities\user\UserEntityInterface|Mockery\MockInterface $user */
 		$user = Mockery::mock(User::class);
 
 		$user = $user->makePartial();
@@ -181,7 +180,6 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testCreateUserWithAuthorizer(): void
 	{
-		/** @var AuthorizerInterface|Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {
@@ -204,7 +202,6 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByUsernameWithAuthorizer(): void
 	{
-		/** @var AuthorizerInterface|Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {
@@ -223,7 +220,6 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByIdWithAuthorizer(): void
 	{
-		/** @var AuthorizerInterface|Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {
@@ -242,7 +238,6 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByAccessTokenWithAuthorizer(): void
 	{
-		/** @var AuthorizerInterface|Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {
@@ -261,7 +256,6 @@ class UserRepositoryTest extends TestCase
 	 */
 	public function testGetByActionTokenWithAuthorizer(): void
 	{
-		/** @var AuthorizerInterface|Mockery\MockInterface $authorizer */
 		$authorizer = Mockery::mock(AuthorizerInterface::class);
 
 		$repository = $this->getRepository(function ($user) use ($authorizer): void {

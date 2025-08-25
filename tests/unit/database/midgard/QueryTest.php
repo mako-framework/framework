@@ -15,6 +15,7 @@ use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
@@ -39,11 +40,10 @@ class ScopedModel extends ORM
 class QueryTest extends TestCase
 {
 	/**
-	 * @return Connection|Mockery\MockInterface
+	 *
 	 */
-	public function getConnecion()
+	public function getConnecion(): Connection&MockInterface
 	{
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));
@@ -54,11 +54,10 @@ class QueryTest extends TestCase
 	}
 
 	/**
-	 * @return Mockery\MockInterface|ORM
+	 *
 	 */
-	public function getModel()
+	public function getModel(): MockInterface&ORM
 	{
-		/** @var Mockery\MockInterface|ORM $model */
 		$model = Mockery::mock(ORM::class);
 
 		$model->shouldReceive('getClass')->once()->andReturn('Test');
@@ -69,9 +68,9 @@ class QueryTest extends TestCase
 	}
 
 	/**
-	 * @return Mockery\MockInterface|Query
+	 *
 	 */
-	public function getQuery($model)
+	public function getQuery($model): MockInterface&Query
 	{
 		return Mockery::mock(Query::class, [$this->getConnecion(), $model]);
 	}
@@ -109,7 +108,7 @@ class QueryTest extends TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('where')->once()->with('id', '=', 1984)->andReturn($query);
@@ -128,7 +127,7 @@ class QueryTest extends TestCase
 
 		$model->shouldReceive('getPrimaryKey')->once()->andReturn('id');
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[select,where,first]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('select')->once()->with(['foo', 'bar']);
@@ -396,7 +395,7 @@ class QueryTest extends TestCase
 
 		$model->shouldReceive('getPrimaryKey')->andReturn('foobar');
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn(new ResultSet);
@@ -411,7 +410,7 @@ class QueryTest extends TestCase
 
 		$model = $this->getModel();
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[all]', [$this->getConnecion(), $model]);
 
 		$query->shouldReceive('all')->once()->andReturn(new ResultSet);

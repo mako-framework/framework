@@ -22,12 +22,10 @@ class AlertTest extends TestCase
 	 */
 	public function testRender(): void
 	{
-		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('getWidth')->once()->andReturn(15);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($env): void {
@@ -54,7 +52,6 @@ class AlertTest extends TestCase
 	 */
 	public function testRenderWithWidth(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('getFormatter')->andReturn(null);
@@ -91,12 +88,10 @@ class AlertTest extends TestCase
 		. '               '
 		. PHP_EOL;
 
-		/** @var Environment|Mockery\MockInterface $env */
 		$env = Mockery::mock(Environment::class);
 
 		$env->shouldReceive('getWidth')->once()->andReturn(15);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($env): void {

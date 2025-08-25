@@ -688,7 +688,6 @@ class RequestTest extends TestCase
 	 */
 	public function testSignedCookie(): void
 	{
-		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->withArgs(['bar'])->andReturn('bar');
@@ -949,7 +948,6 @@ class RequestTest extends TestCase
 	{
 		$request = new Request;
 
-		/** @var Mockery\MockInterface|Route $route */
 		$route = Mockery::mock(Route::class);
 
 		$request->setRoute($route);
@@ -970,7 +968,6 @@ class RequestTest extends TestCase
 
 		$this->assertNull($request->getRoute());
 
-		/** @var Mockery\MockInterface|Route $route */
 		$route = Mockery::mock(Route::class);
 
 		$request->setRoute($route);

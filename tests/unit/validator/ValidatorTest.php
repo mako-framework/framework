@@ -362,10 +362,9 @@ class ValidatorTest extends TestCase
 			'foo' => ['bar::baz'],
 		];
 
-		/** @var I18n|Mockery\MockInterface $i18n */
 		$i18n = Mockery::mock(I18n::class);
 
-		/** @var Mockery\MockInterface|Validator $validator */
+		/** @var Mockery\MockInterface&Validator $validator */
 		$validator = Mockery::mock(Validator::class, [$input, $ruleSets, $i18n])->makePartial();
 
 		$validator->shouldAllowMockingProtectedMethods();

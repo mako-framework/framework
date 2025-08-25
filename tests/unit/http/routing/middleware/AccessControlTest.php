@@ -28,24 +28,20 @@ class AccessControlTest extends TestCase
 			protected bool $allowAllDomains = true;
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -66,24 +62,20 @@ class AccessControlTest extends TestCase
 			protected bool $allowAllDomains = true;
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn('https://example.org');
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -109,26 +101,22 @@ class AccessControlTest extends TestCase
 			];
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn('https://example.org');
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', 'https://example.org')->once();
 
 		$responseHeaders->shouldReceive('add')->with('Vary', 'Origin', false)->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -152,26 +140,22 @@ class AccessControlTest extends TestCase
 			];
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn('https://example.org');
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', 'https://example.org')->once();
 
 		$responseHeaders->shouldReceive('add')->with('Vary', 'Origin', false)->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -195,19 +179,16 @@ class AccessControlTest extends TestCase
 			];
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn('https://example.com');
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$middleware->execute($request, $response, function ($request, $response) {
@@ -227,19 +208,16 @@ class AccessControlTest extends TestCase
 			];
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		$middleware->execute($request, $response, function ($request, $response) {
@@ -257,26 +235,22 @@ class AccessControlTest extends TestCase
 			protected bool $allowCredentials = true;
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Credentials', 'true')->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -298,26 +272,22 @@ class AccessControlTest extends TestCase
 			protected array $allowedHeaders = ['X-Custom-Header1', 'X-Custom-Header2'];
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Headers', 'X-Custom-Header1, X-Custom-Header2')->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {
@@ -339,26 +309,22 @@ class AccessControlTest extends TestCase
 			protected array $allowedMethods = ['GET', 'POST'];
 		};
 
-		/** @var Mockery\MockInterface|RequestHeaders $requestHeaders */
 		$requestHeaders = Mockery::mock(RequestHeaders::class);
 
 		$requestHeaders->shouldReceive('get')->once()->with('Origin')->andReturn(null);
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		(function () use ($requestHeaders): void {
 			$this->headers = $requestHeaders;
 		})->bindTo($request, Request::class)();
 
-		/** @var Mockery\MockInterface|ResponseHeaders $responseHeaders */
 		$responseHeaders = Mockery::mock(ResponseHeaders::class);
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Origin', '*')->once();
 
 		$responseHeaders->shouldReceive('add')->with('Access-Control-Allow-Methods', 'GET, POST')->once();
 
-		/** @var Mockery\MockInterface|Response $response */
 		$response = Mockery::mock(Response::class);
 
 		(function () use ($responseHeaders): void {

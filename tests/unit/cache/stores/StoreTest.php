@@ -10,6 +10,7 @@ namespace mako\tests\cache\stores;
 use mako\cache\stores\Store;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 // --------------------------------------------------------------------------
@@ -34,9 +35,8 @@ class StoreTest extends TestCase
 	/**
 	 *
 	 */
-	protected function getStore()
+	protected function getStore(): MockInterface&TestStore
 	{
-		/** @var Mockery\MockInterface $mock */
 		$mock =  Mockery::mock(TestStore::class . '[put,has,get,remove,clear]');
 
 		return $mock->makePartial();

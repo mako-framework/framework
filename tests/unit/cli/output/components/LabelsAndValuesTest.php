@@ -22,12 +22,10 @@ class LabelsAndValuesTest extends TestCase
 	 */
 	public function testRender(): void
 	{
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('getWidth')->once()->andReturn(100);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -55,12 +53,10 @@ class LabelsAndValuesTest extends TestCase
 	 */
 	public function testRenderWith50PctWidth(): void
 	{
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('getWidth')->once()->andReturn(100);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -88,12 +84,10 @@ class LabelsAndValuesTest extends TestCase
 	 */
 	public function testRenderWith50PctWidthWithMaxWidthOf40(): void
 	{
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('getWidth')->once()->andReturn(100);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -121,12 +115,10 @@ class LabelsAndValuesTest extends TestCase
 	 */
 	public function testRenderWithMinSeparators(): void
 	{
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('getWidth')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {
@@ -154,12 +146,10 @@ class LabelsAndValuesTest extends TestCase
 	 */
 	public function testDrawWithMinSeparators(): void
 	{
-		/** @var Environment|Mockery\MockInterface $environment */
 		$environment = Mockery::mock(Environment::class);
 
 		$environment->shouldReceive('getWidth')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($environment): void {

@@ -23,10 +23,8 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedInputWithArray(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Mockery\MockInterface|Parameters $parameters */
 		$parameters = Mockery::mock(Parameters::class);
 
 		$request->shouldReceive('getData')->once()->andReturn($parameters);
@@ -59,7 +57,6 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedInputWithString(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->never();
@@ -90,10 +87,8 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedFilesWithArray(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Files|Mockery\MockInterface $files */
 		$files = Mockery::mock(Files::class);
 
 		(function () use ($files): void {
@@ -128,7 +123,6 @@ class InputValidationTraitTest extends TestCase
 	 */
 	public function testGetValidatedFilesWithString(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->never();

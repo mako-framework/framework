@@ -508,11 +508,10 @@ class ORMTest extends TestCase
 
 		$cast->date = new DateTime;
 
-		$this->assertInstanceOf('DateTime', $cast->date);
+		$this->assertInstanceOf(DateTime::class, $cast->date);
 
 		//
 
-		/** @var Mockery\MockInterface|TestCastingDate $cast */
 		$cast = Mockery::mock(TestCastingDate::class);
 
 		$cast->shouldAllowMockingProtectedMethods();
@@ -523,7 +522,7 @@ class ORMTest extends TestCase
 
 		$cast->date = '2014-01-01 12:12:12';
 
-		$this->assertInstanceOf('DateTime', $cast->date);
+		$this->assertInstanceOf(DateTime::class, $cast->date);
 	}
 
 	/**

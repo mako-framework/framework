@@ -23,12 +23,10 @@ class CryptoTest extends TestCase
 	 */
 	public function testEncrypt(): void
 	{
-		/** @var EncrypterInterface|Mockery\MockInterface $encrypter */
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
 		$encrypter->shouldReceive('encrypt')->once()->with('foobar')->andReturn('barfoo');
 
-		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('sign')->once()->with('barfoo')->andReturn('signedbarfoo');
@@ -43,12 +41,10 @@ class CryptoTest extends TestCase
 	 */
 	public function testDecrypt(): void
 	{
-		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn('barfoo');
 
-		/** @var EncrypterInterface|Mockery\MockInterface $encrypter */
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
 		$encrypter->shouldReceive('decrypt')->once()->with('barfoo')->andReturn('foobar');
@@ -67,12 +63,10 @@ class CryptoTest extends TestCase
 
 		$this->expectExceptionMessage('Ciphertex has been modified or an invalid authentication key has been provided.');
 
-		/** @var Mockery\MockInterface|Signer $signer */
 		$signer = Mockery::mock(Signer::class);
 
 		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn(false);
 
-		/** @var EncrypterInterface|Mockery\MockInterface $encrypter */
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
 		$crypto = new Crypto($encrypter, $signer);

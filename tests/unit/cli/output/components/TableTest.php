@@ -24,7 +24,6 @@ class TableTest extends TestCase
 	 */
 	public function testBasicTable(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {
@@ -48,7 +47,6 @@ class TableTest extends TestCase
 	 */
 	public function testBasicTableWithAsciiBorder(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {
@@ -72,7 +70,6 @@ class TableTest extends TestCase
 	 */
 	public function testTableWithMultipleRows(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {
@@ -97,7 +94,6 @@ class TableTest extends TestCase
 	 */
 	public function testTableWithMultipleColumns(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {
@@ -121,7 +117,6 @@ class TableTest extends TestCase
 	 */
 	public function testTableWithMultipleColumnsAndRows(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {
@@ -146,14 +141,12 @@ class TableTest extends TestCase
 	 */
 	public function testStyledContent(): void
 	{
-		/** @var FormatterInterface|Mockery\MockInterface $formatter */
 		$formatter = Mockery::mock(FormatterInterface::class);
 
 		$formatter->shouldReceive('stripTags')->times(2)->with('<blue>Col1</blue>')->andReturn('Col1');
 
 		$formatter->shouldReceive('stripTags')->times(2)->with('Cell1')->andReturn('Cell1');
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function () use ($formatter): void {
@@ -177,7 +170,6 @@ class TableTest extends TestCase
 	 */
 	public function testDraw(): void
 	{
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {
@@ -205,7 +197,6 @@ class TableTest extends TestCase
 	{
 		$this->expectException(CliException::class);
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		(function (): void {

@@ -13,17 +13,17 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class PostgresCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|PostgresConnection
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): MockInterface&PostgresConnection
 	{
-		/** @var Mockery\MockInterface|PostgresConnection $connection */
 		$connection = Mockery::mock(PostgresConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

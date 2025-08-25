@@ -13,17 +13,17 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class SQLServerCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|SQLServerConnection
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): MockInterface&SQLServerConnection
 	{
-		/** @var Mockery\MockInterface|SQLServerConnection $connection */
 		$connection = Mockery::mock(SQLServerConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

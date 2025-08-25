@@ -51,7 +51,6 @@ class ValidationExceptionTest extends TestCase
 	{
 		$exception = new ValidationException([]);
 
-		/** @var InputInterface|Mockery\MockInterface $input */
 		$input = Mockery::mock(InputInterface::class);
 
 		$exception->setInput($input);

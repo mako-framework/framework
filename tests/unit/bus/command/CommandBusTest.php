@@ -65,7 +65,6 @@ class CommandBusTest extends TestCase
 
 		$createUserHandler = new CreateUserHandler($spy);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldReceive('get')->once()->with(CreateUserHandler::class)->andReturn($createUserHandler);
@@ -90,7 +89,6 @@ class CommandBusTest extends TestCase
 			$spy->peek = $createUser->username;
 		};
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new CommandBus($container);
@@ -107,7 +105,6 @@ class CommandBusTest extends TestCase
 	 */
 	public function testFunctionHandler(): void
 	{
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new CommandBus($container);
@@ -127,7 +124,6 @@ class CommandBusTest extends TestCase
 		$this->expectException(CommandBusException::class);
 		$this->expectExceptionMessage('No handler has been registered for [ mako\tests\unit\bus\command\CreateUserCommand ] commands.');
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new CommandBus($container);

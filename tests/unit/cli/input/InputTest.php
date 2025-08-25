@@ -12,15 +12,16 @@ use mako\cli\input\Input;
 use mako\cli\input\reader\ReaderInterface;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class InputTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|ReaderInterface
+	 *
 	 */
-	public function getReader()
+	public function getReader(): MockInterface&ReaderInterface
 	{
 		return Mockery::mock(ReaderInterface::class);
 	}
@@ -32,7 +33,6 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
-		/** @var ArgvParser|Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
@@ -47,7 +47,6 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
-		/** @var ArgvParser|Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
@@ -70,7 +69,6 @@ class InputTest extends TestCase
 
 		$reader->shouldReceive('read')->once()->andReturn('user input');
 
-		/** @var ArgvParser|Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
@@ -85,7 +83,6 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
-		/** @var ArgvParser|Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$input = new Input($reader, $arguments);
@@ -101,7 +98,6 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
-		/** @var ArgvParser|Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$arguments->shouldReceive('parse')->once()->andReturn(['foo' => 'bar']);
@@ -118,7 +114,6 @@ class InputTest extends TestCase
 	{
 		$reader = $this->getReader();
 
-		/** @var ArgvParser|Mockery\MockInterface $arguments */
 		$arguments = Mockery::mock(ArgvParser::class);
 
 		$arguments->shouldReceive('getArgumentValue')->once()->with('name', 'default')->andReturn('value');

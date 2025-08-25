@@ -62,7 +62,6 @@ class InputTest extends TestCase
 			}
 		};
 
-		/** @var Mockery\MockInterface|Validator $validator */
 		$validator = Mockery::mock(Validator::class);
 
 		$validator->shouldReceive('addRule')->never();

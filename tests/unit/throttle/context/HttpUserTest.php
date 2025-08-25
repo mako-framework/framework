@@ -23,7 +23,6 @@ class HttpUserTest extends TestCase
 	 */
 	public function testWithNoGatekeeper(): void
 	{
-		/** @var Mockery\MockInterface&Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getIp')->once()->andReturn('127.0.0.1');
@@ -38,10 +37,8 @@ class HttpUserTest extends TestCase
 	 */
 	public function testWithGatekeeperWithNoUser(): void
 	{
-		/** @var Mockery\MockInterface&Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Gatekeeper&Mockery\MockInterface $gatekeeper */
 		$gatekeeper = Mockery::mock(Gatekeeper::class);
 
 		$gatekeeper->shouldReceive('isLoggedIn')->once()->andReturn(false);
@@ -58,13 +55,10 @@ class HttpUserTest extends TestCase
 	 */
 	public function testWithGatekeeperWithUser(): void
 	{
-		/** @var Mockery\MockInterface&Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Gatekeeper&Mockery\MockInterface $gatekeeper */
 		$gatekeeper = Mockery::mock(Gatekeeper::class);
 
-		/** @var Mockery\MockInterface&UserEntityInterface $user */
 		$user = Mockery::mock(UserEntityInterface::class);
 
 		$user->shouldReceive('getId')->once()->andReturn(42);

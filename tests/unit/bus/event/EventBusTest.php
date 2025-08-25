@@ -59,14 +59,13 @@ class EventBusTest extends TestCase
 
 		$createUserHandler = new UserCreatedHandler($spy);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->once()->with(CreateUserHandler::class)->andReturn($createUserHandler);
+		$container->shouldReceive('get')->once()->with(UserCreatedHandler::class)->andReturn($createUserHandler);
 
 		$bus = new EventBus($container);
 
-		$bus->registerHandler(UserCreatedEvent::class, CreateUserHandler::class);
+		$bus->registerHandler(UserCreatedEvent::class, UserCreatedHandler::class);
 
 		$bus->handle(new UserCreatedEvent('freost'));
 
@@ -82,15 +81,14 @@ class EventBusTest extends TestCase
 
 		$createUserHandler = new UserCreatedHandler($spy);
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
-		$container->shouldReceive('get')->times(2)->with(CreateUserHandler::class)->andReturn($createUserHandler);
+		$container->shouldReceive('get')->times(2)->with(UserCreatedHandler::class)->andReturn($createUserHandler);
 
 		$bus = new EventBus($container);
 
-		$bus->registerHandler(UserCreatedEvent::class, CreateUserHandler::class);
-		$bus->registerHandler(UserCreatedEvent::class, CreateUserHandler::class);
+		$bus->registerHandler(UserCreatedEvent::class, UserCreatedHandler::class);
+		$bus->registerHandler(UserCreatedEvent::class, UserCreatedHandler::class);
 
 		$bus->handle(new UserCreatedEvent('freost'));
 
@@ -108,7 +106,6 @@ class EventBusTest extends TestCase
 			$spy->peek = $createUser->username;
 		};
 
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$bus = new EventBus($container);
@@ -125,7 +122,6 @@ class EventBusTest extends TestCase
 	 */
 	public function testMissingHandler(): void
 	{
-		/** @var Container|Mockery\MockInterface $container */
 		$container = Mockery::mock(Container::class);
 
 		$container->shouldNotReceive('get');

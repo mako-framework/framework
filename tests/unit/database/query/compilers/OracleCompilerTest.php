@@ -13,17 +13,17 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class OracleCompilerTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|OracleConnection
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): MockInterface&OracleConnection
 	{
-		/** @var Mockery\MockInterface|OracleConnection */
 		$connection = Mockery::mock(OracleConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

@@ -17,6 +17,7 @@ use mako\http\response\senders\Redirect;
 use mako\http\response\Status;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 use ValueError;
 
@@ -24,9 +25,9 @@ use ValueError;
 class ResponseTest extends TestCase
 {
 	/**
-	 * @return Mockery\MockInterface|Request
+	 *
 	 */
-	public function getRequest()
+	public function getRequest(): MockInterface&Request
 	{
 		$request = Mockery::mock(Request::class);
 

@@ -23,7 +23,6 @@ class ExistsTest extends TestCase
 	 */
 	public function testValidatesWhenEmpty(): void
 	{
-		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$rule = new Exists('table', 'column', null, $database);
@@ -36,7 +35,6 @@ class ExistsTest extends TestCase
 	 */
 	public function testWithValidValue(): void
 	{
-		/** @var Mockery\MockInterface|Query $builder */
 		$builder = Mockery::mock(Query::class);
 
 		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
@@ -45,12 +43,10 @@ class ExistsTest extends TestCase
 
 		$builder->shouldReceive('count')->once()->andReturn(1);
 
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
-		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
@@ -65,7 +61,6 @@ class ExistsTest extends TestCase
 	 */
 	public function testWithInvalidValue(): void
 	{
-		/** @var Mockery\MockInterface|Query $builder */
 		$builder = Mockery::mock(Query::class);
 
 		$builder->shouldReceive('table')->once()->with('users')->andReturn($builder);
@@ -74,12 +69,10 @@ class ExistsTest extends TestCase
 
 		$builder->shouldReceive('count')->once()->andReturn(0);
 
-		/** @var Connection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(Connection::class);
 
 		$connection->shouldReceive('getQuery')->once()->andReturn($builder);
 
-		/** @var ConnectionManager|Mockery\MockInterface $database */
 		$database = Mockery::mock(ConnectionManager::class);
 
 		$database->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);

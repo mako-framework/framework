@@ -7,6 +7,7 @@
 
 namespace mako\tests\integration\database\query\compilers;
 
+use Generator;
 use LogicException;
 use mako\database\exceptions\NotFoundException;
 use mako\database\query\Query;
@@ -89,9 +90,9 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 
 		$results = $query->table('users')->all();
 
-		$this->assertInstanceOf('mako\database\query\ResultSet', $results);
+		$this->assertInstanceOf(ResultSet::class, $results);
 
-		$this->assertInstanceOf('mako\database\query\Result', $results[0]);
+		$this->assertInstanceOf(Result::class, $results[0]);
 
 		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
@@ -105,7 +106,7 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 
 		$result = $query->table('users')->first();
 
-		$this->assertInstanceOf('mako\database\query\Result', $result);
+		$this->assertInstanceOf(Result::class, $result);
 
 		$this->assertEquals('SELECT * FROM "users" LIMIT 1', $this->connectionManager->getConnection()->getLog()[0]['query']);
 	}
@@ -143,10 +144,10 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 
 		$results = $query->table('users')->yield();
 
-		$this->assertInstanceOf('Generator', $results);
+		$this->assertInstanceOf(Generator::class, $results);
 
 		foreach ($results as $result) {
-			$this->assertInstanceOf('mako\database\query\Result', $result);
+			$this->assertInstanceOf(Result::class, $result);
 		}
 
 		$this->assertEquals('SELECT * FROM "users"', $this->connectionManager->getConnection()->getLog()[0]['query']);
@@ -171,19 +172,17 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 	 */
 	public function testSelectWithPagination(): void
 	{
-		/** @var Mockery\MockInterface|PaginationInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('limit')->once()->andReturn(10);
 
 		$pagination->shouldReceive('offset')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|PaginationFactoryInterface $paginationFactory */
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var Mockery\MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
@@ -202,19 +201,17 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 	 */
 	public function testSelectWithUnionAndPagination(): void
 	{
-		/** @var Mockery\MockInterface|PaginationInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('limit')->once()->andReturn(10);
 
 		$pagination->shouldReceive('offset')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|PaginationFactoryInterface $paginationFactory */
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var Mockery\MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
@@ -233,19 +230,17 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 	 */
 	public function testSelectWithPaginationAndZeroResults(): void
 	{
-		/** @var Mockery\MockInterface|PaginationInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('limit')->never();
 
 		$pagination->shouldReceive('offset')->never();
 
-		/** @var Mockery\MockInterface|PaginationFactoryInterface $paginationFactory */
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var Mockery\MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
@@ -262,19 +257,17 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 	 */
 	public function testSelectWithPaginationAndOrdering(): void
 	{
-		/** @var Mockery\MockInterface|PaginationInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('limit')->once()->andReturn(10);
 
 		$pagination->shouldReceive('offset')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|PaginationFactoryInterface $paginationFactory */
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var Mockery\MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
@@ -293,19 +286,17 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 	 */
 	public function testSelectWithPaginationAndGrouping(): void
 	{
-		/** @var Mockery\MockInterface|PaginationInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('limit')->once()->andReturn(10);
 
 		$pagination->shouldReceive('offset')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|PaginationFactoryInterface $paginationFactory */
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var Mockery\MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
@@ -324,19 +315,17 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 	 */
 	public function testSelectWithPaginationAndDistinct(): void
 	{
-		/** @var Mockery\MockInterface|PaginationInterface $pagination */
 		$pagination = Mockery::mock(PaginationInterface::class);
 
 		$pagination->shouldReceive('limit')->once()->andReturn(10);
 
 		$pagination->shouldReceive('offset')->once()->andReturn(0);
 
-		/** @var Mockery\MockInterface|PaginationFactoryInterface $paginationFactory */
 		$paginationFactory = Mockery::mock(PaginationFactoryInterface::class);
 
 		$paginationFactory->shouldReceive('create')->once()->andReturn($pagination);
 
-		/** @var Mockery\MockInterface|Query $query */
+		/** @var Mockery\MockInterface&Query $query */
 		$query = Mockery::mock(Query::class . '[getPaginationFactory]', [$this->connectionManager->getConnection()]);
 
 		$query->shouldReceive('getPaginationFactory')->once()->andReturn($paginationFactory);
@@ -393,7 +382,7 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 			$query->table('users')->count();
 		}, 'count')])->first();
 
-		$this->assertInstanceOf('mako\database\query\Result', $result);
+		$this->assertInstanceOf(Result::class, $result);
 
 		$this->assertSame(1, count($this->connectionManager->getConnection()->getLog()));
 

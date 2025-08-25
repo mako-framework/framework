@@ -23,10 +23,8 @@ class InputTest extends TestCase
 	 */
 	public function testGetInput(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Mockery\MockInterface|Parameters $data */
 		$data = Mockery::mock(Parameters::class);
 
 		$data->shouldReceive('all')->once()->andReturn(['input' => 'value']);
@@ -47,7 +45,6 @@ class InputTest extends TestCase
 	 */
 	public function testShouldRedirect(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$urlBuilder = Mockery::mock(URLBuilder::class);
@@ -70,10 +67,8 @@ class InputTest extends TestCase
 	 */
 	public function testGetRedirectUrl(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Mockery\MockInterface|URLBuilder $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$urlBuilder->shouldReceive('current')->once()->andReturn('https://example.org');
@@ -90,10 +85,8 @@ class InputTest extends TestCase
 	 */
 	public function testShouldIncludeOldInput(): void
 	{
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
-		/** @var Mockery\MockInterface|URLBuilder $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$input = new class ($request, $urlBuilder) extends Input {
@@ -114,17 +107,14 @@ class InputTest extends TestCase
 	 */
 	public function testGetOldInput(): void
 	{
-		/** @var Mockery\MockInterface|Parameters $data */
 		$data = Mockery::mock(Parameters::class);
 
 		$data->shouldReceive('all')->once()->andReturn(['field' => 'value']);
 
-		/** @var Mockery\MockInterface|Request $request */
 		$request = Mockery::mock(Request::class);
 
 		$request->shouldReceive('getData')->once()->andReturn($data);
 
-		/** @var Mockery\MockInterface|URLBuilder $urlBuilder */
 		$urlBuilder = Mockery::mock(URLBuilder::class);
 
 		$input = new class ($request, $urlBuilder) extends Input {

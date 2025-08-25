@@ -13,17 +13,17 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class FirebirdCompilerTest extends TestCase
 {
 	/**
-	 * @return FirebirdConnection|Mockery\MockInterface
+	 *
 	 */
-	protected function getConnection()
+	protected function getConnection(): FirebirdConnection&MockInterface
 	{
-		/** @var FirebirdConnection|Mockery\MockInterface $connection */
 		$connection = Mockery::mock(FirebirdConnection::class);
 
 		$connection->shouldReceive('getQueryBuilderHelper')->andReturn(Mockery::mock(HelperInterface::class));

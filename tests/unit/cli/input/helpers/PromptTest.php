@@ -22,12 +22,10 @@ class PromptTest extends TestCase
 	 */
 	public function testPrompt(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('foobar');
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
@@ -42,12 +40,10 @@ class PromptTest extends TestCase
 	 */
 	public function testQuestionWithCustomPrompt(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn('foobar');
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '[ ');
@@ -62,12 +58,10 @@ class PromptTest extends TestCase
 	 */
 	public function testQuestionWithNoInputAndNullDefault(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');
@@ -82,12 +76,10 @@ class PromptTest extends TestCase
 	 */
 	public function testQuestionWithNoInputAndCustomDefault(): void
 	{
-		/** @var Input|Mockery\MockInterface $input */
 		$input = Mockery::mock(Input::class);
 
 		$input->shouldReceive('read')->once()->andReturn();
 
-		/** @var Mockery\MockInterface|Output $output */
 		$output = Mockery::mock(Output::class);
 
 		$output->shouldReceive('write')->once()->with('Username:' . PHP_EOL . '> ');

@@ -12,6 +12,7 @@ use mako\i18n\I18n;
 use mako\i18n\loaders\LoaderInterface;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
@@ -20,7 +21,7 @@ class I18nTest extends TestCase
 	/**
 	 *
 	 */
-	protected $strings =
+	protected array $strings =
 	[
 		'foo'	   => ['foo' => 'foostring', 'greeting' => 'hello %s'],
 		'bar'      => ['bar' => 'barstring', 'pluralization' => 'You have %1$u <pluralize:%1$u>apple</pluralize>.'],
@@ -30,9 +31,9 @@ class I18nTest extends TestCase
 	];
 
 	/**
-	 * @return LoaderInterface|Mockery\MockInterface
+	 *
 	 */
-	public function getLoader()
+	public function getLoader(): LoaderInterface&MockInterface
 	{
 		return Mockery::mock(LoaderInterface::class);
 	}
@@ -68,7 +69,7 @@ class I18nTest extends TestCase
 	{
 		$i18n = new I18n($this->getLoader(), 'en_US');
 
-		$this->assertInstanceOf('mako\i18n\loaders\LoaderInterface', $i18n->getLoader());
+		$this->assertInstanceOf(LoaderInterface::class, $i18n->getLoader());
 	}
 
 	/**
