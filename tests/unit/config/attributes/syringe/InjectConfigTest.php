@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
+namespace mako\tests\unit\database\attributes\syringe;
+
+use mako\config\attributes\syringe\InjectConfig;
+use mako\config\Config;
+use mako\tests\TestCase;
+use Mockery;
+use PHPUnit\Framework\Attributes\Group;
+use ReflectionParameter;
+
+#[Group('unit')]
+class InjectConfigTest extends TestCase
+{
+	/**
+	 *
+	 */
+	public function testInjectConnectionWithNull(): void
+	{
+		$config = Mockery::mock(Config::class);
+
+		$config->shouldReceive('get')->with('key', null)->andReturn('foobar');
+
+		$injector = new InjectConfig('key', null, $config);
+
+		$reflection = Mockery::mock(ReflectionParameter::class);
+
+		$this->assertSame('foobar', $injector->getParameterValue($reflection));
+	}
+
+	/**
+	 *
+	 */
+	public function testInjectConnectionWithDefault(): void
+	{
+		$config = Mockery::mock(Config::class);
+
+		$config->shouldReceive('get')->with('key', 'barfoo')->andReturn('foobar');
+
+		$injector = new InjectConfig('key', 'barfoo', $config);
+
+		$reflection = Mockery::mock(ReflectionParameter::class);
+
+		$this->assertSame('foobar', $injector->getParameterValue($reflection));
+	}
+}
