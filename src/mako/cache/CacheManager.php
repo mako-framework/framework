@@ -32,7 +32,6 @@ use function sprintf;
  * Cache manager.
  *
  * @mixin \mako\cache\stores\StoreInterface
- * @method \mako\cache\stores\StoreInterface instance($configuration = null)
  * @method \mako\cache\stores\StoreInterface getInstance($configuration = null)
  */
 class CacheManager extends AdapterManager
