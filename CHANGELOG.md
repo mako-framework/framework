@@ -13,6 +13,12 @@
 
 * PHP 8.5 compatibility.
 
+#### Deprecations
+
+* Deprecated the `Crypto::getEncrypter()` method. Use the `Crypto::getInstance()` or `Crypto::getCrypto()` methods instead.
+
+> All deprecated features will be removed in Mako 12.0.
+
 --------------------------------------------------------
 
 ### 11.3.0 <small>(2025-07-28)</small>
