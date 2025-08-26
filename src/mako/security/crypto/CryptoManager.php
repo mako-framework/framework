@@ -30,7 +30,7 @@ class CryptoManager extends AdapterManager
 	 */
 	protected function opensslFactory(array $configuration): OpenSSL
 	{
-		return new OpenSSL(Key::decode($configuration['key']), $configuration['cipher']);
+		return new OpenSSL(Key::decode($configuration['key']), $configuration['cipher'], $configuration['key_derivation_iterations'] ?? null);
 	}
 
 	/**

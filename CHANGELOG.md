@@ -9,6 +9,10 @@
 	- `InjectEnv` which allows you to inject a environment variable value.
 * Added `disableAfterSunset` option to the `Deprecated` middleware.
 
+#### Changes
+
+* Increased the default PBKDF2 key derivation iteration count in the OpenSSL encrypter to improve security. The default can be overridden using the `key_derivation_iterations` configuration parameter.
+
 #### Compatibility
 
 * PHP 8.5 compatibility.

@@ -33,9 +33,11 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 	 */
 	public function __construct(
 		#[SensitiveParameter] protected string $key,
-		protected string $cipher = 'AES-256-CTR'
+		protected string $cipher = 'AES-256-CTR',
+		?int $keyDerivationIterations = null
 	) {
 		$this->ivSize = openssl_cipher_iv_length($this->cipher);
+		$this->keyDerivationIterations = $keyDerivationIterations;
 	}
 
 	/**
