@@ -21,8 +21,8 @@ class Crypto
 	 * Constructor.
 	 */
 	public function __construct(
-		protected EncrypterInterface $adapter,
-		protected Signer $signer
+		public protected(set) EncrypterInterface $adapter,
+		public protected(set) Signer $signer
 	) {
 	}
 
