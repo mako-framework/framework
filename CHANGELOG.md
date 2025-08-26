@@ -19,7 +19,7 @@
 
 #### Deprecations
 
-* Deprecated the `Crypto::getEncrypter()` method. Use the `Crypto::getInstance()` or `Crypto::getCrypto()` methods instead.
+* Deprecated the `CryptoManager::getEncrypter()` method. Use the `CryptoManager::getInstance()` or `CryptoManager::getCrypto()` methods instead.
 
 > All deprecated features will be removed in Mako 12.0.
 
