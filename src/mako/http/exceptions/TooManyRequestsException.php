@@ -26,11 +26,6 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 	protected const string RFC_7231_DATE = 'D, d M Y H:i:s \G\M\T';
 
 	/**
-	 * Headers.
-	 */
-	protected $headers = [];
-
-	/**
 	 * {@inheritDoc}
 	 */
 	protected string $defaultMessage = 'You have made too many requests to the server.';
