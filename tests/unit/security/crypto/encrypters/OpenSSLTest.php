@@ -23,7 +23,7 @@ class OpenSSLTest extends TestCase
 	{
 		$string = 'hello, world!';
 
-		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK');
+		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', keyDerivationIterations: 1024);
 
 		$encrypted1 = $openSSL->encrypt($string);
 
@@ -43,7 +43,7 @@ class OpenSSLTest extends TestCase
 	{
 		$string = 'hello, world!';
 
-		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK');
+		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', keyDerivationIterations: 1024);
 
 		$encrypted = $openSSL->encrypt($string);
 
@@ -59,7 +59,7 @@ class OpenSSLTest extends TestCase
 	 */
 	public function testDecryptWithInvalidBase64(): void
 	{
-		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK');
+		$openSSL = new OpenSSL('uE4cJ8YzUMev*aAuZBXezXqWr[sNwK', keyDerivationIterations: 1024);
 
 		$this->assertFalse($openSSL->decrypt('<invalid>'));
 	}

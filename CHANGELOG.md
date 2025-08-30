@@ -1,17 +1,27 @@
-### 11.4.0 <small>(2025-??-??)</small>
+### 11.4.0 <small>(2025-08-30)</small>
 
 #### New
 
 * The container can now resolve parameters with the help of custom injector attributes. The following attributes are included by default:
-	- `InjectConnection` which allows you to inject a database connection.
-	- `InjectConnection` which allows you to inject a Redis connection.
+	- `InjectConnection` which allows you to inject a specific database connection.
+	- `InjectConnection` which allows you to inject a specific Redis connection.
 	- `InjectConfig` which allows you to inject a config value.
 	- `InjectEnv` which allows you to inject a environment variable value.
 * Added `disableAfterSunset` option to the `Deprecated` middleware.
 
+#### Changes
+
+* Increased the default PBKDF2 key derivation iteration count in the OpenSSL encrypter to improve security. The default can be overridden using the `key_derivation_iterations` configuration parameter.
+
 #### Compatibility
 
 * PHP 8.5 compatibility.
+
+#### Deprecations
+
+* Deprecated the `CryptoManager::getEncrypter()` method. Use the `CryptoManager::getInstance()` or `CryptoManager::getCrypto()` methods instead.
+
+> All deprecated features will be removed in Mako 12.0.
 
 --------------------------------------------------------
 
@@ -189,7 +199,7 @@ The major version bump is due to upping the required PHP version from `8.1` to `
 * Renamed the `ErrorHandler::handle()` method to `ErrorHandler::addHandler()`.
 * Renamed the `ErrorHandler::handler()` method to `ErrorHandler::handle()`.
 * Renamed the `mako\cli\output\helpers` namespace to `mako\cli\output\components`.
-* The Redis cache `clear` implementation will no longer flush the entire database but instead just deleted the cached keys.
+* The Redis cache `clear` implementation will no longer flush the entire database but instead just delete the cached keys.
 
 #### Deprecations
 

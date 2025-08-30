@@ -21,8 +21,8 @@ class Crypto
 	 * Constructor.
 	 */
 	public function __construct(
-		protected EncrypterInterface $adapter,
-		protected Signer $signer
+		public protected(set) EncrypterInterface $encrypter,
+		public protected(set) Signer $signer
 	) {
 	}
 
@@ -31,7 +31,7 @@ class Crypto
 	 */
 	public function encrypt(#[SensitiveParameter] string $string): string
 	{
-		return $this->signer->sign($this->adapter->encrypt($string));
+		return $this->signer->sign($this->encrypter->encrypt($string));
 	}
 
 	/**
@@ -45,6 +45,6 @@ class Crypto
 			throw new CryptoException('Ciphertex has been modified or an invalid authentication key has been provided.');
 		}
 
-		return $this->adapter->decrypt($string);
+		return $this->encrypter->decrypt($string);
 	}
 }

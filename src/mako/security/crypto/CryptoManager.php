@@ -7,8 +7,8 @@
 
 namespace mako\security\crypto;
 
+use Deprecated;
 use mako\common\AdapterManager;
-use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Key;
@@ -20,9 +20,8 @@ use function sprintf;
 /**
  * Crypto manager.
  *
- * @mixin \mako\security\crypto\encrypters\EncrypterInterface
- * @method \mako\security\crypto\encrypters\EncrypterInterface instance(?string $configuration = null)
- * @method \mako\security\crypto\encrypters\EncrypterInterface getInstance(?string $configuration = null)
+ * @mixin \mako\security\crypto\Crypto
+ * @method \mako\security\crypto\Crypto getInstance(?string $configuration = null)
  */
 class CryptoManager extends AdapterManager
 {
@@ -31,7 +30,7 @@ class CryptoManager extends AdapterManager
 	 */
 	protected function opensslFactory(array $configuration): OpenSSL
 	{
-		return new OpenSSL(Key::decode($configuration['key']), $configuration['cipher']);
+		return new OpenSSL(Key::decode($configuration['key']), $configuration['cipher'], $configuration['key_derivation_iterations'] ?? null);
 	}
 
 	/**
@@ -52,7 +51,16 @@ class CryptoManager extends AdapterManager
 	/**
 	 * Returns an instance of the chosen encrypter. Alias of CryptoManager::getInstance().
 	 */
-	public function getEncrypter(?string $configuration = null): EncrypterInterface
+	#[Deprecated('use the "getInstance()" or "getCrypto()" methods instead', since: 'Mako 11.4.0')]
+	public function getEncrypter(?string $configuration = null): Crypto
+	{
+		return $this->getInstance($configuration);
+	}
+
+	/**
+	 * Returns an instance of the chosen encrypter. Alias of CryptoManager::getInstance().
+	 */
+	public function getCrypto(?string $configuration = null): Crypto
 	{
 		return $this->getInstance($configuration);
 	}

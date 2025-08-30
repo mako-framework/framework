@@ -22,15 +22,27 @@ abstract class Encrypter
 	protected const string DERIVATION_HASH = 'sha256';
 
 	/**
-	 * Derivation iterations.
+	 * Default derivation iterations.
 	 */
-	protected const int DERIVATION_ITERATIONS = 1024;
+	protected const int DEFAULT_DERIVATION_ITERATIONS = 600_000;
 
 	/**
-	 * Generate a PBKDF2 key derivation of a supplied key.
+	 * Derivation iterations.
+	 */
+	protected ?int $keyDerivationIterations = null;
+
+	/**
+	 * Returns a PBKDF2 key derivation of the supplied key.
 	 */
 	protected function deriveKey(#[SensitiveParameter] string $key, #[SensitiveParameter] string $salt, int $keySize): string
 	{
-		return hash_pbkdf2(static::DERIVATION_HASH, $key, $salt, static::DERIVATION_ITERATIONS, $keySize, true);
+		return hash_pbkdf2(
+			static::DERIVATION_HASH,
+			$key,
+			$salt,
+			$this->keyDerivationIterations ?? static::DEFAULT_DERIVATION_ITERATIONS,
+			$keySize,
+			true
+		);
 	}
 }
