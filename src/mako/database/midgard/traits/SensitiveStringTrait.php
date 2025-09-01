@@ -53,9 +53,6 @@ trait SensitiveStringTrait
 			'beforeUpdate' => [
 				fn ($values, $query): array => $this->encapsulateSensitiveStrings($values),
 			],
-			'beforeDelete' => [
-				fn ($values, $query): array => $this->encapsulateSensitiveStrings($values),
-			],
 		];
 	}
 }

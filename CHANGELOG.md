@@ -1,3 +1,11 @@
+### 11.3.1 <small>(2025-09-01)</small>
+
+#### Bugfixes
+
+* Fixed issue with deleting records using an ORM object with the `SensitiveStringTrait` trait.
+
+--------------------------------------------------------
+
 ### 11.3.0 <small>(2025-07-28)</small>
 
 #### New
