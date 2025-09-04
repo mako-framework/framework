@@ -29,7 +29,10 @@ class I18nService extends Service
 
 		$this->container->registerSingleton(
 			[I18n::class, 'i18n'],
-			static fn ($container) => new I18n(new Loader($container->get(FileSystem::class), "{$app->getPath()}/resources/i18n"), $app->getLanguage())
+			static fn ($container) => new I18n(
+				new Loader($container->get(FileSystem::class), "{$app->getPath()}/resources/i18n"),
+				$app->getLanguage()
+			)
 		);
 	}
 }
