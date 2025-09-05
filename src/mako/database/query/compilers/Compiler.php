@@ -178,6 +178,20 @@ class Compiler
 	}
 
 	/**
+	 * Escapes a table name with optional alias.
+	 */
+	public function escapeTableNameWithAlias(string $table): string
+	{
+		if (stripos($table, ' AS ') !== false) {
+			[$table, , $alias] = explode(' ', $table, 3);
+
+			return "{$this->escapeTableName($table)} AS {$this->escapeTableName($alias)}";
+		}
+
+		return $this->escapeTableName($table);
+	}
+
+	/**
 	 * Returns a comma-separated list of escaped table names.
 	 */
 	public function escapeTableNames(array $tables): string
@@ -202,13 +216,8 @@ class Compiler
 		elseif ($table instanceof Subquery) {
 			return $this->subquery($table);
 		}
-		elseif (stripos($table, ' AS ') !== false) {
-			[$table, , $alias] = explode(' ', $table, 3);
 
-			return "{$this->escapeTableName($table)} AS {$this->escapeTableName($alias)}";
-		}
-
-		return $this->escapeTableName($table);
+		return $this->escapeTableNameWithAlias($table);
 	}
 
 	/**

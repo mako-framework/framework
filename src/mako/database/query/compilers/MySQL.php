@@ -157,7 +157,7 @@ class MySQL extends Compiler
 	{
 		$sql = $this->query->getPrefix()
 		. 'UPDATE '
-		. $this->escapeTableName($this->query->getTable())
+		. $this->escapeTableNameWithAlias($this->query->getTable())
 		. $this->joins($this->query->getJoins())
 		. ' SET '
 		. $this->updateColumns($values)
