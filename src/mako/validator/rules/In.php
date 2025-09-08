@@ -45,6 +45,6 @@ class In extends Rule implements RuleInterface
 	#[Override]
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain one of available options.', $field);
+		return sprintf('The %1$s field must contain one of the available options.', $field);
 	}
 }

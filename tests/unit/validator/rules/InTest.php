@@ -45,6 +45,6 @@ class InTest extends TestCase
 
 		$this->assertFalse($rule->validate(0, '', []));
 
-		$this->assertSame('The foobar field must contain one of available options.', $rule->getErrorMessage('foobar'));
+		$this->assertSame('The foobar field must contain one of the available options.', $rule->getErrorMessage('foobar'));
 	}
 }
