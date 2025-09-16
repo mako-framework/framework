@@ -78,8 +78,12 @@ class HTTPService extends Service
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $routingPath) {
-			$router = new Router($container->get(Routes::class), $container);
+		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $config, $routingPath) {
+			$router = new Router(
+				$container->get(Routes::class),
+				$container,
+				$config['ingress_prefix'] ?? null
+			);
 
 			(function ($app, $container, $router) use ($routingPath): void {
 				include "{$routingPath}/constraints.php";

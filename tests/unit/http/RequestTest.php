@@ -464,18 +464,6 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPathWithPrefix(): void
-	{
-		$server = ['PATH_INFO' => '/api/openapi/docs'];
-
-		$request = new Request(['server' => $server], ingressPrefix: '/api');
-
-		$this->assertEquals('/openapi/docs', $request->getPath());
-	}
-
-	/**
-	 *
-	 */
 	public function testPathWithLanguage(): void
 	{
 		$server = $this->getServerData();

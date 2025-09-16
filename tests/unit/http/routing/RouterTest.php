@@ -357,6 +357,32 @@ class RouterTest extends TestCase
 	/**
 	 *
 	 */
+	public function testSuccessfulRouteWithIngressPrefix(): void
+	{
+		$routes = new Routes;
+
+		$routes->post('/foo', fn () => 'Hello, world!', 'post.foo');
+
+		$routes->get('/foo', fn () => 'Hello, world!', 'get.foo');
+
+		$router = new Router($routes, ingressPrefix: '/api');
+
+		$request = $this->getRequest();
+
+		$request->shouldReceive('getMethod')->andReturn('GET');
+
+		$request->shouldReceive('getPath')->andReturn('/api/foo');
+
+		$routed = $router->route($request);
+
+		$this->assertSame('get.foo', $routed->getName());
+
+		$this->assertSame($routed, $request->getRoute());
+	}
+
+	/**
+	 *
+	 */
 	public function testSuccessfulRouteWithParameters(): void
 	{
 		$routes = new Routes;

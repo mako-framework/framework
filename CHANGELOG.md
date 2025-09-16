@@ -1,8 +1,16 @@
+### 11.4.3, <small>(2025-09-16)</small>
+
+#### Changes
+
+* Moved ingress prefix logic to the router.
+
+--------------------------------------------------------
+
 ### 11.4.2, <small>(2025-09-16)</small>
 
 #### New
 
-* The request class can now strip a configurable prefix from the request path.
+* The request class can now strip a configurable ingress prefix from the request path.
 
 --------------------------------------------------------
 
