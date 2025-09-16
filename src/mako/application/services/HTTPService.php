@@ -47,8 +47,7 @@ class HTTPService extends Service
 			$request = new Request(
 				['languages' => $config['languages']],
 				$container->get(Signer::class),
-				$config['script_name'] ?? null,
-				$config['ingress_prefix'] ?? null,
+				$config['script_name'] ?? null
 			);
 
 			if (!empty($config['trusted_proxies'])) {
@@ -77,8 +76,12 @@ class HTTPService extends Service
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $routingPath) {
-			$router = new Router($container->get(Routes::class), $container);
+		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $config, $routingPath) {
+			$router = new Router(
+				$container->get(Routes::class),
+				$container,
+				$config['ingress_prefix'] ?? null
+			);
 
 			(function ($app, $container, $router) use ($routingPath): void {
 				include "{$routingPath}/constraints.php";

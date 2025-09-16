@@ -35,7 +35,6 @@ use function pathinfo;
 use function rawurldecode;
 use function rtrim;
 use function str_replace;
-use function str_starts_with;
 use function stripos;
 use function strlen;
 use function strpos;
@@ -192,8 +191,7 @@ class Request
 	public function __construct(
 		array $request = [],
 		?Signer $signer = null,
-		?string $scriptName = null,
-		protected ?string $ingressPrefix = null
+		?string $scriptName = null
 	) {
 		// Collect request data
 
@@ -220,20 +218,6 @@ class Request
 		$this->path = isset($request['path']) ? $this->stripLocaleSegment($languages, $request['path']) : $this->determinePath($languages);
 
 		$this->method = $request['method'] ?? $this->determineMethod();
-	}
-
-	/**
-	 * Strips the ingress prefix from the path.
-	 */
-	protected function stripIngressPrefix(string $path): string
-	{
-		if ($this->ingressPrefix) {
-			if (str_starts_with($path, $this->ingressPrefix)) {
-				return mb_substr($path, mb_strlen($this->ingressPrefix));
-			}
-		}
-
-		return $path;
 	}
 
 	/**
@@ -290,7 +274,7 @@ class Request
 			}
 		}
 
-		return $this->stripLocaleSegment($languages, $this->stripIngressPrefix($path));
+		return $this->stripLocaleSegment($languages, $path);
 	}
 
 	/**
