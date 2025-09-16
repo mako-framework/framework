@@ -44,7 +44,12 @@ class HTTPService extends Service
 		// Request
 
 		$this->container->registerSingleton([Request::class, 'request'], static function ($container) use ($config) {
-			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class), $config['script_name'] ?? null);
+			$request = new Request(
+				['languages' => $config['languages']],
+				$container->get(Signer::class),
+				$config['script_name'] ?? null,
+				$config['ingress_prefix'] ?? null,
+			);
 
 			if (!empty($config['trusted_proxies'])) {
 				$request->setTrustedProxies($config['trusted_proxies']);

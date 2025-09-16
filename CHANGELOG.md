@@ -1,3 +1,11 @@
+### 11.4.2, <small>(2025-09-16)</small>
+
+#### New
+
+* The request class can now strip a configurable prefix from the request path.
+
+--------------------------------------------------------
+
 ### 11.3.1, 11.4.1 <small>(2025-09-01)</small>
 
 #### Bugfixes
