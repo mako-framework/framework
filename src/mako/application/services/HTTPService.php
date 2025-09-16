@@ -49,11 +49,8 @@ class HTTPService extends Service
 				$container->get(Signer::class),
 				$config['script_name'] ?? null,
 				$config['ingress_prefix'] ?? null,
+				$config['trusted_proxies'] ?? []
 			);
-
-			if (!empty($config['trusted_proxies'])) {
-				$request->setTrustedProxies($config['trusted_proxies']);
-			}
 
 			return $request;
 		});

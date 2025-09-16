@@ -127,11 +127,6 @@ class Request
 	protected ?string $contentType = null;
 
 	/**
-	 * Array of trusted proxy IP addresses.
-	 */
-	protected array $trustedProxies = [];
-
-	/**
 	 * Ip address of the client that made the request.
 	 */
 	protected ?string $ip = null;
@@ -193,7 +188,8 @@ class Request
 		array $request = [],
 		?Signer $signer = null,
 		?string $scriptName = null,
-		protected ?string $ingressPrefix = null
+		protected ?string $ingressPrefix = null,
+		protected array $trustedProxies = []
 	) {
 		// Collect request data
 
@@ -458,14 +454,6 @@ class Request
 	public function getData(): Body|Parameters
 	{
 		return $this->data;
-	}
-
-	/**
-	 * Set the trusted proxies.
-	 */
-	public function setTrustedProxies(array $trustedProxies): void
-	{
-		$this->trustedProxies = $trustedProxies;
 	}
 
 	/**
