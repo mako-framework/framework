@@ -186,7 +186,8 @@ class Request
 	public function __construct(
 		array $request = [],
 		?Signer $signer = null,
-		?string $scriptName = null
+		?string $scriptName = null,
+		protected array $trustedProxies = []
 	) {
 		// Collect request data
 

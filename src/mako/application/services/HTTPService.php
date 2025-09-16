@@ -48,7 +48,6 @@ class HTTPService extends Service
 				['languages' => $config['languages']],
 				$container->get(Signer::class),
 				$config['script_name'] ?? null,
-				$config['ingress_prefix'] ?? null,
 				$config['trusted_proxies'] ?? []
 			);
 
