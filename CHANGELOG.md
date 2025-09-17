@@ -1,3 +1,11 @@
+### 11.5.0, <small>(2025-??-??)</small>
+
+#### New
+
+* Added `auto-restart` option to the `app:server` command that enables automatic restart of the development server in the event of a fatal error.
+
+--------------------------------------------------------
+
 ### 11.4.3, <small>(2025-09-16)</small>
 
 #### Changes
