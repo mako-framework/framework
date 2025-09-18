@@ -100,7 +100,7 @@ class Server extends Command
 
 			if ($starts > 1) {
 				$this->nl();
-				$this->write('<green>Restarting server.</green>');
+				$this->write('Restarting server...');
 				$this->nl();
 			}
 
