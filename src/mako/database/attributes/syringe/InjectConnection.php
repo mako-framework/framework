@@ -24,8 +24,8 @@ class InjectConnection implements InjectorInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected ?string $connection,
-		protected ConnectionManager $connectionManager
+		protected ?string $connection = null,
+		protected ?ConnectionManager $connectionManager = null
 	) {
 	}
 

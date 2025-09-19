@@ -1,3 +1,11 @@
+### 11.4.4, <small>(2025-09-19)</small>
+
+#### Changes
+
+* Prevent unnecessary warnings from PHPStan.
+
+--------------------------------------------------------
+
 ### 11.4.3, <small>(2025-09-16)</small>
 
 #### Changes
