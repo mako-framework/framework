@@ -24,8 +24,8 @@ class InjectConfig implements InjectorInterface
 	 */
 	public function __construct(
 		protected string $key,
-		protected mixed $default,
-		protected Config $config
+		protected mixed $default = null,
+		protected ?Config $config = null
 	) {
 	}
 
