@@ -10,6 +10,7 @@ namespace mako\tests\unit\redis\attributes\syringe;
 use mako\redis\attributes\syringe\InjectConnection;
 use mako\redis\ConnectionManager;
 use mako\redis\Redis;
+use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
@@ -29,11 +30,15 @@ class InjectConnectionTest extends TestCase
 
 		$connectionManager->shouldReceive('getConnection')->once()->with(null)->andReturn($connection);
 
-		$injector = new InjectConnection(null, $connectionManager);
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->once()->with(ConnectionManager::class)->andReturn($connectionManager);
+
+		$injector = new InjectConnection(null);
 
 		$reflection = Mockery::mock(ReflectionParameter::class);
 
-		$this->assertInstanceOf(Redis::class, $injector->getParameterValue($reflection));
+		$this->assertInstanceOf(Redis::class, $injector->getParameterValue($container, $reflection));
 	}
 
 	/**
@@ -47,10 +52,14 @@ class InjectConnectionTest extends TestCase
 
 		$connectionManager->shouldReceive('getConnection')->once()->with('foobar')->andReturn($connection);
 
-		$injector = new InjectConnection('foobar', $connectionManager);
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->once()->with(ConnectionManager::class)->andReturn($connectionManager);
+
+		$injector = new InjectConnection('foobar');
 
 		$reflection = Mockery::mock(ReflectionParameter::class);
 
-		$this->assertInstanceOf(Redis::class, $injector->getParameterValue($reflection));
+		$this->assertInstanceOf(Redis::class, $injector->getParameterValue($container, $reflection));
 	}
 }

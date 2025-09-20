@@ -10,6 +10,7 @@ namespace mako\config\attributes\syringe;
 use Attribute;
 use mako\config\Config;
 use mako\syringe\attributes\InjectorInterface;
+use mako\syringe\Container;
 use Override;
 use ReflectionParameter;
 
@@ -24,8 +25,7 @@ class InjectConfig implements InjectorInterface
 	 */
 	public function __construct(
 		protected string $key,
-		protected mixed $default = null,
-		protected ?Config $config = null
+		protected mixed $default = null
 	) {
 	}
 
@@ -33,8 +33,8 @@ class InjectConfig implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(ReflectionParameter $parameter): mixed
+    public function getParameterValue(Container $container, ReflectionParameter $parameter): mixed
     {
-		return $this->config->get($this->key, $this->default);
+		return $container->get(Config::class)->get($this->key, $this->default);
 	}
 }

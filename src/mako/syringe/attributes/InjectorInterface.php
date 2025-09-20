@@ -7,6 +7,7 @@
 
 namespace mako\syringe\attributes;
 
+use mako\syringe\Container;
 use ReflectionParameter;
 
 /**
@@ -17,5 +18,5 @@ interface InjectorInterface
 	/**
 	 * Returns the parameter value.
 	 */
-	public function getParameterValue(ReflectionParameter $parameter): mixed;
+	public function getParameterValue(Container $container, ReflectionParameter $parameter): mixed;
 }

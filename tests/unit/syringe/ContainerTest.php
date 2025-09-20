@@ -218,7 +218,7 @@ class InjectString implements InjectorInterface
 	) {
 	}
 
-    public function getParameterValue(ReflectionParameter $parameter): string
+    public function getParameterValue(Container $container, ReflectionParameter $parameter): string
     {
 		return $this->string;
 	}
