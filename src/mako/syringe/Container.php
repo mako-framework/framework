@@ -260,8 +260,10 @@ class Container
 	{
 		// If the parameter has an injector attribute then we'll use that to resolve the value
 
-		if (!empty($attributes = $parameter->getAttributes(InjectorInterface::class, ReflectionAttribute::IS_INSTANCEOF))) {
-			return $attributes[0]->newInstance()->getParameterValue($this, $parameter);
+		$injectors = $parameter->getAttributes(InjectorInterface::class, ReflectionAttribute::IS_INSTANCEOF);
+
+		if (!empty($injectors)) {
+			return $injectors[0]->newInstance()->getParameterValue($this, $parameter);
 		}
 
 		// Continue with normal parameter resolving
