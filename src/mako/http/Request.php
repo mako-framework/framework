@@ -34,6 +34,7 @@ use function parse_url;
 use function pathinfo;
 use function rawurldecode;
 use function rtrim;
+use function str_contains;
 use function str_replace;
 use function str_starts_with;
 use function stripos;

@@ -37,6 +37,7 @@ use function microtime;
 use function preg_replace;
 use function preg_replace_callback;
 use function sprintf;
+use function str_contains;
 use function str_repeat;
 use function trim;
 

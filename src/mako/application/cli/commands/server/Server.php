@@ -22,6 +22,7 @@ use function fsockopen;
 use function gethostbyname;
 use function gethostname;
 use function passthru;
+use function sleep;
 use function sprintf;
 
 /**
