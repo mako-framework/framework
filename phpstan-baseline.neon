@@ -1,6 +1,8 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined method FFI::[a-zA-Z0-9_]+\\(\\)\\.$#"
+		-
 			message: "#^Call to an undefined method mako\\\\database\\\\midgard\\\\ResultSet<TKey of \\(int\\|string\\), TValue of mako\\\\database\\\\midgard\\\\ORM>\\:\\:including\\(\\)\\.$#"
 			count: 1
 			path: src/mako/database/midgard/ResultSet.php
@@ -32,3 +34,4 @@ parameters:
 			message: "#^PHPDoc tag @var with type mako\\\\http\\\\routing\\\\Dispatcher is not subtype of native type \\$this\\(mako\\\\application\\\\cli\\\\commands\\\\app\\\\ListRoutes\\)\\.$#"
 			count: 1
 			path: src/mako/application/cli/commands/app/ListRoutes.php
+
