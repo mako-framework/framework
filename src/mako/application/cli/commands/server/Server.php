@@ -33,7 +33,7 @@ use function sprintf;
 	new NamedArgument('address', 'a', 'Address to run the server on', Argument::IS_OPTIONAL),
 	new NamedArgument('docroot', 'd', 'Path to the document root', Argument::IS_OPTIONAL),
 	new NamedArgument('port', 'p', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
-	new NamedArgument('auto-restart', 'r', 'Autimatically restart the server on fatal errors', Argument::IS_OPTIONAL | Argument::IS_BOOL),
+	new NamedArgument('auto-restart', 'r', 'Automatically restart the server on fatal errors', Argument::IS_OPTIONAL | Argument::IS_BOOL),
 )]
 class Server extends Command
 {
