@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\syringe;
 
+use Attribute;
 use mako\syringe\attributes\InjectorInterface;
 use mako\syringe\Container;
 use mako\syringe\exceptions\ContainerException;
@@ -211,6 +212,7 @@ class NullableIntersection
 	}
 }
 
+#[Attribute(Attribute::TARGET_PARAMETER)]
 class InjectString implements InjectorInterface
 {
 	public function __construct(
