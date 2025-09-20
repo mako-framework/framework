@@ -1,4 +1,4 @@
-### 12.0.0, <small>(2025-??-??)</small>
+### 12.0.0 <small>(2025-??-??)</small>
 
 The major version bump is due to upping the required PHP version from `8.4` to `8.5` and a several breaking changes. Most applications built using Mako `11` should run on Mako `12` with just a few simple adjustments.
 
@@ -14,7 +14,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 
 --------------------------------------------------------
 
-### 11.4.4, <small>(2025-09-19)</small>
+### 11.4.4 <small>(2025-09-19)</small>
 
 #### Changes
 
@@ -22,7 +22,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 
 --------------------------------------------------------
 
-### 11.4.3, <small>(2025-09-16)</small>
+### 11.4.3 <small>(2025-09-16)</small>
 
 #### Changes
 
@@ -30,7 +30,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 
 --------------------------------------------------------
 
-### 11.4.2, <small>(2025-09-16)</small>
+### 11.4.2 <small>(2025-09-16)</small>
 
 #### New
 
