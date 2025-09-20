@@ -12,7 +12,7 @@ use Override;
 use function checkdnsrr;
 use function explode;
 use function sprintf;
-use function strpos;
+use function str_contains;
 
 /**
  * Email domain rule.
@@ -33,7 +33,7 @@ class EmailDomain extends Rule implements RuleInterface
 	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		if (empty($value) || strpos($value, '@') === false) {
+		if (empty($value) || str_contains($value, '@') === false) {
 			return false;
 		}
 

@@ -12,8 +12,8 @@ use mako\common\traits\exceptions\NamespacedFileLoaderTraitException;
 use function array_unshift;
 use function explode;
 use function sprintf;
+use function str_contains;
 use function str_replace;
-use function strpos;
 
 /**
  * Namespaced file loader trait.
@@ -64,7 +64,7 @@ trait NamespacedFileLoaderTrait
 	 */
 	protected function getFilePath(string $file, ?string $extension = null, ?string $suffix = null): string
 	{
-		if (strpos($file, '::') === false) {
+		if (str_contains($file, '::') === false) {
 			// No namespace so we'll just use the default path
 
 			$path = $this->path;
@@ -99,7 +99,7 @@ trait NamespacedFileLoaderTrait
 	{
 		$paths = [];
 
-		if (strpos($file, '::') === false) {
+		if (str_contains($file, '::') === false) {
 			// No namespace so we'll just have add a single file
 
 			$paths[] = $this->getFilePath($file, $extension, $suffix);

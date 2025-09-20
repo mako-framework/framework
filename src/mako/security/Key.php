@@ -13,7 +13,7 @@ use function bin2hex;
 use function hex2bin;
 use function mb_substr;
 use function random_bytes;
-use function strpos;
+use function str_starts_with;
 
 /**
  * Key helpers.
@@ -33,7 +33,7 @@ class Key
 	 */
 	public static function decode(#[SensitiveParameter] string $key): string
 	{
-		if (strpos($key, 'hex:') === 0) {
+		if (str_starts_with($key, 'hex:')) {
 			return hex2bin(mb_substr($key, 4, encoding: '8bit'));
 		}
 

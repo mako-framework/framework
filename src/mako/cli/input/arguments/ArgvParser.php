@@ -19,8 +19,9 @@ use function current;
 use function explode;
 use function preg_match;
 use function sprintf;
+use function str_contains;
+use function str_starts_with;
 use function strlen;
-use function strpos;
 use function substr;
 
 /**
@@ -238,7 +239,7 @@ class ArgvParser
 
 			$value = true;
 		}
-		elseif ((!$skipNext || $value === null) && ($next = current($tokens)) !== false && strpos($next, '-') !== 0) {
+		elseif ((!$skipNext || $value === null) && ($next = current($tokens)) !== false && str_starts_with($next, '-') === false) {
 			$value = array_shift($tokens);
 		}
 
@@ -252,7 +253,7 @@ class ArgvParser
 	{
 		$value = null;
 
-		if (strpos($token, '=') !== false) {
+		if (str_contains($token, '=')) {
 			[$token, $value] = explode('=', $token, 2);
 		}
 
@@ -309,7 +310,7 @@ class ArgvParser
 		while (true) {
 			$this->storeValue($argument, null, $token);
 
-			if (!$argument->isArray() || ($next = current($tokens)) === false || ($parseOptions && strpos($next, '-') === 0)) {
+			if (!$argument->isArray() || ($next = current($tokens)) === false || ($parseOptions && str_starts_with($next, '-'))) {
 				break;
 			}
 
@@ -345,10 +346,10 @@ class ArgvParser
 				if ($token === '--') {
 					$parseOptions = false;
 				}
-				elseif ($parseOptions && strpos($token, '--') === 0) {
+				elseif ($parseOptions && str_starts_with($token, '--')) {
 					$this->parseOption($token, $tokens);
 				}
-				elseif ($parseOptions && strpos($token, '-') === 0) {
+				elseif ($parseOptions && str_starts_with($token, '-')) {
 					$this->parseAlias($token, $tokens);
 				}
 				else {

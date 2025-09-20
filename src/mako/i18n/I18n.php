@@ -17,8 +17,8 @@ use function localeconv;
 use function number_format;
 use function preg_replace_callback;
 use function sprintf;
+use function str_contains;
 use function stripos;
-use function strpos;
 use function vsprintf;
 
 /**
@@ -131,7 +131,7 @@ class I18n
 	 */
 	protected function parseKey(string $key): array
 	{
-		return strpos($key, '.') === false ? [$key, null] : explode('.', $key, 2);
+		return str_contains($key, '.') ? explode('.', $key, 2) : [$key, null];
 	}
 
 	/**

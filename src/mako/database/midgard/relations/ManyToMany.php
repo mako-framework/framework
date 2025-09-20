@@ -27,7 +27,7 @@ use function end;
 use function explode;
 use function is_array;
 use function sort;
-use function strpos;
+use function str_contains;
 
 /**
  * Many to many relation.
@@ -93,7 +93,7 @@ class ManyToMany extends Relation
 	public function alongWith(array $columns): static
 	{
 		foreach ($columns as $key => $value) {
-			if (strpos($value, '.') === false) {
+			if (str_contains($value, '.') === false) {
 				$columns[$key] = "{$this->getJunctionTable()}.{$value}";
 			}
 		}
@@ -113,7 +113,7 @@ class ManyToMany extends Relation
 
 			sort($tables);
 
-			if (strpos($tables[1], '.') !== false) {
+			if (str_contains($tables[1], '.')) {
 				$table = explode('.', $tables[1]);
 
 				$tables[1] = end($table);

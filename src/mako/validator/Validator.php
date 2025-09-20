@@ -89,7 +89,7 @@ use function compact;
 use function in_array;
 use function preg_match;
 use function sprintf;
-use function strpos;
+use function str_contains;
 
 /**
  * Input validation.
@@ -217,7 +217,7 @@ class Validator
 	 */
 	protected function hasWilcard(string $string): bool
 	{
-		return strpos($string, '*') !== false;
+		return str_contains($string, '*');
 	}
 
 	/**

@@ -16,8 +16,8 @@ use ReflectionMethod;
 use function in_array;
 use function is_array;
 use function preg_replace;
+use function str_contains;
 use function str_replace;
-use function strpos;
 use function substr;
 use function trim;
 
@@ -248,7 +248,7 @@ class Route
 	{
 		$route = $this->getRoute();
 
-		if (strpos($route, '?')) {
+		if (str_contains($route, '?')) {
 			$route = preg_replace('/\/{(\w+)}\?/', '(?:/{$1})?', $route);
 		}
 

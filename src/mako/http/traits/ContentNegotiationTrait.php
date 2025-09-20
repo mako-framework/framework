@@ -8,7 +8,7 @@
 namespace mako\http\traits;
 
 use function in_array;
-use function strpos;
+use function str_contains;
 
 /**
  * Basic content negotiation.
@@ -25,7 +25,7 @@ trait ContentNegotiationTrait
 	{
 		$accepts = $this->request->headers->getAcceptableContentTypes();
 
-		if (isset($accepts[0]) && (in_array($accepts[0], $mimeTypes) || ($suffix !== null && strpos($accepts[0], $suffix) !== false))) {
+		if (isset($accepts[0]) && (in_array($accepts[0], $mimeTypes) || ($suffix !== null && str_contains($accepts[0], $suffix)))) {
 			return true;
 		}
 
@@ -55,7 +55,7 @@ trait ContentNegotiationTrait
 	{
 		$responseType = $this->response->getType();
 
-		if (in_array($responseType, $mimeTypes) || ($suffix !== null && strpos($responseType, $suffix) !== false)) {
+		if (in_array($responseType, $mimeTypes) || ($suffix !== null && str_contains($responseType, $suffix))) {
 			return true;
 		}
 

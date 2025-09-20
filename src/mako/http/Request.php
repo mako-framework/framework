@@ -35,9 +35,9 @@ use function pathinfo;
 use function rawurldecode;
 use function rtrim;
 use function str_replace;
+use function str_starts_with;
 use function stripos;
 use function strlen;
-use function strpos;
 use function strtoupper;
 use function trim;
 
@@ -222,7 +222,7 @@ class Request
 	protected function stripLocaleSegment(array $languages, string $path): string
 	{
 		foreach ($languages as $key => $language) {
-			if ($path === "/{$key}" || strpos($path, "/{$key}/") === 0) {
+			if ($path === "/{$key}" || str_starts_with($path, "/{$key}/")) {
 				$this->language = $language;
 
 				$this->languagePrefix = $key;
@@ -539,7 +539,7 @@ class Request
 	 */
 	public function isCGI(): bool
 	{
-		return strpos(PHP_SAPI, 'cgi') !== false;
+		return str_contains(PHP_SAPI, 'cgi');
 	}
 
 	/**
@@ -599,7 +599,7 @@ class Request
 	 */
 	public function isClean(): bool
 	{
-		return strpos($this->server->get('REQUEST_URI', ''), $this->server->get('SCRIPT_NAME', '')) !== 0;
+		return str_starts_with($this->server->get('REQUEST_URI', ''), $this->server->get('SCRIPT_NAME', '')) === false;
 	}
 
 	/**

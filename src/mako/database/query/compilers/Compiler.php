@@ -21,9 +21,9 @@ use function implode;
 use function is_array;
 use function is_object;
 use function sprintf;
+use function str_contains;
 use function str_replace;
 use function stripos;
-use function strpos;
 
 /**
  * Compiles SQL queries.
@@ -144,7 +144,7 @@ class Compiler
 	 */
 	protected function hasJsonPath(string $string): bool
 	{
-		return strpos($string, static::JSON_PATH_SEPARATOR) !== false;
+		return str_contains($string, static::JSON_PATH_SEPARATOR);
 	}
 
 	/**

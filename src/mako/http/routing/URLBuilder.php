@@ -12,7 +12,7 @@ use mako\http\Request;
 use function http_build_query;
 use function preg_match;
 use function preg_replace;
-use function strpos;
+use function str_contains;
 
 /**
  * URL builder.
@@ -97,7 +97,7 @@ class URLBuilder
 			$route = preg_replace("/{{$key}}\??/", $value, $route, 1);
 		}
 
-		if (strpos($route, '?') !== false) {
+		if (str_contains($route, '?')) {
 			$route = preg_replace('/\/{\w+}\?/', '', $route);
 		}
 

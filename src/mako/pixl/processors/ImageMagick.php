@@ -16,7 +16,7 @@ use Override;
 
 use function preg_match;
 use function sprintf;
-use function strpos;
+use function str_starts_with;
 
 /**
  * ImageMagick processor.
@@ -58,7 +58,7 @@ class ImageMagick implements ProcessorInterface
 			throw new ProcessorException(sprintf('Invalid HEX value [ %s ].', $hex));
 		}
 
-		return (strpos($hex, '#') !== 0) ? "#{$hex}" : $hex;
+		return str_starts_with($hex, '#') ? $hex : "#{$hex}";
 	}
 
 	/**
