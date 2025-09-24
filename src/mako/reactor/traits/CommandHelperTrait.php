@@ -8,7 +8,6 @@
 namespace mako\reactor\traits;
 
 use Countable;
-use Deprecated;
 use mako\cli\input\helpers\Confirmation;
 use mako\cli\input\helpers\confirmation\Theme as ConfirmationTheme;
 use mako\cli\input\helpers\Prompt;
@@ -198,15 +197,6 @@ trait CommandHelperTrait
 	protected function input(string $prompt, mixed $default = null, string $inputPrefix = '<purple><bold>></bold></purple>'): mixed
 	{
 		return (new Prompt($this->input, $this->output, $inputPrefix))->ask($prompt, $default);
-	}
-
-	/**
-	 * Prompts the user for input and returns the user input.
-	 */
-	#[Deprecated('use the "input" method instead', since: 'Mako 11.2.0')]
-	protected function question(string $question, mixed $default = null, string $prompt = '<purple><bold>></bold></purple>'): mixed
-	{
-		return $this->input($question, $default, $prompt);
 	}
 
 	/**

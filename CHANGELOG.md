@@ -13,6 +13,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * Removed the deprecated `Cursor::beginningOfLine()` method.
 * Removed the deprecated `CryptoManager::getEncrypter()` method.
 * Removed the deprecated `CommandHelperTrait::progressBar()` method.
+* Removed the deprecated `CommandHelperTrait::question()` method.
 
 > Check out the upgrade guide for details on how to upgrade from `11.0.*.`
 
