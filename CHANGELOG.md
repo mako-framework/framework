@@ -14,6 +14,10 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * Removed the deprecated `CryptoManager::getEncrypter()` method.
 * Removed the deprecated `CommandHelperTrait::progressBar()` method.
 * Removed the deprecated `CommandHelperTrait::question()` method.
+* Removed the deprecated `CommandInterface` methods:
+	- `CommandInterface::getCommand()`
+	- `CommandInterface::getDescription()`
+	- `CommandInterface::getArguments()`
 
 > Check out the upgrade guide for details on how to upgrade from `11.0.*.`
 
