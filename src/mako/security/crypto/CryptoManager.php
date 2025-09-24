@@ -7,7 +7,6 @@
 
 namespace mako\security\crypto;
 
-use Deprecated;
 use mako\common\AdapterManager;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\crypto\exceptions\CryptoException;
@@ -46,15 +45,6 @@ class CryptoManager extends AdapterManager
 		$configuration = $this->configurations[$configuration];
 
 		return new Crypto($this->factory($configuration['library'], $configuration), $this->container->get(Signer::class));
-	}
-
-	/**
-	 * Returns an instance of the chosen encrypter. Alias of CryptoManager::getInstance().
-	 */
-	#[Deprecated('use the "getInstance()" or "getCrypto()" methods instead', since: 'Mako 11.4.0')]
-	public function getEncrypter(?string $configuration = null): Crypto
-	{
-		return $this->getInstance($configuration);
 	}
 
 	/**
