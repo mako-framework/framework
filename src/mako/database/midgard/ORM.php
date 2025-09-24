@@ -160,7 +160,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Date format used when returning array and json representations of the record.
 	 */
-	protected string $dateOutputFormat = 'Y-m-d H:i:s';
+	protected string $dateOutputFormat = 'Y-m-d\TH:i:sP'; // ISO-8601 (2025-01-01T00:00+00:00)
 
 	/**
 	 * Constructor.

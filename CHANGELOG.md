@@ -18,6 +18,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `CommandInterface::getCommand()`
 	- `CommandInterface::getDescription()`
 	- `CommandInterface::getArguments()`
+* The default date output format for the ORM has been changed to ISO-8601.
 
 > Check out the upgrade guide for details on how to upgrade from `11.0.*.`
 
