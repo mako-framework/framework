@@ -79,7 +79,7 @@ class LabelsAndValues
 	 */
 	public function render(array $labelsAndValues): string
 	{
-		$width = min($this->maxWidth, (int) $this->output->environment->getWidth() * (min($this->widthPercent, 100.0) / 100.0));
+		$width = min($this->maxWidth, (int) ($this->output->environment->getWidth() * (min($this->widthPercent, 100.0) / 100.0)));
 
 		$longestLabeValuelWidth = $this->getLongestLabelValueWidth($labelsAndValues);
 
