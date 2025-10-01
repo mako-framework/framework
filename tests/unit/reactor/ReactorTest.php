@@ -34,27 +34,8 @@ use PHPUnit\Framework\Attributes\Group;
 	new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
 	new Argument('--option', 'Option description.'),
 )]
-class FooWithAttributes extends Command
+class Foo extends Command
 {
-	public function execute(): void
-	{
-
-	}
-}
-
-class FooWithoutAttributes extends Command
-{
-	protected string $description = 'Command description.';
-
-	public function getArguments(): array
-	{
-		return
-		[
-			new Argument('arg2', 'Argument description.', Argument::IS_OPTIONAL),
-			new Argument('--option', 'Option description.'),
-		];
-	}
-
 	public function execute(): void
 	{
 
@@ -153,7 +134,7 @@ class ReactorTest extends TestCase
 
 		$reactor->setLogo('logo');
 
-		$reactor->registerCommand('foo', FooWithAttributes::class);
+		$reactor->registerCommand('foo', Foo::class);
 
 		$exitCode = $reactor->run();
 
@@ -245,7 +226,7 @@ class ReactorTest extends TestCase
 
 		$reactor->setLogo('logo');
 
-		$reactor->registerCommand('foo', FooWithAttributes::class);
+		$reactor->registerCommand('foo', Foo::class);
 
 		$exitCode = $reactor->run();
 
@@ -350,7 +331,7 @@ class ReactorTest extends TestCase
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->registerCommand('server', FooWithAttributes::class);
+		$reactor->registerCommand('server', Foo::class);
 
 		$exitCode = $reactor->run();
 
@@ -407,7 +388,7 @@ class ReactorTest extends TestCase
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->registerCommand('foobar', FooWithAttributes::class);
+		$reactor->registerCommand('foobar', Foo::class);
 
 		$exitCode = $reactor->run();
 
@@ -638,84 +619,7 @@ class ReactorTest extends TestCase
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 
-		$reactor->registerCommand('foo', FooWithAttributes::class);
-
-		$exitCode = $reactor->run();
-
-		$this->assertSame(0, $exitCode);
-	}
-
-	/**
-	 *
-	 */
-	public function testDisplayCommandHelpWithoutAttributes(): void
-	{
-		$argvParser = new ArgvParser([]);
-
-		//
-
-		$input = Mockery::mock(Input::class);
-
-		(function () use ($argvParser): void {
-			$this->argumentParser = $argvParser;
-		})->bindTo($input, Input::class)();
-
-		$input->shouldReceive('getArgument')->once()->with('command')->andReturn('foo');
-
-		$input->shouldReceive('getArgument')->once()->with('--mute')->andReturn(false);
-
-		$input->shouldReceive('getArgument')->once()->with('--help')->andReturn(true);
-
-		$input->shouldReceive('getArgument')->once()->with('--non-interactive')->andReturn(false);
-
-		//
-
-		$output = Mockery::mock(Output::class);
-
-		(function (): void {
-			$this->formatter = null;
-		})->bindTo($output, Output::class)();
-
-		$output->shouldReceive('write')->times(5)->with(PHP_EOL);
-
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Command:</yellow>');
-
-		$output->shouldReceive('writeLn')->once()->with('php reactor foo');
-
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Description:</yellow>');
-
-		$output->shouldReceive('writeLn')->once()->with('Command description.');
-
-		$output->shouldReceive('writeLn')->once()->with('<yellow>Arguments and options:</yellow>');
-
-		$argumentsTable = <<<'EOF'
-		┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
-		┃ <green>Name</green> ┃ <green>Description</green> ┃ <green>Optional</green> ┃
-		┣━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━┫
-		┃ arg2                ┃ Argument description.      ┃ Yes                     ┃
-		┃ --option            ┃ Option description.        ┃ No                      ┃
-		┗━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━┛
-
-		EOF;
-
-		$output->shouldReceive('write')->once()->with($argumentsTable, 1);
-
-		//
-
-		$container = Mockery::mock(Container::class);
-
-		//
-
-		$dispatcher = Mockery::mock(Dispatcher::class);
-
-		//
-
-		/** @var Mockery\MockInterface&Reactor $reactor */
-		$reactor = Mockery::mock(Reactor::class, [$input, $output, $container, $dispatcher])
-		->makePartial()
-		->shouldAllowMockingProtectedMethods();
-
-		$reactor->registerCommand('foo', FooWithoutAttributes::class);
+		$reactor->registerCommand('foo', Foo::class);
 
 		$exitCode = $reactor->run();
 

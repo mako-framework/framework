@@ -17,9 +17,9 @@ use function array_values;
 use function count;
 use function explode;
 use function krsort;
+use function str_contains;
 use function str_replace;
 use function stripos;
-use function strpos;
 use function strtoupper;
 use function substr;
 use function trim;
@@ -139,7 +139,7 @@ class Headers implements Countable, IteratorAggregate
 		foreach (explode(',', $headerValue) as $accept) {
 			$quality = 1;
 
-			if (strpos($accept, ';')) {
+			if (str_contains($accept, ';')) {
 				// We have a quality so we need to split some more
 
 				[$accept, $quality] = explode(';', $accept, 2);

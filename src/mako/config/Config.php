@@ -11,7 +11,7 @@ use mako\config\loaders\LoaderInterface;
 use mako\utility\Arr;
 
 use function explode;
-use function strpos;
+use function str_contains;
 
 /**
  * Config class.
@@ -61,7 +61,7 @@ class Config
 	 */
 	protected function parseKey(string $key): array
 	{
-		return (strpos($key, '.') === false) ? [$key, null] : explode('.', $key, 2);
+		return str_contains($key, '.') ? explode('.', $key, 2) : [$key, null];
 	}
 
 	/**

@@ -13,7 +13,7 @@ use function is_array;
 use function json_decode;
 use function json_last_error;
 use function parse_str;
-use function strpos;
+use function str_contains;
 
 /**
  * Body.
@@ -67,7 +67,7 @@ class Body extends Parameters
 			return $parsed;
 		}
 
-		if ($contentType === 'application/json' || $contentType === 'text/json' || strpos($contentType, '+json') !== false) {
+		if ($contentType === 'application/json' || $contentType === 'text/json' || str_contains($contentType, '+json')) {
 			$parsed = json_decode($rawBody, true, static::$depth, static::$flags);
 
 			if (json_last_error() !== JSON_ERROR_NONE || is_array($parsed) === false) {

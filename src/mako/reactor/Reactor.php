@@ -209,10 +209,7 @@ class Reactor
 		$attributes = $class->getAttributes(CommandDescription::class);
 
 		if (empty($attributes)) {
-			/** @var CommandInterface $command */
-			$command = $class->newInstanceWithoutConstructor();
-
-			return $command->getDescription();
+			return '';
 		}
 
 		return $attributes[0]->newInstance()->getDescription();
@@ -240,10 +237,7 @@ class Reactor
 		$attributes = $class->getAttributes(CommandArguments::class);
 
 		if (empty($attributes)) {
-			/** @var CommandInterface $command */
-			$command = $class->newInstanceWithoutConstructor();
-
-			return $command->getArguments();
+			return [];
 		}
 
 		return $attributes[0]->newInstance()->getArguments();

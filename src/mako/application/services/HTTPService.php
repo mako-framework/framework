@@ -44,18 +44,23 @@ class HTTPService extends Service
 		// Request
 
 		$this->container->registerSingleton([Request::class, 'request'], static function ($container) use ($config) {
-			$request = new Request(['languages' => $config['languages']], $container->get(Signer::class), $config['script_name'] ?? null);
-
-			if (!empty($config['trusted_proxies'])) {
-				$request->setTrustedProxies($config['trusted_proxies']);
-			}
+			$request = new Request(
+				['languages' => $config['languages']],
+				$container->get(Signer::class),
+				$config['script_name'] ?? null,
+				$config['trusted_proxies'] ?? []
+			);
 
 			return $request;
 		});
 
 		// Response
 
-		$this->container->registerSingleton([Response::class, 'response'], static fn ($container) => new Response($container->get(Request::class), $app->getCharset(), $container->get(Signer::class)));
+		$this->container->registerSingleton([Response::class, 'response'], static fn ($container) => new Response(
+			$container->get(Request::class),
+			$app->getCharset(),
+			$container->get(Signer::class)
+		));
 
 		// Routes
 
@@ -72,8 +77,12 @@ class HTTPService extends Service
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $routingPath) {
-			$router = new Router($container->get(Routes::class), $container);
+		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $config, $routingPath) {
+			$router = new Router(
+				$container->get(Routes::class),
+				$container,
+				$config['ingress_prefix'] ?? null
+			);
 
 			(function ($app, $container, $router) use ($routingPath): void {
 				include "{$routingPath}/constraints.php";
@@ -98,6 +107,11 @@ class HTTPService extends Service
 
 		// URLBuilder
 
-		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static fn ($container) => new URLBuilder($container->get(Request::class), $container->get(Routes::class), $config['clean_urls'], $config['base_url']));
+		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static fn ($container) => new URLBuilder(
+			$container->get(Request::class),
+			$container->get(Routes::class),
+			$config['clean_urls'],
+			$config['base_url']
+		));
 	}
 }

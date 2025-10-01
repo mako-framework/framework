@@ -9,7 +9,7 @@ namespace mako\utility\ip;
 
 use function explode;
 use function ip2long;
-use function strpos;
+use function str_contains;
 
 /**
  * IPv4 utilities.
@@ -21,7 +21,7 @@ class IPv4
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{
-		if (strpos($range, '/') === false) {
+		if (str_contains($range, '/') === false) {
 			$netmask = 32;
 		}
 		else {

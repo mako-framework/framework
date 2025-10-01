@@ -22,7 +22,7 @@ use function is_array;
 use function is_int;
 use function is_object;
 use function is_string;
-use function strpos;
+use function str_contains;
 use function trim;
 
 /**
@@ -163,7 +163,7 @@ class Arr
 	 */
 	public static function expandKey(array $array, string $key): array
 	{
-		if (strpos($key, '*') === false) {
+		if (str_contains($key, '*') === false) {
 			throw new ArrException('The key must contain at least one wildcard character.');
 		}
 
@@ -188,7 +188,7 @@ class Arr
 			}
 		}
 
-		if (strpos($remaining, '*') !== false) {
+		if (str_contains($remaining, '*')) {
 			$keys = $expanded;
 
 			goto start;

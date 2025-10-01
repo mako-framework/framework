@@ -250,15 +250,6 @@ class Application extends BaseApplication
 				$attributes = $reflection->getAttributes(CommandName::class);
 
 				if (empty($attributes)) {
-					/** @var CommandInterface $command */
-					$command = $reflection->newInstanceWithoutConstructor();
-
-					$command = $command->getCommand();
-
-					if ($command !== null) {
-						$commands[$command] = $commandClass;
-					}
-
 					continue;
 				}
 

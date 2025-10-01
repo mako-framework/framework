@@ -10,9 +10,9 @@ namespace mako\utility\ip;
 use function explode;
 use function inet_pton;
 use function pack;
+use function str_contains;
 use function str_pad;
 use function str_repeat;
-use function strpos;
 
 /**
  * IPv6 utilities.
@@ -24,7 +24,7 @@ class IPv6
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{
-		if (strpos($range, '/') === false) {
+		if (str_contains($range, '/') === false) {
 			$netmask = 128;
 		}
 		else {

@@ -13,7 +13,7 @@ use function json_decode;
 use function json_last_error;
 use function preg_match;
 use function sprintf;
-use function strpos;
+use function str_contains;
 
 /**
  * Function parser trait.
@@ -38,7 +38,7 @@ trait FunctionParserTrait
 	 */
 	protected function parseFunction(string $function, ?bool $namedParameters = null): array
 	{
-		if (strpos($function, '(') === false) {
+		if (str_contains($function, '(') === false) {
 			return [$function, []];
 		}
 

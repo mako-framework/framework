@@ -7,7 +7,7 @@
 
 namespace mako\utility\ip;
 
-use function strpos;
+use function str_contains;
 
 /**
  * IP utilities.
@@ -19,6 +19,6 @@ class IP
 	 */
 	public static function inRange(string $ip, string $range): bool
 	{
-		return strpos($ip, '.') === false ? IPv6::inRange($ip, $range) : IPv4::inRange($ip, $range);
+		return str_contains($ip, '.') ? IPv4::inRange($ip, $range) : IPv6::inRange($ip, $range);
 	}
 }

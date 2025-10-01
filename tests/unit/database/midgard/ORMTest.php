@@ -538,7 +538,7 @@ class ORMTest extends TestCase
 
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertEquals(['created_at' => '2014-02-01 13:10:32'], $user->toArray());
+		$this->assertEquals(['created_at' => '2014-02-01T13:10:32+00:00'], $user->toArray());
 	}
 
 	/**
@@ -552,7 +552,7 @@ class ORMTest extends TestCase
 
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', json_encode($user));
+		$this->assertEquals('{"created_at":"2014-02-01T13:10:32+00:00"}', json_encode($user));
 	}
 
 	/**
@@ -568,7 +568,7 @@ class ORMTest extends TestCase
 
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', $user->toJson());
+		$this->assertEquals('{"created_at":"2014-02-01T13:10:32+00:00"}', $user->toJson());
 	}
 
 	/**
@@ -582,6 +582,6 @@ class ORMTest extends TestCase
 
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertEquals('{"created_at":"2014-02-01 13:10:32"}', (string) $user);
+		$this->assertEquals('{"created_at":"2014-02-01T13:10:32+00:00"}', (string) $user);
 	}
 }

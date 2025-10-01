@@ -11,6 +11,7 @@ use Attribute;
 use mako\database\ConnectionManager;
 use mako\database\connections\Connection;
 use mako\syringe\attributes\InjectorInterface;
+use mako\syringe\Container;
 use Override;
 use ReflectionParameter;
 
@@ -24,8 +25,7 @@ class InjectConnection implements InjectorInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected ?string $connection,
-		protected ConnectionManager $connectionManager
+		protected ?string $connection = null
 	) {
 	}
 
@@ -33,8 +33,8 @@ class InjectConnection implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(ReflectionParameter $parameter): Connection
+    public function getParameterValue(Container $container, ReflectionParameter $parameter): Connection
     {
-		return $this->connectionManager->getConnection($this->connection);
+		return $container->get(ConnectionManager::class)->getConnection($this->connection);
 	}
 }

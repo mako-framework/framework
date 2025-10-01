@@ -9,6 +9,7 @@ namespace mako\tests\unit\database\attributes\syringe;
 
 use mako\config\attributes\syringe\InjectConfig;
 use mako\config\Config;
+use mako\syringe\Container;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
@@ -26,11 +27,15 @@ class InjectConfigTest extends TestCase
 
 		$config->shouldReceive('get')->with('key', null)->andReturn('foobar');
 
-		$injector = new InjectConfig('key', null, $config);
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->once()->with(Config::class)->andReturn($config);
+
+		$injector = new InjectConfig('key', null);
 
 		$reflection = Mockery::mock(ReflectionParameter::class);
 
-		$this->assertSame('foobar', $injector->getParameterValue($reflection));
+		$this->assertSame('foobar', $injector->getParameterValue($container, $reflection));
 	}
 
 	/**
@@ -42,10 +47,14 @@ class InjectConfigTest extends TestCase
 
 		$config->shouldReceive('get')->with('key', 'barfoo')->andReturn('foobar');
 
-		$injector = new InjectConfig('key', 'barfoo', $config);
+		$container = Mockery::mock(Container::class);
+
+		$container->shouldReceive('get')->once()->with(Config::class)->andReturn($config);
+
+		$injector = new InjectConfig('key', 'barfoo');
 
 		$reflection = Mockery::mock(ReflectionParameter::class);
 
-		$this->assertSame('foobar', $injector->getParameterValue($reflection));
+		$this->assertSame('foobar', $injector->getParameterValue($container, $reflection));
 	}
 }

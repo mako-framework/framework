@@ -17,8 +17,8 @@ use function preg_match_all;
 use function preg_replace;
 use function sprintf;
 use function str_replace;
+use function str_starts_with;
 use function strlen;
-use function strpos;
 use function substr;
 
 /**
@@ -112,7 +112,7 @@ class Formatter implements FormatterInterface
 	 */
 	protected function isOpeningTag(string $tag): bool
 	{
-		return strpos($tag, '</') === false;
+		return str_starts_with($tag, '</') === false;
 	}
 
 	/**

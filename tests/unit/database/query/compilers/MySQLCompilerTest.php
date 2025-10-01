@@ -422,6 +422,23 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testUpdateWithWhereAndJoinAndAliases(): void
+	{
+		$query = $this->getBuilder('foobar as f');
+
+		$query->join('barfoo as b', 'b.foobar_id', '=', 'f.id');
+
+		$query->where('f.id', '=', 1);
+
+		$query = $query->getCompiler()->update(['f.foo' => 'bar']);
+
+		$this->assertEquals('UPDATE `foobar` AS `f` INNER JOIN `barfoo` AS `b` ON `b`.`foobar_id` = `f`.`id` SET `f`.`foo` = ? WHERE `f`.`id` = ?', $query['sql']);
+		$this->assertEquals(['bar', 1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testDeleteWithWhere(): void
 	{
 		$query = $this->getBuilder();

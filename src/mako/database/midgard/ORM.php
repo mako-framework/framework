@@ -45,8 +45,8 @@ use function is_object;
 use function json_encode;
 use function method_exists;
 use function sprintf;
+use function str_starts_with;
 use function strlen;
-use function strpos;
 use function strrpos;
 use function substr;
 
@@ -160,7 +160,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Date format used when returning array and json representations of the record.
 	 */
-	protected string $dateOutputFormat = 'Y-m-d H:i:s';
+	protected string $dateOutputFormat = 'Y-m-d\TH:i:sP'; // ISO-8601 (2025-01-01T00:00+00:00)
 
 	/**
 	 * Constructor.
@@ -900,7 +900,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 			if (!empty($this->protected)) {
 				$protect = array_map(static fn ($value) => substr($value, strlen($relation) + 1),
-					array_filter($this->protected, static fn ($value) => strpos($value, "{$relation}.") === 0)
+					array_filter($this->protected, static fn ($value) => str_starts_with($value, "{$relation}."))
 				);
 
 				if (!empty($protect)) {

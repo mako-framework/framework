@@ -21,9 +21,9 @@ use function implode;
 use function is_array;
 use function is_object;
 use function sprintf;
+use function str_contains;
 use function str_replace;
 use function stripos;
-use function strpos;
 
 /**
  * Compiles SQL queries.
@@ -144,7 +144,7 @@ class Compiler
 	 */
 	protected function hasJsonPath(string $string): bool
 	{
-		return strpos($string, static::JSON_PATH_SEPARATOR) !== false;
+		return str_contains($string, static::JSON_PATH_SEPARATOR);
 	}
 
 	/**
@@ -178,6 +178,20 @@ class Compiler
 	}
 
 	/**
+	 * Escapes a table name with optional alias.
+	 */
+	public function escapeTableNameWithAlias(string $table): string
+	{
+		if (stripos($table, ' AS ') !== false) {
+			[$table, , $alias] = explode(' ', $table, 3);
+
+			return "{$this->escapeTableName($table)} AS {$this->escapeTableName($alias)}";
+		}
+
+		return $this->escapeTableName($table);
+	}
+
+	/**
 	 * Returns a comma-separated list of escaped table names.
 	 */
 	public function escapeTableNames(array $tables): string
@@ -202,13 +216,8 @@ class Compiler
 		elseif ($table instanceof Subquery) {
 			return $this->subquery($table);
 		}
-		elseif (stripos($table, ' AS ') !== false) {
-			[$table, , $alias] = explode(' ', $table, 3);
 
-			return "{$this->escapeTableName($table)} AS {$this->escapeTableName($alias)}";
-		}
-
-		return $this->escapeTableName($table);
+		return $this->escapeTableNameWithAlias($table);
 	}
 
 	/**

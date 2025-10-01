@@ -80,6 +80,19 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicSelectWithAlias(): void
+	{
+		$query = $this->getBuilder('foobar as fb');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" AS "fb"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBasicSelectWithoutTable(): void
 	{
 		$query = $this->getBuilder(null);

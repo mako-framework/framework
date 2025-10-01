@@ -22,6 +22,7 @@ use function fsockopen;
 use function gethostbyname;
 use function gethostname;
 use function passthru;
+use function sleep;
 use function sprintf;
 
 /**
@@ -32,6 +33,7 @@ use function sprintf;
 	new NamedArgument('address', 'a', 'Address to run the server on', Argument::IS_OPTIONAL),
 	new NamedArgument('docroot', 'd', 'Path to the document root', Argument::IS_OPTIONAL),
 	new NamedArgument('port', 'p', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
+	new NamedArgument('auto-restart', 'r', 'Automatically restart the server on fatal errors', Argument::IS_OPTIONAL | Argument::IS_BOOL),
 )]
 class Server extends Command
 {
@@ -63,7 +65,7 @@ class Server extends Command
 	/**
 	 * Executes the command.
 	 */
-	public function execute(Application $application, int $port = 8000, string $address = 'localhost', ?string $docroot = null)
+	public function execute(Application $application, int $port = 8000, string $address = 'localhost', ?string $docroot = null, bool $autoRestart = false)
 	{
 		// Attempt to find an available port
 
@@ -88,14 +90,30 @@ class Server extends Command
 		$message .= '<yellow>(ctrl+c to stop)</yellow> ...';
 
 		$this->write($message);
+		$this->nl();
 
 		// Start the server
 
-		passthru(
-			escapeshellcmd(PHP_BINDIR . '/php')
-			. ' -S ' . escapeshellarg("{$address}:{$availablePort}")
-			. ' -t ' . escapeshellarg($docroot)
-			. ' ' . escapeshellarg(__DIR__ . '/router.php')
-		);
+		$starts = 0;
+
+		do {
+			$starts++;
+
+			if ($starts > 1) {
+				$this->nl();
+				$this->write('Restarting server...');
+				$this->nl();
+			}
+
+			passthru(
+				escapeshellcmd(PHP_BINDIR . '/php')
+				. ' -S ' . escapeshellarg("{$address}:{$availablePort}")
+				. ' -t ' . escapeshellarg($docroot)
+				. ' ' . escapeshellarg(__DIR__ . '/router.php')
+			);
+
+			sleep(1);
+		}
+		while ($autoRestart);
 	}
 }

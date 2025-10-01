@@ -37,8 +37,8 @@ use function microtime;
 use function preg_replace;
 use function preg_replace_callback;
 use function sprintf;
+use function str_contains;
 use function str_repeat;
-use function strpos;
 use function trim;
 
 /**
@@ -343,7 +343,7 @@ class Connection
 
 		replace:
 
-		if (strpos($query, '([?])') !== false) {
+		if (str_contains($query, '([?])')) {
 			foreach ($params as $key => $value) {
 				if (is_array($value)) {
 					array_splice($params, $key, 1, $value);

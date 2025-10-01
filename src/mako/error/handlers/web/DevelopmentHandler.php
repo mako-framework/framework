@@ -37,7 +37,7 @@ use function is_readable;
 use function json_encode;
 use function simplexml_load_string;
 use function str_repeat;
-use function strpos;
+use function str_starts_with;
 use function sys_get_temp_dir;
 
 /**
@@ -177,7 +177,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 
 			$enhancedStackTrace[$key]['code'] = $this->getSourceCode($frame['file'], $frame['line']);
 
-			$enhancedStackTrace[$key]['is_app'] = strpos($frame['file'], $this->app->getPath()) === 0;
+			$enhancedStackTrace[$key]['is_app'] = str_starts_with($frame['file'], $this->app->getPath());
 
 			if ($foundAppFrame === false && $enhancedStackTrace[$key]['is_app'] === true) {
 				$enhancedStackTrace[$key]['open'] = $foundAppFrame = true;

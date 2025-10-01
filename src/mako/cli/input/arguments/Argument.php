@@ -16,8 +16,8 @@ use function is_array;
 use function ltrim;
 use function preg_match;
 use function sprintf;
+use function str_contains;
 use function str_replace;
-use function strpos;
 
 /**
  * Argument.
@@ -144,13 +144,13 @@ class Argument
 	 */
 	protected function parseName(array|string $name): array
 	{
-		if (($isArray = is_array($name)) || strpos($name, '|') !== false) {
+		if (($isArray = is_array($name)) || str_contains($name, '|')) {
 			[$name, $alias] = $isArray ? $name : array_reverse(explode('|', $name, 2));
 
 			return [$this->getValidatedName($name), $this->getValidatedAlias($alias), false];
 		}
 
-		return [$this->getValidatedName($name), null, strpos($name, '-') === false];
+		return [$this->getValidatedName($name), null, str_contains($name, '-') === false];
 	}
 
 	/**

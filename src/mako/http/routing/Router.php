@@ -20,8 +20,11 @@ use function http_build_query;
 use function implode;
 use function in_array;
 use function is_string;
+use function mb_strlen;
+use function mb_substr;
 use function preg_match;
 use function rtrim;
+use function str_starts_with;
 use function substr;
 
 /**
@@ -39,7 +42,8 @@ class Router
 	 */
 	public function __construct(
 		protected Routes $routes,
-		protected Container $container = new Container
+		protected Container $container = new Container,
+		protected ?string $ingressPrefix = null
 	) {
 	}
 
@@ -181,6 +185,10 @@ class Router
 		$requestMethod = $request->getMethod();
 
 		$requestPath = $request->getPath();
+
+		if ($this->ingressPrefix && str_starts_with($requestPath, $this->ingressPrefix)) {
+			$requestPath = mb_substr($requestPath, mb_strlen($this->ingressPrefix));
+		}
 
 		foreach ($this->routes->getRoutesByMethod($requestMethod) as $route) {
 			if ($this->matches($route, $requestPath) && $this->constraintsAreSatisfied($route)) {

@@ -1,3 +1,53 @@
+### 12.0.0 <small>(2025-??-??)</small>
+
+The major version bump is due to upping the required PHP version from `8.4` to `8.5` and a several breaking changes. Most applications built using Mako `11` should run on Mako `12` with just a few simple adjustments.
+
+#### New
+
+* Added `auto-restart` option to the `app:server` command that enables automatic restart of the development server in the event of a fatal error.
+
+#### Changes
+
+* Made some changes to the `InjectorInterface`.
+* Removed the deprecated `WinCache` cache store.
+* Removed the deprecated `Cursor::beginningOfLine()` method.
+* Removed the deprecated `CryptoManager::getEncrypter()` method.
+* Removed the deprecated `CommandHelperTrait::progressBar()` method.
+* Removed the deprecated `CommandHelperTrait::question()` method.
+* Removed the deprecated `CommandInterface` methods:
+	- `CommandInterface::getCommand()`
+	- `CommandInterface::getDescription()`
+	- `CommandInterface::getArguments()`
+* The default date output format for the ORM has been changed to ISO-8601.
+
+> Check out the upgrade guide for details on how to upgrade from `11.0.*.`
+
+--------------------------------------------------------
+
+### 11.4.4 <small>(2025-09-19)</small>
+
+#### Changes
+
+* Prevent unnecessary warnings from PHPStan.
+
+--------------------------------------------------------
+
+### 11.4.3 <small>(2025-09-16)</small>
+
+#### Changes
+
+* Moved ingress prefix logic to the router.
+
+--------------------------------------------------------
+
+### 11.4.2 <small>(2025-09-16)</small>
+
+#### New
+
+* The request class can now strip a configurable ingress prefix from the request path.
+
+--------------------------------------------------------
+
 ### 11.3.1, 11.4.1 <small>(2025-09-01)</small>
 
 #### Bugfixes

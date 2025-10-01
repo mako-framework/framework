@@ -180,33 +180,25 @@ class RequestTest extends TestCase
 
 		// Should return the last IP in the chain since it doesn't match our trusted proxy
 
-		$request = new Request(['server' => $server]);
-
-		$request->setTrustedProxies(['10.17.12.214']);
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.214']);
 
 		$this->assertEquals('10.17.12.213', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
-		$request = new Request(['server' => $server]);
-
-		$request->setTrustedProxies(['10.17.12.213', '10.17.12.214']);
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.213', '10.17.12.214']);
 
 		$this->assertEquals('10.17.12.212', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
-		$request = new Request(['server' => $server]);
-
-		$request->setTrustedProxies(['10.17.12.212', '10.17.12.213', '10.17.12.214']);
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.212', '10.17.12.213', '10.17.12.214']);
 
 		$this->assertEquals('10.17.13.1', $request->getIp());
 
 		// Should return the IP forwarded by the first trusted proxy
 
-		$request = new Request(['server' => $server]);
-
-		$request->setTrustedProxies(['10.17.12.0/24']);
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24']);
 
 		$this->assertEquals('10.17.13.1', $request->getIp());
 	}
@@ -310,9 +302,7 @@ class RequestTest extends TestCase
 		$server['HTTP_X_FORWARDED_PROTO'] = 'https';
 		$server['REMOTE_ADDR'] = '127.0.0.1';
 
-		$request = new Request(['server' => $server]);
-
-		$request->setTrustedProxies(['127.0.0.1']);
+		$request = new Request(['server' => $server], trustedProxies: ['127.0.0.1']);
 
 		$this->assertTrue($request->isSecure());
 	}
@@ -430,9 +420,7 @@ class RequestTest extends TestCase
 		$server['HTTP_X_FORWARDED_PROTO'] = 'https';
 		$server['REMOTE_ADDR'] = '127.0.0.1';
 
-		$request = new Request(['server' => $server]);
-
-		$request->setTrustedProxies(['127.0.0.1']);
+		$request = new Request(['server' => $server], trustedProxies: ['127.0.0.1']);
 
 		$this->assertEquals('https://example.local', $request->getBaseURL());
 	}
