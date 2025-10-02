@@ -199,7 +199,7 @@
 				line-height: 125%;
 			}
 			.exception > .body.details > .frame > .details > .code > div.highlight {
-				background-color: rgba(45, 178, 138, 0.5);
+				background-color: rgba(178, 45, 45, 0.5);
 			}
 			.exception > .body.details > .frame > .details > .code > div > span.line {
 				display: inline-block;
