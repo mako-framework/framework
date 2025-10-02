@@ -6,7 +6,13 @@
 		<title>Error</title>
 		<style type="text/css">
 			body {
-				background-color: #EEE;
+				background: repeating-linear-gradient(
+					135deg,
+					#EEE,
+					#EEE 5px,
+					#E7E7E7 5px,
+					#E7E7E7 10px
+				);
 				color: #333;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 				font-size: 100%;
@@ -213,7 +219,13 @@
 			}
 			@media (prefers-color-scheme: dark) {
 				body {
-					background: #222222;
+					background: repeating-linear-gradient(
+					135deg,
+					#222,
+					#222 5px,
+					#1F1F1F 5px,
+					#1F1F1F 10px
+				);
 					color: #EDEDED;
 				}
 				.exception {
