@@ -6,8 +6,8 @@
 		<title>Error</title>
 		<style type="text/css">
 			body {
-				background-color: #EEEEEE;
-				color: #333333;
+				background-color: #EEE;
+				color: #333;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 				font-size: 100%;
 				display: flex;
@@ -19,32 +19,50 @@
 				text-align: center;
 			}
 			.exception {
-				background-color: #FFFFFF;
+				background-color: #FFF;
 				width: 95%;
 				overflow-wrap: break-word;
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
 			}
 			.exception > .header {
 				background-color: #123;
 				padding: 1.5rem;
 				color: #2DB28A;
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
 				font-size: 2.5rem;
 				font-weight: bold;
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
 			}
+			.exception > .header > div > .pill {
+				padding: 4px;
+				padding-left: 6px;
+				padding-right: 6px;
+				border-radius: 6px;
+			}
+			.exception > .header > div > .pill.mako {
+				background-color: #2DB28A;
+				color: #FFF;
+			}
+			.exception > .header > div > .pill.php {
+				background-color: #4F5B93;
+				color: #FFF;
+			}
 			.exception > .header > div > .exception_id {
-				color: #999999;
+				color: #999;
 				font-size: 0.9rem;
 				margin-bottom: 0;
 			}
 			.exception > .header > .environment {
-				color: #999999;
+				color: #999;
 				font-size: 1rem;
 			}
 			.exception > .body {
 				padding: 2rem;
-				border: 1px solid #CCCCCC;
+				border: 1px solid #CCC;
 				border-top: none;
 			}
 			.exception > .body h1 {
@@ -53,7 +71,7 @@
 			}
 			.exception > .tabs {
 				background-color: #F6F6F6;
-				border: 1px solid #CCCCCC;
+				border: 1px solid #CCC;
 				border-top: none;
 				display: flex;
 			}
@@ -67,10 +85,10 @@
 				cursor: pointer;
 			}
 			.exception > .tabs > .tab:hover {
-				background-color: #EEEEEE;
+				background-color: #EEE;
 			}
 			.exception > .tabs > .tab.active {
-				border-color: #CCCCCC;
+				border-color: #CCC;
 			}
 			.exception > .body.details > table {
 				width: 100%;
@@ -83,7 +101,7 @@
 			}
 			.exception > .body.details > table tr td:first-child {
 				width: 30%;
-				border-right: 1px solid #CCCCCC;
+				border-right: 1px solid #CCC;
 				text-align: right;
 			}
 			.exception > .body.details > table tr td:last-child {
@@ -91,14 +109,19 @@
 				text-align: left;
 			}
 			.exception > .body.details > .frame {
-				background-color: #EEEEEE;
-				border: 1px solid #CCCCCC;
+				background-color: #EEE;
+				border: 1px solid #CCC;
+				border-radius: 8px;
+				margin-bottom: .3rem;
 			}
 			.exception > .body.details > .frame.error {
 				margin-bottom: 2rem;
 			}
-			.exception > .body.details > .frame:not(:last-child):not(.error) {
+			/*.exception > .body.details > .frame:not(.error):not(:last-child) {
 				border-bottom: none;
+			}*/
+			.exception > .body.details > .frame:not(.error):is(:last-child) {
+				margin-bottom: 0;
 			}
 			.exception > .body.details > .frame > .title {
 				padding: 1rem;
@@ -113,7 +136,7 @@
 			}
 			.exception > .body.details > .frame > .title > .number {
 				display: inline-block;
-				background-color: #CCCCCC;
+				background-color: #CCC;
 				width: 3rem;
 				padding: .25rem;
 				border-radius: 4px;
@@ -121,7 +144,7 @@
 			}
 			.exception > .body.details > .frame > .title > .type {
 				display: inline-block;
-				background-color: #CCCCCC;
+				background-color: #CCC;
 				width: 4.5rem;
 				padding: .25rem;
 				border-radius: 4px;
@@ -132,8 +155,8 @@
 				color: #2DB28A;
 			}
 			.exception > .body.details > .frame > .title > .toggle {
-				background-color: #FFFFFF;
-				color: #666666;
+				background-color: #FFF;
+				color: #666;
 				width: 1.3rem;
 				padding: .25rem;
 				border-radius: 4px;
@@ -141,9 +164,11 @@
 				float: right;
 			}
 			.exception > .body.details > .frame > .details {
-				background-color: #FFFFFF;
-				border-top: 1px solid #CCCCCC;
+				background-color: #FFF;
+				border-top: 1px solid #CCC;
 				padding: 1rem;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
 			}
 			.exception > .body.details > .frame > .details > .location {
 				background-color: #525863;
@@ -156,6 +181,9 @@
 				background-color: #383E49;
 				color: #ABB2BF;
 				padding: 1rem;
+				border-style: dashed;
+				border-color: #525863;
+				border-top: none;
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 				tab-size: 4;
@@ -181,7 +209,7 @@
 				padding: 0;
 			}
 			.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
-				border-bottom: 1px solid #CCCCCC;
+				border-bottom: 1px solid #CCC;
 			}
 			@media (prefers-color-scheme: dark) {
 				body {
@@ -189,44 +217,44 @@
 					color: #EDEDED;
 				}
 				.exception {
-					background-color: #333333;
+					background-color: #333;
 				}
 				.exception > .header {
-					border: 1px solid #555555;
+					border: 1px solid #555;
 				}
 				.exception > .body {
-					border-color: #555555;
+					border-color: #555;
 				}
 				.exception > .body.details > table tr td:first-child {
-					border-color: #555555;
+					border-color: #555;
 				}
 				.exception > .tabs {
 					background-color: #3f3f3f;
-					border-color: #555555;
+					border-color: #555;
 				}
 				.exception > .tabs > .tab:hover {
-					background-color: #222222;
+					background-color: #222;
 				}
 				.exception > .tabs > .tab.active {
-					border-color: #555555;
+					border-color: #555;
 				}
 				.exception > .body.details > .frame {
-					background-color: #222222;
-					border: 1px solid #555555;
+					background-color: #222;
+					border: 1px solid #555;
 				}
 				.exception > .body.details > .frame > .title > .number, .exception > .body.details > .frame > .title > .type {
-					background-color: #111111;
+					background-color: #111;
 				}
 				.exception > .body.details > .frame > .title > .toggle {
-					background-color: #111111;
+					background-color: #111;
 				}
 				.exception > .body.details > .frame > .details {
-					background-color: #333333;
-					border-color: #555555;
+					background-color: #333;
+					border-color: #555;
 					padding: 1rem;
 				}
 				.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
-					border-color: #555555;
+					border-color: #555;
 				}
 			}
 		</style>
@@ -238,7 +266,7 @@
 					Error
 					<p class="exception_id">Exception id: {{$exception_id}}</p>
 				</div>
-				<div class="environment">Mako: {{\mako\Mako::VERSION}}, PHP: {{PHP_VERSION}}</div>
+				<div class="environment"><span class="pill mako">Mako: {{\mako\Mako::VERSION}}</span> <span class="pill php">PHP: {{PHP_VERSION}}</span></div>
 			</div>
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
