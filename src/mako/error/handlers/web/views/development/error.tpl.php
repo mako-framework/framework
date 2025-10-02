@@ -28,8 +28,7 @@
 				background-color: #FFF;
 				width: 95%;
 				overflow-wrap: break-word;
-				border-top-left-radius: 8px;
-				border-top-right-radius: 8px;
+				border-radius: 8px;
 			}
 			.exception > .header {
 				background-color: #123;
@@ -70,6 +69,8 @@
 				padding: 2rem;
 				border: 1px solid #CCC;
 				border-top: none;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
 			}
 			.exception > .body h1 {
 				margin-top: 0;
