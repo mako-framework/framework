@@ -119,7 +119,7 @@
 				background-color: #EEE;
 				border: 1px solid #CCC;
 				border-radius: 8px;
-				margin-bottom: .3rem;
+				margin-bottom: .5rem;
 			}
 			.exception > .body.details > .frame.error {
 				margin-bottom: 2rem;
@@ -171,7 +171,7 @@
 				float: right;
 			}
 			.exception > .body.details > .frame > .details {
-				background-color: #FFF;
+				background-color: #FCFCFC;
 				border-top: 1px solid #CCC;
 				padding: 1rem;
 				border-bottom-left-radius: 8px;
@@ -262,7 +262,7 @@
 					background-color: #111;
 				}
 				.exception > .body.details > .frame > .details {
-					background-color: #333;
+					background-color: #303030;
 					border-color: #555;
 					padding: 1rem;
 				}
