@@ -69,6 +69,8 @@
 				padding: 2rem;
 				border: 1px solid #CCC;
 				border-top: none;
+			}
+			.exception > .body.details {
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 			}
@@ -124,9 +126,6 @@
 			.exception > .body.details > .frame.error {
 				margin-bottom: 2rem;
 			}
-			/*.exception > .body.details > .frame:not(.error):not(:last-child) {
-				border-bottom: none;
-			}*/
 			.exception > .body.details > .frame:not(.error):is(:last-child) {
 				margin-bottom: 0;
 			}
