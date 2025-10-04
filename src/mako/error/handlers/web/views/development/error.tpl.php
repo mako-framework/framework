@@ -10,8 +10,8 @@
 					135deg,
 					#EEE,
 					#EEE 5px,
-					#E9E9E9 5px,
-					#E9E9E9 10px
+					#EAEAEA 5px,
+					#EAEAEA 10px
 				);
 				color: #333;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
