@@ -222,12 +222,12 @@
 			@media (prefers-color-scheme: dark) {
 				body {
 					background: repeating-linear-gradient(
-					135deg,
-					#222,
-					#222 5px,
-					#1F1F1F 5px,
-					#1F1F1F 10px
-				);
+						135deg,
+						#222,
+						#222 5px,
+						#202020 5px,
+						#202020 10px
+					);
 					color: #EDEDED;
 				}
 				.exception {
