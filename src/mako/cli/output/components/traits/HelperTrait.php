@@ -47,6 +47,7 @@ trait HelperTrait
 	protected function wordWrap(string $string, int $width, bool $returnAsArray = false): array|string
 	{
 		$characters = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
+
 		$lines = [];
 		$line = '';
 
@@ -58,30 +59,27 @@ trait HelperTrait
 				continue;
 			}
 
-			$line .= $character;
+			$lineWidth = $this->getVisibleStringWidth($line);
+			$nextCharacterWidth = $this->getVisibleStringWidth($character);
 
-			if ($this->getVisibleStringWidth($line) >= $width -1) {
-				$lastSpacePos = mb_strrpos($line, ' ');
+			if ($lineWidth + $nextCharacterWidth <= $width) {
+				$line .= $character;
+			}
+			else {
+				if ($character !== ' ' && ($lastSpacePos = mb_strrpos($line, ' ')) !== false) {
+					// If there is a space within the last 15 characters then we'll break on that
+					// and put the rest of the string on a new line
 
-				if ($lastSpacePos !== false) {
-					// Width up to the last space
-
-					$visibleWidthUpToSpace = $this->getVisibleStringWidth(mb_substr($line, 0, $lastSpacePos));
-
-					// Break there if the space was within the last 15 characters
-
-					if ($visibleWidthUpToSpace >= $width - 15) {
+					if ($this->getVisibleStringWidth(mb_substr($line, 0, $lastSpacePos)) >= $width - 15) {
 						$lines[] = trim(mb_substr($line, 0, $lastSpacePos));
-						$line = ltrim(mb_substr($line, $lastSpacePos + 1));
+						$line = ltrim(mb_substr($line, $lastSpacePos + 1)) . $character;
 
 						continue;
 					}
 				}
 
-				// We were unable to do a clean break so we'll just force one
-
-				$lines[] = trim($line);
-				$line = '';
+				$lines[] = $line;
+				$line = trim($character);
 			}
 		}
 
