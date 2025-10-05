@@ -16,11 +16,11 @@ use function preg_split;
 use function trim;
 
 /**
- * Helper trait.
+ * String helper trait.
  *
  * @property \mako\cli\output\Output $output
  */
-trait HelperTrait
+trait StringHelperTrait
 {
 	/**
 	 * Returns the visible width of the string without formatting.

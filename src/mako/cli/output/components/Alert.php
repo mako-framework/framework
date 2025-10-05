@@ -7,7 +7,7 @@
 
 namespace mako\cli\output\components;
 
-use mako\cli\output\components\traits\HelperTrait;
+use mako\cli\output\components\traits\StringHelperTrait;
 use mako\cli\output\Output;
 
 use function implode;
@@ -20,7 +20,7 @@ use function str_repeat;
  */
 class Alert
 {
-	use HelperTrait;
+	use StringHelperTrait;
 
 	/**
 	 * Alert padding.
