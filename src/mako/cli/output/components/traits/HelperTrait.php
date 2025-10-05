@@ -60,8 +60,18 @@ trait HelperTrait
 			$line .= $character;
 
 			if ($this->getVisibleStringWidth($line) >= $width - 1) {
-				$lines[] = $line;
-				$line = '';
+				// Try to break at a space in the last 8 characters
+				$breakPos = mb_strrpos(mb_substr($line, -8), ' ');
+
+				if ($breakPos !== false) {
+					$splitPos = mb_strlen($line) - (8 - $breakPos);
+					$lines[] = mb_substr($line, 0, $splitPos);
+					$line = mb_substr($line, $splitPos);
+				}
+				else {
+					$lines[] = $line;
+					$line = '';
+				}
 			}
 		}
 
