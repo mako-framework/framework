@@ -42,7 +42,7 @@ trait HelperTrait
 	/**
 	 * Wraps a string to a given number of characters.
 	 */
-	protected function wordWrap(string $string, int $width): string
+	protected function wordWrap(string $string, int $width, bool $returnAsArray = false): array|string
 	{
 		$characters = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -69,6 +69,12 @@ trait HelperTrait
 			$lines[] = $line;
 		}
 
-		return implode(PHP_EOL, array_map(trim(...), $lines));
+		$lines = array_map(trim(...), $lines);
+
+		if ($returnAsArray) {
+			return $lines;
+		}
+
+		return implode(PHP_EOL, $lines);
 	}
 }

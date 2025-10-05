@@ -10,7 +10,6 @@ namespace mako\cli\output\components;
 use mako\cli\output\components\traits\HelperTrait;
 use mako\cli\output\Output;
 
-use function explode;
 use function implode;
 use function max;
 use function sprintf;
@@ -75,7 +74,7 @@ class Alert
 	{
 		$lineWidth = $this->width - (static::PADDING * 2);
 
-		$lines = explode(PHP_EOL, PHP_EOL . $this->wordWrap($string, $lineWidth) . PHP_EOL);
+		$lines = ['', ...$this->wordWrap($string, $lineWidth, returnAsArray: true), ''];
 
 		foreach ($lines as $key => $value) {
 			$value = $value . str_repeat(' ', max(0, $lineWidth - $this->getVisibleStringWidth($value)));
