@@ -25,45 +25,45 @@ class AsciiTheme extends Theme
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string CORNER_TOP_LEFT = '-';
+	protected const string CORNER_TOP_LEFT = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string CORNER_TOP_RIGHT = '-';
+	protected const string CORNER_TOP_RIGHT = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string T_JUNCTION_DOWN = '-';
+	protected const string T_JUNCTION_DOWN = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string T_JUNCTION_UP = '-';
+	protected const string T_JUNCTION_UP = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string T_JUNCTION_LEFT = '-';
+	protected const string T_JUNCTION_LEFT = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string T_JUNCTION_RIGHT = '-';
+	protected const string T_JUNCTION_RIGHT = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string JUNCTION = '|';
+	protected const string JUNCTION = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string CORNER_BOTTOM_LEFT = '-';
+	protected const string CORNER_BOTTOM_LEFT = '+';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected const string CORNER_BOTTOM_RIGHT = '-';
+	protected const string CORNER_BOTTOM_RIGHT = '+';
 }
