@@ -68,9 +68,9 @@ trait HelperTrait
 
 					$visibleWidthUpToSpace = $this->getVisibleStringWidth(mb_substr($line, 0, $lastSpacePos));
 
-					// Break there if the space was within the last 8 characters
+					// Break there if the space was within the last 15 characters
 
-					if ($visibleWidthUpToSpace >= $width - 8) {
+					if ($visibleWidthUpToSpace >= $width - 15) {
 						$lines[] = trim(mb_substr($line, 0, $lastSpacePos));
 						$line = ltrim(mb_substr($line, $lastSpacePos + 1));
 
