@@ -8,7 +8,6 @@
 namespace mako\cli\output\components\traits;
 
 use function implode;
-use function ltrim;
 use function mb_strrpos;
 use function mb_strwidth;
 use function mb_substr;
@@ -72,14 +71,14 @@ trait HelperTrait
 
 					if ($this->getVisibleStringWidth(mb_substr($line, 0, $lastSpacePos)) >= $width - 15) {
 						$lines[] = trim(mb_substr($line, 0, $lastSpacePos));
-						$line = ltrim(mb_substr($line, $lastSpacePos + 1)) . $character;
+						$line = mb_substr($line, $lastSpacePos + 1) . $character;
 
 						continue;
 					}
 				}
 
-				$lines[] = $line;
-				$line = trim($character);
+				$lines[] = trim($line);
+				$line = $character;
 			}
 		}
 
