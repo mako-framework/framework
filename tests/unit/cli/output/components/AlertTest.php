@@ -37,9 +37,11 @@ class AlertTest extends TestCase
 
 		$expected = '               '
 		. PHP_EOL
-		. ' This is just  '
+		. ' This is       '
 		. PHP_EOL
-		. ' a test!       '
+		. ' just a        '
+		. PHP_EOL
+		. ' test!         '
 		. PHP_EOL
 		. '               '
 		. PHP_EOL;
@@ -64,9 +66,11 @@ class AlertTest extends TestCase
 
 		$expected = '               '
 		. PHP_EOL
-		. ' This is just  '
+		. ' This is       '
 		. PHP_EOL
-		. ' a test!       '
+		. ' just a        '
+		. PHP_EOL
+		. ' test!         '
 		. PHP_EOL
 		. '               '
 		. PHP_EOL;
@@ -79,11 +83,13 @@ class AlertTest extends TestCase
 	 */
 	public function testDraw(): void
 	{
-		$expected  = '               '
+		$expected = '               '
 		. PHP_EOL
-		. ' This is just  '
+		. ' This is       '
 		. PHP_EOL
-		. ' a test!       '
+		. ' just a        '
+		. PHP_EOL
+		. ' test!         '
 		. PHP_EOL
 		. '               '
 		. PHP_EOL;

@@ -7,9 +7,11 @@
 
 namespace mako\cli\output\components\traits;
 
-use function array_map;
 use function implode;
+use function ltrim;
+use function mb_strrpos;
 use function mb_strwidth;
+use function mb_substr;
 use function preg_replace;
 use function preg_split;
 use function trim;
@@ -45,13 +47,12 @@ trait HelperTrait
 	protected function wordWrap(string $string, int $width, bool $returnAsArray = false): array|string
 	{
 		$characters = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
-
 		$lines = [];
 		$line = '';
 
 		foreach ($characters as $character) {
 			if ($character === PHP_EOL) {
-				$lines[] = $line;
+				$lines[] = trim($line);
 				$line = '';
 
 				continue;
@@ -59,27 +60,34 @@ trait HelperTrait
 
 			$line .= $character;
 
-			if ($this->getVisibleStringWidth($line) >= $width - 1) {
-				// Try to break at a space in the last 8 characters
-				$breakPos = mb_strrpos(mb_substr($line, -8), ' ');
+			if ($this->getVisibleStringWidth($line) >= $width -1) {
+				$lastSpacePos = mb_strrpos($line, ' ');
 
-				if ($breakPos !== false) {
-					$splitPos = mb_strlen($line) - (8 - $breakPos);
-					$lines[] = mb_substr($line, 0, $splitPos);
-					$line = mb_substr($line, $splitPos);
+				if ($lastSpacePos !== false) {
+					// Width up to the last space
+
+					$visibleWidthUpToSpace = $this->getVisibleStringWidth(mb_substr($line, 0, $lastSpacePos));
+
+					// Break there if the space was within the last 8 characters
+
+					if ($visibleWidthUpToSpace >= $width - 8) {
+						$lines[] = trim(mb_substr($line, 0, $lastSpacePos));
+						$line = ltrim(mb_substr($line, $lastSpacePos + 1));
+
+						continue;
+					}
 				}
-				else {
-					$lines[] = $line;
-					$line = '';
-				}
+
+				// We were unable to do a clean break so we'll just force one
+
+				$lines[] = trim($line);
+				$line = '';
 			}
 		}
 
 		if ($line !== '') {
-			$lines[] = $line;
+			$lines[] = trim($line);
 		}
-
-		$lines = array_map(trim(...), $lines);
 
 		if ($returnAsArray) {
 			return $lines;
