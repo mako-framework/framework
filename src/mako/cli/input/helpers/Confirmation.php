@@ -42,6 +42,9 @@ class Confirmation
 	) {
 	}
 
+	/**
+	 * Renders a non-interactive confirmation input and returns the user's answer.
+	 */
 	protected function nonInteractiveConfirmation(): bool
 	{
 		$trueLabel = $this->currentSelection ? mb_strtoupper($this->trueLabel) : mb_strtolower($this->trueLabel);
@@ -87,7 +90,7 @@ class Confirmation
 	}
 
 	/**
-	 * Renders a confirmation input and returns the user's answer.
+	 * Renders a interactive confirmation input and returns the user's answer.
 	 */
 	protected function interactiveConfirmation(): bool
 	{

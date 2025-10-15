@@ -12,18 +12,18 @@ use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
-class ProgressBarTest extends TestCase
+class ThemeTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testWithDefaultTemplate(): void
 	{
-		$progressBar = new Theme;
+		$theme = new Theme;
 
-		$this->assertSame('─', $progressBar->getEmpty());
+		$this->assertSame('─', $theme->getEmpty());
 
-		$this->assertSame('█', $progressBar->getFilled());
+		$this->assertSame('█', $theme->getFilled());
 	}
 
 	/**
@@ -31,10 +31,10 @@ class ProgressBarTest extends TestCase
 	 */
 	public function testWithCustomTemplate(): void
 	{
-		$progressBar = new Theme('x%sx', 'y%sy');
+		$theme = new Theme('x%sx', 'y%sy');
 
-		$this->assertSame('x─x', $progressBar->getEmpty());
+		$this->assertSame('x─x', $theme->getEmpty());
 
-		$this->assertSame('y█y', $progressBar->getFilled());
+		$this->assertSame('y█y', $theme->getFilled());
 	}
 }

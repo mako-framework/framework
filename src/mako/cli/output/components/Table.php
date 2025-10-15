@@ -9,7 +9,7 @@ namespace mako\cli\output\components;
 
 use mako\cli\exceptions\CliException;
 use mako\cli\output\components\table\Theme;
-use mako\cli\output\components\traits\HelperTrait;
+use mako\cli\output\components\traits\StringHelperTrait;
 use mako\cli\output\Output;
 
 use function array_values;
@@ -22,7 +22,7 @@ use function str_repeat;
  */
 class Table
 {
-	use HelperTrait;
+	use StringHelperTrait;
 
 	/**
 	 * Constructor.

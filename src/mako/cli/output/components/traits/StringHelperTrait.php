@@ -7,19 +7,20 @@
 
 namespace mako\cli\output\components\traits;
 
-use function array_map;
 use function implode;
+use function mb_strrpos;
 use function mb_strwidth;
+use function mb_substr;
 use function preg_replace;
 use function preg_split;
 use function trim;
 
 /**
- * Helper trait.
+ * String helper trait.
  *
  * @property \mako\cli\output\Output $output
  */
-trait HelperTrait
+trait StringHelperTrait
 {
 	/**
 	 * Returns the visible width of the string without formatting.
@@ -42,7 +43,7 @@ trait HelperTrait
 	/**
 	 * Wraps a string to a given number of characters.
 	 */
-	protected function wordWrap(string $string, int $width): string
+	protected function wordWrap(string $string, int $width, bool $returnAsArray = false): array|string
 	{
 		$characters = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -51,24 +52,44 @@ trait HelperTrait
 
 		foreach ($characters as $character) {
 			if ($character === PHP_EOL) {
-				$lines[] = $line;
+				$lines[] = trim($line);
 				$line = '';
 
 				continue;
 			}
 
-			$line .= $character;
+			$lineWidth = $this->getVisibleStringWidth($line);
+			$nextCharacterWidth = $this->getVisibleStringWidth($character);
 
-			if ($this->getVisibleStringWidth($line) >= $width - 1) {
-				$lines[] = $line;
-				$line = '';
+			if ($lineWidth + $nextCharacterWidth <= $width) {
+				$line .= $character;
+			}
+			else {
+				if ($character !== ' ' && ($lastSpacePos = mb_strrpos($line, ' ')) !== false) {
+					// If there is a space within the last 15 characters then we'll break on that
+					// and put the rest of the string on a new line
+
+					if ($this->getVisibleStringWidth(mb_substr($line, 0, $lastSpacePos)) >= $width - 15) {
+						$lines[] = trim(mb_substr($line, 0, $lastSpacePos));
+						$line = mb_substr($line, $lastSpacePos + 1) . $character;
+
+						continue;
+					}
+				}
+
+				$lines[] = trim($line);
+				$line = $character;
 			}
 		}
 
 		if ($line !== '') {
-			$lines[] = $line;
+			$lines[] = trim($line);
 		}
 
-		return implode(PHP_EOL, array_map(trim(...), $lines));
+		if ($returnAsArray) {
+			return $lines;
+		}
+
+		return implode(PHP_EOL, $lines);
 	}
 }

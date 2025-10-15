@@ -17,6 +17,8 @@ use mako\cli\input\helpers\select\Theme as SelectTheme;
 use mako\cli\output\components\Alert;
 use mako\cli\output\components\Bell;
 use mako\cli\output\components\Countdown;
+use mako\cli\output\components\Frame;
+use mako\cli\output\components\frame\Theme as FrameTheme;
 use mako\cli\output\components\LabelsAndValues;
 use mako\cli\output\components\OrderedList;
 use mako\cli\output\components\Progress;
@@ -259,5 +261,17 @@ trait CommandHelperTrait
 			$minSeparatorCount,
 			$separatorTemplate)
 		)->draw($labelsAndValues);
+	}
+
+	/**
+	 * Draws a frame.
+	 */
+	protected function frame(
+		string $content,
+		string $title = '',
+		FrameTheme $theme = new FrameTheme('<faded>%s</faded>'),
+		?int $width = null
+	): void {
+		(new Frame($this->output, $theme, $width))->draw($content, $title);
 	}
 }

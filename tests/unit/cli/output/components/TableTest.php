@@ -56,11 +56,11 @@ class TableTest extends TestCase
 		$table = new Table($output, new AsciiTheme);
 
 		$expected  = '';
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '+-------+' . PHP_EOL;
 		$expected .= '| Col1  |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '+-------+' . PHP_EOL;
 		$expected .= '| Cell1 |' . PHP_EOL;
-		$expected .= '---------' . PHP_EOL;
+		$expected .= '+-------+' . PHP_EOL;
 
 		$this->assertSame($expected, $table->render(['Col1'], [['Cell1']]));
 	}

@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\output\components\table;
+namespace mako\cli\output\components\frame;
 
 /**
  * Ascii theme.
@@ -31,31 +31,6 @@ class AsciiTheme extends Theme
 	 * {@inheritDoc}
 	 */
 	protected const string CORNER_TOP_RIGHT = '+';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected const string T_JUNCTION_DOWN = '+';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected const string T_JUNCTION_UP = '+';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected const string T_JUNCTION_LEFT = '+';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected const string T_JUNCTION_RIGHT = '+';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected const string JUNCTION = '+';
 
 	/**
 	 * {@inheritDoc}
