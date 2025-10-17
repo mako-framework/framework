@@ -28,7 +28,7 @@ class ClassInspector
 	public static function getAttributes(object|string $class): array
 	{
 		return array_map(
-			fn (ReflectionAttribute $reflection) => $reflection->getName(),
+			static fn (ReflectionAttribute $reflection) => $reflection->getName(),
 			(new ReflectionClass($class))->getAttributes()
 		);
 	}
