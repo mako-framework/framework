@@ -24,6 +24,7 @@ use Override;
 use Symfony\Component\VarDumper\Caster\Caster;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use Tempest\Highlight\Highlighter;
 use Throwable;
 
 use function abs;
@@ -132,6 +133,8 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 		$lines       = [];
 		$currentLine = 0;
 
+		$highlighter = new Highlighter;
+
 		while (!feof($handle)) {
 			if ($currentLine++ > $line + static::SOURCE_PADDING) {
 				break;
@@ -140,7 +143,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 			$sourceCode = fgets($handle);
 
 			if ($currentLine >= ($line - static::SOURCE_PADDING) && $currentLine <= ($line + static::SOURCE_PADDING)) {
-				$lines[$currentLine] = $sourceCode;
+				$lines[$currentLine] = $highlighter->parse($sourceCode, 'php');
 			}
 		}
 

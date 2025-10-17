@@ -272,6 +272,72 @@
 					border-color: #555;
 				}
 			}
+			.hl-keyword {
+    			color: #ca9ee6;
+			}
+			.hl-property {
+				color: #8caaee;
+			}
+			.hl-attribute {
+				font-style: italic;
+			}
+			.hl-type {
+				color: #e5c890;
+			}
+			.hl-generic {
+				color: #e78284;
+			}
+			.hl-value {
+				color: #a6d189;
+			}
+			.hl-literal {
+				color: #a6d189;
+			}
+			.hl-number {
+				color: #ef9f76;
+			}
+			.hl-variable {
+				color: #FFF;
+			}
+			.hl-comment {
+				color: #737994;
+			}
+			.hl-blur {
+				filter: blur(2px);
+			}
+			.hl-strong {
+				font-weight: bold;
+			}
+
+			.hl-em {
+				font-style: italic;
+			}
+			.hl-addition {
+				display: inline-block;
+				min-width: 100%;
+				background-color: #00FF0022;
+			}
+			.hl-deletion {
+				display: inline-block;
+				min-width: 100%;
+				background-color: #FF000011;
+			}
+			.hl-gutter {
+				display: inline-block;
+				font-size: 0.9em;
+				color: #555;
+				padding: 0 1ch;
+				margin-right: 1ch;
+				user-select: none;
+			}
+			.hl-gutter-addition {
+				background-color: #34A853;
+				color: #fff;
+			}
+			.hl-gutter-deletion {
+				background-color: #EA4334;
+				color: #fff;
+			}
 		</style>
 	</head>
 	<body>
@@ -323,7 +389,7 @@
 									<div class="code">
 										{% foreach($frame['code'] as $line => $code) %}
 											<div class="{{$line === $frame['line'] ? 'highlight' : 'normal'}}">
-												<span class="line">{{$line}}</span> <pre><code>{{$code}}</code></pre>
+												<span class="line">{{$line}}</span> <pre><code>{{raw:$code}}</code></pre>
 											</div>
 										{% endforeach %}
 									</div>
