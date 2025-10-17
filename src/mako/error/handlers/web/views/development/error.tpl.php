@@ -198,7 +198,8 @@
 				line-height: 125%;
 			}
 			.exception > .body.details > .frame > .details > .code > div.highlight {
-				padding: 2px;
+				padding-top: 2px;
+				padding-bottom: 2px;
 				background-color: rgba(178, 45, 45, 0.5);
 				border: 1px solid rgba(178, 84, 84, 0.5);
 			}
