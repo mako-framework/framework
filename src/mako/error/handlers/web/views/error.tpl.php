@@ -6,8 +6,8 @@
 		<title>{{block:'title'}}Error{{endblock}}</title>
 		<style type="text/css">
 		body {
-			background: #FEFEFE;
-			color: #333333;
+			background: #EFEFEF;
+			color: #333;
 			padding: 0;
 			margin: 0;
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -38,7 +38,7 @@
 			font-size: 1.1em;
 		}
 		.exception_id {
-			color: #CCCCCC;
+			color: #BBB;
 			font-size: .9em;
 			padding: 1em;
 			position: absolute;
@@ -47,11 +47,11 @@
 		}
 		@media (prefers-color-scheme: dark) {
 			body {
-				background: #222222;
+				background: #222;
 				color: #EDEDED;
 			}
 			.exception_id {
-				color: #444444;
+				color: #444;
 			}
 		}
 		</style>
