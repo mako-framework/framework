@@ -6,7 +6,7 @@
 		<title>Error</title>
 		<style type="text/css">
 			*:hover {
-  				transition: all 0.5s ease;
+  				transition: all 0.3s ease;
 			}
 			body {
 				background: repeating-linear-gradient(
@@ -177,6 +177,9 @@
 				text-align: center;
 				float: right;
 			}
+			.exception > .body.details > .frame > .title > .toggle:hover {
+				background-color: #DDD;
+			}
 			.exception > .body.details > .frame > .details {
 				background-color: #FCFCFC;
 				border-top: 1px solid #CCC;
@@ -278,6 +281,9 @@
 				}
 				.exception > .body.details > .frame > .title > .toggle {
 					background-color: #111;
+				}
+				.exception > .body.details > .frame > .title > .toggle:hover {
+					background-color: #333;
 				}
 				.exception > .body.details > .frame > .details {
 					background-color: #303030;
