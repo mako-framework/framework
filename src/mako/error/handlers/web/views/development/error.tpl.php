@@ -507,7 +507,9 @@
 					{% if(!empty($values)) %}
 						<div class="frame">
 								<div class="title">
-									<span class="toggle" aria-hidden="true">&#x25B2;</span>
+									<span class="toggle" aria-hidden="true">
+										<svg class="icon"><use href="#icon-up"></use></svg>
+									</span>
 									<span class="title">${{$name}}</span>
 								</div>
 								<div class="details" data-open="false">
@@ -529,7 +531,9 @@
 						{% foreach($queries as $name => $connectionQueries) %}
 							<div class="frame">
 								<div class="title">
-									<span class="toggle" aria-hidden="true">&#x25B2;</span>
+									<span class="toggle" aria-hidden="true">
+										<svg class="icon"><use href="#icon-up"></use></svg>
+									</span>
 									<span class="title">{{$name}} connection ({{count($connectionQueries)}})</span>
 								</div>
 								<div class="details" data-open="false">
