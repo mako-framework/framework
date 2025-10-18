@@ -384,9 +384,21 @@
 			</symbol>
 		</svg>
 		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display:none">
-			<symbol id="icon-file" fill="currentColor" viewBox="0 0 24 24">
+			<symbol id="icon-file" viewBox="0 0 24 24" fill="currentColor">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M12 2l.117 .007a1 1 0 0 1 .876 .876l.007 .117v4l.005 .15a2 2 0 0 0 1.838 1.844l.157 .006h4l.117 .007a1 1 0 0 1 .876 .876l.007 .117v9a3 3 0 0 1 -2.824 2.995l-.176 .005h-10a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005h5z" /><path d="M19 7h-4l-.001 -4.001z" />
+			</symbol>
+		</svg>
+		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display:none">
+			<symbol id="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<path d="M4 11l8 3l8 -3" />
+			</symbol>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+			<symbol id="icon-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<path d="M4 13l8 -3l8 3" />
 			</symbol>
 		</svg>
 		<!-- end icons -->
@@ -434,7 +446,9 @@
 				{% foreach($trace as $key => $frame) %}
 					<div class="frame{% if($frame['is_error']) %} error{% endif %}">
 						<div class="title">
-							<span class="toggle" aria-hidden="true">{{raw:$frame['open'] ? '&#x25BC;' : '&#x25B2;'}}</span>
+							<span class="toggle" aria-hidden="true">
+								<svg class="icon"><use href="#icon-{{$frame['open'] ? 'down' : 'up'}}"></use></svg>
+							</span>
 							<span class="number">{{$key}}</span>
 							<span class="type {{$frame['is_error'] ? 'error' : ($frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor'))}}">{{$frame['is_error'] ? 'Error' : ($frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor'))}}</span>
 							<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}{% if(isset($frame['function'])) %}<span class="function">{{$frame['function']}}()</span>{% endif %}</span>
@@ -571,7 +585,7 @@
 					element.addEventListener('click', function() {
 						element.nextElementSibling.style.display = element.nextElementSibling.style.display === 'none' ? 'block' : 'none';
 
-						element.querySelector('.toggle').innerHTML = element.nextElementSibling.style.display === 'none' ? '&#x25B2;' : '&#x25BC;';
+						element.querySelector('.toggle > svg > use').setAttribute('href', element.nextElementSibling.style.display === 'none' ? '#icon-up' : '#icon-down');
 					});
 				});
 
