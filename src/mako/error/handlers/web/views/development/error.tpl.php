@@ -352,19 +352,19 @@
 	</head>
 	<body>
 		<!-- start icons (see: https://github.com/tabler/tabler-icons) -->
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display:none">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 			<symbol id="icon-warning" viewBox="0 0 24 24" fill="currentColor">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M12 1.67c.955 0 1.845 .467 2.39 1.247l.105 .16l8.114 13.548a2.914 2.914 0 0 1 -2.307 4.363l-.195 .008h-16.225a2.914 2.914 0 0 1 -2.582 -4.2l.099 -.185l8.11 -13.538a2.914 2.914 0 0 1 2.491 -1.403zm.01 13.33l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -7a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
 			</symbol>
 		</svg>
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display: none">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 			<symbol id="icon-stack" viewBox="0 0 24 24" fill="currentColor">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M20.894 17.553a1 1 0 0 1 -.447 1.341l-8 4a1 1 0 0 1 -.894 0l-8 -4a1 1 0 0 1 .894 -1.788l7.553 3.774l7.554 -3.775a1 1 0 0 1 1.341 .447m0 -4a1 1 0 0 1 -.447 1.341l-8 4a1 1 0 0 1 -.894 0l-8 -4a1 1 0 0 1 .894 -1.788l7.552 3.775l7.554 -3.775a1 1 0 0 1 1.341 .447m0 -4a1 1 0 0 1 -.447 1.341l-8 4a1 1 0 0 1 -.894 0l-8 -4a1 1 0 0 1 .894 -1.788l7.552 3.775l7.554 -3.775a1 1 0 0 1 1.341 .447m-8.887 -8.552q .056 0 .111 .007l.111 .02l.086 .024l.012 .006l.012 .002l.029 .014l.05 .019l.016 .009l.012 .005l8 4a1 1 0 0 1 0 1.788l-8 4a1 1 0 0 1 -.894 0l-8 -4a1 1 0 0 1 0 -1.788l8 -4l.011 -.005l.018 -.01l.078 -.032l.011 -.002l.013 -.006l.086 -.024l.11 -.02l.056 -.005z" />
 			</symbol>
 		</svg>
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display: none">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 			<symbol id="icon-environment" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M3 4m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
@@ -375,7 +375,7 @@
 				<path d="M11 16h6" />
 			</symbol>
 		</svg>
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display: none">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 			<symbol id="icon-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
@@ -383,13 +383,13 @@
 				<path d="M4 12v6a8 3 0 0 0 16 0v-6" />
 			</symbol>
 		</svg>
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display:none">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 			<symbol id="icon-file" viewBox="0 0 24 24" fill="currentColor">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M12 2l.117 .007a1 1 0 0 1 .876 .876l.007 .117v4l.005 .15a2 2 0 0 0 1.838 1.844l.157 .006h4l.117 .007a1 1 0 0 1 .876 .876l.007 .117v9a3 3 0 0 1 -2.824 2.995l-.176 .005h-10a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005h5z" /><path d="M19 7h-4l-.001 -4.001z" />
 			</symbol>
 		</svg>
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" style="display:none">
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 			<symbol id="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M4 11l8 3l8 -3" />
