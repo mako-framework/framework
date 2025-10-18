@@ -5,6 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>Error</title>
 		<style type="text/css">
+			*:hover {
+  				transition: all 0.5s ease;
+			}
 			body {
 				background: repeating-linear-gradient(
 					135deg,
@@ -212,6 +215,9 @@
 				border: 1px solid rgba(178, 84, 84, 0.5);
 				border-left: none;
 				border-right: none;
+			}
+			.exception > .body.details > .frame > .details > .code > div.highlight:hover {
+				background-color: rgba(178, 45, 45, 0.7);
 			}
 			.exception > .body.details > .frame > .details > .code > div > span.line {
 				display: inline-block;
