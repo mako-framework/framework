@@ -183,6 +183,12 @@
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 			}
+			.exception > .body.details > .frame > .details span.faded {
+				opacity: .4;
+			}
+			.exception > .body.details > .frame > .details span.faded:hover {
+				opacity: .8;
+			}
 			.exception > .body.details > .frame > .details > .location {
 				background-color: #525863;
 				color: #ABB2BF;
@@ -234,6 +240,7 @@
 			}
 			.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
 				border-bottom: 1px solid #CCC;
+				margin-bottom: 1rem;
 			}
 			@media (prefers-color-scheme: dark) {
 				body {
@@ -536,15 +543,19 @@
 									<span class="toggle" aria-hidden="true">
 										<svg class="icon"><use href="#icon-up"></use></svg>
 									</span>
-									<span class="title">{{$name}} connection ({{count($connectionQueries)}})</span>
+									<span class="title"><b>{{$count = count($connectionQueries)}}</b> {{$count === 1 ? 'query has' : 'queries have'}} been executed on the <b>{{$name}}</b> connection</span>
 								</div>
 								<div class="details" data-open="false">
 									{% if(empty($connectionQueries)) %}
 										<div class="center">No database queries have been logged. <em>Have you enabled the query log?</em></div>
 									{% else %}
 										<ol>
-											{% foreach($connectionQueries as ['query' => $query]) %}
-												<li>{{raw:$query}}</li>
+											{% foreach($connectionQueries as ['time' => $time, 'query' => $query]) %}
+												<li>
+													<?php $seconds = round($time, 4); ?>
+													<span class="faded">Executed in {{((string) $seconds === '0') ? $time : $seconds}} seconds</span>
+													{{raw:$query}}
+												</li>
 											{% endforeach %}
 										</ol>
 									{% endif %}
