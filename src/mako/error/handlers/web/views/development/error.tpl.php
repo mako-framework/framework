@@ -552,7 +552,7 @@
 										<ol>
 											{% foreach($connectionQueries as ['time' => $time, 'query' => $query]) %}
 												<li>
-													<?php $seconds = round($time, 4); ?>
+													<?php $seconds = round($time, 4); // @phpstan-ignore variable.undefined?>
 													<span class="faded">Executed in {{((string) $seconds === '0') ? $time : $seconds}} seconds</span>
 													{{raw:$query}}
 												</li>
