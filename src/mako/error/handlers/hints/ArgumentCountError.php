@@ -18,7 +18,6 @@ use function explode;
 use function implode;
 use function preg_match;
 use function str_contains;
-use function str_starts_with;
 use function var_export;
 
 /**
@@ -123,17 +122,17 @@ class ArgumentCountError implements HintInterface
     {
 		$message = $exception->getMessage();
 
-		if (str_contains($message, '{closure:') || preg_match(static::REGEX, $message, $matches) !== 1) {
+		if (
+			str_contains($message, '{closure:')
+			|| str_contains($message, 'class@anonymous')
+			|| preg_match(static::REGEX, $message, $matches) !== 1
+		) {
 			return null;
 		}
 
 		[$function] = $matches;
 
 		if (str_contains($function, '::')) {
-			if (str_starts_with($function, 'anonymous::')) {
-				return null;
-			}
-
 			$type = 'method';
 			[$parameters, $returnType] = $this->getMethodSignature($function);
 		}
