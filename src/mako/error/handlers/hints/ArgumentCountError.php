@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\error\handlers\suggesters;
+namespace mako\error\handlers\hints;
 
-use ArgumentCountError;
+use ArgumentCountError as ArgumentCountErrorException;
 use Override;
 use ReflectionClass;
 use ReflectionFunction;
@@ -21,9 +21,9 @@ use function str_contains;
 use function var_export;
 
 /**
- * Argument count error suggester.
+ * Argument count error hint.
  */
-class ArgumentCountErrorSuggester implements SuggesterInterface
+class ArgumentCountError implements HintInterface
 {
 	/**
 	 * Regex that matches method names.
@@ -34,9 +34,9 @@ class ArgumentCountErrorSuggester implements SuggesterInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function canSuggest(Throwable $exception): bool
+    public function canProvideHint(Throwable $exception): bool
     {
-		return $exception instanceof ArgumentCountError;
+		return $exception instanceof ArgumentCountErrorException;
     }
 
 	/**
@@ -118,7 +118,7 @@ class ArgumentCountErrorSuggester implements SuggesterInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getSuggestion(Throwable $exception): ?string
+    public function getHint(Throwable $exception): ?string
     {
 		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
 			return null;
@@ -135,10 +135,10 @@ class ArgumentCountErrorSuggester implements SuggesterInterface
 			[$parameters, $returnType] = $this->getFunctionSignature($function);
 		}
 
-		return <<<SUGGESTION
+		return <<<HINT
 		The {$type} signature is:
 
 		{$function}({$parameters}){$returnType}
-		SUGGESTION;
+		HINT;
     }
 }

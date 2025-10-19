@@ -82,13 +82,13 @@
 				margin-top: 0;
 				padding: 0;
 			}
-			.exception > .body > div.suggestion {
+			.exception > .body > div.hint {
 				padding: 1.5rem;
 				background-color: rgba(45, 178, 138, .2);
 				border: 1px solid #2DB28A;
 				border-radius: 8px;
 			}
-			.exception > .body > div.suggestion > pre {
+			.exception > .body > div.hint > pre {
 				margin: 0;
 				padding: 0;
 				font-size: inherit;
@@ -438,9 +438,9 @@
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
 				<p>{{rtrim($message, '.')}}.</p>
 
-				{% if($suggestion !== null) %}
-					<div class="suggestion">
-						<pre>{{$suggestion}}</pre>
+				{% if($hint !== null) %}
+					<div class="hint">
+						<pre>{{$hint}}</pre>
 					</div>
 				{% endif %}
 

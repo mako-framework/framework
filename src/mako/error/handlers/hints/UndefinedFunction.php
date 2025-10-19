@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\error\handlers\suggesters;
+namespace mako\error\handlers\hints;
 
 use mako\common\traits\SuggestionTrait;
 use Override;
@@ -19,9 +19,9 @@ use function preg_match;
 use function str_starts_with;
 
 /**
- * Function suggester.
+ * Undefined function hint.
  */
-class FunctionSuggester implements SuggesterInterface
+class UndefinedFunction implements HintInterface
 {
 	use SuggestionTrait;
 
@@ -34,7 +34,7 @@ class FunctionSuggester implements SuggesterInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function canSuggest(Throwable $exception): bool
+	public function canProvideHint(Throwable $exception): bool
 	{
 		return str_starts_with($exception->getMessage(), 'Call to undefined function');
 	}
@@ -43,7 +43,7 @@ class FunctionSuggester implements SuggesterInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getSuggestion(Throwable $exception): ?string
+	public function getHint(Throwable $exception): ?string
 	{
 		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
 			return null;
@@ -61,7 +61,7 @@ class FunctionSuggester implements SuggesterInterface
 			$function = explode('\\', $function);
 			$function = end($function);
 
-			$suggestion = $this->suggest($function, $functions); // Try again without namespace
+			$hint = $this->suggest($function, $functions); // Try again without namespace
 		}
 
 		if ($suggestion !== null) {
