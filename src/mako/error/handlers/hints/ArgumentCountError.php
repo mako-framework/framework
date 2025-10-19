@@ -18,6 +18,7 @@ use function explode;
 use function implode;
 use function preg_match;
 use function str_contains;
+use function str_starts_with;
 use function var_export;
 
 /**
@@ -129,6 +130,10 @@ class ArgumentCountError implements HintInterface
 		[$function] = $matches;
 
 		if (str_contains($function, '::')) {
+			if (str_starts_with($function, 'anonymous::')) {
+				return null;
+			}
+
 			$type = 'method';
 			[$parameters, $returnType] = $this->getMethodSignature($function);
 		}
@@ -138,7 +143,7 @@ class ArgumentCountError implements HintInterface
 		}
 
 		return <<<HINT
-		The {$function} {$type} signature is:
+		The {$type} signature is:
 
 		{$function}({$parameters}){$returnType}
 		HINT;

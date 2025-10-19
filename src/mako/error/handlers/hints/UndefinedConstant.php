@@ -85,6 +85,6 @@ class UndefinedConstant implements HintInterface
 			$suggestion = $this->getConstantSuggestion($constant);
 		}
 
-		return $suggestion === null ? null : "Did you mean {$suggestion}?";
+		return $suggestion === null ? null : "Did you mean to use the {$suggestion} constant?";
 	}
 }
