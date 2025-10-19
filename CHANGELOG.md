@@ -8,6 +8,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * Refreshed the design of the development error handler.
 	- Several UI improvements.
 	- Added syntax highlighting to code.
+	- The development handlers may provide hints and suggestions to help resolve certain types of errors.
 * Added CLI frame output component.
 
 #### Changes
