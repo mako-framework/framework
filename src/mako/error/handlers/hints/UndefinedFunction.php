@@ -61,7 +61,7 @@ class UndefinedFunction implements HintInterface
 			$function = explode('\\', $function);
 			$function = end($function);
 
-			$hint = $this->suggest($function, $functions); // Try again without namespace
+			$suggestion = $this->suggest($function, $functions); // Try again without namespace
 		}
 
 		if ($suggestion !== null) {
