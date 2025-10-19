@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
+namespace mako\error\handlers\suggesters;
+
+use mako\common\traits\SuggestionTrait;
+use Override;
+use Throwable;
+
+use function array_merge;
+use function end;
+use function explode;
+use function get_defined_functions;
+use function preg_match;
+use function str_starts_with;
+
+/**
+ * Function suggester.
+ */
+class FunctionSuggester implements SuggesterInterface
+{
+	use SuggestionTrait;
+
+	/**
+	 * Regex that matches function names.
+	 */
+	protected const string REGEX = '/\b([\p{L}\p{N}_\\\]+)(?=\(\))/u';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function canSuggest(Throwable $exception): bool
+	{
+		return str_starts_with($exception->getMessage(), 'Call to undefined function');
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function getSuggestion(Throwable $exception): ?string
+	{
+		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
+			return null;
+		}
+
+		[$function] = $matches;
+
+		$defined = get_defined_functions();
+
+    	$functions = array_merge($defined['internal'], $defined['user']);
+
+    	$suggestion = $this->suggest($function, $functions);
+
+		if ($suggestion === null) {
+			$function = explode('\\', $function);
+			$function = end($function);
+
+			$suggestion = $this->suggest($function, $functions); // Try again without namespace
+		}
+
+		if ($suggestion !== null) {
+			return "Did you mean to call the {$suggestion}() function?";
+		}
+
+		return null;
+	}
+}

@@ -82,6 +82,19 @@
 				margin-top: 0;
 				padding: 0;
 			}
+			.exception > .body > div.suggestion {
+				padding: 1.5rem;
+				background-color: rgba(45, 178, 138, .2);
+				border: 1px solid #2DB28A;
+				border-radius: 8px;
+			}
+			.exception > .body > div.suggestion > pre {
+				margin: 0;
+				padding: 0;
+				font-size: inherit;
+				font-family: inherit;
+				overflow: auto;
+			}
 			.exception > .tabs {
 				background-color: #F6F6F6;
 				border: 1px solid #CCC;
@@ -205,6 +218,7 @@
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 				tab-size: 4;
+				overflow: auto;
 			}
 			.exception > .body.details > .frame > .details > .code > div {
 				line-height: 125%;
@@ -423,6 +437,13 @@
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
 				<p>{{rtrim($message, '.')}}.</p>
+
+				{% if($suggestion !== null) %}
+					<div class="suggestion">
+						<pre>{{$suggestion}}</pre>
+					</div>
+				{% endif %}
+
 				{% if(!empty($previous)) %}
 					<h2>Previous Exceptions</h2>
 					<ol>
