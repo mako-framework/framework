@@ -45,6 +45,10 @@ class UndefinedMethod implements HintInterface
 
 		[$class, $method] = explode('::', $matches[1], 2);
 
+		if ($class === 'class@anonymous') {
+			return null;
+		}
+
 		$methods = array_map(static fn ($method) => $method->getName(), (new ReflectionClass($class))->getMethods());
 
     	$suggestion = $this->suggest($method, $methods);
