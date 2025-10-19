@@ -78,6 +78,10 @@ class UndefinedConstant implements HintInterface
 	{
 		$constant = trim(str_replace('Undefined constant ', '', $exception->getMessage()), '"');
 
+		if (str_starts_with($constant, 'class@anonymous')) {
+			return null;
+		}
+
 		if (str_contains($constant, '::')) {
 			$suggestion = $this->getClassConstantSuggestion($constant);
 		}
