@@ -120,7 +120,9 @@ class ArgumentCountError implements HintInterface
 	#[Override]
     public function getHint(Throwable $exception): ?string
     {
-		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
+		$message = $exception->getMessage();
+
+		if (!str_contains($message, '{closure:') && preg_match(static::REGEX, $message, $matches) !== 1) {
 			return null;
 		}
 
@@ -136,7 +138,7 @@ class ArgumentCountError implements HintInterface
 		}
 
 		return <<<HINT
-		The {$type} signature is:
+		The {$function} {$type} signature is:
 
 		{$function}({$parameters}){$returnType}
 		HINT;

@@ -16,6 +16,7 @@ use function end;
 use function explode;
 use function get_defined_functions;
 use function preg_match;
+use function str_contains;
 use function str_starts_with;
 
 /**
@@ -57,17 +58,13 @@ class UndefinedFunction implements HintInterface
 
     	$suggestion = $this->suggest($function, $functions);
 
-		if ($suggestion === null) {
+		if ($suggestion === null && str_contains($function, '\\')) {
 			$function = explode('\\', $function);
 			$function = end($function);
 
 			$suggestion = $this->suggest($function, $functions); // Try again without namespace
 		}
 
-		if ($suggestion !== null) {
-			return "Did you mean to call the {$suggestion}() function?";
-		}
-
-		return null;
+		return $suggestion === null ? null : "Did you mean to call the {$suggestion}() function?";
 	}
 }

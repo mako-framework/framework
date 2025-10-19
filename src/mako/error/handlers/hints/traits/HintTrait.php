@@ -8,6 +8,7 @@
 namespace mako\error\handlers\hints\traits;
 
 use mako\error\handlers\hints\ArgumentCountError;
+use mako\error\handlers\hints\UndefinedConstant;
 use mako\error\handlers\hints\UndefinedFunction;
 use mako\error\handlers\hints\UndefinedMethod;
 use Throwable;
@@ -25,6 +26,7 @@ trait HintTrait
 		/** @var array<class-string<\mako\error\handlers\hints\HintInterface>> $hints */
 		$hints = [
 			ArgumentCountError::class,
+			UndefinedConstant::class,
 			UndefinedFunction::class,
 			UndefinedMethod::class,
 		];

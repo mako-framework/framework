@@ -49,10 +49,6 @@ class UndefinedMethod implements HintInterface
 
     	$suggestion = $this->suggest($method, $methods);
 
-		if ($suggestion !== null) {
-			return "Did you mean to call the {$class}::{$suggestion}() method?";
-		}
-
-		return null;
+		return $suggestion === null ? null : "Did you mean to call the {$class}::{$suggestion}() method?";
 	}
 }

@@ -52,6 +52,13 @@
 				padding-right: 6px;
 				border-radius: 6px;
 			}
+			.exception > .header > div > .pill > a {
+				color: inherit;
+				text-decoration: none;
+			}
+			.exception > .header > div > .pill > a:hover {
+				text-decoration: underline;
+			}
 			.exception > .header > div > .pill.mako {
 				background-color: #2DB28A;
 				color: #FFF;
@@ -432,7 +439,10 @@
 					Error
 					<p class="exception_id">Exception id: {{$exception_id}}</p>
 				</div>
-				<div class="environment"><span class="pill mako">Mako: {{\mako\Mako::VERSION}}</span> <span class="pill php">PHP: {{PHP_VERSION}}</span></div>
+				<div class="environment">
+					<span class="pill mako"><a href="https://makoframework.com/docs">Mako: {{\mako\Mako::VERSION}}</a></span>
+					<span class="pill php"><a href="https://php.net">PHP: {{PHP_VERSION}}</a></span>
+				</div>
 			</div>
 			<div class="body">
 				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
