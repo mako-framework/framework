@@ -203,11 +203,12 @@
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 			}
-			.exception > .body.details > .frame > .details span.faded {
-				opacity: .4;
-			}
-			.exception > .body.details > .frame > .details span.faded:hover {
-				opacity: .8;
+			.exception > .body.details > .frame > .details span.info-pill {
+				background-color: #ddd;
+				padding: .25rem;
+				padding-left: .5rem;
+				padding-right: .5rem;
+				border-radius: 4px;
 			}
 			.exception > .body.details > .frame > .details > .location {
 				background-color: #525863;
@@ -308,6 +309,9 @@
 					border-color: #555;
 					padding: 1rem;
 				}
+				.exception > .body.details > .frame > .details span.info-pill {
+					background-color: #222;
+				}
 				.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
 					border-color: #555;
 				}
@@ -351,32 +355,6 @@
 
 			.hl-em {
 				font-style: italic;
-			}
-			.hl-addition {
-				display: inline-block;
-				min-width: 100%;
-				background-color: #00FF0022;
-			}
-			.hl-deletion {
-				display: inline-block;
-				min-width: 100%;
-				background-color: #FF000011;
-			}
-			.hl-gutter {
-				display: inline-block;
-				font-size: 0.9em;
-				color: #555;
-				padding: 0 1ch;
-				margin-right: 1ch;
-				user-select: none;
-			}
-			.hl-gutter-addition {
-				background-color: #34A853;
-				color: #fff;
-			}
-			.hl-gutter-deletion {
-				background-color: #EA4334;
-				color: #fff;
 			}
 		</style>
 	</head>
@@ -429,6 +407,15 @@
 			<symbol id="icon-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<path d="M4 13l8 -3l8 3" />
+			</symbol>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+			<symbol id="icon-stopwatch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-stopwatch">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
+				<path d="M14.5 10.5l-2.5 2.5" />
+				<path d="M17 8l1 -1" />
+				<path d="M14 3h-4" />
 			</symbol>
 		</svg>
 		<!-- end icons -->
@@ -584,8 +571,13 @@
 											{% foreach($connectionQueries as ['time' => $time, 'query' => $query]) %}
 												<li>
 													<?php $seconds = round($time, 4); // @phpstan-ignore variable.undefined?>
-													<span class="faded">Executed in {{((string) $seconds === '0') ? $time : $seconds}} seconds</span>
-													{{raw:$query}}
+													<span class="info-pill">
+														<svg class="icon"><use href="#icon-stopwatch"></use></svg>
+														{{((string) $seconds === '0') ? '< 0.0001' : $seconds}}s
+													</span>
+													<div class="sql">
+														{{raw:$query}}
+													</div>
 												</li>
 											{% endforeach %}
 										</ol>
