@@ -11,6 +11,7 @@ use mako\error\handlers\hints\ArgumentCountError;
 use mako\error\handlers\hints\UndefinedConstant;
 use mako\error\handlers\hints\UndefinedFunction;
 use mako\error\handlers\hints\UndefinedMethod;
+use mako\error\handlers\hints\UndefinedProperty;
 use Throwable;
 
 /**
@@ -29,6 +30,7 @@ trait HintTrait
 			UndefinedConstant::class,
 			UndefinedFunction::class,
 			UndefinedMethod::class,
+			UndefinedProperty::class,
 		];
 
 		try {
