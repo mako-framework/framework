@@ -94,6 +94,7 @@
 				background-color: rgba(45, 178, 138, .2);
 				border: 1px solid #2DB28A;
 				border-radius: 8px;
+				margin-top: 2rem;
 			}
 			.exception > .body > div.hint > pre {
 				margin: 0;
@@ -432,12 +433,14 @@
 				</div>
 			</div>
 			<div class="body">
-				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
-				<p>{{rtrim($message, '.')}}.</p>
+				<div class="error">
+					<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
+					<p>{{rtrim($message, '.')}}.</p>
+				</div>
 
 				{% if($hint !== null) %}
 					<div class="hint">
-						<pre>{{$hint}}</pre>
+						<pre><b>Hint:</b> {{$hint}}</pre>
 					</div>
 				{% endif %}
 
