@@ -27,9 +27,9 @@ class UndefinedFunction implements HintInterface
 	use SuggestionTrait;
 
 	/**
-	 * Regex that matches function names.
+	 * Regex that matches the function name in the error message.
 	 */
-	protected const string REGEX = '/\b([\p{L}\p{N}_\\\]+)(?=\(\))/u';
+	protected const string REGEX = '/^Call to undefined function (.*)\(\)/u';
 
 	/**
 	 * {@inheritDoc}
@@ -50,7 +50,7 @@ class UndefinedFunction implements HintInterface
 			return null;
 		}
 
-		[$function] = $matches;
+		$function = $matches[1];
 
 		$defined = get_defined_functions();
 

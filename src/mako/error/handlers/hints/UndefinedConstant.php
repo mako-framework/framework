@@ -16,10 +16,9 @@ use function array_keys;
 use function end;
 use function explode;
 use function get_defined_constants;
+use function preg_match;
 use function str_contains;
-use function str_replace;
 use function str_starts_with;
-use function trim;
 
 /**
  * Undefined constant hint.
@@ -27,6 +26,11 @@ use function trim;
 class UndefinedConstant implements HintInterface
 {
 	use SuggestionTrait;
+
+	/**
+	 * Regex that matches the constant name in the error message.
+	 */
+	protected const string REGEX = '/^Undefined constant "?([^"]+)"?/u';
 
 	/**
 	 * {@inheritDoc}
@@ -76,7 +80,11 @@ class UndefinedConstant implements HintInterface
 	#[Override]
 	public function getHint(Throwable $exception): ?string
 	{
-		$constant = trim(str_replace('Undefined constant ', '', $exception->getMessage()), '"');
+		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
+			return null;
+		}
+
+		$constant = $matches[1];
 
 		if (str_starts_with($constant, 'class@anonymous')) {
 			return null;

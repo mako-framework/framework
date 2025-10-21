@@ -26,7 +26,7 @@ use function var_export;
 class ArgumentCountError implements HintInterface
 {
 	/**
-	 * Regex that matches method names.
+	 * Regex that matches the function or method name in the error message.
 	 */
 	protected const string REGEX = '/\b([\p{L}\p{N}_\\\]+(?:::[\p{L}\p{N}_]+)?)(?=\(\))/u';
 

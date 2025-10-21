@@ -25,6 +25,11 @@ class UndefinedMethod implements HintInterface
 	use SuggestionTrait;
 
 	/**
+	 * Regex that matches the method name in the error message.
+	 */
+	protected const string REGEX = '/^Call to undefined method (.*)\(\)/u';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
@@ -39,7 +44,7 @@ class UndefinedMethod implements HintInterface
 	#[Override]
 	public function getHint(Throwable $exception): ?string
 	{
-		if (preg_match('/^Call to undefined method (.*)\(\)$/u', $exception->getMessage(), $matches) !== 1) {
+		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
 			return null;
 		}
 
