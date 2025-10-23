@@ -52,6 +52,13 @@
 				padding-right: 6px;
 				border-radius: 6px;
 			}
+			.exception > .header > div > .pill > a {
+				color: inherit;
+				text-decoration: none;
+			}
+			.exception > .header > div > .pill > a:hover {
+				text-decoration: underline;
+			}
 			.exception > .header > div > .pill.mako {
 				background-color: #2DB28A;
 				color: #FFF;
@@ -81,6 +88,20 @@
 			.exception > .body h1 {
 				margin-top: 0;
 				padding: 0;
+			}
+			.exception > .body > div.hint {
+				padding: 1.5rem;
+				background-color: rgba(45, 178, 138, .2);
+				border: 1px solid #2DB28A;
+				border-radius: 8px;
+				margin-top: 2rem;
+			}
+			.exception > .body > div.hint > pre {
+				margin: 0;
+				padding: 0;
+				font-size: inherit;
+				font-family: inherit;
+				overflow: auto;
 			}
 			.exception > .tabs {
 				background-color: #F6F6F6;
@@ -183,11 +204,12 @@
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 			}
-			.exception > .body.details > .frame > .details span.faded {
-				opacity: .4;
-			}
-			.exception > .body.details > .frame > .details span.faded:hover {
-				opacity: .8;
+			.exception > .body.details > .frame > .details span.info-pill {
+				background-color: #ddd;
+				padding: .25rem;
+				padding-left: .5rem;
+				padding-right: .5rem;
+				border-radius: 4px;
 			}
 			.exception > .body.details > .frame > .details > .location {
 				background-color: #525863;
@@ -205,6 +227,7 @@
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 				tab-size: 4;
+				overflow: auto;
 			}
 			.exception > .body.details > .frame > .details > .code > div {
 				line-height: 125%;
@@ -287,6 +310,9 @@
 					border-color: #555;
 					padding: 1rem;
 				}
+				.exception > .body.details > .frame > .details span.info-pill {
+					background-color: #222;
+				}
 				.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
 					border-color: #555;
 				}
@@ -330,32 +356,6 @@
 
 			.hl-em {
 				font-style: italic;
-			}
-			.hl-addition {
-				display: inline-block;
-				min-width: 100%;
-				background-color: #00FF0022;
-			}
-			.hl-deletion {
-				display: inline-block;
-				min-width: 100%;
-				background-color: #FF000011;
-			}
-			.hl-gutter {
-				display: inline-block;
-				font-size: 0.9em;
-				color: #555;
-				padding: 0 1ch;
-				margin-right: 1ch;
-				user-select: none;
-			}
-			.hl-gutter-addition {
-				background-color: #34A853;
-				color: #fff;
-			}
-			.hl-gutter-deletion {
-				background-color: #EA4334;
-				color: #fff;
 			}
 		</style>
 	</head>
@@ -410,6 +410,15 @@
 				<path d="M4 13l8 -3l8 3" />
 			</symbol>
 		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+			<symbol id="icon-stopwatch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-stopwatch">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
+				<path d="M14.5 10.5l-2.5 2.5" />
+				<path d="M17 8l1 -1" />
+				<path d="M14 3h-4" />
+			</symbol>
+		</svg>
 		<!-- end icons -->
 		<div class="exception">
 			<div class="header">
@@ -418,11 +427,23 @@
 					Error
 					<p class="exception_id">Exception id: {{$exception_id}}</p>
 				</div>
-				<div class="environment"><span class="pill mako">Mako: {{\mako\Mako::VERSION}}</span> <span class="pill php">PHP: {{PHP_VERSION}}</span></div>
+				<div class="environment">
+					<span class="pill mako"><a href="https://makoframework.com/docs">Mako: {{\mako\Mako::VERSION}}</a></span>
+					<span class="pill php"><a href="https://php.net">PHP: {{PHP_VERSION}}</a></span>
+				</div>
 			</div>
 			<div class="body">
-				<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
-				<p>{{rtrim($message, '.')}}.</p>
+				<div class="error">
+					<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
+					<p>{{rtrim($message, '.')}}.</p>
+				</div>
+
+				{% if($hint !== null) %}
+					<div class="hint">
+						<pre><b>Hint:</b> {{$hint}}</pre>
+					</div>
+				{% endif %}
+
 				{% if(!empty($previous)) %}
 					<h2>Previous Exceptions</h2>
 					<ol>
@@ -553,8 +574,13 @@
 											{% foreach($connectionQueries as ['time' => $time, 'query' => $query]) %}
 												<li>
 													<?php $seconds = round($time, 4); // @phpstan-ignore variable.undefined?>
-													<span class="faded">Executed in {{((string) $seconds === '0') ? $time : $seconds}} seconds</span>
-													{{raw:$query}}
+													<span class="info-pill">
+														<svg class="icon"><use href="#icon-stopwatch"></use></svg>
+														{{((string) $seconds === '0') ? '< 0.0001' : $seconds}}s
+													</span>
+													<div class="sql">
+														{{raw:$query}}
+													</div>
 												</li>
 											{% endforeach %}
 										</ol>

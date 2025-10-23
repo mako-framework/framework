@@ -9,8 +9,10 @@ namespace mako\error\handlers\cli;
 
 use ErrorException;
 use mako\cli\output\components\Alert;
+use mako\cli\output\components\Frame;
 use mako\cli\output\Output;
 use mako\error\handlers\HandlerInterface;
+use mako\error\handlers\hints\traits\HintTrait;
 use Override;
 use Throwable;
 
@@ -27,6 +29,8 @@ use function str_replace;
  */
 class DevelopmentHandler implements HandlerInterface
 {
+	use HintTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -97,6 +101,11 @@ class DevelopmentHandler implements HandlerInterface
 			. " The error occured in <bold>{$this->escape(str_replace($cwd, '.', $exception->getFile()))}</bold>"
 			. " on line <bold>{$exception->getLine()}</bold>"
 			. PHP_EOL;
+		}
+
+		if (($hint = $this->getHint($exception)) !== null) {
+			$info .= PHP_EOL;
+			$info .= (new Frame($this->output))->render($hint, 'Hint');
 		}
 
 		$trace = $this->escape(
