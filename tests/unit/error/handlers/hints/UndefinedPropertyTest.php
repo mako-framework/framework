@@ -77,12 +77,12 @@ class UndefinedPropertyTest extends TestCase
 	 */
 	public function testWithValidClass(): void
 	{
-		$exception = new ErrorException('Undefined property: ' . __CLASS__ . '::$testPraperty');
+		$exception = new ErrorException('Undefined property: ' . static::class . '::$testPraperty');
 
 		$hint = new UndefinedProperty;
 
 		$this->assertTrue($hint->canProvideHint($exception));
 
-		$this->assertSame('Did you mean to access the ' . __CLASS__ . '::$testProperty property?', $hint->getHint($exception));
+		$this->assertSame('Did you mean to access the ' . static::class . '::$testProperty property?', $hint->getHint($exception));
 	}
 }
