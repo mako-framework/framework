@@ -303,7 +303,7 @@ class Select
 	{
 		$this->output->writeLn($label);
 
-		$optionFormatter ??= fn (mixed $option): string => $option;
+		$optionFormatter ??= static fn (mixed $option): string => $option;
 
 		if (!$this->output->environment->hasStty() || !$this->output->environment->hasAnsiSupport() || $this->output->cursor === null) {
 			return $this->nonInteractiveSelect($options, $optionFormatter);

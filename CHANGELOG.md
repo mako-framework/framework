@@ -6,6 +6,8 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 
 * Added `auto-restart` option to the `app:server` command that enables automatic restart of the development server in the event of a fatal error.
 * Refreshed the design of the development error handler.
+	- Several UI improvements.
+	- Added syntax highlighting to code.
 * Added CLI frame output component.
 
 #### Changes

@@ -28,6 +28,24 @@ class TooManyRequestsExceptionTest extends TestCase
 	/**
 	 *
 	 */
+	public function testGetRetryAfter(): void
+	{
+		$exception = new TooManyRequestsException;
+
+		$this->assertNull($exception->getRetryAfter());
+
+		//
+
+		$now = new DateTime;
+
+		$exception = new TooManyRequestsException(retryAfter: $now);
+
+		$this->assertSame($now, $exception->getRetryAfter());
+	}
+
+	/**
+	 *
+	 */
 	public function testGetHeaders(): void
 	{
 		$now = new DateTime;

@@ -38,7 +38,8 @@
         "monolog/monolog": "^3.9",
         "symfony/var-dumper": "^7.3",
         "doctrine/sql-formatter": "^1.5",
-        "psr/log": "^2.0|^3.0"
+        "psr/log": "^2.0|^3.0",
+        "tempest/highlight": "^2.13"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.4",
