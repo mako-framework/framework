@@ -50,7 +50,8 @@ class UndefinedProperty implements HintInterface
 
 		if (
 			str_contains($message, 'class@anonymous')
-			|| preg_match(static::REGEX, $message, $matches) !== 1) {
+			|| preg_match(static::REGEX, $message, $matches) !== 1
+		) {
 			return null;
 		}
 
