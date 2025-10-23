@@ -80,15 +80,16 @@ class UndefinedConstant implements HintInterface
 	#[Override]
 	public function getHint(Throwable $exception): ?string
 	{
-		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
+		$message = $exception->getMessage();
+
+		if (
+			str_contains($message, 'class@anonymous')
+			|| preg_match(static::REGEX, $message, $matches) !== 1
+		) {
 			return null;
 		}
 
 		$constant = $matches[1];
-
-		if (str_starts_with($constant, 'class@anonymous')) {
-			return null;
-		}
 
 		if (str_contains($constant, '::')) {
 			$suggestion = $this->getClassConstantSuggestion($constant);

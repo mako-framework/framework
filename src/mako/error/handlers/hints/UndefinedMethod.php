@@ -15,6 +15,7 @@ use Throwable;
 use function array_map;
 use function explode;
 use function preg_match;
+use function str_contains;
 use function str_starts_with;
 
 /**
@@ -44,15 +45,16 @@ class UndefinedMethod implements HintInterface
 	#[Override]
 	public function getHint(Throwable $exception): ?string
 	{
-		if (preg_match(static::REGEX, $exception->getMessage(), $matches) !== 1) {
+		$message = $exception->getMessage();
+
+		if (
+			str_contains($message, 'class@anonymous')
+			|| preg_match(static::REGEX, $message, $matches) !== 1
+		) {
 			return null;
 		}
 
 		[$class, $method] = explode('::', $matches[1], 2);
-
-		if ($class === 'class@anonymous') {
-			return null;
-		}
 
 		$methods = array_map(static fn ($method) => $method->getName(), (new ReflectionClass($class))->getMethods());
 
