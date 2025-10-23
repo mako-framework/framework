@@ -18,6 +18,18 @@ class UndefinedMethodTest extends TestCase
 	/**
 	 *
 	 */
+	public function testWithInvalidMessage(): void
+	{
+		$exception = new Exception('Foobar');
+
+		$hint = new UndefinedMethod;
+
+		$this->assertFalse($hint->canProvideHint($exception));
+	}
+
+	/**
+	 *
+	 */
 	public function testWithAnonymousClass(): void
 	{
 		$exception = new Exception('Call to undefined method class@anonymous::foo()');
@@ -42,5 +54,4 @@ class UndefinedMethodTest extends TestCase
 
 		$this->assertSame('Did you mean to call the ' . __METHOD__ . '() method?', $hint->getHint($exception));
 	}
-
 }
