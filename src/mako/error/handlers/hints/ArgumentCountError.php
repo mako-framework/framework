@@ -123,7 +123,7 @@ class ArgumentCountError implements HintInterface
 		$message = $exception->getMessage();
 
 		if (
-			str_contains($message, '{closure:')
+			str_contains($message, '{closure')
 			|| str_contains($message, 'class@anonymous')
 			|| preg_match(static::REGEX, $message, $matches) !== 1
 		) {
