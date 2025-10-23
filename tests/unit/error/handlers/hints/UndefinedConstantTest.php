@@ -50,13 +50,13 @@ class UndefinedConstantTest extends TestCase
 	 */
 	public function testWithClassConstant(): void
 	{
-		$exception = new Exception('Undefined constant ' . __CLASS__ . '::TEST_CANSTANT');
+		$exception = new Exception('Undefined constant ' . static::class . '::TEST_CANSTANT');
 
 		$hint = new UndefinedConstant;
 
 		$this->assertTrue($hint->canProvideHint($exception));
 
-		$this->assertSame('Did you mean to use the ' . __CLASS__ . '::TEST_CONSTANT constant?', $hint->getHint($exception));
+		$this->assertSame('Did you mean to use the ' . static::class . '::TEST_CONSTANT constant?', $hint->getHint($exception));
 	}
 
 	/**
