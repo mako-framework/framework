@@ -21,6 +21,7 @@ use mako\view\ViewFactory;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
+use Throwable;
 
 #[Group('unit')]
 class ProductionHandlerTest extends TestCase
@@ -70,7 +71,27 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('assign')->once()->with('exception_id', 'exception_id');
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['_metadata_' => []])->andReturn('rendered');
+		$viewFactory->shouldReceive('render')
+		->once()
+		->withArgs(function ($view, $data) {
+			// Ensure the correct view is passed
+			if ($view !== 'mako-error::error') {
+				return false;
+			}
+
+			// Ensure the metadata key exists and matches
+			if (!isset($data['_metadata_']) || $data['_metadata_'] !== []) {
+				return false;
+			}
+
+			// Ensure _exception_ exists and is a Throwable
+			if (!isset($data['_exception_']) || !($data['_exception_'] instanceof Throwable)) {
+				return false;
+			}
+
+			return true;
+		})
+		->andReturn('rendered');
 
 		//
 
@@ -95,11 +116,51 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('assign')->once()->with('exception_id', 'exception_id');
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['_metadata_' => []])->andThrow(RuntimeException::class);
+		$viewFactory->shouldReceive('render')
+		->once()
+		->withArgs(function ($view, $data) {
+			// Ensure the correct view is passed
+			if ($view !== 'mako-error::error') {
+				return false;
+			}
+
+			// Ensure the metadata key exists and matches
+			if (!isset($data['_metadata_']) || $data['_metadata_'] !== []) {
+				return false;
+			}
+
+			// Ensure _exception_ exists and is a Throwable
+			if (!isset($data['_exception_']) || !($data['_exception_'] instanceof Throwable)) {
+				return false;
+			}
+
+			return true;
+		})
+		->andThrow(RuntimeException::class);
 
 		$viewFactory->shouldReceive('clearAutoAssignVariables')->once()->andReturn($viewFactory);
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::error', ['_metadata_' => []])->andReturn('rendered');
+		$viewFactory->shouldReceive('render')
+		->once()
+		->withArgs(function ($view, $data) {
+			// Ensure the correct view is passed
+			if ($view !== 'mako-error::error') {
+				return false;
+			}
+
+			// Ensure the metadata key exists and matches
+			if (!isset($data['_metadata_']) || $data['_metadata_'] !== []) {
+				return false;
+			}
+
+			// Ensure _exception_ exists and is a Throwable
+			if (!isset($data['_exception_']) || !($data['_exception_'] instanceof Throwable)) {
+				return false;
+			}
+
+			return true;
+		})
+		->andReturn('rendered');
 
 		//
 
@@ -204,7 +265,27 @@ class ProductionHandlerTest extends TestCase
 
 		$viewFactory->shouldReceive('exists')->once()->with('mako-error::405')->andReturn(true);
 
-		$viewFactory->shouldReceive('render')->once()->with('mako-error::405', ['_metadata_' => []])->andReturn('rendered');
+		$viewFactory->shouldReceive('render')
+		->once()
+		->withArgs(function ($view, $data) {
+			// Ensure the correct view is passed
+			if ($view !== 'mako-error::405') {
+				return false;
+			}
+
+			// Ensure the metadata key exists and matches
+			if (!isset($data['_metadata_']) || $data['_metadata_'] !== []) {
+				return false;
+			}
+
+			// Ensure _exception_ exists and is a Throwable
+			if (!isset($data['_exception_']) || !($data['_exception_'] instanceof Throwable)) {
+				return false;
+			}
+
+			return true;
+		})
+		->andReturn('rendered');
 
 		//
 
