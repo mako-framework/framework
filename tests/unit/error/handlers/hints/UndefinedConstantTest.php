@@ -64,7 +64,7 @@ class UndefinedConstantTest extends TestCase
 	 */
 	public function testWithConstant(): void
 	{
-		$exception = new Exception('Undefined constant PHP_VARSION');
+		$exception = new Exception('Undefined constant "PHP_VARSION"');
 
 		$hint = new UndefinedConstant;
 
