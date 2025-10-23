@@ -21,6 +21,20 @@ class UndefinedPropertyTest extends TestCase
 	/**
 	 *
 	 */
+	public function testWithInvalidMessage(): void
+	{
+		$exception = new ErrorException('Foobar');
+
+		$hint = new UndefinedProperty;
+
+		$this->assertFalse($hint->canProvideHint($exception));
+
+		$this->assertNull($hint->getHint($exception));
+	}
+
+	/**
+	 *
+	 */
 	public function testWithInvalidExceptionType(): void
 	{
 		$exception = new Exception('Undefined property: class@anonymous::$foo');
