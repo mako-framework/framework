@@ -25,6 +25,8 @@ class UndefinedMethodTest extends TestCase
 		$hint = new UndefinedMethod;
 
 		$this->assertFalse($hint->canProvideHint($exception));
+
+		$this->assertNull($hint->getHint($exception));
 	}
 
 	/**
