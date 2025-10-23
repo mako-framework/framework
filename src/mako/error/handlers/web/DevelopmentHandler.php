@@ -14,6 +14,7 @@ use ErrorException;
 use mako\application\Application;
 use mako\database\ConnectionManager;
 use mako\error\handlers\HandlerInterface;
+use mako\error\handlers\hints\traits\HintTrait;
 use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\file\FileSystem;
 use mako\http\Request;
@@ -46,6 +47,8 @@ use function sys_get_temp_dir;
  */
 class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesExceptionIdInterface
 {
+	use HintTrait;
+
 	/**
 	 * Source padding.
 	 */
@@ -338,6 +341,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 			'dump'         => $this->getDumper(),
 			'queries'      => $this->getQueries(),
 			'exception_id' => $this->exceptionId,
+			'hint'         => $this->getHint($exception),
 			'superglobals' => [
 				'_ENV'     => $_ENV,
 				'_SERVER'  => $_SERVER,
