@@ -7,7 +7,7 @@
 
 namespace mako\throttle\stores;
 
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Override;
 
@@ -59,7 +59,7 @@ class APCu implements StoreInterface
 			return null;
 		}
 
-		return DateTime::createFromTimestamp($info['creation_time'] + $info['ttl']);
+		return DateTimeImmutable::createFromTimestamp($info['creation_time'] + $info['ttl']);
 	}
 
 	/**
