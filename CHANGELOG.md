@@ -9,6 +9,8 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- Several UI improvements.
 	- Added syntax highlighting to code.
 	- The development handlers may provide hints and suggestions to help resolve certain types of errors.
+* Made improvements to the production error handlers:
+	- The 429 (too many requests) view will now tell the user when they can retry.
 * Added CLI frame output component.
 
 #### Changes
