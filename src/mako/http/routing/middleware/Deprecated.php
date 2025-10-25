@@ -74,7 +74,10 @@ class Deprecated implements MiddlewareInterface
 
 			// Ensure that the sunset header is a UTC date
 
-			if ($sunsetDate->getTimezone()->getName() !== 'UTC' && ($sunsetDate instanceof DateTime || $sunsetDate instanceof DateTimeImmutable)) {
+			if (
+				$sunsetDate->getTimezone()->getName() !== 'UTC'
+				&& ($sunsetDate instanceof DateTime || $sunsetDate instanceof DateTimeImmutable)
+			) {
 				$sunsetDate = $sunsetDate->setTimezone(new DateTimeZone('UTC'));
 			}
 
