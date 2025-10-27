@@ -5,12 +5,12 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\input\helpers;
+namespace mako\tests\unit\cli\input\components;
 
 use mako\cli\Environment;
-use mako\cli\input\helpers\Confirmation;
-use mako\cli\input\helpers\confirmation\AsciiTheme;
-use mako\cli\input\helpers\confirmation\Theme;
+use mako\cli\input\components\Confirmation;
+use mako\cli\input\components\confirmation\AsciiTheme;
+use mako\cli\input\components\confirmation\Theme;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Cursor;

@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers;
+namespace mako\cli\input\components;
 
 use mako\cli\exceptions\CliException;
 use mako\cli\input\Input;
@@ -18,7 +18,7 @@ use function shell_exec;
 use function trim;
 
 /**
- * Secret helper.
+ * Secret component.
  */
 class Secret extends Prompt
 {

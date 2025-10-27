@@ -5,12 +5,12 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\input\helpers;
+namespace mako\tests\unit\cli\input\components;
 
 use mako\cli\Environment;
-use mako\cli\input\helpers\Select;
-use mako\cli\input\helpers\select\AsciiTheme;
-use mako\cli\input\helpers\select\Theme;
+use mako\cli\input\components\Select;
+use mako\cli\input\components\select\AsciiTheme;
+use mako\cli\input\components\select\Theme;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Cursor;

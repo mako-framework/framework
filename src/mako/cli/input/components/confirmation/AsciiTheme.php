@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers\confirmation;
+namespace mako\cli\input\components\confirmation;
 
 /**
  * Ascii theme.

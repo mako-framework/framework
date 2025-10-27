@@ -8,12 +8,12 @@
 namespace mako\reactor\traits;
 
 use Countable;
-use mako\cli\input\helpers\Confirmation;
-use mako\cli\input\helpers\confirmation\Theme as ConfirmationTheme;
-use mako\cli\input\helpers\Prompt;
-use mako\cli\input\helpers\Secret;
-use mako\cli\input\helpers\Select;
-use mako\cli\input\helpers\select\Theme as SelectTheme;
+use mako\cli\input\components\Confirmation;
+use mako\cli\input\components\confirmation\Theme as ConfirmationTheme;
+use mako\cli\input\components\Prompt;
+use mako\cli\input\components\Secret;
+use mako\cli\input\components\Select;
+use mako\cli\input\components\select\Theme as SelectTheme;
 use mako\cli\output\components\Alert;
 use mako\cli\output\components\Bell;
 use mako\cli\output\components\Countdown;
