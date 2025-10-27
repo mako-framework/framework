@@ -8,8 +8,10 @@
 namespace mako\application\services;
 
 use mako\cache\CacheManager;
+use mako\cache\simple\SimpleCache;
 use mako\cache\stores\StoreInterface;
 use Override;
+use Psr\SimpleCache\CacheInterface as SimpleCacheInterface;
 
 /**
  * Cache service.
@@ -41,5 +43,9 @@ class CacheService extends Service
 		// Register the default cache store
 
 		$this->container->registerSingleton(StoreInterface::class, static fn ($container) => $container->get(CacheManager::class)->getInstance());
+
+		// Register simple cache with the default cache store
+
+		$this->container->registerSingleton(SimpleCacheInterface::class, static fn ($container) => new SimpleCache($container->get(CacheManager::class)->getInstance()));
 	}
 }
