@@ -5,11 +5,11 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cache\simple;
+namespace mako\tests\unit\cache\psr16;
 
 use DateInterval;
 use Generator;
-use mako\cache\simple\SimpleCache;
+use mako\cache\psr16\SimpleCache;
 use mako\cache\stores\StoreInterface;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;

@@ -5,15 +5,15 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cache\simple\exceptions;
+namespace mako\cache\psr16\exceptions;
 
+use mako\cache\exceptions\CacheException;
 use Psr\SimpleCache\InvalidArgumentException as SimpleCacheInvalidArgumentException;
-use RuntimeException;
 
 /**
  * Invalid argument exception.
  */
-class InvalidArgumentException extends RuntimeException implements SimpleCacheInvalidArgumentException
+class InvalidArgumentException extends CacheException implements SimpleCacheInvalidArgumentException
 {
 
 }

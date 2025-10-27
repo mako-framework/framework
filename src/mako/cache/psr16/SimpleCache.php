@@ -5,11 +5,11 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cache\simple;
+namespace mako\cache\psr16;
 
 use DateInterval;
 use DateTimeImmutable;
-use mako\cache\simple\exceptions\InvalidArgumentException;
+use mako\cache\psr16\exceptions\InvalidArgumentException;
 use mako\cache\stores\StoreInterface;
 use Override;
 use Psr\SimpleCache\CacheInterface;
