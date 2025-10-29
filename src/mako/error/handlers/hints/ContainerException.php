@@ -22,6 +22,16 @@ use function str_starts_with;
 class ContainerException implements HintInterface
 {
 	/**
+	 * Regex that matches the class in "unable to create instance" messages.
+	 */
+	protected const string UNABLE_TO_CREATE_REXEX = '/Unable to create a \[ (.*) \] instance\./';
+
+	/**
+	 * Regex that matches the class in "unable to resolve parameter" messages.
+	 */
+	protected const string UNABLE_TO_RESOlVE_REGEX = '/Unable to resolve the \[ .* \] parameter of \[ (.*) \]\./';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
@@ -55,10 +65,10 @@ class ContainerException implements HintInterface
 		if ($exception instanceof UnableToInstantiateException || $exception instanceof UnableToResolveParameterException) {
 			$class = null;
 
-			if (preg_match('/Unable to create a \[ (.*) \] instance\./', $exception->getMessage(), $matches) === 1) {
+			if (preg_match(static::UNABLE_TO_CREATE_REXEX, $exception->getMessage(), $matches) === 1) {
 				[, $class] = $matches;
 			}
-			elseif (preg_match('/Unable to resolve the \[ .* \] parameter of \[ (.*) \]\./', $exception->getMessage(), $matches) === 1) {
+			elseif (preg_match(static::UNABLE_TO_RESOlVE_REGEX, $exception->getMessage(), $matches) === 1) {
 				[, $class] = $matches;
 			}
 
