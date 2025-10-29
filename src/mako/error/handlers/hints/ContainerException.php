@@ -29,7 +29,7 @@ class ContainerException implements HintInterface
 	/**
 	 * Regex that matches the class in "unable to resolve parameter" messages.
 	 */
-	protected const string UNABLE_TO_RESOlVE_REGEX = '/Unable to resolve the \[ .* \] parameter of \[ (.*) \]\./';
+	protected const string UNABLE_TO_RESOLVE_REGEX = '/Unable to resolve the \[ .* \] parameter of \[ (.*) \]\./';
 
 	/**
 	 * {@inheritDoc}
@@ -68,7 +68,7 @@ class ContainerException implements HintInterface
 			if (preg_match(static::UNABLE_TO_CREATE_REXEX, $exception->getMessage(), $matches) === 1) {
 				[, $class] = $matches;
 			}
-			elseif (preg_match(static::UNABLE_TO_RESOlVE_REGEX, $exception->getMessage(), $matches) === 1) {
+			elseif (preg_match(static::UNABLE_TO_RESOLVE_REGEX, $exception->getMessage(), $matches) === 1) {
 				[, $class] = $matches;
 			}
 
