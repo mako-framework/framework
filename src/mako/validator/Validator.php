@@ -34,6 +34,7 @@ use mako\validator\rules\Different;
 use mako\validator\rules\Email;
 use mako\validator\rules\EmailDomain;
 use mako\validator\rules\Enum;
+use mako\validator\rules\ExactCount;
 use mako\validator\rules\ExactLength;
 use mako\validator\rules\file\Hash;
 use mako\validator\rules\file\Hmac;
@@ -55,7 +56,9 @@ use mako\validator\rules\JSON;
 use mako\validator\rules\LessThan;
 use mako\validator\rules\LessThanOrEqualTo;
 use mako\validator\rules\MatchField;
+use mako\validator\rules\MaxCount;
 use mako\validator\rules\MaxLength;
+use mako\validator\rules\MinCount;
 use mako\validator\rules\MinLength;
 use mako\validator\rules\NotEmpty;
 use mako\validator\rules\NotIn;
@@ -126,6 +129,7 @@ class Validator
 		'email_domain'             => EmailDomain::class,
 		'email'                    => Email::class,
 		'enum'                     => Enum::class,
+		'exact_count'              => ExactCount::class,
 		'exact_dimensions'         => ExactDimensions::class,
 		'exact_length'             => ExactLength::class,
 		'exists'                   => Exists::class,
@@ -141,11 +145,13 @@ class Validator
 		'less_than_or_equal_to'    => LessThanOrEqualTo::class,
 		'less_than'                => LessThan::class,
 		'match'                    => MatchField::class,
+		'max_count'                => MaxCount::class,
 		'max_dimensions'           => MaxDimensions::class,
 		'max_file_size'            => MaxFileSize::class,
 		'max_filename_length'      => MaxFilenameLength::class,
 		'max_length'               => MaxLength::class,
 		'mime_type'                => MimeType::class,
+		'min_count'                => MinCount::class,
 		'min_dimensions'           => MinDimensions::class,
 		'min_length'               => MinLength::class,
 		'not_empty'                => NotEmpty::class,

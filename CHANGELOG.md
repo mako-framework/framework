@@ -31,6 +31,10 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `Redis::vRem()`
 	- `Redis::vSetAttr()`
 	- `Redis::vSim()`
+* Added new validation rules:
+	- `exact_count`
+	- `max_count`
+	- `min_count`
 
 #### Changes
 
