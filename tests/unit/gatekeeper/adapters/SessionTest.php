@@ -96,10 +96,11 @@ class SessionTest extends TestCase
 	{
 		return
 		[
-			'path'     => '/',
-			'domain'   => '',
-			'secure'   => false,
-			'httponly' => true,
+			'path'        => '/',
+			'domain'      => '',
+			'secure'      => false,
+			'partitioned' => false,
+			'httponly'    => true,
 		];
 	}
 

@@ -35,6 +35,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `exact_count`
 	- `max_count`
 	- `min_count`
+* Added support for "partitioned" cookies aka "CHIPS".
 
 #### Changes
 
