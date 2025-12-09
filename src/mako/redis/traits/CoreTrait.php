@@ -198,7 +198,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLAVES'], $arguments);
 	}
 
-	#[Deprecated('it can be replaced by the "clusterShards" method', since: 'Redis 7.0.0')]
+	#[Deprecated('use the "clusterShards" method instead', since: 'Redis 7.0.0')]
 	public function clusterSlots(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLOTS'], $arguments);
@@ -592,6 +592,16 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['HGETALL'], $arguments);
 	}
 
+	public function hGetDel(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HGETDEL'], $arguments);
+	}
+
+	public function hGetEx(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HGETEX'], $arguments);
+	}
+
 	public function hIncrBy(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['HINCRBY'], $arguments);
@@ -661,6 +671,11 @@ trait CoreTrait
 	public function hSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['HSET'], $arguments);
+	}
+
+	public function hSetEx(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HSETEX'], $arguments);
 	}
 
 	public function hSetNx(...$arguments): mixed
@@ -1505,6 +1520,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['XACK'], $arguments);
 	}
 
+	public function xAckDel(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['XACKDEL'], $arguments);
+	}
+
 	public function xAdd(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['XADD'], $arguments);
@@ -1523,6 +1543,11 @@ trait CoreTrait
 	public function xDel(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['XDEL'], $arguments);
+	}
+
+	public function xDelEx(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['XDELEX'], $arguments);
 	}
 
 	public function xGroupCreate(...$arguments): mixed
@@ -1747,5 +1772,67 @@ trait CoreTrait
 	public function watch(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['WATCH'], $arguments);
+	}
+
+	// Vector set
+
+	public function vAdd(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VADD'], $arguments);
+	}
+
+	public function vCard(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VCARD'], $arguments);
+	}
+
+	public function vDim(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VDIM'], $arguments);
+	}
+
+	public function vEmb(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VEMB'], $arguments);
+	}
+
+	public function vGetAttr(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VGETATTR'], $arguments);
+	}
+
+	public function vInfo(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VINFO'], $arguments);
+	}
+
+	public function vIsMember(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VISMEMBER'], $arguments);
+	}
+
+	public function vLinks(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VLINKS'], $arguments);
+	}
+
+	public function vRandMember(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VRANDMEMBER'], $arguments);
+	}
+
+	public function vRem(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VREM'], $arguments);
+	}
+
+	public function vSetAttr(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VSETATTR'], $arguments);
+	}
+
+	public function vSim(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VSIM'], $arguments);
 	}
 }

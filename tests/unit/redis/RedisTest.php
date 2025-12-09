@@ -816,7 +816,7 @@ class RedisTest extends TestCase
 
 		//
 
-		$connection->shouldReceive('write')->once()->with("*1\r\n$4\r\nQUIT\r\n");
+		$connection->shouldReceive('write')->once()->with("*1\r\n$5\r\nRESET\r\n");
 
 		$connection->shouldReceive('readLine')->once()->andReturn("+OK\r\n");
 

@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\cli\input\helpers;
+namespace mako\tests\unit\cli\input\components;
 
-use mako\cli\input\helpers\Prompt;
+use mako\cli\input\components\Prompt;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\tests\TestCase;

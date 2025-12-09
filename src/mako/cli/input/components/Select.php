@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers;
+namespace mako\cli\input\components;
 
-use mako\cli\input\helpers\select\Theme;
+use mako\cli\input\components\select\Theme;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Output;
@@ -20,7 +20,7 @@ use function explode;
 use function implode;
 
 /**
- * Select helper.
+ * Select component.
  */
 class Select
 {

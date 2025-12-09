@@ -39,6 +39,7 @@
         "symfony/var-dumper": "^7.3",
         "doctrine/sql-formatter": "^1.5",
         "psr/log": "^2.0|^3.0",
+        "psr/simple-cache": "^3.0",
         "tempest/highlight": "^2.13"
     },
     "require-dev": {

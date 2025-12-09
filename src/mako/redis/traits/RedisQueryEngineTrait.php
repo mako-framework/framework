@@ -7,6 +7,8 @@
 
 namespace mako\redis\traits;
 
+use Deprecated;
+
 /**
  * Redis query engine commands.
  *
@@ -46,11 +48,13 @@ trait RedisQueryEngineTrait
 		return $this->buildAndSendCommandAndReturnResponse(['FT.ALTER'], $arguments);
 	}
 
+	#[Deprecated('use the "configGet" method instead', 'Redis 8.0.0')]
 	public function ftConfigGet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['FT.CONFIG', 'GET'], $arguments);
 	}
 
+	#[Deprecated('use the "configSet" method instead', 'Redis 8.0.0')]
 	public function ftConfigSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['FT.CONFIG', 'SET'], $arguments);
@@ -131,6 +135,7 @@ trait RedisQueryEngineTrait
 		return $this->buildAndSendCommandAndReturnResponse(['FT.SYNUPDATE'], $arguments);
 	}
 
+	#[Deprecated(null, 'Redis 8.0.0')]
 	public function ftTagVals(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['FT.TAGVALS'], $arguments);

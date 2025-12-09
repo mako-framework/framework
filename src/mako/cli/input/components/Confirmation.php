@@ -5,9 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers;
+namespace mako\cli\input\components;
 
-use mako\cli\input\helpers\confirmation\Theme;
+use mako\cli\input\components\confirmation\Theme;
 use mako\cli\input\Input;
 use mako\cli\input\Key;
 use mako\cli\output\Output;
@@ -18,7 +18,7 @@ use function mb_strtolower;
 use function mb_strtoupper;
 
 /**
- * Confirmation helper.
+ * Confirmation component.
  */
 class Confirmation
 {

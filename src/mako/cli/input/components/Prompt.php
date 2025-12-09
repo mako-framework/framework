@@ -5,13 +5,13 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers;
+namespace mako\cli\input\components;
 
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 
 /**
- * Prompt helper.
+ * Prompt component.
  */
 class Prompt
 {

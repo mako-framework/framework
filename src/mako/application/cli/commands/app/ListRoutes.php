@@ -85,8 +85,6 @@ class ListRoutes extends Command
 	{
 		$this->clear();
 
-		$this->nl();
-
 		$matched = 0;
 
 		/** @var Route $route */
@@ -160,7 +158,5 @@ class ListRoutes extends Command
 
 			$this->nl();
 		}
-
-		$this->nl();
 	}
 }

@@ -35,10 +35,11 @@ class Session extends Adapter
 	protected array $options = [
 		'auth_key'       => 'gatekeeper_auth_key',
 		'cookie_options' => [
-			'path'     => '/',
-			'domain'   => '',
-			'secure'   => false,
-			'httponly' => true,
+			'path'        => '/',
+			'domain'      => '',
+			'secure'      => false,
+			'partitioned' => false,
+			'httponly'    => true,
 		],
 		'throttling'     => [
 			'enabled'      => false,

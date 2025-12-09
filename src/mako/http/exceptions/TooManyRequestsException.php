@@ -60,7 +60,10 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 
 			// Ensure that the retry-after header is a UTC date
 
-			if ($retryAfter->getTimezone()->getName() !== 'UTC' && ($retryAfter instanceof DateTime || $retryAfter instanceof DateTimeImmutable)) {
+			if (
+				$retryAfter->getTimezone()->getName() !== 'UTC'
+				&& ($retryAfter instanceof DateTime || $retryAfter instanceof DateTimeImmutable)
+			) {
 				$retryAfter = $retryAfter->setTimezone(new DateTimeZone('UTC'));
 			}
 

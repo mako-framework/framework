@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\cli\input\helpers\select;
+namespace mako\cli\input\components\select;
 
 /**
  * Ascii theme.

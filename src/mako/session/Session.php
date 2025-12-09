@@ -46,10 +46,11 @@ class Session
 		'data_ttl'       => 1800,
 		'cookie_ttl'     => 0,
 		'cookie_options' => [
-			'path'     => '/',
-			'domain'   => '',
-			'secure'   => false,
-			'httponly' => true,
+			'path'        => '/',
+			'domain'      => '',
+			'secure'      => false,
+			'partitioned' => false,
+			'httponly'    => true,
 		],
 	];
 

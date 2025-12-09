@@ -50,6 +50,7 @@ class CookiesTest extends TestCase
 			$this->assertArrayHasKey('path', $cookie['options']);
 			$this->assertArrayHasKey('domain', $cookie['options']);
 			$this->assertArrayHasKey('secure', $cookie['options']);
+			$this->assertArrayHasKey('partitioned', $cookie['options']);
 			$this->assertArrayHasKey('httponly', $cookie['options']);
 			$this->assertArrayHasKey('samesite', $cookie['options']);
 		}
@@ -203,18 +204,20 @@ class CookiesTest extends TestCase
 		$this->assertSame('/', $foo['options']['path']);
 		$this->assertSame('', $foo['options']['domain']);
 		$this->assertSame(false, $foo['options']['secure']);
+		$this->assertSame(false, $foo['options']['partitioned']);
 		$this->assertSame(false, $foo['options']['httponly']);
 		$this->assertSame('Lax', $foo['options']['samesite']);
 
 		$this->assertFalse($foo['raw']);
 
-		$cookies->add('foo', 'bar', 0, ['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
+		$cookies->add('foo', 'bar', 0, ['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'partitioned' => true, 'httponly' => true, 'samesite' => 'Strict']);
 
 		$foo = $cookies->all()['foo'];
 
 		$this->assertSame('/foo', $foo['options']['path']);
 		$this->assertSame('example.org', $foo['options']['domain']);
 		$this->assertSame(true, $foo['options']['secure']);
+		$this->assertSame(true, $foo['options']['partitioned']);
 		$this->assertSame(true, $foo['options']['httponly']);
 		$this->assertSame('Strict', $foo['options']['samesite']);
 
@@ -228,7 +231,7 @@ class CookiesTest extends TestCase
 	{
 		$cookies = new Cookies;
 
-		$cookies->setOptions(['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
+		$cookies->setOptions(['path' => '/foo', 'domain' => 'example.org', 'secure' => true, 'partitioned' => true, 'httponly' => true, 'samesite' => 'Strict']);
 
 		$cookies->add('foo', 'bar');
 
@@ -237,6 +240,7 @@ class CookiesTest extends TestCase
 		$this->assertSame('/foo', $foo['options']['path']);
 		$this->assertSame('example.org', $foo['options']['domain']);
 		$this->assertSame(true, $foo['options']['secure']);
+		$this->assertSame(true, $foo['options']['partitioned']);
 		$this->assertSame(true, $foo['options']['httponly']);
 		$this->assertSame('Strict', $foo['options']['samesite']);
 

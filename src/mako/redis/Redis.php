@@ -543,7 +543,7 @@ class Redis
 			}
 		}
 
-		$this->sendCommandAndGetResponse($this->buildCommand(['QUIT']));
+		$this->sendCommandAndGetResponse($this->buildCommand(['RESET']));
 	}
 
 	/**

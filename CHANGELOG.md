@@ -9,7 +9,33 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- Several UI improvements.
 	- Added syntax highlighting to code.
 	- The development handlers may provide hints and suggestions to help resolve certain types of errors.
+* Made improvements to the production error handlers:
+	- The 429 (too many requests) view will now tell the user when they can retry if a "retryAfter" date is provided.
 * Added CLI frame output component.
+* Added a `SimpleCache` (`PSR-16`) implementation to the framework core.
+* Added the following methods introduced in Redis 8.0.0:
+	- `Redis::hGetDel()`
+	- `Redis::hGetEx()`
+	- `Redis::hSetEx()`
+	- `Redis::xAckDel()`
+	- `Redis::xDelEx()`
+	- `Redis::vAdd()`
+	- `Redis::vCard()`
+	- `Redis::vDim()`
+	- `Redis::vEmb()`
+	- `Redis::vGetAttr()`
+	- `Redis::vInfo()`
+	- `Redis::vIsMember()`
+	- `Redis::vLinks()`
+	- `Redis::vRandMember()`
+	- `Redis::vRem()`
+	- `Redis::vSetAttr()`
+	- `Redis::vSim()`
+* Added new validation rules:
+	- `exact_count`
+	- `max_count`
+	- `min_count`
+* Added support for "partitioned" cookies aka "CHIPS".
 
 #### Changes
 
@@ -24,6 +50,18 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `CommandInterface::getDescription()`
 	- `CommandInterface::getArguments()`
 * The default date output format for the ORM has been changed to ISO-8601.
+* Renamed the `mako\cli\input\helpers` namespace to `mako\cli\input\components`.
+
+#### Deprecations
+
+* Deprecated the following Redis methods:
+	- `Redis::ftConfigGet()`
+	- `Redis::ftConfigSet()`
+	- `Redis::ftTagVals()`
+
+#### Improvements
+
+* Various improvements and optimizations.
 
 > Check out the upgrade guide for details on how to upgrade from `11.0.*.`
 

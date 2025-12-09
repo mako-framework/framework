@@ -30,11 +30,12 @@ class Cookies implements Countable, IteratorAggregate
 	 * Default options.
 	 */
 	protected array $defaults = [
-		'path'     => '/',
-		'domain'   => '',
-		'secure'   => false,
-		'httponly' => false,
-		'samesite' => 'Lax',
+		'path'        => '/',
+		'domain'      => '',
+		'secure'      => false,
+		'partitioned' => false,
+		'httponly'    => false,
+		'samesite'    => 'Lax',
 	];
 
 	/**
