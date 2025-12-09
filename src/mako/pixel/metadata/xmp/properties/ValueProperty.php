@@ -8,11 +8,13 @@
 namespace mako\pixel\metadata\xmp\properties;
 
 use mako\pixel\metadata\xmp\properties\traits\NameTrait;
+use Override;
+use Stringable;
 
 /**
  * Value property.
  */
-class ValueProperty
+class ValueProperty implements Stringable
 {
 	use NameTrait;
 
@@ -26,5 +28,14 @@ class ValueProperty
 		public protected(set) string $value,
 		public protected(set) array $qualifiers = []
 	) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function __toString(): string
+	{
+		return $this->value;
 	}
 }
