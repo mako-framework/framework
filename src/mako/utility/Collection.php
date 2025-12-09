@@ -21,12 +21,12 @@ use function array_chunk;
 use function array_combine;
 use function array_diff_key;
 use function array_filter;
+use function array_first;
 use function array_flip;
 use function array_intersect_key;
 use function array_key_exists;
-use function array_key_first;
-use function array_key_last;
 use function array_keys;
+use function array_last;
 use function array_map;
 use function array_pop;
 use function array_push;
@@ -291,13 +291,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function first(): mixed
 	{
-		$key = array_key_first($this->items);
-
-		if ($key === null) {
-			return null;
-		}
-
-		return $this->items[$key];
+		return array_first($this->items);
 	}
 
 	/**
@@ -307,13 +301,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function last(): mixed
 	{
-		$key = array_key_last($this->items);
-
-		if ($key === null) {
-			return null;
-		}
-
-		return $this->items[$key];
+		return array_last($this->items);
 	}
 
 	/**
