@@ -13,7 +13,7 @@ use ReflectionClass;
 use Throwable;
 
 use function array_keys;
-use function end;
+use function array_last;
 use function explode;
 use function get_defined_constants;
 use function preg_match;
@@ -66,7 +66,7 @@ class UndefinedConstant implements HintInterface
 
 		if ($suggestion === null && str_contains($constant, '\\')) {
 			$constant = explode('\\', $constant);
-			$constant = end($constant);
+			$constant = array_last($constant);
 
 			return $this->suggest($constant, $constants);
 		}

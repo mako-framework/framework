@@ -7,8 +7,8 @@
 
 namespace mako\chrono\stopwatch;
 
+use function array_last;
 use function count;
-use function end;
 use function microtime;
 
 /**
@@ -42,7 +42,7 @@ class Stopwatch
 	 */
 	public function isRunning(): bool
 	{
-		return end($this->laps)->isRunning();
+		return array_last($this->laps)->isRunning();
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Stopwatch
 	 */
 	public function lap(): float
 	{
-		$last = end($this->laps);
+		$last = array_last($this->laps);
 
 		$time = $last->stop();
 
@@ -76,7 +76,7 @@ class Stopwatch
 	 */
 	public function getElapsedTime(): float
 	{
-		$last = end($this->laps);
+		$last = array_last($this->laps);
 
 		return ($last->isRunning() ? microtime(true) : $last->getStopTime()) - $this->laps[0]->getStartTime();
 	}
@@ -86,7 +86,7 @@ class Stopwatch
 	 */
 	public function stop(): float
 	{
-		$last = end($this->laps);
+		$last = array_last($this->laps);
 
 		$last->stop();
 

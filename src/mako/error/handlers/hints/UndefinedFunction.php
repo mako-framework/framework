@@ -11,8 +11,8 @@ use mako\common\traits\SuggestionTrait;
 use Override;
 use Throwable;
 
+use function array_last;
 use function array_merge;
-use function end;
 use function explode;
 use function get_defined_functions;
 use function preg_match;
@@ -60,7 +60,7 @@ class UndefinedFunction implements HintInterface
 
 		if ($suggestion === null && str_contains($function, '\\')) {
 			$function = explode('\\', $function);
-			$function = end($function);
+			$function = array_last($function);
 
 			$suggestion = $this->suggest($function, $functions); // Try again without namespace
 		}
