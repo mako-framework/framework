@@ -28,6 +28,7 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected string $defaultMessage = 'You have made too many requests to the server.';
 
 	/**

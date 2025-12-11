@@ -8,6 +8,7 @@
 namespace mako\http\exceptions;
 
 use mako\http\response\Status;
+use Override;
 use Throwable;
 
 /**
@@ -18,6 +19,7 @@ class BadRequestException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected string $defaultMessage = 'The server was unable to process the request.';
 
 	/**
