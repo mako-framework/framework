@@ -104,8 +104,10 @@ class Server extends Command
 		$iniEntries = '';
 
 		if ($ini !== []) {
-			$iniEntries = ' -d ' . implode(' -d ', $ini);
+			$iniEntries = ' -d ' . implode(' -d ', array_map(escapeshellarg(...), $ini));
 		}
+
+		$this->write($iniEntries);
 
 		// Start the server
 
