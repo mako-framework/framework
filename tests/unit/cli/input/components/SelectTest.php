@@ -327,7 +327,7 @@ class SelectTest extends TestCase
 			$this->cursor = $cursor;
 		})->bindTo($output, Output::class)();
 
-		$select = Mockery::mock(Select::class, [
+		$select = new class (
 			$input,
 			$output,
 			$invalidChoiceMessage,
@@ -335,15 +335,16 @@ class SelectTest extends TestCase
 			$theme,
 			$returnKey,
 			$allowMultiple,
-			$allowEmptySelection,
-		]);
-
-		$select->makePartial();
-
-		$select->shouldAllowMockingProtectedMethods();
-
-		$select->shouldReceive('getSttySettings');
-		$select->shouldReceive('setSttySettings');
+			$allowEmptySelection
+		) extends Select {
+			protected function getSttySettings(): string
+			{
+				return '';
+			}
+			protected function setSttySettings(string $settings): void
+			{
+			}
+		};
 
 		return [$input, $environment, $cursor, $output, $select];
 	}
