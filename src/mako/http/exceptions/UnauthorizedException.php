@@ -8,6 +8,7 @@
 namespace mako\http\exceptions;
 
 use mako\http\response\Status;
+use Override;
 use Throwable;
 
 /**
@@ -18,6 +19,7 @@ class UnauthorizedException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected string $defaultMessage = 'You don\'t have permission to access the requested resource.';
 
 	/**

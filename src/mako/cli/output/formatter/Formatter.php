@@ -10,8 +10,8 @@ namespace mako\cli\output\formatter;
 use mako\cli\output\formatter\exceptions\FormatterException;
 use Override;
 
+use function array_last;
 use function array_pop;
-use function end;
 use function implode;
 use function preg_match_all;
 use function preg_replace;
@@ -171,7 +171,7 @@ class Formatter implements FormatterInterface
 	 */
 	protected function closeStyle(string $tag): string
 	{
-		if ($this->getTagName($tag) !== end($this->openTags)) {
+		if ($this->getTagName($tag) !== array_last($this->openTags)) {
 			throw new FormatterException('Detected incorrectly nested formatting tag.');
 		}
 

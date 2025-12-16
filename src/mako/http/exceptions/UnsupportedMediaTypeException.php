@@ -8,6 +8,7 @@
 namespace mako\http\exceptions;
 
 use mako\http\response\Status;
+use Override;
 use Throwable;
 
 /**
@@ -18,6 +19,7 @@ class UnsupportedMediaTypeException extends HttpStatusException
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected string $defaultMessage = 'The media type is not supported.';
 
 	/**

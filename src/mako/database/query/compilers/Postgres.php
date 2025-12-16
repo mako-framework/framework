@@ -22,6 +22,7 @@ class Postgres extends Compiler
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected static string $dateFormat = 'Y-m-d H:i:s';
 
 	/**

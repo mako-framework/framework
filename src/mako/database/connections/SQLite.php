@@ -7,6 +7,8 @@
 
 namespace mako\database\connections;
 
+use Override;
+
 /**
  * SQLite database connection.
  */
@@ -15,5 +17,6 @@ class SQLite extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	protected bool $supportsTransactionalDDL = true;
 }

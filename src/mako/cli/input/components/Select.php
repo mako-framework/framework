@@ -299,11 +299,12 @@ class Select
 	/**
 	 * Prints out a list of options and returns the selection.
 	 */
-	public function ask(string $label, array $options, ?callable $optionFormatter = null): mixed
-	{
+	public function ask(
+		string $label,
+		array $options,
+		callable $optionFormatter = static function (mixed $option): string { return (string) $option; }
+	): mixed {
 		$this->output->writeLn($label);
-
-		$optionFormatter ??= static fn (mixed $option): string => $option;
 
 		if (!$this->output->environment->hasStty() || !$this->output->environment->hasAnsiSupport() || $this->output->cursor === null) {
 			return $this->nonInteractiveSelect($options, $optionFormatter);

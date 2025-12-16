@@ -21,9 +21,9 @@ use function array_diff;
 use function array_fill;
 use function array_is_list;
 use function array_keys;
+use function array_last;
 use function array_shift;
 use function count;
-use function end;
 use function explode;
 use function is_array;
 use function sort;
@@ -116,7 +116,7 @@ class ManyToMany extends Relation
 			if (str_contains($tables[1], '.')) {
 				$table = explode('.', $tables[1]);
 
-				$tables[1] = end($table);
+				$tables[1] = array_last($table);
 			}
 
 			$this->junctionTable = "{$tables[0]}_{$tables[1]}";

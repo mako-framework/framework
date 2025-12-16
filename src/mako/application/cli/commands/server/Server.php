@@ -34,6 +34,7 @@ use function sprintf;
 	new NamedArgument('docroot', 'd', 'Path to the document root', Argument::IS_OPTIONAL),
 	new NamedArgument('port', 'p', 'Port to run the server on', Argument::IS_OPTIONAL | Argument::IS_INT),
 	new NamedArgument('auto-restart', 'r', 'Automatically restart the server on fatal errors', Argument::IS_OPTIONAL | Argument::IS_BOOL),
+	new NamedArgument('ini', 'i', 'PHP INI entry', Argument::IS_OPTIONAL | Argument::IS_ARRAY),
 )]
 class Server extends Command
 {
@@ -65,8 +66,14 @@ class Server extends Command
 	/**
 	 * Executes the command.
 	 */
-	public function execute(Application $application, int $port = 8000, string $address = 'localhost', ?string $docroot = null, bool $autoRestart = false)
-	{
+	public function execute(
+		Application $application,
+		int $port = 8000,
+		string $address = 'localhost',
+		?string $docroot = null,
+		bool $autoRestart = false,
+		array $ini = []
+	) {
 		// Attempt to find an available port
 
 		if (($availablePort = $this->findAvailablePort($port)) === null) {
@@ -92,6 +99,16 @@ class Server extends Command
 		$this->write($message);
 		$this->nl();
 
+		// Build INI entries
+
+		$iniEntries = '';
+
+		if ($ini !== []) {
+			$iniEntries = ' -d ' . implode(' -d ', array_map(escapeshellarg(...), $ini));
+		}
+
+		$this->write($iniEntries);
+
 		// Start the server
 
 		$starts = 0;
@@ -107,6 +124,7 @@ class Server extends Command
 
 			passthru(
 				escapeshellcmd(PHP_BINDIR . '/php')
+				. $iniEntries
 				. ' -S ' . escapeshellarg("{$address}:{$availablePort}")
 				. ' -t ' . escapeshellarg($docroot)
 				. ' ' . escapeshellarg(__DIR__ . '/router.php')
