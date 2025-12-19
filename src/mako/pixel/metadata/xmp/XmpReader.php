@@ -55,22 +55,22 @@ class XmpReader
 	 * Constructor.
 	 */
 	public function __construct(
-		string $file,
+		string $imagePath,
 		?string $library = null,
 	) {
-		if (!file_exists($file)) {
-			throw new XmpException(sprintf('File [ %s ] does not exist.', $file));
+		if (!file_exists($imagePath)) {
+			throw new XmpException(sprintf('The image [ %s ] does not exist.', $imagePath));
 		}
 
-		if (!is_readable($file)) {
-			throw new XmpException(sprintf('File [ %s ] is not readable.', $file));
+		if (!is_readable($imagePath)) {
+			throw new XmpException(sprintf('The image [ %s ] is not readable.', $imagePath));
 		}
 
 		if (static::$ffi === null) {
 			static::initExempi($library);
 		}
 
-		$this->xmp = $this->loadXmp($file);
+		$this->xmp = $this->loadXmp($imagePath);
 	}
 
 	/**
