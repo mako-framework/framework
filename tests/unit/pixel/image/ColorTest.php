@@ -241,4 +241,46 @@ class ColorTest extends TestCase
 
 		$this->assertSame('hsla(0, 100.0%, 50.0%, 0.498)', $color->toHslaString());
 	}
+
+	/*
+	 *
+	 */
+	public function testToHwbString(): void
+	{
+		$color = new Color(255, 0, 0);
+
+		$this->assertSame('hwb(0 0.0% 0.0%)', $color->toHwbString());
+
+		$color = new Color(0, 255, 0);
+
+		$this->assertSame('hwb(120 0.0% 0.0%)', $color->toHwbString());
+
+		$color = new Color(0, 0, 255);
+
+		$this->assertSame('hwb(240 0.0% 0.0%)', $color->toHwbString());
+	}
+
+	/*
+	 *
+	 */
+	public function testToHwbaString(): void
+	{
+		$color = new Color(255, 0, 0);
+
+		$this->assertSame('hwb(0 0.0% 0.0% / 1.000)', $color->toHwbaString());
+
+		$color = new Color(0, 255, 0);
+
+		$this->assertSame('hwb(120 0.0% 0.0% / 1.000)', $color->toHwbaString());
+
+		$color = new Color(0, 0, 255);
+
+		$this->assertSame('hwb(240 0.0% 0.0% / 1.000)', $color->toHwbaString());
+
+		//
+
+		$color = new Color(255, 0, 0, 127);
+
+		$this->assertSame('hwb(0 0.0% 0.0% / 0.498)', $color->toHwbaString());
+	}
 }
