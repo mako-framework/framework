@@ -100,6 +100,13 @@ interface ImageInterface
 	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void;
 
 	/**
+	 * Returns the n top colors found in the image.
+	 *
+	 * @return Color[]
+	 */
+	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array;
+
+	/**
 	 * Returns the image resource as a blob.
 	 */
 	public function getImageBlob(?string $type = null, int $quality = 95): string;

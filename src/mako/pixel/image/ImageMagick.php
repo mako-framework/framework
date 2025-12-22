@@ -12,7 +12,10 @@ use ImagickPixel;
 use mako\pixel\image\exceptions\ImageException;
 use Override;
 
+use function count;
+use function round;
 use function sprintf;
+use function usort;
 
 /**
  * ImageMagick.
@@ -23,7 +26,6 @@ use function sprintf;
  */
 class ImageMagick extends Image
 {
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -39,6 +41,9 @@ class ImageMagick extends Image
 	#[Override]
 	protected function destroyImageResource(): void
 	{
+		$this->imageResource->clear();
+		$this->imageResource->destroy();
+
 		$this->imageResource = null;
 	}
 
@@ -263,5 +268,64 @@ class ImageMagick extends Image
 		$this->imageResource->shaveImage($thickness, $thickness);
 
 		$this->imageResource->borderImage($color->toHexString(), $thickness, $thickness);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array
+	{
+		$image = clone $this->imageResource;
+
+		// Ensure consistent colorspace
+
+		$image->setImageColorspace(Imagick::COLORSPACE_RGB);
+
+		// Reduce noise by quantizing
+
+		$image->quantizeImage(64, Imagick::COLORSPACE_RGB, 0, false, false);
+
+		// Get full histogram
+
+		$histogram = $image->getImageHistogram();
+
+		// Sort by pixel count (descending)
+
+		usort($histogram, fn (ImagickPixel $a, ImagickPixel $b) => $b->getColorCount() <=> $a->getColorCount());
+
+		// Collect the top n colors
+
+		$colors = [];
+
+		foreach ($histogram as $pixel) {
+			if (count($colors) >= $limit) {
+				break;
+			}
+
+			$rgba = $pixel->getColor(true);
+
+			$alpha = $rgba['a'] ?? 1.0;
+
+			if ($ignoreTransparent && $alpha < 0.1) {
+				continue;
+			}
+
+			$colors[] = new Color(
+				(int) round($rgba['r'] * 255),
+				(int) round($rgba['g'] * 255),
+				(int) round($rgba['b'] * 255),
+				(int) round($alpha * 255)
+			);
+		}
+
+		// Destroy the image resource and return the top n colors
+
+		$image->clear();
+		$image->destroy();
+
+		$image = null;
+
+		return $colors;
 	}
 }

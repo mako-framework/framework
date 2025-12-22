@@ -11,8 +11,12 @@ use mako\pixel\image\exceptions\ImageException;
 use Override;
 
 use function abs;
+use function array_keys;
 use function array_map;
+use function array_slice;
 use function array_sum;
+use function arsort;
+use function explode;
 use function function_exists;
 use function getimagesize;
 use function imagealphablending;
@@ -39,6 +43,7 @@ use function imagesavealpha;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
+use function intval;
 use function min;
 use function ob_get_clean;
 use function ob_start;
@@ -631,5 +636,57 @@ class Gd extends Image
 
 			imagerectangle($this->imageResource, $i, $i, $x, $y, $color);
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array
+	{
+		$step = 5;
+
+		$width  = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$buckets = [];
+
+		// Find colors
+
+		for ($y = 0; $y < $height; $y += $step) {
+			for ($x = 0; $x < $width; $x += $step) {
+				$rgba = imagecolorat($this->imageResource, $x, $y);
+
+				$alpha = 1 - ((($rgba & 0x7F000000) >> 24) / 127);
+
+				if ($ignoreTransparent && $alpha < 0.1) {
+					continue;
+				}
+
+				$r = (int) round((($rgba >> 16) & 0xFF) / 16) * 16;
+				$g = (int) round((($rgba >> 8) & 0xFF) / 16) * 16;
+				$b = (int) round(($rgba & 0xFF) / 16) * 16;
+
+				$key = "$r,$g,$b,$alpha";
+
+				$buckets[$key] = ($buckets[$key] ?? 0) + 1;
+			}
+		}
+
+		// Sort colors
+
+		arsort($buckets);
+
+		// Collect and return the top n colors
+
+		$colors = [];
+
+		foreach (array_slice(array_keys($buckets), 0, $limit) as $rgba) {
+			[$r, $g, $b, $a] = array_map(intval(...), explode(',', $rgba));
+
+			$colors[] = new Color($r, $g, $b, $a * 255);
+		}
+
+		return $colors;
 	}
 }
