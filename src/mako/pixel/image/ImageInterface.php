@@ -5,20 +5,13 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixl\processors;
-
-use mako\pixl\Image;
+namespace mako\pixel\image;
 
 /**
- * Image manipulation processor interface.
+ * Image.
  */
-interface ProcessorInterface
+interface ImageInterface
 {
-	/**
-	 * Opens the image we want to work with.
-	 */
-	public function open(string $image);
-
 	/**
 	 * Creates a snapshot of the image resource.
 	 */
@@ -49,12 +42,12 @@ interface ProcessorInterface
 	/**
 	 * Rotates the image using the given angle in degrees.
 	 */
-	public function rotate(int $degrees);
+	public function rotate(int $degrees): void;
 
 	/**
 	 * Resizes the image to the chosen size.
 	 */
-	public function resize(int $width, ?int $height = null, int $aspectRatio = Image::RESIZE_IGNORE);
+	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::IGNORE);
 
 	/**
 	 * Crops the image.
@@ -64,12 +57,12 @@ interface ProcessorInterface
 	/**
 	 * Flips the image.
 	 */
-	public function flip(int $direction = Image::FLIP_HORIZONTAL): void;
+	public function flip(Flip $direction = Flip::HORIZONTAL): void;
 
 	/**
 	 * Adds a watermark to the image.
 	 */
-	public function watermark(string $file, int $position = Image::WATERMARK_TOP_LEFT, int $opacity = 100): void;
+	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100): void;
 
 	/**
 	 * Adjust image brightness.
@@ -94,7 +87,7 @@ interface ProcessorInterface
 	/**
 	 * Colorize the image.
 	 */
-	public function colorize(string $color): void;
+	public function colorize(Color $color): void;
 
 	/**
 	 * Sharpens the image.
@@ -114,15 +107,22 @@ interface ProcessorInterface
 	/**
 	 * Adds a border to the image.
 	 */
-	public function border(string $color = '#000', int $thickness = 5): void;
+	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void;
 
 	/**
-	 * Returns a string containing the image.
+	 * Returns the n top colors found in the image.
+	 *
+	 * @return Color[]
+	 */
+	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array;
+
+	/**
+	 * Returns the image resource as a blob.
 	 */
 	public function getImageBlob(?string $type = null, int $quality = 95): string;
 
 	/**
-	 * Saves image to file.
+	 * Saves the image resource to a file.
 	 */
-	public function save(string $file, int $quality = 95): void;
+	public function save(?string $imagePath = null, int $quality = 95): void;
 }
