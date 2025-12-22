@@ -10,7 +10,6 @@ namespace mako\pixel\image;
 use mako\pixel\image\exceptions\ImageException;
 use Override;
 
-use function abs;
 use function array_keys;
 use function array_map;
 use function array_slice;
@@ -31,11 +30,9 @@ use function imagecreatefromjpeg;
 use function imagecreatefrompng;
 use function imagecreatetruecolor;
 use function imagefill;
-use function imagefilledrectangle;
 use function imagefilter;
 use function imagegif;
 use function imagejpeg;
-use function imagelayereffect;
 use function imagepng;
 use function imagerectangle;
 use function imagerotate;
@@ -316,22 +313,38 @@ class Gd extends Image
 	{
 		$watermark = $this->createImageResource($file);
 
+		imagealphablending($watermark, false);
+		imagesavealpha($watermark, true);
+
 		$watermarkWidth  = imagesx($watermark);
 		$watermarkHeight = imagesy($watermark);
 
 		if ($opacity < 100) {
-			// Convert alpha to 0-127
+			// Convert opacity (0–100) to GD alpha (0–127)
 
-			$alpha = min(round(abs(($opacity * 127 / 100) - 127)), 127);
+			$opacityAlpha = 127 - round($opacity * 127 / 100);
 
-			$transparent = imagecolorallocatealpha($watermark, 0, 0, 0, $alpha);
+			for ($x = 0; $x < $watermarkWidth; $x++) {
+				for ($y = 0; $y < $watermarkHeight; $y++) {
+					$rgba = imagecolorat($watermark, $x, $y);
 
-			imagelayereffect($watermark, IMG_EFFECT_OVERLAY);
+					$r = ($rgba >> 16) & 0xFF;
+					$g = ($rgba >> 8) & 0xFF;
+					$b = $rgba & 0xFF;
+					$a = ($rgba >> 24) & 0x7F;
 
-			imagefilledrectangle($watermark, 0, 0, $watermarkWidth, $watermarkHeight, $transparent);
+					// Combine original alpha with desired opacity
+
+					$newAlpha = min(127, $a + $opacityAlpha);
+
+					$color = imagecolorallocatealpha($watermark, $r, $g, $b, $newAlpha);
+
+					imagesetpixel($watermark, $x, $y, $color);
+				}
+			}
 		}
 
-		// Position the watermark.
+		// Position the watermark
 
 		switch ($position) {
 			case WatermarkPosition::TOP_RIGHT:
@@ -347,8 +360,8 @@ class Gd extends Image
 				$y = imagesy($this->imageResource) - $watermarkHeight;
 				break;
 			case WatermarkPosition::CENTER:
-				$x = (imagesx($this->imageResource) / 2) - ($watermarkWidth / 2);
-				$y = (imagesy($this->imageResource) / 2) - ($watermarkHeight / 2);
+				$x = (imagesx($this->imageResource) - $watermarkWidth) / 2;
+				$y = (imagesy($this->imageResource) - $watermarkHeight) / 2;
 				break;
 			default:
 				$x = 0;
@@ -356,6 +369,7 @@ class Gd extends Image
 		}
 
 		imagealphablending($this->imageResource, true);
+		imagesavealpha($this->imageResource, true);
 
 		imagecopy($this->imageResource, $watermark, $x, $y, 0, 0, $watermarkWidth, $watermarkHeight);
 	}

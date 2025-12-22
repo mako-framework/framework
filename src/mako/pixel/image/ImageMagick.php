@@ -169,8 +169,8 @@ class ImageMagick extends Image
 				$y = $this->imageResource->getImageHeight() - $watermarkHeight;
 				break;
 			case WatermarkPosition::CENTER:
-				$x = ($this->imageResource->getImageWidth() / 2) - ($watermarkWidth / 2);
-				$y = ($this->imageResource->getImageHeight() / 2) - ($watermarkHeight / 2);
+				$x = ($this->imageResource->getImageWidth() - $watermarkWidth) / 2;
+				$y = ($this->imageResource->getImageHeight() - $watermarkHeight) / 2;
 				break;
 			default:
 				$x = 0;
@@ -179,6 +179,7 @@ class ImageMagick extends Image
 
 		$this->imageResource->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
 
+		$watermark->clear();
 		$watermark->destroy();
 	}
 
