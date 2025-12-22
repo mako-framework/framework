@@ -208,18 +208,16 @@ class ImageMagick extends Image
 	public function sepia(): void
 	{
 		$this->imageResource->setImageColorspace(Imagick::COLORSPACE_RGB);
+
 		$this->imageResource->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
 
-		$matrix = [
+		$this->imageResource->colorMatrixImage([
 			0.393 * 0.85, 0.769 * 0.85, 0.189 * 0.85, 0, 0,
 			0.349 * 0.85, 0.686 * 0.85, 0.168 * 0.85, 0, 0,
 			0.272 * 0.85, 0.534 * 0.85, 0.131 * 0.85, 0, 0,
 			0,            0,            0,            1, 0,
 			0,            0,            0,            0, 1,
-		];
-
-		$this->imageResource->colorMatrixImage($matrix);
-
+		]);
 	}
 
 	/**
@@ -228,7 +226,7 @@ class ImageMagick extends Image
 	#[Override]
 	public function bitonal(): void
 	{
-		$this->imageResource->quantizeImage(2, Imagick::COLORSPACE_GRAY, 5, false, true);
+		$this->imageResource->setImageType(Imagick::IMGTYPE_BILEVEL);
 	}
 
 	/**
