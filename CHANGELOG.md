@@ -37,6 +37,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `max_count`
 	- `min_count`
 * Added support for "partitioned" cookies aka "CHIPS".
+* New and improved image processing library (`pixel`) that replaces the the old `pixl` library.
 
 #### Changes
 
@@ -52,6 +53,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `CommandInterface::getArguments()`
 * The default date output format for the ORM has been changed to ISO-8601.
 * Renamed the `mako\cli\input\helpers` namespace to `mako\cli\input\components`.
+* Removed the old `pixl` image processing library.
 
 #### Deprecations
 
