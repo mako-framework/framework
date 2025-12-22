@@ -15,6 +15,8 @@ use mako\pixel\metadata\xmp\properties\QualifierProperty;
 use mako\pixel\metadata\xmp\properties\StructProperty;
 use mako\pixel\metadata\xmp\properties\Type;
 use mako\pixel\metadata\xmp\properties\ValueProperty;
+use Override;
+use Stringable;
 
 use function array_values;
 use function dirname;
@@ -29,7 +31,7 @@ use function str_ends_with;
 /**
  * XMP data reader.
  */
-class XmpReader
+class XmpReader implements Stringable
 {
 	/**
 	 * Exempi readonly flag.
@@ -391,5 +393,14 @@ class XmpReader
 	public function getProperty(string $namespace, string $propertyName): null|ArrayProperty|StructProperty|ValueProperty
 	{
 		return $this->getProperties($namespace, $propertyName)[0] ?? null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function __toString(): string
+	{
+		return $this->getXmpDataAsXml();
 	}
 }
