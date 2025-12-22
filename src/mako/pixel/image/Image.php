@@ -138,6 +138,14 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
+	 * Makes sure that the level is between -100 and 100.
+	 */
+	protected function normalizeLevel(int $level): int
+	{
+		return max(-100, min(100, $level));
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function getImageBlob(?string $type = null, int $quality = 95): string

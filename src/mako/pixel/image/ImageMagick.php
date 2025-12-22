@@ -13,7 +13,10 @@ use ImagickPixel;
 use mako\pixel\image\exceptions\ImageException;
 use Override;
 
+use function abs;
 use function count;
+use function max;
+use function min;
 use function round;
 use function sprintf;
 use function usort;
@@ -142,7 +145,7 @@ class ImageMagick extends Image
 	#[Override]
 	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO): void
 	{
-		$oldWidth  = $this->imageResource->getImageWidth();
+		$oldWidth = $this->imageResource->getImageWidth();
 		$oldHeight = $this->imageResource->getImageHeight();
 
 		[$newWidth, $newHeight] = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
@@ -222,9 +225,80 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function brightness(int $level = 50): void
+	public function brightness(int $level = 0): void
 	{
-		$this->imageResource->modulateImage(100 + $level, 100, 100);
+		if ($level === 0) {
+			return;
+		}
+
+		$level = $this->normalizeLevel($level);
+
+		$this->imageResource->sigmoidalContrastImage($level > 0, abs($level) / 100 * 8, 0.5);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function contrast(int $level = 0): void
+	{
+		if ($level === 0) {
+			return;
+		}
+
+		$level = $this->normalizeLevel($level);
+
+		$factor = 1 + (((100 + $level) / 100) - 1) * 0.8;
+
+		$iterator = $this->imageResource->getPixelIterator();
+
+		foreach ($iterator as $row => $pixels) {
+			foreach ($pixels as $col => $pixel) {
+				$colors = $pixel->getColor();
+
+				$r = $colors['r'];
+				$g = $colors['g'];
+				$b = $colors['b'];
+
+				// Adjust each channel
+
+				$r = (($r / 255 - 0.5) * $factor + 0.5) * 255;
+				$g = (($g / 255 - 0.5) * $factor + 0.5) * 255;
+				$b = (($b / 255 - 0.5) * $factor + 0.5) * 255;
+
+				// Clamp values
+
+				$r = max(0, min(255, $r));
+				$g = max(0, min(255, $g));
+				$b = max(0, min(255, $b));
+
+				// Apply color to pixel
+
+				$pixel->setColor("rgb($r, $g, $b)");
+			}
+
+			$iterator->syncIterator();
+		}
+
+		$iterator->clear();
+		$iterator->destroy();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function saturation(int $level = 0): void
+	{
+		if ($level === 0) {
+			return;
+		}
+
+		$level = $this->normalizeLevel($level);
+
+		$saturation = 100 + $level;
+
+		$this->imageResource->modulateImage(100, $saturation, 100);
 	}
 
 	/**
@@ -336,6 +410,9 @@ class ImageMagick extends Image
 		);
 
 		$this->imageResource->drawImage($draw);
+
+		$draw->clear();
+		$draw->destroy();
 	}
 
 	/**
@@ -360,7 +437,7 @@ class ImageMagick extends Image
 
 		// Sort by pixel count (descending)
 
-		usort($histogram, fn (ImagickPixel $a, ImagickPixel $b) => $b->getColorCount() <=> $a->getColorCount());
+		usort($histogram, fn (ImagickPixel $a, ImagickPixel $b): int => $b->getColorCount() <=> $a->getColorCount());
 
 		// Collect the top n colors
 
@@ -391,8 +468,6 @@ class ImageMagick extends Image
 
 		$image->clear();
 		$image->destroy();
-
-		$image = null;
 
 		return $colors;
 	}

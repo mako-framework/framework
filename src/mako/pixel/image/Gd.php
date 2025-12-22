@@ -45,6 +45,7 @@ use function imagesx;
 use function imagesy;
 use function imagewebp;
 use function intval;
+use function max;
 use function min;
 use function ob_get_clean;
 use function ob_start;
@@ -208,7 +209,7 @@ class Gd extends Image
 	#[Override]
 	public function snapshot(): void
 	{
-		$width  = imagesx($this->imageResource);
+		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
 		$this->snapshot = imagecreatetruecolor($width, $height);
@@ -255,7 +256,7 @@ class Gd extends Image
 	#[Override]
 	public function rotate(int $degrees): void
 	{
-		$width  = imagesx($this->imageResource);
+		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
 		$transparent = imagecolorallocatealpha($this->imageResource, 0, 0, 0, 127);
@@ -281,7 +282,7 @@ class Gd extends Image
 	#[Override]
 	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO): void
 	{
-		$oldWidth  = imagesx($this->imageResource);
+		$oldWidth = imagesx($this->imageResource);
 		$oldHeight = imagesy($this->imageResource);
 
 		[$newWidth, $newHeight] = $this->calculateNewDimensions($width, $height, $oldWidth, $oldHeight, $aspectRatio);
@@ -305,7 +306,7 @@ class Gd extends Image
 	#[Override]
 	public function crop(int $width, int $height, int $x, int $y): void
 	{
-		$oldWidth  = imagesx($this->imageResource);
+		$oldWidth = imagesx($this->imageResource);
 		$oldHeight = imagesy($this->imageResource);
 
 		$crop = imagecreatetruecolor($width, $height);
@@ -327,7 +328,7 @@ class Gd extends Image
 	#[Override]
 	public function flip(Flip $direction = Flip::HORIZONTAL): void
 	{
-		$width  = imagesx($this->imageResource);
+		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
 		$flipped = imagecreatetruecolor($width, $height);
@@ -363,7 +364,7 @@ class Gd extends Image
 		imagealphablending($watermark, false);
 		imagesavealpha($watermark, true);
 
-		$watermarkWidth  = imagesx($watermark);
+		$watermarkWidth = imagesx($watermark);
 		$watermarkHeight = imagesy($watermark);
 
 		if ($opacity < 100) {
@@ -416,6 +417,7 @@ class Gd extends Image
 		}
 
 		imagealphablending($this->imageResource, true);
+
 		imagesavealpha($this->imageResource, true);
 
 		imagecopy($this->imageResource, $watermark, $x, $y, 0, 0, $watermarkWidth, $watermarkHeight);
@@ -425,20 +427,22 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function brightness(int $level = 50): void
+	public function brightness(int $level = 0): void
 	{
-		$level *= 2.5;
+		if ($level === 0) {
+			return;
+		}
+
+		$level = $this->normalizeLevel($level);
 
 		if ($this->hasFilters) {
 			imagefilter($this->imageResource, IMG_FILTER_BRIGHTNESS, $level);
 		}
 		else {
-			$width  = imagesx($this->imageResource);
+			$width = imagesx($this->imageResource);
 			$height = imagesy($this->imageResource);
 
 			$temp = imagecreatetruecolor($width, $height);
-
-			// Adjust pixel brightness
 
 			for ($x = 0; $x < $width; $x++) {
 				for ($y = 0; $y < $height; $y++) {
@@ -448,9 +452,13 @@ class Gd extends Image
 					$g = (($rgb >> 8) & 0xFF) + $level;
 					$b = ($rgb & 0xFF) + $level;
 
+					// Adjust colors
+
 					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
 					$g = ($g > 255) ? 255 : (($g < 0) ? 0 : $g);
 					$b = ($b > 255) ? 255 : (($b < 0) ? 0 : $b);
+
+					// Apply color to pixel
 
 					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
 				}
@@ -464,13 +472,105 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	public function contrast(int $level = 0): void
+	{
+		if ($level === 0) {
+			return;
+		}
+
+		$width = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$level = $this->normalizeLevel($level);
+
+		$factor = 1 + (((100 + $level) / 100) - 1) * 0.8;
+
+		for ($x = 0; $x < $width; $x++) {
+			for ($y = 0; $y < $height; $y++) {
+				$rgb = imagecolorat($this->imageResource, $x, $y);
+
+				$r = ($rgb >> 16) & 0xFF;
+				$g = ($rgb >> 8) & 0xFF;
+				$b = $rgb & 0xFF;
+
+				// Adjust colors
+
+				$r = (($r / 255 - 0.5) * $factor + 0.5) * 255;
+				$g = (($g / 255 - 0.5) * $factor + 0.5) * 255;
+				$b = (($b / 255 - 0.5) * $factor + 0.5) * 255;
+
+				// Clamp values
+
+				$r = max(0, min(255, $r));
+				$g = max(0, min(255, $g));
+				$b = max(0, min(255, $b));
+
+				// Apply color to pixel
+
+				imagesetpixel($this->imageResource, $x, $y, imagecolorallocate($this->imageResource, $r, $g, $b));
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function saturation(int $level = 0): void
+	{
+		if ($level === 0) {
+			return;
+		}
+
+		$width = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$level = $this->normalizeLevel($level);
+
+		$factor = 1 + ($level / 100);
+
+		for ($x = 0; $x < $width; $x++) {
+			for ($y = 0; $y < $height; $y++) {
+				$rgb = imagecolorat($this->imageResource, $x, $y);
+
+				$r = ($rgb >> 16) & 0xFF;
+				$g = ($rgb >> 8) & 0xFF;
+				$b = $rgb & 0xFF;
+
+				// Convert to grayscale for desaturation
+
+				$gray = (int) ($r * 0.299 + $g * 0.587 + $b * 0.114);
+
+				// Adjust colors
+
+				$r = (int) ($gray + ($r - $gray) * $factor);
+				$g = (int) ($gray + ($g - $gray) * $factor);
+				$b = (int) ($gray + ($b - $gray) * $factor);
+
+				// Clamp values
+
+				$r = max(0, min(255, $r));
+				$g = max(0, min(255, $g));
+				$b = max(0, min(255, $b));
+
+				// Apply color to pixel
+
+				imagesetpixel($this->imageResource, $x, $y, imagecolorallocate($this->imageResource, $r, $g, $b));
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	public function greyscale(): void
 	{
 		if ($this->hasFilters) {
 			imagefilter($this->imageResource, IMG_FILTER_GRAYSCALE);
 		}
 		else {
-			$width  = imagesx($this->imageResource);
+			$width = imagesx($this->imageResource);
 			$height = imagesy($this->imageResource);
 
 			$temp = imagecreatetruecolor($width, $height);
@@ -507,7 +607,7 @@ class Gd extends Image
 	#[Override]
 	public function sepia(): void
 	{
-		$width  = imagesx($this->imageResource);
+		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
 		$temp = imagecreatetruecolor($width, $height);
@@ -548,7 +648,7 @@ class Gd extends Image
 			imagefilter($this->imageResource, IMG_FILTER_CONTRAST, -2000);
 		}
 		else {
-			$width  = imagesx($this->imageResource);
+			$width = imagesx($this->imageResource);
 			$height = imagesy($this->imageResource);
 
 			$temp = imagecreatetruecolor($width, $height);
@@ -588,7 +688,7 @@ class Gd extends Image
 			imagefilter($this->imageResource, IMG_FILTER_COLORIZE, $colors['r'], $colors['g'], $colors['b'], 0);
 		}
 		else {
-			$width  = imagesx($this->imageResource);
+			$width = imagesx($this->imageResource);
 			$height = imagesy($this->imageResource);
 
 			$temp = imagecreatetruecolor($width, $height);
@@ -636,7 +736,7 @@ class Gd extends Image
 			imagefilter($this->imageResource, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
 		}
 		else {
-			$width  = imagesx($this->imageResource);
+			$width = imagesx($this->imageResource);
 			$height = imagesy($this->imageResource);
 
 			$this->resize((int) ($width / $pixelSize), (int) ($height / $pixelSize));
@@ -655,7 +755,7 @@ class Gd extends Image
 			imagefilter($this->imageResource, IMG_FILTER_NEGATE);
 		}
 		else {
-			$width  = imagesx($this->imageResource);
+			$width = imagesx($this->imageResource);
 			$height = imagesy($this->imageResource);
 
 			$temp = imagecreatetruecolor($width, $height);
@@ -678,7 +778,7 @@ class Gd extends Image
 	#[Override]
 	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void
 	{
-		$width  = imagesx($this->imageResource);
+		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
 		$colors = [
@@ -707,7 +807,7 @@ class Gd extends Image
 	{
 		$step = 5;
 
-		$width  = imagesx($this->imageResource);
+		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
 		$buckets = [];

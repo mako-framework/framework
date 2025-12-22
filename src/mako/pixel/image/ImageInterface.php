@@ -15,12 +15,12 @@ interface ImageInterface
 	/**
 	 * Creates a snapshot of the image resource.
 	 */
-	public function snapshot();
+	public function snapshot(): void;
 
 	/**
 	 * Restores an image snapshot.
 	 */
-	public function restore();
+	public function restore(): void;
 
 	/**
 	 * Returns the image width in pixels.
@@ -47,7 +47,7 @@ interface ImageInterface
 	/**
 	 * Resizes the image to the chosen size.
 	 */
-	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO);
+	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO): void;
 
 	/**
 	 * Crops the image.
@@ -67,7 +67,17 @@ interface ImageInterface
 	/**
 	 * Adjust image brightness.
 	 */
-	public function brightness(int $level = 50);
+	public function brightness(int $level = 0): void;
+
+	/**
+	 * Adjust image contrast.
+	 */
+	public function contrast(int $level = 0): void;
+
+	/**
+	 * Adjust image saturation.
+	 */
+	public function saturation(int $level = 0): void;
 
 	/**
 	 * Converts image to greyscale.
@@ -97,7 +107,7 @@ interface ImageInterface
 	/**
 	 * Pixelates the image.
 	 */
-	public function pixelate(int $pixelSize = 10);
+	public function pixelate(int $pixelSize = 10): void;
 
 	/**
 	 * Negates the image.
