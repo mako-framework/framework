@@ -242,10 +242,6 @@ class ImageMagick extends Image
 	#[Override]
 	public function sepia(): void
 	{
-		$this->imageResource->setImageColorspace(Imagick::COLORSPACE_RGB);
-
-		$this->imageResource->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
-
 		$this->imageResource->colorMatrixImage([
 			0.393 * 0.85, 0.769 * 0.85, 0.189 * 0.85, 0, 0,
 			0.349 * 0.85, 0.686 * 0.85, 0.168 * 0.85, 0, 0,
