@@ -30,6 +30,11 @@ abstract class Image implements ImageInterface
 	protected ?object $imageResource = null;
 
 	/**
+	 * Snapshot image resource.
+	 */
+	protected ?object $snapshot = null;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct(

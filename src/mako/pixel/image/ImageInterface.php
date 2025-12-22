@@ -13,6 +13,16 @@ namespace mako\pixel\image;
 interface ImageInterface
 {
 	/**
+	 * Creates a snapshot of the image resource.
+	 */
+	public function snapshot();
+
+	/**
+	 * Restores an image snapshot.
+	 */
+	public function restore();
+
+	/**
 	 * Returns the image width in pixels.
 	 */
 	public function getWidth(): int;

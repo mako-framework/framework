@@ -119,6 +119,8 @@ class Gd extends Image
 	protected function destroyImageResource(): void
 	{
 		$this->imageResource = null;
+
+		$this->snapshot = null;
 	}
 
 	/**
@@ -197,6 +199,35 @@ class Gd extends Image
 			default:
 				throw new ImageException(sprintf('Unable to save as [ %s ]. Unsupported image format.', $extension));
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function snapshot(): void
+	{
+		$width  = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$this->snapshot = imagecreatetruecolor($width, $height);
+
+		imagecopy($this->snapshot, $this->imageResource, 0, 0, 0, 0, $width, $height);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function restore(): void
+	{
+		if ($this->snapshot === null) {
+			throw new ImageException('No snapshot to restore.');
+		}
+
+		$this->imageResource = $this->snapshot;
+
+		$this->snapshot = null;
 	}
 
 	/**
