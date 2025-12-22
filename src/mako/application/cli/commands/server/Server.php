@@ -14,6 +14,7 @@ use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
+use function array_map;
 use function dirname;
 use function escapeshellarg;
 use function escapeshellcmd;
@@ -21,6 +22,7 @@ use function fclose;
 use function fsockopen;
 use function gethostbyname;
 use function gethostname;
+use function implode;
 use function passthru;
 use function sleep;
 use function sprintf;

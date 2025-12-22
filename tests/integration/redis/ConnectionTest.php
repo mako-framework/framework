@@ -54,7 +54,7 @@ class ConnectionTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGeOptions(): void
+	public function testGetOptions(): void
 	{
 		$options = $this->connection->getOptions();
 
