@@ -140,7 +140,7 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::IGNORE): void
+	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO): void
 	{
 		$oldWidth  = $this->imageResource->getImageWidth();
 		$oldHeight = $this->imageResource->getImageHeight();
@@ -177,7 +177,7 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100): void
+	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100, int $margin = 0): void
 	{
 		$watermark = new Imagick($file);
 
@@ -192,24 +192,24 @@ class ImageMagick extends Image
 
 		switch ($position) {
 			case WatermarkPosition::TOP_RIGHT:
-				$x = $this->imageResource->getImageWidth() - $watermarkWidth;
-				$y = 0;
+				$x = $this->imageResource->getImageWidth() - $watermarkWidth - $margin;
+				$y = 0 + $margin;
 				break;
 			case WatermarkPosition::BOTTOM_LEFT:
-				$x = 0;
-				$y = $this->imageResource->getImageHeight() - $watermarkHeight;
+				$x = 0 + $margin;
+				$y = $this->imageResource->getImageHeight() - $watermarkHeight - $margin;
 				break;
 			case WatermarkPosition::BOTTOM_RIGHT:
-				$x = $this->imageResource->getImageWidth() - $watermarkWidth;
-				$y = $this->imageResource->getImageHeight() - $watermarkHeight;
+				$x = $this->imageResource->getImageWidth() - $watermarkWidth - $margin;
+				$y = $this->imageResource->getImageHeight() - $watermarkHeight - $margin;
 				break;
 			case WatermarkPosition::CENTER:
 				$x = ($this->imageResource->getImageWidth() - $watermarkWidth) / 2;
 				$y = ($this->imageResource->getImageHeight() - $watermarkHeight) / 2;
 				break;
 			default:
-				$x = 0;
-				$y = 0;
+				$x = 0 + $margin;
+				$y = 0 + $margin;
 		}
 
 		$this->imageResource->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);

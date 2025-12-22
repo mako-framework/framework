@@ -47,7 +47,7 @@ interface ImageInterface
 	/**
 	 * Resizes the image to the chosen size.
 	 */
-	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::IGNORE);
+	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO);
 
 	/**
 	 * Crops the image.
@@ -62,7 +62,7 @@ interface ImageInterface
 	/**
 	 * Adds a watermark to the image.
 	 */
-	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100): void;
+	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100, int $margin = 0): void;
 
 	/**
 	 * Adjust image brightness.

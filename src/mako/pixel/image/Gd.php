@@ -279,7 +279,7 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::IGNORE): void
+	public function resize(int $width, ?int $height = null, AspectRatio $aspectRatio = AspectRatio::AUTO): void
 	{
 		$oldWidth  = imagesx($this->imageResource);
 		$oldHeight = imagesy($this->imageResource);
@@ -356,7 +356,7 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100): void
+	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100, int $margin = 0): void
 	{
 		$watermark = $this->createImageResource($file);
 
@@ -395,24 +395,24 @@ class Gd extends Image
 
 		switch ($position) {
 			case WatermarkPosition::TOP_RIGHT:
-				$x = imagesx($this->imageResource) - $watermarkWidth;
-				$y = 0;
+				$x = imagesx($this->imageResource) - $watermarkWidth - $margin;
+				$y = 0 + $margin;
 				break;
 			case WatermarkPosition::BOTTOM_LEFT:
-				$x = 0;
-				$y = imagesy($this->imageResource) - $watermarkHeight;
+				$x = 0 + $margin;
+				$y = imagesy($this->imageResource) - $watermarkHeight - $margin;
 				break;
 			case WatermarkPosition::BOTTOM_RIGHT:
-				$x = imagesx($this->imageResource) - $watermarkWidth;
-				$y = imagesy($this->imageResource) - $watermarkHeight;
+				$x = imagesx($this->imageResource) - $watermarkWidth - $margin;
+				$y = imagesy($this->imageResource) - $watermarkHeight - $margin;
 				break;
 			case WatermarkPosition::CENTER:
 				$x = (imagesx($this->imageResource) - $watermarkWidth) / 2;
 				$y = (imagesy($this->imageResource) - $watermarkHeight) / 2;
 				break;
 			default:
-				$x = 0;
-				$y = 0;
+				$x = 0 + $margin;
+				$y = 0 + $margin;
 		}
 
 		imagealphablending($this->imageResource, true);
