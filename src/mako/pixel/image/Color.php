@@ -84,21 +84,33 @@ class Color
 		return new static($red, $green, $blue, $alpha);
 	}
 
+	/**
+	 * Returns the red value of the color.
+	 */
 	public function getRed(): int
 	{
 		return $this->red;
 	}
 
+	/**
+	 * Returns the green value of the color.
+	 */
 	public function getGreen(): int
 	{
 		return $this->green;
 	}
 
+	/**
+	 * Returns the blue value of the color.
+	 */
 	public function getBlue(): int
 	{
 		return $this->blue;
 	}
 
+	/**
+	 * Returns the alpha value of the color.
+	 */
 	public function getAlpha(): int
 	{
 		return $this->alpha;
