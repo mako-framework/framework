@@ -132,6 +132,8 @@ class XmpReader
 		XmpStringPtr xmp_string_new(void);
 		const char* xmp_string_cstr(XmpStringPtr str);
 		void xmp_string_free(XmpStringPtr str);
+
+		void xmp_serialize(XmpPtr xmp, XmpStringPtr output, int options, int padding);
 		CODE;
 
 		$library ??= match (PHP_OS_FAMILY) {
@@ -355,6 +357,22 @@ class XmpReader
 		// Return the nested properties
 
 		return array_values($properties);
+	}
+
+	/**
+	 * Returns the XMP data as XML.
+	 */
+	public function getXmpDataAsXml(): string
+	{
+		$xmlString = static::$ffi->xmp_string_new();
+
+		static::$ffi->xmp_serialize($this->xmp, $xmlString, 0, 0);
+
+		$xml = static::$ffi->xmp_string_cstr($xmlString);
+
+		static::$ffi->xmp_string_free($xmlString);
+
+		return $xml;
 	}
 
 	/**
