@@ -45,6 +45,36 @@ interface ImageInterface
 	public function crop(int $width, int $height, int $x, int $y): void;
 
 	/**
+	 * Flips the image.
+	 */
+	public function flip(Flip $direction = Flip::HORIZONTAL): void;
+
+	/**
+	 * Adds a watermark to the image.
+	 */
+	public function watermark(string $file, WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT, int $opacity = 100): void;
+
+	/**
+	 * Adjust image brightness.
+	 */
+	public function brightness(int $level = 50);
+
+	/**
+	 * Converts image to greyscale.
+	 */
+	public function greyscale(): void;
+
+	/**
+	 * Converts image to sepia.
+	 */
+	public function sepia(): void;
+
+	/**
+	 * Converts image to bitonal.
+	 */
+	public function bitonal(): void;
+
+	/**
 	 * Returns the image resource as a blob.
 	 */
 	public function getImageBlob(?string $type = null, int $quality = 95): string;
