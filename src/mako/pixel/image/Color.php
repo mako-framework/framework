@@ -149,7 +149,7 @@ class Color
 	/**
 	 * Returns a HSL representation of the color.
 	 */
-	protected function toHsl(): array
+	public function getHsl(): array
 	{
 		$r = $this->red / 255;
 		$g = $this->green / 255;
@@ -185,7 +185,7 @@ class Color
 	 */
 	public function toHslString(): string
 	{
-		[$h, $s, $l] = $this->toHsl();
+		[$h, $s, $l] = $this->getHsl();
 
 		return sprintf('hsl(%d, %.1f%%, %.1f%%)', $h, $s * 100, $l * 100);
 	}
@@ -195,7 +195,7 @@ class Color
 	 */
 	public function toHslaString(): string
 	{
-		[$h, $s, $l] = $this->toHsl();
+		[$h, $s, $l] = $this->getHsl();
 
 		return sprintf('hsla(%d, %.1f%%, %.1f%%, %.3f)', $h, $s * 100, $l * 100, $this->alpha / 255);
 	}
@@ -203,11 +203,11 @@ class Color
 	/**
 	 * Returns a HWB representation of the color.
 	 */
-	protected function toHwb(): array
+	public function getHwb(): array
 	{
 		// Get hue from HSL calculation
 
-		[$h] = $this->toHsl();
+		[$h] = $this->getHsl();
 
 		// Whiteness and blackness
 
@@ -228,7 +228,7 @@ class Color
 	 */
 	public function toHwbString(): string
 	{
-		[$h, $w, $b] = $this->toHwb();
+		[$h, $w, $b] = $this->getHwb();
 
 		return sprintf('hwb(%d %.1f%% %.1f%%)', $h, $w, $b);
 	}
@@ -238,7 +238,7 @@ class Color
 	 */
 	public function toHwbaString(): string
 	{
-		[$h, $w, $b] = $this->toHwb();
+		[$h, $w, $b] = $this->getHwb();
 
 		return sprintf('hwb(%d %.1f%% %.1f%% / %.3f)', $h, $w, $b, $this->alpha / 255);
 	}
