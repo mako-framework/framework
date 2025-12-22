@@ -29,7 +29,7 @@ class Color
 	/**
 	 * Constructor.
 	 */
-	public function __construct(
+	final public function __construct(
 		protected int $red {
 			set(int $value) {
 				if ($value < 0 || $value > 255) {
@@ -68,7 +68,7 @@ class Color
 	/**
 	 * Returns a Color instance based on a hex value.
 	 */
-	public static function fromHex(string $hex): self
+	public static function fromHex(string $hex): static
 	{
 		$hex = ltrim($hex, '#');
 
@@ -81,7 +81,7 @@ class Color
 		$blue  = hexdec(substr($hex, 4, 2));
 		$alpha = strlen($hex) === 8 ? hexdec(substr($hex, 6, 2)) : 255;
 
-		return new self($red, $green, $blue, $alpha);
+		return new static($red, $green, $blue, $alpha);
 	}
 
 	public function getRed(): int
