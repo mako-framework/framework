@@ -59,6 +59,7 @@ use function strtolower;
  * @see https://www.php.net/manual/en/book.image.php
  *
  * @property ?\GdImage $imageResource
+ * @property ?\GdImage $snapshot
  */
 class Gd extends Image
 {
