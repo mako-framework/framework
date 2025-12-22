@@ -364,7 +364,7 @@ class XmpReader implements Stringable
 	/**
 	 * Returns the XMP data as XML.
 	 */
-	public function getXmpDataAsXml(): string
+	public function getXml(): string
 	{
 		$xmlString = static::$ffi->xmp_string_new();
 
@@ -401,6 +401,6 @@ class XmpReader implements Stringable
 	#[Override]
 	public function __toString(): string
 	{
-		return $this->getXmpDataAsXml();
+		return $this->getXml();
 	}
 }
