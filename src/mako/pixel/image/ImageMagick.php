@@ -8,6 +8,7 @@
 namespace mako\pixel\image;
 
 use Imagick;
+use ImagickDraw;
 use ImagickPixel;
 use mako\pixel\image\exceptions\ImageException;
 use Override;
@@ -145,8 +146,8 @@ class ImageMagick extends Image
 	{
 		$watermark = new Imagick($file);
 
-		$watermarkW = $watermark->getImageWidth();
-		$watermarkH = $watermark->getImageHeight();
+		$watermarkWidth = $watermark->getImageWidth();
+		$watermarkHeight = $watermark->getImageHeight();
 
 		if ($opacity < 100) {
 			$watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, ($opacity / 100), Imagick::CHANNEL_ALPHA);
@@ -156,20 +157,20 @@ class ImageMagick extends Image
 
 		switch ($position) {
 			case WatermarkPosition::TOP_RIGHT:
-				$x = $this->imageResource->getImageWidth() - $watermarkW;
+				$x = $this->imageResource->getImageWidth() - $watermarkWidth;
 				$y = 0;
 				break;
 			case WatermarkPosition::BOTTOM_LEFT:
 				$x = 0;
-				$y = $this->imageResource->getImageHeight() - $watermarkH;
+				$y = $this->imageResource->getImageHeight() - $watermarkHeight;
 				break;
 			case WatermarkPosition::BOTTOM_RIGHT:
-				$x = $this->imageResource->getImageWidth() - $watermarkW;
-				$y = $this->imageResource->getImageHeight() - $watermarkH;
+				$x = $this->imageResource->getImageWidth() - $watermarkWidth;
+				$y = $this->imageResource->getImageHeight() - $watermarkHeight;
 				break;
 			case WatermarkPosition::CENTER:
-				$x = ($this->imageResource->getImageWidth() / 2) - ($watermarkW / 2);
-				$y = ($this->imageResource->getImageHeight() / 2) - ($watermarkH / 2);
+				$x = ($this->imageResource->getImageWidth() / 2) - ($watermarkWidth / 2);
+				$y = ($this->imageResource->getImageHeight() / 2) - ($watermarkHeight / 2);
 				break;
 			default:
 				$x = 0;
@@ -223,7 +224,9 @@ class ImageMagick extends Image
 	#[Override]
 	public function colorize(Color $color): void
 	{
-		$this->imageResource->colorizeImage($color->toHexString(), $color->getAlpha() / 255);
+		$pixel = new ImagickPixel($color->toRgbaString());
+
+		$this->imageResource->colorizeImage($pixel, $pixel);
 	}
 
 	/**
@@ -242,7 +245,6 @@ class ImageMagick extends Image
 	public function pixelate(int $pixelSize = 10): void
 	{
 		$width = $this->imageResource->getImageWidth();
-
 		$height = $this->imageResource->getImageHeight();
 
 		$this->imageResource->scaleImage((int) ($width / $pixelSize), (int) ($height / $pixelSize));
@@ -256,7 +258,16 @@ class ImageMagick extends Image
 	#[Override]
 	public function negate(): void
 	{
+		$alpha = clone $this->imageResource;
+
+		$this->imageResource->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+
 		$this->imageResource->negateImage(false);
+
+		$this->imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
+
+		$alpha->clear();
+		$alpha->destroy();
 	}
 
 	/**
@@ -265,9 +276,24 @@ class ImageMagick extends Image
 	#[Override]
 	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void
 	{
-		$this->imageResource->shaveImage($thickness, $thickness);
+		$draw = new ImagickDraw;
 
-		$this->imageResource->borderImage($color->toHexString(), $thickness, $thickness);
+		$draw->setStrokeColor(new ImagickPixel($color->toRgbaString()));
+		$draw->setStrokeWidth($thickness);
+		$draw->setFillOpacity(0);
+		$draw->setStrokeAntialias(true);
+
+		$width = $this->imageResource->getImageWidth();
+		$height = $this->imageResource->getImageHeight();
+
+		$draw->rectangle(
+			$thickness / 2,
+			$thickness / 2,
+			$width - $thickness / 2,
+			$height - $thickness / 2
+		);
+
+		$this->imageResource->drawImage($draw);
 	}
 
 	/**
