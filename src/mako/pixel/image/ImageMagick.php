@@ -28,19 +28,19 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    protected function createImageResource(string $imagePath): object
-    {
+	protected function createImageResource(string $imagePath): object
+	{
 		return new Imagick($imagePath);
-    }
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    protected function destroyImageResource(): void
-    {
+	protected function destroyImageResource(): void
+	{
 		$this->imageResource = null;
-    }
+	}
 
 	/**
 	 * {@inheritDoc}

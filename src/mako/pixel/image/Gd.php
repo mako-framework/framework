@@ -82,8 +82,8 @@ class Gd extends Image
 	 * @todo add support for more image formats like WebP?
 	 */
 	#[Override]
-    protected function createImageResource(string $imagePath): object
-    {
+	protected function createImageResource(string $imagePath): object
+	{
 		$imageInfo = $this->getImageInfo($imagePath);
 
 		if ($this->imageInfo === null) {
@@ -106,10 +106,10 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    protected function destroyImageResource(): void
-    {
+	protected function destroyImageResource(): void
+	{
 		$this->imageResource = null;
-    }
+	}
 
 	/**
 	 * {@inheritDoc}
