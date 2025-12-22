@@ -19,15 +19,18 @@ use function explode;
 use function function_exists;
 use function getimagesize;
 use function imagealphablending;
+use function imageavif;
 use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagecolortransparent;
 use function imageconvolution;
 use function imagecopy;
 use function imagecopyresampled;
+use function imagecreatefromavif;
 use function imagecreatefromgif;
 use function imagecreatefromjpeg;
 use function imagecreatefrompng;
+use function imagecreatefromwebp;
 use function imagecreatetruecolor;
 use function imagefill;
 use function imagefilter;
@@ -40,6 +43,7 @@ use function imagesavealpha;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
+use function imagewebp;
 use function intval;
 use function min;
 use function ob_get_clean;
@@ -84,8 +88,6 @@ class Gd extends Image
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @todo add support for more image formats like WebP?
 	 */
 	#[Override]
 	protected function createImageResource(string $imagePath): object
@@ -104,6 +106,8 @@ class Gd extends Image
 			IMAGETYPE_JPEG => imagecreatefromjpeg($imagePath),
 			IMAGETYPE_GIF  => imagecreatefromgif($imagePath),
 			IMAGETYPE_PNG  => imagecreatefrompng($imagePath),
+			IMAGETYPE_WEBP => imagecreatefromwebp($imagePath),
+			IMAGETYPE_AVIF => imagecreatefromavif($imagePath),
 			default        => throw new ImageException(sprintf('Unable to create image resource from [ %s ]. Unsupported image type.', $imagePath)),
 		};
     }
@@ -119,8 +123,6 @@ class Gd extends Image
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @todo add support for more image formats like WebP?
 	 */
 	#[Override]
 	protected function getImageResourceAsBlob(?string $type, int $quality): string
@@ -145,6 +147,14 @@ class Gd extends Image
 				imagesavealpha($this->imageResource, true);
 				imagepng($this->imageResource, quality: (int) (9 - (round(($quality / 100) * 9))));
 				break;
+			case 'webp':
+			case 'image/webp':
+				imagewebp($this->imageResource, quality: $quality);
+				break;
+			case 'avif':
+			case 'image/avif':
+				imageavif($this->imageResource, quality: $quality);
+				break;
 			default:
 				throw new ImageException(sprintf('Unsupported image type [ %s ].', $type));
 		}
@@ -154,8 +164,6 @@ class Gd extends Image
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @todo add support for more image formats like WebP?
 	 */
 	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
@@ -178,6 +186,13 @@ class Gd extends Image
 				imagealphablending($this->imageResource, true);
 				imagesavealpha($this->imageResource, true);
 				imagepng($this->imageResource, $imagePath, (int) (9 - (round(($quality / 100) * 9))));
+				break;
+			case 'webp':
+			case 'image/webp':
+				imagewebp($this->imageResource, $imagePath, $quality);
+			case 'avif':
+			case 'image/avif':
+				imageavif($this->imageResource, quality: $quality);
 				break;
 			default:
 				throw new ImageException(sprintf('Unable to save as [ %s ]. Unsupported image format.', $extension));
