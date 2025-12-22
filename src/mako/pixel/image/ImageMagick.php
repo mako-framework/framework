@@ -211,4 +211,57 @@ class ImageMagick extends Image
 	{
 		$this->imageResource->quantizeImage(2, Imagick::COLORSPACE_GRAY, 5, false, true);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function colorize(Color $color): void
+	{
+		$this->imageResource->colorizeImage($color->toHexString(), $color->getAlpha() / 255);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function sharpen(): void
+	{
+		$this->imageResource->sharpenImage(0, 1);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function pixelate(int $pixelSize = 10): void
+	{
+		$width = $this->imageResource->getImageWidth();
+
+		$height = $this->imageResource->getImageHeight();
+
+		$this->imageResource->scaleImage((int) ($width / $pixelSize), (int) ($height / $pixelSize));
+
+		$this->imageResource->scaleImage($width, $height);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function negate(): void
+	{
+		$this->imageResource->negateImage(false);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void
+	{
+		$this->imageResource->shaveImage($thickness, $thickness);
+
+		$this->imageResource->borderImage($color->toHexString(), $thickness, $thickness);
+	}
 }

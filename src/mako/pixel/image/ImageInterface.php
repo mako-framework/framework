@@ -75,6 +75,31 @@ interface ImageInterface
 	public function bitonal(): void;
 
 	/**
+	 * Colorize the image.
+	 */
+	public function colorize(Color $color): void;
+
+	/**
+	 * Sharpens the image.
+	 */
+	public function sharpen(): void;
+
+	/**
+	 * Pixelates the image.
+	 */
+	public function pixelate(int $pixelSize = 10);
+
+	/**
+	 * Negates the image.
+	 */
+	public function negate(): void;
+
+	/**
+	 * Adds a border to the image.
+	 */
+	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void;
+
+	/**
 	 * Returns the image resource as a blob.
 	 */
 	public function getImageBlob(?string $type = null, int $quality = 95): string;

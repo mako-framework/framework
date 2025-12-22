@@ -11,12 +11,15 @@ use mako\pixel\image\exceptions\ImageException;
 use Override;
 
 use function abs;
+use function array_map;
+use function array_sum;
 use function function_exists;
 use function getimagesize;
 use function imagealphablending;
 use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagecolortransparent;
+use function imageconvolution;
 use function imagecopy;
 use function imagecopyresampled;
 use function imagecreatefromgif;
@@ -30,6 +33,7 @@ use function imagegif;
 use function imagejpeg;
 use function imagelayereffect;
 use function imagepng;
+use function imagerectangle;
 use function imagerotate;
 use function imagesavealpha;
 use function imagesetpixel;
@@ -499,6 +503,133 @@ class Gd extends Image
 			}
 
 			$this->imageResource = $temp;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function colorize(Color $color): void
+	{
+		$colors = [
+			'r' => $color->getRed(),
+			'g' => $color->getGreen(),
+			'b' => $color->getBlue(),
+		];
+
+		if ($this->hasFilters) {
+			imagefilter($this->imageResource, IMG_FILTER_COLORIZE, $colors['r'], $colors['g'], $colors['b'], 0);
+		}
+		else {
+			$width  = imagesx($this->imageResource);
+			$height = imagesy($this->imageResource);
+
+			$temp = imagecreatetruecolor($width, $height);
+
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
+					$rgb = imagecolorat($this->imageResource, $x, $y);
+
+					$r = (($rgb >> 16) & 0xFF) + $colors['r'];
+					$g = (($rgb >> 8) & 0xFF) + $colors['g'];
+					$b = ($rgb & 0xFF) + $colors['b'];
+
+					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
+					$g = ($g > 255) ? 255 : (($g < 0) ? 0 : $g);
+					$b = ($b > 255) ? 255 : (($b < 0) ? 0 : $b);
+
+					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
+				}
+			}
+
+			$this->imageResource = $temp;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function sharpen(): void
+	{
+		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
+
+		$divisor = array_sum(array_map(array_sum(...), $sharpen));
+
+		imageconvolution($this->imageResource, $sharpen, $divisor, 0);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function pixelate(int $pixelSize = 10): void
+	{
+		if ($this->hasFilters) {
+			imagefilter($this->imageResource, IMG_FILTER_PIXELATE, $pixelSize, IMG_FILTER_PIXELATE);
+		}
+		else {
+			$width  = imagesx($this->imageResource);
+			$height = imagesy($this->imageResource);
+
+			$this->resize((int) ($width / $pixelSize), (int) ($height / $pixelSize));
+
+			$this->resize($width, $height);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function negate(): void
+	{
+		if ($this->hasFilters) {
+			imagefilter($this->imageResource, IMG_FILTER_NEGATE);
+		}
+		else {
+			$width  = imagesx($this->imageResource);
+			$height = imagesy($this->imageResource);
+
+			$temp = imagecreatetruecolor($width, $height);
+
+			// Invert pixel colors
+
+			for ($x = 0; $x < $width; $x++) {
+				for ($y = 0; $y < $height; $y++) {
+					imagesetpixel($temp, $x, $y, imagecolorat($this->imageResource, $x, $y) ^ 0x00FFFFFF);
+				}
+			}
+
+			$this->imageResource = $temp;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function border(Color $color = new Color(0, 0, 0), int $thickness = 5): void
+	{
+		$width  = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$colors = [
+			'r' => $color->getRed(),
+			'g' => $color->getGreen(),
+			'b' => $color->getBlue(),
+		];
+
+		$alhpa = 127 - (int) round($color->getAlpha() * 127 / 255);
+
+		$color = imagecolorallocatealpha($this->imageResource, $colors['r'], $colors['g'], $colors['b'], $alhpa);
+
+		for ($i = 0; $i < $thickness; $i++) {
+			$x = --$width;
+			$y = --$height;
+
+			imagerectangle($this->imageResource, $i, $i, $x, $y, $color);
 		}
 	}
 }
