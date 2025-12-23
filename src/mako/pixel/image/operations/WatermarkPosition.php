@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\image;
+namespace mako\pixel\image\operations;
 
 /**
  * Watermark position.

@@ -8,6 +8,7 @@
 namespace mako\pixel\image;
 
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\operations\OperationInterface;
 use Override;
 
 use function file_exists;
@@ -16,7 +17,6 @@ use function is_writable;
 use function max;
 use function min;
 use function pathinfo;
-use function round;
 use function sprintf;
 
 /**
@@ -80,44 +80,12 @@ abstract class Image implements ImageInterface
 	abstract protected function saveImageResource(string $imagePath, int $quality): void;
 
 	/**
-	 * Calculates new image dimensions.
+	 * {@inheritDoc}
 	 */
-	protected function calculateNewDimensions(int $width, ?int $height, int $oldWidth, int $oldHeight, AspectRatio $aspectRatio): array
+	#[Override]
+	public function getImageResource(): object
 	{
-		if ($height === null) {
-			$newWidth  = round($oldWidth * ($width / 100));
-			$newHeight = round($oldHeight * ($width / 100));
-		}
-		else {
-			if ($aspectRatio === AspectRatio::AUTO) {
-				// Calculate smallest size based on given height and width while maintaining aspect ratio
-
-				$percentage = min(($width / $oldWidth), ($height / $oldHeight));
-
-				$newWidth  = round($oldWidth * $percentage);
-				$newHeight = round($oldHeight * $percentage);
-			}
-			elseif ($aspectRatio === AspectRatio::WIDTH) {
-				// Base new size on given width while maintaining aspect ratio
-
-				$newWidth  = $width;
-				$newHeight = round($oldHeight * ($width / $oldWidth));
-			}
-			elseif ($aspectRatio === AspectRatio::HEIGHT) {
-				// Base new size on given height while maintaining aspect ratio
-
-				$newWidth  = round($oldWidth * ($height / $oldHeight));
-				$newHeight = $height;
-			}
-			else {
-				// Ignone aspect ratio
-
-				$newWidth  = $width;
-				$newHeight = $height;
-			}
-		}
-
-		return [$newWidth, $newHeight];
+		return $this->imageResource;
 	}
 
 	/**
@@ -130,6 +98,15 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function apply(OperationInterface $operation): void
+	{
+		$operation->apply($this->imageResource, $this->imagePath);
+	}
+
+	/**
 	 * Makes sure that the quality is between 1 and 100.
 	 */
 	protected function normalizeImageQuality(int $quality): int
@@ -138,16 +115,9 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
-	 * Makes sure that the level is between -100 and 100.
-	 */
-	protected function normalizeLevel(int $level): int
-	{
-		return max(-100, min(100, $level));
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function getImageBlob(?string $type = null, int $quality = 95): string
 	{
 		return $this->getImageResourceAsBlob($type, $this->normalizeImageQuality($quality));
@@ -156,6 +126,7 @@ abstract class Image implements ImageInterface
 	/**
 	 * {@inheritDoc}
 	 */
+	#[Override]
 	public function save(?string $imagePath = null, int $quality = 95): void
 	{
 		$imagePath ??= $this->imagePath;

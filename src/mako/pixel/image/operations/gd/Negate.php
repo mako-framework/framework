@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
+namespace mako\pixel\image\operations\gd;
+
+use mako\pixel\image\operations\OperationInterface;
+use Override;
+
+use function imagefilter;
+
+/**
+ * Negates the image.
+ */
+class Negate implements OperationInterface
+{
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param \GdImage &$imageResource
+	 */
+	#[Override]
+	public function apply(object &$imageResource, string $imagePath): void
+	{
+		imagefilter($imageResource, IMG_FILTER_NEGATE);
+	}
+}
