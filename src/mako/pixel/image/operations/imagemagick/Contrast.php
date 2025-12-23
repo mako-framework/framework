@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
@@ -32,13 +33,19 @@ class Contrast implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource, string $imagePath): void
 	{
 		if ($this->level === 0) {
 			return;
+		}
+
+		$hasAlpha = $imageResource->getImageAlphaChannel();
+
+		if ($hasAlpha) {
+			$alpha = clone $imageResource;
 		}
 
 		$level = $this->normalizeLevel($this->level);
@@ -63,5 +70,12 @@ class Contrast implements OperationInterface
 
 		$iterator->clear();
 		$iterator->destroy();
+
+		if ($hasAlpha) {
+			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
+
+			$alpha->clear();
+			$alpha->destroy();
+		}
 	}
 }

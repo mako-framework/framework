@@ -24,15 +24,19 @@ class Negate implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource, string $imagePath): void
 	{
-		$alpha = clone $imageResource;
+		$hasAlpha = $imageResource->getImageAlphaChannel();
 
-		$imageResource->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+		if ($hasAlpha) {
+			$alpha = clone $imageResource;
+		}
 
 		$imageResource->negateImage(false);
 
-		$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
+		if ($hasAlpha) {
+			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
 
-		$alpha->clear();
-		$alpha->destroy();
+			$alpha->clear();
+			$alpha->destroy();
+		}
 	}
 }

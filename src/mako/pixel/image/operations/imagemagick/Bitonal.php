@@ -24,6 +24,19 @@ class Bitonal implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource, string $imagePath): void
 	{
+		$hasAlpha = $imageResource->getImageAlphaChannel();
+
+		if ($hasAlpha) {
+			$alpha = clone $imageResource;
+		}
+
 		$imageResource->setImageType(Imagick::IMGTYPE_BILEVEL);
+
+		if ($hasAlpha) {
+			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
+
+			$alpha->clear();
+			$alpha->destroy();
+		}
 	}
 }

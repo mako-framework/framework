@@ -11,7 +11,7 @@ use mako\pixel\image\Color;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
-use function imagecolorallocate;
+use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagecreatetruecolor;
 use function imagesetpixel;
@@ -56,11 +56,12 @@ class Colorize implements OperationInterface
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
 
-				imagesetpixel($temp, $x, $y, imagecolorallocate(
+				imagesetpixel($temp, $x, $y, imagecolorallocatealpha(
 					$temp,
 					max(0, min(255, (($rgb >> 16) & 0xFF) + $colors['r'])), // R
 					max(0, min(255, (($rgb >> 8) & 0xFF) + $colors['g'])),  // G
-					max(0, min(255, ($rgb & 0xFF) + $colors['b']))          // B
+					max(0, min(255, ($rgb & 0xFF) + $colors['b'])),         // B
+					($rgb >> 24) & 0x7F                                     // A
 				));
 			}
 		}

@@ -3,6 +3,8 @@
 namespace mako\tests\unit\pixel\image;
 
 use mako\pixel\image\ImageMagick;
+use mako\pixel\image\operations\imagemagick\Bitonal;
+use mako\pixel\image\operations\imagemagick\Negate;
 use mako\tests\TestCase;
 
 class ImageMagickTest extends TestCase
@@ -60,5 +62,39 @@ class ImageMagickTest extends TestCase
 
 		$this->assertSame('#0376BB', $colors[0]->toHexString());
 		$this->assertSame('#B51700', $colors[1]->toHexString());
+	}
+
+	/**
+	 *
+	 */
+	public function testBitonal(): void
+	{
+		$image = new ImageMagick(__DIR__ . '/fixtures/002.jpg');
+		$image->apply(new Bitonal);
+
+		$colors = $image->getTopColors();
+
+		$this->assertSame(2, count($colors));
+
+		$this->assertSame('#FFFFFF', $colors[0]->toHexString());
+		$this->assertSame('#000000', $colors[1]->toHexString());
+	}
+
+	/**
+	 *
+	 */
+	public function testNegate(): void
+	{
+		$image = new ImageMagick(__DIR__ . '/fixtures/002.jpg');
+
+		$image->apply(new Bitonal);
+		$image->apply(new Negate);
+
+		$colors = $image->getTopColors();
+
+		$this->assertSame(2, count($colors));
+
+		$this->assertSame('#000000', $colors[0]->toHexString());
+		$this->assertSame('#FFFFFF', $colors[1]->toHexString());
 	}
 }

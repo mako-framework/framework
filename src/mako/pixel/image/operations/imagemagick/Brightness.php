@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
@@ -31,7 +32,7 @@ class Brightness implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource, string $imagePath): void
@@ -40,8 +41,21 @@ class Brightness implements OperationInterface
 			return;
 		}
 
+		$hasAlpha = $imageResource->getImageAlphaChannel();
+
+		if ($hasAlpha) {
+			$alpha = clone $imageResource;
+		}
+
 		$level = $this->normalizeLevel($this->level);
 
 		$imageResource->sigmoidalContrastImage($level > 0, abs($level) / 100 * 8, 0.5);
+
+		if ($hasAlpha) {
+			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
+
+			$alpha->clear();
+			$alpha->destroy();
+		}
 	}
 }

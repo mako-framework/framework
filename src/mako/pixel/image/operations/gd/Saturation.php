@@ -11,7 +11,7 @@ use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
-use function imagecolorallocate;
+use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagesetpixel;
 use function imagesx;
@@ -63,11 +63,12 @@ class Saturation implements OperationInterface
 
 				$gray = (int) ($r * 0.299 + $g * 0.587 + $b * 0.114);
 
-				imagesetpixel($imageResource, $x, $y, imagecolorallocate(
+				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
 					$imageResource,
 					max(0, min(255, ($gray + ($r - $gray) * $factor))), // R
 					max(0, min(255, ($gray + ($g - $gray) * $factor))), // G
-					max(0, min(255, ($gray + ($b - $gray) * $factor)))  // B
+					max(0, min(255, ($gray + ($b - $gray) * $factor))), // B
+					($rgb >> 24) & 0x7F                                 // A
 				));
 			}
 		}

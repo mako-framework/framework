@@ -11,7 +11,7 @@ use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
-use function imagecolorallocate;
+use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagesetpixel;
 use function imagesx;
@@ -57,11 +57,12 @@ class Contrast implements OperationInterface
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
 
-				imagesetpixel($imageResource, $x, $y, imagecolorallocate(
+				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
 					$imageResource,
 					max(0, min(255, (((($rgb >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
 					max(0, min(255, (((($rgb >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
-					max(0, min(255, ((($rgb & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255))          // B
+					max(0, min(255, ((($rgb & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
+					($rgb >> 24) & 0x7F                                                            // A
 				));
 			}
 		}

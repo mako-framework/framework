@@ -3,6 +3,8 @@
 namespace mako\tests\unit\pixel\image;
 
 use mako\pixel\image\Gd;
+use mako\pixel\image\operations\gd\Bitonal;
+use mako\pixel\image\operations\gd\Negate;
 use mako\tests\TestCase;
 
 class GdTest extends TestCase
@@ -60,5 +62,40 @@ class GdTest extends TestCase
 
 		$this->assertSame('#0070C0', $colors[0]->toHexString());
 		$this->assertSame('#B01000', $colors[1]->toHexString());
+	}
+
+	/**
+	 *
+	 */
+	public function testBitonal(): void
+	{
+		$image = new Gd(__DIR__ . '/fixtures/002.jpg');
+
+		$image->apply(new Bitonal);
+
+		$colors = $image->getTopColors();
+
+		$this->assertSame(2, count($colors));
+
+		$this->assertSame('#FFFFFF', $colors[0]->toHexString());
+		$this->assertSame('#000000', $colors[1]->toHexString());
+	}
+
+	/**
+	 *
+	 */
+	public function testNegate(): void
+	{
+		$image = new Gd(__DIR__ . '/fixtures/002.jpg');
+
+		$image->apply(new Bitonal);
+		$image->apply(new Negate);
+
+		$colors = $image->getTopColors();
+
+		$this->assertSame(2, count($colors));
+
+		$this->assertSame('#000000', $colors[0]->toHexString());
+		$this->assertSame('#FFFFFF', $colors[1]->toHexString());
 	}
 }

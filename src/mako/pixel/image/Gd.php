@@ -34,6 +34,8 @@ use function imagesx;
 use function imagesy;
 use function imagewebp;
 use function intval;
+use function max;
+use function min;
 use function ob_get_clean;
 use function ob_start;
 use function pathinfo;
@@ -247,9 +249,9 @@ class Gd extends Image
 					continue;
 				}
 
-				$r = (int) round((($rgb >> 16) & 0xFF) / 16) * 16;
-				$g = (int) round((($rgb >> 8) & 0xFF) / 16) * 16;
-				$b = (int) round(($rgb & 0xFF) / 16) * 16;
+				$r = max(0, min(255, (int) round((($rgb >> 16) & 0xFF) / 16) * 16));
+				$g = max(0, min(255, (int) round((($rgb >> 8) & 0xFF) / 16) * 16));
+				$b = max(0, min(255, (int) round(($rgb & 0xFF) / 16) * 16));
 
 				$key = "$r,$g,$b,$alpha";
 
