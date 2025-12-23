@@ -42,13 +42,13 @@ class Border implements OperationInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$r = $this->color->getRed();
-		$g = $this->color->getGreen();
-		$b = $this->color->getBlue();
-
-		$alhpa = 127 - (int) round($this->color->getAlpha() * 127 / 255);
-
-		$color = imagecolorallocatealpha($imageResource, $r, $g, $b, $alhpa);
+		$color = imagecolorallocatealpha(
+			$imageResource,
+			$this->color->getRed(),
+			$this->color->getGreen(),
+			$this->color->getBlue(),
+			127 - (int) round($this->color->getAlpha() * 127 / 255)
+		);
 
 		for ($i = 0; $i < $this->thickness; $i++) {
 			$x = --$width;

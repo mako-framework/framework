@@ -63,11 +63,12 @@ class Saturation implements OperationInterface
 
 				$gray = (int) ($r * 0.299 + $g * 0.587 + $b * 0.114);
 
-				$r = max(0, min(255, ($gray + ($r - $gray) * $factor)));
-				$g = max(0, min(255, ($gray + ($g - $gray) * $factor)));
-				$b = max(0, min(255, ($gray + ($b - $gray) * $factor)));
-
-				imagesetpixel($imageResource, $x, $y, imagecolorallocate($imageResource, $r, $g, $b));
+				imagesetpixel($imageResource, $x, $y, imagecolorallocate(
+					$imageResource,
+					max(0, min(255, ($gray + ($r - $gray) * $factor))), // R
+					max(0, min(255, ($gray + ($g - $gray) * $factor))), // G
+					max(0, min(255, ($gray + ($b - $gray) * $factor)))  // B
+				));
 			}
 		}
 	}

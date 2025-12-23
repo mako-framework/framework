@@ -56,11 +56,12 @@ class Colorize implements OperationInterface
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
 
-				$r = max(0, min(255, (($rgb >> 16) & 0xFF) + $colors['r']));
-				$g = max(0, min(255, (($rgb >> 8) & 0xFF) + $colors['g']));
-				$b = max(0, min(255, ($rgb & 0xFF) + $colors['b']));
-
-				imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
+				imagesetpixel($temp, $x, $y, imagecolorallocate(
+					$temp,
+					max(0, min(255, (($rgb >> 16) & 0xFF) + $colors['r'])), // R
+					max(0, min(255, (($rgb >> 8) & 0xFF) + $colors['g'])),  // G
+					max(0, min(255, ($rgb & 0xFF) + $colors['b']))          // B
+				));
 			}
 		}
 
