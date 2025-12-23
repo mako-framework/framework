@@ -56,7 +56,7 @@ interface ImageInterface
 	/**
 	 * Applies an image operation.
 	 */
-	public function apply(OperationInterface $operation);
+	public function apply(OperationInterface $operation): static;
 
 	/**
 	 * Returns the image resource as a blob.

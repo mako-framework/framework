@@ -101,9 +101,11 @@ abstract class Image implements ImageInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function apply(OperationInterface $operation): void
+	public function apply(OperationInterface $operation): static
 	{
 		$operation->apply($this->imageResource, $this->imagePath);
+
+		return $this;
 	}
 
 	/**
