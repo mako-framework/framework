@@ -7,7 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
-use mako\pixel\image\ImageInterface;
+use mako\pixel\image\Gd;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\WatermarkPosition;
 use Override;
@@ -32,11 +32,14 @@ class Watermark implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected ImageInterface $image,
+		protected Gd|string $image,
 		protected WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT,
 		protected int $opacity = 100,
 		protected int $margin = 0
 	) {
+		if ($image instanceof Gd === false) {
+			$this->image = new Gd($image);
+		}
 	}
 
 	/**

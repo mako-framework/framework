@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\ImageInterface;
+use mako\pixel\image\ImageMagick;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\WatermarkPosition;
 use Override;
@@ -22,11 +22,14 @@ class Watermark implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected ImageInterface $image,
+		protected ImageMagick|string $image,
 		protected WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT,
 		protected int $opacity = 100,
 		protected int $margin = 0
 	) {
+		if ($image instanceof ImageMagick === false) {
+			$this->image = new ImageMagick($image);
+		}
 	}
 
 	/**
