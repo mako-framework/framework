@@ -172,11 +172,7 @@ class Gd extends Image
 	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
-		// Get the file extension
-
 		$extension = pathinfo($imagePath, PATHINFO_EXTENSION);
-
-		// Save image
 
 		switch (strtolower($extension)) {
 			case 'gif':
@@ -256,6 +252,10 @@ class Gd extends Image
 	#[Override]
 	public function rotate(int $degrees): void
 	{
+		if ($degrees === 0) {
+			return;
+		}
+
 		$width = imagesx($this->imageResource);
 		$height = imagesy($this->imageResource);
 
@@ -368,20 +368,16 @@ class Gd extends Image
 		$watermarkHeight = imagesy($watermark);
 
 		if ($opacity < 100) {
-			// Convert opacity (0–100) to GD alpha (0–127)
-
 			$opacityAlpha = 127 - round($opacity * 127 / 100);
 
 			for ($x = 0; $x < $watermarkWidth; $x++) {
 				for ($y = 0; $y < $watermarkHeight; $y++) {
-					$rgba = imagecolorat($watermark, $x, $y);
+					$rgb = imagecolorat($watermark, $x, $y);
 
-					$r = ($rgba >> 16) & 0xFF;
-					$g = ($rgba >> 8) & 0xFF;
-					$b = $rgba & 0xFF;
-					$a = ($rgba >> 24) & 0x7F;
-
-					// Combine original alpha with desired opacity
+					$r = ($rgb >> 16) & 0xFF;
+					$g = ($rgb >> 8) & 0xFF;
+					$b = $rgb & 0xFF;
+					$a = ($rgb >> 24) & 0x7F;
 
 					$newAlpha = min(127, $a + $opacityAlpha);
 
@@ -391,8 +387,6 @@ class Gd extends Image
 				}
 			}
 		}
-
-		// Position the watermark
 
 		switch ($position) {
 			case WatermarkPosition::TOP_RIGHT:
@@ -452,13 +446,9 @@ class Gd extends Image
 					$g = (($rgb >> 8) & 0xFF) + $level;
 					$b = ($rgb & 0xFF) + $level;
 
-					// Adjust colors
-
 					$r = ($r > 255) ? 255 : (($r < 0) ? 0 : $r);
 					$g = ($g > 255) ? 255 : (($g < 0) ? 0 : $g);
 					$b = ($b > 255) ? 255 : (($b < 0) ? 0 : $b);
-
-					// Apply color to pixel
 
 					imagesetpixel($temp, $x, $y, imagecolorallocate($temp, $r, $g, $b));
 				}
@@ -489,23 +479,9 @@ class Gd extends Image
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($this->imageResource, $x, $y);
 
-				$r = ($rgb >> 16) & 0xFF;
-				$g = ($rgb >> 8) & 0xFF;
-				$b = $rgb & 0xFF;
-
-				// Adjust colors
-
-				$r = (($r / 255 - 0.5) * $factor + 0.5) * 255;
-				$g = (($g / 255 - 0.5) * $factor + 0.5) * 255;
-				$b = (($b / 255 - 0.5) * $factor + 0.5) * 255;
-
-				// Clamp values
-
-				$r = max(0, min(255, $r));
-				$g = max(0, min(255, $g));
-				$b = max(0, min(255, $b));
-
-				// Apply color to pixel
+				$r = max(0, min(255, (((($rgb >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255));
+				$g = max(0, min(255, (((($rgb >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255));
+				$b = max(0, min(255, ((($rgb & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255));
 
 				imagesetpixel($this->imageResource, $x, $y, imagecolorallocate($this->imageResource, $r, $g, $b));
 			}
@@ -537,25 +513,58 @@ class Gd extends Image
 				$g = ($rgb >> 8) & 0xFF;
 				$b = $rgb & 0xFF;
 
-				// Convert to grayscale for desaturation
-
 				$gray = (int) ($r * 0.299 + $g * 0.587 + $b * 0.114);
 
-				// Adjust colors
-
-				$r = (int) ($gray + ($r - $gray) * $factor);
-				$g = (int) ($gray + ($g - $gray) * $factor);
-				$b = (int) ($gray + ($b - $gray) * $factor);
-
-				// Clamp values
-
-				$r = max(0, min(255, $r));
-				$g = max(0, min(255, $g));
-				$b = max(0, min(255, $b));
-
-				// Apply color to pixel
+				$r = max(0, min(255, ($gray + ($r - $gray) * $factor)));
+				$g = max(0, min(255, ($gray + ($g - $gray) * $factor)));
+				$b = max(0, min(255, ($gray + ($b - $gray) * $factor)));
 
 				imagesetpixel($this->imageResource, $x, $y, imagecolorallocate($this->imageResource, $r, $g, $b));
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function temperature(int $level = 0): void
+	{
+		if ($level === 0) {
+			return;
+		}
+
+		$width = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$level = $this->normalizeLevel($level);
+
+		$tempFactor = $level / 200;
+
+		if ($level > 0) {
+			$redMultiplier = 1.3 + $tempFactor;
+			$blueMultiplier = 1.2 - $tempFactor;
+		}
+		else {
+			$redMultiplier = 1.22 + $tempFactor;
+			$blueMultiplier = 0.75 - $tempFactor;
+		}
+
+		for ($y = 0; $y < $height; $y++) {
+			for ($x = 0; $x < $width; $x++) {
+				$rgb = imagecolorat($this->imageResource, $x, $y);
+
+				$r = ($rgb >> 16) & 0xFF;
+				$g = ($rgb >> 8) & 0xFF;
+				$b = $rgb & 0xFF;
+				$a = ($rgb >> 24) & 0x7F;
+
+				$newR = min(255, max(0, (int) ($r * $redMultiplier)));
+				$newB = min(255, max(0, (int) ($b * $blueMultiplier)));
+
+				$newColor = imagecolorallocatealpha($this->imageResource, $newR, $g, $newB, $a);
+
+				imagesetpixel($this->imageResource, $x, $y, $newColor);
 			}
 		}
 	}
@@ -575,25 +584,21 @@ class Gd extends Image
 
 			$temp = imagecreatetruecolor($width, $height);
 
-			// Generate array of shades of grey
-
 			$greys = [];
 
 			for ($i = 0; $i <= 255; $i++) {
 				$greys[$i] = imagecolorallocate($temp, $i, $i, $i);
 			}
 
-			// Convert pixels to greyscale
-
 			for ($x = 0; $x < $width; $x++) {
 				for ($y = 0; $y < $height; $y++) {
 					$rgb = imagecolorat($this->imageResource, $x, $y);
 
-					$r = ($rgb >> 16) & 0xFF;
-					$g = ($rgb >> 8) & 0xFF;
-					$b = $rgb & 0xFF;
+					$r = 0.299 * (($rgb >> 16) & 0xFF);
+					$g = 0.587 * (($rgb >> 8) & 0xFF);
+					$b = 0.114 * ($rgb & 0xFF);
 
-					imagesetpixel($temp, $x, $y, $greys[((0.299 * $r) + (0.587 * $g) + (0.114 * $b))]);
+					imagesetpixel($temp, $x, $y, $greys[$r + $g + $b]);
 				}
 			}
 
@@ -611,8 +616,6 @@ class Gd extends Image
 		$height = imagesy($this->imageResource);
 
 		$temp = imagecreatetruecolor($width, $height);
-
-		// Convert pixels to sepia
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
@@ -652,8 +655,6 @@ class Gd extends Image
 			$height = imagesy($this->imageResource);
 
 			$temp = imagecreatetruecolor($width, $height);
-
-			// Colorize pixels
 
 			for ($x = 0; $x < $width; $x++) {
 				for ($y = 0; $y < $height; $y++) {
@@ -760,8 +761,6 @@ class Gd extends Image
 
 			$temp = imagecreatetruecolor($width, $height);
 
-			// Invert pixel colors
-
 			for ($x = 0; $x < $width; $x++) {
 				for ($y = 0; $y < $height; $y++) {
 					imagesetpixel($temp, $x, $y, imagecolorat($this->imageResource, $x, $y) ^ 0x00FFFFFF);
@@ -812,21 +811,19 @@ class Gd extends Image
 
 		$buckets = [];
 
-		// Find colors
-
 		for ($y = 0; $y < $height; $y += $step) {
 			for ($x = 0; $x < $width; $x += $step) {
-				$rgba = imagecolorat($this->imageResource, $x, $y);
+				$rgb = imagecolorat($this->imageResource, $x, $y);
 
-				$alpha = 1 - ((($rgba & 0x7F000000) >> 24) / 127);
+				$alpha = 1 - ((($rgb & 0x7F000000) >> 24) / 127);
 
 				if ($ignoreTransparent && $alpha < 0.1) {
 					continue;
 				}
 
-				$r = (int) round((($rgba >> 16) & 0xFF) / 16) * 16;
-				$g = (int) round((($rgba >> 8) & 0xFF) / 16) * 16;
-				$b = (int) round(($rgba & 0xFF) / 16) * 16;
+				$r = (int) round((($rgb >> 16) & 0xFF) / 16) * 16;
+				$g = (int) round((($rgb >> 8) & 0xFF) / 16) * 16;
+				$b = (int) round(($rgb & 0xFF) / 16) * 16;
 
 				$key = "$r,$g,$b,$alpha";
 
@@ -834,11 +831,7 @@ class Gd extends Image
 			}
 		}
 
-		// Sort colors
-
 		arsort($buckets);
-
-		// Collect and return the top n colors
 
 		$colors = [];
 

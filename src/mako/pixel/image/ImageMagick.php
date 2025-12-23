@@ -136,6 +136,10 @@ class ImageMagick extends Image
 	#[Override]
 	public function rotate(int $degrees): void
 	{
+		if ($degrees === 0) {
+			return;
+		}
+
 		$this->imageResource->rotateImage(new ImagickPixel('none'), $degrees);
 	}
 
@@ -190,8 +194,6 @@ class ImageMagick extends Image
 		if ($opacity < 100) {
 			$watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, ($opacity / 100), Imagick::CHANNEL_ALPHA);
 		}
-
-		// Position the watermark.
 
 		switch ($position) {
 			case WatermarkPosition::TOP_RIGHT:
@@ -256,23 +258,9 @@ class ImageMagick extends Image
 			foreach ($pixels as $col => $pixel) {
 				$colors = $pixel->getColor();
 
-				$r = $colors['r'];
-				$g = $colors['g'];
-				$b = $colors['b'];
-
-				// Adjust each channel
-
-				$r = (($r / 255 - 0.5) * $factor + 0.5) * 255;
-				$g = (($g / 255 - 0.5) * $factor + 0.5) * 255;
-				$b = (($b / 255 - 0.5) * $factor + 0.5) * 255;
-
-				// Clamp values
-
-				$r = max(0, min(255, $r));
-				$g = max(0, min(255, $g));
-				$b = max(0, min(255, $b));
-
-				// Apply color to pixel
+				$r = max(0, min(255, (($colors['r'] / 255 - 0.5) * $factor + 0.5) * 255));
+				$g = max(0, min(255, (($colors['g'] / 255 - 0.5) * $factor + 0.5) * 255));
+				$b = max(0, min(255, (($colors['b'] / 255 - 0.5) * $factor + 0.5) * 255));
 
 				$pixel->setColor("rgb($r, $g, $b)");
 			}
@@ -299,6 +287,30 @@ class ImageMagick extends Image
 		$saturation = 100 + $level;
 
 		$this->imageResource->modulateImage(100, $saturation, 100);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function temperature(int $level = 0): void
+	{
+		if ($level == 0) {
+			return;
+		}
+
+		$level = $this->normalizeLevel($level);
+
+		$shift = $level * 0.0022;
+
+		if ($shift > 0) {
+			$this->imageResource->evaluateImage(Imagick::EVALUATE_MULTIPLY, 1 + $shift, Imagick::CHANNEL_RED);
+			$this->imageResource->evaluateImage(Imagick::EVALUATE_MULTIPLY, 1 - $shift, Imagick::CHANNEL_BLUE);
+		}
+		elseif ($shift < 0) {
+			$this->imageResource->evaluateImage(Imagick::EVALUATE_MULTIPLY, 1 + abs($shift), Imagick::CHANNEL_BLUE);
+			$this->imageResource->evaluateImage(Imagick::EVALUATE_MULTIPLY, 1 - abs($shift), Imagick::CHANNEL_RED);
+		}
 	}
 
 	/**
@@ -423,23 +435,13 @@ class ImageMagick extends Image
 	{
 		$image = clone $this->imageResource;
 
-		// Ensure consistent colorspace
-
 		$image->setImageColorspace(Imagick::COLORSPACE_RGB);
-
-		// Reduce noise by quantizing
 
 		$image->quantizeImage(64, Imagick::COLORSPACE_RGB, 0, false, false);
 
-		// Get full histogram
-
 		$histogram = $image->getImageHistogram();
 
-		// Sort by pixel count (descending)
-
 		usort($histogram, fn (ImagickPixel $a, ImagickPixel $b): int => $b->getColorCount() <=> $a->getColorCount());
-
-		// Collect the top n colors
 
 		$colors = [];
 
@@ -463,8 +465,6 @@ class ImageMagick extends Image
 				(int) round($alpha * 255)
 			);
 		}
-
-		// Destroy the image resource and return the top n colors
 
 		$image->clear();
 		$image->destroy();

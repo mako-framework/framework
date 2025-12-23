@@ -80,6 +80,11 @@ interface ImageInterface
 	public function saturation(int $level = 0): void;
 
 	/**
+	 * Adjust image color temparature.
+	 */
+	public function temperature(int $level = 0): void;
+
+	/**
 	 * Converts image to greyscale.
 	 */
 	public function greyscale(): void;
