@@ -14,6 +14,7 @@ use Override;
 use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagecreatetruecolor;
+use function imagefill;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
@@ -52,16 +53,24 @@ class Colorize implements OperationInterface
 
 		$temp = imagecreatetruecolor($width, $height);
 
+		imagefill($temp, 0, 0, imagecolorallocatealpha($temp, 0, 0, 0, 127));
+
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
+
+				$a = ($rgb >> 24) & 0x7F;
+
+				if ($a === 127) {
+					continue;
+				}
 
 				imagesetpixel($temp, $x, $y, imagecolorallocatealpha(
 					$temp,
 					max(0, min(255, (($rgb >> 16) & 0xFF) + $colors['r'])), // R
 					max(0, min(255, (($rgb >> 8) & 0xFF) + $colors['g'])),  // G
 					max(0, min(255, ($rgb & 0xFF) + $colors['b'])),         // B
-					($rgb >> 24) & 0x7F                                     // A
+					$a                                                      // A
 				));
 			}
 		}
