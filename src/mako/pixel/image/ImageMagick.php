@@ -12,9 +12,12 @@ use ImagickPixel;
 use mako\pixel\image\exceptions\ImageException;
 use Override;
 
+use function array_last;
 use function count;
+use function explode;
+use function pathinfo;
 use function round;
-use function sprintf;
+use function strtolower;
 use function usort;
 
 /**
@@ -61,8 +64,14 @@ class ImageMagick extends Image
 	#[Override]
 	protected function getImageResourceAsBlob(?string $type, int $quality): string
 	{
-		if ($type !== null && !$this->imageResource->setImageFormat($type)) {
-			throw new ImageException(sprintf('Unsupported image type [ %s ].', $type));
+		if ($type !== null) {
+			$type = array_last(explode('/', $type));
+
+			$this->imageResource->setImageFormat($type);
+
+			if (strtolower($type) === 'gif') {
+				$this->imageResource->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+			}
 		}
 
 		$this->imageResource->setImageCompressionQuality($quality);
@@ -76,6 +85,12 @@ class ImageMagick extends Image
 	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
+		$extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+
+		if (strtolower($extension) === 'gif') {
+			$this->imageResource->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+		}
+
 		$this->imageResource->setImageCompressionQuality($quality);
 
 		$this->imageResource->writeImage($imagePath);

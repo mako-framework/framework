@@ -18,6 +18,7 @@ use function explode;
 use function getimagesize;
 use function imagealphablending;
 use function imageavif;
+use function imagebmp;
 use function imagecolorat;
 use function imagecopy;
 use function imagecreatefromavif;
@@ -139,6 +140,10 @@ class Gd extends Image
 			case 'image/avif':
 				imageavif($this->imageResource, quality: $quality);
 				break;
+			case 'bmp':
+			case 'image/bmp':
+				imagebmp($this->imageResource);
+				break;
 			default:
 				throw new ImageException(sprintf('Unsupported image type [ %s ].', $type));
 		}
@@ -168,11 +173,13 @@ class Gd extends Image
 				imagepng($this->imageResource, $imagePath, (int) (9 - (round(($quality / 100) * 9))));
 				break;
 			case 'webp':
-			case 'image/webp':
 				imagewebp($this->imageResource, $imagePath, $quality);
+				break;
 			case 'avif':
-			case 'image/avif':
-				imageavif($this->imageResource, quality: $quality);
+				imageavif($this->imageResource, $imagePath, $quality);
+				break;
+			case 'bmp':
+				imagebmp($this->imageResource, $imagePath);
 				break;
 			default:
 				throw new ImageException(sprintf('Unable to save as [ %s ]. Unsupported image format.', $extension));
