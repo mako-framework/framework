@@ -49,9 +49,7 @@ class Saturation implements OperationInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$level = $this->normalizeLevel($this->level);
-
-		$factor = 1 + ($level / 100);
+		$factor = 1 + ($this->normalizeLevel($this->level) / 100);
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
@@ -60,6 +58,11 @@ class Saturation implements OperationInterface
 				$r = ($rgb >> 16) & 0xFF;
 				$g = ($rgb >> 8) & 0xFF;
 				$b = $rgb & 0xFF;
+				$a = ($rgb >> 24) & 0x7F;
+
+				if ($a === 127) {
+					continue;
+				}
 
 				$gray = (int) ($r * 0.299 + $g * 0.587 + $b * 0.114);
 
@@ -68,7 +71,7 @@ class Saturation implements OperationInterface
 					max(0, min(255, ($gray + ($r - $gray) * $factor))), // R
 					max(0, min(255, ($gray + ($g - $gray) * $factor))), // G
 					max(0, min(255, ($gray + ($b - $gray) * $factor))), // B
-					($rgb >> 24) & 0x7F                                 // A
+					$a                                                  // A
 				));
 			}
 		}

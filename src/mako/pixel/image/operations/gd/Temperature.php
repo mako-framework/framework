@@ -51,27 +51,33 @@ class Temperature implements OperationInterface
 
 		$level = $this->normalizeLevel($this->level);
 
-		$tempFactor = $level / 200;
+		$factor = $level / 200;
 
 		if ($level > 0) {
-			$redMultiplier = 1.3 + $tempFactor;
-			$blueMultiplier = 1.2 - $tempFactor;
+			$redMultiplier = 1.3 + $factor;
+			$blueMultiplier = 1.2 - $factor;
 		}
 		else {
-			$redMultiplier = 1.22 + $tempFactor;
-			$blueMultiplier = 0.75 - $tempFactor;
+			$redMultiplier = 1.22 + $factor;
+			$blueMultiplier = 0.75 - $factor;
 		}
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
 
+				$a = ($rgb >> 24) & 0x7F;
+
+				if ($a === 127) {
+					continue;
+				}
+
 				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
 					$imageResource,
 					min(255, max(0, (int) ((($rgb >> 16) & 0xFF) * $redMultiplier))), // R
 					($rgb >> 8) & 0xFF,                                               // G
 					min(255, max(0, (int) (($rgb & 0xFF) * $blueMultiplier))),        // B
-					($rgb >> 24) & 0x7F                                               // A
+					$a                                                                // A
 				));
 			}
 		}

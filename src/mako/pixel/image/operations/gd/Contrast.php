@@ -49,20 +49,24 @@ class Contrast implements OperationInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$level = $this->normalizeLevel($this->level);
-
-		$factor = 1 + (((100 + $level) / 100) - 1) * 0.8;
+		$factor = 1 + (((100 + $this->normalizeLevel($this->level)) / 100) - 1) * 0.8;
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
+
+				$a = ($rgb >> 24) & 0x7F;
+
+				if ($a === 127) {
+					continue;
+				}
 
 				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
 					$imageResource,
 					max(0, min(255, (((($rgb >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
 					max(0, min(255, (((($rgb >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
 					max(0, min(255, ((($rgb & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
-					($rgb >> 24) & 0x7F                                                            // A
+					$a                                                                             // A
 				));
 			}
 		}

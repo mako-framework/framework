@@ -40,8 +40,6 @@ class Brightness implements OperationInterface
 			return;
 		}
 
-		$level = $this->normalizeLevel($this->level);
-
-		imagefilter($imageResource, IMG_FILTER_BRIGHTNESS, $level);
+		imagefilter($imageResource, IMG_FILTER_BRIGHTNESS, $this->normalizeLevel($this->level));
 	}
 }
