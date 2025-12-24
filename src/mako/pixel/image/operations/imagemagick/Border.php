@@ -28,6 +28,17 @@ class Border implements OperationInterface
 	}
 
 	/**
+	 * Does the image support alpha?
+	 */
+	protected function supportsAlpha($imageResource): bool
+	{
+		return match (strtolower($imageResource->getImageFormat())) {
+			'gif' => false,
+			default => true,
+		};
+	}
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @param \Imagick &$imageResource
@@ -37,7 +48,9 @@ class Border implements OperationInterface
 	{
 		$draw = new ImagickDraw;
 
-		$draw->setStrokeColor(new ImagickPixel($this->color->toRgbaString()));
+		$colorString = $this->supportsAlpha($imageResource) ? $this->color->toRgbaString() : $this->color->toRgbString();
+
+		$draw->setStrokeColor(new ImagickPixel($colorString));
 		$draw->setStrokeWidth($this->thickness);
 		$draw->setFillOpacity(0);
 		$draw->setStrokeAntialias(true);
