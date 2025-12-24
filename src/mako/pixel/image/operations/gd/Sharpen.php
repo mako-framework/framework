@@ -25,7 +25,7 @@ class Sharpen implements OperationInterface
 	 * @param \GdImage &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
 

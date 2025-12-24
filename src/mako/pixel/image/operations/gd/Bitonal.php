@@ -23,7 +23,7 @@ class Bitonal implements OperationInterface
 	 * @param \GdImage &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		imagefilter($imageResource, IMG_FILTER_GRAYSCALE);
 		imagefilter($imageResource, IMG_FILTER_CONTRAST, -2000);

@@ -15,5 +15,5 @@ interface OperationInterface
 	/**
 	 * Applies the operation on the image resource.
 	 */
-	public function apply(object &$imageResource, string $imagePath): void;
+	public function apply(object &$imageResource): void;
 }

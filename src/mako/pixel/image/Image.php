@@ -103,7 +103,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	public function apply(OperationInterface $operation): static
 	{
-		$operation->apply($this->imageResource, $this->imagePath);
+		$operation->apply($this->imageResource);
 
 		return $this;
 	}

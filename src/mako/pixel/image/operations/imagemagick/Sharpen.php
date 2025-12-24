@@ -21,7 +21,7 @@ class Sharpen implements OperationInterface
 	 * @param \Imagick &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		$imageResource->sharpenImage(0, 1);
 	}

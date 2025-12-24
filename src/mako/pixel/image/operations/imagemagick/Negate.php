@@ -22,7 +22,7 @@ class Negate implements OperationInterface
 	 * @param Imagick &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		$hasAlpha = $imageResource->getImageAlphaChannel();
 

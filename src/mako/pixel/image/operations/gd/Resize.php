@@ -43,7 +43,7 @@ class Resize implements OperationInterface
 	 * @param \GdImage &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		$oldWidth = imagesx($imageResource);
 		$oldHeight = imagesy($imageResource);

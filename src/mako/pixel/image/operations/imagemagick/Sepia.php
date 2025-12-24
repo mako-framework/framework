@@ -21,7 +21,7 @@ class Sepia implements OperationInterface
 	 * @param \Imagick &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		$imageResource->colorMatrixImage([
 			0.393 * 0.85, 0.769 * 0.85, 0.189 * 0.85, 0, 0,

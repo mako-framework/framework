@@ -40,7 +40,7 @@ class Saturation implements OperationInterface
 	 * @param \GdImage &$imageResource
 	 */
 	#[Override]
-	public function apply(object &$imageResource, string $imagePath): void
+	public function apply(object &$imageResource): void
 	{
 		if ($this->level === 0) {
 			return;
