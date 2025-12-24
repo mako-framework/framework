@@ -62,8 +62,8 @@ class Temperature implements OperationInterface
 			$blueMultiplier = 0.75 - $tempFactor;
 		}
 
-		for ($y = 0; $y < $height; $y++) {
-			for ($x = 0; $x < $width; $x++) {
+		for ($x = 0; $x < $width; $x++) {
+			for ($y = 0; $y < $height; $y++) {
 				$rgb = imagecolorat($imageResource, $x, $y);
 
 				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
