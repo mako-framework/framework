@@ -116,7 +116,7 @@ class Gd extends Image
 
 		ob_start();
 
-		switch ($type) {
+		switch (strtolower($type)) {
 			case 'gif':
 			case 'image/gif':
 				imagegif($this->imageResource);
