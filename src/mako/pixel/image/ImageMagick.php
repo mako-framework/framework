@@ -65,11 +65,11 @@ class ImageMagick extends Image
 	protected function getImageResourceAsBlob(?string $type, int $quality): string
 	{
 		if ($type !== null) {
-			$type = array_last(explode('/', $type));
+			$type = strtolower(array_last(explode('/', $type)));
 
 			$this->imageResource->setImageFormat($type);
 
-			if (strtolower($type) === 'gif') {
+			if ($type === 'gif') {
 				$this->imageResource->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
 			}
 		}
