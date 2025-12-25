@@ -27,7 +27,7 @@ class Border implements OperationInterface
 	 */
 	public function __construct(
 		protected Color $color = new Color(0, 0, 0),
-		protected int $thickness = 5
+		protected int $size = 5
 	) {
 	}
 
@@ -50,7 +50,7 @@ class Border implements OperationInterface
 			127 - (int) round($this->color->getAlpha() * 127 / 255)
 		);
 
-		for ($i = 0; $i < $this->thickness; $i++) {
+		for ($i = 0; $i < $this->size; $i++) {
 			$x = --$width;
 			$y = --$height;
 

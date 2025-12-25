@@ -20,7 +20,7 @@ class QualifierProperty
 	 * Constructor.
 	 */
 	public function __construct(
-		public protected(set) string $schema,
+		public protected(set) string $namespace,
 		public protected(set) int $options,
 		public protected(set) string $fullyQualifiedName,
 		public protected(set) string $value

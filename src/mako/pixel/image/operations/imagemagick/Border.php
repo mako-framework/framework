@@ -23,7 +23,7 @@ class Border implements OperationInterface
 	 */
 	public function __construct(
 		protected Color $color = new Color(0, 0, 0),
-		protected int $thickness = 5
+		protected int $size = 5
 	) {
 	}
 
@@ -38,7 +38,7 @@ class Border implements OperationInterface
 		$draw = new ImagickDraw;
 
 		$draw->setStrokeColor(new ImagickPixel($this->color->toRgbaString()));
-		$draw->setStrokeWidth($this->thickness);
+		$draw->setStrokeWidth($this->size);
 		$draw->setFillOpacity(0);
 		$draw->setStrokeAntialias(true);
 
@@ -46,10 +46,10 @@ class Border implements OperationInterface
 		$height = $imageResource->getImageHeight();
 
 		$draw->rectangle(
-			$this->thickness / 2,
-			$this->thickness / 2,
-			$width - $this->thickness / 2,
-			$height - $this->thickness / 2
+			$this->size / 2,
+			$this->size / 2,
+			$width - $this->size / 2,
+			$height - $this->size / 2
 		);
 
 		$imageResource->drawImage($draw);

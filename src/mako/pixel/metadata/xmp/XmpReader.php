@@ -195,21 +195,21 @@ class XmpReader implements Stringable
 	}
 
 	/**
-	 * Returns an array of arrays containing the "raw" XMP properties matching the provided schema and property name.
+	 * Returns an array of arrays containing the "raw" XMP properties matching the provided namespace and property name.
 	 *
-	 * @return array<array{'schema': string, 'options': int, 'name': string, 'value': string}>
+	 * @return array<array{'namespace': string, 'options': int, 'name': string, 'value': string}>
 	 */
-	protected function getRawProperties(?string $schema, ?string $propertyName): array
+	protected function getRawProperties(?string $namespace, ?string $propertyName): array
 	{
 		$properties = [];
 
-		$iterator = static::$ffi->xmp_iterator_new($this->xmp, $schema, $propertyName, 0);
+		$iterator = static::$ffi->xmp_iterator_new($this->xmp, $namespace, $propertyName, 0);
 
 		if ($iterator === null) {
 			return $properties;
 		}
 
-		$schemaString = static::$ffi->xmp_string_new();
+		$namespaceString = static::$ffi->xmp_string_new();
 		$nameString = static::$ffi->xmp_string_new();
 		$valueString = static::$ffi->xmp_string_new();
 
@@ -217,12 +217,12 @@ class XmpReader implements Stringable
 
 		while (static::$ffi->xmp_iterator_next(
 			$iterator,
-			$schemaString,
+			$namespaceString,
 			$nameString,
 			$valueString,
 			FFI::addr($options)
 		) === 1) {
-			$schema = static::$ffi->xmp_string_cstr($schemaString);
+			$namespace = static::$ffi->xmp_string_cstr($namespaceString);
 			$name = static::$ffi->xmp_string_cstr($nameString);
 			$value = static::$ffi->xmp_string_cstr($valueString);
 
@@ -231,14 +231,14 @@ class XmpReader implements Stringable
 			}
 
 			$properties[$name] = [
-				'schema' => $schema,
+				'namespace' => $namespace,
 				'options' => (int) $options->cdata,
 				'name' => $name,
 				'value' => $value,
 			];
 		}
 
-		static::$ffi->xmp_string_free($schemaString);
+		static::$ffi->xmp_string_free($namespaceString);
 		static::$ffi->xmp_string_free($nameString);
 		static::$ffi->xmp_string_free($valueString);
 
@@ -250,7 +250,7 @@ class XmpReader implements Stringable
 	/**
 	 * Returns an array where the "raw" XMP properties have been hydrated to DTO objects.
 	 *
-	 * @param  array<array{'schema': string, 'options': int, 'name': string, 'value': string}> $properties
+	 * @param  array<array{'namespace': string, 'options': int, 'name': string, 'value': string}> $properties
 	 * @return array<ArrayProperty|QualifierProperty|StructProperty|ValueProperty>
 	 */
 	protected function hydrate(array $properties): array
@@ -258,14 +258,14 @@ class XmpReader implements Stringable
 		foreach ($properties as &$property) {
 			if ($property['options'] & Type::ARRAY->value) {
 				$property = new ArrayProperty(
-					$property['schema'],
+					$property['namespace'],
 					$property['options'],
 					$property['name']
 				);
 			}
 			elseif ($property['options'] & Type::QUALIFIER->value) {
 				$property = new QualifierProperty(
-					$property['schema'],
+					$property['namespace'],
 					$property['options'],
 					$property['name'],
 					$property['value']
@@ -273,14 +273,14 @@ class XmpReader implements Stringable
 			}
 			elseif ($property['options'] & Type::STRUCT->value) {
 				$property = new StructProperty(
-					$property['schema'],
+					$property['namespace'],
 					$property['options'],
 					$property['name']
 				);
 			}
 			else {
 				$property = new ValueProperty(
-					$property['schema'],
+					$property['namespace'],
 					$property['options'],
 					$property['name'],
 					$property['value']
@@ -378,17 +378,17 @@ class XmpReader implements Stringable
 	}
 
 	/**
-	 * Returns an array contaning all properties matching the provided schema and property name.
+	 * Returns an array contaning all properties matching the provided namespace and property name.
 	 *
 	 * @return array<ArrayProperty|StructProperty|ValueProperty>
 	 */
-	public function getProperties(?string $schema = null, ?string $propertyName = null): array
+	public function getProperties(?string $namespace = null, ?string $propertyName = null): array
 	{
-		return $this->nest($this->hydrate($this->getRawProperties($schema, $propertyName)));
+		return $this->nest($this->hydrate($this->getRawProperties($namespace, $propertyName)));
 	}
 
 	/**
-	 * Returns the property matching the provided schema and property name.
+	 * Returns the property matching the provided namespace and property name.
 	 */
 	public function getProperty(string $namespace, string $propertyName): null|ArrayProperty|StructProperty|ValueProperty
 	{
