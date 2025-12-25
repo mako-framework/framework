@@ -72,8 +72,5 @@ class Watermark implements OperationInterface
 		}
 
 		$imageResource->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
-
-		$watermark->clear();
-		$watermark->destroy();
 	}
 }

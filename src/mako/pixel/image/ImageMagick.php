@@ -10,6 +10,7 @@ namespace mako\pixel\image;
 use Imagick;
 use ImagickPixel;
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\operations\OperationInterface;
 use Override;
 
 use function array_last;
@@ -31,12 +32,25 @@ use function usort;
 class ImageMagick extends Image
 {
 	/**
+	 * Are we working with an animated gif?
+	 */
+	protected bool $isAnimatedGif = false;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
 	protected function createImageResource(string $imagePath): object
 	{
-		return new Imagick($imagePath);
+		$imageResource = new Imagick($imagePath);
+
+		if (strtolower($imageResource->getImageFormat()) === 'gif' && $imageResource->getNumberImages() > 1) {
+			$this->isAnimatedGif = true;
+
+			$imageResource = $imageResource->coalesceImages();
+		}
+
+		return $imageResource;
 	}
 
 	/**
@@ -62,15 +76,40 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	public function apply(OperationInterface $operation): static
+	{
+		if (!$this->isAnimatedGif) {
+			return parent::apply($operation);
+		}
+
+		foreach ($this->imageResource as $frame) {
+			$operation->apply($frame);
+
+			$frame->setImagePage(0, 0, 0, 0);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function getImageResourceAsBlob(?string $type, int $quality): string
 	{
 		if ($type !== null) {
 			$type = strtolower(array_last(explode('/', $type)));
 
 			$this->imageResource->setImageFormat($type);
+		}
 
-			if ($type === 'gif') {
-				$this->imageResource->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+		if ($type === 'gif' || strtolower($this->imageResource->getImageFormat()) === 'gif') {
+			foreach ($this->imageResource as $frame) {
+				$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+			}
+
+			if ($this->isAnimatedGif) {
+				return $this->imageResource->getImagesBlob();
 			}
 		}
 
@@ -85,10 +124,20 @@ class ImageMagick extends Image
 	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
-		$extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+		$type = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
 
-		if (strtolower($extension) === 'gif') {
-			$this->imageResource->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+		$this->imageResource->setImageFormat($type);
+
+		if ($type === 'gif') {
+			foreach ($this->imageResource as $frame) {
+				$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+			}
+
+			if ($this->isAnimatedGif) {
+				$this->imageResource->writeImages($imagePath, true);
+
+				return;
+			}
 		}
 
 		$this->imageResource->setImageCompressionQuality($quality);
