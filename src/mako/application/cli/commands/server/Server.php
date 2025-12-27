@@ -109,8 +109,6 @@ class Server extends Command
 			$iniEntries = ' -d ' . implode(' -d ', array_map(escapeshellarg(...), $ini));
 		}
 
-		$this->write($iniEntries);
-
 		// Start the server
 
 		$starts = 0;
