@@ -88,14 +88,18 @@ class GeneratePreloader extends Command
 		$classes = $this->getClasses($ignoreCoreClasses);
 
 		if (count($classes) === 0) {
+			$this->nl();
 			$this->error('You must preload at least one class.');
+			$this->nl();
 
 			return static::STATUS_ERROR;
 		}
 
 		$this->fileSystem->put($path, (new PreloaderGenerator)->generatePreloader($classes));
 
+		$this->nl();
 		$this->write(sprintf('Preload file written to "<yellow>%s</yellow>".', $path));
+		$this->nl();
 
 		return static::STATUS_SUCCESS;
 	}

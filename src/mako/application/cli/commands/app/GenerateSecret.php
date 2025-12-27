@@ -31,7 +31,9 @@ class GenerateSecret extends Command
 		$configFile = "{$application->getPath()}/config/application.php";
 
 		if (!$fileSystem->isWritable($configFile)) {
+			$this->nl();
 			$this->error('Unable to generate a new secret. Make sure that the "<bold>app/config/application.php</bold>" file is writable.');
+			$this->nl();
 
 			return static::STATUS_ERROR;
 		}
@@ -44,6 +46,8 @@ class GenerateSecret extends Command
 
 		$fileSystem->put($configFile, $contents);
 
+		$this->nl();
 		$this->write('A new application secret has been generated.');
+		$this->nl();
 	}
 }

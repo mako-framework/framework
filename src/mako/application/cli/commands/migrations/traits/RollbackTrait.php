@@ -20,7 +20,9 @@ trait RollbackTrait
 		$migrations = $this->getMigrated($batches);
 
 		if ($migrations->isEmpty()) {
-			$this->write('<blue>There are no migrations to roll back.</blue>');
+			$this->nl();
+			$this->write('<green>There are no migrations to roll back.</green>');
+			$this->nl();
 
 			return;
 		}
@@ -29,8 +31,12 @@ trait RollbackTrait
 			$this->runMigration($migration, 'down');
 		}
 
+		$this->nl();
+
 		$this->write('Rolled back the following migrations:' . PHP_EOL);
 
 		$this->outputMigrationList($migrations->getItems());
+
+		$this->nl();
 	}
 }

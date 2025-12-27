@@ -274,9 +274,13 @@ class Reactor
 	 */
 	protected function displayReactorInfoAndCommandList(): int
 	{
+		$this->output->write(PHP_EOL);
+
 		$this->displayReactorInfo();
 
 		$this->listCommands();
+
+		$this->output->write(PHP_EOL);
 
 		return CommandInterface::STATUS_SUCCESS;
 	}
@@ -294,6 +298,8 @@ class Reactor
 	 */
 	protected function unknownCommand(string $command): int
 	{
+		$this->output->write(PHP_EOL);
+
 		$message = "Unknown command [ {$command} ].";
 
 		if (($suggestion = $this->suggest($command, array_keys($this->commands))) !== null) {
@@ -303,6 +309,8 @@ class Reactor
 		$this->output->writeLn("<red>{$message}</red>");
 
 		$this->listCommands();
+
+		$this->output->write(PHP_EOL);
 
 		return CommandInterface::STATUS_UNKNOWN_COMMAND;
 	}
@@ -315,6 +323,8 @@ class Reactor
 		$commandReflection = new ReflectionClass($this->commands[$command]);
 
 		$description = $this->getCommandDescription($commandReflection);
+
+		$this->output->write(PHP_EOL);
 
 		$this->output->writeLn('<yellow>Command:</yellow>');
 
@@ -341,6 +351,8 @@ class Reactor
 		}
 
 		$this->drawArgumentTable('Arguments and options:', $this->getCommandArguments($commandReflection));
+
+		$this->output->write(PHP_EOL);
 
 		return CommandInterface::STATUS_SUCCESS;
 	}
@@ -406,6 +418,8 @@ class Reactor
 			{
 				$argumentName = $this->argument->getName();
 				$argumentDescription = $this->argument->getDescription();
+
+				$this->output->write(PHP_EOL);
 
 				$prompt = "Please enter a value for the missing required argument [ <yellow>{$argumentName}</yellow> ]";
 
@@ -473,7 +487,9 @@ class Reactor
 				goto dispatch;
 			}
 
+			$this->output->write(PHP_EOL);
 			$this->output->errorLn("<red>{$e->getMessage()}</red>");
+			$this->output->write(PHP_EOL);
 
 			return CommandInterface::STATUS_INCORRECT_USAGE;
 		}

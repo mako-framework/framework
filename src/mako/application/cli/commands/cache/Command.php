@@ -48,7 +48,9 @@ abstract class Command extends BaseCommand
 				$message .= " Did you mean \"<bold>{$suggestion}</bold>\"?";
 			}
 
+			$this->nl();
 			$this->error($message);
+			$this->nl();
 
 			return false;
 		}

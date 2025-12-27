@@ -35,12 +35,18 @@ class Status extends Command
 		if (($count = count($migrations)) > 0) {
 			$message = $count === 1 ? 'There is <bold>%s</bold> outstanding migration:' : 'There are <bold>%s</bold> outstanding migrations:';
 
+			$this->nl();
+
 			$this->write(sprintf($message, "<green>{$count}</green>") . PHP_EOL);
 
 			$this->outputMigrationList($migrations);
+
+			$this->nl();
 		}
 		else {
+			$this->nl();
 			$this->write('<green>There are no outstanding migrations.</green>');
+			$this->nl();
 		}
 
 		return ($exitCode && $count > 0) ? static::STATUS_ERROR : static::STATUS_SUCCESS;

@@ -115,7 +115,11 @@ class DevelopmentHandler implements HandlerInterface
 			))
 		);
 
-		$this->output->errorLn($alert . PHP_EOL . $info . PHP_EOL . $trace . PHP_EOL);
+		$this->output->write(PHP_EOL);
+
+		$this->output->errorLn($alert . PHP_EOL . $info . PHP_EOL . $trace);
+
+		$this->output->write(PHP_EOL);
 
 		return false;
 	}

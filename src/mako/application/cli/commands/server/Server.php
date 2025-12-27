@@ -98,6 +98,7 @@ class Server extends Command
 		$message .= "<underlined>http://{$host}:{$availablePort}</underlined> ";
 		$message .= '<yellow>(ctrl+c to stop)</yellow> ...';
 
+		$this->nl();
 		$this->write($message);
 		$this->nl();
 

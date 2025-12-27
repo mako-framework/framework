@@ -29,7 +29,9 @@ class Up extends Command
 		$migrations = $this->getOutstanding();
 
 		if (empty($migrations)) {
+			$this->nl();
 			$this->write('<green>There are no outstanding migrations.</green>');
+			$this->nl();
 
 			return;
 		}
@@ -40,8 +42,12 @@ class Up extends Command
 			$this->runMigration($migration, 'up', $batch);
 		}
 
+		$this->nl();
+
 		$this->write('Ran the following migrations:' . PHP_EOL);
 
 		$this->outputMigrationList($migrations);
+
+		$this->nl();
 	}
 }
