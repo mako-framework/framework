@@ -78,7 +78,7 @@ class ReactorTest extends TestCase
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
-		$output->shouldReceive('write')->times(6)->with(PHP_EOL);
+		$output->shouldReceive('write')->times(8)->with(PHP_EOL);
 
 		$output->shouldReceive('writeLn')->once()->with('logo');
 
@@ -172,7 +172,7 @@ class ReactorTest extends TestCase
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
-		$output->shouldReceive('write')->times(6)->with(PHP_EOL);
+		$output->shouldReceive('write')->times(8)->with(PHP_EOL);
 
 		$output->shouldReceive('writeLn')->once()->with('logo');
 
@@ -262,6 +262,7 @@ class ReactorTest extends TestCase
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
+		$output->shouldReceive('write')->times(2)->with(PHP_EOL);
 		$output->shouldReceive('writeLn')->once()->with('<red>Unknown command [ foobar ].</red>');
 
 		//
@@ -306,7 +307,7 @@ class ReactorTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->times(3);
+		$output->shouldReceive('write')->times(5);
 
 		(function (): void {
 			$this->formatter = null;
@@ -363,7 +364,7 @@ class ReactorTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->times(3);
+		$output->shouldReceive('write')->times(5);
 
 		(function (): void {
 			$this->formatter = null;
@@ -424,6 +425,8 @@ class ReactorTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
+		$output->shouldReceive('write')->times(2)->with(PHP_EOL);
+
 		$output->shouldReceive('errorLn')->once()->with('<red>Invalid argument [ bar ].</red>');
 
 		//
@@ -475,6 +478,8 @@ class ReactorTest extends TestCase
 		//
 
 		$output = Mockery::mock(Output::class);
+
+		$output->shouldReceive('write')->times(2)->with(PHP_EOL);
 
 		$output->shouldReceive('errorLn')->once()->with('<red>Unexpected value.</red>');
 
@@ -580,7 +585,7 @@ class ReactorTest extends TestCase
 			$this->formatter = null;
 		})->bindTo($output, Output::class)();
 
-		$output->shouldReceive('write')->times(5)->with(PHP_EOL);
+		$output->shouldReceive('write')->times(7)->with(PHP_EOL);
 
 		$output->shouldReceive('writeLn')->once()->with('<yellow>Command:</yellow>');
 
