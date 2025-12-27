@@ -95,7 +95,7 @@ class GeneratePreloader extends Command
 
 		$this->fileSystem->put($path, (new PreloaderGenerator)->generatePreloader($classes));
 
-		$this->write(sprintf('Preload file written to <yellow>%s</yellow>.', $path));
+		$this->write(sprintf('Preload file written to "<yellow>%s</yellow>".', $path));
 
 		return static::STATUS_SUCCESS;
 	}

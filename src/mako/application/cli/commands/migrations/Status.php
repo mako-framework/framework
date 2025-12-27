@@ -33,9 +33,9 @@ class Status extends Command
 		$migrations = $this->getOutstanding();
 
 		if (($count = count($migrations)) > 0) {
-			$message = $count === 1 ? 'There is %s outstanding migration:' : 'There are %s outstanding migrations:';
+			$message = $count === 1 ? 'There is <bold>%s</bold> outstanding migration:' : 'There are <bold>%s</bold> outstanding migrations:';
 
-			$this->write(sprintf($message, "<yellow>{$count}</yellow>") . PHP_EOL);
+			$this->write(sprintf($message, "<green>{$count}</green>") . PHP_EOL);
 
 			$this->outputMigrationList($migrations);
 		}

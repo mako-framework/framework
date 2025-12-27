@@ -73,6 +73,6 @@ class Create extends Command
 			return static::STATUS_ERROR;
 		}
 
-		$this->write(sprintf('Migration created at [ %s ].', $path));
+		$this->write(sprintf('Migration created at "<yellow>%s</yellow>".', $path));
 	}
 }

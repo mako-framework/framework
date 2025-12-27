@@ -79,7 +79,7 @@ class Server extends Command
 		// Attempt to find an available port
 
 		if (($availablePort = $this->findAvailablePort($port)) === null) {
-			$this->error(sprintf('Unable to start server. Ports %s to %s are already in use.', $port, $port + static::MAX_PORTS_TO_TRY));
+			$this->error(sprintf('Unable to start server. Ports <bold>%s</bold> to <bold>%s</bold> are already in use.', $port, $port + static::MAX_PORTS_TO_TRY));
 
 			return static::STATUS_ERROR;
 		}

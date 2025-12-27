@@ -36,6 +36,6 @@ class Remove extends Command
 
 		$cache->getInstance($configuration)->remove($key);
 
-		$this->write("Removed the [ <yellow>{$key}</yellow> ] key from the [ <yellow>" . ($configuration ?? 'default') . '</yellow> ] cache.');
+		$this->write("Removed the \"<yellow>{$key}</yellow>\" key from the \"<yellow>" . ($configuration ?? 'default') . '</yellow>" cache.');
 	}
 }

@@ -42,10 +42,10 @@ abstract class Command extends BaseCommand
 		$configurations = array_keys($this->config->get('cache.configurations'));
 
 		if (!in_array($configuration, $configurations)) {
-			$message = "The [ {$configuration} ] configuration does not exist.";
+			$message = "The \"<bold>{$configuration}</bold>\" configuration does not exist.";
 
 			if (($suggestion = $this->suggest($configuration, $configurations)) !== null) {
-				$message .= " Did you mean [ {$suggestion} ]?";
+				$message .= " Did you mean \"<bold>{$suggestion}</bold>\"?";
 			}
 
 			$this->error($message);

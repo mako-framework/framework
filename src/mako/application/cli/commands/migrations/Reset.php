@@ -30,7 +30,7 @@ class Reset extends Command
 	 */
 	public function execute(bool $force = false): void
 	{
-		if ($force || $this->confirm('<yellow>Are you sure you want to reset your database?</yellow>')) {
+		if ($force || $this->confirm('Are you sure you want to reset your database?')) {
 			$this->nl();
 
 			$this->rollback();

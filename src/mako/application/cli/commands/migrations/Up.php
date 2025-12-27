@@ -29,7 +29,7 @@ class Up extends Command
 		$migrations = $this->getOutstanding();
 
 		if (empty($migrations)) {
-			$this->write('<blue>There are no outstanding migrations.</blue>');
+			$this->write('<green>There are no outstanding migrations.</green>');
 
 			return;
 		}

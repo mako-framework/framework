@@ -154,7 +154,7 @@ class ListRoutes extends Command
 		if ($filter !== null) {
 			$routes = $matched === 1 ? 'route' : 'routes';
 
-			$this->write("<green>{$matched}</green> {$routes} matched the '<yellow>{$filter}</yellow>' filter.");
+			$this->write("<green><bold>{$matched}</bold></green> {$routes} matched the \"<yellow>{$filter}</yellow>\" filter.");
 
 			$this->nl();
 		}
