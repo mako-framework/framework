@@ -39,7 +39,7 @@ class Formatter implements FormatterInterface
 	/**
 	 * Regex that mathes ANSI SGR sequences.
 	 */
-	protected const string ANSI_SGR_SEQUENCE_REGEX = "/\033\[([0-9]{1,2};?)+m/";
+	protected const string ANSI_SGR_SEQUENCE_REGEX = "/\x1b\[([0-9]{1,2};?)+m/";
 
 	/**
 	 * Styles.
@@ -120,7 +120,7 @@ class Formatter implements FormatterInterface
 	 */
 	protected function getSgrResetSequence(): string
 	{
-		return "\033[0m";
+		return "\x1b[0m";
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Formatter implements FormatterInterface
 	{
 		$styles = implode(';', $this->getStyleCodes($tag));
 
-		return sprintf("\033[%sm", $styles);
+		return sprintf("\x1b[%sm", $styles);
 	}
 
 	/**

@@ -43,7 +43,7 @@ class Notification
 		}
 
 		$this->output->write(sprintf(
-			"\033]777;notify;%s;%s\x07",
+			"\x1b]777;notify;%s;%s\x07",
 			$this->normalizeString($title),
 			$this->normalizeString($body)
 		));

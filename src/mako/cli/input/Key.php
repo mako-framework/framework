@@ -12,10 +12,10 @@ namespace mako\cli\input;
  */
 enum Key: string
 {
-	case UP = "\033[A";
-	case DOWN = "\033[B";
-	case LEFT = "\033[D";
-	case RIGHT = "\033[C";
+	case UP = "\x1b[A";
+	case DOWN = "\x1b[B";
+	case LEFT = "\x1b[D";
+	case RIGHT = "\x1b[C";
 	case ENTER = "\n";
 	case SPACE = ' ';
 	case TAB = "\t";
@@ -24,10 +24,10 @@ enum Key: string
 	case CTRL_C = "\x03";
 	case CTRL_D = "\x04";
 	case BACKSPACE = "\x7F";
-	case DELETE = "\033[3~";
-	case HOME = "\033[H";
-	case END = "\033[F";
-	case PAGE_UP = "\033[5~";
-	case PAGE_DOWN = "\033[6~";
-	case ESCAPE = "\033";
+	case DELETE = "\x1b[3~";
+	case HOME = "\x1b[H";
+	case END = "\x1b[F";
+	case PAGE_UP = "\x1b[5~";
+	case PAGE_DOWN = "\x1b[6~";
+	case ESCAPE = "\x1b";
 }

@@ -33,7 +33,7 @@ trait StringHelperTrait
 
 		// Strip ANSI codes and OSC sequences
 
-		$string =  preg_replace('/\033\[[0-?9;]*[mK]|(\033\]8;.*?\033\\\)/', '', $string);
+		$string =  preg_replace('/\x1b\[[0-?9;]*[mK]|(\x1b\]8;.*?\x1b\\\)/', '', $string);
 
 		// Return the width of the string
 

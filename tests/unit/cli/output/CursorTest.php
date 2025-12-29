@@ -27,8 +27,8 @@ class CursorTest extends TestCase
 
 		$cursor = new Cursor($writer, $reader);
 
-		$writer->shouldReceive('write')->once()->with("\033[1A");
-		$writer->shouldReceive('write')->once()->with("\033[2A");
+		$writer->shouldReceive('write')->once()->with("\x1b[1A");
+		$writer->shouldReceive('write')->once()->with("\x1b[2A");
 
 		$cursor->up();
 		$cursor->up(2);
@@ -44,8 +44,8 @@ class CursorTest extends TestCase
 
 		$cursor = new Cursor($writer, $reader);
 
-		$writer->shouldReceive('write')->once()->with("\033[1B");
-		$writer->shouldReceive('write')->once()->with("\033[2B");
+		$writer->shouldReceive('write')->once()->with("\x1b[1B");
+		$writer->shouldReceive('write')->once()->with("\x1b[2B");
 
 		$cursor->down();
 		$cursor->down(2);
@@ -61,8 +61,8 @@ class CursorTest extends TestCase
 
 		$cursor = new Cursor($writer, $reader);
 
-		$writer->shouldReceive('write')->once()->with("\033[1D");
-		$writer->shouldReceive('write')->once()->with("\033[2D");
+		$writer->shouldReceive('write')->once()->with("\x1b[1D");
+		$writer->shouldReceive('write')->once()->with("\x1b[2D");
 
 		$cursor->left();
 		$cursor->left(2);
@@ -78,8 +78,8 @@ class CursorTest extends TestCase
 
 		$cursor = new Cursor($writer, $reader);
 
-		$writer->shouldReceive('write')->once()->with("\033[1C");
-		$writer->shouldReceive('write')->once()->with("\033[2C");
+		$writer->shouldReceive('write')->once()->with("\x1b[1C");
+		$writer->shouldReceive('write')->once()->with("\x1b[2C");
 
 		$cursor->right();
 		$cursor->right(2);
@@ -95,7 +95,7 @@ class CursorTest extends TestCase
 
 		$cursor = new Cursor($writer, $reader);
 
-		$writer->shouldReceive('write')->once()->with("\033[6;9H");
+		$writer->shouldReceive('write')->once()->with("\x1b[6;9H");
 
 		$cursor->moveTo(6, 9);
 	}
@@ -110,7 +110,7 @@ class CursorTest extends TestCase
 
 		$cursor = new Cursor($writer, $reader);
 
-		$writer->shouldReceive('write')->times(2)->with("\033[1A");
+		$writer->shouldReceive('write')->times(2)->with("\x1b[1A");
 		$writer->shouldReceive('write')->times(3)->with("\r\33[2K");
 
 		$cursor->clearLines(3);

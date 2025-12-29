@@ -28,7 +28,7 @@ class NotificationTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with("\033]777;notify;Title:foobar;Body:foobar\x07");
+		$output->shouldReceive('write')->once()->with("\x1b]777;notify;Title:foobar;Body:foobar\x07");
 
 		(function () use ($env): void {
 			$this->formatter = null;

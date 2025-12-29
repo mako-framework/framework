@@ -47,9 +47,9 @@ class HyperlinkTest extends TestCase
 
 		$link2 = $hyperlink->render($url, 'Example');
 
-		$this->assertSame("\033]8;id={$hash};{$url}\033\\{$url}\033]8;;\033\\", $link1);
+		$this->assertSame("\x1b]8;id={$hash};{$url}\x1b\\{$url}\x1b]8;;\x1b\\", $link1);
 
-		$this->assertSame("\033]8;id={$hash};{$url}\033\\Example\033]8;;\033\\", $link2);
+		$this->assertSame("\x1b]8;id={$hash};{$url}\x1b\\Example\x1b]8;;\x1b\\", $link2);
 	}
 
 	/**
@@ -87,9 +87,9 @@ class HyperlinkTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\{$url}\033]8;;\033\\", 1);
+		$output->shouldReceive('write')->once()->with("\x1b]8;id={$hash};{$url}\x1b\\{$url}\x1b]8;;\x1b\\", 1);
 
-		$output->shouldReceive('write')->once()->with("\033]8;id={$hash};{$url}\033\\Example\033]8;;\033\\", 1);
+		$output->shouldReceive('write')->once()->with("\x1b]8;id={$hash};{$url}\x1b\\Example\x1b]8;;\x1b\\", 1);
 
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 

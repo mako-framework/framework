@@ -55,7 +55,7 @@ class Cursor
 	 */
 	public function hide(): void
 	{
-		$this->writer->write("\033[?25l");
+		$this->writer->write("\x1b[?25l");
 
 		$this->hidden = true;
 	}
@@ -65,7 +65,7 @@ class Cursor
 	 */
 	public function show(): void
 	{
-		$this->writer->write("\033[?25h");
+		$this->writer->write("\x1b[?25h");
 
 		$this->hidden = false;
 	}
@@ -85,7 +85,7 @@ class Cursor
 	 */
 	public function up(int $lines = 1): void
 	{
-		$this->writer->write("\033[{$lines}A");
+		$this->writer->write("\x1b[{$lines}A");
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Cursor
 	 */
 	public function down(int $lines = 1): void
 	{
-		$this->writer->write("\033[{$lines}B");
+		$this->writer->write("\x1b[{$lines}B");
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Cursor
 	 */
 	public function left(int $columns = 1): void
 	{
-		$this->writer->write("\033[{$columns}D");
+		$this->writer->write("\x1b[{$columns}D");
 	}
 
 	/**
@@ -109,7 +109,7 @@ class Cursor
 	 */
 	public function right(int $columns = 1): void
 	{
-		$this->writer->write("\033[{$columns}C");
+		$this->writer->write("\x1b[{$columns}C");
 	}
 
 	/**
@@ -117,7 +117,7 @@ class Cursor
 	 */
 	public function moveTo(int $row, int $column): void
 	{
-		$this->writer->write("\033[{$row};{$column}H");
+		$this->writer->write("\x1b[{$row};{$column}H");
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Cursor
 		$response = $this->sttySandbox(function (): string {
 			$this->setSttySettings('-echo -icanon');
 
-			$this->writer->write("\033[6n");
+			$this->writer->write("\x1b[6n");
 
 			$response = '';
 
@@ -161,7 +161,7 @@ class Cursor
 			}
 		});
 
-		sscanf($response, "\033[%d;%dR", $row, $column);
+		sscanf($response, "\x1b[%d;%dR", $row, $column);
 
 		return ['row' => $row, 'column' => $column];
 	}
@@ -201,7 +201,7 @@ class Cursor
 	 */
 	public function clearScreen(): void
 	{
-		$this->writer->write("\033[H\033[2J");
+		$this->writer->write("\x1b[H\x1b[2J");
 	}
 
 	/**
@@ -209,6 +209,6 @@ class Cursor
 	 */
 	public function clearScreenFromCursor(): void
 	{
-		$this->writer->write("\033[J");
+		$this->writer->write("\x1b[J");
 	}
 }

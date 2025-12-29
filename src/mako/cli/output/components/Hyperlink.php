@@ -48,7 +48,7 @@ class Hyperlink
 	public function render(string $url, ?string $text = null): string
 	{
 		if ($this->hasHyperlinkSupport()) {
-			return sprintf("\033]8;id=%s;%s\033\\%s\033]8;;\033\\", hash('xxh128', $url), $url, $text ?? $url);
+			return sprintf("\x1b]8;id=%s;%s\x1b\\%s\x1b]8;;\x1b\\", hash('xxh128', $url), $url, $text ?? $url);
 		}
 
 		return $text ? "{$text} ({$url})" : $url;
