@@ -38,6 +38,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `min_count`
 * Added support for "partitioned" cookies aka "CHIPS".
 * New and improved image processing library (`pixel`) that replaces the the old `pixl` library.
+* Added CLI `Notification` output component for sending desktop notifications.
 
 #### Changes
 
