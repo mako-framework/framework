@@ -55,6 +55,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * The default date output format for the ORM has been changed to ISO-8601.
 * Renamed the `mako\cli\input\helpers` namespace to `mako\cli\input\components`.
 * Removed the old `pixl` image processing library.
+* Changed how "literal" CLI output formatting tags are defined (\\\<tag> → \<literal:tag>).
 
 #### Deprecations
 

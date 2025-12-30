@@ -22,9 +22,9 @@ class FormatterTest extends TestCase
 	{
 		$formatter = new Formatter;
 
-		$this->assertSame("\x1b[34mfoo\x1b[0m", $formatter->format('<blue>foo</blue>'));
+		$this->assertSame("\033[34mfoo\033[0m", $formatter->format('<blue>foo</blue>'));
 
-		$this->assertSame("\x1b[34mfoo \x1b[32mbar\x1b[0m\x1b[34m baz\x1b[0m", $formatter->format('<blue>foo <green>bar</green> baz</blue>'));
+		$this->assertSame("\033[34mfoo \033[32mbar\033[0m\033[34m baz\033[0m", $formatter->format('<blue>foo <green>bar</green> baz</blue>'));
 	}
 
 	/**
@@ -34,7 +34,7 @@ class FormatterTest extends TestCase
 	{
 		$formatter = new Formatter;
 
-		$this->assertSame('<blue>foo</blue>', $formatter->format('\<blue>foo\</blue>'));
+		$this->assertSame('<blue>foo</blue>', $formatter->format('<literal:blue>foo<literal:/blue>'));
 	}
 
 	/**
@@ -46,7 +46,7 @@ class FormatterTest extends TestCase
 
 		$formatter->addStyle('my_style', ['black', 'bg_green']);
 
-		$this->assertSame("\x1b[30;42mfoo\x1b[0m", $formatter->format('<my_style>foo</my_style>'));
+		$this->assertSame("\033[30;42mfoo\033[0m", $formatter->format('<my_style>foo</my_style>'));
 	}
 
 	/**
@@ -56,7 +56,7 @@ class FormatterTest extends TestCase
 	{
 		$formatter = new Formatter;
 
-		$this->assertSame('\<blue>foo\</blue>', $formatter->escape('<blue>foo</blue>'));
+		$this->assertSame('<literal:blue>foo<literal:/blue>', $formatter->escape('<blue>foo</blue>'));
 	}
 
 	/**
@@ -68,7 +68,9 @@ class FormatterTest extends TestCase
 
 		$this->assertSame('foo', $formatter->stripTags('<blue>foo</blue>'));
 
-		$this->assertSame('\<blue>foo\</blue>', $formatter->stripTags('\<blue>foo\</blue>'));
+		$this->assertSame('\foo\\', $formatter->stripTags('\<blue>foo\</blue>'));
+
+		$this->assertSame('<literal:blue>foo<literal:/blue>', $formatter->stripTags('<literal:blue>foo<literal:/blue>'));
 	}
 
 	/**

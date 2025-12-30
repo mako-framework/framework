@@ -29,12 +29,12 @@ class Formatter implements FormatterInterface
 	/**
 	 * Regex that matches non-escaped tags.
 	 */
-	protected const string TAG_REGEX = '/(?<!\\\\)<\/?[a-z_]+\>/i';
+	protected const string TAG_REGEX = '/<(\/?[a-z_]+)\>/i';
 
 	/**
-	 * Regex that matches escaped tags.
+	 * Regex that matches literal tags.
 	 */
-	protected const string ESCAPED_TAG_REGEX = '/\\\\<(\/?[a-z_]+)\>/i';
+	protected const string LITERAL_TAG_REGEX = '/<literal:(\/?[a-z_]+)\>/i';
 
 	/**
 	 * Regex that mathes ANSI SGR sequences.
@@ -197,11 +197,11 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * Strips escape character from escaped tags.
+	 * Transforms literal tags to their output format.
 	 */
-	protected function removeTagEscapeCharacter(string $string): string
+	protected function transformLiteralTags(string $string): string
 	{
-		return preg_replace(static::ESCAPED_TAG_REGEX, '<$1>', $string);
+		return preg_replace(static::LITERAL_TAG_REGEX, '<$1>', $string);
 	}
 
 	/**
@@ -243,7 +243,7 @@ class Formatter implements FormatterInterface
 
 		$formatted .= substr($string, $offset);
 
-		return $this->removeTagEscapeCharacter($formatted);
+		return $this->transformLiteralTags($formatted);
 	}
 
 	/**
@@ -252,7 +252,7 @@ class Formatter implements FormatterInterface
 	#[Override]
 	public function escape(string $string): string
 	{
-		return preg_replace(static::TAG_REGEX, '\\\$0', $string);
+		return preg_replace(static::TAG_REGEX, '<literal:$1>', $string);
 	}
 
 	/**
