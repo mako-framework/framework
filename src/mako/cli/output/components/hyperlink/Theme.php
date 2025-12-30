@@ -15,9 +15,9 @@ use function sprintf;
 class Theme
 {
 	/**
-	 * Arrow.
+	 * Format.
 	 */
-	protected const string ARROW = '↗';
+	protected const string FORMAT = '%s [↗]';
 
 	/**
 	 * Constructor.
@@ -32,6 +32,6 @@ class Theme
 	 */
 	public function getFormat(): string
 	{
-		return sprintf($this->template, '%s [' . static::ARROW . ']');
+		return sprintf($this->template, static::FORMAT);
 	}
 }

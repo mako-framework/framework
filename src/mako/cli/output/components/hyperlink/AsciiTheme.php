@@ -13,7 +13,7 @@ namespace mako\cli\output\components\hyperlink;
 class AsciiTheme extends Theme
 {
 	/**
-	 * Arrow.
+	 * Format.
 	 */
-	protected const string ARROW = '^';
+	protected const string FORMAT = '%s [^]';
 }
