@@ -10,6 +10,8 @@ namespace mako\application\cli\commands\server;
 use mako\application\Application;
 use mako\cli\input\arguments\Argument;
 use mako\cli\input\arguments\NamedArgument;
+use mako\cli\output\components\Hyperlink;
+use mako\cli\output\components\hyperlink\Theme;
 use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
@@ -95,8 +97,8 @@ class Server extends Command
 		// Tell the user where the server will be running
 
 		$message  = 'Starting <green>Mako</green> development server at ';
-		$message .= "<underlined>http://{$host}:{$availablePort}</underlined> ";
-		$message .= '<yellow>(ctrl+c to stop)</yellow> ...';
+		$message .= (new Hyperlink($this->output, new Theme('<underlined>%s</underlined>')))->render("http://{$host}:{$availablePort}");
+		$message .= ' <yellow>(ctrl+c to stop)</yellow> ...';
 
 		$this->nl();
 		$this->write($message);

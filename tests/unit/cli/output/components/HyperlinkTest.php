@@ -8,6 +8,7 @@
 namespace mako\tests\unit\cli\output\components;
 
 use mako\cli\output\components\Hyperlink;
+use mako\cli\output\components\hyperlink\Theme;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
 use Mockery;
@@ -35,7 +36,7 @@ class HyperlinkTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
+		$hyperlink = Mockery::mock(Hyperlink::class, [$output, new Theme]);
 
 		$hyperlink->makePartial();
 
@@ -47,9 +48,9 @@ class HyperlinkTest extends TestCase
 
 		$link2 = $hyperlink->render($url, 'Example');
 
-		$this->assertSame("\x1b]8;id={$hash};{$url}\x1b\\{$url}\x1b]8;;\x1b\\", $link1);
+		$this->assertSame("\x1b]8;id={$hash};{$url}\x1b\\{$url} [↗]\x1b]8;;\x1b\\", $link1);
 
-		$this->assertSame("\x1b]8;id={$hash};{$url}\x1b\\Example\x1b]8;;\x1b\\", $link2);
+		$this->assertSame("\x1b]8;id={$hash};{$url}\x1b\\Example [↗]\x1b]8;;\x1b\\", $link2);
 	}
 
 	/**
@@ -87,9 +88,9 @@ class HyperlinkTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with("\x1b]8;id={$hash};{$url}\x1b\\{$url}\x1b]8;;\x1b\\", 1);
+		$output->shouldReceive('write')->once()->with("\x1b]8;id={$hash};{$url}\x1b\\{$url} [↗]\x1b]8;;\x1b\\", Output::STANDARD);
 
-		$output->shouldReceive('write')->once()->with("\x1b]8;id={$hash};{$url}\x1b\\Example\x1b]8;;\x1b\\", 1);
+		$output->shouldReceive('write')->once()->with("\x1b]8;id={$hash};{$url}\x1b\\Example [↗]\x1b]8;;\x1b\\", Output::STANDARD);
 
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 
@@ -113,9 +114,9 @@ class HyperlinkTest extends TestCase
 
 		$output = Mockery::mock(Output::class);
 
-		$output->shouldReceive('write')->once()->with($url, 1);
+		$output->shouldReceive('write')->once()->with($url, Output::STANDARD);
 
-		$output->shouldReceive('write')->once()->with("Example ({$url})", 1);
+		$output->shouldReceive('write')->once()->with("Example ({$url})", Output::STANDARD);
 
 		$hyperlink = Mockery::mock(Hyperlink::class, [$output]);
 

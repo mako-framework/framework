@@ -7,6 +7,7 @@
 
 namespace mako\cli\output\components;
 
+use mako\cli\output\components\hyperlink\Theme;
 use mako\cli\output\Output;
 
 use function hash;
@@ -30,7 +31,8 @@ class Hyperlink
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Output $output
+		protected Output $output,
+		protected Theme $theme = new Theme
 	) {
 	}
 
@@ -48,7 +50,12 @@ class Hyperlink
 	public function render(string $url, ?string $text = null): string
 	{
 		if ($this->hasHyperlinkSupport()) {
-			return sprintf("\x1b]8;id=%s;%s\x1b\\%s\x1b]8;;\x1b\\", hash('xxh128', $url), $url, $text ?? $url);
+			return sprintf(
+				"\x1b]8;id=%s;%s\x1b\\%s\x1b]8;;\x1b\\",
+				hash('xxh128', $url),
+				$url,
+				sprintf($this->theme->getFormat(), $text ?? $url)
+			);
 		}
 
 		return $text ? "{$text} ({$url})" : $url;
