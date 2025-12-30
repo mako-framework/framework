@@ -12,7 +12,10 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- The development handlers may provide hints and suggestions to help resolve certain types of errors.
 * Made improvements to the production error handlers:
 	- The 429 (too many requests) view will now tell the user when they can retry if a "retryAfter" date is provided.
+* Added support for "partitioned" cookies aka "CHIPS".
+* New and vastly improved image processing library (`pixel`) that replaces the the old `pixl` library.
 * Added CLI frame output component.
+* Added CLI notification output component for sending desktop notifications.
 * Added a `SimpleCache` (`PSR-16`) implementation to the framework core.
 * Added the following methods introduced in Redis 8.0.0:
 	- `Redis::hGetDel()`
@@ -36,9 +39,6 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `exact_count`
 	- `max_count`
 	- `min_count`
-* Added support for "partitioned" cookies aka "CHIPS".
-* New and improved image processing library (`pixel`) that replaces the the old `pixl` library.
-* Added CLI `Notification` output component for sending desktop notifications.
 
 #### Changes
 
@@ -52,9 +52,9 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `CommandInterface::getCommand()`
 	- `CommandInterface::getDescription()`
 	- `CommandInterface::getArguments()`
-* The default date output format for the ORM has been changed to ISO-8601.
+* The default date output format for the ORM has been changed to `ISO-8601`.
 * Renamed the `mako\cli\input\helpers` namespace to `mako\cli\input\components`.
-* Removed the old `pixl` image processing library.
+* Removed the old `pixl` image processing library (replaced by the new `pixel` library).
 * Changed how "literal" CLI output formatting tags are defined (\\\<tag> → \<literal:tag>).
 
 #### Deprecations
