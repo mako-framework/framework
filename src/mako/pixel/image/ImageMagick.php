@@ -17,7 +17,6 @@ use function array_last;
 use function count;
 use function explode;
 use function pathinfo;
-use function round;
 use function strtolower;
 use function usort;
 
@@ -213,20 +212,13 @@ class ImageMagick extends Image
 				break;
 			}
 
-			$rgba = $pixel->getColor(true);
+			$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
 
-			$alpha = $rgba['a'] ?? 1.0;
-
-			if ($ignoreTransparent && $alpha < 0.1) {
+			if ($rgba['a'] === 0) {
 				continue;
 			}
 
-			$colors[] = new Color(
-				(int) round($rgba['r'] * 255),
-				(int) round($rgba['g'] * 255),
-				(int) round($rgba['b'] * 255),
-				(int) round($alpha * 255)
-			);
+			$colors[] = new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
 		}
 
 		$image->clear();
