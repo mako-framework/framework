@@ -39,6 +39,8 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 	- `exact_count`
 	- `max_count`
 	- `min_count`
+* Added `InjectCache` attribute.
+* Added `InjectSimpleCache`attribute.
 
 #### Changes
 
