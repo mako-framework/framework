@@ -7,14 +7,17 @@
 
 namespace mako\tests\unit;
 
+use mako\env\Type;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 use function mako\env;
 use function mako\f;
 use function mako\syringe\intersection;
 
 #[Group('unit')]
+#[RunTestsInSeparateProcesses]
 class FunctionsTest extends TestCase
 {
 	/**
@@ -73,14 +76,72 @@ class FunctionsTest extends TestCase
 		$_ENV['MAKO_TRUE'] = 'true';
 		$_ENV['MAKO_FALSE'] = 'false';
 
-		$this->assertTrue(env('MAKO_TRUE', isBool: true));
-		$this->assertFalse(env('MAKO_FALSE', isBool: true));
+		$this->assertTrue(env('MAKO_TRUE', as: Type::BOOL));
+		$this->assertFalse(env('MAKO_FALSE', as: Type::BOOL));
 
 		$_ENV['MAKO_TRUE'] = '1';
 		$_ENV['MAKO_FALSE'] = '0';
 
-		$this->assertTrue(env('MAKO_TRUE', isBool: true));
-		$this->assertFalse(env('MAKO_FALSE', isBool: true));
+		$this->assertTrue(env('MAKO_TRUE', as: Type::BOOL));
+		$this->assertFalse(env('MAKO_FALSE', as: Type::BOOL));
+	}
+
+	/**
+	 *
+	 */
+	public function testEnvWithIntValues(): void
+	{
+		$_ENV['MAKO_VALID'] = '1234';
+		$_ENV['MAKO_INVALID'] = 'foobar';
+
+		$this->assertSame(1234, env('MAKO_VALID', as: Type::INT));
+		$this->assertNull(env('MAKO_INVALID', as: Type::INT));
+	}
+
+	/**
+	 *
+	 */
+	public function testEnvWithFloatValues(): void
+	{
+		$_ENV['MAKO_VALID'] = '1.2';
+		$_ENV['MAKO_INVALID'] = 'foobar';
+
+		$this->assertSame(1.2, env('MAKO_VALID', as: Type::FLOAT));
+		$this->assertNull(env('MAKO_INVALID', as: Type::FLOAT));
+	}
+
+	/**
+	 *
+	 */
+	public function testEnvWithJsonObjectValues(): void
+	{
+		$_ENV['MAKO_JSON'] = '{"foo": "bar"}';
+
+		$value = env('MAKO_JSON', as: Type::JSON_AS_OBJECT);
+
+		$this->assertIsObject($value);
+		$this->assertSame('bar', $value->foo);
+
+		$value = env('MAKO_NO_JSON', as: Type::JSON_AS_OBJECT);
+
+		$this->assertNull($value);
+	}
+
+	/**
+	 *
+	 */
+	public function testEnvWithJsonArrayValues(): void
+	{
+		$_ENV['MAKO_JSON'] = '{"foo": "bar"}';
+
+		$value = env('MAKO_JSON', as: Type::JSON_AS_ARRAY);
+
+		$this->assertIsArray($value);
+		$this->assertSame('bar', $value['foo']);
+
+		$value = env('MAKO_NO_JSON', as: Type::JSON_AS_ARRAY);
+
+		$this->assertNull($value);
 	}
 
 	/**

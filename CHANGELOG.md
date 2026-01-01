@@ -42,6 +42,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * Added `InjectCache` attribute.
 * Added `InjectSimpleCache`attribute.
 * Added `InjectCrypto`attribute.
+* The `mako\env` function can now cast env variable values to boolean, int, float, object and array types.
 
 #### Changes
 
@@ -59,6 +60,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * Renamed the `mako\cli\input\helpers` namespace to `mako\cli\input\components`.
 * Removed the old `pixl` image processing library (replaced by the new `pixel` library).
 * Changed how "literal" CLI output formatting tags are defined (\\\<tag> → \<literal:tag>).
+* Changed the function signature of the `mako\env` function.
 
 #### Deprecations
 

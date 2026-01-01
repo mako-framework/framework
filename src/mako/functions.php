@@ -6,8 +6,12 @@
  */
 
 namespace mako {
+
+    use mako\env\Type;
+
 	use function filter_var;
 	use function getenv;
+	use function json_decode;
 	use function json_encode;
 	use function substr;
 
@@ -26,15 +30,18 @@ namespace mako {
 	/**
 	 * Returns the value of the chosen environment variable or NULL if it does not exist.
 	 */
-	function env(string $variableName, mixed $default = null, bool $isBool = false, bool $localOnly = false): mixed
+	function env(string $variableName, mixed $default = null, bool $localOnly = false, ?Type $as = null): mixed
 	{
 		$value = $_ENV[$variableName] ?? (getenv($variableName, $localOnly) ?: null);
 
-		if ($isBool && $value !== true && $value !== false && $value !== null) {
-			$value = filter_var($value, FILTER_VALIDATE_BOOL);
-		}
-
-		return $value ?? $default;
+		return match ($as) {
+			null => $value,
+			Type::BOOL => filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE),
+			Type::INT => filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
+			Type::FLOAT => filter_var($value, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE),
+			Type::JSON_AS_OBJECT => json_decode($value ?? 'null'),
+			Type::JSON_AS_ARRAY => json_decode($value ?? 'null', flags: JSON_OBJECT_AS_ARRAY),
+		} ?? $default;
 	}
 }
 
