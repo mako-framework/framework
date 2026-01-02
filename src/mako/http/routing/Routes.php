@@ -96,12 +96,12 @@ class Routes
 	protected function registerGroupOption(Route $route, string $option, mixed $value): void
 	{
 		if ($option === 'middleware' || $option === 'constraint') {
-			foreach ((array) $value as $parameters) {
-				if (is_string($parameters)) {
-					$route->{$option}($parameters);
+			foreach ((array) $value as $_key => $_value) {
+				if (is_string($_key)) {
+					$route->{$option}($_key, ...$_value);
 				}
 				else {
-					$route->{$option}($parameters[0], ...$parameters[1]);
+					$route->{$option}($_value);
 				}
 			}
 

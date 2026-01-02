@@ -61,6 +61,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * Removed the old `pixl` image processing library (replaced by the new `pixel` library).
 * Changed how "literal" CLI output formatting tags are defined (\\\<tag> → \<literal:tag>).
 * Changed the function signature of the `mako\env` function.
+* Simplified syntax for registering middleware and constraint parameters in route groups.
 
 #### Deprecations
 

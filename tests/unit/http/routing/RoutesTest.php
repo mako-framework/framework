@@ -139,4 +139,80 @@ class RoutesTest extends TestCase
 
 		$this->assertEquals('/baz/bax/bar', $routes[1]->getRoute());
 	}
+
+	/**
+	 *
+	 */
+	public function testGroupMiddlewareWithParameters(): void
+	{
+		$routes = new Routes;
+
+		$routes->group(['middleware' => ['foo' => ['bar' => 123]]], function ($routes): void {
+			$routes->get('/foo', fn () => 'Hello, world!');
+		});
+
+		$routes = $routes->getRoutes();
+
+		$this->assertCount(1, $routes[0]->getMiddleware());
+
+		$this->assertSame('foo', $routes[0]->getMiddleware()[0]['middleware']);
+		$this->assertSame(['bar' => 123], $routes[0]->getMiddleware()[0]['parameters']);
+	}
+
+	/**
+	 *
+	 */
+	public function testGroupMiddlewareWithoutParameters(): void
+	{
+		$routes = new Routes;
+
+		$routes->group(['middleware' => ['foo']], function ($routes): void {
+			$routes->get('/foo', fn () => 'Hello, world!');
+		});
+
+		$routes = $routes->getRoutes();
+
+		$this->assertCount(1, $routes[0]->getMiddleware());
+
+		$this->assertSame('foo', $routes[0]->getMiddleware()[0]['middleware']);
+		$this->assertSame([], $routes[0]->getMiddleware()[0]['parameters']);
+	}
+
+	/**
+	 *
+	 */
+	public function testGroupConstraintWithParameters(): void
+	{
+		$routes = new Routes;
+
+		$routes->group(['constraint' => ['foo' => ['bar' => 123]]], function ($routes): void {
+			$routes->get('/foo', fn () => 'Hello, world!');
+		});
+
+		$routes = $routes->getRoutes();
+
+		$this->assertCount(1, $routes[0]->getConstraints());
+
+		$this->assertSame('foo', $routes[0]->getConstraints()[0]['constraint']);
+		$this->assertSame(['bar' => 123], $routes[0]->getConstraints()[0]['parameters']);
+	}
+
+	/**
+	 *
+	 */
+	public function testGroupConstraintWithoutParameters(): void
+	{
+		$routes = new Routes;
+
+		$routes->group(['constraint' => ['foo']], function ($routes): void {
+			$routes->get('/foo', fn () => 'Hello, world!');
+		});
+
+		$routes = $routes->getRoutes();
+
+		$this->assertCount(1, $routes[0]->getConstraints());
+
+		$this->assertSame('foo', $routes[0]->getConstraints()[0]['constraint']);
+		$this->assertSame([], $routes[0]->getConstraints()[0]['parameters']);
+	}
 }
