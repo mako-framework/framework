@@ -48,7 +48,6 @@ use ReflectionClass;
 
 use function file_get_contents;
 use function ob_start;
-use function putenv;
 use function str_replace;
 
 /**
@@ -162,7 +161,7 @@ class Application extends BaseApplication
 		// Set the environment if we got one
 
 		if ($arguments['env'] !== null) {
-			putenv("MAKO_ENV={$arguments['env']}");
+			$_ENV['MAKO_ENV'] = $arguments['env'];
 
 			$this->config->setEnvironment($arguments['env']);
 		}
