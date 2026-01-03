@@ -7,7 +7,7 @@
 
 namespace mako\pixel\metadata\xmp\properties;
 
-/** 
+/**
  * Struct property.
  */
 class StructProperty extends CollectionProperty

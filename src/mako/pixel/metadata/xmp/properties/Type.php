@@ -7,7 +7,7 @@
 
 namespace mako\pixel\metadata\xmp\properties;
 
-/** 
+/**
  * Value type enum.
  */
 enum Type: int
