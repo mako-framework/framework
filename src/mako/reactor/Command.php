@@ -19,16 +19,6 @@ abstract class Command implements CommandInterface
 	use CommandHelperTrait;
 
 	/**
-	 * Command.
-	 */
-	protected string $command;
-
-	/**
-	 * Command description.
-	 */
-	protected string $description;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct(
