@@ -158,6 +158,7 @@ return
 	mako\security\Signer::class,
 	mako\session\Session::class,
 	mako\session\stores\StoreInterface::class,
+	mako\syringe\attributes\InjectorInterface::class,
 	mako\syringe\Container::class,
 	mako\syringe\traits\ContainerAwareTrait::class,
 	mako\throttle\context\ContextInterface::class,
