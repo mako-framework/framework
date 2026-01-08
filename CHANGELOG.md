@@ -1,3 +1,11 @@
+### 12.0.1 <small>(2026-01-08)</small>
+
+#### Bugfixes
+
+* Fixed deprecation warning if foreign key value is null during eager loading of `BelongsTo` relations.
+
+--------------------------------------------------------
+
 ### 12.0.0 <small>(2026-01-05)</small>
 
 The major version bump is due to upping the required PHP version from `8.4` to `8.5` and a several breaking changes. Most applications built using Mako `11` should run on Mako `12` with just a few simple adjustments.
