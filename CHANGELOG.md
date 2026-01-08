@@ -1,3 +1,11 @@
+### 11.4.5 <small>(2026-01-08)</small>
+
+#### Bugfixes
+
+* Fixed deprecation warning if foreign key value is null during eager loading of `BelongsTo` relations.
+
+--------------------------------------------------------
+
 ### 11.4.4 <small>(2025-09-19)</small>
 
 #### Changes
