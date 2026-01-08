@@ -1,3 +1,11 @@
+### 11.4.6 <small>(2026-01-08)</small>
+
+#### Bugfixes
+
+* Eager loading of `BelongsTo` relations could lead to unnecessary queries.
+
+--------------------------------------------------------
+
 ### 11.4.5 <small>(2026-01-08)</small>
 
 #### Bugfixes

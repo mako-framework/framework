@@ -102,11 +102,11 @@ class BelongsTo extends Relation
 		$foreignKey = $this->getForeignKey();
 
 		foreach ($results as $result) {
-			if (($foreignKeyValue = $result->getRawColumnValue($foreignKey)) === null) {
-				continue;
-			}
+			$foreignKeyValue = $result->getRawColumnValue($foreignKey);
 
-			$result->setRelated($relation, $grouped[$foreignKeyValue] ?? null);
+			$related = $foreignKeyValue === null ? null : $grouped[$foreignKeyValue] ?? null;
+
+			$result->setRelated($relation, $related);
 		}
 	}
 
