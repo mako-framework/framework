@@ -149,7 +149,7 @@ class Color
 	/**
 	 * Returns a HSL representation of the color.
 	 */
-	public function getHsl(): array
+	protected function getHsl(): array
 	{
 		$r = $this->red / 255;
 		$g = $this->green / 255;
@@ -203,7 +203,7 @@ class Color
 	/**
 	 * Returns a HWB representation of the color.
 	 */
-	public function getHwb(): array
+	protected function getHwb(): array
 	{
 		// Get hue from HSL calculation
 
