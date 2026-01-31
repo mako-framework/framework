@@ -35,7 +35,7 @@
         "php": ">=8.5.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "monolog/monolog": "^3.9",
+        "monolog/monolog": "^3.10",
         "symfony/var-dumper": "^8.0",
         "doctrine/sql-formatter": "^1.5",
         "psr/log": "^2.0|^3.0",
