@@ -20,12 +20,11 @@ use function json_encode;
 class MariaDB extends MySQL
 {
 	/**
-	 * {@inheritDoc}
+	 * Returns a vector distance calculation.
 	 */
-	#[Override]
-	public function whereVectorDistance(array $where): string
+	protected function vectorDistance(array $vectorDistance): string
 	{
-		$vector = $where['vector'];
+		$vector = $vectorDistance['vector'];
 
 		if ($vector instanceof Subquery) {
 			$vector = $this->subquery($vector);
@@ -38,12 +37,21 @@ class MariaDB extends MySQL
 			$vector = "VEC_FromText({$this->param($vector)})";
 		}
 
-		$function = match ($where['vectorDistance']) {
+		$function = match ($vectorDistance['vectorDistance']) {
 			VectorDistance::COSINE => 'VEC_DISTANCE_COSINE',
 			VectorDistance::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
 		};
 
-		return "{$function}({$this->column($where['column'], false)}, {$vector}) <= {$this->param($where['maxDistance'])}";
+		return "{$function}({$this->column($vectorDistance['column'], false)}, {$vector})";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function whereVectorDistance(array $where): string
+	{
+		return "{$this->vectorDistance($where)} <= {$this->param($where['maxDistance'])}";
 	}
 
 	/**

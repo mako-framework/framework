@@ -57,12 +57,11 @@ class MySQL extends Compiler
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns a vector distance calculation.
 	 */
-	#[Override]
-	public function whereVectorDistance(array $where): string
+	protected function vectorDistance(array $vectorDistance): string
 	{
-		$vector = $where['vector'];
+		$vector = $vectorDistance['vector'];
 
 		if ($vector instanceof Subquery) {
 			$vector = $this->subquery($vector);
@@ -75,12 +74,21 @@ class MySQL extends Compiler
 			$vector = "STRING_TO_VECTOR({$this->param($vector)})";
 		}
 
-		$vectorDistance = match ($where['vectorDistance']) {
+		$function = match ($vectorDistance['vectorDistance']) {
 			VectorDistance::COSINE => 'COSINE',
 			VectorDistance::EUCLIDEAN => 'EUCLIDEAN',
 		};
 
-		return "DISTANCE({$this->column($where['column'], false)}, {$vector}, '{$vectorDistance}') <= {$this->param($where['maxDistance'])}";
+		return "DISTANCE({$this->column($vectorDistance['column'], false)}, {$vector}, '{$function}')";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function whereVectorDistance(array $where): string
+	{
+		return "{$this->vectorDistance($where)} <= {$this->param($where['maxDistance'])}";
 	}
 
 	/**

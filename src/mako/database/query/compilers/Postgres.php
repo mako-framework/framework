@@ -60,12 +60,11 @@ class Postgres extends Compiler
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns a vector distance calculation.
 	 */
-	#[Override]
-	public function whereVectorDistance(array $where): string
+	protected function vectorDistance(array $vectorDistance): string
 	{
-		$vector = $where['vector'];
+		$vector = $vectorDistance['vector'];
 
 		if ($vector instanceof Subquery) {
 			$vector = $this->subquery($vector);
@@ -78,12 +77,21 @@ class Postgres extends Compiler
 			$vector = $this->param($vector);
 		}
 
-		$operator = match ($where['vectorDistance']) {
+		$function = match ($vectorDistance['vectorDistance']) {
 			VectorDistance::COSINE => '<=>',
 			VectorDistance::EUCLIDEAN => '<->',
 		};
 
-		return "{$this->column($where['column'], false)} {$operator} {$vector} <= {$this->param($where['maxDistance'])}";
+		return "{$this->column($vectorDistance['column'], false)} {$function} {$vector}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function whereVectorDistance(array $where): string
+	{
+		return "{$this->vectorDistance($where)} <= {$this->param($where['maxDistance'])}";
 	}
 
 	/**
