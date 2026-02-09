@@ -7,11 +7,14 @@
 
 namespace mako\database\query\compilers;
 
+use mako\database\query\VectorMetric;
 use Override;
 
 use function array_pop;
 use function implode;
+use function is_array;
 use function is_numeric;
+use function json_encode;
 use function str_replace;
 
 /**
@@ -53,6 +56,22 @@ class Postgres extends Compiler
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
 		return $column . " = JSONB_SET({$column}, '{" . str_replace("'", "''", implode(',', $segments)) . "}', '{$param}')";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function whereVectorDistance(array $where): string
+	{
+		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+
+		$operator = match ($where['metric']) {
+			VectorMetric::COSINE => '<=>',
+			VectorMetric::EUCLIDEAN => '<->',
+		};
+
+		return "{$this->column($where['column'], false)} {$operator} {$this->param($vector)} <= {$this->param($where['distance'])}";
 	}
 
 	/**

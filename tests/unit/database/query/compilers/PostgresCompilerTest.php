@@ -11,6 +11,7 @@ use mako\database\connections\Postgres as PostgresConnection;
 use mako\database\query\compilers\Postgres as PostgresCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
+use mako\database\query\VectorMetric;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -202,6 +203,36 @@ class PostgresCompilerTest extends TestCase
 
 		$this->assertEquals('UPDATE "foobar" SET "data" = JSONB_SET("data", \'{foo,\'\'bar,0}\', \'?\')', $query['sql']);
 		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicCosineWhereVectorDistance(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "embedding" <=> ? <= ?', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicEuclidianWhereVectorDistance(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorMetric: VectorMetric::EUCLIDEAN)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "embedding" <-> ? <= ?', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
 	}
 
 	/**
