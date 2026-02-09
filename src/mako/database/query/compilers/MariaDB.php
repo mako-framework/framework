@@ -10,6 +10,9 @@ namespace mako\database\query\compilers;
 use mako\database\query\VectorMetric;
 use Override;
 
+use function is_array;
+use function json_encode;
+
 /**
  * Compiles MariaDB queries.
  */

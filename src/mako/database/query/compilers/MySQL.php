@@ -11,6 +11,8 @@ use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 use mako\database\query\VectorMetric;
 use Override;
 
+use function is_array;
+use function json_encode;
 use function str_replace;
 
 /**
