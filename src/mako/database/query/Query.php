@@ -546,6 +546,16 @@ class Query
 	}
 
 	/**
+	 * Adds a OR WHERE clause.
+	 *
+	 * @return $this
+	 */
+	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null): static
+	{
+		return $this->where($column, $operator, $value, 'OR');
+	}
+
+	/**
 	 * Adds a raw WHERE clause.
 	 *
 	 * @return $this
@@ -563,16 +573,6 @@ class Query
 		}
 
 		return $this->where($column, $operator, new Raw($raw), $separator);
-	}
-
-	/**
-	 * Adds a OR WHERE clause.
-	 *
-	 * @return $this
-	 */
-	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null): static
-	{
-		return $this->where($column, $operator, $value, 'OR');
 	}
 
 	/**
@@ -640,6 +640,35 @@ class Query
 	public function orWhereColumn(array|string $column1, string $operator, array|string $column2): static
 	{
 		return $this->whereColumn($column1, $operator, $column2, 'OR');
+	}
+
+	/**
+	 * Adds a vector similarity clause.
+	 *
+	 * @return $this
+	 */
+	public function whereVectorSimilarity(string $column, array|string $vector, float $minSimilarity = 0.8, VectorMetric $vectorMetric = VectorMetric::COSINE, string $separator = 'AND'): static
+	{
+		$this->wheres[] = [
+			'type'       => 'whereVectorSimilarity',
+			'column'     => $column,
+			'vector'     => $vector,
+			'similarity' => $minSimilarity,
+			'metric'     => $vectorMetric,
+			'separator'  => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a vector similarity clause.
+	 *
+	 * @return $this
+	 */
+	public function orWhereVectorSimilarity(string $column, array|string $vector, float $minSimilarity = 0.8, VectorMetric $vectorMetric = VectorMetric::COSINE): static
+	{
+		return $this->whereVectorSimilarity($column, $vector, $minSimilarity, $vectorMetric, 'OR');
 	}
 
 	/**

@@ -1,3 +1,14 @@
+### 12.1.0 <small>(2026-??-??)</small>
+
+#### New
+
+* Added vector query support to the query builder for the following databases:
+	- `MariaDB`
+	- `MySQL`
+	- `Postgres`
+
+--------------------------------------------------------
+
 
 ### 11.4.6, 12.0.2 <small>(2026-01-08)</small>
 

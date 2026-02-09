@@ -484,6 +484,14 @@ class Compiler
 	}
 
 	/**
+	 * Compiles vector similarity clauses.
+	 */
+	protected function whereVectorSimilarity(array $where): string
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support vector similarity calculations.', static::class));
+	}
+
+	/**
 	 * Compiles BETWEEN clauses.
 	 */
 	protected function between(array $where): string

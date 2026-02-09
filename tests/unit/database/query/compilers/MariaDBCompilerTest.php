@@ -11,6 +11,7 @@ use mako\database\connections\MariaDB as MariaDBConnection;
 use mako\database\query\compilers\MariaDB as MariaDBCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
+use mako\database\query\VectorMetric;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -41,6 +42,36 @@ class MariaDBCompilerTest extends TestCase
 	protected function getBuilder($table = 'foobar')
 	{
 		return (new Query($this->getConnection()))->table($table);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicCosineWhereVectorSimilarity(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorSimilarity('embedding', [1, 2, 3, 4, 5], minSimilarity: 0.75)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM `foobar` WHERE EXP(-VEC_DISTANCE_COSINE(`embedding`, VEC_FromText(?))) >= ?', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.75], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicEuclideanWhereVectorSimilarity(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorSimilarity('embedding', [1, 2, 3, 4, 5], minSimilarity: 0.75, vectorMetric: VectorMetric::EUCLIDEAN)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM `foobar` WHERE EXP(-VEC_DISTANCE_EUCLIDEAN(`embedding`, VEC_FromText(?))) >= ?', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.75], $query['params']);
 	}
 
 	/**

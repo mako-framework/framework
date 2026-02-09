@@ -7,6 +7,7 @@
 
 namespace mako\database\query\compilers;
 
+use mako\database\query\VectorMetric;
 use Override;
 
 /**
@@ -14,6 +15,22 @@ use Override;
  */
 class MariaDB extends MySQL
 {
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function whereVectorSimilarity(array $where): string
+	{
+		$function = match ($where['metric']) {
+			VectorMetric::COSINE => 'VEC_DISTANCE_COSINE',
+			VectorMetric::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
+		};
+
+		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+
+		return "EXP(-{$function}({$this->column($where['column'], false)}, VEC_FromText({$this->param($vector)}))) >= {$this->param($where['similarity'])}";
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

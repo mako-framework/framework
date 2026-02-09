@@ -78,6 +78,7 @@ return
 	mako\database\query\Result::class,
 	mako\database\query\ResultSet::class,
 	mako\database\query\Subquery::class,
+	mako\database\query\VectorMetric::class,
 	mako\error\ErrorHandler::class,
 	mako\file\FileSystem::class,
 	mako\file\Permission::class,
