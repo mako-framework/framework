@@ -57,16 +57,16 @@ class MySQL extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function whereVectorSimilarity(array $where): string
+	public function whereVectorDistance(array $where): string
 	{
+		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+
 		$metric = match ($where['metric']) {
 			VectorMetric::COSINE => 'COSINE',
 			VectorMetric::EUCLIDEAN => 'EUCLIDEAN',
 		};
 
-		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
-
-		return "EXP(-DISTANCE({$this->column($where['column'], false)}, STRING_TO_VECTOR({$this->param($vector)}), '{$metric}')) >= {$this->param($where['similarity'])}";
+		return "DISTANCE({$this->column($where['column'], false)}, STRING_TO_VECTOR({$this->param($vector)}), '{$metric}') <= {$this->param($where['distance'])}";
 	}
 
 	/**

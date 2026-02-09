@@ -643,32 +643,32 @@ class Query
 	}
 
 	/**
-	 * Adds a vector similarity clause.
+	 * Adds a vector distance clause.
 	 *
 	 * @return $this
 	 */
-	public function whereVectorSimilarity(string $column, array|string $vector, float $minSimilarity = 0.8, VectorMetric $vectorMetric = VectorMetric::COSINE, string $separator = 'AND'): static
+	public function whereVectorDistance(string $column, array|string $vector, float $maxDistance = 0.2, VectorMetric $vectorMetric = VectorMetric::COSINE, string $separator = 'AND'): static
 	{
 		$this->wheres[] = [
-			'type'       => 'whereVectorSimilarity',
-			'column'     => $column,
-			'vector'     => $vector,
-			'similarity' => $minSimilarity,
-			'metric'     => $vectorMetric,
-			'separator'  => $separator,
+			'type'      => 'whereVectorDistance',
+			'column'    => $column,
+			'vector'    => $vector,
+			'distance'  => $maxDistance,
+			'metric'    => $vectorMetric,
+			'separator' => $separator,
 		];
 
 		return $this;
 	}
 
 	/**
-	 * Adds a vector similarity clause.
+	 * Adds a vector distance clause.
 	 *
 	 * @return $this
 	 */
-	public function orWhereVectorSimilarity(string $column, array|string $vector, float $minSimilarity = 0.8, VectorMetric $vectorMetric = VectorMetric::COSINE): static
+	public function orWhereVectorDistance(string $column, array|string $vector, float $maxDistance = 0.2, VectorMetric $vectorMetric = VectorMetric::COSINE): static
 	{
-		return $this->whereVectorSimilarity($column, $vector, $minSimilarity, $vectorMetric, 'OR');
+		return $this->whereVectorDistance($column, $vector, $maxDistance, $vectorMetric, 'OR');
 	}
 
 	/**

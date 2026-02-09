@@ -484,11 +484,11 @@ class Compiler
 	}
 
 	/**
-	 * Compiles vector similarity clauses.
+	 * Compiles vector distance clauses.
 	 */
-	protected function whereVectorSimilarity(array $where): string
+	protected function whereVectorDistance(array $where): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support vector similarity calculations.', static::class));
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support vector distance calculations.', static::class));
 	}
 
 	/**

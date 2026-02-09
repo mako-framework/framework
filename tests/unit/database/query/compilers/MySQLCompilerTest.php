@@ -236,31 +236,31 @@ class MySQLCompilerTest extends TestCase
 	/**
 	 *
 	 */
-	public function testBasicCosineWhereVectorSimilarity(): void
+	public function testBasicCosineWhereVectorDistance(): void
 	{
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->whereVectorSimilarity('embedding', [1, 2, 3, 4, 5], minSimilarity: 0.75)
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5)
 		->getCompiler()->select();
 
-		$this->assertEquals("SELECT * FROM `foobar` WHERE EXP(-DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'COSINE')) >= ?", $query['sql']);
-		$this->assertEquals(['[1,2,3,4,5]', 0.75], $query['params']);
+		$this->assertEquals("SELECT * FROM `foobar` WHERE DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'COSINE') <= ?", $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
 	}
 
 	/**
 	 *
 	 */
-	public function testBasicEuclideanWhereVectorSimilarity(): void
+	public function testBasicEuclidianWhereVectorDistance(): void
 	{
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->whereVectorSimilarity('embedding', [1, 2, 3, 4, 5], minSimilarity: 0.75, vectorMetric: VectorMetric::EUCLIDEAN)
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorMetric: VectorMetric::EUCLIDEAN)
 		->getCompiler()->select();
 
-		$this->assertEquals("SELECT * FROM `foobar` WHERE EXP(-DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN')) >= ?", $query['sql']);
-		$this->assertEquals(['[1,2,3,4,5]', 0.75], $query['params']);
+		$this->assertEquals("SELECT * FROM `foobar` WHERE DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN') <= ?", $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
 	}
 
 	/**

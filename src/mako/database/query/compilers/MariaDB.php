@@ -19,16 +19,16 @@ class MariaDB extends MySQL
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function whereVectorSimilarity(array $where): string
+	public function whereVectorDistance(array $where): string
 	{
+		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+
 		$function = match ($where['metric']) {
 			VectorMetric::COSINE => 'VEC_DISTANCE_COSINE',
 			VectorMetric::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
 		};
 
-		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
-
-		return "EXP(-{$function}({$this->column($where['column'], false)}, VEC_FromText({$this->param($vector)}))) >= {$this->param($where['similarity'])}";
+		return "{$function}({$this->column($where['column'], false)}, VEC_FromText({$this->param($vector)})) <= {$this->param($where['distance'])}";
 	}
 
 	/**
