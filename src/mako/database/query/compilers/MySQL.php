@@ -8,7 +8,8 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
-use mako\database\query\VectorMetric;
+use mako\database\query\Subquery;
+use mako\database\query\VectorDistance;
 use Override;
 
 use function is_array;
@@ -61,14 +62,25 @@ class MySQL extends Compiler
 	#[Override]
 	public function whereVectorDistance(array $where): string
 	{
-		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+		$vector = $where['vector'];
 
-		$metric = match ($where['metric']) {
-			VectorMetric::COSINE => 'COSINE',
-			VectorMetric::EUCLIDEAN => 'EUCLIDEAN',
+		if ($vector instanceof Subquery) {
+			$vector = $this->subquery($vector);
+		}
+		else {
+			if (is_array($vector)) {
+				$vector = json_encode($vector);
+			}
+
+			$vector = "STRING_TO_VECTOR({$this->param($vector)})";
+		}
+
+		$vectorDistance = match ($where['vectorDistance']) {
+			VectorDistance::COSINE => 'COSINE',
+			VectorDistance::EUCLIDEAN => 'EUCLIDEAN',
 		};
 
-		return "DISTANCE({$this->column($where['column'], false)}, STRING_TO_VECTOR({$this->param($vector)}), '{$metric}') <= {$this->param($where['distance'])}";
+		return "DISTANCE({$this->column($where['column'], false)}, {$vector}, '{$vectorDistance}') <= {$this->param($where['maxDistance'])}";
 	}
 
 	/**

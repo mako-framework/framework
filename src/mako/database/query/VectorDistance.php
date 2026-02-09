@@ -8,9 +8,9 @@
 namespace mako\database\query;
 
 /**
- * Vector metrics.
+ * Vector distance.
  */
-enum VectorMetric
+enum VectorDistance
 {
 	case COSINE;
 	case EUCLIDEAN;

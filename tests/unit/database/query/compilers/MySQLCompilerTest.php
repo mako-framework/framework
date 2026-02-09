@@ -11,7 +11,8 @@ use mako\database\connections\MySQL as MySQLConnection;
 use mako\database\query\compilers\MySQL as MySQLCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
-use mako\database\query\VectorMetric;
+use mako\database\query\Subquery;
+use mako\database\query\VectorDistance;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -256,11 +257,43 @@ class MySQLCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorMetric: VectorMetric::EUCLIDEAN)
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::EUCLIDEAN)
 		->getCompiler()->select();
 
 		$this->assertEquals("SELECT * FROM `foobar` WHERE DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN') <= ?", $query['sql']);
 		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicCosineWhereVectorDistanceWithStringVector(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorDistance('embedding', '[1,2,3,4,5]', maxDistance: 0.5)
+		->getCompiler()->select();
+
+		$this->assertEquals("SELECT * FROM `foobar` WHERE DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'COSINE') <= ?", $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testCosineWhereVectorDistanceFromSubquery(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorDistance('embedding', new Subquery(function (Query $query): void {
+			$query->table('embeddings')->select(['embedding'])->where('id', '=', 1);
+		}), maxDistance: 0.5)
+		->getCompiler()->select();
+
+		$this->assertEquals("SELECT * FROM `foobar` WHERE DISTANCE(`embedding`, (SELECT `embedding` FROM `embeddings` WHERE `id` = ?), 'COSINE') <= ?", $query['sql']);
+		$this->assertEquals([1, 0.5], $query['params']);
 	}
 
 	/**

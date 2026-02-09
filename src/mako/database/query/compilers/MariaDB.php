@@ -7,7 +7,8 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\VectorMetric;
+use mako\database\query\Subquery;
+use mako\database\query\VectorDistance;
 use Override;
 
 use function is_array;
@@ -24,14 +25,25 @@ class MariaDB extends MySQL
 	#[Override]
 	public function whereVectorDistance(array $where): string
 	{
-		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+		$vector = $where['vector'];
 
-		$function = match ($where['metric']) {
-			VectorMetric::COSINE => 'VEC_DISTANCE_COSINE',
-			VectorMetric::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
+		if ($vector instanceof Subquery) {
+			$vector = $this->subquery($vector);
+		}
+		else {
+			if (is_array($vector)) {
+				$vector = json_encode($vector);
+			}
+
+			$vector = "VEC_FromText({$this->param($vector)})";
+		}
+
+		$function = match ($where['vectorDistance']) {
+			VectorDistance::COSINE => 'VEC_DISTANCE_COSINE',
+			VectorDistance::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
 		};
 
-		return "{$function}({$this->column($where['column'], false)}, VEC_FromText({$this->param($vector)})) <= {$this->param($where['distance'])}";
+		return "{$function}({$this->column($where['column'], false)}, {$vector}) <= {$this->param($where['maxDistance'])}";
 	}
 
 	/**

@@ -647,15 +647,15 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function whereVectorDistance(string $column, array|string $vector, float $maxDistance = 0.2, VectorMetric $vectorMetric = VectorMetric::COSINE, string $separator = 'AND'): static
+	public function whereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance = 0.2, VectorDistance $vectorDistance = VectorDistance::COSINE, string $separator = 'AND'): static
 	{
 		$this->wheres[] = [
-			'type'      => 'whereVectorDistance',
-			'column'    => $column,
-			'vector'    => $vector,
-			'distance'  => $maxDistance,
-			'metric'    => $vectorMetric,
-			'separator' => $separator,
+			'type'           => 'whereVectorDistance',
+			'column'         => $column,
+			'vector'         => $vector,
+			'maxDistance'    => $maxDistance,
+			'vectorDistance' => $vectorDistance,
+			'separator'      => $separator,
 		];
 
 		return $this;
@@ -666,9 +666,9 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhereVectorDistance(string $column, array|string $vector, float $maxDistance = 0.2, VectorMetric $vectorMetric = VectorMetric::COSINE): static
+	public function orWhereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance = 0.2, VectorDistance $vectorDistance = VectorDistance::COSINE): static
 	{
-		return $this->whereVectorDistance($column, $vector, $maxDistance, $vectorMetric, 'OR');
+		return $this->whereVectorDistance($column, $vector, $maxDistance, $vectorDistance, 'OR');
 	}
 
 	/**

@@ -7,7 +7,8 @@
 
 namespace mako\database\query\compilers;
 
-use mako\database\query\VectorMetric;
+use mako\database\query\Subquery;
+use mako\database\query\VectorDistance;
 use Override;
 
 use function array_pop;
@@ -64,14 +65,25 @@ class Postgres extends Compiler
 	#[Override]
 	public function whereVectorDistance(array $where): string
 	{
-		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+		$vector = $where['vector'];
 
-		$operator = match ($where['metric']) {
-			VectorMetric::COSINE => '<=>',
-			VectorMetric::EUCLIDEAN => '<->',
+		if ($vector instanceof Subquery) {
+			$vector = $this->subquery($vector);
+		}
+		else {
+			if (is_array($vector)) {
+				$vector = json_encode($vector);
+			}
+
+			$vector = $this->param($vector);
+		}
+
+		$operator = match ($where['vectorDistance']) {
+			VectorDistance::COSINE => '<=>',
+			VectorDistance::EUCLIDEAN => '<->',
 		};
 
-		return "{$this->column($where['column'], false)} {$operator} {$this->param($vector)} <= {$this->param($where['distance'])}";
+		return "{$this->column($where['column'], false)} {$operator} {$vector} <= {$this->param($where['maxDistance'])}";
 	}
 
 	/**
