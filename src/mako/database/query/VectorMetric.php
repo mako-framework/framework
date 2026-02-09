@@ -10,8 +10,8 @@ namespace mako\database\query;
 /**
  * Vector metrics.
  */
-enum VectorMetric: string
+enum VectorMetric
 {
-	case COSINE = 'COSINE';
-	case EUCLIDEAN = 'EUCLIDEAN';
+	case COSINE;
+	case EUCLIDEAN;
 }

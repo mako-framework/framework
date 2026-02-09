@@ -8,6 +8,7 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
+use mako\database\query\VectorMetric;
 use Override;
 
 use function str_replace;
@@ -50,6 +51,22 @@ class MySQL extends Compiler
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
 		return "{$column} = JSON_SET({$column}, '{$this->buildJsonPath($segments)}', CAST({$param} AS JSON))";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function whereVectorSimilarity(array $where): string
+	{
+		$metric = match ($where['metric']) {
+			VectorMetric::COSINE => 'COSINE',
+			VectorMetric::EUCLIDEAN => 'EUCLIDEAN',
+		};
+
+		$vector = is_array($where['vector']) ? json_encode($where['vector']) : $where['vector'];
+
+		return "EXP(-DISTANCE({$this->column($where['column'], false)}, STRING_TO_VECTOR({$this->param($vector)}), '{$metric}')) >= {$this->param($where['similarity'])}";
 	}
 
 	/**
