@@ -7,12 +7,23 @@
 
 namespace mako\database\query\values\out;
 
+use Override;
+
 /**
  * Base value.
  */
 abstract class Value implements ValueWithAliasInterface
 {
 	protected ?string $alias = null;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function getParameters(): ?array
+	{
+		return null;
+	}
 
 	/**
 	 * Sets the value alias.

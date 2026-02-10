@@ -38,13 +38,4 @@ class Vector extends Value
 			default => throw new DatabaseException(sprintf('Vector values are not supported by the [ %s ] compiler.', $compiler::class)),
 		};
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function getParameters(): ?array
-	{
-		return null;
-	}
 }
