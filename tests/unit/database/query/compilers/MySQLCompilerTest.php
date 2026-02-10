@@ -14,6 +14,7 @@ use mako\database\query\Query;
 use mako\database\query\Subquery;
 use mako\database\query\values\in\Vector as InVector;
 use mako\database\query\values\out\Vector as OutVector;
+use mako\database\query\values\out\VectorDistance as OutVectorDistance;
 use mako\database\query\VectorDistance;
 use mako\tests\TestCase;
 use Mockery;
@@ -418,6 +419,51 @@ class MySQLCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT VECTOR_TO_STRING(`embedding`) AS `vector` FROM `foobar`', $query['sql']);
 		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorCosineDistanceSelectValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4])])
+		->getCompiler()->select();
+
+		$this->assertEquals("SELECT DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'COSINE') FROM `foobar`", $query['sql']);
+		$this->assertEquals(['[1,2,3,4]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorEuclideanDistanceSelectValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::EUCLIDEAN)])
+		->getCompiler()->select();
+
+		$this->assertEquals("SELECT DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN') FROM `foobar`", $query['sql']);
+		$this->assertEquals(['[1,2,3,4]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorDistanceSelectValueWithAlias(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4])->as('distance')])
+		->getCompiler()->select();
+
+		$this->assertEquals("SELECT DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'COSINE') AS `distance` FROM `foobar`", $query['sql']);
+		$this->assertEquals(['[1,2,3,4]'], $query['params']);
 	}
 
 	/**
