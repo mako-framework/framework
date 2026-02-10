@@ -1069,6 +1069,7 @@ class Query
 	public function orderBy(array|Raw|string $columns, string $order = 'ASC'): static
 	{
 		$this->orderings[] = [
+			'type'   => 'basicOrdering',
 			'column' => is_array($columns) ? $columns : [$columns],
 			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
 		];
@@ -1124,6 +1125,38 @@ class Query
 	public function descendingRaw(string $raw, array $parameters = []): static
 	{
 		return $this->orderByRaw($raw, $parameters, 'DESC');
+	}
+
+	/**
+	 * Adds a vector ORDER BY clause.
+	 */
+	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE, string $order = 'ASC'): static
+	{
+		$this->orderings[] = [
+			'type'           => 'vectorDistanceOrdering',
+			'column'         => $column,
+			'vector'         => $vector,
+			'vectorDistance' => $vectorDistance,
+			'order'          => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a ascending vector ORDER BY clause.
+	 */
+	public function ascendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	{
+		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'ASC');
+	}
+
+	/**
+	 * Adds a descending vector ORDER BY clause.
+	 */
+	public function descendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	{
+		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'DESC');
 	}
 
 	/**

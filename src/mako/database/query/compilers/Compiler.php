@@ -640,6 +640,22 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a basic ordering clause.
+	 */
+	protected function basicOrdering(array $order): string
+	{
+		return "{$this->columns($order['column'])} {$order['order']}";
+	}
+
+	/**
+	 * Compiles vector distance ordering clause.
+	 */
+	protected function vectorDistanceOrdering(array $order): string
+	{
+		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support vector distance calculations.', static::class));
+	}
+
+	/**
 	 * Compiles ORDER BY clauses.
 	 */
 	protected function orderings(array $orderings): string
@@ -651,7 +667,7 @@ class Compiler
 		$sql = [];
 
 		foreach ($orderings as $order) {
-			$sql[] = "{$this->columns($order['column'])} {$order['order']}";
+			$sql[] = $this->{$order['type']}($order);
 		}
 
 		return ' ORDER BY ' . implode(', ', $sql);

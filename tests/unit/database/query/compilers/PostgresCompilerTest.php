@@ -271,6 +271,98 @@ class PostgresCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testOrderByVectorDistanceCosine(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <=> ? ASC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByVectorDistanceCosineWithStringVector(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->orderByVectorDistance('embedding', '[1,2,3,4,5]')
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <=> ? ASC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByVectorDistanceCosineWithSubqueryVector(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->orderByVectorDistance('embedding', new Subquery(function (Query $query): void {
+			$query->table('embeddings')->select(['embedding'])->where('id', '=', 1);
+		}))
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <=> (SELECT "embedding" FROM "embeddings" WHERE "id" = ?) ASC', $query['sql']);
+		$this->assertEquals([1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByVectorDistanceEuclidean(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::EUCLIDEAN)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <-> ? ASC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testAscendingVectorDistance(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->ascendingVectorDistance('embedding', [1, 2, 3, 4, 5])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <=> ? ASC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDescendingVectorDistance(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->descendingVectorDistance('embedding', [1, 2, 3, 4, 5])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <=> ? DESC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testBetweenDate(): void
 	{
 		$query = $this->getBuilder();

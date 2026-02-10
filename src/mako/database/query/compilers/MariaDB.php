@@ -58,6 +58,15 @@ class MariaDB extends MySQL
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function vectorDistanceOrdering(array $order): string
+	{
+		return "{$this->vectorDistance($order)} {$order['order']}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	public function insertAndReturn(array $values, array $return): array
 	{
 		['sql' => $sql, 'params' => $params] = $this->insert($values);

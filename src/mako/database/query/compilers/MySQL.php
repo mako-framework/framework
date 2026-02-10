@@ -95,6 +95,15 @@ class MySQL extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function vectorDistanceOrdering(array $order): string
+	{
+		return "{$this->vectorDistance($order)} {$order['order']}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		$date1 = "{$where['value1']} 00:00:00.000000";
