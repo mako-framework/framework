@@ -6,6 +6,7 @@
 	- `MariaDB`
 	- `MySQL`
 	- `Postgres`
+* Now possible to define custom input/output value objects for the query builder.
 
 --------------------------------------------------------
 
