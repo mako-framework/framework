@@ -12,6 +12,8 @@ use mako\database\query\compilers\Postgres as PostgresCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\database\query\Subquery;
+use mako\database\query\values\in\Vector as InVector;
+use mako\database\query\values\out\Vector as OutVector;
 use mako\database\query\VectorDistance;
 use mako\tests\TestCase;
 use Mockery;
@@ -358,6 +360,64 @@ class PostgresCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <=> ? DESC', $query['sql']);
 		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorSelectValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVector('embedding')])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT "embedding" FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorSelectValueWithAlias(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVector('embedding')->as('vector')])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT "embedding" AS "vector" FROM "foobar"', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorInsertValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->getCompiler()->insert(['embedding' => new InVector([1, 2, 3])]);
+
+		$this->assertEquals('INSERT INTO "foobar" ("embedding") VALUES (?)', $query['sql']);
+		$this->assertEquals(['[1,2,3]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testStringVectorInsertValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->getCompiler()->insert(['embedding' => new InVector('[1,2,3]')]);
+
+		$this->assertEquals('INSERT INTO "foobar" ("embedding") VALUES (?)', $query['sql']);
+		$this->assertEquals(['[1,2,3]'], $query['params']);
 	}
 
 	/**

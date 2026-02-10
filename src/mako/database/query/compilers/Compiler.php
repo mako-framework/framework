@@ -13,6 +13,8 @@ use mako\database\query\Join;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\Subquery;
+use mako\database\query\values\out\ValueWithAliasInterface;
+use mako\database\query\values\ValueInterface;
 
 use function array_keys;
 use function array_shift;
@@ -81,6 +83,28 @@ class Compiler
 		}
 
 		return $raw->getSql();
+	}
+
+	/**
+	 * Compiles a value.
+	 */
+	protected function value(ValueInterface $value): string
+	{
+		$parameters = $value->getParameters();
+
+		if (!empty($parameters)) {
+			$this->params = [...$this->params, ...$parameters];
+		}
+
+		$sql = $value->getSql($this);
+
+		if ($value instanceof ValueWithAliasInterface) {
+			if (($alias = $value->getAlias()) !== null) {
+				$sql .= " AS {$this->escapeIdentifier($alias)}";
+			}
+		}
+
+		return $sql;
 	}
 
 	/**
@@ -210,11 +234,13 @@ class Compiler
 	 */
 	public function table(Raw|string|Subquery $table): string
 	{
-		if ($table instanceof Raw) {
-			return $this->raw($table);
-		}
-		elseif ($table instanceof Subquery) {
-			return $this->subquery($table);
+		if (is_object($table)) {
+			if ($table instanceof Raw) {
+				return $this->raw($table);
+			}
+			elseif ($table instanceof Subquery) {
+				return $this->subquery($table);
+			}
 		}
 
 		return $this->escapeTableNameWithAlias($table);
@@ -286,15 +312,21 @@ class Compiler
 	/**
 	 * Compiles a column.
 	 */
-	public function column(Raw|string|Subquery $column, bool $allowAlias = false): string
+	public function column(Raw|string|Subquery|ValueInterface $column, bool $allowAlias = false): string
 	{
-		if ($column instanceof Raw) {
-			return $this->raw($column);
+		if (is_object($column)) {
+			if ($column instanceof Raw) {
+				return $this->raw($column);
+			}
+			elseif ($column instanceof Subquery) {
+				return $this->subquery($column);
+			}
+			elseif ($column instanceof ValueInterface) {
+				return $this->value($column);
+			}
 		}
-		elseif ($column instanceof Subquery) {
-			return $this->subquery($column);
-		}
-		elseif ($allowAlias && stripos($column, ' AS ') !== false) {
+
+		if ($allowAlias && stripos($column, ' AS ') !== false) {
 			[$column, , $alias] = explode(' ', $column, 3);
 
 			return "{$this->columnName($column)} AS {$this->columnName($alias)}";
@@ -377,6 +409,9 @@ class Compiler
 				$this->params[] = $param->format(static::$dateFormat);
 
 				return '?';
+			}
+			elseif ($param instanceof ValueInterface) {
+				return $this->value($param);
 			}
 		}
 

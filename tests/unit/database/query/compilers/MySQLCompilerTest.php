@@ -12,6 +12,8 @@ use mako\database\query\compilers\MySQL as MySQLCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\database\query\Subquery;
+use mako\database\query\values\in\Vector as InVector;
+use mako\database\query\values\out\Vector as OutVector;
 use mako\database\query\VectorDistance;
 use mako\tests\TestCase;
 use Mockery;
@@ -386,6 +388,64 @@ class MySQLCompilerTest extends TestCase
 
 		$this->assertEquals("SELECT * FROM `foobar` ORDER BY DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'COSINE') DESC", $query['sql']);
 		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorSelectValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVector('embedding')])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT VECTOR_TO_STRING(`embedding`) FROM `foobar`', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorSelectValueWithAlias(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVector('embedding')->as('vector')])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT VECTOR_TO_STRING(`embedding`) AS `vector` FROM `foobar`', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorInsertValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->getCompiler()->insert(['embedding' => new InVector([1, 2, 3])]);
+
+		$this->assertEquals('INSERT INTO `foobar` (`embedding`) VALUES (STRING_TO_VECTOR(?))', $query['sql']);
+		$this->assertEquals(['[1,2,3]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testStringVectorInsertValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->getCompiler()->insert(['embedding' => new InVector('[1,2,3]')]);
+
+		$this->assertEquals('INSERT INTO `foobar` (`embedding`) VALUES (STRING_TO_VECTOR(?))', $query['sql']);
+		$this->assertEquals(['[1,2,3]'], $query['params']);
 	}
 
 	/**
