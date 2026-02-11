@@ -404,7 +404,7 @@ class QueryTest extends TestCase
 
 		});
 
-		$this->assertEquals([['column' => ['foobar'], 'order' => 'ASC']], $query->getOrderings());
+		$this->assertEquals([['type' => 'basicOrdering', 'column' => ['foobar'], 'order' => 'ASC']], $query->getOrderings());
 
 		//
 
@@ -419,6 +419,6 @@ class QueryTest extends TestCase
 
 		});
 
-		$this->assertEquals([['column' => ['barfoo'], 'order' => 'DESC']], $query->getOrderings());
+		$this->assertEquals([['type' => 'basicOrdering', 'column' => ['barfoo'], 'order' => 'DESC']], $query->getOrderings());
 	}
 }

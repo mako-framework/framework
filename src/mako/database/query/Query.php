@@ -546,6 +546,16 @@ class Query
 	}
 
 	/**
+	 * Adds a OR WHERE clause.
+	 *
+	 * @return $this
+	 */
+	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null): static
+	{
+		return $this->where($column, $operator, $value, 'OR');
+	}
+
+	/**
 	 * Adds a raw WHERE clause.
 	 *
 	 * @return $this
@@ -563,16 +573,6 @@ class Query
 		}
 
 		return $this->where($column, $operator, new Raw($raw), $separator);
-	}
-
-	/**
-	 * Adds a OR WHERE clause.
-	 *
-	 * @return $this
-	 */
-	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null): static
-	{
-		return $this->where($column, $operator, $value, 'OR');
 	}
 
 	/**
@@ -640,6 +640,35 @@ class Query
 	public function orWhereColumn(array|string $column1, string $operator, array|string $column2): static
 	{
 		return $this->whereColumn($column1, $operator, $column2, 'OR');
+	}
+
+	/**
+	 * Adds a vector distance clause.
+	 *
+	 * @return $this
+	 */
+	public function whereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance = 0.2, VectorDistance $vectorDistance = VectorDistance::COSINE, string $separator = 'AND'): static
+	{
+		$this->wheres[] = [
+			'type'           => 'whereVectorDistance',
+			'column'         => $column,
+			'vector'         => $vector,
+			'maxDistance'    => $maxDistance,
+			'vectorDistance' => $vectorDistance,
+			'separator'      => $separator,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a vector distance clause.
+	 *
+	 * @return $this
+	 */
+	public function orWhereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance = 0.2, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	{
+		return $this->whereVectorDistance($column, $vector, $maxDistance, $vectorDistance, 'OR');
 	}
 
 	/**
@@ -1040,6 +1069,7 @@ class Query
 	public function orderBy(array|Raw|string $columns, string $order = 'ASC'): static
 	{
 		$this->orderings[] = [
+			'type'   => 'basicOrdering',
 			'column' => is_array($columns) ? $columns : [$columns],
 			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
 		];
@@ -1095,6 +1125,38 @@ class Query
 	public function descendingRaw(string $raw, array $parameters = []): static
 	{
 		return $this->orderByRaw($raw, $parameters, 'DESC');
+	}
+
+	/**
+	 * Adds a vector ORDER BY clause.
+	 */
+	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE, string $order = 'ASC'): static
+	{
+		$this->orderings[] = [
+			'type'           => 'vectorDistanceOrdering',
+			'column'         => $column,
+			'vector'         => $vector,
+			'vectorDistance' => $vectorDistance,
+			'order'          => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a ascending vector ORDER BY clause.
+	 */
+	public function ascendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	{
+		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'ASC');
+	}
+
+	/**
+	 * Adds a descending vector ORDER BY clause.
+	 */
+	public function descendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	{
+		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'DESC');
 	}
 
 	/**

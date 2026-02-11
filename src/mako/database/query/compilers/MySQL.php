@@ -8,8 +8,12 @@
 namespace mako\database\query\compilers;
 
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
+use mako\database\query\Subquery;
+use mako\database\query\VectorDistance;
 use Override;
 
+use function is_array;
+use function json_encode;
 use function str_replace;
 
 /**
@@ -50,6 +54,50 @@ class MySQL extends Compiler
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
 		return "{$column} = JSON_SET({$column}, '{$this->buildJsonPath($segments)}', CAST({$param} AS JSON))";
+	}
+
+	/**
+	 * Returns a vector distance calculation.
+	 */
+	protected function vectorDistance(array $vectorDistance): string
+	{
+		$vector = $vectorDistance['vector'];
+
+		if ($vector instanceof Subquery) {
+			$vector = $this->subquery($vector);
+		}
+		else {
+			if (is_array($vector)) {
+				$vector = json_encode($vector);
+			}
+
+			$vector = "STRING_TO_VECTOR({$this->param($vector)})";
+		}
+
+		$function = match ($vectorDistance['vectorDistance']) {
+			VectorDistance::COSINE => 'COSINE',
+			VectorDistance::EUCLIDEAN => 'EUCLIDEAN',
+		};
+
+		return "DISTANCE({$this->column($vectorDistance['column'], false)}, {$vector}, '{$function}')";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function whereVectorDistance(array $where): string
+	{
+		return "{$this->vectorDistance($where)} <= {$this->param($where['maxDistance'])}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function vectorDistanceOrdering(array $order): string
+	{
+		return "{$this->vectorDistance($order)} {$order['order']}";
 	}
 
 	/**
