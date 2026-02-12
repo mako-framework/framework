@@ -25,7 +25,7 @@ class Redis implements StoreInterface
 	public function __construct(
 		protected RedisClient $redis,
 		protected array|bool $classWhitelist = false,
-		protected string $prefix = 'sess_'
+		protected string $prefix = 'mako:session:'
 	) {
 	}
 

@@ -32,7 +32,7 @@ class SessionService extends Service
 	 */
 	protected function getApcuStore(Container $container, array $config, array|bool $classWhitelist): APCu
 	{
-		return new APCu($classWhitelist, $config['prefix'] ?? 'sess_');
+		return new APCu($classWhitelist, $config['prefix'] ?? 'mako:session:');
 	}
 
 	/**
@@ -64,7 +64,7 @@ class SessionService extends Service
 	 */
 	protected function getRedisStore(Container $container, array $config, array|bool $classWhitelist): Redis
 	{
-		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist, $config['prefix'] ?? 'sess_');
+		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist, $config['prefix'] ?? 'mako:session:');
 	}
 
 	/**

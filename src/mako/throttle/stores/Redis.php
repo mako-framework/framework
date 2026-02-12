@@ -25,7 +25,7 @@ class Redis implements StoreInterface
 	 */
 	public function __construct(
 		protected RedisClient $redis,
-		protected string $prefix = 'throttle:'
+		protected string $prefix = 'mako:throttle:'
 	) {
 	}
 

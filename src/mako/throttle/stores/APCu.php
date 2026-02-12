@@ -26,7 +26,7 @@ class APCu implements StoreInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected string $prefix = 'throttle:'
+		protected string $prefix = 'mako:throttle:'
 	) {
 	}
 

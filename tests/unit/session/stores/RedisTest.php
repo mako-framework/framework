@@ -32,7 +32,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('sess_123', serialize(['data']), 'EX', 123);
+		$client->shouldReceive('set')->once()->with('mako:session:123', serialize(['data']), 'EX', 123);
 
 		$redis = new Redis($client);
 
@@ -46,7 +46,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('get')->once()->with('sess_123')->andReturn(serialize(['data']));
+		$client->shouldReceive('get')->once()->with('mako:session:123')->andReturn(serialize(['data']));
 
 		$redis = new Redis($client);
 
@@ -58,7 +58,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('get')->once()->with('sess_123')->andReturn(null);
+		$client->shouldReceive('get')->once()->with('mako:session:123')->andReturn(null);
 
 		$redis = new Redis($client);
 
@@ -74,7 +74,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('del')->once()->with('sess_123');
+		$client->shouldReceive('del')->once()->with('mako:session:123');
 
 		$redis = new Redis($client);
 

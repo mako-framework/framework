@@ -26,7 +26,7 @@ class APCu implements StoreInterface
 	 */
 	public function __construct(
 		protected array|bool $classWhitelist = false,
-		protected string $prefix = 'sess_'
+		protected string $prefix = 'mako:session:'
 	) {
 	}
 
