@@ -97,8 +97,7 @@ class SessionService extends Service
 
 			// Build options array
 
-			$options =
-			[
+			$options = [
 				'name'           => $config['session_name'],
 				'data_ttl'       => $config['ttl']['data'],
 				'cookie_ttl'     => $config['ttl']['cookie'],
