@@ -35,6 +35,11 @@ use function sprintf;
 class CacheManager extends AdapterManager
 {
 	/**
+	 * Default prefix.
+	 */
+	protected const string DEFAULT_PREFIX = 'mako:cache:';
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct(
@@ -51,7 +56,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function apcuFactory(array $configuration): APCu
 	{
-		return (new APCu)->setPrefix($configuration['prefix'] ?? '');
+		return (new APCu)
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -59,7 +65,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function fileFactory(array $configuration): File
 	{
-		return (new File($this->container->get(FileSystem::class), $configuration['path'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new File($this->container->get(FileSystem::class), $configuration['path'], $this->classWhitelist))
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -67,7 +74,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function databaseFactory(array $configuration): Database
 	{
-		return (new Database($this->container->get(DatabaseConnectionManager::class)->getConnection($configuration['configuration']), $configuration['table'], $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new Database($this->container->get(DatabaseConnectionManager::class)->getConnection($configuration['configuration']), $configuration['table'], $this->classWhitelist))
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -75,7 +83,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function memcacheFactory(array $configuration): Memcache
 	{
-		return (new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']))->setPrefix($configuration['prefix'] ?? '');
+		return (new Memcache($configuration['servers'], $configuration['timeout'], $configuration['compress_data']))
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -83,7 +92,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function memcachedFactory(array $configuration): Memcached
 	{
-		return (new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']))->setPrefix($configuration['prefix'] ?? '');
+		return (new Memcached($configuration['servers'], $configuration['timeout'], $configuration['compress_data']))
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -91,7 +101,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function memoryFactory(array $configuration): Memory
 	{
-		return (new Memory)->setPrefix($configuration['prefix'] ?? '');
+		return (new Memory)
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -99,7 +110,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function redisFactory(array $configuration): Redis
 	{
-		return (new Redis($this->container->get(RedisConnectionManager::class)->getConnection($configuration['configuration']), $this->classWhitelist))->setPrefix($configuration['prefix'] ?? '');
+		return (new Redis($this->container->get(RedisConnectionManager::class)->getConnection($configuration['configuration']), $this->classWhitelist))
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
@@ -107,7 +119,8 @@ class CacheManager extends AdapterManager
 	 */
 	protected function nullFactory(array $configuration): NullStore
 	{
-		return (new NullStore)->setPrefix($configuration['prefix'] ?? '');
+		return (new NullStore)
+		->setPrefix($configuration['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
