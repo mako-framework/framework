@@ -41,7 +41,7 @@ class FileTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (31556926 + time()) . "\n" . serialize(123), true);
+		$fileSystem->shouldReceive('put')->once()->with('/cache/mako_cache_foo.php', (31556926 + time()) . "\n" . serialize(123), true);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -49,7 +49,7 @@ class FileTest extends TestCase
 
 		//
 
-		$fileSystem->shouldReceive('put')->once()->with('/cache/foo.php', (3600 + time()) . "\n" . serialize(123), true);
+		$fileSystem->shouldReceive('put')->once()->with('/cache/mako_cache_foo.php', (3600 + time()) . "\n" . serialize(123), true);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -63,13 +63,13 @@ class FileTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
 		$splFileObject->shouldReceive('fgets')->once()->andReturn(2000000000);
 
-		$fileSystem->shouldReceive('file')->once()->with('/cache/foo.php', 'r')->andReturn($splFileObject);
+		$fileSystem->shouldReceive('file')->once()->with('/cache/mako_cache_foo.php', 'r')->andReturn($splFileObject);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -79,13 +79,13 @@ class FileTest extends TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
 		$splFileObject->shouldReceive('fgets')->once()->andReturn(1984);
 
-		$fileSystem->shouldReceive('file')->once()->with('/cache/foo.php', 'r')->andReturn($splFileObject);
+		$fileSystem->shouldReceive('file')->once()->with('/cache/mako_cache_foo.php', 'r')->andReturn($splFileObject);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -95,7 +95,7 @@ class FileTest extends TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(false);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -109,7 +109,7 @@ class FileTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
@@ -117,7 +117,7 @@ class FileTest extends TestCase
 
 		$splFileObject->shouldReceive('eof')->twice()->andReturn(false, true);
 
-		$fileSystem->shouldReceive('file')->once()->with('/cache/foo.php', 'r')->andReturn($splFileObject);
+		$fileSystem->shouldReceive('file')->once()->with('/cache/mako_cache_foo.php', 'r')->andReturn($splFileObject);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -127,15 +127,15 @@ class FileTest extends TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
 		$splFileObject = $this->getSplFileObject();
 
 		$splFileObject->shouldReceive('fgets')->once()->andReturn(1983);
 
-		$fileSystem->shouldReceive('file')->once()->with('/cache/foo.php', 'r')->andReturn($splFileObject);
+		$fileSystem->shouldReceive('file')->once()->with('/cache/mako_cache_foo.php', 'r')->andReturn($splFileObject);
 
-		$fileSystem->shouldReceive('remove')->once()->with('/cache/foo.php');
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/mako_cache_foo.php');
 
 		$file = new File($fileSystem, '/cache');
 
@@ -145,7 +145,7 @@ class FileTest extends TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(false);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -159,9 +159,9 @@ class FileTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('remove')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -171,7 +171,7 @@ class FileTest extends TestCase
 
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('has')->once()->with('/cache/foo.php')->andReturn(false);
+		$fileSystem->shouldReceive('has')->once()->with('/cache/mako_cache_foo.php')->andReturn(false);
 
 		$file = new File($fileSystem, '/cache');
 
@@ -185,15 +185,15 @@ class FileTest extends TestCase
 	{
 		$fileSystem = $this->getFileSystem();
 
-		$fileSystem->shouldReceive('glob')->once()->with('/cache/*')->andReturn(['/cache/foo.php', '/cache/bar.php']);
+		$fileSystem->shouldReceive('glob')->once()->with('/cache/*')->andReturn(['/cache/mako_cache_foo.php', '/cache/mako_cache_bar.php']);
 
-		$fileSystem->shouldReceive('isFile')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('isFile')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('isFile')->once()->with('/cache/bar.php')->andReturn(true);
+		$fileSystem->shouldReceive('isFile')->once()->with('/cache/mako_cache_bar.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('remove')->once()->with('/cache/foo.php')->andReturn(true);
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/mako_cache_foo.php')->andReturn(true);
 
-		$fileSystem->shouldReceive('remove')->once()->with('/cache/bar.php')->andReturn(true);
+		$fileSystem->shouldReceive('remove')->once()->with('/cache/mako_cache_bar.php')->andReturn(true);
 
 		$file = new File($fileSystem, '/cache');
 

@@ -17,7 +17,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * Prefix.
 	 */
-	protected ?string $prefix = null;
+	protected string $prefix = 'mako:cache:';
 
 	/**
 	 * Sets the cache key prefix.
@@ -44,7 +44,7 @@ abstract class Store implements StoreInterface
 	 */
 	protected function getPrefixedKey(string $key): string
 	{
-		return empty($this->prefix) ? $key : "{$this->prefix}.{$key}";
+		return "{$this->prefix}{$key}";
 	}
 
 	/**

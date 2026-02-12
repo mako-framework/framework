@@ -32,7 +32,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', 123)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', 123)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -42,7 +42,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', serialize('foo'))->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', serialize('foo'))->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -52,7 +52,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', 123, 'EX', 3600)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', 123, 'EX', 3600)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -62,7 +62,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', serialize('foo'), 'EX', 3600)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', serialize('foo'), 'EX', 3600)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -76,7 +76,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', 123, 'NX')->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', 123, 'NX')->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -86,7 +86,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', serialize('foo'), 'NX')->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', serialize('foo'), 'NX')->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -96,7 +96,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', 123, 'NX', 'EX', 3600)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', 123, 'NX', 'EX', 3600)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -106,7 +106,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('set')->once()->with('foo', serialize('foo'), 'NX', 'EX', 3600)->andReturn(true);
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', serialize('foo'), 'NX', 'EX', 3600)->andReturn(true);
 
 		$redis = new Redis($client);
 
@@ -120,7 +120,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('incrby')->once()->with('foo', 1)->andReturn(1);
+		$client->shouldReceive('incrby')->once()->with('mako:cache:foo', 1)->andReturn(1);
 
 		$redis = new Redis($client);
 
@@ -130,7 +130,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('incrby')->once()->with('foo', 10)->andReturn(10);
+		$client->shouldReceive('incrby')->once()->with('mako:cache:foo', 10)->andReturn(10);
 
 		$redis = new Redis($client);
 
@@ -144,7 +144,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('decrby')->once()->with('foo', 1)->andReturn(-1);
+		$client->shouldReceive('decrby')->once()->with('mako:cache:foo', 1)->andReturn(-1);
 
 		$redis = new Redis($client);
 
@@ -154,7 +154,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('decrby')->once()->with('foo', 10)->andReturn(-10);
+		$client->shouldReceive('decrby')->once()->with('mako:cache:foo', 10)->andReturn(-10);
 
 		$redis = new Redis($client);
 
@@ -168,7 +168,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('exists')->once()->with('foo')->andReturn(1);
+		$client->shouldReceive('exists')->once()->with('mako:cache:foo')->andReturn(1);
 
 		$redis = new Redis($client);
 
@@ -180,7 +180,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('exists')->once()->with('foo')->andReturn(0);
+		$client->shouldReceive('exists')->once()->with('mako:cache:foo')->andReturn(0);
 
 		$redis = new Redis($client);
 
@@ -196,7 +196,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('get')->once()->with('foo')->andReturn(123);
+		$client->shouldReceive('get')->once()->with('mako:cache:foo')->andReturn(123);
 
 		$redis = new Redis($client);
 
@@ -208,7 +208,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('get')->once()->with('foo')->andReturn(serialize('foo'));
+		$client->shouldReceive('get')->once()->with('mako:cache:foo')->andReturn(serialize('foo'));
 
 		$redis = new Redis($client);
 
@@ -224,7 +224,7 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('del')->once()->with('foo')->andReturn(1);
+		$client->shouldReceive('del')->once()->with('mako:cache:foo')->andReturn(1);
 
 		$redis = new Redis($client);
 
@@ -236,7 +236,7 @@ class RedisTest extends TestCase
 
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('del')->once()->with('foo')->andReturn(0);
+		$client->shouldReceive('del')->once()->with('mako:cache:foo')->andReturn(0);
 
 		$redis = new Redis($client);
 
@@ -252,29 +252,11 @@ class RedisTest extends TestCase
 	{
 		$client = $this->getRedisClient();
 
-		$client->shouldReceive('keys')->once()->with('*')->andReturn(['foo', 'bar']);
+		$client->shouldReceive('keys')->once()->with('mako:cache:*')->andReturn(['mako:cache:foo', 'mako:cache:bar']);
 
-		$client->shouldReceive('del')->once()->with('foo', 'bar')->andReturn(2);
-
-		$redis = new Redis($client);
-
-		$redis->clear();
-	}
-
-	/**
-	 *
-	 */
-	public function testClearWithPrefix(): void
-	{
-		$client = $this->getRedisClient();
-
-		$client->shouldReceive('keys')->once()->with('prefix.*')->andReturn(['prefix.foo', 'prefix.bar']);
-
-		$client->shouldReceive('del')->once()->with('prefix.foo', 'prefix.bar')->andReturn(2);
+		$client->shouldReceive('del')->once()->with('mako:cache:foo', 'mako:cache:bar')->andReturn(2);
 
 		$redis = new Redis($client);
-
-		$redis->setPrefix('prefix');
 
 		$redis->clear();
 	}

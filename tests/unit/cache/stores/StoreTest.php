@@ -87,11 +87,11 @@ class StoreTest extends TestCase
 	{
 		$store = $this->getStore();
 
-		$this->assertSame('bar', $store->prefixedKey('bar'));
+		$this->assertSame('mako:cache:bar', $store->prefixedKey('bar'));
 
-		$store->setPrefix('foo');
+		$store->setPrefix('foo:');
 
-		$this->assertSame('foo.bar', $store->prefixedKey('bar'));
+		$this->assertSame('foo:bar', $store->prefixedKey('bar'));
 	}
 
 	/**

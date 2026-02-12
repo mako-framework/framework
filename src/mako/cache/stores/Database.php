@@ -46,11 +46,9 @@ class Database extends Store
 	{
 		$ttl = (((int) $ttl === 0) ? 31556926 : (int) $ttl) + time();
 
-		$key = $this->getPrefixedKey($key);
-
 		$this->remove($key);
 
-		return $this->table()->insert(['key' => $key, 'data' => serialize($data), 'lifetime' => $ttl]);
+		return $this->table()->insert(['key' => $this->getPrefixedKey($key), 'data' => serialize($data), 'lifetime' => $ttl]);
 	}
 
 	/**
@@ -68,9 +66,7 @@ class Database extends Store
 	#[Override]
 	public function get(string $key): mixed
 	{
-		$key = $this->getPrefixedKey($key);
-
-		$cache = $this->table()->where('key', '=', $key)->first();
+		$cache = $this->table()->where('key', '=', $this->getPrefixedKey($key))->first();
 
 		if ($cache !== null) {
 			if (time() < $cache->lifetime) {

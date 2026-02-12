@@ -43,11 +43,11 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->twice()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('delete')->once()->andReturn(true);
 
-		$builder->shouldReceive('insert')->with(['key' => 'foo', 'data' => serialize('foo'), 'lifetime' => 31556926 + time()])->once()->andReturn(true);
+		$builder->shouldReceive('insert')->with(['key' => 'mako:cache:foo', 'data' => serialize('foo'), 'lifetime' => 31556926 + time()])->once()->andReturn(true);
 
 		$connection = $this->getDatabaseConnection();
 
@@ -63,11 +63,11 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->twice()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('delete')->once()->andReturn(true);
 
-		$builder->shouldReceive('insert')->with(['key' => 'foo', 'data' => serialize('foo'), 'lifetime' => 3600 + time()])->once()->andReturn(true);
+		$builder->shouldReceive('insert')->with(['key' => 'mako:cache:foo', 'data' => serialize('foo'), 'lifetime' => 3600 + time()])->once()->andReturn(true);
 
 		$connection = $this->getDatabaseConnection();
 
@@ -87,7 +87,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->once()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('where')->with('lifetime', '>', time())->once()->andReturn($builder);
 
@@ -109,7 +109,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->once()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('where')->with('lifetime', '>', time())->once()->andReturn($builder);
 
@@ -135,9 +135,9 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->once()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
-		$builder->shouldReceive('first')->once()->andReturn((object) ['key' => 'foo', 'data' => serialize('foo'), 'lifetime' => time() + 3600]);
+		$builder->shouldReceive('first')->once()->andReturn((object) ['key' => 'mako:cache:foo', 'data' => serialize('foo'), 'lifetime' => time() + 3600]);
 
 		$connection = $this->getDatabaseConnection();
 
@@ -155,7 +155,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->once()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('first')->once()->andReturn(null);
 
@@ -175,9 +175,9 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->twice()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->twice()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->twice()->andReturn($builder);
 
-		$builder->shouldReceive('first')->once()->andReturn((object) ['key' => 'foo', 'data' => serialize('foo'), 'lifetime' => time() - 3600]);
+		$builder->shouldReceive('first')->once()->andReturn((object) ['key' => 'mako:cache:foo', 'data' => serialize('foo'), 'lifetime' => time() - 3600]);
 
 		$builder->shouldReceive('delete')->once()->andReturn(true);
 
@@ -201,7 +201,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->once()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('delete')->once()->andReturn(1);
 
@@ -221,7 +221,7 @@ class DatabaseTest extends TestCase
 
 		$builder->shouldReceive('table')->once()->with('mako_cache')->andReturn($builder);
 
-		$builder->shouldReceive('where')->with('key', '=', 'foo')->once()->andReturn($builder);
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
 
 		$builder->shouldReceive('delete')->once()->andReturn(0);
 
