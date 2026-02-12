@@ -28,6 +28,11 @@ use Override;
 class SessionService extends Service
 {
 	/**
+	 * Default prefix.
+	 */
+	protected const string DEFAULT_PREFIX = 'mako:cache:';
+
+	/**
 	 * Returns an APCu store instance.
 	 */
 	protected function getApcuStore(Container $container, array $config, array|bool $classWhitelist): APCu
@@ -64,7 +69,7 @@ class SessionService extends Service
 	 */
 	protected function getRedisStore(Container $container, array $config, array|bool $classWhitelist): Redis
 	{
-		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist, $config['prefix'] ?? 'mako:session:');
+		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist, $config['prefix'] ?? static::DEFAULT_PREFIX);
 	}
 
 	/**
