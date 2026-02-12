@@ -102,13 +102,13 @@ class Session extends Adapter
 		if ($this->user === null && $this->hasLoggedOut === false) {
 			// Check if there'a user that can be logged in
 
-			$token = $this->session->get($this->options['auth_key']);
+			$token = $this->session->get("mako:{$this->options['auth_key']}");
 
 			if ($token === null) {
 				$token = $this->request->cookies->getSigned($this->options['auth_key']);
 
 				if ($token !== null) {
-					$this->session->put($this->options['auth_key'], $token);
+					$this->session->put("mako:{$this->options['auth_key']}", $token);
 				}
 			}
 
@@ -195,7 +195,7 @@ class Session extends Adapter
 
 			$this->session->regenerateToken();
 
-			$this->session->put($this->options['auth_key'], $this->user->getAccessToken());
+			$this->session->put("mako:{$this->options['auth_key']}", $this->user->getAccessToken());
 
 			if ($remember === true) {
 				$this->setRememberMeCookie();
@@ -243,7 +243,7 @@ class Session extends Adapter
 
 		$this->session->regenerateToken();
 
-		$this->session->remove($this->options['auth_key']);
+		$this->session->remove("mako:{$this->options['auth_key']}");
 
 		$this->response->cookies->delete($this->options['auth_key'], $this->options['cookie_options']);
 

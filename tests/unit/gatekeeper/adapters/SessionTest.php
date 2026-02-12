@@ -217,7 +217,7 @@ class SessionTest extends TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->times(3)->with('gatekeeper_auth_key')->andReturn(null);
+		$session->shouldReceive('get')->times(3)->with('mako:gatekeeper_auth_key')->andReturn(null);
 
 		$request = $this->getRequest();
 
@@ -245,15 +245,15 @@ class SessionTest extends TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->times(1)->with('gatekeeper_auth_key')->andReturn(null);
+		$session->shouldReceive('get')->times(1)->with('mako:gatekeeper_auth_key')->andReturn(null);
 
-		$session->shouldReceive('put')->times(1)->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->times(1)->with('mako:gatekeeper_auth_key', 'token');
 
 		$session->shouldReceive('regenerateId')->times(1);
 
 		$session->shouldReceive('regenerateToken')->times(1);
 
-		$session->shouldReceive('remove')->times(1)->with('gatekeeper_auth_key');
+		$session->shouldReceive('remove')->times(1)->with('mako:gatekeeper_auth_key');
 
 		$request = $this->getRequest();
 
@@ -295,7 +295,7 @@ class SessionTest extends TestCase
 	{
 		$session = $this->getSession();
 
-		$session->shouldReceive('get')->once()->with('gatekeeper_auth_key')->andReturn('token');
+		$session->shouldReceive('get')->once()->with('mako:gatekeeper_auth_key')->andReturn('token');
 
 		$user = $this->getUser();
 
@@ -427,7 +427,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->once()->with('mako:gatekeeper_auth_key', 'token');
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $session);
 
@@ -462,7 +462,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->once()->with('mako:gatekeeper_auth_key', 'token');
 
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
@@ -508,7 +508,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->once()->with('mako:gatekeeper_auth_key', 'token');
 
 		$request = $this->getRequest();
 
@@ -544,7 +544,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->once()->with('mako:gatekeeper_auth_key', 'token');
 
 		$request = $this->getRequest();
 
@@ -590,7 +590,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->once()->with('mako:gatekeeper_auth_key', 'token');
 
 		$adapter = new Session($userRepository, $this->getGroupRepository(), $this->getRequest(), $this->getResponse(), $session);
 
@@ -653,7 +653,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('put')->once()->with('gatekeeper_auth_key', 'token');
+		$session->shouldReceive('put')->once()->with('mako:gatekeeper_auth_key', 'token');
 
 		$options = ['throttling' => ['enabled' => true, 'max_attempts' => 5, 'lock_time' => 300]];
 
@@ -806,7 +806,7 @@ class SessionTest extends TestCase
 
 		$session->shouldReceive('regenerateToken')->once();
 
-		$session->shouldReceive('remove')->once()->with('gatekeeper_auth_key');
+		$session->shouldReceive('remove')->once()->with('mako:gatekeeper_auth_key');
 
 		$responseCookies = Mockery::mock(ResponseCookies::class);
 
