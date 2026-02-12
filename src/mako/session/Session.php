@@ -120,11 +120,11 @@ class Session
 
 		// Create a session token if we don't have one
 
-		if (empty($this->sessionData['mako.token'])) {
-			$this->sessionData['mako.token'] = $this->generateId();
+		if (empty($this->sessionData['mako:token'])) {
+			$this->sessionData['mako:token'] = $this->generateId();
 		}
 
-		$this->token = $this->sessionData['mako.token'];
+		$this->token = $this->sessionData['mako:token'];
 	}
 
 	/**
@@ -150,7 +150,7 @@ class Session
 	{
 		// Replace old flash data with new
 
-		$this->sessionData['mako.flashdata'] = $this->flashData;
+		$this->sessionData['mako:flashdata'] = $this->flashData;
 
 		// Write session data
 
@@ -304,7 +304,7 @@ class Session
 	 */
 	public function hasFlash(string $key): bool
 	{
-		return isset($this->sessionData['mako.flashdata'][$key]);
+		return isset($this->sessionData['mako:flashdata'][$key]);
 	}
 
 	/**
@@ -312,7 +312,7 @@ class Session
 	 */
 	public function getFlash(string $key, mixed $default = null): mixed
 	{
-		return $this->sessionData['mako.flashdata'][$key] ?? $default;
+		return $this->sessionData['mako:flashdata'][$key] ?? $default;
 	}
 
 	/**
@@ -320,7 +320,7 @@ class Session
 	 */
 	public function removeFlash(string $key): void
 	{
-		unset($this->sessionData['mako.flashdata'][$key]);
+		unset($this->sessionData['mako:flashdata'][$key]);
 	}
 
 	/**
@@ -328,7 +328,7 @@ class Session
 	 */
 	public function reflash(array $keys = []): void
 	{
-		$flashData = $this->sessionData['mako.flashdata'] ?? [];
+		$flashData = $this->sessionData['mako:flashdata'] ?? [];
 
 		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
 
@@ -348,7 +348,7 @@ class Session
 	 */
 	public function regenerateToken(): string
 	{
-		return $this->token = $this->sessionData['mako.token'] = $this->generateId();
+		return $this->token = $this->sessionData['mako:token'] = $this->generateId();
 	}
 
 	/**
@@ -364,16 +364,16 @@ class Session
 	 */
 	public function generateOneTimeToken(): string
 	{
-		if (!empty($this->sessionData['mako.tokens'])) {
-			$this->sessionData['mako.tokens'] = array_slice($this->sessionData['mako.tokens'], 0, (static::MAX_TOKENS - 1));
+		if (!empty($this->sessionData['mako:tokens'])) {
+			$this->sessionData['mako:tokens'] = array_slice($this->sessionData['mako:tokens'], 0, (static::MAX_TOKENS - 1));
 		}
 		else {
-			$this->sessionData['mako.tokens'] = [];
+			$this->sessionData['mako:tokens'] = [];
 		}
 
 		$token = $this->generateId();
 
-		array_unshift($this->sessionData['mako.tokens'], $token);
+		array_unshift($this->sessionData['mako:tokens'], $token);
 
 		return $token;
 	}
@@ -383,10 +383,10 @@ class Session
 	 */
 	public function validateOneTimeToken(#[SensitiveParameter] string $token): bool
 	{
-		if (!empty($this->sessionData['mako.tokens'])) {
-			foreach ($this->sessionData['mako.tokens'] as $key => $value) {
+		if (!empty($this->sessionData['mako:tokens'])) {
+			foreach ($this->sessionData['mako:tokens'] as $key => $value) {
 				if (hash_equals($value, $token)) {
-					unset($this->sessionData['mako.tokens'][$key]);
+					unset($this->sessionData['mako:tokens'][$key]);
 
 					return true;
 				}
