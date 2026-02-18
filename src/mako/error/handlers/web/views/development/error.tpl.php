@@ -533,6 +533,25 @@
 						<td>{{\mako\env('MAKO_ENV', 'default')}}</td>
 					</tr>
 				</table>
+				{%if (!empty($extensions)) %}
+					<div class="frame">
+						<div class="title">
+							<span class="toggle" aria-hidden="true">
+								<svg class="icon"><use href="#icon-up"></use></svg>
+							</span>
+							<span class="title">Extensions</span>
+						</div>
+						<div class="details" data-open="false">
+							<ul>
+								{% foreach($extensions as $extension) %}
+									<li><p>{{$extension}}</p></li>
+								{% endforeach %}
+							</ul>
+						</div>
+					</div>
+					<br>
+					<br>
+				{% endif %}
 				{% foreach($superglobals as $name => $values) %}
 					{% if(!empty($values)) %}
 						<div class="frame">

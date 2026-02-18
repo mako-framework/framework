@@ -35,8 +35,10 @@ use function feof;
 use function fgets;
 use function fopen;
 use function function_exists;
+use function get_loaded_extensions;
 use function is_readable;
 use function json_encode;
+use function natcasesort;
 use function simplexml_load_string;
 use function str_repeat;
 use function str_starts_with;
@@ -326,6 +328,18 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	}
 
 	/**
+	 * Returns a list of the loaded extensions.
+	 */
+	protected function getExtensions(): array
+	{
+		$extensions = get_loaded_extensions();
+
+		natcasesort($extensions);
+
+		return $extensions;
+	}
+
+	/**
 	 * Returns a rendered error view.
 	 */
 	protected function getExceptionAsHtml(Throwable $exception): string
@@ -351,6 +365,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 				'_POST'    => $_POST,
 				'_FILES'   => $_FILES,
 			],
+			'extensions'   => $this->getExtensions(),
 		]);
 	}
 
