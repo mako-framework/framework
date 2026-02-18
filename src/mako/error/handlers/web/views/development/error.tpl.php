@@ -542,11 +542,11 @@
 							<span class="title">Extensions</span>
 						</div>
 						<div class="details" data-open="false">
-							<ul>
+							<ol>
 								{% foreach($extensions as $extension) %}
 									<li><p>{{$extension}}</p></li>
 								{% endforeach %}
-							</ul>
+							</ol>
 						</div>
 					</div>
 					<br>
@@ -562,11 +562,11 @@
 									<span class="title">${{$name}}</span>
 								</div>
 								<div class="details" data-open="false">
-									<ul>
+									<ol>
 										{% foreach($values as $name => $value) %}
 											<li><p>{{$name}} {{raw:$dump($value)}}</p></li>
 										{% endforeach %}
-									</ul>
+									</ol>
 								</div>
 						</div>
 					{% endif %}
