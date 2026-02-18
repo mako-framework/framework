@@ -39,6 +39,16 @@ class EventStream implements ResponseSenderInterface
 	}
 
 	/**
+	 * Erases and disables output buffers.
+	 */
+	protected function eraseAndDisableOutputBuffers(): void
+	{
+		while (ob_get_level() > 0) {
+			ob_end_clean();
+		}
+	}
+
+	/**
 	 * Stringifies the value.
 	 */
 	protected function stringifyValue(null|float|int|JsonSerializable|string|Stringable $value): string
@@ -53,9 +63,9 @@ class EventStream implements ResponseSenderInterface
 	}
 
 	/**
-	 * Sends the event to the client.
+	 * Prepares the event for sending.
 	 */
-	protected function sendEvent(Event $event): void
+	protected function prepareEvent(Event $event): string
 	{
 		$output = '';
 
@@ -65,7 +75,15 @@ class EventStream implements ResponseSenderInterface
 
 		$output .= "\n";
 
-		echo $output;
+		return $output;
+	}
+
+	/**
+	 * Sends the event to the client.
+	 */
+	protected function sendEvent(string $event): void
+	{
+		echo $event;
 
 		flush();
 	}
@@ -80,7 +98,7 @@ class EventStream implements ResponseSenderInterface
 				break;
 			 }
 
-			 $this->sendEvent($event);
+			 $this->sendEvent($this->prepareEvent($event));
 		}
 	}
 
@@ -98,9 +116,7 @@ class EventStream implements ResponseSenderInterface
 
 		// Erase output buffers and disable output buffering
 
-		while (ob_get_level() > 0) {
-			ob_end_clean();
-		}
+		$this->eraseAndDisableOutputBuffers();
 
 		// Send headers
 
