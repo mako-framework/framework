@@ -74,6 +74,32 @@ class Permissions
 	}
 
 	/**
+	 * Add permission.
+	 *
+	 * @return $this
+	 */
+	public function add(Permission ...$permissions): static
+	{
+		$this->permissions = [...$this->permissions, ...$permissions];
+
+		return $this;
+	}
+
+	/**
+	 * Remove permission.
+	 *
+	 * @return $this
+	 */
+	public function remove(Permission ...$permissions): static
+	{
+		foreach ($permissions as $permission) {
+			$this->permissions = array_filter($this->permissions, fn ($value) => $value !== $permission);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Returns the permissions.
 	 *
 	 * @return Permission[]

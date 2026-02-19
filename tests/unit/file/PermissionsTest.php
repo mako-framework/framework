@@ -358,4 +358,72 @@ class PermissionsTest extends TestCase
 
 		$this->assertSame('r-Sr-Sr-T', $permissions->toRwxString());
 	}
+
+	/**
+	 *
+	 */
+	public function testAdd(): void
+	{
+		$permissions = new Permissions;
+
+		$this->assertSame(0o0000, $permissions->toInt());
+
+		//
+
+		$this->assertInstanceOf(Permissions::class, $permissions->add(Permission::OWNER_FULL));
+
+		$this->assertSame(0o0700, $permissions->toInt());
+
+		//
+
+		$permissions->add(Permission::OWNER_FULL);
+
+		$this->assertSame(0o0700, $permissions->toInt());
+
+		//
+
+		$permissions->add(Permission::GROUP_FULL);
+
+		$this->assertSame(0o0770, $permissions->toInt());
+
+		//
+
+		$permissions->add(Permission::PUBLIC_READ, Permission::PUBLIC_WRITE, Permission::PUBLIC_EXECUTE);
+
+		$this->assertSame(0o0777, $permissions->toInt());
+	}
+
+	/**
+	 *
+	 */
+	public function testRemove(): void
+	{
+		$permissions = Permissions::fromInt(0o777);
+
+		$this->assertSame(0o0777, $permissions->toInt());
+
+		//
+
+		$this->assertInstanceOf(Permissions::class, $permissions->remove(Permission::PUBLIC_WRITE));
+
+		$this->assertSame(0o0775, $permissions->toInt());
+
+		//
+
+		$permissions->remove(Permission::PUBLIC_WRITE);
+
+		$this->assertSame(0o0775, $permissions->toInt());
+
+		//
+
+		$permissions->remove(Permission::GROUP_WRITE);
+
+		$this->assertSame(0o0755, $permissions->toInt());
+
+		//
+
+		$permissions->remove(Permission::PUBLIC_EXECUTE, Permission::GROUP_EXECUTE);
+
+		$this->assertSame(0o0744, $permissions->toInt());
+	}
 }
