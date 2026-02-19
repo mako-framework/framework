@@ -10,23 +10,15 @@ namespace mako\http\response\senders;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\response\senders\stream\StreamTrait;
 use Override;
-
-use function flush;
-use function ob_end_clean;
-use function ob_get_level;
-use function printf;
-use function strlen;
 
 /**
  * Stream response.
  */
 class Stream implements ResponseSenderInterface
 {
-	/**
-	 * Is PHP running as a CGI program?
-	 */
-	protected bool $isCGI;
+	use StreamTrait;
 
 	/**
 	 * Constructor.
@@ -81,44 +73,17 @@ class Stream implements ResponseSenderInterface
 	/**
 	 * Flushes a chunck of data.
 	 */
-	public function flush(?string $chunk, bool $flushEmpty = false): void
+	public function flush(string $chunk): void
 	{
-		if ($this->isCGI) {
-			if (!empty($chunk)) {
-				echo $chunk;
-
-				flush();
-			}
-		}
-		else {
-			if (!empty($chunk) || $flushEmpty === true) {
-				printf("%x\r\n%s\r\n", strlen($chunk ?? ''), $chunk ?? '');
-
-				flush();
-			}
-		}
+		$this->sendChunk($chunk);
 	}
 
 	/**
-	 * Sends the stream.
+	 * Sends the stream to the client.
 	 */
-	protected function flow(): void
+	protected function sendStream(): void
 	{
-		// Erase output buffers and disable output buffering
-
-		while (ob_get_level() > 0) {
-			ob_end_clean();
-		}
-
-		// Send the stream
-
-		$stream = $this->stream;
-
-		$stream($this);
-
-		// Send empty chunk to tell the client that we're done
-
-		$this->flush(null, true);
+		($this->stream)($this);
 	}
 
 	/**
@@ -127,12 +92,6 @@ class Stream implements ResponseSenderInterface
 	#[Override]
 	public function send(Request $request, Response $response): void
 	{
-		$this->isCGI = $request->isCGI();
-
-		if (!$this->isCGI) {
-			$response->headers->add('Transfer-Encoding', 'chunked');
-		}
-
 		if (!empty($this->contentType)) {
 			$response->setType($this->contentType);
 		}
@@ -141,8 +100,18 @@ class Stream implements ResponseSenderInterface
 			$response->setCharset($this->charset);
 		}
 
+		$response->headers->add('X-Accel-Buffering', 'no');
+
+		// Erase output buffers and disable output buffering
+
+		$this->eraseAndDisableOutputBuffers();
+
+		// Send headers
+
 		$response->sendHeaders();
 
-		$this->flow();
+		// Send the stream
+
+		$this->sendStream();
 	}
 }

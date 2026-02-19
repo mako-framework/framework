@@ -70,7 +70,7 @@ class EventStreamTest extends TestCase
 
 		$eventStream->shouldReceive('eraseAndDisableOutputBuffers')->once();
 
-		$eventStream->shouldReceive('sendEvent')->once()->with("data: hello, world!\n\n");
+		$eventStream->shouldReceive('sendChunk')->once()->with("data: hello, world!\n\n");
 
 		$eventStream->send($this->getRequest(), $this->getResponse());
 	}
@@ -91,7 +91,7 @@ class EventStreamTest extends TestCase
 
 		$eventStream->shouldReceive('eraseAndDisableOutputBuffers')->once();
 
-		$eventStream->shouldReceive('sendEvent')->once()->with("event: greeting\ndata: hello, world!\n\n");
+		$eventStream->shouldReceive('sendChunk')->once()->with("event: greeting\ndata: hello, world!\n\n");
 
 		$eventStream->send($this->getRequest(), $this->getResponse());
 	}
@@ -116,8 +116,8 @@ class EventStreamTest extends TestCase
 
 		$eventStream->shouldReceive('eraseAndDisableOutputBuffers')->once();
 
-		$eventStream->shouldReceive('sendEvent')->once()->with("event: greeting\ndata: first hello\n\n");
-		$eventStream->shouldReceive('sendEvent')->once()->with("event: greeting\ndata: second hello\n\n");
+		$eventStream->shouldReceive('sendChunk')->once()->with("event: greeting\ndata: first hello\n\n");
+		$eventStream->shouldReceive('sendChunk')->once()->with("event: greeting\ndata: second hello\n\n");
 
 		$eventStream->send($this->getRequest(), $this->getResponse());
 	}
@@ -142,7 +142,7 @@ class EventStreamTest extends TestCase
 
 		$eventStream->shouldReceive('eraseAndDisableOutputBuffers')->once();
 
-		$eventStream->shouldReceive('sendEvent')->once()->with("data: this is a string\n\n");
+		$eventStream->shouldReceive('sendChunk')->once()->with("data: this is a string\n\n");
 
 		$eventStream->send($this->getRequest(), $this->getResponse());
 	}
@@ -167,7 +167,7 @@ class EventStreamTest extends TestCase
 
 		$eventStream->shouldReceive('eraseAndDisableOutputBuffers')->once();
 
-		$eventStream->shouldReceive('sendEvent')->once()->with("data: [1,2,3]\n\n");
+		$eventStream->shouldReceive('sendChunk')->once()->with("data: [1,2,3]\n\n");
 
 		$eventStream->send($this->getRequest(), $this->getResponse());
 	}

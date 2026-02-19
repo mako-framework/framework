@@ -13,15 +13,13 @@ use JsonSerializable;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\senders\stream\event\Event;
+use mako\http\response\senders\stream\StreamTrait;
 use Override;
 use Stringable;
 
 use function connection_aborted;
-use function flush;
 use function is_object;
 use function json_encode;
-use function ob_end_clean;
-use function ob_get_level;
 
 /**
  * Event stream response.
@@ -30,22 +28,14 @@ use function ob_get_level;
  */
 class EventStream implements ResponseSenderInterface
 {
+	use StreamTrait;
+
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected Closure $stream
 	) {
-	}
-
-	/**
-	 * Erases and disables output buffers.
-	 */
-	protected function eraseAndDisableOutputBuffers(): void
-	{
-		while (ob_get_level() > 0) {
-			ob_end_clean();
-		}
 	}
 
 	/**
@@ -79,16 +69,6 @@ class EventStream implements ResponseSenderInterface
 	}
 
 	/**
-	 * Sends the event to the client.
-	 */
-	protected function sendEvent(string $event): void
-	{
-		echo $event;
-
-		flush();
-	}
-
-	/**
 	 * Sends the stream to the client.
 	 */
 	protected function sendStream(): void
@@ -98,7 +78,7 @@ class EventStream implements ResponseSenderInterface
 				break;
 			 }
 
-			 $this->sendEvent($this->prepareEvent($event));
+			 $this->sendChunk($this->prepareEvent($event));
 		}
 	}
 
