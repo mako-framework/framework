@@ -9,6 +9,13 @@
 * Now possible to define custom input/output value objects for the query builder.
 * Added a `EventStream` response sender to simplify sending [sever-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events).
 
+#### Deprecations
+
+* Deprecated the following methods in the `ControllerHelperTrait` trait:
+	- `fileResponse` - Create and return `mako\http\response\senders\File` instance instead
+	- `streamResponse` - Create and return a `mako\http\response\senders\Stream` instance instead
+	- `jsonResponse` - Create and return a `mako\http\response\builders\JSON` instance instead
+
 --------------------------------------------------------
 
 

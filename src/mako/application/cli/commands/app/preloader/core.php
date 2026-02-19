@@ -138,6 +138,7 @@ return
 	mako\http\routing\Router::class,
 	mako\http\routing\Routes::class,
 	mako\http\routing\traits\ControllerHelperTrait::class,
+	mako\http\routing\traits\RedirectTrait::class,
 	mako\http\routing\URLBuilder::class,
 	mako\i18n\I18n::class,
 	mako\i18n\loaders\LoaderInterface::class,
