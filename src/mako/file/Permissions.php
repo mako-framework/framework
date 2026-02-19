@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use function decoct;
 use function sprintf;
 use function str_pad;
+use function strtoupper;
 
 /**
  * File permission collection.
@@ -38,8 +39,8 @@ class Permissions
 	 */
 	public static function fromInt(int $permissions): static
 	{
-		if ($permissions < Permission::NONE->value || $permissions > Permission::FULL->value) {
-			throw new InvalidArgumentException(sprintf('The integer [ %s ] does not represent a valid octal between 0o000 and 0o777.', $permissions));
+		if ($permissions < Permission::NONE->value || $permissions > (Permission::FULL_WITH_ALL_SPECIAL->value)) {
+			throw new InvalidArgumentException(sprintf('The integer [ %s ] does not represent a valid octal between 0o0000 and 0o7777.', $permissions));
 		}
 
 		if ($permissions === Permission::NONE->value) {
@@ -56,6 +57,9 @@ class Permissions
 			Permission::PUBLIC_READ,
 			Permission::PUBLIC_WRITE,
 			Permission::PUBLIC_EXECUTE,
+			Permission::SPECIAL_SETUID,
+			Permission::SPECIAL_SETGID,
+			Permission::SPECIAL_STICKY,
 		];
 
 		$permission = [];
@@ -106,13 +110,30 @@ class Permissions
 	/**
 	 * Returns a rwx string representation of a permission group.
 	 */
-	protected function getGroupAsRwxString(int $permissions, Permission $read, Permission $write, Permission $execute): string
+	protected function getGroupAsRwxString(int $permissions, Permission $read, Permission $write, Permission $execute, string $group): string
 	{
 		$rwx = '';
 
+		// Read & Write
+
 		$rwx .= ($permissions & $read->value) ? 'r' : '-';
 		$rwx .= ($permissions & $write->value) ? 'w' : '-';
-		$rwx .= ($permissions & $execute->value) ? 'x' : '-';
+
+		// Determine special bit
+
+		$specialChar = match ($group) {
+			'owner' => ($permissions & Permission::SPECIAL_SETUID->value) ? 's' : null,
+			'group' => ($permissions & Permission::SPECIAL_SETGID->value) ? 's' : null,
+			'public' => ($permissions & Permission::SPECIAL_STICKY->value) ? 't' : null,
+		};
+
+		// Execute + special bit handling
+
+		$hasExecute = ($permissions & $execute->value) !== 0;
+
+		$rwx .= $specialChar !== null ? ($hasExecute ? $specialChar : strtoupper($specialChar)) : ($hasExecute ? 'x' : '-');
+
+		// Return rwx string
 
 		return $rwx;
 	}
@@ -124,9 +145,9 @@ class Permissions
 	{
 		$permissions = Permission::calculate(...$this->permissions);
 
-		$owner = $this->getGroupAsRwxString($permissions, Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::OWNER_EXECUTE);
-		$group = $this->getGroupAsRwxString($permissions, Permission::GROUP_READ, Permission::GROUP_WRITE, Permission::GROUP_EXECUTE);
-		$public = $this->getGroupAsRwxString($permissions, Permission::PUBLIC_READ, Permission::PUBLIC_WRITE, Permission::PUBLIC_EXECUTE);
+		$owner = $this->getGroupAsRwxString($permissions, Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::OWNER_EXECUTE, 'owner');
+		$group = $this->getGroupAsRwxString($permissions, Permission::GROUP_READ, Permission::GROUP_WRITE, Permission::GROUP_EXECUTE, 'group');
+		$public = $this->getGroupAsRwxString($permissions, Permission::PUBLIC_READ, Permission::PUBLIC_WRITE, Permission::PUBLIC_EXECUTE, 'public');
 
 		return "{$owner}{$group}{$public}";
 	}

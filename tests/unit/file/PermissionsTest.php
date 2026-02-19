@@ -23,9 +23,9 @@ class PermissionsTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('The integer [ 1337 ] does not represent a valid octal between 0o000 and 0o777.');
+		$this->expectExceptionMessage('The integer [ 13337 ] does not represent a valid octal between 0o0000 and 0o7777.');
 
-		Permissions::fromInt(1337);
+		Permissions::fromInt(13337);
 	}
 
 	/**
@@ -83,6 +83,8 @@ class PermissionsTest extends TestCase
 
 		$this->assertTrue($permissions->hasPermissions(Permission::NONE));
 
+		$this->assertFalse($permissions->hasPermissions(Permission::SPECIAL_SETUID));
+
 		$this->assertFalse($permissions->hasPermissions(Permission::OWNER_READ));
 
 		$this->assertFalse($permissions->hasPermissions(Permission::GROUP_READ));
@@ -92,6 +94,18 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(Permission::OWNER_READ, Permission::GROUP_READ, Permission::PUBLIC_READ);
+
+		$this->assertTrue($permissions->hasPermissions(Permission::OWNER_READ));
+
+		$this->assertTrue($permissions->hasPermissions(Permission::GROUP_READ));
+
+		$this->assertTrue($permissions->hasPermissions(Permission::PUBLIC_READ));
+
+		//
+
+		$permissions = new Permissions(Permission::SPECIAL_STICKY, Permission::OWNER_READ, Permission::GROUP_READ, Permission::PUBLIC_READ);
+
+		$this->assertTrue($permissions->hasPermissions(Permission::SPECIAL_STICKY));
 
 		$this->assertTrue($permissions->hasPermissions(Permission::OWNER_READ));
 
@@ -132,6 +146,48 @@ class PermissionsTest extends TestCase
 		);
 
 		$this->assertSame(0o755, $permissions->toInt());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::SPECIAL_STICKY,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE
+		);
+
+		$this->assertSame(0o1755, $permissions->toInt());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE
+		);
+
+		$this->assertSame(0o3755, $permissions->toInt());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::SPECIAL_SETUID,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE
+		);
+
+		$this->assertSame(0o7755, $permissions->toInt());
 	}
 
 	/**
@@ -178,6 +234,48 @@ class PermissionsTest extends TestCase
 		);
 
 		$this->assertSame('755', $permissions->toOctalString());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::SPECIAL_STICKY,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE
+		);
+
+		$this->assertSame('1755', $permissions->toOctalString());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE
+		);
+
+		$this->assertSame('3755', $permissions->toOctalString());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::SPECIAL_SETUID,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE
+		);
+
+		$this->assertSame('7755', $permissions->toOctalString());
 	}
 
 	/**
@@ -218,5 +316,46 @@ class PermissionsTest extends TestCase
 		);
 
 		$this->assertSame('rwxr-xr-x', $permissions->toRwxString());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE,
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::SPECIAL_SETUID
+		);
+
+		$this->assertSame('rwsr-sr-t', $permissions->toRwxString());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::PUBLIC_READ,
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::SPECIAL_SETUID
+		);
+
+		$this->assertSame('rwsr-Sr-T', $permissions->toRwxString());
+
+		//
+
+		$permissions = new Permissions(
+			Permission::OWNER_READ,
+			Permission::GROUP_READ,
+			Permission::PUBLIC_READ,
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::SPECIAL_SETUID
+		);
+
+		$this->assertSame('r-Sr-Sr-T', $permissions->toRwxString());
 	}
 }

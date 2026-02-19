@@ -74,6 +74,14 @@ class PermissionTest extends TestCase
 
 		$this->assertSame(0o007, Permission::calculate(Permission::PUBLIC_FULL));
 
+		//
+
+		$this->assertSame(0o1000, Permission::calculate(Permission::SPECIAL_STICKY));
+
+		$this->assertSame(0o2000, Permission::calculate(Permission::SPECIAL_SETGID));
+
+		$this->assertSame(0o4000, Permission::calculate(Permission::SPECIAL_SETUID));
+
 		// Test combinations
 
 		$this->assertSame(0o666, Permission::calculate(
@@ -101,6 +109,25 @@ class PermissionTest extends TestCase
 			Permission::PUBLIC_READ,
 			Permission::PUBLIC_EXECUTE)
 		);
+
+		$this->assertSame(0o1755, Permission::calculate(
+			Permission::SPECIAL_STICKY,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE)
+		);
+
+		$this->assertSame(0o3755, Permission::calculate(
+			Permission::SPECIAL_STICKY,
+			Permission::SPECIAL_SETGID,
+			Permission::OWNER_FULL,
+			Permission::GROUP_READ,
+			Permission::GROUP_EXECUTE,
+			Permission::PUBLIC_READ,
+			Permission::PUBLIC_EXECUTE)
+		);
 	}
 
 	/**
@@ -110,9 +137,9 @@ class PermissionTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('The integer [ 1337 ] does not represent a valid octal between 0o000 and 0o777.');
+		$this->expectExceptionMessage('The integer [ 13337 ] does not represent a valid octal between 0o0000 and 0o7777.');
 
-		Permission::hasPermissions(1337, Permission::NONE);
+		Permission::hasPermissions(13337, Permission::NONE);
 	}
 
 	/**
@@ -129,6 +156,12 @@ class PermissionTest extends TestCase
 		$this->assertTrue(Permission::hasPermissions(0o777, Permission::OWNER_FULL, Permission::GROUP_FULL, Permission::PUBLIC_FULL));
 
 		$this->assertTrue(Permission::hasPermissions(0o755, Permission::OWNER_FULL));
+
+		$this->assertTrue(Permission::hasPermissions(0o1000, Permission::SPECIAL_STICKY));
+
+		$this->assertTrue(Permission::hasPermissions(0o3000, Permission::SPECIAL_STICKY, Permission::SPECIAL_SETGID));
+
+		$this->assertTrue(Permission::hasPermissions(0o7000, Permission::SPECIAL_STICKY, Permission::SPECIAL_SETGID, Permission::SPECIAL_SETUID));
 
 		$this->assertFalse(Permission::hasPermissions(0o755, Permission::GROUP_WRITE));
 
