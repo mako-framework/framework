@@ -8,7 +8,7 @@
 	- `Postgres`
 * Now possible to define custom input/output value objects for the query builder.
 * Added a `EventStream` response sender to simplify sending [sever-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events).
-* Permission calculations now fully supports special bits (sticky, setgid and setuid).
+* Permission calculations now fully support special bits (sticky, setgid and setuid).
 
 #### Deprecations
 
