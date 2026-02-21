@@ -9,6 +9,7 @@ namespace mako\file;
 
 use InvalidArgumentException;
 
+use function array_filter;
 use function decoct;
 use function sprintf;
 use function str_pad;
