@@ -1,3 +1,11 @@
+### 12.0.3, 12.1.1 <small>(2026-03-01)</small>
+
+#### Bugfixes
+
+* Fixed an error in the 429 error template.
+
+--------------------------------------------------------
+
 ### 12.1.0 <small>(2026-02-20)</small>
 
 #### New
@@ -21,7 +29,6 @@
 	- `jsonResponse` - Create and return a `mako\http\response\builders\JSON` instance instead
 
 --------------------------------------------------------
-
 
 ### 11.4.6, 12.0.2 <small>(2026-01-08)</small>
 

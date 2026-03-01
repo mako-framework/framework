@@ -15,7 +15,7 @@ if (isset($_exception_) && $_exception_ instanceof TooManyRequestsException) {
 		&& $retryAfter->getTimezone()->getName() !== 'UTC'
 		&& ($retryAfter instanceof DateTime || $retryAfter instanceof DateTimeImmutable)
 	) {
-		$retryAfter->setTimezone(new DateTimeZone('UTC'));
+		$retryAfter = $retryAfter->setTimezone(new DateTimeZone('UTC'));
 		$retryAfter = $retryAfter->format('Y-m-d\TH:i:sP');
 	}
 }
