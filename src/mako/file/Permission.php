@@ -127,7 +127,7 @@ enum Permission: int
 	 */
 	public static function calculate(Permission ...$permission): int
 	{
-		$permissions = 0o0000;
+		$permissions = self::None->value;
 
 		foreach ($permission as $_permission) {
 			$permissions |= $_permission->value;
@@ -141,14 +141,14 @@ enum Permission: int
 	 */
 	public static function hasPermissions(int $permissions, Permission ...$permission): bool
 	{
-		if ($permissions < 0o0000 || $permissions > 0o7777) {
+		if ($permissions < self::None->value || $permissions > self::FullWithAllSpecial->value) {
 			throw new InvalidArgumentException(sprintf('The integer [ %s ] does not represent a valid octal between 0o0000 and 0o7777.', $permissions));
 		}
 
-		$permission = empty($permission) ? 0o0000 : self::calculate(...$permission);
+		$permission = empty($permission) ? self::None->value : self::calculate(...$permission);
 
-		if ($permission === 0o0000) {
-			return $permissions === 0o0000;
+		if ($permission === self::None->value) {
+			return $permissions === self::None->value;
 		}
 
 		return ($permissions & $permission) === $permission;
