@@ -104,10 +104,10 @@ class Confirmation
 
 				$key = Key::tryFrom($this->input->readBytes(3));
 
-				if ($key === Key::SPACE || $key === Key::LEFT || $key === Key::RIGHT) {
+				if ($key === Key::Space || $key === Key::Left || $key === Key::Right) {
 					$this->toggleSelection();
 				}
-				elseif ($key === Key::ENTER) {
+				elseif ($key === Key::Enter) {
 					return $this->currentSelection;
 				}
 			}
