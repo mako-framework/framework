@@ -22,8 +22,8 @@ class EventTest extends TestCase
 	public function testEvent(): void
 	{
 		$event = new Event(
-			new Field(Type::DATA, 'foobar'),
-			new Field(Type::DATA, 'barfoo'),
+			new Field(Type::Data, 'foobar'),
+			new Field(Type::Data, 'barfoo'),
 		);
 
 		$this->assertCount(2, $event->fields);

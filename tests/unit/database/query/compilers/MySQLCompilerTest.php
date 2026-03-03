@@ -260,7 +260,7 @@ class MySQLCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::EUCLIDEAN)
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::Euclidean)
 		->getCompiler()->select();
 
 		$this->assertEquals("SELECT * FROM `foobar` WHERE DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN') <= ?", $query['sql']);
@@ -354,7 +354,7 @@ class MySQLCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::EUCLIDEAN)
+		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::Euclidean)
 		->getCompiler()->select();
 
 		$this->assertEquals("SELECT * FROM `foobar` ORDER BY DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN') ASC", $query['sql']);
@@ -444,7 +444,7 @@ class MySQLCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::EUCLIDEAN)])
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::Euclidean)])
 		->getCompiler()->select();
 
 		$this->assertEquals("SELECT DISTANCE(`embedding`, STRING_TO_VECTOR(?), 'EUCLIDEAN') FROM `foobar`", $query['sql']);

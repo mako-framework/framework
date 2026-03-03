@@ -102,7 +102,7 @@ class FileSystem
 	 */
 	public function getPermissions(string $path): Permissions
 	{
-		return Permissions::fromInt(fileperms($path) & Permission::FULL->value);
+		return Permissions::fromInt(fileperms($path) & Permission::FullWithAllSpecial->value);
 	}
 
 	/**

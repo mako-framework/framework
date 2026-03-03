@@ -181,7 +181,7 @@ class RouterTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
+		$response->shouldReceive('setStatus')->once()->with(Status::MovedPermanently);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -275,7 +275,7 @@ class RouterTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
+		$response->shouldReceive('setStatus')->once()->with(Status::MovedPermanently);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;

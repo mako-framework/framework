@@ -7,33 +7,48 @@
 
 namespace mako\pixel\image\operations;
 
+use Deprecated;
+
 /**
  * Watermark position.
  */
 enum WatermarkPosition
 {
+	/* Start compatibility */
+	#[Deprecated('use WatermarkPosition::TopLeft instead', 'Mako 12.2.0')]
+	public const TOP_LEFT = self::TopLeft;
+	#[Deprecated('use WatermarkPosition::TopRight instead', 'Mako 12.2.0')]
+	public const TOP_RIGHT = self::TopRight;
+	#[Deprecated('use WatermarkPosition::BottomLeft instead', 'Mako 12.2.0')]
+	public const BOTTOM_LEFT = self::BottomLeft;
+	#[Deprecated('use WatermarkPosition::BottomRight instead', 'Mako 12.2.0')]
+	public const BOTTOM_RIGHT = self::BottomRight;
+	#[Deprecated('use WatermarkPosition::Center instead', 'Mako 12.2.0')]
+	public const CENTER = self::Center;
+	/* End compatibility */
+
 	/**
 	 * Top left corner.
 	 */
-	case TOP_LEFT;
+	case TopLeft;
 
 	/**
 	 * Top right corner.
 	 */
-	case TOP_RIGHT;
+	case TopRight;
 
 	/**
 	 * Bottom left corner.
 	 */
-	case BOTTOM_LEFT;
+	case BottomLeft;
 
 	/**
-	 * Bottom left corner.
+	 * Bottom right corner.
 	 */
-	case BOTTOM_RIGHT;
+	case BottomRight;
 
 	/**
 	 * Centered.
 	 */
-	case CENTER;
+	case Center;
 }

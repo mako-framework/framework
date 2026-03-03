@@ -76,14 +76,14 @@ class FunctionsTest extends TestCase
 		$_ENV['MAKO_TRUE'] = 'true';
 		$_ENV['MAKO_FALSE'] = 'false';
 
-		$this->assertTrue(env('MAKO_TRUE', as: Type::BOOL));
-		$this->assertFalse(env('MAKO_FALSE', as: Type::BOOL));
+		$this->assertTrue(env('MAKO_TRUE', as: Type::Bool));
+		$this->assertFalse(env('MAKO_FALSE', as: Type::Bool));
 
 		$_ENV['MAKO_TRUE'] = '1';
 		$_ENV['MAKO_FALSE'] = '0';
 
-		$this->assertTrue(env('MAKO_TRUE', as: Type::BOOL));
-		$this->assertFalse(env('MAKO_FALSE', as: Type::BOOL));
+		$this->assertTrue(env('MAKO_TRUE', as: Type::Bool));
+		$this->assertFalse(env('MAKO_FALSE', as: Type::Bool));
 	}
 
 	/**
@@ -94,8 +94,8 @@ class FunctionsTest extends TestCase
 		$_ENV['MAKO_VALID'] = '1234';
 		$_ENV['MAKO_INVALID'] = 'foobar';
 
-		$this->assertSame(1234, env('MAKO_VALID', as: Type::INT));
-		$this->assertNull(env('MAKO_INVALID', as: Type::INT));
+		$this->assertSame(1234, env('MAKO_VALID', as: Type::Int));
+		$this->assertNull(env('MAKO_INVALID', as: Type::Int));
 	}
 
 	/**
@@ -106,8 +106,8 @@ class FunctionsTest extends TestCase
 		$_ENV['MAKO_VALID'] = '1.2';
 		$_ENV['MAKO_INVALID'] = 'foobar';
 
-		$this->assertSame(1.2, env('MAKO_VALID', as: Type::FLOAT));
-		$this->assertNull(env('MAKO_INVALID', as: Type::FLOAT));
+		$this->assertSame(1.2, env('MAKO_VALID', as: Type::Float));
+		$this->assertNull(env('MAKO_INVALID', as: Type::Float));
 	}
 
 	/**
@@ -117,12 +117,12 @@ class FunctionsTest extends TestCase
 	{
 		$_ENV['MAKO_JSON'] = '{"foo": "bar"}';
 
-		$value = env('MAKO_JSON', as: Type::JSON_AS_OBJECT);
+		$value = env('MAKO_JSON', as: Type::JsonAsObject);
 
 		$this->assertIsObject($value);
 		$this->assertSame('bar', $value->foo);
 
-		$value = env('MAKO_NO_JSON', as: Type::JSON_AS_OBJECT);
+		$value = env('MAKO_NO_JSON', as: Type::JsonAsObject);
 
 		$this->assertNull($value);
 	}
@@ -134,12 +134,12 @@ class FunctionsTest extends TestCase
 	{
 		$_ENV['MAKO_JSON'] = '{"foo": "bar"}';
 
-		$value = env('MAKO_JSON', as: Type::JSON_AS_ARRAY);
+		$value = env('MAKO_JSON', as: Type::JsonAsArray);
 
 		$this->assertIsArray($value);
 		$this->assertSame('bar', $value['foo']);
 
-		$value = env('MAKO_NO_JSON', as: Type::JSON_AS_ARRAY);
+		$value = env('MAKO_NO_JSON', as: Type::JsonAsArray);
 
 		$this->assertNull($value);
 	}

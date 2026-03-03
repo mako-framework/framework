@@ -7,16 +7,31 @@
 
 namespace mako\gatekeeper;
 
+use Deprecated;
+
 /**
  * Login status codes.
  */
 enum LoginStatus: int
 {
-	case OK = 1;
-	case BANNED = 2;
-	case NOT_ACTIVATED = 3;
-	case INVALID_CREDENTIALS = 4;
-	case LOCKED = 5;
+	/* Start compatibility */
+	#[Deprecated('use LoginStatus::Ok instead', 'Mako 12.2.0')]
+	public const OK = self::Ok;
+	#[Deprecated('use LoginStatus::Banned instead', 'Mako 12.2.0')]
+	public const BANNED = self::Banned;
+	#[Deprecated('use LoginStatus::NotActivated instead', 'Mako 12.2.0')]
+	public const NOT_ACTIVATED = self::NotActivated;
+	#[Deprecated('use LoginStatus::InvalidCredentials instead', 'Mako 12.2.0')]
+	public const INVALID_CREDENTIALS = self::InvalidCredentials;
+	#[Deprecated('use LoginStatus::Locked instead', 'Mako 12.2.0')]
+	public const LOCKED = self::Locked;
+	/* End compatibility */
+
+	case Ok = 1;
+	case Banned = 2;
+	case NotActivated = 3;
+	case InvalidCredentials = 4;
+	case Locked = 5;
 
 	/**
 	 * Returns the status code.
@@ -27,10 +42,10 @@ enum LoginStatus: int
 	}
 
 	/**
-	 * Returns TRUE if OK and FALSE otherwise.
+	 * Returns TRUE if Ok and FALSE otherwise.
 	 */
 	public function toBool(): bool
 	{
-		return $this === self::OK;
+		return $this === self::Ok;
 	}
 }

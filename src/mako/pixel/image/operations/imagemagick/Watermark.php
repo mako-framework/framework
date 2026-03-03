@@ -23,7 +23,7 @@ class Watermark implements OperationInterface
 	 */
 	public function __construct(
 		protected ImageMagick|string $image,
-		protected WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT,
+		protected WatermarkPosition $position = WatermarkPosition::BottomRight,
 		protected int $opacity = 100,
 		protected int $margin = 0
 	) {
@@ -50,19 +50,19 @@ class Watermark implements OperationInterface
 		}
 
 		switch ($this->position) {
-			case WatermarkPosition::TOP_RIGHT:
+			case WatermarkPosition::TopRight:
 				$x = $imageResource->getImageWidth() - $watermarkWidth - $this->margin;
 				$y = 0 + $this->margin;
 				break;
-			case WatermarkPosition::BOTTOM_LEFT:
+			case WatermarkPosition::BottomLeft:
 				$x = 0 + $this->margin;
 				$y = $imageResource->getImageHeight() - $watermarkHeight - $this->margin;
 				break;
-			case WatermarkPosition::BOTTOM_RIGHT:
+			case WatermarkPosition::BottomRight:
 				$x = $imageResource->getImageWidth() - $watermarkWidth - $this->margin;
 				$y = $imageResource->getImageHeight() - $watermarkHeight - $this->margin;
 				break;
-			case WatermarkPosition::CENTER:
+			case WatermarkPosition::Center:
 				$x = ($imageResource->getImageWidth() - $watermarkWidth) / 2;
 				$y = ($imageResource->getImageHeight() - $watermarkHeight) / 2;
 				break;

@@ -71,7 +71,7 @@ class MariaDBCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::EUCLIDEAN)
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::Euclidean)
 		->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM `foobar` WHERE VEC_DISTANCE_EUCLIDEAN(`embedding`, VEC_FromText(?)) <= ?', $query['sql']);
@@ -165,7 +165,7 @@ class MariaDBCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::EUCLIDEAN)
+		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::Euclidean)
 		->getCompiler()->select();
 
 		$this->assertEquals('SELECT * FROM `foobar` ORDER BY VEC_DISTANCE_EUCLIDEAN(`embedding`, VEC_FromText(?)) ASC', $query['sql']);
@@ -255,7 +255,7 @@ class MariaDBCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query = $query->table('foobar')
-		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::EUCLIDEAN)])
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::Euclidean)])
 		->getCompiler()->select();
 
 		$this->assertEquals('SELECT VEC_DISTANCE_EUCLIDEAN(`embedding`, VEC_FromText(?)) FROM `foobar`', $query['sql']);

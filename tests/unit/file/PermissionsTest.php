@@ -35,25 +35,25 @@ class PermissionsTest extends TestCase
 	{
 		$permissions = Permissions::fromInt(0o000);
 
-		$this->assertSame([Permission::NONE], $permissions->getPermissions());
+		$this->assertSame([Permission::None], $permissions->getPermissions());
 
 		//
 
 		$permissions = Permissions::fromInt(0o700);
 
-		$this->assertSame([Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::OWNER_EXECUTE], $permissions->getPermissions());
+		$this->assertSame([Permission::OwnerRead, Permission::OwnerWrite, Permission::OwnerExecute], $permissions->getPermissions());
 
 		//
 
 		$permissions = Permissions::fromInt(0o444);
 
-		$this->assertSame([Permission::OWNER_READ, Permission::GROUP_READ, Permission::PUBLIC_READ], $permissions->getPermissions());
+		$this->assertSame([Permission::OwnerRead, Permission::GroupRead, Permission::PublicRead], $permissions->getPermissions());
 
 		//
 
 		$permissions = Permissions::fromInt(0o666);
 
-		$this->assertSame([Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::GROUP_READ, Permission::GROUP_WRITE, Permission::PUBLIC_READ, Permission::PUBLIC_WRITE], $permissions->getPermissions());
+		$this->assertSame([Permission::OwnerRead, Permission::OwnerWrite, Permission::GroupRead, Permission::GroupWrite, Permission::PublicRead, Permission::PublicWrite], $permissions->getPermissions());
 	}
 
 	/**
@@ -63,13 +63,13 @@ class PermissionsTest extends TestCase
 	{
 		$permissions = new Permissions;
 
-		$this->assertSame([Permission::NONE], $permissions->getPermissions());
+		$this->assertSame([Permission::None], $permissions->getPermissions());
 
 		//
 
-		$permissions = new Permissions(Permission::OWNER_FULL);
+		$permissions = new Permissions(Permission::OwnerFull);
 
-		$this->assertSame([Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::OWNER_EXECUTE], $permissions->getPermissions());
+		$this->assertSame([Permission::OwnerRead, Permission::OwnerWrite, Permission::OwnerExecute], $permissions->getPermissions());
 	}
 
 	/**
@@ -81,37 +81,37 @@ class PermissionsTest extends TestCase
 
 		$this->assertTrue($permissions->hasPermissions());
 
-		$this->assertTrue($permissions->hasPermissions(Permission::NONE));
+		$this->assertTrue($permissions->hasPermissions(Permission::None));
 
-		$this->assertFalse($permissions->hasPermissions(Permission::SPECIAL_SETUID));
+		$this->assertFalse($permissions->hasPermissions(Permission::SpecialSetUid));
 
-		$this->assertFalse($permissions->hasPermissions(Permission::OWNER_READ));
+		$this->assertFalse($permissions->hasPermissions(Permission::OwnerRead));
 
-		$this->assertFalse($permissions->hasPermissions(Permission::GROUP_READ));
+		$this->assertFalse($permissions->hasPermissions(Permission::GroupRead));
 
-		$this->assertFalse($permissions->hasPermissions(Permission::PUBLIC_READ));
-
-		//
-
-		$permissions = new Permissions(Permission::OWNER_READ, Permission::GROUP_READ, Permission::PUBLIC_READ);
-
-		$this->assertTrue($permissions->hasPermissions(Permission::OWNER_READ));
-
-		$this->assertTrue($permissions->hasPermissions(Permission::GROUP_READ));
-
-		$this->assertTrue($permissions->hasPermissions(Permission::PUBLIC_READ));
+		$this->assertFalse($permissions->hasPermissions(Permission::PublicRead));
 
 		//
 
-		$permissions = new Permissions(Permission::SPECIAL_STICKY, Permission::OWNER_READ, Permission::GROUP_READ, Permission::PUBLIC_READ);
+		$permissions = new Permissions(Permission::OwnerRead, Permission::GroupRead, Permission::PublicRead);
 
-		$this->assertTrue($permissions->hasPermissions(Permission::SPECIAL_STICKY));
+		$this->assertTrue($permissions->hasPermissions(Permission::OwnerRead));
 
-		$this->assertTrue($permissions->hasPermissions(Permission::OWNER_READ));
+		$this->assertTrue($permissions->hasPermissions(Permission::GroupRead));
 
-		$this->assertTrue($permissions->hasPermissions(Permission::GROUP_READ));
+		$this->assertTrue($permissions->hasPermissions(Permission::PublicRead));
 
-		$this->assertTrue($permissions->hasPermissions(Permission::PUBLIC_READ));
+		//
+
+		$permissions = new Permissions(Permission::SpecialSticky, Permission::OwnerRead, Permission::GroupRead, Permission::PublicRead);
+
+		$this->assertTrue($permissions->hasPermissions(Permission::SpecialSticky));
+
+		$this->assertTrue($permissions->hasPermissions(Permission::OwnerRead));
+
+		$this->assertTrue($permissions->hasPermissions(Permission::GroupRead));
+
+		$this->assertTrue($permissions->hasPermissions(Permission::PublicRead));
 	}
 
 	/**
@@ -125,24 +125,24 @@ class PermissionsTest extends TestCase
 
 		//
 
-		$permissions = new Permissions(Permission::NONE);
+		$permissions = new Permissions(Permission::None);
 
 		$this->assertSame(0o000, $permissions->toInt());
 
 		//
 
-		$permissions = new Permissions(Permission::OWNER_FULL, Permission::GROUP_FULL, Permission::PUBLIC_FULL);
+		$permissions = new Permissions(Permission::OwnerFull, Permission::GroupFull, Permission::PublicFull);
 
 		$this->assertSame(0o777, $permissions->toInt());
 
 		//
 
 		$permissions = new Permissions(
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame(0o755, $permissions->toInt());
@@ -150,12 +150,12 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::SPECIAL_STICKY,
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::SpecialSticky,
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame(0o1755, $permissions->toInt());
@@ -163,13 +163,13 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame(0o3755, $permissions->toInt());
@@ -177,14 +177,14 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::SPECIAL_SETUID,
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::SpecialSetUid,
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame(0o7755, $permissions->toInt());
@@ -201,36 +201,36 @@ class PermissionsTest extends TestCase
 
 		//
 
-		$permissions = new Permissions(Permission::NONE);
+		$permissions = new Permissions(Permission::None);
 
 		$this->assertSame('000', $permissions->toOctalString());
 
 		//
 
-		$permissions = new Permissions(Permission::OWNER_FULL, Permission::GROUP_FULL, Permission::PUBLIC_FULL);
+		$permissions = new Permissions(Permission::OwnerFull, Permission::GroupFull, Permission::PublicFull);
 
 		$this->assertSame('777', $permissions->toOctalString());
 
 		//
 
-		$permissions = new Permissions(Permission::PUBLIC_FULL);
+		$permissions = new Permissions(Permission::PublicFull);
 
 		$this->assertSame('007', $permissions->toOctalString());
 
 		//
 
-		$permissions = new Permissions(Permission::GROUP_FULL);
+		$permissions = new Permissions(Permission::GroupFull);
 
 		$this->assertSame('070', $permissions->toOctalString());
 
 		//
 
 		$permissions = new Permissions(
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame('755', $permissions->toOctalString());
@@ -238,12 +238,12 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::SPECIAL_STICKY,
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::SpecialSticky,
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame('1755', $permissions->toOctalString());
@@ -251,13 +251,13 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame('3755', $permissions->toOctalString());
@@ -265,14 +265,14 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::SPECIAL_SETUID,
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::SpecialSetUid,
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame('7755', $permissions->toOctalString());
@@ -289,30 +289,30 @@ class PermissionsTest extends TestCase
 
 		//
 
-		$permissions = new Permissions(Permission::NONE);
+		$permissions = new Permissions(Permission::None);
 
 		$this->assertSame('---------', $permissions->toRwxString());
 
 		//
 
-		$permissions = new Permissions(Permission::OWNER_FULL, Permission::GROUP_FULL, Permission::PUBLIC_FULL);
+		$permissions = new Permissions(Permission::OwnerFull, Permission::GroupFull, Permission::PublicFull);
 
 		$this->assertSame('rwxrwxrwx', $permissions->toRwxString());
 
 		//
 
-		$permissions = new Permissions(Permission::PUBLIC_FULL);
+		$permissions = new Permissions(Permission::PublicFull);
 
 		$this->assertSame('------rwx', $permissions->toRwxString());
 
 		//
 
 		$permissions = new Permissions(
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute
 		);
 
 		$this->assertSame('rwxr-xr-x', $permissions->toRwxString());
@@ -320,14 +320,14 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_EXECUTE,
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::SPECIAL_SETUID
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicExecute,
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::SpecialSetUid
 		);
 
 		$this->assertSame('rwsr-sr-t', $permissions->toRwxString());
@@ -335,12 +335,12 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::OWNER_FULL,
-			Permission::GROUP_READ,
-			Permission::PUBLIC_READ,
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::SPECIAL_SETUID
+			Permission::OwnerFull,
+			Permission::GroupRead,
+			Permission::PublicRead,
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::SpecialSetUid
 		);
 
 		$this->assertSame('rwsr-Sr-T', $permissions->toRwxString());
@@ -348,12 +348,12 @@ class PermissionsTest extends TestCase
 		//
 
 		$permissions = new Permissions(
-			Permission::OWNER_READ,
-			Permission::GROUP_READ,
-			Permission::PUBLIC_READ,
-			Permission::SPECIAL_STICKY,
-			Permission::SPECIAL_SETGID,
-			Permission::SPECIAL_SETUID
+			Permission::OwnerRead,
+			Permission::GroupRead,
+			Permission::PublicRead,
+			Permission::SpecialSticky,
+			Permission::SpecialSetGid,
+			Permission::SpecialSetUid
 		);
 
 		$this->assertSame('r-Sr-Sr-T', $permissions->toRwxString());
@@ -370,25 +370,25 @@ class PermissionsTest extends TestCase
 
 		//
 
-		$this->assertInstanceOf(Permissions::class, $permissions->add(Permission::OWNER_FULL));
+		$this->assertInstanceOf(Permissions::class, $permissions->add(Permission::OwnerFull));
 
 		$this->assertSame(0o0700, $permissions->toInt());
 
 		//
 
-		$permissions->add(Permission::OWNER_FULL);
+		$permissions->add(Permission::OwnerFull);
 
 		$this->assertSame(0o0700, $permissions->toInt());
 
 		//
 
-		$permissions->add(Permission::GROUP_FULL);
+		$permissions->add(Permission::GroupFull);
 
 		$this->assertSame(0o0770, $permissions->toInt());
 
 		//
 
-		$permissions->add(Permission::PUBLIC_READ, Permission::PUBLIC_WRITE, Permission::PUBLIC_EXECUTE);
+		$permissions->add(Permission::PublicRead, Permission::PublicWrite, Permission::PublicExecute);
 
 		$this->assertSame(0o0777, $permissions->toInt());
 	}
@@ -404,25 +404,25 @@ class PermissionsTest extends TestCase
 
 		//
 
-		$this->assertInstanceOf(Permissions::class, $permissions->remove(Permission::PUBLIC_WRITE));
+		$this->assertInstanceOf(Permissions::class, $permissions->remove(Permission::PublicWrite));
 
 		$this->assertSame(0o0775, $permissions->toInt());
 
 		//
 
-		$permissions->remove(Permission::PUBLIC_WRITE);
+		$permissions->remove(Permission::PublicWrite);
 
 		$this->assertSame(0o0775, $permissions->toInt());
 
 		//
 
-		$permissions->remove(Permission::GROUP_WRITE);
+		$permissions->remove(Permission::GroupWrite);
 
 		$this->assertSame(0o0755, $permissions->toInt());
 
 		//
 
-		$permissions->remove(Permission::PUBLIC_EXECUTE, Permission::GROUP_EXECUTE);
+		$permissions->remove(Permission::PublicExecute, Permission::GroupExecute);
 
 		$this->assertSame(0o0744, $permissions->toInt());
 	}

@@ -259,7 +259,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::LEFT->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Left->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -267,7 +267,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Enter->value);
 
 		$this->assertTrue($confirmation->ask('Delete all files?'));
 	}
@@ -287,7 +287,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Enter->value);
 
 		$this->assertFalse($confirmation->ask('Delete all files?'));
 	}
@@ -307,7 +307,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Enter->value);
 
 		$this->assertFalse($confirmation->ask('Delete all files?', false));
 	}
@@ -327,7 +327,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Enter->value);
 
 		$this->assertTrue($confirmation->ask('Delete all files?', true));
 	}
@@ -350,7 +350,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::LEFT->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Left->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -358,7 +358,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Enter->value);
 
 		$this->assertTrue($confirmation->ask('Delete all files?'));
 	}
@@ -380,7 +380,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::LEFT->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Left->value);
 
 		$output->shouldReceive('write')->once()->with(<<<'OUTPUT'
 
@@ -388,7 +388,7 @@ class ConfirmationTest extends TestCase
 
 		OUTPUT);
 
-		$input->shouldReceive('readBytes')->once()->andReturn(Key::ENTER->value);
+		$input->shouldReceive('readBytes')->once()->andReturn(Key::Enter->value);
 
 		$this->assertTrue($confirmation->ask('Delete all files?'));
 	}

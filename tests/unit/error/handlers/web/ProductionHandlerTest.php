@@ -59,7 +59,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::INTERNAL_SERVER_ERROR)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::InternalServerError)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -192,7 +192,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::INTERNAL_SERVER_ERROR)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::InternalServerError)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -247,7 +247,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('rendered')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::METHOD_NOT_ALLOWED)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::MethodNotAllowed)->andReturn($response);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -332,7 +332,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('An error has occurred while processing your request.')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::INTERNAL_SERVER_ERROR)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::InternalServerError)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -376,7 +376,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('An error has occurred while processing your request.')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::INTERNAL_SERVER_ERROR)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::InternalServerError)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -416,7 +416,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('{"error":{"code":500,"message":"An error has occurred while processing your request.","exception_id":"exception_id"}}')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::INTERNAL_SERVER_ERROR)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::InternalServerError)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -461,7 +461,7 @@ class ProductionHandlerTest extends TestCase
 
 		$response->shouldReceive('setBody')->once()->with('{"error":{"code":403,"message":"You don\'t have permission to access the requested resource.","exception_id":"exception_id","metadata":{"foo":"bar"}}}')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::FORBIDDEN)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::Forbidden)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -518,7 +518,7 @@ class ProductionHandlerTest extends TestCase
 <error><code>500</code><message>An error has occurred while processing your request.</message><exception_id>exception_id</exception_id></error>
 ')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::INTERNAL_SERVER_ERROR)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::InternalServerError)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 
@@ -575,7 +575,7 @@ class ProductionHandlerTest extends TestCase
 <error><code>403</code><message>You don\'t have permission to access the requested resource.</message><exception_id>exception_id</exception_id><metadata><foo>bar</foo></metadata></error>
 ')->andReturn($response);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::FORBIDDEN)->andReturn($response);
+		$response->shouldReceive('setStatus')->once()->with(Status::Forbidden)->andReturn($response);
 
 		$response->shouldReceive('send')->once();
 

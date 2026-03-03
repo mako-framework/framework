@@ -27,6 +27,6 @@ class GoneException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::GONE, $message, $previous);
+		parent::__construct(Status::Gone, $message, $previous);
 	}
 }

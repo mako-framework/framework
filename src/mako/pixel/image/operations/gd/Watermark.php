@@ -33,7 +33,7 @@ class Watermark implements OperationInterface
 	 */
 	public function __construct(
 		protected Gd|string $image,
-		protected WatermarkPosition $position = WatermarkPosition::BOTTOM_RIGHT,
+		protected WatermarkPosition $position = WatermarkPosition::BottomRight,
 		protected int $opacity = 100,
 		protected int $margin = 0
 	) {
@@ -77,19 +77,19 @@ class Watermark implements OperationInterface
 		}
 
 		switch ($this->position) {
-			case WatermarkPosition::TOP_RIGHT:
+			case WatermarkPosition::TopRight:
 				$x = imagesx($imageResource) - $watermarkWidth - $this->margin;
 				$y = 0 + $this->margin;
 				break;
-			case WatermarkPosition::BOTTOM_LEFT:
+			case WatermarkPosition::BottomLeft:
 				$x = 0 + $this->margin;
 				$y = imagesy($imageResource) - $watermarkHeight - $this->margin;
 				break;
-			case WatermarkPosition::BOTTOM_RIGHT:
+			case WatermarkPosition::BottomRight:
 				$x = imagesx($imageResource) - $watermarkWidth - $this->margin;
 				$y = imagesy($imageResource) - $watermarkHeight - $this->margin;
 				break;
-			case WatermarkPosition::CENTER:
+			case WatermarkPosition::Center:
 				$x = (imagesx($imageResource) - $watermarkWidth) / 2;
 				$y = (imagesy($imageResource) - $watermarkHeight) / 2;
 				break;

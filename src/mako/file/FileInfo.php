@@ -82,7 +82,7 @@ class FileInfo extends SplFileInfo
 	 */
 	public function getPermissions(): Permissions
 	{
-		return Permissions::fromInt($this->getPerms() & Permission::FULL->value);
+		return Permissions::fromInt($this->getPerms() & Permission::FullWithAllSpecial->value);
 	}
 
 	/**

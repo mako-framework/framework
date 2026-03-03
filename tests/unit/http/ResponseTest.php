@@ -177,7 +177,7 @@ class ResponseTest extends TestCase
 	{
 		$response = new Response($this->getRequest());
 
-		$this->assertEquals(Status::OK, $response->getStatus());
+		$this->assertEquals(Status::Ok, $response->getStatus());
 
 	}
 
@@ -190,7 +190,7 @@ class ResponseTest extends TestCase
 
 		$response->setStatus(404);
 
-		$this->assertEquals(Status::NOT_FOUND, $response->getStatus());
+		$this->assertEquals(Status::NotFound, $response->getStatus());
 
 	}
 
@@ -328,7 +328,7 @@ class ResponseTest extends TestCase
 
 		$this->assertCount(0, $response->getCookies());
 
-		$this->assertSame(Status::OK, $response->getStatus());
+		$this->assertSame(Status::Ok, $response->getStatus());
 	}
 
 	/**
@@ -362,7 +362,7 @@ class ResponseTest extends TestCase
 
 		$this->assertCount(1, $response->getCookies());
 
-		$this->assertSame(Status::OK, $response->getStatus());
+		$this->assertSame(Status::Ok, $response->getStatus());
 	}
 
 	/**
@@ -396,7 +396,7 @@ class ResponseTest extends TestCase
 
 		$this->assertCount(0, $response->getCookies());
 
-		$this->assertSame(Status::OK, $response->getStatus());
+		$this->assertSame(Status::Ok, $response->getStatus());
 	}
 
 	/**

@@ -268,16 +268,16 @@ class Select
 
 				$key = Key::tryFrom($this->input->readBytes(3));
 
-				if ($key === Key::UP) {
+				if ($key === Key::Up) {
 					$this->moveCursorUp();
 				}
-				elseif ($key === Key::DOWN) {
+				elseif ($key === Key::Down) {
 					$this->moveCursorDown();
 				}
-				elseif ($key === Key::SPACE || $key === Key::LEFT || $key === Key::RIGHT) {
+				elseif ($key === Key::Space || $key === Key::Left || $key === Key::Right) {
 					$this->toggleSelection();
 				}
-				elseif ($key === Key::ENTER) {
+				elseif ($key === Key::Enter) {
 					$selection = $this->getSelection();
 
 					if ($this->allowEmptySelection || $selection !== null) {

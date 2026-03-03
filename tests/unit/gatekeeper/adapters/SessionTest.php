@@ -330,7 +330,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertFalse($status->toBool());
-		$this->assertEquals(LoginStatus::INVALID_CREDENTIALS, $status);
+		$this->assertEquals(LoginStatus::InvalidCredentials, $status);
 	}
 
 	/**
@@ -351,7 +351,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertFalse($status->toBool());
-		$this->assertEquals(LoginStatus::INVALID_CREDENTIALS, $status);
+		$this->assertEquals(LoginStatus::InvalidCredentials, $status);
 	}
 
 	/**
@@ -374,7 +374,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertFalse($status->toBool());
-		$this->assertEquals(LoginStatus::NOT_ACTIVATED, $status);
+		$this->assertEquals(LoginStatus::NotActivated, $status);
 	}
 
 	/**
@@ -399,7 +399,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertFalse($status->toBool());
-		$this->assertEquals(LoginStatus::BANNED, $status);
+		$this->assertEquals(LoginStatus::Banned, $status);
 	}
 
 	/**
@@ -434,7 +434,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertTrue($status->toBool());
-		$this->assertEquals(LoginStatus::OK, $status);
+		$this->assertEquals(LoginStatus::Ok, $status);
 	}
 
 	/**
@@ -621,7 +621,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertFalse($status->toBool());
-		$this->assertEquals(LoginStatus::INVALID_CREDENTIALS, $status);
+		$this->assertEquals(LoginStatus::InvalidCredentials, $status);
 	}
 
 	/**
@@ -682,7 +682,7 @@ class SessionTest extends TestCase
 		$status = $adapter->login('foo@example.org', 'password');
 
 		$this->assertFalse($status->toBool());
-		$this->assertEquals(LoginStatus::LOCKED, $status);
+		$this->assertEquals(LoginStatus::Locked, $status);
 	}
 
 	/**
@@ -706,7 +706,7 @@ class SessionTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$response->shouldReceive('setStatus')->once()->with(Status::UNAUTHORIZED);
+		$response->shouldReceive('setStatus')->once()->with(Status::Unauthorized);
 
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()]);
 
@@ -715,7 +715,7 @@ class SessionTest extends TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
-		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(LoginStatus::INVALID_CREDENTIALS);
+		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(LoginStatus::InvalidCredentials);
 
 		$this->assertFalse($adapter->basicAuth());
 	}
@@ -741,7 +741,7 @@ class SessionTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$response->shouldReceive('setStatus')->once()->with(Status::UNAUTHORIZED);
+		$response->shouldReceive('setStatus')->once()->with(Status::Unauthorized);
 
 		$response->shouldReceive('clear')->once();
 
@@ -752,7 +752,7 @@ class SessionTest extends TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
-		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(LoginStatus::INVALID_CREDENTIALS);
+		$adapter->shouldReceive('login')->once()->with(null, null)->andReturn(LoginStatus::InvalidCredentials);
 
 		$this->assertFalse($adapter->basicAuth(true));
 	}
@@ -790,7 +790,7 @@ class SessionTest extends TestCase
 
 		$adapter->shouldReceive('isLoggedIn')->once()->andReturn(false);
 
-		$adapter->shouldReceive('login')->once()->with('foo@example.org', 'password')->andReturn(LoginStatus::OK);
+		$adapter->shouldReceive('login')->once()->with('foo@example.org', 'password')->andReturn(LoginStatus::Ok);
 
 		$this->assertTrue($adapter->basicAuth());
 	}

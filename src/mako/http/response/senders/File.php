@@ -256,7 +256,7 @@ class File implements ResponseSenderInterface
 			// Not an acceptable range so we'll just send an empty response
 			// along with a "requested range not satisfiable" status
 
-			$response->setStatus(Status::RANGE_NOT_SATISFIABLE);
+			$response->setStatus(Status::RangeNotSatisfiable);
 
 			$response->sendHeaders();
 		}
@@ -273,7 +273,7 @@ class File implements ResponseSenderInterface
 				// Valid range so we'll need to tell the client which range we're sending
 				// and set the content-length header value to the length of the byte range
 
-				$response->setStatus(Status::PARTIAL_CONTENT);
+				$response->setStatus(Status::PartialContent);
 
 				$response->headers->add('Content-Range', sprintf('bytes %s-%s/%s', $range['start'], $range['end'], $this->fileSize));
 

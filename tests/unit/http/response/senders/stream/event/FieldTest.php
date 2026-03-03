@@ -20,9 +20,9 @@ class FieldTest extends TestCase
 	 */
 	public function testField(): void
 	{
-		$field = new Field(Type::DATA, 'foobar');
+		$field = new Field(Type::Data, 'foobar');
 
-		$this->assertSame(Type::DATA, $field->type);
+		$this->assertSame(Type::Data, $field->type);
 		$this->assertSame('foobar', $field->value);
 	}
 }

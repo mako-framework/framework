@@ -647,7 +647,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function whereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance, VectorDistance $vectorDistance = VectorDistance::COSINE, string $separator = 'AND'): static
+	public function whereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance, VectorDistance $vectorDistance = VectorDistance::Cosine, string $separator = 'AND'): static
 	{
 		$this->wheres[] = [
 			'type'           => 'whereVectorDistance',
@@ -666,7 +666,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orWhereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	public function orWhereVectorDistance(string $column, array|string|Subquery $vector, float $maxDistance, VectorDistance $vectorDistance = VectorDistance::Cosine): static
 	{
 		return $this->whereVectorDistance($column, $vector, $maxDistance, $vectorDistance, 'OR');
 	}
@@ -1130,7 +1130,7 @@ class Query
 	/**
 	 * Adds a vector ORDER BY clause.
 	 */
-	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE, string $order = 'ASC'): static
+	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine, string $order = 'ASC'): static
 	{
 		$this->orderings[] = [
 			'type'           => 'vectorDistanceOrdering',
@@ -1146,7 +1146,7 @@ class Query
 	/**
 	 * Adds a ascending vector ORDER BY clause.
 	 */
-	public function ascendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	public function ascendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine): static
 	{
 		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'ASC');
 	}
@@ -1154,7 +1154,7 @@ class Query
 	/**
 	 * Adds a descending vector ORDER BY clause.
 	 */
-	public function descendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::COSINE): static
+	public function descendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine): static
 	{
 		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'DESC');
 	}

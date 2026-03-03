@@ -27,6 +27,6 @@ class NotFoundException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::NOT_FOUND, $message, $previous);
+		parent::__construct(Status::NotFound, $message, $previous);
 	}
 }

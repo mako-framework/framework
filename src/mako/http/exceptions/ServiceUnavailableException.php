@@ -27,6 +27,6 @@ class ServiceUnavailableException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::SERVICE_UNAVAILABLE, $message, $previous);
+		parent::__construct(Status::ServiceUnavailable, $message, $previous);
 	}
 }

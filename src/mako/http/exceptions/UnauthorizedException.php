@@ -27,6 +27,6 @@ class UnauthorizedException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::UNAUTHORIZED, $message, $previous);
+		parent::__construct(Status::Unauthorized, $message, $previous);
 	}
 }

@@ -75,8 +75,8 @@ class MySQL extends Compiler
 		}
 
 		$function = match ($vectorDistance['vectorDistance']) {
-			VectorDistance::COSINE => 'COSINE',
-			VectorDistance::EUCLIDEAN => 'EUCLIDEAN',
+			VectorDistance::Cosine => 'COSINE',
+			VectorDistance::Euclidean => 'EUCLIDEAN',
 		};
 
 		return "DISTANCE({$this->column($vectorDistance['column'], false)}, {$vector}, '{$function}')";

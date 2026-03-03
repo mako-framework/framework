@@ -27,6 +27,6 @@ class BadRequestException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::BAD_REQUEST, $message, $previous);
+		parent::__construct(Status::BadRequest, $message, $previous);
 	}
 }
