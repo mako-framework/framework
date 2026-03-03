@@ -36,11 +36,11 @@ namespace mako {
 
 		return match ($as) {
 			null => $value,
-			Type::BOOL => filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE),
-			Type::INT => filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
-			Type::FLOAT => filter_var($value, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE),
-			Type::JSON_AS_OBJECT => json_decode($value ?? 'null'),
-			Type::JSON_AS_ARRAY => json_decode($value ?? 'null', flags: JSON_OBJECT_AS_ARRAY),
+			Type::Bool => filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE),
+			Type::Int => filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
+			Type::Float => filter_var($value, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE),
+			Type::JsonAsObject => json_decode($value ?? 'null'),
+			Type::JsonAsArray => json_decode($value ?? 'null', flags: JSON_OBJECT_AS_ARRAY),
 		} ?? $default;
 	}
 }
