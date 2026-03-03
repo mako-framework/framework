@@ -38,8 +38,8 @@ class MariaDB extends MySQL
 		}
 
 		$function = match ($vectorDistance['vectorDistance']) {
-			VectorDistance::COSINE => 'VEC_DISTANCE_COSINE',
-			VectorDistance::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
+			VectorDistance::Cosine => 'VEC_DISTANCE_COSINE',
+			VectorDistance::Euclidean => 'VEC_DISTANCE_EUCLIDEAN',
 		};
 
 		return "{$function}({$this->column($vectorDistance['column'], false)}, {$vector})";

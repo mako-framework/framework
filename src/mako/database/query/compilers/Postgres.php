@@ -78,8 +78,8 @@ class Postgres extends Compiler
 		}
 
 		$function = match ($vectorDistance['vectorDistance']) {
-			VectorDistance::COSINE => '<=>',
-			VectorDistance::EUCLIDEAN => '<->',
+			VectorDistance::Cosine => '<=>',
+			VectorDistance::Euclidean => '<->',
 		};
 
 		return "{$this->column($vectorDistance['column'], false)} {$function} {$vector}";

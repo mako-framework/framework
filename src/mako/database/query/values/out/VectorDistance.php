@@ -30,7 +30,7 @@ class VectorDistance extends Value
 	public function __construct(
 		protected string $column,
 		protected array|string $vector,
-		protected VectorDistanceType $vectorDistance = VectorDistanceType::COSINE,
+		protected VectorDistanceType $vectorDistance = VectorDistanceType::Cosine,
 		protected ?string $alias = null
 	) {
 	}
@@ -41,8 +41,8 @@ class VectorDistance extends Value
 	protected function getMariaDbDistance(Compiler $compiler): string
 	{
 		$function = match ($this->vectorDistance) {
-			VectorDistanceType::COSINE => 'VEC_DISTANCE_COSINE',
-			VectorDistanceType::EUCLIDEAN => 'VEC_DISTANCE_EUCLIDEAN',
+			VectorDistanceType::Cosine => 'VEC_DISTANCE_COSINE',
+			VectorDistanceType::Euclidean => 'VEC_DISTANCE_EUCLIDEAN',
 		};
 
 		return "{$function}({$compiler->escapeColumnName($this->column)}, VEC_FromText(?))";
@@ -54,8 +54,8 @@ class VectorDistance extends Value
 	protected function getMySqlDistance(Compiler $compiler): string
 	{
 		$function = match ($this->vectorDistance) {
-			VectorDistanceType::COSINE => 'COSINE',
-			VectorDistanceType::EUCLIDEAN => 'EUCLIDEAN',
+			VectorDistanceType::Cosine => 'COSINE',
+			VectorDistanceType::Euclidean => 'EUCLIDEAN',
 		};
 
 		return "DISTANCE({$compiler->escapeColumnName($this->column)}, STRING_TO_VECTOR(?), '{$function}')";
@@ -67,8 +67,8 @@ class VectorDistance extends Value
 	protected function getPostgresDistance(Compiler $compiler): string
 	{
 		$function = match ($this->vectorDistance) {
-			VectorDistanceType::COSINE => '<=>',
-			VectorDistanceType::EUCLIDEAN => '<->',
+			VectorDistanceType::Cosine => '<=>',
+			VectorDistanceType::Euclidean => '<->',
 		};
 
 		return "{$compiler->columnName($this->column)} {$function} ?";
