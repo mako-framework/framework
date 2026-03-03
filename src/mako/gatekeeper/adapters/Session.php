@@ -136,16 +136,16 @@ class Session extends Adapter
 
 		if ($user !== null) {
 			if ($this->options['throttling']['enabled'] && $user->isLocked()) {
-				return LoginStatus::LOCKED;
+				return LoginStatus::Locked;
 			}
 
 			if ($force || $user->validatePassword($password)) {
 				if (!$user->isActivated()) {
-					return LoginStatus::NOT_ACTIVATED;
+					return LoginStatus::NotActivated;
 				}
 
 				if ($user->isBanned()) {
-					return LoginStatus::BANNED;
+					return LoginStatus::Banned;
 				}
 
 				if ($this->options['throttling']['enabled']) {
@@ -154,7 +154,7 @@ class Session extends Adapter
 
 				$this->user = $user;
 
-				return LoginStatus::OK;
+				return LoginStatus::Ok;
 			}
 			else {
 				if ($this->options['throttling']['enabled']) {
@@ -163,7 +163,7 @@ class Session extends Adapter
 			}
 		}
 
-		return LoginStatus::INVALID_CREDENTIALS;
+		return LoginStatus::InvalidCredentials;
 	}
 
 	/**
@@ -185,12 +185,12 @@ class Session extends Adapter
 	public function login(null|int|string $identifier, #[SensitiveParameter] ?string $password, bool $remember = false, bool $force = false): LoginStatus
 	{
 		if (empty($identifier)) {
-			return LoginStatus::INVALID_CREDENTIALS;
+			return LoginStatus::InvalidCredentials;
 		}
 
 		$status = $this->authenticate($identifier, $password, $force);
 
-		if ($status === LoginStatus::OK) {
+		if ($status === LoginStatus::Ok) {
 			$this->session->regenerateId();
 
 			$this->session->regenerateToken();
@@ -218,7 +218,7 @@ class Session extends Adapter
 	 */
 	public function basicAuth(bool $clearResponse = false): bool
 	{
-		if ($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === LoginStatus::OK) {
+		if ($this->isLoggedIn() || $this->login($this->request->getUsername(), $this->request->getPassword()) === LoginStatus::Ok) {
 			return true;
 		}
 

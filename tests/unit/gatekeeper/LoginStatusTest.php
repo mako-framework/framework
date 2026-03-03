@@ -19,11 +19,11 @@ class LoginStatusTest extends TestCase
 	 */
 	public function testLoginStatus(): void
 	{
-		$this->assertSame(1, LoginStatus::OK->value);
-		$this->assertSame(2, LoginStatus::BANNED->value);
-		$this->assertSame(3, LoginStatus::NOT_ACTIVATED->value);
-		$this->assertSame(4, LoginStatus::INVALID_CREDENTIALS->value);
-		$this->assertSame(5, LoginStatus::LOCKED->value);
+		$this->assertSame(1, LoginStatus::Ok->value);
+		$this->assertSame(2, LoginStatus::Banned->value);
+		$this->assertSame(3, LoginStatus::NotActivated->value);
+		$this->assertSame(4, LoginStatus::InvalidCredentials->value);
+		$this->assertSame(5, LoginStatus::Locked->value);
 	}
 
 	/**
@@ -31,11 +31,11 @@ class LoginStatusTest extends TestCase
 	 */
 	public function testGetCode(): void
 	{
-		$this->assertSame(1, LoginStatus::OK->getCode());
-		$this->assertSame(2, LoginStatus::BANNED->getCode());
-		$this->assertSame(3, LoginStatus::NOT_ACTIVATED->getCode());
-		$this->assertSame(4, LoginStatus::INVALID_CREDENTIALS->getCode());
-		$this->assertSame(5, LoginStatus::LOCKED->getCode());
+		$this->assertSame(1, LoginStatus::Ok->getCode());
+		$this->assertSame(2, LoginStatus::Banned->getCode());
+		$this->assertSame(3, LoginStatus::NotActivated->getCode());
+		$this->assertSame(4, LoginStatus::InvalidCredentials->getCode());
+		$this->assertSame(5, LoginStatus::Locked->getCode());
 	}
 
 	/**
@@ -43,10 +43,10 @@ class LoginStatusTest extends TestCase
 	 */
 	public function testToBool(): void
 	{
-		$this->assertTrue(LoginStatus::OK->toBool());
-		$this->assertFalse(LoginStatus::BANNED->toBool());
-		$this->assertFalse(LoginStatus::NOT_ACTIVATED->toBool());
-		$this->assertFalse(LoginStatus::INVALID_CREDENTIALS->toBool());
-		$this->assertFalse(LoginStatus::LOCKED->toBool());
+		$this->assertTrue(LoginStatus::Ok->toBool());
+		$this->assertFalse(LoginStatus::Banned->toBool());
+		$this->assertFalse(LoginStatus::NotActivated->toBool());
+		$this->assertFalse(LoginStatus::InvalidCredentials->toBool());
+		$this->assertFalse(LoginStatus::Locked->toBool());
 	}
 }
