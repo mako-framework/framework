@@ -32,7 +32,7 @@ class Permissions
 	 */
 	final public function __construct(Permission ...$permissions)
 	{
-		$this->permissions = empty($permissions) ? [Permission::NONE] : $permissions;
+		$this->permissions = empty($permissions) ? [Permission::None] : $permissions;
 	}
 
 	/**
@@ -40,27 +40,27 @@ class Permissions
 	 */
 	public static function fromInt(int $permissions): static
 	{
-		if ($permissions < Permission::NONE->value || $permissions > (Permission::FULL_WITH_ALL_SPECIAL->value)) {
+		if ($permissions < Permission::None->value || $permissions > (Permission::FullWithAllSpecial->value)) {
 			throw new InvalidArgumentException(sprintf('The integer [ %s ] does not represent a valid octal between 0o0000 and 0o7777.', $permissions));
 		}
 
-		if ($permissions === Permission::NONE->value) {
+		if ($permissions === Permission::None->value) {
 			return new static;
 		}
 
 		$basePermissions = [
-			Permission::OWNER_READ,
-			Permission::OWNER_WRITE,
-			Permission::OWNER_EXECUTE,
-			Permission::GROUP_READ,
-			Permission::GROUP_WRITE,
-			Permission::GROUP_EXECUTE,
-			Permission::PUBLIC_READ,
-			Permission::PUBLIC_WRITE,
-			Permission::PUBLIC_EXECUTE,
-			Permission::SPECIAL_SETUID,
-			Permission::SPECIAL_SETGID,
-			Permission::SPECIAL_STICKY,
+			Permission::OwnerRead,
+			Permission::OwnerWrite,
+			Permission::OwnerExecute,
+			Permission::GroupRead,
+			Permission::GroupWrite,
+			Permission::GroupExecute,
+			Permission::PublicRead,
+			Permission::PublicWrite,
+			Permission::PublicExecute,
+			Permission::SpecialSetUid,
+			Permission::SpecialSetGid,
+			Permission::SpecialSticky,
 		];
 
 		$permission = [];
@@ -149,9 +149,9 @@ class Permissions
 		// Determine special bit
 
 		$specialChar = match ($group) {
-			'owner' => ($permissions & Permission::SPECIAL_SETUID->value) ? 's' : null,
-			'group' => ($permissions & Permission::SPECIAL_SETGID->value) ? 's' : null,
-			'public' => ($permissions & Permission::SPECIAL_STICKY->value) ? 't' : null,
+			'owner' => ($permissions & Permission::SpecialSetUid->value) ? 's' : null,
+			'group' => ($permissions & Permission::SpecialSetGid->value) ? 's' : null,
+			'public' => ($permissions & Permission::SpecialSticky->value) ? 't' : null,
 		};
 
 		// Execute + special bit handling
@@ -172,9 +172,9 @@ class Permissions
 	{
 		$permissions = Permission::calculate(...$this->permissions);
 
-		$owner = $this->getGroupAsRwxString($permissions, Permission::OWNER_READ, Permission::OWNER_WRITE, Permission::OWNER_EXECUTE, 'owner');
-		$group = $this->getGroupAsRwxString($permissions, Permission::GROUP_READ, Permission::GROUP_WRITE, Permission::GROUP_EXECUTE, 'group');
-		$public = $this->getGroupAsRwxString($permissions, Permission::PUBLIC_READ, Permission::PUBLIC_WRITE, Permission::PUBLIC_EXECUTE, 'public');
+		$owner = $this->getGroupAsRwxString($permissions, Permission::OwnerRead, Permission::OwnerWrite, Permission::OwnerExecute, 'owner');
+		$group = $this->getGroupAsRwxString($permissions, Permission::GroupRead, Permission::GroupWrite, Permission::GroupExecute, 'group');
+		$public = $this->getGroupAsRwxString($permissions, Permission::PublicRead, Permission::PublicWrite, Permission::PublicExecute, 'public');
 
 		return "{$owner}{$group}{$public}";
 	}
