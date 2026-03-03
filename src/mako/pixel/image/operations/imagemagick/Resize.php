@@ -25,7 +25,7 @@ class Resize implements OperationInterface
 	public function __construct(
 		protected int $width,
 		protected ?int $height = null,
-		protected AspectRatio $aspectRatio = AspectRatio::AUTO
+		protected AspectRatio $aspectRatio = AspectRatio::Auto
 	) {
 	}
 

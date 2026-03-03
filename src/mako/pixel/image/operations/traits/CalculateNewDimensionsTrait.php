@@ -27,7 +27,7 @@ trait CalculateNewDimensionsTrait
 			$newHeight = round($oldHeight * ($width / 100));
 		}
 		else {
-			if ($aspectRatio === AspectRatio::AUTO) {
+			if ($aspectRatio === AspectRatio::Auto) {
 				// Calculate smallest size based on given height and width while maintaining aspect ratio
 
 				$percentage = min(($width / $oldWidth), ($height / $oldHeight));
@@ -35,13 +35,13 @@ trait CalculateNewDimensionsTrait
 				$newWidth  = round($oldWidth * $percentage);
 				$newHeight = round($oldHeight * $percentage);
 			}
-			elseif ($aspectRatio === AspectRatio::WIDTH) {
+			elseif ($aspectRatio === AspectRatio::Width) {
 				// Base new size on given width while maintaining aspect ratio
 
 				$newWidth  = $width;
 				$newHeight = round($oldHeight * ($width / $oldWidth));
 			}
-			elseif ($aspectRatio === AspectRatio::HEIGHT) {
+			elseif ($aspectRatio === AspectRatio::Height) {
 				// Base new size on given height while maintaining aspect ratio
 
 				$newWidth  = round($oldWidth * ($height / $oldHeight));
