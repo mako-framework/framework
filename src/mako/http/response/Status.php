@@ -98,6 +98,8 @@ enum Status: int
 	#[Deprecated('use Status::ImATeapot instead', 'Mako 12.2.0')]
 	public const IM_A_TEAPOT = self::ImATeapot;
 	#[Deprecated('use Status::AuthenticationTimeout instead', 'Mako 12.2.0')]
+	public const AUTENTICATION_TIMEOUT = self::AuthenticationTimeout;
+	#[Deprecated('use Status::AuthenticationTimeout instead', 'Mako 12.2.0')]
 	public const AUTHENTICATION_TIMEOUT = self::AuthenticationTimeout;
 	#[Deprecated('use Status::MisdirectedRequest instead', 'Mako 12.2.0')]
 	public const MISDIRECTED_REQUEST = self::MisdirectedRequest;
