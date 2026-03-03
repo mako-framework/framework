@@ -62,7 +62,7 @@ class EventStreamTest extends TestCase
 	{
 		$eventStream = Mockery::mock(EventStream::class, [function () {
 			yield new Event(
-				new Field(Type::DATA, 'hello, world!')
+				new Field(Type::Data, 'hello, world!')
 			);
 		}]);
 
@@ -82,8 +82,8 @@ class EventStreamTest extends TestCase
 	{
 		$eventStream = Mockery::mock(EventStream::class, [function () {
 			yield new Event(
-				new Field(Type::EVENT, 'greeting'),
-				new Field(Type::DATA, 'hello, world!')
+				new Field(Type::Event, 'greeting'),
+				new Field(Type::Data, 'hello, world!')
 			);
 		}]);
 
@@ -103,12 +103,12 @@ class EventStreamTest extends TestCase
 	{
 		$eventStream = Mockery::mock(EventStream::class, [function () {
 			yield new Event(
-				new Field(Type::EVENT, 'greeting'),
-				new Field(Type::DATA, 'first hello')
+				new Field(Type::Event, 'greeting'),
+				new Field(Type::Data, 'first hello')
 			);
 			yield new Event(
-				new Field(Type::EVENT, 'greeting'),
-				new Field(Type::DATA, 'second hello')
+				new Field(Type::Event, 'greeting'),
+				new Field(Type::Data, 'second hello')
 			);
 		}]);
 
@@ -129,7 +129,7 @@ class EventStreamTest extends TestCase
 	{
 		$eventStream = Mockery::mock(EventStream::class, [function () {
 			yield new Event(
-				new Field(Type::DATA, new class implements Stringable {
+				new Field(Type::Data, new class implements Stringable {
 					public function __toString(): string
 					{
 						return 'this is a string';
@@ -154,7 +154,7 @@ class EventStreamTest extends TestCase
 	{
 		$eventStream = Mockery::mock(EventStream::class, [function () {
 			yield new Event(
-				new Field(Type::DATA, new class implements JsonSerializable {
+				new Field(Type::Data, new class implements JsonSerializable {
 					public function jsonSerialize(): mixed
 					{
 						return [1, 2, 3];
