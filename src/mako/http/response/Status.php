@@ -300,7 +300,7 @@ enum Status: int
 			self::FailedDependency => 'Failed Dependency',
 			self::TooEarly => 'Too Early',
 			self::UpgradeRequired => 'Upgrade Required',
-			self::PreconditionFailed => 'Precondition Required',
+			self::PreconditionRequired => 'Precondition Required',
 			self::TooManyRequests => 'Too Many Requests',
 			self::RequestHeaderFieldsTooLarge => 'Request Header Fields Too Large',
 			self::UnavailableForLegalReasons => 'Unavailable For Legal Reasons',

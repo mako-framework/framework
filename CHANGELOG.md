@@ -2,7 +2,7 @@
 
 #### Deprecations
 
-* All enum cases have been converted from `UPPER_SNAKE_CASE` to `PascalCase`. A compability layer is available until Mako 13.
+* All enum cases have been converted from `UPPER_SNAKE_CASE` to `PascalCase`. A compatibility layer is available until Mako 13.
 
 --------------------------------------------------------
 
