@@ -39,7 +39,7 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 		?Throwable $previous = null,
 		protected ?DateTimeInterface $retryAfter = null
 	) {
-		parent::__construct(Status::TOO_MANY_REQUESTS, $message, $previous);
+		parent::__construct(Status::TooManyRequests, $message, $previous);
 	}
 
 	/**

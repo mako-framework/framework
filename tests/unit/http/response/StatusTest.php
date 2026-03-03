@@ -20,9 +20,9 @@ class StatusTest extends TestCase
 	 */
 	public function testStatus(): void
 	{
-		$this->assertSame(Status::OK, Status::from(200));
-		$this->assertSame('OK', Status::OK->getMessage());
-		$this->assertSame(200, Status::OK->getCode());
+		$this->assertSame(Status::Ok, Status::from(200));
+		$this->assertSame('OK', Status::Ok->getMessage());
+		$this->assertSame(200, Status::Ok->getCode());
 	}
 
 	/**

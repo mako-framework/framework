@@ -228,7 +228,7 @@ class Session extends Adapter
 
 		$this->response->headers->add('WWW-Authenticate', 'basic');
 
-		$this->response->setStatus(Status::UNAUTHORIZED);
+		$this->response->setStatus(Status::Unauthorized);
 
 		return false;
 	}

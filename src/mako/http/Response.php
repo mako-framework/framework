@@ -35,7 +35,7 @@ class Response
 	/**
 	 * Default HTTP status.
 	 */
-	public const Status DEFAULT_STATUS = Status::OK;
+	public const Status DEFAULT_STATUS = Status::Ok;
 
 	/**
 	 * Response body.
@@ -434,7 +434,7 @@ class Response
 			$this->headers->add('ETag', $hash);
 
 			if (str_replace('-gzip', '', $this->request->headers->get('If-None-Match', '')) === $hash) {
-				$this->setStatus(Status::NOT_MODIFIED);
+				$this->setStatus(Status::NotModified);
 
 				$sendBody = false;
 			}

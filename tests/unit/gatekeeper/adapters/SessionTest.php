@@ -706,7 +706,7 @@ class SessionTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$response->shouldReceive('setStatus')->once()->with(Status::UNAUTHORIZED);
+		$response->shouldReceive('setStatus')->once()->with(Status::Unauthorized);
 
 		$adapter = Mockery::mock(Session::class . '[isLoggedIn,login]', [$this->getUserRepository(), $this->getGroupRepository(), $request, $response, $this->getSession()]);
 
@@ -741,7 +741,7 @@ class SessionTest extends TestCase
 			$this->headers = $responseHeaders;
 		})->bindTo($response, Response::class)();
 
-		$response->shouldReceive('setStatus')->once()->with(Status::UNAUTHORIZED);
+		$response->shouldReceive('setStatus')->once()->with(Status::Unauthorized);
 
 		$response->shouldReceive('clear')->once();
 

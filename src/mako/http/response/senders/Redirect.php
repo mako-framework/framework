@@ -25,37 +25,37 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Moved permanently status code.
 	 */
-	public const Status MOVED_PERMANENTLY = Status::MOVED_PERMANENTLY;
+	public const Status MOVED_PERMANENTLY = Status::MovedPermanently;
 
 	/**
 	 * Found status code.
 	 */
-	public const Status FOUND = Status::FOUND;
+	public const Status FOUND = Status::Found;
 
 	/**
 	 * See other status code.
 	 */
-	public const Status SEE_OTHER = Status::SEE_OTHER;
+	public const Status SEE_OTHER = Status::SeeOther;
 
 	/**
 	 * Temporary redirect status code.
 	 */
-	public const Status TEMPORARY_REDIRECT = Status::TEMPORARY_REDIRECT;
+	public const Status TEMPORARY_REDIRECT = Status::TemporaryRedirect;
 
 	/**
 	 * Permanent redirect status code.
 	 */
-	public const Status PERMANENT_REDIRECT = Status::PERMANENT_REDIRECT;
+	public const Status PERMANENT_REDIRECT = Status::PermanentRedirect;
 
 	/**
 	 * Supported redirect types.
 	 */
 	public const array SUPPORTED_STATUS_CODES = [
-		Status::MOVED_PERMANENTLY,
-		Status::FOUND,
-		Status::SEE_OTHER,
-		Status::TEMPORARY_REDIRECT,
-		Status::PERMANENT_REDIRECT,
+		Status::MovedPermanently,
+		Status::Found,
+		Status::SeeOther,
+		Status::TemporaryRedirect,
+		Status::PermanentRedirect,
 	];
 
 	/**
@@ -68,7 +68,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function __construct(
 		protected string $location,
-		int|Status $status = Status::FOUND
+		int|Status $status = Status::Found
 	) {
 		$this->setStatus($status);
 	}
@@ -98,7 +98,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function movedPermanently(): Redirect
 	{
-		$this->status = Status::MOVED_PERMANENTLY;
+		$this->status = Status::MovedPermanently;
 
 		return $this;
 	}
@@ -110,7 +110,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function found(): Redirect
 	{
-		$this->status = Status::FOUND;
+		$this->status = Status::Found;
 
 		return $this;
 	}
@@ -122,7 +122,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function seeOther(): Redirect
 	{
-		$this->status = Status::SEE_OTHER;
+		$this->status = Status::SeeOther;
 
 		return $this;
 	}
@@ -134,7 +134,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function temporaryRedirect(): Redirect
 	{
-		$this->status = Status::TEMPORARY_REDIRECT;
+		$this->status = Status::TemporaryRedirect;
 
 		return $this;
 	}
@@ -146,7 +146,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function permanentRedirect(): Redirect
 	{
-		$this->status = Status::PERMANENT_REDIRECT;
+		$this->status = Status::PermanentRedirect;
 
 		return $this;
 	}

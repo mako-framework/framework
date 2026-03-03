@@ -27,6 +27,6 @@ class ForbiddenException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::FORBIDDEN, $message, $previous);
+		parent::__construct(Status::Forbidden, $message, $previous);
 	}
 }

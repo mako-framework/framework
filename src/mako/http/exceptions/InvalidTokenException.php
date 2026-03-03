@@ -27,6 +27,6 @@ class InvalidTokenException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::INVALID_TOKEN, $message, $previous);
+		parent::__construct(Status::InvalidToken, $message, $previous);
 	}
 }

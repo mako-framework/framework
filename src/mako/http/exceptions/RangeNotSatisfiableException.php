@@ -27,6 +27,6 @@ class RangeNotSatisfiableException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::RANGE_NOT_SATISFIABLE, $message, $previous);
+		parent::__construct(Status::RangeNotSatisfiable, $message, $previous);
 	}
 }

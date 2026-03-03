@@ -33,7 +33,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
+		$response->shouldReceive('setStatus')->once()->with(Status::Found);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -45,7 +45,7 @@ class RedirectTest extends TestCase
 
 		$redirect = new Redirect('http://example.org');
 
-		$this->assertSame(Status::FOUND, $redirect->getStatus());
+		$this->assertSame(Status::Found, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -63,7 +63,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
+		$response->shouldReceive('setStatus')->once()->with(Status::Found);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -75,7 +75,7 @@ class RedirectTest extends TestCase
 
 		$redirect = new Redirect('http://example.org', 302);
 
-		$this->assertSame(Status::FOUND, $redirect->getStatus());
+		$this->assertSame(Status::Found, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -93,7 +93,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
+		$response->shouldReceive('setStatus')->once()->with(Status::Found);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -107,7 +107,7 @@ class RedirectTest extends TestCase
 
 		$redirect->setStatus(302);
 
-		$this->assertSame(Status::FOUND, $redirect->getStatus());
+		$this->assertSame(Status::Found, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -125,7 +125,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::MOVED_PERMANENTLY);
+		$response->shouldReceive('setStatus')->once()->with(Status::MovedPermanently);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -139,7 +139,7 @@ class RedirectTest extends TestCase
 
 		$redirect->movedPermanently();
 
-		$this->assertSame(Status::MOVED_PERMANENTLY, $redirect->getStatus());
+		$this->assertSame(Status::MovedPermanently, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -157,7 +157,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::FOUND);
+		$response->shouldReceive('setStatus')->once()->with(Status::Found);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -171,7 +171,7 @@ class RedirectTest extends TestCase
 
 		$redirect->found();
 
-		$this->assertSame(Status::FOUND, $redirect->getStatus());
+		$this->assertSame(Status::Found, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -189,7 +189,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::SEE_OTHER);
+		$response->shouldReceive('setStatus')->once()->with(Status::SeeOther);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -203,7 +203,7 @@ class RedirectTest extends TestCase
 
 		$redirect->seeOther();
 
-		$this->assertSame(Status::SEE_OTHER, $redirect->getStatus());
+		$this->assertSame(Status::SeeOther, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -221,7 +221,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::TEMPORARY_REDIRECT);
+		$response->shouldReceive('setStatus')->once()->with(Status::TemporaryRedirect);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -235,7 +235,7 @@ class RedirectTest extends TestCase
 
 		$redirect->temporaryRedirect();
 
-		$this->assertSame(Status::TEMPORARY_REDIRECT, $redirect->getStatus());
+		$this->assertSame(Status::TemporaryRedirect, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}
@@ -253,7 +253,7 @@ class RedirectTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::PERMANENT_REDIRECT);
+		$response->shouldReceive('setStatus')->once()->with(Status::PermanentRedirect);
 
 		(function () use ($responseHeaders): void {
 			$this->headers = $responseHeaders;
@@ -267,7 +267,7 @@ class RedirectTest extends TestCase
 
 		$redirect->permanentRedirect();
 
-		$this->assertSame(Status::PERMANENT_REDIRECT, $redirect->getStatus());
+		$this->assertSame(Status::PermanentRedirect, $redirect->getStatus());
 
 		$redirect->send($request, $response);
 	}

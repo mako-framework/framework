@@ -51,7 +51,7 @@ abstract class Handler implements ProvidesExceptionIdInterface
 	 */
 	protected function getHttpStatus(Throwable $exception): Status
 	{
-		return ($exception instanceof HttpStatusException) ? $exception->getStatus() : Status::INTERNAL_SERVER_ERROR;
+		return ($exception instanceof HttpStatusException) ? $exception->getStatus() : Status::InternalServerError;
 	}
 
 	/**
