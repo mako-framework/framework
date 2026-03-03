@@ -1,3 +1,11 @@
+### 12.2.0 <small>(2026-??-??)</small>
+
+#### Deprecations
+
+* All enum cases have been converted from `UPPER_SNAKE_CASE` to `PascalCase`. A compability layer is available until Mako 13.
+
+--------------------------------------------------------
+
 ### 12.0.3, 12.1.1 <small>(2026-03-01)</small>
 
 #### Bugfixes
