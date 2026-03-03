@@ -17,7 +17,7 @@ enum Type: string
 	/* Start compatibility */
 	#[Deprecated('use Type::Comment instead', 'Mako 12.2.0')]
 	public const COMMENT = self::Comment;
-	#[Deprecated('use Type::Comment Date', 'Mako 12.2.0')]
+	#[Deprecated('use Type::Data instead', 'Mako 12.2.0')]
 	public const DATA = self::Data;
 	#[Deprecated('use Type::Event instead', 'Mako 12.2.0')]
 	public const EVENT = self::Event;
