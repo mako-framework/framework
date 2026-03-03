@@ -256,14 +256,14 @@ class XmpReader implements Stringable
 	protected function hydrate(array $properties): array
 	{
 		foreach ($properties as &$property) {
-			if ($property['options'] & Type::ARRAY->value) {
+			if ($property['options'] & Type::Array->value) {
 				$property = new ArrayProperty(
 					$property['namespace'],
 					$property['options'],
 					$property['name']
 				);
 			}
-			elseif ($property['options'] & Type::QUALIFIER->value) {
+			elseif ($property['options'] & Type::Qualifier->value) {
 				$property = new QualifierProperty(
 					$property['namespace'],
 					$property['options'],
@@ -271,7 +271,7 @@ class XmpReader implements Stringable
 					$property['value']
 				);
 			}
-			elseif ($property['options'] & Type::STRUCT->value) {
+			elseif ($property['options'] & Type::Struct->value) {
 				$property = new StructProperty(
 					$property['namespace'],
 					$property['options'],
