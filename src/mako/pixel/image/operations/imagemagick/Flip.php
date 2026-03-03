@@ -20,7 +20,7 @@ class Flip implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected FlipDirection $direction = FlipDirection::HORIZONTAL
+		protected FlipDirection $direction = FlipDirection::Horizontal
 	) {
 	}
 
@@ -32,7 +32,7 @@ class Flip implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		if ($this->direction ===  FlipDirection::VERTICAL) {
+		if ($this->direction ===  FlipDirection::Vertical) {
 			$imageResource->flipImage();
 		}
 		else {
