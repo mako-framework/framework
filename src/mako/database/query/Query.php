@@ -1078,16 +1078,6 @@ class Query
 	}
 
 	/**
-	 * Adds a raw ORDER BY clause.
-	 *
-	 * @return $this
-	 */
-	public function orderByRaw(string $raw, array $parameters = [], string $order = 'ASC'): static
-	{
-		return $this->orderBy(new Raw($raw, $parameters), $order);
-	}
-
-	/**
 	 * Adds an ascending ORDER BY clause.
 	 *
 	 * @return $this
@@ -1098,16 +1088,6 @@ class Query
 	}
 
 	/**
-	 * Adds a raw ascending ORDER BY clause.
-	 *
-	 * @return $this
-	 */
-	public function ascendingRaw(string $raw, array $parameters = []): static
-	{
-		return $this->orderByRaw($raw, $parameters, 'ASC');
-	}
-
-	/**
 	 * Adds a descending ORDER BY clause.
 	 *
 	 * @return $this
@@ -1115,6 +1095,26 @@ class Query
 	public function descending(array|string $columns): static
 	{
 		return $this->orderBy($columns, 'DESC');
+	}
+
+	/**
+	 * Adds a raw ORDER BY clause.
+	 *
+	 * @return $this
+	 */
+	public function orderByRaw(string $raw, array $parameters = [], string $order = 'ASC'): static
+	{
+		return $this->orderBy(new Raw($raw, $parameters), $order);
+	}
+
+	/**
+	 * Adds a raw ascending ORDER BY clause.
+	 *
+	 * @return $this
+	 */
+	public function ascendingRaw(string $raw, array $parameters = []): static
+	{
+		return $this->orderByRaw($raw, $parameters, 'ASC');
 	}
 
 	/**
