@@ -697,9 +697,7 @@ class Compiler
 	{
 		$nullOrder = $order['nullsLast'] ? 'IS NULL' : 'IS NOT NULL';
 
-		$column = $this->column($order['column']);
-
-		return "({$column} {$nullOrder}), {$column} {$order['order']}";
+		return "({$this->column($order['column'])} {$nullOrder}), {$this->column($order['column'])} {$order['order']}";
 	}
 
 	/**
