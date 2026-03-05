@@ -11,6 +11,7 @@ use mako\database\connections\Oracle as OracleConnection;
 use mako\database\query\compilers\Oracle as OracleCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
+use mako\database\query\SortDirection;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -92,7 +93,7 @@ class OracleCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy('foo', 'DESC');
+		$query->orderBy('foo', SortDirection::Descending);
 
 		$query->limit(10);
 
@@ -124,7 +125,7 @@ class OracleCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy('foo', 'DESC');
+		$query->orderBy('foo', SortDirection::Descending);
 
 		$query->offset(10);
 
@@ -157,7 +158,7 @@ class OracleCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy('foo', 'DESC');
+		$query->orderBy('foo', SortDirection::Descending);
 
 		$query->limit(10);
 		$query->offset(10);
@@ -454,5 +455,57 @@ class OracleCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ? OR TO_CHAR("date", \'YYYY-MM-DD\') = ?', $query['sql']);
 		$this->assertEquals(['bar', '2019-07-05'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsFirst(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" ASC NULLS FIRST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" DESC NULLS FIRST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsLast(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" ASC NULLS LAST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" DESC NULLS LAST', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 }

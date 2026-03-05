@@ -78,6 +78,17 @@ class Oracle extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function nullOrdering(array $order): string
+	{
+		$nullOrder = $order['nullsLast'] ? 'LAST' : 'FIRST';
+
+		return "{$this->column($order['column'])} {$order['order']} NULLS {$nullOrder}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function orderings(array $orderings): string
 	{
 		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {

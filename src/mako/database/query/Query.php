@@ -1066,12 +1066,12 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orderBy(array|Raw|string $columns, string $order = 'ASC'): static
+	public function orderBy(array|Raw|string $columns, SortDirection|string $order = SortDirection::Ascending): static
 	{
 		$this->orderings[] = [
 			'type'   => 'basicOrdering',
 			'column' => is_array($columns) ? $columns : [$columns],
-			'order'  => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
+			'order'  => is_object($order) ? $order->value : (($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC'),
 		];
 
 		return $this;
@@ -1084,7 +1084,7 @@ class Query
 	 */
 	public function ascending(array|string $columns): static
 	{
-		return $this->orderBy($columns, 'ASC');
+		return $this->orderBy($columns, SortDirection::Ascending);
 	}
 
 	/**
@@ -1094,7 +1094,7 @@ class Query
 	 */
 	public function descending(array|string $columns): static
 	{
-		return $this->orderBy($columns, 'DESC');
+		return $this->orderBy($columns, SortDirection::Descending);
 	}
 
 	/**
@@ -1102,7 +1102,7 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orderByRaw(string $raw, array $parameters = [], string $order = 'ASC'): static
+	public function orderByRaw(string $raw, array $parameters = [], SortDirection|string $order = SortDirection::Ascending): static
 	{
 		return $this->orderBy(new Raw($raw, $parameters), $order);
 	}
@@ -1114,7 +1114,7 @@ class Query
 	 */
 	public function ascendingRaw(string $raw, array $parameters = []): static
 	{
-		return $this->orderByRaw($raw, $parameters, 'ASC');
+		return $this->orderByRaw($raw, $parameters, SortDirection::Ascending);
 	}
 
 	/**
@@ -1124,31 +1124,31 @@ class Query
 	 */
 	public function descendingRaw(string $raw, array $parameters = []): static
 	{
-		return $this->orderByRaw($raw, $parameters, 'DESC');
+		return $this->orderByRaw($raw, $parameters, SortDirection::Descending);
 	}
 
 	/**
 	 * Adds a vector ORDER BY clause.
 	 */
-	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine, string $order = 'ASC'): static
+	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine, SortDirection|string $order = SortDirection::Ascending): static
 	{
 		$this->orderings[] = [
 			'type'           => 'vectorDistanceOrdering',
 			'column'         => $column,
 			'vector'         => $vector,
 			'vectorDistance' => $vectorDistance,
-			'order'          => ($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC',
+			'order'          => is_object($order) ? $order->value : (($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC'),
 		];
 
 		return $this;
 	}
 
 	/**
-	 * Adds a ascending vector ORDER BY clause.
+	 * Adds an ascending vector ORDER BY clause.
 	 */
 	public function ascendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine): static
 	{
-		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'ASC');
+		return $this->orderByVectorDistance($column, $vector, $vectorDistance, SortDirection::Ascending);
 	}
 
 	/**
@@ -1156,7 +1156,70 @@ class Query
 	 */
 	public function descendingVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine): static
 	{
-		return $this->orderByVectorDistance($column, $vector, $vectorDistance, 'DESC');
+		return $this->orderByVectorDistance($column, $vector, $vectorDistance, SortDirection::Descending);
+	}
+
+	/**
+	 * Adds a ORDER BY clause where nulls come either first or last.
+	 */
+	protected function orderByNull(string $column, SortDirection $order = SortDirection::Ascending, bool $nullsLast = true): static
+	{
+		$this->orderings[] = [
+			'type'      => 'nullOrdering',
+			'column'    => $column,
+			'order'     => $order->value,
+			'nullsLast' => $nullsLast,
+		];
+
+		return $this;
+	}
+
+	/**
+	 * Adds a ORDER BY clause where nulls come first.
+	 */
+	public function orderByNullsFirst(string $column, SortDirection|string $order = SortDirection::Ascending): static
+	{
+		return $this->orderByNull($column, $order, false);
+	}
+
+	/**
+	 * Adds a ORDER BY clause where nulls come last.
+	 */
+	public function orderByNullsLast(string $column, SortDirection|string $order = SortDirection::Ascending): static
+	{
+		return $this->orderByNull($column, $order, true);
+	}
+
+	/**
+	 * Adds an ascending ORDER BY clause where nulls come first.
+	 */
+	public function ascendingNullsFirst(string $column): static
+	{
+		return $this->orderByNull($column, SortDirection::Ascending, false);
+	}
+
+	/**
+	 * Adds a descending ORDER BY clause where nulls come first.
+	 */
+	public function descendingNullsFirst(string $column): static
+	{
+		return $this->orderByNull($column, SortDirection::Descending, false);
+	}
+
+	/**
+	 * Adds an ascending ORDER BY clause where nulls come last.
+	 */
+	public function ascendingNullsLast(string $column): static
+	{
+		return $this->orderByNull($column, SortDirection::Ascending, true);
+	}
+
+	/**
+	 * Adds a descending ORDER BY clause where nulls come last.
+	 */
+	public function descendingNullsLast(string $column): static
+	{
+		return $this->orderByNull($column, SortDirection::Descending, true);
 	}
 
 	/**

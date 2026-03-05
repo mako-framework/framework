@@ -77,6 +77,7 @@ return
 	mako\database\query\Raw::class,
 	mako\database\query\Result::class,
 	mako\database\query\ResultSet::class,
+	mako\database\query\SortDirection::class,
 	mako\database\query\Subquery::class,
 	mako\database\query\values\in\Vector::class,
 	mako\database\query\values\out\Value::class,

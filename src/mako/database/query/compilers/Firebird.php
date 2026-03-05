@@ -35,6 +35,17 @@ class Firebird extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function nullOrdering(array $order): string
+	{
+		$nullOrder = $order['nullsLast'] ? 'LAST' : 'FIRST';
+
+		return "{$this->column($order['column'])} {$order['order']} NULLS {$nullOrder}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		return "CAST({$this->columnName($where['column'])} AS DATE)" . ($where['not'] ? ' NOT BETWEEN ' : ' BETWEEN ') . "{$this->param($where['value1'])} AND {$this->param($where['value2'])}";

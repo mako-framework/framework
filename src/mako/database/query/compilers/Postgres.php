@@ -107,6 +107,17 @@ class Postgres extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function nullOrdering(array $order): string
+	{
+		$nullOrder = $order['nullsLast'] ? 'LAST' : 'FIRST';
+
+		return "{$this->column($order['column'])} {$order['order']} NULLS {$nullOrder}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function betweenDate(array $where): string
 	{
 		$date1 = "{$where['value1']} 00:00:00.000000";

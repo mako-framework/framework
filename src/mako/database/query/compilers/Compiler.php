@@ -691,6 +691,18 @@ class Compiler
 	}
 
 	/**
+	 * Compiles a null ordering clause.
+	 */
+	protected function nullOrdering(array $order): string
+	{
+		$nullOrder = $order['nullsLast'] ? 'IS NULL' : 'IS NOT NULL';
+
+		$column = $this->column($order['column']);
+
+		return "({$column} {$nullOrder}), {$column} {$order['order']}";
+	}
+
+	/**
 	 * Compiles ORDER BY clauses.
 	 */
 	protected function orderings(array $orderings): string

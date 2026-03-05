@@ -11,6 +11,7 @@ use mako\database\connections\Postgres as PostgresConnection;
 use mako\database\query\compilers\Postgres as PostgresCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
+use mako\database\query\SortDirection;
 use mako\database\query\Subquery;
 use mako\database\query\values\in\Vector as InVector;
 use mako\database\query\values\out\Vector as OutVector;
@@ -703,5 +704,57 @@ class PostgresCompilerTest extends TestCase
 
 		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ? RETURNING "id", "foo"', $query['sql']);
 		$this->assertEquals(['bar', 1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsFirst(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" ASC NULLS FIRST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" DESC NULLS FIRST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsLast(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" ASC NULLS LAST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" DESC NULLS LAST', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 }

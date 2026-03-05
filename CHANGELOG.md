@@ -1,7 +1,22 @@
 ### 12.2.0 <small>(2026-??-??)</small>
 
+#### New
+
+* Added new `SortDirection` for use with the query builder "order" methods.
+* Added the following methods to the query builder:
+	- `Query::orderByNullsFirst()`
+	- `Query::orderByNullsLast()`
+	- `Query::ascendingNullsFirst()`
+	- `Query::descendingNullsFirst()`
+	- `Query::ascendingNullsLast()`
+	- `Query::descendingNullsLast()`
+
 #### Deprecations
 
+* Passing the string values `ASC` and `DESC` to the `$order` parameter of these methods is deprecated in favor of the `SortDirection` enum:
+	- `Query::orderBy()`
+	- `Query::orderByRaw()`
+	- `Query::orderByVectorDistance()`
 * All enum cases have been converted from `UPPER_SNAKE_CASE` to `PascalCase`. A compatibility layer is available until Mako 13.
 
 --------------------------------------------------------

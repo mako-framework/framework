@@ -11,6 +11,7 @@ use mako\database\connections\SQLite as SQLiteConnection;
 use mako\database\query\compilers\SQLite as SQLiteCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
+use mako\database\query\SortDirection;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -370,5 +371,57 @@ class SQLiteCompilerTest extends TestCase
 
 		$this->assertEquals('UPDATE "foobar" SET "foo" = ? WHERE "id" = ? RETURNING "id", "foo"', $query['sql']);
 		$this->assertEquals(['bar', 1], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsFirst(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" ASC NULLS FIRST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" DESC NULLS FIRST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsLast(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" ASC NULLS LAST', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "text" DESC NULLS LAST', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 }

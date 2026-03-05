@@ -15,6 +15,7 @@ use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
 use mako\database\query\Raw;
 use mako\database\query\ResultSet;
+use mako\database\query\SortDirection;
 use mako\database\query\Subquery;
 use mako\tests\TestCase;
 use Mockery;
@@ -1274,7 +1275,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy(['foo', 'bar'], 'DESC');
+		$query->orderBy(['foo', 'bar'], SortDirection::Descending);
 
 		$query = $query->getCompiler()->select();
 
@@ -1410,7 +1411,7 @@ class BaseCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query->orderBy('foo');
-		$query->orderBy('bar', 'DESC');
+		$query->orderBy('bar', SortDirection::Descending);
 
 		$query = $query->getCompiler()->select();
 
@@ -1426,7 +1427,7 @@ class BaseCompilerTest extends TestCase
 		$query = $this->getBuilder();
 
 		$query->orderBy('foo');
-		$query->orderBy('bar', 'DESC');
+		$query->orderBy('bar', SortDirection::Descending);
 
 		$query = $query->clearOrderings()->getCompiler()->select();
 
@@ -2048,5 +2049,117 @@ class BaseCompilerTest extends TestCase
 
 		$this->assertEquals('SELECT * FROM "foobar" WHERE "foo" = ?', $query['sql']);
 		$this->assertEquals(['2021-11-02 13:37:00'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsFirst(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NOT NULL), "text" ASC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NOT NULL), "text" DESC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByNullsLast(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NULL), "text" ASC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsLast('text', SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NULL), "text" DESC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testAscendingNullsFirst(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->ascendingNullsFirst('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NOT NULL), "text" ASC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDescendingNullsFirst(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->descendingNullsFirst('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NOT NULL), "text" DESC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testAscendingNullsLast(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->ascendingNullsLast('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NULL), "text" ASC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testDescendingNullsLast(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->descendingNullsLast('text');
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text" IS NULL), "text" DESC', $query['sql']);
+		$this->assertEquals([], $query['params']);
 	}
 }

@@ -11,6 +11,7 @@ use mako\database\connections\SQLServer as SQLServerConnection;
 use mako\database\query\compilers\SQLServer as SQLServerCompiler;
 use mako\database\query\helpers\HelperInterface;
 use mako\database\query\Query;
+use mako\database\query\SortDirection;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -78,7 +79,7 @@ class SQLServerCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy('foo', 'DESC');
+		$query->orderBy('foo', SortDirection::Descending);
 
 		$query->limit(10);
 
@@ -110,7 +111,7 @@ class SQLServerCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy('foo', 'DESC');
+		$query->orderBy('foo', SortDirection::Descending);
 
 		$query->offset(10);
 
@@ -143,7 +144,7 @@ class SQLServerCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query->orderBy('foo', 'DESC');
+		$query->orderBy('foo', SortDirection::Descending);
 
 		$query->limit(10);
 		$query->offset(10);
