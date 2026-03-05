@@ -2080,6 +2080,32 @@ class BaseCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testOrderByNullsFirstWithMultipleColumns(): void
+	{
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst(['text1', 'text2']);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text1" IS NOT NULL), "text1" ASC, ("text2" IS NOT NULL), "text2" ASC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+
+		//
+
+		$query = $this->getBuilder();
+
+		$query->orderByNullsFirst(['text1', 'text2'], SortDirection::Descending);
+
+		$query = $query->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY ("text1" IS NOT NULL), "text1" DESC, ("text2" IS NOT NULL), "text2" DESC', $query['sql']);
+		$this->assertEquals([], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testOrderByNullsLast(): void
 	{
 		$query = $this->getBuilder();

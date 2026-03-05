@@ -1162,14 +1162,16 @@ class Query
 	/**
 	 * Adds a ORDER BY clause where nulls come either first or last.
 	 */
-	protected function orderByNull(string $column, SortDirection $order = SortDirection::Ascending, bool $nullsLast = true): static
+	protected function orderByNull(array|string $column, SortDirection $order = SortDirection::Ascending, bool $nullsLast = true): static
 	{
-		$this->orderings[] = [
-			'type'      => 'nullOrdering',
-			'column'    => $column,
-			'order'     => $order->value,
-			'nullsLast' => $nullsLast,
-		];
+		foreach ((array) $column as $col) {
+			$this->orderings[] = [
+				'type'      => 'nullOrdering',
+				'column'    => $col,
+				'order'     => $order->value,
+				'nullsLast' => $nullsLast,
+			];
+		}
 
 		return $this;
 	}
@@ -1177,7 +1179,7 @@ class Query
 	/**
 	 * Adds a ORDER BY clause where nulls come first.
 	 */
-	public function orderByNullsFirst(string $column, SortDirection|string $order = SortDirection::Ascending): static
+	public function orderByNullsFirst(array|string $column, SortDirection|string $order = SortDirection::Ascending): static
 	{
 		return $this->orderByNull($column, $order, false);
 	}
@@ -1185,7 +1187,7 @@ class Query
 	/**
 	 * Adds a ORDER BY clause where nulls come last.
 	 */
-	public function orderByNullsLast(string $column, SortDirection|string $order = SortDirection::Ascending): static
+	public function orderByNullsLast(array|string $column, SortDirection|string $order = SortDirection::Ascending): static
 	{
 		return $this->orderByNull($column, $order, true);
 	}
@@ -1193,7 +1195,7 @@ class Query
 	/**
 	 * Adds an ascending ORDER BY clause where nulls come first.
 	 */
-	public function ascendingNullsFirst(string $column): static
+	public function ascendingNullsFirst(array|string $column): static
 	{
 		return $this->orderByNull($column, SortDirection::Ascending, false);
 	}
@@ -1201,7 +1203,7 @@ class Query
 	/**
 	 * Adds a descending ORDER BY clause where nulls come first.
 	 */
-	public function descendingNullsFirst(string $column): static
+	public function descendingNullsFirst(array|string $column): static
 	{
 		return $this->orderByNull($column, SortDirection::Descending, false);
 	}
@@ -1209,7 +1211,7 @@ class Query
 	/**
 	 * Adds an ascending ORDER BY clause where nulls come last.
 	 */
-	public function ascendingNullsLast(string $column): static
+	public function ascendingNullsLast(array|string $column): static
 	{
 		return $this->orderByNull($column, SortDirection::Ascending, true);
 	}
@@ -1217,7 +1219,7 @@ class Query
 	/**
 	 * Adds a descending ORDER BY clause where nulls come last.
 	 */
-	public function descendingNullsLast(string $column): static
+	public function descendingNullsLast(array|string $column): static
 	{
 		return $this->orderByNull($column, SortDirection::Descending, true);
 	}
