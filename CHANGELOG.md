@@ -2,7 +2,7 @@
 
 #### New
 
-* Added new `SortDirection` for use with the query builder "order" methods.
+* Added new `SortDirection` enum for use with the query builder "order" methods.
 * Added the following methods to the query builder:
 	- `Query::orderByNullsFirst()`
 	- `Query::orderByNullsLast()`
