@@ -16,7 +16,6 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function php_strip_whitespace;
-use function sort;
 use function token_get_all;
 
 /**
@@ -210,8 +209,6 @@ class ClassFinder
 	 */
 	public function implementing(array $interfaces): static
 	{
-		sort($interfaces);
-
 		$this->implementing = $interfaces;
 
 		return $this;
@@ -222,8 +219,6 @@ class ClassFinder
 	 */
 	public function extending(array $classes): static
 	{
-		sort($classes);
-
 		$this->extending = $classes;
 
 		return $this;
@@ -234,8 +229,6 @@ class ClassFinder
 	 */
 	public function using(array $traits): static
 	{
-		sort($traits);
-
 		$this->using = $traits;
 
 		return $this;
@@ -246,8 +239,6 @@ class ClassFinder
 	 */
 	public function with(array $attributes): static
 	{
-		sort($attributes);
-
 		$this->with = $attributes;
 
 		return $this;
