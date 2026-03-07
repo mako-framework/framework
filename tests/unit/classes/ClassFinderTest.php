@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\classes;
 
+use AllowDynamicProperties;
 use mako\classes\ClassFinder;
 use mako\file\Finder;
 use mako\tests\TestCase;
@@ -225,6 +226,27 @@ class ClassFinderTest extends TestCase
 		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
 
 		$classes = iterator_to_array($finder->findUsing(FooTrait::class));
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testClassFinderWith(): void
+	{
+		$expectedClasses =
+		[
+			BazClass::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$classes = iterator_to_array($finder->findWith(AllowDynamicProperties::class));
 
 		sort($expectedClasses);
 

@@ -306,4 +306,16 @@ class ClassFinder
 			}
 		}
 	}
+
+	/**
+	 * Returns all the classes with the attribute.
+	 */
+	public function findWith(string $attributeName): Generator
+	{
+		foreach ($this->findClasses() as $file => $class) {
+			if (in_array($attributeName, ClassInspector::getAttributes($class))) {
+				yield $file => $class;
+			}
+		}
+	}
 }
