@@ -173,7 +173,7 @@ class ClassFinderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClassFinderExtending(): void
+	public function testFindExtending(): void
 	{
 		$expectedClasses =
 		[
@@ -194,7 +194,30 @@ class ClassFinderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClassFinderImplementing(): void
+	public function testExtending(): void
+	{
+		$expectedClasses =
+		[
+			BarClass::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$finder->extending([FooClass::class]);
+
+		$classes = iterator_to_array($finder->find());
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testFindImplementing(): void
 	{
 		$expectedClasses =
 		[
@@ -216,7 +239,31 @@ class ClassFinderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClassFinderUsing(): void
+	public function testImplementing(): void
+	{
+		$expectedClasses =
+		[
+			BarClass::class,
+			FooClass::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$finder->implementing([FooInterface::class]);
+
+		$classes = iterator_to_array($finder->find());
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testFindUsing(): void
 	{
 		$expectedClasses =
 		[
@@ -237,7 +284,30 @@ class ClassFinderTest extends TestCase
 	/**
 	 *
 	 */
-	public function testClassFinderWith(): void
+	public function testUsing(): void
+	{
+		$expectedClasses =
+		[
+			BazClass::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$finder->using([FooTrait::class]);
+
+		$classes = iterator_to_array($finder->find());
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testFindWith(): void
 	{
 		$expectedClasses =
 		[
@@ -247,6 +317,53 @@ class ClassFinderTest extends TestCase
 		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
 
 		$classes = iterator_to_array($finder->findWith(AllowDynamicProperties::class));
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testWith(): void
+	{
+		$expectedClasses =
+		[
+			BazClass::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$finder->with([AllowDynamicProperties::class]);
+
+		$classes = iterator_to_array($finder->find());
+
+		sort($expectedClasses);
+
+		sort($classes);
+
+		$this->assertSame($expectedClasses, $classes);
+	}
+
+	/**
+	 *
+	 */
+	public function testMultipleFilters(): void
+	{
+		$expectedClasses =
+		[
+			BazClass::class,
+		];
+
+		$finder = new ClassFinder(new Finder([__DIR__ . '/classes']));
+
+		$finder->with([AllowDynamicProperties::class]);
+		$finder->using([FooTrait::class]);
+
+		$classes = iterator_to_array($finder->find());
 
 		sort($expectedClasses);
 

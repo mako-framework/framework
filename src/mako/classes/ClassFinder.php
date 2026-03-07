@@ -10,12 +10,13 @@ namespace mako\classes;
 use Generator;
 use mako\file\Finder;
 
+use function array_diff;
 use function count;
 use function in_array;
 use function is_array;
 use function is_string;
-use function is_subclass_of;
 use function php_strip_whitespace;
+use function sort;
 use function token_get_all;
 
 /**
@@ -52,6 +53,26 @@ class ClassFinder
 	 * Should traits be included?
 	 */
 	protected bool $includeTraits = true;
+
+	/**
+	 * Interfaces to filter on.
+	 */
+	protected array $implementing = [];
+
+	/**
+	 * Parent classes to filter on.
+	 */
+	protected array $extending = [];
+
+	/**
+	 * Traits to filter on.
+	 */
+	protected array $using = [];
+
+	/**
+	 * Attributes to filter on.
+	 */
+	protected array $with = [];
 
 	/**
 	 * Constructor.
@@ -185,6 +206,54 @@ class ClassFinder
 	}
 
 	/**
+	 * Filters on interfaces.
+	 */
+	public function implementing(array $interfaces): static
+	{
+		sort($interfaces);
+
+		$this->implementing = $interfaces;
+
+		return $this;
+	}
+
+	/**
+	 * Filters on parent classes.
+	 */
+	public function extending(array $classes): static
+	{
+		sort($classes);
+
+		$this->extending = $classes;
+
+		return $this;
+	}
+
+	/**
+	 * Filters on traits.
+	 */
+	public function using(array $traits): static
+	{
+		sort($traits);
+
+		$this->using = $traits;
+
+		return $this;
+	}
+
+	/**
+	 * Filters on attributes.
+	 */
+	public function with(array $attributes): static
+	{
+		sort($attributes);
+
+		$this->with = $attributes;
+
+		return $this;
+	}
+
+	/**
 	 * Returns the tokens we're searching for.
 	 */
 	protected function getAllowedClasslikeTokens(): array
@@ -258,6 +327,30 @@ class ClassFinder
 		/** @var string $file */
 		foreach ($this->finder->find() as $file) {
 			if (($class = $this->findClassInFile($file)) !== null) {
+				if ($this->implementing !== []) {
+					if (!empty(array_diff($this->implementing, ClassInspector::getInterfaces($class)))) {
+						continue;
+					}
+				}
+
+				if ($this->extending !== []) {
+					if (!empty(array_diff($this->extending, ClassInspector::getParents($class)))) {
+						continue;
+					}
+				}
+
+				if ($this->using !== []) {
+					if (!empty(array_diff($this->using, ClassInspector::getTraits($class)))) {
+						continue;
+					}
+				}
+
+				if ($this->with !== []) {
+					if (!empty(array_diff($this->with, ClassInspector::getAttributes($class)))) {
+						continue;
+					}
+				}
+
 				yield $file => $class;
 			}
 		}
@@ -276,11 +369,11 @@ class ClassFinder
 	 */
 	public function findImplementing(string $interfaceName): Generator
 	{
-		foreach ($this->findClasses() as $file => $class) {
-			if (is_subclass_of($class, $interfaceName)) {
-				yield $file => $class;
-			}
-		}
+		$this->implementing([$interfaceName]);
+
+		yield from $this->findClasses();
+
+		$this->implementing([]);
 	}
 
 	/**
@@ -288,11 +381,11 @@ class ClassFinder
 	 */
 	public function findExtending(string $className): Generator
 	{
-		foreach ($this->findClasses() as $file => $class) {
-			if (is_subclass_of($class, $className)) {
-				yield $file => $class;
-			}
-		}
+		$this->extending([$className]);
+
+		yield from $this->findClasses();
+
+		$this->extending([]);
 	}
 
 	/**
@@ -300,11 +393,11 @@ class ClassFinder
 	 */
 	public function findUsing(string $traitName): Generator
 	{
-		foreach ($this->findClasses() as $file => $class) {
-			if (isset(ClassInspector::getTraits($class)[$traitName])) {
-				yield $file => $class;
-			}
-		}
+		$this->using([$traitName]);
+
+		yield from $this->findClasses();
+
+		$this->using([]);
 	}
 
 	/**
@@ -312,10 +405,10 @@ class ClassFinder
 	 */
 	public function findWith(string $attributeName): Generator
 	{
-		foreach ($this->findClasses() as $file => $class) {
-			if (in_array($attributeName, ClassInspector::getAttributes($class))) {
-				yield $file => $class;
-			}
-		}
+		$this->with([$attributeName]);
+
+		yield from $this->findClasses();
+
+		$this->with([]);
 	}
 }

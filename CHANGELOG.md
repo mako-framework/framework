@@ -10,7 +10,12 @@
 	- `Query::descendingNullsFirst()`
 	- `Query::ascendingNullsLast()`
 	- `Query::descendingNullsLast()`
-* Added `findWith` method to the `ClassFinder` class to enable finding classes using a certain attribute.
+* Added the following filter methods to the class finder:
+	- `ClassFinder::implementing()`
+	- `ClassFinder::extending()`
+	- `ClassFinder::using()`
+	- `ClassFinder::with()`
+* Added `ClassFinder::findWith()` method to to enable finding classes using a certain attribute.
 
 #### Deprecations
 
