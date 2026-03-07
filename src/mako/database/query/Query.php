@@ -22,6 +22,7 @@ use function array_flip;
 use function count;
 use function get_class_vars;
 use function is_array;
+use function is_object;
 use function sprintf;
 
 /**
