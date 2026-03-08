@@ -207,9 +207,9 @@ class ClassFinder
 	/**
 	 * Filters on interfaces.
 	 */
-	public function implementing(array $interfaces): static
+	public function implementing(array|string $interfaces): static
 	{
-		$this->implementing = $interfaces;
+		$this->implementing = (array) $interfaces;
 
 		return $this;
 	}
@@ -217,9 +217,9 @@ class ClassFinder
 	/**
 	 * Filters on parent classes.
 	 */
-	public function extending(array $classes): static
+	public function extending(array|string $classes): static
 	{
-		$this->extending = $classes;
+		$this->extending = (array) $classes;
 
 		return $this;
 	}
@@ -227,9 +227,9 @@ class ClassFinder
 	/**
 	 * Filters on traits.
 	 */
-	public function using(array $traits): static
+	public function using(array|string $traits): static
 	{
-		$this->using = $traits;
+		$this->using = (array) $traits;
 
 		return $this;
 	}
@@ -237,9 +237,9 @@ class ClassFinder
 	/**
 	 * Filters on attributes.
 	 */
-	public function with(array $attributes): static
+	public function with(array|string $attributes): static
 	{
-		$this->with = $attributes;
+		$this->with = (array) $attributes;
 
 		return $this;
 	}
