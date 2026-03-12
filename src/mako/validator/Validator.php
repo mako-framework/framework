@@ -367,11 +367,13 @@ class Validator
 	/**
 	 * Validates the field using the specified rule.
 	 */
-	protected function validateField(string $field, string $rule): bool
+	protected function validateField(string $field, RuleInterface|string $rule): bool
 	{
-		$parsedRule = $this->parseRule($rule);
+		if ($rule instanceof RuleInterface === false) {
+			$parsedRule = $this->parseRule($rule);
 
-		$rule = $this->ruleFactory($parsedRule->name, $parsedRule->parameters);
+			$rule = $this->ruleFactory($parsedRule->name, $parsedRule->parameters);
+		}
 
 		// Just return true if the input field is empty and the rule doesn't validate empty input
 
@@ -385,7 +387,11 @@ class Validator
 		// Validate input
 
 		if ($rule->validate($inputValue, $field, $this->input) === false) {
-			$this->errors[$field] = $this->getErrorMessage($rule, $field, $parsedRule);
+			$this->errors[$field] = $this->getErrorMessage(
+				$rule,
+				$field,
+				$parsedRule ?? (object) ['name' => $rule::class, 'package' => null]
+			);
 
 			return $this->isValid = false;
 		}

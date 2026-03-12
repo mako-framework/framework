@@ -485,6 +485,16 @@ class ValidatorTest extends TestCase
 		$validator = new Validator($input, $rules);
 
 		$this->assertSame($input, $validator->getValidatedInput());
+
+		//
+
+		$input = ['username' => 'foo'];
+
+		$rules = ['username' => [new MyRule]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame($input, $validator->getValidatedInput());
 	}
 
 	/**
