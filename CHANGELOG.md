@@ -16,6 +16,7 @@
 	- `ClassFinder::using()`
 	- `ClassFinder::with()`
 * Added `ClassFinder::findWith()` method to to enable finding classes using a certain attribute.
+* Added `unique_values` validation rule.
 
 #### Deprecations
 

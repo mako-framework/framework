@@ -80,6 +80,7 @@ use mako\validator\rules\session\OneTimeToken;
 use mako\validator\rules\session\Token;
 use mako\validator\rules\Str;
 use mako\validator\rules\TimeZone;
+use mako\validator\rules\UniqueValues;
 use mako\validator\rules\URL;
 use mako\validator\rules\UUID;
 
@@ -173,6 +174,7 @@ class Validator
 		'string'                   => Str::class,
 		'time_zone'                => TimeZone::class,
 		'token'                    => Token::class,
+		'unique_values'            => UniqueValues::class,
 		'unique'                   => Unique::class,
 		'url'                      => URL::class,
 		'uuid'                     => UUID::class,
