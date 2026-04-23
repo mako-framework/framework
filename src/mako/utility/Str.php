@@ -8,6 +8,7 @@
 namespace mako\utility;
 
 use mako\utility\str\Alternator;
+use SensitiveParameter;
 
 use function mb_strlen;
 use function mb_strtolower;
@@ -218,7 +219,7 @@ class Str
 	/**
 	 * Returns a masked string where only the last n characters are visible.
 	 */
-	public static function mask(string $string, int $visible = 3, string $mask = '*'): string
+	public static function mask(#[SensitiveParameter] string $string, int $visible = 3, string $mask = '*'): string
 	{
 		if ($visible === 0) {
 			return str_repeat($mask, mb_strlen($string));
