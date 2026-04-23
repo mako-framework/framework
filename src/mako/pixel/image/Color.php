@@ -131,6 +131,14 @@ class Color
 	}
 
 	/**
+	 * Returns a hexa string representation of the color.
+	 */
+	public function toHexaString(): string
+	{
+		return sprintf('#%02X%02X%02X%02X', $this->red, $this->green, $this->blue, $this->alpha);
+	}
+
+	/**
 	 * Returns a RGB string representation of the color.
 	 */
 	public function toRgbString(): string

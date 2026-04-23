@@ -161,6 +161,20 @@ class ColorTest extends TestCase
 	/*
 	 *
 	 */
+	public function testToHexaString(): void
+	{
+		$color = new Color(255, 0, 0);
+
+		$this->assertSame('#FF0000FF', $color->toHexaString());
+
+		$color = new Color(255, 0, 0, 127);
+
+		$this->assertSame('#FF00007F', $color->toHexaString());
+	}
+
+	/*
+	 *
+	 */
 	public function testToRgbString(): void
 	{
 		$color = new Color(255, 0, 0);
