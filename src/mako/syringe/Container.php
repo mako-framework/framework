@@ -316,7 +316,10 @@ class Container
 					return $this->get($parameterClassName);
 				}
 				catch (UnableToInstantiateException|UnableToResolveParameterException $e) {
-					if ($parameter->allowsNull()) {
+					if ($parameter->isDefaultValueAvailable()) {
+						return $parameter->getDefaultValue();
+					}
+					elseif ($parameter->allowsNull()) {
 						return null;
 					}
 
