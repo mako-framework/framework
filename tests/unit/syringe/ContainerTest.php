@@ -8,6 +8,8 @@
 namespace mako\tests\unit\syringe;
 
 use Attribute;
+use DateTimeImmutable;
+use DateTimeInterface;
 use mako\syringe\attributes\InjectorInterface;
 use mako\syringe\Container;
 use mako\syringe\exceptions\ContainerException;
@@ -998,5 +1000,17 @@ class ContainerTest extends TestCase
 		$returnValue = $container->call(static fn (#[InjectString('barfoo')] string $string) => $string, ['string' => 'baz']);
 
 		$this->assertSame('baz', $returnValue);
+	}
+
+	/**
+	 *
+	 */
+	public function testResolveUnregisteredInterfaceWithDefaultValue(): void
+	{
+		$container = new Container;
+
+		$returnValue = $container->call(static fn (DateTimeInterface $now = new DateTimeImmutable) => $now);
+
+		$this->assertInstanceOf(DateTimeImmutable::class, $returnValue);
 	}
 }

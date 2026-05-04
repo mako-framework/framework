@@ -1,3 +1,11 @@
+### 12.2.1 <small>(2026-05-04)</small>
+
+#### Improvements
+
+* The container can now resolve unregistered interfaces as long as the parameter has a default value.
+
+--------------------------------------------------------
+
 ### 12.2.0 <small>(2026-04-02)</small>
 
 #### New
