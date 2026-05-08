@@ -45,7 +45,11 @@ class SessionService extends Service
 	 */
 	protected function getDatabaseStore(Container $container, array $config, array|bool $classWhitelist): Database
 	{
-		return new Database($container->get(DatabaseConnectionManager::class)->getConnection($config['configuration']), $config['table'], $classWhitelist);
+		return new Database(
+			$container->get(DatabaseConnectionManager::class)->getConnection($config['configuration']),
+			$config['table'],
+			$classWhitelist
+		);
 	}
 
 	/**
@@ -69,7 +73,11 @@ class SessionService extends Service
 	 */
 	protected function getRedisStore(Container $container, array $config, array|bool $classWhitelist): Redis
 	{
-		return new Redis($container->get(RedisConnectionManager::class)->getConnection($config['configuration']), $classWhitelist, $config['prefix'] ?? static::DEFAULT_PREFIX);
+		return new Redis(
+			$container->get(RedisConnectionManager::class)->getConnection($config['configuration']),
+			$classWhitelist,
+			$config['prefix'] ?? static::DEFAULT_PREFIX
+		);
 	}
 
 	/**
@@ -106,7 +114,12 @@ class SessionService extends Service
 
 			// Create session and return it
 
-			return new Session($container->get(Request::class), $container->get(Response::class), $this->getStore($container, $config, $classWhitelist), $options);
+			return new Session(
+				$container->get(Request::class),
+				$container->get(Response::class),
+				$this->getStore($container, $config, $classWhitelist),
+				$options
+			);
 		});
 	}
 }
