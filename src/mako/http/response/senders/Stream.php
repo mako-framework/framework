@@ -10,7 +10,7 @@ namespace mako\http\response\senders;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\response\senders\stream\StreamTrait;
+use mako\http\response\senders\stream\traits\StreamTrait;
 use Override;
 
 /**

@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\http\response\senders\stream;
+namespace mako\http\response\senders\stream\traits;
 
 use function flush;
 use function ob_end_clean;
