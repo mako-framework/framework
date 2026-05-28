@@ -188,7 +188,7 @@ class Arr
 			}
 		}
 
-		if (str_contains($remaining, '*')) {
+		if (isset($remaining) && str_contains($remaining, '*')) {
 			$keys = $expanded;
 
 			goto start;

@@ -462,7 +462,7 @@ class Connection
 			throw new DatabaseException("{$e->getMessage()} [ {$this->prepareQueryForLog($query, $params)} ].", (int) $e->getCode(), $e);
 		}
 
-		if ($this->enableLog) {
+		if ($this->enableLog && isset($start)) {
 			$this->log($query, $params, $start);
 		}
 
