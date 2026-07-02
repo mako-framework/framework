@@ -90,6 +90,7 @@ use function array_keys;
 use function array_merge_recursive;
 use function class_exists;
 use function compact;
+use function implode;
 use function in_array;
 use function preg_match;
 use function sprintf;

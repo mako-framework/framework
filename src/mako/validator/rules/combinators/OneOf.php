@@ -9,6 +9,8 @@ namespace mako\validator\rules\combinators;
 
 use Override;
 
+use function sprintf;
+
 /**
  * One of rule combinator.
  */

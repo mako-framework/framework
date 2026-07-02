@@ -10,6 +10,7 @@ namespace mako\validator\rules\combinators;
 use Override;
 
 use function count;
+use function sprintf;
 
 /**
  * All of rule combinator.
