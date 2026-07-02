@@ -9,7 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\validator\exceptions\ValidatorException;
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function is_numeric;
@@ -20,7 +19,7 @@ use function substr;
 /**
  * Max file size rule.
  */
-class MaxFileSize extends Rule implements RuleInterface
+class MaxFileSize extends Rule
 {
 	/**
 	 * Constructor.

@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Unique values rule.
  */
-class UniqueValues extends Rule implements RuleInterface
+class UniqueValues extends Rule
 {
 	/**
 	 * I18n parameters.

@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Match field rule.
  */
-class MatchField extends Rule implements RuleInterface
+class MatchField extends Rule
 {
 	/**
 	 * Constructor.

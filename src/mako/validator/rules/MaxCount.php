@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Max count rule.
  */
-class MaxCount extends Rule implements RuleInterface
+class MaxCount extends Rule
 {
 	/**
 	 * Constructor.

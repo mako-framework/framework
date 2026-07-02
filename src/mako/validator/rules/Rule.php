@@ -13,7 +13,7 @@ use mako\validator\rules\traits\I18nAwareTrait;
 /**
  * Base rule.
  */
-abstract class Rule implements I18nAwareInterface
+abstract class Rule implements I18nAwareInterface, RuleInterface
 {
 	use DoesntValidateWhenEmptyTrait;
 	use I18nAwareTrait;

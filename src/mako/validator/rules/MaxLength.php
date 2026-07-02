@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Max length rule.
  */
-class MaxLength extends Rule implements RuleInterface
+class MaxLength extends Rule
 {
 	/**
 	 * Constructor.

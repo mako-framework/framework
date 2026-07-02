@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Arr rule.
  */
-class Arr extends Rule implements RuleInterface
+class Arr extends Rule
 {
 	/**
 	 * {@inheritDoc}

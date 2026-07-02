@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Required rule.
  */
-class Required extends Rule implements RuleInterface
+class Required extends Rule
 {
 	use ValidatesWhenEmptyTrait;
 

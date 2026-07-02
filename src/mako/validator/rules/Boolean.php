@@ -14,7 +14,7 @@ use function sprintf;
 /**
  * Boolean rule.
  */
-class Boolean extends Rule implements RuleInterface
+class Boolean extends Rule
 {
 	/**
 	 * {@inheritDoc}

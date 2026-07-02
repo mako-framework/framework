@@ -8,7 +8,6 @@
 namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function sprintf;
@@ -16,7 +15,7 @@ use function sprintf;
 /**
  * Hash rule.
  */
-class Hash extends Rule implements RuleInterface
+class Hash extends Rule
 {
 	/**
 	 * Constructor.

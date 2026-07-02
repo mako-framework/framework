@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Numberic float rule.
  */
-class NumericFloat extends Rule implements RuleInterface
+class NumericFloat extends Rule
 {
 	/**
 	 * {@inheritDoc}

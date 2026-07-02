@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Min length rule.
  */
-class MinLength extends Rule implements RuleInterface
+class MinLength extends Rule
 {
 	/**
 	 * Constructor.

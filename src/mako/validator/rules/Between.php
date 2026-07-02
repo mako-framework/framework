@@ -14,7 +14,7 @@ use function sprintf;
 /**
  * Between rule.
  */
-class Between extends Rule implements RuleInterface
+class Between extends Rule
 {
 	/**
 	 * Constructor.

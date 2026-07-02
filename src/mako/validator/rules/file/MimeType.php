@@ -8,7 +8,6 @@
 namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function implode;
@@ -18,7 +17,7 @@ use function sprintf;
 /**
  * Mime type rule.
  */
-class MimeType extends Rule implements RuleInterface
+class MimeType extends Rule
 {
 	/**
 	 * Mime types.

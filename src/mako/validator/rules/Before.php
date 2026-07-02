@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Before rule.
  */
-class Before extends Rule implements RuleInterface
+class Before extends Rule
 {
 	/**
 	 * I18n parameters.

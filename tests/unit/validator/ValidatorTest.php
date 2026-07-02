@@ -10,6 +10,9 @@ namespace mako\tests\unit\validator;
 use mako\i18n\I18n;
 use mako\tests\TestCase;
 use mako\validator\exceptions\ValidationException;
+use mako\validator\rules\combinators\AllOf;
+use mako\validator\rules\combinators\AnyOf;
+use mako\validator\rules\combinators\OneOf;
 use mako\validator\rules\I18nAwareInterface;
 use mako\validator\rules\Rule;
 use mako\validator\rules\RuleInterface;
@@ -20,7 +23,7 @@ use Throwable;
 
 use function mako\f;
 
-class MyRule extends Rule implements RuleInterface
+class MyRule extends Rule
 {
 	public function validate(mixed $value, string $field, array $input): bool
 	{
@@ -495,6 +498,107 @@ class ValidatorTest extends TestCase
 		$validator = new Validator($input, $rules);
 
 		$this->assertSame($input, $validator->getValidatedInput());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithMixOfStringAndInstanceRules(): void
+	{
+		$input = ['username' => 'foo'];
+
+		$rules = ['username' => [MyRule::class, new MyRule]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertSame($input, $validator->getValidatedInput());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithValidOneOfRuleCombinator(): void
+	{
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new OneOf('array', 'string')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertTrue($validator->isValid());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithInvalidOneOfRuleCombinator(): void
+	{
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new OneOf('array', 'array')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertFalse($validator->isValid());
+		$this->assertSame(['foo' => 'The foo field must satisfy exactly one of its validation rules.'], $validator->getErrors());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithValidAnyOfRuleCombinator(): void
+	{
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new AnyOf('string', 'array')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertTrue($validator->isValid());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithInvalidAnyOfRuleCombinator(): void
+	{
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new AnyOf('string', 'boolean')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertFalse($validator->isValid());
+		$this->assertSame(['foo' => 'The foo field must contain a string.'], $validator->getErrors());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithValidAllOfRuleCombinator(): void
+	{
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new AllOf('array', 'exact_count(3)')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertTrue($validator->isValid());
+	}
+
+	/**
+	 *
+	 */
+	public function testValidateWithInvalidAllOfRuleCombinator(): void
+	{
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new AllOf('array', 'string')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertFalse($validator->isValid());
+		$this->assertSame(['foo' => 'The foo field must contain a string.'], $validator->getErrors());
 	}
 
 	/**

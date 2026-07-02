@@ -17,7 +17,7 @@ use function sprintf;
 /**
  * Enum rule.
  */
-class Enum extends Rule implements RuleInterface
+class Enum extends Rule
 {
 	/**
 	 * Constructor.

@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Hex rule.
  */
-class Hex extends Rule implements RuleInterface
+class Hex extends Rule
 {
 	/**
 	 * {@inheritDoc}

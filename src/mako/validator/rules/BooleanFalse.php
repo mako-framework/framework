@@ -14,7 +14,7 @@ use function sprintf;
 /**
  * Boolean false rule.
  */
-class BooleanFalse extends Rule implements RuleInterface
+class BooleanFalse extends Rule
 {
 	/**
 	 * {@inheritDoc}

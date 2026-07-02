@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Exact length rule.
  */
-class ExactLength extends Rule implements RuleInterface
+class ExactLength extends Rule
 {
 	/**
 	 * Constructor.

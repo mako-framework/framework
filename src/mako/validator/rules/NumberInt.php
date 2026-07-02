@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Number integer rule.
  */
-class NumberInt extends Rule implements RuleInterface
+class NumberInt extends Rule
 {
 	/**
 	 * {@inheritDoc}

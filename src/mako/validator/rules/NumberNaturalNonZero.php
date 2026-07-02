@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Number natural non-zero rule.
  */
-class NumberNaturalNonZero extends Rule implements RuleInterface
+class NumberNaturalNonZero extends Rule
 {
 	/**
 	 * {@inheritDoc}

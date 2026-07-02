@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Min count rule.
  */
-class MinCount extends Rule implements RuleInterface
+class MinCount extends Rule
 {
 	/**
 	 * Constructor.

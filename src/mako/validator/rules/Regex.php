@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Regex rule.
  */
-class Regex extends Rule implements RuleInterface
+class Regex extends Rule
 {
 	/**
 	 * Constructor.

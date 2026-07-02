@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Not in rule.
  */
-class NotIn extends Rule implements RuleInterface
+class NotIn extends Rule
 {
 	/**
 	 * Constructor.

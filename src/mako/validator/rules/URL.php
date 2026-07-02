@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * URL rule.
  */
-class URL extends Rule implements RuleInterface
+class URL extends Rule
 {
 	/**
 	 * {@inheritDoc}

@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * IP rule.
  */
-class IP extends Rule implements RuleInterface
+class IP extends Rule
 {
 	/**
 	 * Constructor.
