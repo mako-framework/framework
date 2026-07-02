@@ -535,12 +535,23 @@ class ValidatorTest extends TestCase
 	{
 		$input = ['foo' => [1, 2, 3]];
 
-		$rules = ['foo' => [new OneOf('array', 'array')]];
+		$rules = ['foo' => [new OneOf('array', 'array', 'string')]];
 
 		$validator = new Validator($input, $rules);
 
 		$this->assertFalse($validator->isValid());
 		$this->assertSame(['foo' => 'The foo field must satisfy exactly one of its validation rules.'], $validator->getErrors());
+
+		//
+
+		$input = ['foo' => [1, 2, 3]];
+
+		$rules = ['foo' => [new OneOf('string', 'boolean')]];
+
+		$validator = new Validator($input, $rules);
+
+		$this->assertFalse($validator->isValid());
+		$this->assertSame(['foo' => 'The foo field must contain a string. The foo field must contain a boolean.'], $validator->getErrors());
 	}
 
 	/**
