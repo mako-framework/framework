@@ -430,7 +430,7 @@ class Validator
 			$errorMessage ?? $this->getErrorMessage(
 				$ruleCombinator,
 				$field,
-				(object) ['name', $ruleCombinator::class, null]
+				(object) ['name' => $ruleCombinator::class, 'package' => null]
 			),
 		];
 
