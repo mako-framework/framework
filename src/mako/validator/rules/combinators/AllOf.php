@@ -21,7 +21,7 @@ class AllOf extends RuleCombinator
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getMatchCondition(): callable
+	public function getSuccessCondition(): callable
 	{
 		return fn (int $matches): bool => count($this->rules) === $matches;
 	}

@@ -20,7 +20,7 @@ class AnyOf extends RuleCombinator
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getMatchCondition(): callable
+	public function getSuccessCondition(): callable
 	{
 		return fn (int $matches): bool => $matches >= 1;
 	}

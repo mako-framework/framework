@@ -420,7 +420,7 @@ class Validator
 			}
 		}
 
-		if ($ruleCombinator->getMatchCondition()($successes)) {
+		if ($ruleCombinator->getSuccessCondition()($successes)) {
 			return [true, null];
 		}
 

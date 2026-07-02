@@ -22,11 +22,11 @@ interface RuleCombinatorInterface
 	public function getRules(): array;
 
 	/**
-	 * Returns a callable that can be used to check if the match condition is met.
+	 * Returns a callable that can be used to check if the success condition is met.
 	 *
 	 * @return callable(int): bool
 	 */
-	public function getMatchCondition(): callable;
+	public function getSuccessCondition(): callable;
 
 	/**
 	 * Returns an error message.
