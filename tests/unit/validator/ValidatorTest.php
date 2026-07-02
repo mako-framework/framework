@@ -548,9 +548,9 @@ class ValidatorTest extends TestCase
 	 */
 	public function testValidateWithValidAnyOfRuleCombinator(): void
 	{
-		$input = ['foo' => [1, 2, 3]];
+		$input = ['foo' => 9];
 
-		$rules = ['foo' => [new AnyOf('string', 'array')]];
+		$rules = ['foo' => [new AnyOf('less_than(10)', 'greater_than(20)')]];
 
 		$validator = new Validator($input, $rules);
 
@@ -562,14 +562,14 @@ class ValidatorTest extends TestCase
 	 */
 	public function testValidateWithInvalidAnyOfRuleCombinator(): void
 	{
-		$input = ['foo' => [1, 2, 3]];
+		$input = ['foo' => 15];
 
-		$rules = ['foo' => [new AnyOf('string', 'boolean')]];
+		$rules = ['foo' => [new AnyOf('less_than(10)', 'greater_than(20)')]];
 
 		$validator = new Validator($input, $rules);
 
 		$this->assertFalse($validator->isValid());
-		$this->assertSame(['foo' => 'The foo field must contain a string.'], $validator->getErrors());
+		$this->assertSame(['foo' => 'The value of the foo field must be less than 10.'], $validator->getErrors());
 	}
 
 	/**
