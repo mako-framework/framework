@@ -569,7 +569,7 @@ class ValidatorTest extends TestCase
 		$validator = new Validator($input, $rules);
 
 		$this->assertFalse($validator->isValid());
-		$this->assertSame(['foo' => 'The value of the foo field must be less than 10.'], $validator->getErrors());
+		$this->assertSame(['foo' => 'The value of the foo field must be less than 10. The value of the foo field must be greater than 20.'], $validator->getErrors());
 	}
 
 	/**

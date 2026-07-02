@@ -422,9 +422,11 @@ class Validator
 			return [true, null];
 		}
 
+		$errorMessage = empty($errorMessages) ? null : implode(' ', $errorMessages);
+
 		return [
 			false,
-			$errorMessages[0] ?? $this->getErrorMessage(
+			$errorMessage ?? $this->getErrorMessage(
 				$ruleCombinator,
 				$field,
 				(object) ['name', $ruleCombinator::class, null]
