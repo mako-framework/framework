@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\pixel\image;
 
 use InvalidArgumentException;
 use mako\pixel\image\Color;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
+#[Group('unit')]
 class ColorTest extends TestCase
 {
 	/**
