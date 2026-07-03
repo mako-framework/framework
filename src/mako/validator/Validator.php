@@ -402,15 +402,27 @@ class Validator
 	}
 
 	/**
-	 * Process rule combinator.
+	 * Validates a single rule or rule combinator.
 	 */
-	protected function processRuleCombinator(string $field, RuleCombinatorInterface $ruleCombinator): array
+	protected function validateRule(string $field, RuleCombinatorInterface|RuleInterface|string $rule): array
 	{
+		if ($rule instanceof RuleCombinatorInterface) {
+			return $this->processRuleCombinator($field, $rule);
+		}
+
+		return $this->validateField($field, $rule);
+	}
+
+	 /**
+	  * Process rule combinator.
+	  */
+	 protected function processRuleCombinator(string $field, RuleCombinatorInterface $ruleCombinator): array
+	 {
 		$successes = 0;
 		$errorMessages = [];
 
 		foreach ($ruleCombinator->getRules() as $rule) {
-			[$success, $errorMessage] = $this->validateField($field, $rule);
+			[$success, $errorMessage] = $this->validateRule($field, $rule);
 
 			if ($success) {
 				$successes++;
@@ -437,7 +449,6 @@ class Validator
 				(object) ['name' => $ruleCombinator::class, 'package' => null]
 			),
 		];
-
 	}
 
 	/**
@@ -446,18 +457,12 @@ class Validator
 	 */
 	protected function process(): array
 	{
+		$this->isValid = true;
+		$this->errors = [];
+
 		foreach ($this->ruleSets as $field => $ruleSet) {
-			// Validate field
-
 			foreach ($ruleSet as $rule) {
-				if ($rule instanceof RuleCombinatorInterface) {
-					[$success, $errorMessage] = $this->processRuleCombinator($field, $rule);
-				}
-				else {
-					[$success, $errorMessage] = $this->validateField($field, $rule);
-				}
-
-				// Stop as soon as one of the rules fail
+				[$success, $errorMessage] = $this->validateRule($field, $rule);
 
 				if (!$success) {
 					$this->isValid = false;
@@ -466,7 +471,6 @@ class Validator
 				}
 			}
 		}
-
 		return [$this->isValid, $this->errors];
 	}
 
@@ -481,7 +485,7 @@ class Validator
 	}
 
 	/**
-	 * Returns false if all rules passed and true if validation failed.
+	 * Returns FALSE if all rules passed and true if validation failed.
 	 */
 	public function isInvalid(?array &$errors = null): bool
 	{
