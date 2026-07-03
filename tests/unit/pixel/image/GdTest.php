@@ -1,12 +1,19 @@
 <?php
 
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
 namespace mako\tests\unit\pixel\image;
 
 use mako\pixel\image\Gd;
 use mako\pixel\image\operations\gd\Bitonal;
 use mako\pixel\image\operations\gd\Negate;
 use mako\tests\TestCase;
+use PHPUnit\Framework\Attributes\Group;
 
+#[Group('unit')]
 class GdTest extends TestCase
 {
 	/**
