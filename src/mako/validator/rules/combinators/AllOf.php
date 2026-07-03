@@ -21,9 +21,18 @@ class AllOf extends RuleCombinator
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getSuccessCondition(): callable
+	public function isSuccessful(int $successes): bool
 	{
-		return fn (int $matches): bool => count($this->rules) === $matches;
+		return count($this->rules) === $successes;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function shouldAggregateChildErrors(int $successes, array $errorMessages): bool
+	{
+		return !empty($errorMessages);
 	}
 
 	/**

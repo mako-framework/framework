@@ -20,9 +20,18 @@ class OneOf extends RuleCombinator
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getSuccessCondition(): callable
+	public function isSuccessful(int $successes): bool
 	{
-		return fn (int $matches): bool => $matches === 1;
+		return $successes === 1;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function shouldAggregateChildErrors(int $successes, array $errorMessages): bool
+	{
+		return !empty($errorMessages) && $successes === 0;
 	}
 
 	/**

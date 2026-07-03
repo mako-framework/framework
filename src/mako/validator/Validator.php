@@ -27,7 +27,6 @@ use mako\validator\rules\Between;
 use mako\validator\rules\Boolean;
 use mako\validator\rules\BooleanFalse;
 use mako\validator\rules\BooleanTrue;
-use mako\validator\rules\combinators\OneOf;
 use mako\validator\rules\combinators\RuleCombinatorInterface;
 use mako\validator\rules\database\Exists;
 use mako\validator\rules\database\Unique;
@@ -432,18 +431,15 @@ class Validator
 			}
 		}
 
-		if ($ruleCombinator->getSuccessCondition()($successes)) {
+		if ($ruleCombinator->isSuccessful($successes)) {
 			return [true, null];
 		}
 
-		$errorMessage = (
-			empty($errorMessages)
-			|| ($ruleCombinator instanceof OneOf && $successes > 1)
-		) ? null : implode(' ', $errorMessages);
-
 		return [
 			false,
-			$errorMessage ?? $this->getErrorMessage(
+			$ruleCombinator->shouldAggregateChildErrors($successes, $errorMessages)
+			? implode(' ', $errorMessages)
+			: $this->getErrorMessage(
 				$ruleCombinator,
 				$field,
 				(object) ['name' => $ruleCombinator::class, 'package' => null]

@@ -22,11 +22,14 @@ interface RuleCombinatorInterface
 	public function getRules(): array;
 
 	/**
-	 * Returns a callable that can be used to check if the success condition is met.
-	 *
-	 * @return callable(int): bool
+	 * Returns TRUE if the combinator is considered successful and FALSE if not.
 	 */
-	public function getSuccessCondition(): callable;
+	public function isSuccessful(int $successes): bool;
+
+    /**
+     * Returns TRUE if child rule error messages should be aggregated for this failure and FALSE if not.
+     */
+    public function shouldAggregateChildErrors(int $successes, array $errorMessages): bool;
 
 	/**
 	 * Returns an error message.
