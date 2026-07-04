@@ -3,6 +3,8 @@
 #### New
 
 * Added `OneOf`, `AnyOf` and `AllOf` validation rule combinators.
+* Added new http status exceptions:
+	- `UnprocessableEntityException`
 
 --------------------------------------------------------
 
