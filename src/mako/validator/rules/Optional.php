@@ -12,7 +12,7 @@ use Override;
 /**
  * Optional rule.
  */
-class Optional extends Rule implements RuleInterface
+class Optional extends Rule
 {
 	/**
 	 * {@inheritDoc}

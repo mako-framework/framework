@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Exact count rule.
  */
-class ExactCount extends Rule implements RuleInterface
+class ExactCount extends Rule
 {
 	/**
 	 * Constructor.

@@ -14,7 +14,7 @@ use function sprintf;
 /**
  * Less than rule.
  */
-class LessThan extends Rule implements RuleInterface
+class LessThan extends Rule
 {
 	/**
 	 * Constructor.

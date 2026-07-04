@@ -8,7 +8,6 @@
 namespace mako\validator\rules\file;
 
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 use SensitiveParameter;
 
@@ -17,7 +16,7 @@ use function sprintf;
 /**
  * Hmac rule.
  */
-class Hmac extends Rule implements RuleInterface
+class Hmac extends Rule
 {
 	/**
 	 * Constructor.

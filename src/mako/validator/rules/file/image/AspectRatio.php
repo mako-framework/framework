@@ -9,7 +9,6 @@ namespace mako\validator\rules\file\image;
 
 use mako\validator\rules\file\image\traits\GetImageSizeTrait;
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function sprintf;
@@ -17,7 +16,7 @@ use function sprintf;
 /**
  * Aspect ratio rule.
  */
-class AspectRatio extends Rule implements RuleInterface
+class AspectRatio extends Rule
 {
 	use GetImageSizeTrait;
 

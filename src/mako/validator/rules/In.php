@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * In rule.
  */
-class In extends Rule implements RuleInterface
+class In extends Rule
 {
 	/**
 	 * Constructor.

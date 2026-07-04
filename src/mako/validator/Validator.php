@@ -27,6 +27,7 @@ use mako\validator\rules\Between;
 use mako\validator\rules\Boolean;
 use mako\validator\rules\BooleanFalse;
 use mako\validator\rules\BooleanTrue;
+use mako\validator\rules\combinators\RuleCombinatorInterface;
 use mako\validator\rules\database\Exists;
 use mako\validator\rules\database\Unique;
 use mako\validator\rules\Date;
@@ -87,9 +88,9 @@ use mako\validator\rules\UUID;
 use function array_fill_keys;
 use function array_keys;
 use function array_merge_recursive;
-use function array_unique;
 use function class_exists;
 use function compact;
+use function implode;
 use function in_array;
 use function preg_match;
 use function sprintf;
@@ -353,7 +354,7 @@ class Validator
 	/**
 	 * Returns the error message.
 	 */
-	protected function getErrorMessage(RuleInterface $rule, string $field, object $parsedRule): string
+	protected function getErrorMessage(RuleCombinatorInterface|RuleInterface $rule, string $field, object $parsedRule): string
 	{
 		$field = $this->getOriginalFieldName($field);
 
@@ -367,7 +368,7 @@ class Validator
 	/**
 	 * Validates the field using the specified rule.
 	 */
-	protected function validateField(string $field, RuleInterface|string $rule): bool
+	protected function validateField(string $field, RuleInterface|string $rule): array
 	{
 		if ($rule instanceof RuleInterface === false) {
 			$parsedRule = $this->parseRule($rule);
@@ -381,22 +382,69 @@ class Validator
 
 		if (($this->validateEmptyFields === false && $this->isInputFieldEmpty($inputValue) && $rule->validateWhenEmpty() === false)
 			|| ($this->validateEmptyFields && Arr::has($this->input, $field) === false)) {
-			return true;
+			return [true, null];
 		}
 
 		// Validate input
 
 		if ($rule->validate($inputValue, $field, $this->input) === false) {
-			$this->errors[$field] = $this->getErrorMessage(
+			$errorMessage = $this->getErrorMessage(
 				$rule,
 				$field,
 				$parsedRule ?? (object) ['name' => $rule::class, 'package' => null]
 			);
 
-			return $this->isValid = false;
+			return [false, $errorMessage];
 		}
 
-		return true;
+		return [true, null];
+	}
+
+	/**
+	 * Validates a single rule or rule combinator.
+	 */
+	protected function validateRule(string $field, RuleCombinatorInterface|RuleInterface|string $rule): array
+	{
+		if ($rule instanceof RuleCombinatorInterface) {
+			return $this->processRuleCombinator($field, $rule);
+		}
+
+		return $this->validateField($field, $rule);
+	}
+
+	 /**
+	  * Process rule combinator.
+	  */
+	 protected function processRuleCombinator(string $field, RuleCombinatorInterface $ruleCombinator): array
+	 {
+		$successes = 0;
+		$errorMessages = [];
+
+		foreach ($ruleCombinator->getRules() as $rule) {
+			[$success, $errorMessage] = $this->validateRule($field, $rule);
+
+			if ($success) {
+				$successes++;
+			}
+			else {
+				$errorMessages[] = $errorMessage;
+			}
+		}
+
+		if ($ruleCombinator->isSuccessful($successes)) {
+			return [true, null];
+		}
+
+		return [
+			false,
+			$ruleCombinator->shouldAggregateChildErrors($successes, $errorMessages)
+			? implode(' ', $errorMessages)
+			: $this->getErrorMessage(
+				$ruleCombinator,
+				$field,
+				(object) ['name' => $ruleCombinator::class, 'package' => null]
+			),
+		];
 	}
 
 	/**
@@ -405,20 +453,20 @@ class Validator
 	 */
 	protected function process(): array
 	{
+		$this->isValid = true;
+		$this->errors = [];
+
 		foreach ($this->ruleSets as $field => $ruleSet) {
-			// Ensure that we don't have any duplicated rules for a field
-
-			$ruleSet = array_unique($ruleSet);
-
-			// Validate field and stop as soon as one of the rules fail
-
 			foreach ($ruleSet as $rule) {
-				if ($this->validateField($field, $rule) === false) {
+				[$success, $errorMessage] = $this->validateRule($field, $rule);
+
+				if (!$success) {
+					$this->isValid = false;
+					$this->errors[$field] = $errorMessage;
 					break;
 				}
 			}
 		}
-
 		return [$this->isValid, $this->errors];
 	}
 
@@ -433,7 +481,7 @@ class Validator
 	}
 
 	/**
-	 * Returns false if all rules passed and true if validation failed.
+	 * Returns FALSE if all rules passed and true if validation failed.
 	 */
 	public function isInvalid(?array &$errors = null): bool
 	{

@@ -17,7 +17,7 @@ use function str_contains;
 /**
  * Email domain rule.
  */
-class EmailDomain extends Rule implements RuleInterface
+class EmailDomain extends Rule
 {
 	/**
 	 * Returns TRUE if the domain has a MX record and FALSE if not.

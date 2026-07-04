@@ -13,6 +13,7 @@ use mako\http\request\Parameters;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\http\response\senders\Redirect;
+use mako\http\response\Status;
 use mako\http\routing\URLBuilder;
 use mako\session\Session;
 use mako\tests\TestCase;
@@ -554,7 +555,7 @@ class InputValidationTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(400);
+		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
 
 		$response->makePartial();
 
@@ -607,7 +608,7 @@ class InputValidationTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(400);
+		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
 
 		$response->shouldReceive('setType')->once()->with('application/xml');
 
@@ -648,7 +649,7 @@ class InputValidationTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(400);
+		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
 
 		//
 
@@ -706,7 +707,7 @@ class InputValidationTest extends TestCase
 
 		$response->shouldReceive('clearExcept')->once()->with(['headers' => ['Access-Control-.*']]);
 
-		$response->shouldReceive('setStatus')->once()->with(400);
+		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
 
 		//-------------
 

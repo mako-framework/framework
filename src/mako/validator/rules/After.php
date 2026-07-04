@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * After rule.
  */
-class After extends Rule implements RuleInterface
+class After extends Rule
 {
 	/**
 	 * I18n parameters.

@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Email rule.
  */
-class Email extends Rule implements RuleInterface
+class Email extends Rule
 {
 	/**
 	 * {@inheritDoc}

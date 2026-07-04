@@ -13,6 +13,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\http\response\senders\Redirect;
+use mako\http\response\Status;
 use mako\http\routing\middleware\MiddlewareInterface;
 use mako\http\routing\URLBuilder;
 use mako\http\traits\ContentNegotiationTrait;
@@ -36,9 +37,9 @@ class InputValidation implements MiddlewareInterface
 	use ContentNegotiationTrait;
 
 	/**
-	 * Default HTTP status code for invalid requests.
+	 * Default HTTP status for invalid requests.
 	 */
-	protected int $httpStatusCode = 400;
+	protected Status $httpStatus = Status::BadRequest;
 
 	/**
 	 * Headers and cookies to keep.
@@ -210,7 +211,7 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function handleOutput(ValidationException $exception): Response
 	{
-		$this->response->setStatus($this->httpStatusCode);
+		$this->response->setStatus($this->httpStatus);
 
 		if ($this->respondWithJson()) {
 			$this->response->setBody(new JSON([

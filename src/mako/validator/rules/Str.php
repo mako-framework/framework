@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Str rule.
  */
-class Str extends Rule implements RuleInterface
+class Str extends Rule
 {
 	/**
 	 * {@inheritDoc}

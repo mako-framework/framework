@@ -9,7 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\http\request\UploadedFile;
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function mb_strlen;
@@ -18,7 +17,7 @@ use function sprintf;
 /**
  * Max filename length rule.
  */
-class MaxFilenameLength extends Rule implements RuleInterface
+class MaxFilenameLength extends Rule
 {
 	/**
 	 * Constructor.

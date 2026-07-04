@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Number float rule.
  */
-class NumberFloat extends Rule implements RuleInterface
+class NumberFloat extends Rule
 {
 	/**
 	 * {@inheritDoc}

@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * UUID rule.
  */
-class UUID extends Rule implements RuleInterface
+class UUID extends Rule
 {
 	/**
 	 * {@inheritDoc}

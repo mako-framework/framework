@@ -9,7 +9,6 @@ namespace mako\validator\rules\session;
 
 use mako\session\Session;
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use mako\validator\rules\traits\ValidatesWhenEmptyTrait;
 use Override;
 use SensitiveParameter;
@@ -17,7 +16,7 @@ use SensitiveParameter;
 /**
  * Token rule.
  */
-class Token extends Rule implements RuleInterface
+class Token extends Rule
 {
 	use ValidatesWhenEmptyTrait;
 

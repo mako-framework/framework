@@ -9,7 +9,6 @@ namespace mako\validator\rules\file;
 
 use mako\http\request\UploadedFile;
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function sprintf;
@@ -17,7 +16,7 @@ use function sprintf;
 /**
  * Is uploaded rule.
  */
-class IsUploaded extends Rule implements RuleInterface
+class IsUploaded extends Rule
 {
 	/**
 	 * {@inheritDoc}

@@ -16,7 +16,7 @@ use function sprintf;
 /**
  * Time zone rule.
  */
-class TimeZone extends Rule implements RuleInterface
+class TimeZone extends Rule
 {
 	/**
 	 * Constructor.

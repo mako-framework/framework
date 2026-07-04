@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Alphanumeric dash unicode rule.
  */
-class AlphanumericDashUnicode extends Rule implements RuleInterface
+class AlphanumericDashUnicode extends Rule
 {
 	/**
 	 * {@inheritDoc}

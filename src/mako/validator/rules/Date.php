@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * Date rule.
  */
-class Date extends Rule implements RuleInterface
+class Date extends Rule
 {
 	/**
 	 * Constructor.

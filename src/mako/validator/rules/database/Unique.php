@@ -9,7 +9,6 @@ namespace mako\validator\rules\database;
 
 use mako\database\ConnectionManager;
 use mako\validator\rules\Rule;
-use mako\validator\rules\RuleInterface;
 use Override;
 
 use function sprintf;
@@ -17,7 +16,7 @@ use function sprintf;
 /**
  * Unique rule.
  */
-class Unique extends Rule implements RuleInterface
+class Unique extends Rule
 {
 	/**
 	 * I18n parameters.

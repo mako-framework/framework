@@ -15,7 +15,7 @@ use function sprintf;
 /**
  * JSON rule.
  */
-class JSON extends Rule implements RuleInterface
+class JSON extends Rule
 {
 	/**
 	 * Constructor.
