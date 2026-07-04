@@ -85,8 +85,8 @@ enum Status: int
 	public const LENGTH_REQUIRED = self::LengthRequired;
 	#[Deprecated('use Status::PreconditionFailed instead', 'Mako 12.2.0')]
 	public const PRECONDITION_FAILED = self::PreconditionFailed;
-	#[Deprecated('use Status::PayloadTooLarge instead', 'Mako 12.2.0')]
-	public const PAYLOAD_TOO_LARGE = self::PayloadTooLarge;
+	#[Deprecated('use Status::ContentTooLarge instead', 'Mako 12.2.0')]
+	public const PAYLOAD_TOO_LARGE = self::ContentTooLarge;
 	#[Deprecated('use Status::UriTooLong instead', 'Mako 12.2.0')]
 	public const URI_TOO_LONG = self::UriTooLong;
 	#[Deprecated('use Status::UnsupportedMediaType instead', 'Mako 12.2.0')]
@@ -195,7 +195,7 @@ enum Status: int
 	case Gone = 410;
 	case LengthRequired = 411;
 	case PreconditionFailed = 412;
-	case PayloadTooLarge = 413;
+	case ContentTooLarge = 413;
 	case UriTooLong = 414;
 	case UnsupportedMediaType = 415;
 	case RangeNotSatisfiable = 416;
@@ -289,7 +289,7 @@ enum Status: int
 			self::Gone => 'Gone',
 			self::LengthRequired => 'Length Required',
 			self::PreconditionFailed => 'Precondition Failed',
-			self::PayloadTooLarge => 'Payload Too Large',
+			self::ContentTooLarge => 'Content Too Large',
 			self::UriTooLong => 'URI Too Long',
 			self::UnsupportedMediaType => 'Unsupported Media Type',
 			self::RangeNotSatisfiable => 'Range Not Satisfiable',
