@@ -15,20 +15,20 @@ final class Mako
 	/**
 	 * Mako version.
 	 */
-	public const string VERSION = '12.2.1';
+	public const string VERSION = '13.0.0';
 
 	/**
 	 * Mako major version.
 	 */
-	public const int VERSION_MAJOR = 12;
+	public const int VERSION_MAJOR = 13;
 
 	/**
 	 * Mako minor version.
 	 */
-	public const int VERSION_MINOR = 2;
+	public const int VERSION_MINOR = 0;
 
 	/**
 	 * Mako patch version.
 	 */
-	public const int VERSION_PATCH = 1;
+	public const int VERSION_PATCH = 0;
 }

@@ -1,3 +1,11 @@
+### 13.0.0 <small>(2026-??-??)</small>
+
+#### New
+
+* Added `OneOf`, `AnyOf` and `AllOf` validation rule combinators.
+
+--------------------------------------------------------
+
 ### 12.2.1 <small>(2026-05-04)</small>
 
 #### Improvements
