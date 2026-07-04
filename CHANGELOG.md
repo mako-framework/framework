@@ -12,6 +12,10 @@
 	- `LengthRequiredException`
 	- `ContentTooLargeException`
 
+#### Changes
+
+* Renamed `Status::PayloadTooLarge` to `Status::ContentTooLarge`
+
 --------------------------------------------------------
 
 ### 12.2.1 <small>(2026-05-04)</small>
