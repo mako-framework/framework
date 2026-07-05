@@ -21,6 +21,7 @@
 	- `ControllerHelperTrait::fileResponse()`
 	- `ControllerHelperTrait::streamResponse()`
 	- `ControllerHelperTrait::jsonResponse()`
+* Removed the `$withAlpha` parameter from the `Color::toHexString()` method.
 
 --------------------------------------------------------
 

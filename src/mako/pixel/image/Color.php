@@ -119,15 +119,9 @@ class Color
 	/**
 	 * Returns a hex string representation of the color.
 	 */
-	public function toHexString(bool $withAlpha = false): string
+	public function toHexString(): string
 	{
-		$hex = sprintf('#%02X%02X%02X', $this->red, $this->green, $this->blue);
-
-		if ($withAlpha) {
-			$hex .= sprintf('%02X', $this->alpha);
-		}
-
-		return $hex;
+		return sprintf('#%02X%02X%02X', $this->red, $this->green, $this->blue);
 	}
 
 	/**

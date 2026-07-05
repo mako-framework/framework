@@ -153,16 +153,6 @@ class ColorTest extends TestCase
 		$color = new Color(0, 0, 255);
 
 		$this->assertSame('#0000FF', $color->toHexString());
-
-		//
-
-		$color = new Color(255, 0, 0);
-
-		$this->assertSame('#FF0000FF', $color->toHexString(true));
-
-		$color = new Color(255, 0, 0, 127);
-
-		$this->assertSame('#FF00007F', $color->toHexString(true));
 	}
 
 	/*
