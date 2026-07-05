@@ -7,7 +7,6 @@
 
 namespace mako\file;
 
-use Deprecated;
 use InvalidArgumentException;
 
 use function sprintf;
@@ -17,63 +16,6 @@ use function sprintf;
  */
 enum Permission: int
 {
-	/* Start compatibility */
-	#[Deprecated('use Permission::None instead', 'Mako 12.2.0')]
-	public const NONE = self::None;
-	#[Deprecated('use Permission::OwnerExecute instead', 'Mako 12.2.0')]
-	public const OWNER_EXECUTE = self::OwnerExecute;
-	#[Deprecated('use Permission::OwnerWrite instead', 'Mako 12.2.0')]
-	public const OWNER_WRITE = self::OwnerWrite;
-	#[Deprecated('use Permission::OwnerExecuteWrite instead', 'Mako 12.2.0')]
-	public const OWNER_EXECUTE_WRITE = self::OwnerExecuteWrite;
-	#[Deprecated('use Permission::OwnerRead instead', 'Mako 12.2.0')]
-	public const OWNER_READ = self::OwnerRead;
-	#[Deprecated('use Permission::OwnerExecuteRead instead', 'Mako 12.2.0')]
-	public const OWNER_EXECUTE_READ = self::OwnerExecuteRead;
-	#[Deprecated('use Permission::OwnerWriteRead instead', 'Mako 12.2.0')]
-	public const OWNER_WRITE_READ = self::OwnerWriteRead;
-	#[Deprecated('use Permission::OwnerFull instead', 'Mako 12.2.0')]
-	public const OWNER_FULL = self::OwnerFull;
-	#[Deprecated('use Permission::GroupExecute instead', 'Mako 12.2.0')]
-	public const GROUP_EXECUTE = self::GroupExecute;
-	#[Deprecated('use Permission::GroupWrite instead', 'Mako 12.2.0')]
-	public const GROUP_WRITE = self::GroupWrite;
-	#[Deprecated('use Permission::GroupExecuteWrite instead', 'Mako 12.2.0')]
-	public const GROUP_EXECUTE_WRITE = self::GroupExecuteWrite;
-	#[Deprecated('use Permission::GroupRead instead', 'Mako 12.2.0')]
-	public const GROUP_READ = self::GroupRead;
-	#[Deprecated('use Permission::GroupExecuteRead instead', 'Mako 12.2.0')]
-	public const GROUP_EXECUTE_READ = self::GroupExecuteRead;
-	#[Deprecated('use Permission::GroupWriteRead instead', 'Mako 12.2.0')]
-	public const GROUP_WRITE_READ = self::GroupWriteRead;
-	#[Deprecated('use Permission::GroupFull instead', 'Mako 12.2.0')]
-	public const GROUP_FULL = self::GroupFull;
-	#[Deprecated('use Permission::PublicExecute instead', 'Mako 12.2.0')]
-	public const PUBLIC_EXECUTE = self::PublicExecute;
-	#[Deprecated('use Permission::PublicWrite instead', 'Mako 12.2.0')]
-	public const PUBLIC_WRITE = self::PublicWrite;
-	#[Deprecated('use Permission::PublicExecuteWrite instead', 'Mako 12.2.0')]
-	public const PUBLIC_EXECUTE_WRITE = self::PublicExecuteWrite;
-	#[Deprecated('use Permission::PublicRead instead', 'Mako 12.2.0')]
-	public const PUBLIC_READ = self::PublicRead;
-	#[Deprecated('use Permission::PublicExecuteRead instead', 'Mako 12.2.0')]
-	public const PUBLIC_EXECUTE_READ = self::PublicExecuteRead;
-	#[Deprecated('use Permission::PublicWriteRead instead', 'Mako 12.2.0')]
-	public const PUBLIC_WRITE_READ = self::PublicWriteRead;
-	#[Deprecated('use Permission::PublicFull instead', 'Mako 12.2.0')]
-	public const PUBLIC_FULL = self::PublicFull;
-	#[Deprecated('use Permission::Full instead', 'Mako 12.2.0')]
-	public const FULL = self::Full;
-	#[Deprecated('use Permission::SpecialSticky instead', 'Mako 12.2.0')]
-	public const SPECIAL_STICKY = self::SpecialSticky;
-	#[Deprecated('use Permission::SpecialSetGid instead', 'Mako 12.2.0')]
-	public const SPECIAL_SETGID = self::SpecialSetGid;
-	#[Deprecated('use Permission::SpecialSetUid instead', 'Mako 12.2.0')]
-	public const SPECIAL_SETUID = self::SpecialSetUid;
-	#[Deprecated('use Permission::FullWithAllSpecial instead', 'Mako 12.2.0')]
-	public const FULL_WITH_ALL_SPECIAL = self::FullWithAllSpecial;
-	/* End compatibility */
-
 	// No permissions
 
 	case None = 0o0000;

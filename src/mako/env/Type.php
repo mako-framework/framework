@@ -7,29 +7,33 @@
 
 namespace mako\env;
 
-use Deprecated;
-
 /**
  * Type.
  */
 enum Type
 {
-	/* Start compatibility */
-	#[Deprecated('use Type::Bool instead', 'Mako 12.2.0')]
-	public const BOOL = self::Bool;
-	#[Deprecated('use Type::Int instead', 'Mako 12.2.0')]
-	public const INT = self::Int;
-	#[Deprecated('use Type::Float instead', 'Mako 12.2.0')]
-	public const FLOAT = self::Float;
-	#[Deprecated('use Type::JsonAsObject instead', 'Mako 12.2.0')]
-	public const JSON_AS_OBJECT = self::JsonAsObject;
-	#[Deprecated('use Type::JsonAsArray instead', 'Mako 12.2.0')]
-	public const JSON_AS_ARRAY = self::JsonAsArray;
-	/* End compatibility */
-
+	/**
+	 * Cast the value to a boolean.
+	 */
 	case Bool;
+
+	/**
+	 * Cast the value to an integer.
+	 */
 	case Int;
+
+	/**
+	 * Cast the value to a float.
+	 */
 	case Float;
+
+	/**
+	 * Cast the value to an object.
+	 */
 	case JsonAsObject;
+
+	/**
+	 * Cast the value to an array.
+	 */
 	case JsonAsArray;
 }

@@ -7,30 +7,34 @@
 
 namespace mako\gatekeeper;
 
-use Deprecated;
-
 /**
  * Login status codes.
  */
 enum LoginStatus: int
 {
-	/* Start compatibility */
-	#[Deprecated('use LoginStatus::Ok instead', 'Mako 12.2.0')]
-	public const OK = self::Ok;
-	#[Deprecated('use LoginStatus::Banned instead', 'Mako 12.2.0')]
-	public const BANNED = self::Banned;
-	#[Deprecated('use LoginStatus::NotActivated instead', 'Mako 12.2.0')]
-	public const NOT_ACTIVATED = self::NotActivated;
-	#[Deprecated('use LoginStatus::InvalidCredentials instead', 'Mako 12.2.0')]
-	public const INVALID_CREDENTIALS = self::InvalidCredentials;
-	#[Deprecated('use LoginStatus::Locked instead', 'Mako 12.2.0')]
-	public const LOCKED = self::Locked;
-	/* End compatibility */
-
+	/**
+	 * The login was successful.
+	 */
 	case Ok = 1;
+
+	/**
+	 * The account is banned.
+	 */
 	case Banned = 2;
+
+	/**
+	 * The account is not activated.
+	 */
 	case NotActivated = 3;
+
+	/**
+	 * Invalid credentials were provided.
+	 */
 	case InvalidCredentials = 4;
+
+	/**
+	 * The account is locked.
+	 */
 	case Locked = 5;
 
 	/**
