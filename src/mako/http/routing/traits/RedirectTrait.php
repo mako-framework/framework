@@ -18,10 +18,15 @@ use mako\http\response\senders\Redirect;
 trait RedirectTrait
 {
 	/**
-	 * Returns a redirect response container.
+	 * Returns a redirect response.
 	 */
-	protected function redirect(string $location, array $routeParams = [], array $queryParams = [], string $separator = '&', bool|string $language = true): Redirect
-	{
+	protected function redirect(
+		string $location,
+		array $routeParams = [],
+		array $queryParams = [],
+		string $separator = '&',
+		bool|string $language = true
+	): Redirect {
 		if ($this->routes->hasNamedRoute($location)) {
 			$location = $this->urlBuilder->toRoute($location, $routeParams, $queryParams, $separator, $language);
 		}
