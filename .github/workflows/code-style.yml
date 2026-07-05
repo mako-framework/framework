@@ -1,0 +1,19 @@
+name: Code Style
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: php-cs-fixer
+      - name: Check code style
+        run: php-cs-fixer fix --dry-run --diff
