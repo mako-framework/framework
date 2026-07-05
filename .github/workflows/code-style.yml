@@ -1,4 +1,4 @@
-name: Code Style
+name: Code style
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   php-cs-fixer:
+    name: "Code style"
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout code"
