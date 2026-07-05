@@ -18,6 +18,8 @@ interface MiddlewareInterface
 {
 	/**
 	 * Executes the middleware.
+	 *
+	 * @param (Closure(Request, Response): Response) $next
 	 */
 	public function execute(Request $request, Response $response, Closure $next): Response;
 }

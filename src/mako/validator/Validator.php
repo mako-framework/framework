@@ -7,7 +7,6 @@
 
 namespace mako\validator;
 
-use Closure;
 use mako\common\traits\FunctionParserTrait;
 use mako\i18n\I18n;
 use mako\syringe\Container;
@@ -92,6 +91,7 @@ use function class_exists;
 use function compact;
 use function implode;
 use function in_array;
+use function is_callable;
 use function preg_match;
 use function sprintf;
 use function str_contains;
@@ -290,11 +290,12 @@ class Validator
 	/**
 	 * Adds validation rules to input field if the condition is met.
 	 *
+	 * @param  bool|(callable(): bool) $condition
 	 * @return $this
 	 */
-	public function addRulesIf(string $field, array $ruleSet, bool|Closure $condition): Validator
+	public function addRulesIf(string $field, array $ruleSet, bool|callable $condition): Validator
 	{
-		if ($condition instanceof Closure) {
+		if (is_callable($condition)) {
 			$condition = $condition();
 		}
 

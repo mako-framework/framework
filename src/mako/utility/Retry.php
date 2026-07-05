@@ -26,12 +26,14 @@ class Retry
 	/**
 	 * Callable that decides whether or not we should retry.
 	 *
-	 * @var callable|null
+	 * @var (callable(Throwable): bool)|null
 	 */
 	protected $decider;
 
 	/**
 	 * Constructor.
+	 *
+	 * @param (callable(Throwable): bool)|null $decider
 	 */
 	public function __construct(
 		callable $callable,
@@ -84,6 +86,7 @@ class Retry
 	/**
 	 * Sets the decider that decides whether or not we should retry.
 	 *
+	 * @param  (callable(Throwable): bool) $decider
 	 * @return $this
 	 */
 	public function setDecider(callable $decider): Retry

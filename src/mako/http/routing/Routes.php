@@ -80,6 +80,8 @@ class Routes
 
 	/**
 	 * Adds a grouped set of routes to the colleciton.
+	 *
+	 * @param (Closure(Routes): void) $routes
 	 */
 	public function group(array $options, Closure $routes): void
 	{
