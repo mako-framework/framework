@@ -17,6 +17,10 @@
 * Renamed `Status::PayloadTooLarge` to `Status::ContentTooLarge`.
 * The input validation middleware will now default to status `422` (unprocessable entity) instead of `400` (bad request) for invalid requests.
 * Removed the deprecated enum case compatibility layer.
+* Removed the following deprecated `ControllerHelperTrait` methods:
+	- `ControllerHelperTrait::fileResponse()`
+	- `ControllerHelperTrait::streamResponse()`
+	- `ControllerHelperTrait::jsonResponse()`
 
 --------------------------------------------------------
 
