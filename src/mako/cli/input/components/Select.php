@@ -302,7 +302,9 @@ class Select
 	public function ask(
 		string $label,
 		array $options,
-		callable $optionFormatter = static function (mixed $option): string { return (string) $option; }
+		callable $optionFormatter = static function (mixed $option): string {
+			return (string) $option;
+		}
 	): mixed {
 		$this->output->writeLn($label);
 

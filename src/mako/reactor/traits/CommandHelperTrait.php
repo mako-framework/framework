@@ -213,7 +213,9 @@ trait CommandHelperTrait
 		bool $returnKey = true,
 		bool $allowMultiple = false,
 		bool $allowEmptySelection = false,
-		callable $optionFormatter = static function (mixed $option): string { return (string) $option; }
+		callable $optionFormatter = static function (mixed $option): string {
+			return (string) $option;
+		}
 	): mixed {
 		return (new Select(
 			$this->input,
