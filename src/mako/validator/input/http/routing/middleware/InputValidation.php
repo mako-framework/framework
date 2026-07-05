@@ -8,7 +8,7 @@
 namespace mako\validator\input\http\routing\middleware;
 
 use Closure;
-use mako\http\exceptions\BadRequestException;
+use mako\http\exceptions\UnprocessableEntityException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
@@ -39,7 +39,12 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Default HTTP status for invalid requests.
 	 */
-	protected Status $httpStatus = Status::BadRequest;
+	protected const Status HTTP_STATUS = Status::UnprocessableEntity;
+
+	/**
+	 * Default HTTP status exception for invalid requests.
+	 */
+	protected const string HTTP_STATUS_EXCEPTION = UnprocessableEntityException::class;
 
 	/**
 	 * Headers and cookies to keep.
@@ -211,7 +216,7 @@ class InputValidation implements MiddlewareInterface
 	 */
 	protected function handleOutput(ValidationException $exception): Response
 	{
-		$this->response->setStatus($this->httpStatus);
+		$this->response->setStatus(static::HTTP_STATUS);
 
 		if ($this->respondWithJson()) {
 			$this->response->setBody(new JSON([
@@ -230,7 +235,7 @@ class InputValidation implements MiddlewareInterface
 			return $this->response;
 		}
 
-		throw new BadRequestException;
+		throw new (static::HTTP_STATUS_EXCEPTION);
 	}
 
 	/**

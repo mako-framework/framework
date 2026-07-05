@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\validator\input\http\routing\middleware;
 
-use mako\http\exceptions\BadRequestException;
+use mako\http\exceptions\UnprocessableEntityException;
 use mako\http\Request;
 use mako\http\request\Parameters;
 use mako\http\Response;
@@ -555,7 +555,7 @@ class InputValidationTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
+		$response->shouldReceive('setStatus')->once()->with(Status::UnprocessableEntity);
 
 		$response->makePartial();
 
@@ -608,7 +608,7 @@ class InputValidationTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
+		$response->shouldReceive('setStatus')->once()->with(Status::UnprocessableEntity);
 
 		$response->shouldReceive('setType')->once()->with('application/xml');
 
@@ -639,7 +639,7 @@ class InputValidationTest extends TestCase
 	 */
 	public function testHandleOutputWithException(): void
 	{
-		$this->expectException(BadRequestException::class);
+		$this->expectException(UnprocessableEntityException::class);
 
 		//
 
@@ -649,7 +649,7 @@ class InputValidationTest extends TestCase
 
 		$response = Mockery::mock(Response::class);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
+		$response->shouldReceive('setStatus')->once()->with(Status::UnprocessableEntity);
 
 		//
 
@@ -691,7 +691,7 @@ class InputValidationTest extends TestCase
 	 */
 	public function testExecuteWithErrorsWithoutRedirect(): void
 	{
-		$this->expectException(BadRequestException::class);
+		$this->expectException(UnprocessableEntityException::class);
 
 		//
 
@@ -707,7 +707,7 @@ class InputValidationTest extends TestCase
 
 		$response->shouldReceive('clearExcept')->once()->with(['headers' => ['Access-Control-.*']]);
 
-		$response->shouldReceive('setStatus')->once()->with(Status::BadRequest);
+		$response->shouldReceive('setStatus')->once()->with(Status::UnprocessableEntity);
 
 		//-------------
 
