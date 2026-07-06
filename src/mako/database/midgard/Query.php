@@ -40,8 +40,6 @@ class Query extends QueryBuilder
 {
 	/**
 	 * Class name of the model we're hydrating.
-	 *
-	 * @var class-string<TClass>
 	 */
 	protected string $modelClass;
 
@@ -52,6 +50,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Constructor.
+	 *
+	 * @param TClass $model
 	 */
 	public function __construct(
 		Connection $connection,

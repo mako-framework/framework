@@ -53,7 +53,7 @@ use function substr;
 /**
  * ORM.
  *
- * @mixin \mako\database\midgard\Query
+ * @mixin \mako\database\midgard\Query<static>
  */
 abstract class ORM implements JsonSerializable, Stringable
 {
@@ -609,6 +609,8 @@ abstract class ORM implements JsonSerializable, Stringable
 
 	/**
 	 * Returns a query builder instance.
+	 *
+	 * @return Query<static>
 	 */
 	public function getQuery(): Query
 	{
