@@ -65,7 +65,7 @@ class RoutesTest extends TestCase
 
 		$this->assertEquals(['DELETE', 'OPTIONS'], $routes[4]->getMethods());
 
-		$this->assertEquals(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $routes[5]->getMethods());
+		$this->assertEquals(['GET', 'QUERY', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $routes[5]->getMethods());
 
 		$this->assertEquals(['OPTIONS', 'HEAD'], $routes[6]->getMethods());
 	}
