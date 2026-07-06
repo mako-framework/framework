@@ -23,6 +23,12 @@
 	- `ControllerHelperTrait::jsonResponse()`
 * Removed the `$withAlpha` parameter from the `Color::toHexString()` method.
 
+#### Improvements
+
+* Various improvements and optimizations.
+
+> Check out the upgrade guide for details on how to upgrade from `12.*`
+
 --------------------------------------------------------
 
 ### 12.2.1 <small>(2026-05-04)</small>
