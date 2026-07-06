@@ -610,7 +610,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Returns a query builder instance.
 	 *
-	 * @return Query<static>
+	 * @return Query<$this>
 	 */
 	public function getQuery(): Query
 	{
@@ -620,7 +620,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Returns a record using the value of its primary key.
 	 */
-	public static function get(mixed $id, array $columns = []): ?static
+	public static function get(mixed $id, array $columns = []): ?ORM
 	{
 		return (new static)->getQuery()->get($id, $columns);
 	}
@@ -628,7 +628,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	/**
 	 * Returns a record using the value of its primary key.
 	 */
-	public static function getOrThrow(mixed $id, array $columns = [], string $exception = NotFoundException::class): static
+	public static function getOrThrow(mixed $id, array $columns = [], string $exception = NotFoundException::class): ORM
 	{
 		return (new static)->getQuery()->getOrThrow($id, $columns, $exception);
 	}

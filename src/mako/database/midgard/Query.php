@@ -386,6 +386,8 @@ class Query extends QueryBuilder
 
 	/**
 	 * Returns a record using the value of its primary key.
+	 *
+	 * @return ?TClass
 	 */
 	public function get(int|string $id, array $columns = []): ?ORM
 	{
