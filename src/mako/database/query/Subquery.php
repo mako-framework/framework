@@ -16,6 +16,8 @@ class Subquery
 {
 	/**
 	 * Constructor.
+	 *
+	 * @param (Closure(Query): void) $query
 	 */
 	public function __construct(
 		protected Closure $query,

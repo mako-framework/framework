@@ -328,6 +328,7 @@ class Query
 	/**
 	 * Executes the closure if the compiler is of the correct class.
 	 *
+	 * @param  (Closure(static): void) $query
 	 * @return $this
 	 */
 	public function forCompiler(string $compilerClass, Closure $query): static
@@ -518,6 +519,7 @@ class Query
 	/**
 	 * Adds a WHERE clause.
 	 *
+	 * @param  array|(Closure(Query): void)|Raw|string $column
 	 * @return $this
 	 */
 	public function where(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null, string $separator = 'AND'): static
@@ -549,6 +551,7 @@ class Query
 	/**
 	 * Adds a OR WHERE clause.
 	 *
+	 * @param  array|(Closure(Query): void)|Raw|string $column
 	 * @return $this
 	 */
 	public function orWhere(array|Closure|Raw|string $column, ?string $operator = null, mixed $value = null): static
@@ -915,6 +918,7 @@ class Query
 	/**
 	 * Adds a JOIN clause.
 	 *
+	 * @param  (Closure(Join): void)|Raw|string|null $column1
 	 * @return $this
 	 */
 	public function join(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null, string $type = 'INNER JOIN'): static
@@ -946,6 +950,7 @@ class Query
 	/**
 	 * Adds a LEFT OUTER JOIN clause.
 	 *
+	 * @param  (Closure(Join): void)|Raw|string|null $column1
 	 * @return $this
 	 */
 	public function leftJoin(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null): static
@@ -966,6 +971,7 @@ class Query
 	/**
 	 * Adds a RIGHT OUTER JOIN clause.
 	 *
+	 * @param  (Closure(Join): void)|Raw|string|null $column1
 	 * @return $this
 	 */
 	public function rightJoin(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null): static
@@ -1476,6 +1482,8 @@ class Query
 
 	/**
 	 * Fetches data in batches and passes them to the processor closure.
+	 *
+	 * @param (Closure(ResultSet<int, Result>): void) $processor
 	 */
 	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null): void
 	{

@@ -670,6 +670,8 @@ class Connection
 
 	/**
 	 * Executes queries and rolls back the transaction if any of them fail.
+	 *
+	 * @param (Closure(static): mixed) $queries
 	 */
 	public function transaction(Closure $queries): mixed
 	{

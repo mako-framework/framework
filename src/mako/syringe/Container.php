@@ -81,7 +81,7 @@ class Container
 	/**
 	 * Register a type hint.
 	 *
-	 * @param (Closure(Container): object)|string $class
+	 * @param (Closure(static): object)|string $class
 	 */
 	public function register(array|string $hint, Closure|string $class, bool $singleton = false): void
 	{
@@ -91,7 +91,7 @@ class Container
 	/**
 	 * Register a type hint and return the same instance every time.
 	 *
-	 * @param (Closure(Container): object)|string $class
+	 * @param (Closure(static): object)|string $class
 	 */
 	public function registerSingleton(array|string $hint, Closure|string $class): void
 	{
@@ -153,7 +153,7 @@ class Container
 	/**
 	 * Replaces a registered type hint.
 	 *
-	 * @param (Closure(Container): object)|string $class
+	 * @param (Closure(static): object)|string $class
 	 */
 	public function replace(string $hint, Closure|string $class, bool $singleton = false): void
 	{
@@ -175,7 +175,7 @@ class Container
 	/**
 	 * Replaces a registered singleton type hint.
 	 *
-	 * @param (Closure(Container): object)|string $class
+	 * @param (Closure(static): object)|string $class
 	 */
 	public function replaceSingleton(string $hint, Closure|string $class): void
 	{
@@ -201,7 +201,7 @@ class Container
 	/**
 	 * Resolves a type hint.
 	 *
-	 * @return (Closure(Container): object)|string
+	 * @return (Closure(static): object)|string
 	 */
 	protected function resolveHint(string $hint): Closure|string
 	{
@@ -394,7 +394,7 @@ class Container
 	/**
 	 * Creates a class instance using a factory closure.
 	 *
-	 * @param (Closure(Container): object) $factory
+	 * @param (Closure(static): object) $factory
 	 */
 	protected function closureFactory(Closure $factory, array $parameters): object
 	{
@@ -434,7 +434,7 @@ class Container
 	/**
 	 * Creates a class instance.
 	 *
-	 * @param (Closure(Container): object)|string $class
+	 * @param (Closure(static): object)|string $class
 	 */
 	public function factory(Closure|string $class, array $parameters = []): object
 	{

@@ -63,6 +63,7 @@ class Join
 	/**
 	 * Adds a ON condition to the join.
 	 *
+	 * @param  (Closure(Join): void)|Raw|string $column1
 	 * @return $this
 	 */
 	public function on(Closure|Raw|string $column1, ?string $operator = null, null|Raw|string $column2 = null, string $separator = 'AND'): Join
@@ -93,6 +94,8 @@ class Join
 
 	/**
 	 * Adds a raw ON condition to the join.
+	 *
+	 * @return $this
 	 */
 	public function onRaw(Raw|string $column1, string $operator, string $raw, array $parameters = [], string $separator = 'AND'): Join
 	{
@@ -101,6 +104,9 @@ class Join
 
 	/**
 	 * Adds a OR ON condition to the join.
+	 *
+	 * @param  (Closure(Join): void)|Raw|string $column1
+	 * @return $this
 	 */
 	public function orOn(Closure|Raw|string $column1, ?string $operator = null, null|Raw|string $column2 = null): Join
 	{
@@ -109,6 +115,8 @@ class Join
 
 	/**
 	 * Adds a raw OR ON condition to the join.
+	 *
+	 * @return $this
 	 */
 	public function orOnRaw(Raw|string $column1, string $operator, string $raw, array $parameters = []): Join
 	{
