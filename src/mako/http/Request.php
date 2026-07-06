@@ -524,7 +524,7 @@ class Request
 	 */
 	public function isIdempotent(): bool
 	{
-		return in_array($this->method, ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'PUT', 'TRACE']);
+		return in_array($this->method, ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'PUT', 'QUERY', 'TRACE']);
 	}
 
 	/**
@@ -532,7 +532,7 @@ class Request
 	 */
 	public function isCacheable(): bool
 	{
-		return in_array($this->method, ['GET', 'HEAD']);
+		return in_array($this->method, ['GET', 'HEAD', 'QUERY']);
 	}
 
 	/**

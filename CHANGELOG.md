@@ -11,6 +11,7 @@
 	- `UnavailableForLegalReasonsException`
 	- `LengthRequiredException`
 	- `ContentTooLargeException`
+* Added support for `QUERY` requests.
 
 #### Changes
 

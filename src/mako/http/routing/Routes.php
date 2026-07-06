@@ -150,6 +150,14 @@ class Routes
 	}
 
 	/**
+	 * Adds a route that responds to QUERY requests to the collection.
+	 */
+	public function query(string $route, array|Closure|string $action, ?string $name = null): Route
+	{
+		return $this->registerRoute(['QUERY', 'OPTIONS'], $route, $action, $name);
+	}
+
+	/**
 	 * Adds a route that responds to POST requests to the collection.
 	 */
 	public function post(string $route, array|Closure|string $action, ?string $name = null): Route
@@ -186,7 +194,7 @@ class Routes
 	 */
 	public function all(string $route, array|Closure|string $action, ?string $name = null): Route
 	{
-		return $this->registerRoute(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
+		return $this->registerRoute(['GET', 'QUERY', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], $route, $action, $name);
 	}
 
 	/**
