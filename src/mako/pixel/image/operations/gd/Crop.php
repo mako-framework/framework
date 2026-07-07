@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -45,16 +46,20 @@ class Crop implements OperationInterface
 		$oldWidth = imagesx($imageResource);
 		$oldHeight = imagesy($imageResource);
 
-		$crop = imagecreatetruecolor($this->width, $this->height);
+		$temp = imagecreatetruecolor($this->width, $this->height);
 
-		$transparent = imagecolorallocatealpha($crop, 0, 0, 0, 127);
+		if (!$temp) {
+			throw new ImageException('Failed to create temporary image resource.');
+		}
 
-		imagefill($crop, 0, 0, $transparent);
+		$transparent = imagecolorallocatealpha($temp, 0, 0, 0, 127);
 
-		imagecopy($crop, $imageResource, 0, 0, $this->x, $this->y, $oldWidth, $oldHeight);
+		imagefill($temp, 0, 0, $transparent);
 
-		imagecolortransparent($crop, $transparent);
+		imagecopy($temp, $imageResource, 0, 0, $this->x, $this->y, $oldWidth, $oldHeight);
 
-		$imageResource = $crop;
+		imagecolortransparent($temp, $transparent);
+
+		$imageResource = $temp;
 	}
 }

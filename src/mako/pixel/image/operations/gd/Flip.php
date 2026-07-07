@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\Flip as FlipDirection;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
@@ -43,25 +44,29 @@ class Flip implements OperationInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$flipped = imagecreatetruecolor($width, $height);
+		$temp = imagecreatetruecolor($width, $height);
 
-		$transparent = imagecolorallocatealpha($flipped, 0, 0, 0, 127);
+		if (!$temp) {
+			throw new ImageException('Failed to create temporary image resource.');
+		}
 
-		imagefill($flipped, 0, 0, $transparent);
+		$transparent = imagecolorallocatealpha($temp, 0, 0, 0, 127);
+
+		imagefill($temp, 0, 0, $transparent);
 
 		if ($this->direction ===  FlipDirection::Vertical) {
 			for ($y = 0; $y < $height; $y++) {
-				imagecopy($flipped, $imageResource, 0, $y, 0, $height - $y - 1, $width, 1);
+				imagecopy($temp, $imageResource, 0, $y, 0, $height - $y - 1, $width, 1);
 			}
 		}
 		else {
 			for ($x = 0; $x < $width; $x++) {
-				imagecopy($flipped, $imageResource, $x, 0, $width - $x - 1, 0, 1, $height);
+				imagecopy($temp, $imageResource, $x, 0, $width - $x - 1, 0, 1, $height);
 			}
 		}
 
-		imagecolortransparent($flipped, $transparent);
+		imagecolortransparent($temp, $transparent);
 
-		$imageResource = $flipped;
+		$imageResource = $temp;
 	}
 }

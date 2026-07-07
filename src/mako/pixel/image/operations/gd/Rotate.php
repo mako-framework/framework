@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -41,7 +42,13 @@ class Rotate implements OperationInterface
 
 		$transparent = imagecolorallocatealpha($imageResource, 0, 0, 0, 127);
 
-		$imageResource = imagerotate($imageResource, (360 - $this->degrees), imagecolorallocatealpha($imageResource, 0, 0, 0, 127));
+		$temp = imagerotate($imageResource, (360 - $this->degrees), $transparent);
+
+		if (!$temp) {
+			throw new ImageException('Failed to create temporary image resource.');
+		}
+
+		$imageResource = $temp;
 
 		imagecolortransparent($imageResource, $transparent);
 	}

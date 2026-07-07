@@ -8,6 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use mako\pixel\image\Color;
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -52,6 +53,10 @@ class Colorize implements OperationInterface
 		$height = imagesy($imageResource);
 
 		$temp = imagecreatetruecolor($width, $height);
+
+		if (!$temp) {
+			throw new ImageException('Failed to create temporary image resource.');
+		}
 
 		imagefill($temp, 0, 0, imagecolorallocatealpha($temp, 0, 0, 0, 127));
 

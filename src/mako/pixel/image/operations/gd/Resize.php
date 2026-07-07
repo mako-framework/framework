@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\CalculateNewDimensionsTrait;
@@ -50,16 +51,20 @@ class Resize implements OperationInterface
 
 		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->width, $this->height, $oldWidth, $oldHeight, $this->aspectRatio);
 
-		$resized = imagecreatetruecolor($newWidth, $newHeight);
+		$temp = imagecreatetruecolor($newWidth, $newHeight);
 
-		$transparent = imagecolorallocatealpha($resized, 0, 0, 0, 127);
+		if (!$temp) {
+			throw new ImageException('Failed to create temporary image resource.');
+		}
 
-		imagefill($resized, 0, 0, $transparent);
+		$transparent = imagecolorallocatealpha($temp, 0, 0, 0, 127);
 
-		imagecopyresampled($resized, $imageResource, 0, 0, 0, 0, $newWidth, $newHeight, $oldWidth, $oldHeight);
+		imagefill($temp, 0, 0, $transparent);
 
-		imagecolortransparent($resized, $transparent);
+		imagecopyresampled($temp, $imageResource, 0, 0, 0, 0, $newWidth, $newHeight, $oldWidth, $oldHeight);
 
-		$imageResource = $resized;
+		imagecolortransparent($temp, $transparent);
+
+		$imageResource = $temp;
 	}
 }
