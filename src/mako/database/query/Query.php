@@ -1314,7 +1314,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns the first row of the result set or NULL if nothing is found.
 	 *
-	 * @return Result|null
+	 * @return ?Result
 	 */
 	public function first(): ?object
 	{
@@ -1432,7 +1432,7 @@ class Query
 	/**
 	 * Executes a SELECT query and returns a resource that allows you to treat a column value as a byte stream.
 	 *
-	 * @return resource|null
+	 * @return ?resource
 	 */
 	public function blob(string $column)
 	{

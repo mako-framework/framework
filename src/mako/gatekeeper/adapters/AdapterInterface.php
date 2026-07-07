@@ -12,6 +12,9 @@ use mako\gatekeeper\repositories\user\UserRepositoryInterface;
 
 /**
  * Adapter interface.
+ *
+ * @template TRepository of UserRepositoryInterface
+ * @template TUser of UserEntityInterface
  */
 interface AdapterInterface
 {
@@ -22,16 +25,22 @@ interface AdapterInterface
 
 	/**
 	 * Sets the user repository.
+	 *
+	 * @param TRepository $userRepository
 	 */
 	public function setUserRepository(UserRepositoryInterface $userRepository): void;
 
 	/**
 	 * Returns the user repository.
+	 *
+	 * @return ?TRepository
 	 */
 	public function getUserRepository(): ?UserRepositoryInterface;
 
 	/**
 	 * Sets the active user.
+	 *
+	 * @param ?TUser $user
 	 */
 	public function setUser(?UserEntityInterface $user): void;
 

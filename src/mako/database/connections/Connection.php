@@ -569,7 +569,7 @@ class Connection
 	/**
 	 * Returns a resource that allows you to treat a column value as a byte stream.
 	 *
-	 * @return resource|null
+	 * @return ?resource
 	 */
 	public function blob(string $query, array $params = [], int|string $column = 1)
 	{
@@ -579,7 +579,7 @@ class Connection
 
 		$statement->fetch(PDO::FETCH_BOUND);
 
-		/** @var resource|null $blob */
+		/** @var ?resource $blob */
 		return $blob;
 	}
 

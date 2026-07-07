@@ -610,7 +610,7 @@ class Query extends QueryBuilder
 	/**
 	 * Returns a single record from the database.
 	 *
-	 * @return TClass|null
+	 * @return ?TClass
 	 */
 	#[Override]
 	public function first(): ?ORM

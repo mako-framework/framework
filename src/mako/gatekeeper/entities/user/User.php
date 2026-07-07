@@ -43,8 +43,8 @@ use function time;
  * @property int                              $activated
  * @property int                              $banned
  * @property int                              $failed_attempts
- * @property Time|null                        $last_fail_at
- * @property Time|null                        $locked_until
+ * @property ?Time                            $last_fail_at
+ * @property ?Time                            $locked_until
  * @property \mako\database\midgard\ResultSet $groups
  */
 class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface
@@ -305,13 +305,17 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 */
 	public function lockUntil(DateTimeInterface $time): void
 	{
+		if ($time instanceof Time === false) {
+			$time = Time::createFromInterface($time);
+		}
+
 		$this->locked_until = $time;
 	}
 
 	/**
 	 * Returns null if the account isn't locked and a date time instance if it's locked.
 	 */
-	public function lockedUntil(): null|DateTimeInterface|Time
+	public function lockedUntil(): ?Time
 	{
 		return $this->locked_until;
 	}

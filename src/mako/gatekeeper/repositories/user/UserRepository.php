@@ -136,7 +136,7 @@ class UserRepository implements UserRepositoryInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @return User|null
+	 * @return ?User
 	 */
 	#[Override]
 	public function getByIdentifier(int|string $identifier): ?User

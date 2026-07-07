@@ -187,8 +187,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Assigns a value to the specified offset.
 	 *
-	 * @param TKey|null $offset
-	 * @param TValue    $value
+	 * @param ?TKey  $offset
+	 * @param TValue $value
 	 */
 	#[Override]
 	public function offsetSet(mixed $offset, mixed $value): void
@@ -255,7 +255,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Shifts the first value of the collection off and returns it,
 	 * shortening the collection by one element.
 	 *
-	 * @return TValue|null
+	 * @return ?TValue
 	 */
 	public function shift(): mixed
 	{
@@ -277,7 +277,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 * Pops and returns the last value of the collection,
 	 * shortening the collection by one element.
 	 *
-	 * @return TValue|null
+	 * @return ?TValue
 	 */
 	public function pop(): mixed
 	{
@@ -287,7 +287,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the first item of the collection or NULL if the collection is empty.
 	 *
-	 * @return TValue|null
+	 * @return ?TValue
 	 */
 	public function first(): mixed
 	{
@@ -297,7 +297,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Returns the last item of the collection or NULL if the collection is empty.
 	 *
-	 * @return TValue|null
+	 * @return ?TValue
 	 */
 	public function last(): mixed
 	{

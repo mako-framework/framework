@@ -7,6 +7,7 @@
 
 namespace mako\gatekeeper\entities\group;
 
+use mako\chrono\Time;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\TimestampedTrait;
@@ -19,8 +20,8 @@ use Override;
  *
  * @method   int                              getId()
  * @property int                              $id
- * @property \mako\chrono\Time                $created_at
- * @property \mako\chrono\Time                $updated_at
+ * @property Time                             $created_at
+ * @property Time                             $updated_at
  * @property string                           $name
  * @property \mako\database\midgard\ResultSet $users
  */
