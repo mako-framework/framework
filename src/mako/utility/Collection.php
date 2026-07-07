@@ -8,7 +8,6 @@
 namespace mako\utility;
 
 use ArrayAccess;
-use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\common\traits\ExtendableTrait;
@@ -16,6 +15,7 @@ use OutOfBoundsException;
 use Override;
 use ReflectionFunction;
 use ReflectionNamedType;
+use Traversable;
 
 use function array_chunk;
 use function array_combine;
@@ -224,12 +224,12 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	/**
 	 * Retruns an array iterator object.
 	 *
-	 * @return ArrayIterator<TKey, TValue>
+	 * @return Traversable<TKey, TValue>
 	 */
 	#[Override]
-	public function getIterator(): ArrayIterator
+	public function getIterator(): Traversable
 	{
-		return new ArrayIterator($this->items);
+		yield from $this->items;
 	}
 
 	/**
