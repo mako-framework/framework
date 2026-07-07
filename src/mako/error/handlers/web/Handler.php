@@ -12,7 +12,6 @@ use mako\http\exceptions\HttpStatusException;
 use mako\http\exceptions\ProvidesHeadersInterface;
 use mako\http\Response;
 use mako\http\response\Status;
-use mako\http\traits\ContentNegotiationTrait;
 use mako\utility\UUID;
 use Override;
 use Throwable;
@@ -22,8 +21,6 @@ use Throwable;
  */
 abstract class Handler implements ProvidesExceptionIdInterface
 {
-	use ContentNegotiationTrait;
-
 	/**
 	 * Exception id.
 	 */

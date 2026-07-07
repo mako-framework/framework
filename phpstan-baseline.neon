@@ -11,22 +11,6 @@ parameters:
 			count: 1
 			path: src/mako/database/midgard/ORM.php
 		-
-			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$request\\.#"
-			count: 1
-			path: src/mako/http/traits/ContentNegotiationTrait.php
-		-
-			message: "#Access to an undefined property mako\\\\error\\\\handlers\\\\web\\\\Handler::\\$response\\.#"
-			count: 1
-			path: src/mako/http/traits/ContentNegotiationTrait.php
-		-
-			message: "#^PHPDoc tag @return with type mako\\\\utility\\\\Collection<int, mako\\\\utility\\\\Collection<int, TValue>> is incompatible with native type static\\(mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue>\\)\\.$#"
-			count: 1
-			path: src/mako/utility/Collection.php
-		-
-			message: "#^PHPDoc tag @return with type mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue> is not subtype of native type static\\(mako\\\\utility\\\\Collection<TKey of \\(int\\|string\\), TValue>\\)\\.$#"
-			count: 5
-			path: src/mako/utility/Collection.php
-		-
 			message: "#^Call to protected method orderMiddlewareByPriority\\(\\) of class mako\\\\http\\\\routing\\\\Dispatcher\\.$#"
 			count: 1
 			path: src/mako/application/cli/commands/app/ListRoutes.php

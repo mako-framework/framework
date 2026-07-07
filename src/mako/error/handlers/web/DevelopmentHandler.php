@@ -19,6 +19,7 @@ use mako\error\handlers\ProvidesExceptionIdInterface;
 use mako\file\FileSystem;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\traits\ContentNegotiationTrait;
 use mako\view\renderers\Template;
 use mako\view\ViewFactory;
 use Override;
@@ -49,6 +50,7 @@ use function sys_get_temp_dir;
  */
 class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesExceptionIdInterface
 {
+	use ContentNegotiationTrait;
 	use HintTrait;
 
 	/**

@@ -7,14 +7,17 @@
 
 namespace mako\http\traits;
 
+use mako\http\Request;
+use mako\http\Response;
+
 use function in_array;
 use function str_contains;
 
 /**
  * Basic content negotiation.
  *
- * @property \mako\http\Request  $request
- * @property \mako\http\Response $response
+ * @property Request  $request
+ * @property Response $response
  */
 trait ContentNegotiationTrait
 {

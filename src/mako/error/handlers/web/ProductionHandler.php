@@ -11,6 +11,7 @@ use mako\error\handlers\HandlerInterface;
 use mako\http\exceptions\HttpStatusException;
 use mako\http\Request;
 use mako\http\Response;
+use mako\http\traits\ContentNegotiationTrait;
 use mako\view\ViewFactory;
 use Override;
 use Throwable;
@@ -26,6 +27,8 @@ use function simplexml_load_string;
  */
 class ProductionHandler extends Handler implements HandlerInterface
 {
+	use ContentNegotiationTrait;
+
 	/**
 	 * Constructor.
 	 */

@@ -8,4 +8,4 @@ parameters:
 		- FFI
 		- FFI\CData
 	ignoreErrors:
-		- identifier: trait.unused
+
