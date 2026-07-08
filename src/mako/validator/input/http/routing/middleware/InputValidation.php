@@ -8,7 +8,7 @@
 namespace mako\validator\input\http\routing\middleware;
 
 use Closure;
-use mako\http\exceptions\UnprocessableEntityException;
+use mako\http\exceptions\UnprocessableContentException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
@@ -39,12 +39,12 @@ class InputValidation implements MiddlewareInterface
 	/**
 	 * Default HTTP status for invalid requests.
 	 */
-	protected const Status HTTP_STATUS = Status::UnprocessableEntity;
+	protected const Status HTTP_STATUS = Status::UnprocessableContent;
 
 	/**
 	 * Default HTTP status exception for invalid requests.
 	 */
-	protected const string HTTP_STATUS_EXCEPTION = UnprocessableEntityException::class;
+	protected const string HTTP_STATUS_EXCEPTION = UnprocessableContentException::class;
 
 	/**
 	 * Headers and cookies to keep.

@@ -12,9 +12,9 @@ use Override;
 use Throwable;
 
 /**
- * Unprocessable entity exception.
+ * Unprocessable content exception.
  */
-class UnprocessableEntityException extends HttpStatusException
+class UnprocessableContentException extends HttpStatusException
 {
 	/**
 	 * {@inheritDoc}
@@ -27,6 +27,6 @@ class UnprocessableEntityException extends HttpStatusException
 	 */
 	public function __construct(string $message = '', ?Throwable $previous = null)
 	{
-		parent::__construct(Status::UnprocessableEntity, $message, $previous);
+		parent::__construct(Status::UnprocessableContent, $message, $previous);
 	}
 }

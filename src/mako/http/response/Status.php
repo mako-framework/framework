@@ -66,7 +66,7 @@ enum Status: int
 	case ImATeapot = 418;
 	case AuthenticationTimeout = 419;
 	case MisdirectedRequest = 421;
-	case UnprocessableEntity = 422;
+	case UnprocessableContent = 422;
 	case Locked = 423;
 	case FailedDependency = 424;
 	case TooEarly = 425;
@@ -160,7 +160,7 @@ enum Status: int
 			self::ImATeapot => 'I\'m a teapot',
 			self::AuthenticationTimeout => 'Authentication Timeout',
 			self::MisdirectedRequest => 'Misdirected Request',
-			self::UnprocessableEntity => 'Unprocessable Entity',
+			self::UnprocessableContent => 'Unprocessable Content',
 			self::Locked => 'Locked',
 			self::FailedDependency => 'Failed Dependency',
 			self::TooEarly => 'Too Early',
