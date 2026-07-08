@@ -243,6 +243,36 @@ class PostgresCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testBasicManhattanWhereVectorDistance(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::Manhattan)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "embedding" <+> ? <= ?', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testBasicInnerProductWhereVectorDistance(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.5, vectorDistance: VectorDistance::InnerProduct)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" WHERE "embedding" <#> ? <= ?', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]', 0.5], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testCosineWhereVectorDistanceStringVector(): void
 	{
 		$query = $this->getBuilder();
@@ -337,6 +367,36 @@ class PostgresCompilerTest extends TestCase
 	/**
 	 *
 	 */
+	public function testOrderByVectorDistanceManhattan(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::Manhattan)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <+> ? ASC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testOrderByVectorDistanceInnerProduct(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->orderByVectorDistance('embedding', [1, 2, 3, 4, 5], VectorDistance::InnerProduct)
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT * FROM "foobar" ORDER BY "embedding" <#> ? ASC', $query['sql']);
+		$this->assertEquals(['[1,2,3,4,5]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
 	public function testAscendingVectorDistance(): void
 	{
 		$query = $this->getBuilder();
@@ -421,6 +481,36 @@ class PostgresCompilerTest extends TestCase
 		->getCompiler()->select();
 
 		$this->assertEquals('SELECT "embedding" <-> ? FROM "foobar"', $query['sql']);
+		$this->assertEquals(['[1,2,3,4]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorManhattanDistanceSelectValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::Manhattan)])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT "embedding" <+> ? FROM "foobar"', $query['sql']);
+		$this->assertEquals(['[1,2,3,4]'], $query['params']);
+	}
+
+	/**
+	 *
+	 */
+	public function testVectorInnerProductDistanceSelectValue(): void
+	{
+		$query = $this->getBuilder();
+
+		$query = $query->table('foobar')
+		->select([new OutVectorDistance('embedding', [1, 2, 3, 4], VectorDistance::InnerProduct)])
+		->getCompiler()->select();
+
+		$this->assertEquals('SELECT "embedding" <#> ? FROM "foobar"', $query['sql']);
 		$this->assertEquals(['[1,2,3,4]'], $query['params']);
 	}
 
