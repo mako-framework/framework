@@ -52,8 +52,8 @@ class StreamTest extends TestCase
 	 */
 	public function testBasicStream(): void
 	{
-		$eventStream = Mockery::mock(Stream::class, [function (Stream $stream): void {
-			$stream->flush('hello, world!');
+		$eventStream = Mockery::mock(Stream::class, [function () {
+			yield 'hello, world!';
 		}]);
 
 		$eventStream->makePartial()->shouldAllowMockingProtectedMethods();
@@ -70,9 +70,9 @@ class StreamTest extends TestCase
 	 */
 	public function testStreamWithMultipleChunks(): void
 	{
-		$eventStream = Mockery::mock(Stream::class, [function (Stream $stream): void {
-			$stream->flush('hello, world 1!');
-			$stream->flush('hello, world 2!');
+		$eventStream = Mockery::mock(Stream::class, [function () {
+			yield 'hello, world 1!';
+			yield 'hello, world 2!';
 		}]);
 
 		$eventStream->makePartial()->shouldAllowMockingProtectedMethods();
@@ -90,8 +90,8 @@ class StreamTest extends TestCase
 	 */
 	public function testStreamWithContentTypeAndCharset(): void
 	{
-		$eventStream = Mockery::mock(Stream::class, [function (Stream $stream): void {
-			$stream->flush('hello, world!');
+		$eventStream = Mockery::mock(Stream::class, [function () {
+			yield 'hello, world!';
 		}, 'text/plain', 'UTF-8']);
 
 		$eventStream->makePartial()->shouldAllowMockingProtectedMethods();

@@ -29,6 +29,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ControllerHelperTrait::jsonResponse()`
 * Removed the `$withAlpha` parameter from the `Color::toHexString()` method.
 * The `UploadedFile::moveTo()` method will now return a `FileInfo` instance instead of a boolean value.
+* The stream response closures should now use `yield` instead of calling the `flush` method.
 
 #### Improvements
 

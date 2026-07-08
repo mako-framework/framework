@@ -8,6 +8,7 @@
 namespace mako\http\response\senders;
 
 use Closure;
+use Generator;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\senders\stream\traits\StreamTrait;
@@ -22,6 +23,8 @@ class Stream implements ResponseSenderInterface
 
 	/**
 	 * Constructor.
+	 *
+	 * @param (Closure(): Generator) $stream
 	 */
 	public function __construct(
 		protected Closure $stream,
@@ -71,19 +74,17 @@ class Stream implements ResponseSenderInterface
 	}
 
 	/**
-	 * Flushes a chunck of data.
-	 */
-	public function flush(string $chunk): void
-	{
-		$this->sendChunk($chunk);
-	}
-
-	/**
 	 * Sends the stream to the client.
 	 */
 	protected function sendStream(): void
 	{
-		($this->stream)($this);
+		foreach ((fn (): Generator => ($this->stream)())() as $chunk) {
+			 if (connection_aborted()) {
+				break;
+			 }
+
+			 $this->sendChunk($chunk);
+		}
 	}
 
 	/**

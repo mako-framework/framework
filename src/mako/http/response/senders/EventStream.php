@@ -32,6 +32,8 @@ class EventStream implements ResponseSenderInterface
 
 	/**
 	 * Constructor.
+	 *
+	 * @param (Closure(): Generator) $stream
 	 */
 	public function __construct(
 		protected Closure $stream
