@@ -1,5 +1,7 @@
 ### 13.0.0 <small>(2026-??-??)</small>
 
+The major version bump is due to upping the required PHP version from 8.5 to 8.6 and a several breaking changes. Most applications built using Mako 12 should run on Mako 13 with just a few simple adjustments.
+
 #### New
 
 * Added `OneOf`, `AnyOf` and `AllOf` validation rule combinators.
