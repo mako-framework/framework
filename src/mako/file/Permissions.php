@@ -136,6 +136,8 @@ class Permissions
 
 	/**
 	 * Returns a rwx string representation of a permission group.
+	 *
+	 * @param 'group'|'owner'|'public' $group
 	 */
 	protected function getGroupAsRwxString(int $permissions, Permission $read, Permission $write, Permission $execute, string $group): string
 	{

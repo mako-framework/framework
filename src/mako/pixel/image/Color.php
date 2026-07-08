@@ -168,6 +168,7 @@ class Color
 		if ($delta !== 0) {
 			$s = $delta / (1 - abs(2 * $l - 1));
 
+			// @phpstan-ignore match.unhandled
 			match ($max) {
 				$r => $h = 60 * fmod((($g - $b) / $delta), 6),
 				$g => $h = 60 * ((($b - $r) / $delta) + 2),
