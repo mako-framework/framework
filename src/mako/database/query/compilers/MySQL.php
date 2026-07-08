@@ -7,6 +7,7 @@
 
 namespace mako\database\query\compilers;
 
+use mako\database\query\compilers\exceptions\CompilerException;
 use mako\database\query\compilers\traits\JsonPathBuilderTrait;
 use mako\database\query\Subquery;
 use mako\database\query\VectorDistance;
@@ -14,6 +15,7 @@ use Override;
 
 use function is_array;
 use function json_encode;
+use function sprintf;
 use function str_replace;
 
 /**
@@ -77,6 +79,11 @@ class MySQL extends Compiler
 		$function = match ($vectorDistance['vectorDistance']) {
 			VectorDistance::Cosine => 'COSINE',
 			VectorDistance::Euclidean => 'EUCLIDEAN',
+			default => throw new CompilerException(sprintf(
+				'The [ %s ] query compiler does not support [ %s ] vector distances.',
+				static::class,
+				$vectorDistance['vectorDistance']
+			)),
 		};
 
 		return "DISTANCE({$this->column($vectorDistance['column'], false)}, {$vector}, '{$function}')";

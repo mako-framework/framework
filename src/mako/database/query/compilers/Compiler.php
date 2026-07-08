@@ -8,7 +8,7 @@
 namespace mako\database\query\compilers;
 
 use DateTimeInterface;
-use mako\database\exceptions\DatabaseException;
+use mako\database\query\compilers\exceptions\CompilerException;
 use mako\database\query\Join;
 use mako\database\query\Query;
 use mako\database\query\Raw;
@@ -176,7 +176,7 @@ class Compiler
 	 */
 	protected function buildJsonGet(string $column, array $segments): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', static::class));
 	}
 
 	/**
@@ -184,7 +184,7 @@ class Compiler
 	 */
 	protected function buildJsonSet(string $column, array $segments, string $param): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support the unified JSON field syntax.', static::class));
 	}
 
 	/**
@@ -499,7 +499,7 @@ class Compiler
 	 */
 	protected function whereDate(array $where): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support date comparisons.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support date comparisons.', static::class));
 	}
 
 	/**
@@ -523,7 +523,7 @@ class Compiler
 	 */
 	protected function whereVectorDistance(array $where): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support vector distance calculations.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support vector distance calculations.', static::class));
 	}
 
 	/**
@@ -539,7 +539,7 @@ class Compiler
 	 */
 	protected function betweenDate(array $where): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support date ranges.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support date ranges.', static::class));
 	}
 
 	/**
@@ -687,7 +687,7 @@ class Compiler
 	 */
 	protected function vectorDistanceOrdering(array $order): string
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support vector distance calculations.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support vector distance calculations.', static::class));
 	}
 
 	/**
@@ -838,7 +838,7 @@ class Compiler
 	 */
 	public function insertAndReturn(array $values, array $return): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "insert and return" queries.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support "insert and return" queries.', static::class));
 	}
 
 	/**
@@ -871,7 +871,7 @@ class Compiler
 	 */
 	public function insertMultipleAndReturn(array $return, array ...$values): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "insert multiple and return" queries.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support "insert multiple and return" queries.', static::class));
 	}
 
 	/**
@@ -881,7 +881,7 @@ class Compiler
 	 */
 	public function insertOrUpdate(array $insertValues, array $updateValues, array $conflictTarget = []): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "insert or update" queries.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support "insert or update" queries.', static::class));
 	}
 
 	/**
@@ -933,7 +933,7 @@ class Compiler
 	 */
 	public function updateAndReturn(array $values, array $return): array
 	{
-		throw new DatabaseException(sprintf('The [ %s ] query compiler does not support "update and return" queries.', static::class));
+		throw new CompilerException(sprintf('The [ %s ] query compiler does not support "update and return" queries.', static::class));
 	}
 
 	/**

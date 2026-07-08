@@ -14,6 +14,9 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `LengthRequiredException`
 	- `ContentTooLargeException`
 * Added support for `QUERY` requests.
+* Added support for the following vector distances to the Postgres query compiler:
+	- `Manhattan` (L1)
+	- `Inner product`
 
 #### Changes
 

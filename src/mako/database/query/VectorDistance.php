@@ -10,8 +10,10 @@ namespace mako\database\query;
 /**
  * Vector distance.
  */
-enum VectorDistance
+enum VectorDistance: string
 {
-	case Cosine;
-	case Euclidean;
+	case Cosine = 'cosine';
+	case Euclidean = 'euclidean';
+	case Manhattan = 'manhattan';
+    case InnerProduct = 'inner_product';
 }

@@ -7,6 +7,7 @@
 
 namespace mako\database\query\compilers;
 
+use mako\database\query\compilers\exceptions\CompilerException;
 use mako\database\query\Subquery;
 use mako\database\query\VectorDistance;
 use Override;
@@ -16,6 +17,7 @@ use function implode;
 use function is_array;
 use function is_numeric;
 use function json_encode;
+use function sprintf;
 use function str_replace;
 
 /**
@@ -80,6 +82,13 @@ class Postgres extends Compiler
 		$function = match ($vectorDistance['vectorDistance']) {
 			VectorDistance::Cosine => '<=>',
 			VectorDistance::Euclidean => '<->',
+			VectorDistance::Manhattan => '<+>',
+			VectorDistance::InnerProduct => '<#>',
+			default => throw new CompilerException(sprintf(
+				'The [ %s ] query compiler does not support [ %s ] vector distances.',
+				static::class,
+				$vectorDistance['vectorDistance']
+			)),
 		};
 
 		return "{$this->column($vectorDistance['column'], false)} {$function} {$vector}";

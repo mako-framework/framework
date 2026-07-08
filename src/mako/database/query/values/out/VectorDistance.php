@@ -43,6 +43,7 @@ class VectorDistance extends Value
 		$function = match ($this->vectorDistance) {
 			VectorDistanceType::Cosine => 'VEC_DISTANCE_COSINE',
 			VectorDistanceType::Euclidean => 'VEC_DISTANCE_EUCLIDEAN',
+			default => throw new DatabaseException(sprintf('MariaDB does not support [ %s ] vector distances.', $this->vectorDistance->value)),
 		};
 
 		return "{$function}({$compiler->escapeColumnName($this->column)}, VEC_FromText(?))";
@@ -56,6 +57,7 @@ class VectorDistance extends Value
 		$function = match ($this->vectorDistance) {
 			VectorDistanceType::Cosine => 'COSINE',
 			VectorDistanceType::Euclidean => 'EUCLIDEAN',
+			default => throw new DatabaseException(sprintf('MySQL does not support [ %s ] vector distances.', $this->vectorDistance->value)),
 		};
 
 		return "DISTANCE({$compiler->escapeColumnName($this->column)}, STRING_TO_VECTOR(?), '{$function}')";
@@ -69,6 +71,8 @@ class VectorDistance extends Value
 		$function = match ($this->vectorDistance) {
 			VectorDistanceType::Cosine => '<=>',
 			VectorDistanceType::Euclidean => '<->',
+			VectorDistanceType::Manhattan => '<+>',
+			VectorDistanceType::InnerProduct => '<#>',
 		};
 
 		return "{$compiler->columnName($this->column)} {$function} ?";
