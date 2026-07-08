@@ -7,10 +7,12 @@
 
 namespace mako\tests\unit\http\request;
 
+use mako\file\FileInfo;
 use mako\http\request\exceptions\UploadException;
 use mako\http\request\UploadedFile;
 use mako\tests\TestCase;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
@@ -164,9 +166,40 @@ class UploadedFileTest extends TestCase
 		$file->moveTo(__FILE__);
 	}
 
-	/*public function testMoveToWithoutError(): void
+	/**
+	 *
+	 */
+	public function testFailedMoveTo(): void
 	{
-		$file = Mockery::mock(UploadedFile::class . '[isUploaded|moveUploadedFile]', [__FILE__, 'foo.bar', 123, 'foo/bar', 0]);
+		$this->expectException(UploadException::class);
+
+		$this->expectExceptionMessage('Failed to move uploaded file to [ ' . __FILE__ . ' ].');
+
+		/** @var MockInterface&UploadedFile $file */
+		$file = Mockery::mock(
+			UploadedFile::class,
+			[__FILE__, 'foo.bar', 123, 'foo/bar', 0]
+		)->makePartial();
+
+		$file->shouldAllowMockingProtectedMethods();
+
+		$file->shouldReceive('isUploaded')->once()->andReturn(true);
+
+		$file->shouldReceive('moveUploadedFile')->once()->with(__FILE__)->andReturn(false);
+
+		$file->moveTo(__FILE__);
+	}
+
+	/**
+	 *
+	 */
+	public function testSuccessfulMove(): void
+	{
+		/** @var MockInterface&UploadedFile $file */
+		$file = Mockery::mock(
+			UploadedFile::class,
+			[__FILE__, 'foo.bar', 123, 'foo/bar', 0]
+		)->makePartial();
 
 		$file->shouldAllowMockingProtectedMethods();
 
@@ -174,6 +207,6 @@ class UploadedFileTest extends TestCase
 
 		$file->shouldReceive('moveUploadedFile')->once()->with(__FILE__)->andReturn(true);
 
-		$this->assertTrue($file->moveTo(__FILE__));
-	}*/
+		$this->assertInstanceOf(FileInfo::class, $file->moveTo(__FILE__));
+	}
 }

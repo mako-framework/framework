@@ -12,6 +12,7 @@ use mako\http\request\exceptions\UploadException;
 
 use function is_uploaded_file;
 use function move_uploaded_file;
+use function sprintf;
 
 /**
  * Uploaded file.
@@ -108,7 +109,7 @@ class UploadedFile extends FileInfo
 	/**
 	 * Moves the file to the desired path.
 	 */
-	public function moveTo(string $path): bool
+	public function moveTo(string $path): FileInfo
 	{
 		if ($this->hasError()) {
 			throw new UploadException($this->getErrorMessage(), $this->getErrorCode());
@@ -118,6 +119,10 @@ class UploadedFile extends FileInfo
 			throw new UploadException('The file that you\'re trying to move was not uploaded.', -1);
 		}
 
-		return $this->moveUploadedFile($path);
+		if (!$this->moveUploadedFile($path)) {
+			throw new UploadException(sprintf('Failed to move uploaded file to [ %s ].', $path));
+		}
+
+		return new FileInfo($path);
 	}
 }
