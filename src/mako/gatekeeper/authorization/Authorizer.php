@@ -61,7 +61,7 @@ class Authorizer implements AuthorizerInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function can(?UserEntityInterface $user, string $action, $entity, ...$parameters): bool
+	public function can(?UserEntityInterface $user, string $action, object|string $entity, mixed ...$parameters): bool
 	{
 		$policy = $this->policyFactory($entity);
 

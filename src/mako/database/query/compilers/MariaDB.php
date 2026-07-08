@@ -24,6 +24,7 @@ class MariaDB extends MySQL
 	/**
 	 * Returns a vector distance calculation.
 	 */
+	#[Override]
 	protected function vectorDistance(array $vectorDistance): string
 	{
 		$vector = $vectorDistance['vector'];

@@ -19,7 +19,7 @@ abstract class Policy implements PolicyInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function before(?UserEntityInterface $user, string $action, $entity): ?bool
+	public function before(?UserEntityInterface $user, string $action, object|string $entity): ?bool
 	{
 		return null;
 	}
