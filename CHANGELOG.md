@@ -21,6 +21,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 #### Changes
 
 * Renamed `Status::PayloadTooLarge` to `Status::ContentTooLarge`.
+* Renamed `Status::UnprocessableEntity` to `Status::UnprocessableContent`.
 * The input validation middleware will now default to status `422` (unprocessable content) instead of `400` (bad request) for invalid requests.
 * Removed the deprecated enum case compatibility layer.
 * Removed the following deprecated `ControllerHelperTrait` methods:
