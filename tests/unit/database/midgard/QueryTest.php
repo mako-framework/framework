@@ -13,6 +13,7 @@ use mako\database\midgard\Query;
 use mako\database\midgard\ResultSet;
 use mako\database\query\compilers\Compiler;
 use mako\database\query\helpers\HelperInterface;
+use mako\database\query\SortDirection;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -404,7 +405,7 @@ class QueryTest extends TestCase
 
 		});
 
-		$this->assertEquals([['type' => 'basicOrdering', 'column' => ['foobar'], 'order' => 'ASC']], $query->getOrderings());
+		$this->assertEquals([['type' => 'basicOrdering', 'column' => ['foobar'], 'sortDirection' => SortDirection::Ascending]], $query->getOrderings());
 
 		//
 
@@ -419,6 +420,6 @@ class QueryTest extends TestCase
 
 		});
 
-		$this->assertEquals([['type' => 'basicOrdering', 'column' => ['barfoo'], 'order' => 'DESC']], $query->getOrderings());
+		$this->assertEquals([['type' => 'basicOrdering', 'column' => ['barfoo'], 'sortDirection' => SortDirection::Descending]], $query->getOrderings());
 	}
 }

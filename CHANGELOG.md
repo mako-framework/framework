@@ -31,6 +31,14 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Removed the `$withAlpha` parameter from the `Color::toHexString()` method.
 * The `UploadedFile::moveTo()` method will now return a `FileInfo` instance instead of a boolean value.
 * The stream response closures should now use `yield` instead of calling the `flush` method.
+* Removed the deprecated ability to pass the string values `ASC` and `DESC` to the following methods; the `SortDirection` enum must now be used:
+	- `Query::orderBy()`
+	- `Query::orderByRaw()`
+	- `Query::orderByVectorDistance()`
+* Renamed the `$order` parameter to `$sortDirection` in the following methods:
+	- `Query::orderBy()`
+	- `Query::orderByRaw()`
+	- `Query::orderByVectorDistance()`
 
 #### Improvements
 

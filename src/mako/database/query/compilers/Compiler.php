@@ -679,7 +679,7 @@ class Compiler
 	 */
 	protected function basicOrdering(array $order): string
 	{
-		return "{$this->columns($order['column'])} {$order['order']}";
+		return "{$this->columns($order['column'])} {$order['sortDirection']->value}";
 	}
 
 	/**
@@ -697,7 +697,7 @@ class Compiler
 	{
 		$nullOrder = $order['nullsLast'] ? 'IS NULL' : 'IS NOT NULL';
 
-		return "({$this->column($order['column'])} {$nullOrder}), {$this->column($order['column'])} {$order['order']}";
+		return "({$this->column($order['column'])} {$nullOrder}), {$this->column($order['column'])} {$order['sortDirection']->value}";
 	}
 
 	/**

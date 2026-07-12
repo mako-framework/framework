@@ -109,7 +109,7 @@ class Postgres extends Compiler
 	#[Override]
 	protected function vectorDistanceOrdering(array $order): string
 	{
-		return "{$this->vectorDistance($order)} {$order['order']}";
+		return "{$this->vectorDistance($order)} {$order['sortDirection']->value}";
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Postgres extends Compiler
 	{
 		$nullOrder = $order['nullsLast'] ? 'LAST' : 'FIRST';
 
-		return "{$this->column($order['column'])} {$order['order']} NULLS {$nullOrder}";
+		return "{$this->column($order['column'])} {$order['sortDirection']->value} NULLS {$nullOrder}";
 	}
 
 	/**

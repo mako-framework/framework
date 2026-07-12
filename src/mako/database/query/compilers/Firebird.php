@@ -39,7 +39,7 @@ class Firebird extends Compiler
 	{
 		$nullOrder = $order['nullsLast'] ? 'LAST' : 'FIRST';
 
-		return "{$this->column($order['column'])} {$order['order']} NULLS {$nullOrder}";
+		return "{$this->column($order['column'])} {$order['sortDirection']->value} NULLS {$nullOrder}";
 	}
 
 	/**

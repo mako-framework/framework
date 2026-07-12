@@ -104,7 +104,7 @@ class MySQL extends Compiler
 	#[Override]
 	protected function vectorDistanceOrdering(array $order): string
 	{
-		return "{$this->vectorDistance($order)} {$order['order']}";
+		return "{$this->vectorDistance($order)} {$order['sortDirection']->value}";
 	}
 
 	/**

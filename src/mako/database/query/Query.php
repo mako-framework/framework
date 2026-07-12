@@ -22,7 +22,6 @@ use function array_flip;
 use function count;
 use function get_class_vars;
 use function is_array;
-use function is_object;
 use function sprintf;
 
 /**
@@ -1073,12 +1072,12 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orderBy(array|Raw|string $columns, SortDirection|string $order = SortDirection::Ascending): static
+	public function orderBy(array|Raw|string $columns, SortDirection $sortDirection = SortDirection::Ascending): static
 	{
 		$this->orderings[] = [
-			'type'   => 'basicOrdering',
-			'column' => is_array($columns) ? $columns : [$columns],
-			'order'  => is_object($order) ? $order->value : (($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC'),
+			'type'          => 'basicOrdering',
+			'column'        => is_array($columns) ? $columns : [$columns],
+			'sortDirection' => $sortDirection,
 		];
 
 		return $this;
@@ -1109,9 +1108,9 @@ class Query
 	 *
 	 * @return $this
 	 */
-	public function orderByRaw(string $raw, array $parameters = [], SortDirection|string $order = SortDirection::Ascending): static
+	public function orderByRaw(string $raw, array $parameters = [], SortDirection $sortDirection = SortDirection::Ascending): static
 	{
-		return $this->orderBy(new Raw($raw, $parameters), $order);
+		return $this->orderBy(new Raw($raw, $parameters), $sortDirection);
 	}
 
 	/**
@@ -1137,14 +1136,14 @@ class Query
 	/**
 	 * Adds a vector ORDER BY clause.
 	 */
-	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine, SortDirection|string $order = SortDirection::Ascending): static
+	public function orderByVectorDistance(string $column, array|string|Subquery $vector, VectorDistance $vectorDistance = VectorDistance::Cosine, SortDirection $sortDirection = SortDirection::Ascending): static
 	{
 		$this->orderings[] = [
 			'type'           => 'vectorDistanceOrdering',
 			'column'         => $column,
 			'vector'         => $vector,
 			'vectorDistance' => $vectorDistance,
-			'order'          => is_object($order) ? $order->value : (($order === 'ASC' || $order === 'asc') ? 'ASC' : 'DESC'),
+			'sortDirection'  => $sortDirection,
 		];
 
 		return $this;
@@ -1169,14 +1168,14 @@ class Query
 	/**
 	 * Adds a ORDER BY clause where nulls come either first or last.
 	 */
-	protected function orderByNull(array|string $column, SortDirection $order = SortDirection::Ascending, bool $nullsLast = true): static
+	protected function orderByNull(array|string $column, SortDirection $sortDirection = SortDirection::Ascending, bool $nullsLast = true): static
 	{
 		foreach ((array) $column as $col) {
 			$this->orderings[] = [
-				'type'      => 'nullOrdering',
-				'column'    => $col,
-				'order'     => $order->value,
-				'nullsLast' => $nullsLast,
+				'type'          => 'nullOrdering',
+				'column'        => $col,
+				'sortDirection' => $sortDirection,
+				'nullsLast'     => $nullsLast,
 			];
 		}
 
@@ -1186,17 +1185,17 @@ class Query
 	/**
 	 * Adds a ORDER BY clause where nulls come first.
 	 */
-	public function orderByNullsFirst(array|string $column, SortDirection|string $order = SortDirection::Ascending): static
+	public function orderByNullsFirst(array|string $column, SortDirection $sortDirection = SortDirection::Ascending): static
 	{
-		return $this->orderByNull($column, $order, false);
+		return $this->orderByNull($column, $sortDirection, false);
 	}
 
 	/**
 	 * Adds a ORDER BY clause where nulls come last.
 	 */
-	public function orderByNullsLast(array|string $column, SortDirection|string $order = SortDirection::Ascending): static
+	public function orderByNullsLast(array|string $column, SortDirection $sortDirection = SortDirection::Ascending): static
 	{
-		return $this->orderByNull($column, $order, true);
+		return $this->orderByNull($column, $sortDirection, true);
 	}
 
 	/**
