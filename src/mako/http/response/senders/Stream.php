@@ -14,6 +14,8 @@ use mako\http\Response;
 use mako\http\response\senders\stream\traits\StreamTrait;
 use Override;
 
+use function connection_aborted;
+
 /**
  * Stream response.
  */
