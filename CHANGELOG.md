@@ -17,6 +17,12 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added support for the following vector distances to the Postgres query compiler:
 	- `Manhattan` (L1)
 	- `Inner product`
+* Added the following methods to the `Status` enum:
+	- `Status::isInformational()`
+	- `Status::isSuccess()`
+	- `Status::isRedirect()`
+	- `Status::isClientError()`
+	- `Status::isServerError()`
 
 #### Changes
 
