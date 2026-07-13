@@ -25,7 +25,7 @@ final class CustomStatus implements StatusInterface
 	 */
 	public function __construct(
 		protected readonly int $statusCode,
-	protected readonly string $statusText
+		protected readonly string $statusText
 	) {
 		if ($statusCode < 100 || $statusCode > 599) {
 			throw new InvalidArgumentException('The status code must be between 100 and 599.');
