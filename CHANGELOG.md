@@ -45,6 +45,13 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Query::orderBy()`
 	- `Query::orderByRaw()`
 	- `Query::orderByVectorDistance()`
+* Removed non-standard cases from the `Status` enum:
+	- `InvalidToken`
+	- `TokenRequired`
+
+#### Deprecations
+
+* Deprecated the `Status::UseProxy` case per [⁠RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.5).
 
 #### Improvements
 

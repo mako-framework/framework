@@ -41,6 +41,7 @@ enum Status: int
 	case Found = 302;
 	case SeeOther = 303;
 	case NotModified = 304;
+	#[Deprecated('see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.5', 'Mako 13.0.0')]
 	case UseProxy = 305;
 	case TemporaryRedirect = 307;
 	case PermanentRedirect = 308;
@@ -76,8 +77,6 @@ enum Status: int
 	case TooManyRequests = 429;
 	case RequestHeaderFieldsTooLarge = 431;
 	case UnavailableForLegalReasons = 451;
-	case InvalidToken = 498;
-	case TokenRequired = 499;
 
 	// 5xx Server Error
 
@@ -134,7 +133,7 @@ enum Status: int
 			self::Found => 'Found',
 			self::SeeOther => 'See Other',
 			self::NotModified => 'Not Modified',
-			self::UseProxy => 'Use Proxy',
+			@self::UseProxy => 'Use Proxy',
 			self::TemporaryRedirect => 'Temporary Redirect',
 			self::PermanentRedirect => 'Permanent Redirect',
 
@@ -169,8 +168,6 @@ enum Status: int
 			self::TooManyRequests => 'Too Many Requests',
 			self::RequestHeaderFieldsTooLarge => 'Request Header Fields Too Large',
 			self::UnavailableForLegalReasons => 'Unavailable For Legal Reasons',
-			self::InvalidToken => 'Invalid Token',
-			self::TokenRequired => 'Token Required',
 
 			// 5xx Server Error
 
