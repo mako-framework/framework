@@ -235,7 +235,7 @@ class InputValidation implements MiddlewareInterface
 			return $this->response;
 		}
 
-		throw new (static::HTTP_STATUS_EXCEPTION);
+		throw new (static::HTTP_STATUS_EXCEPTION)(previous: $exception);
 	}
 
 	/**

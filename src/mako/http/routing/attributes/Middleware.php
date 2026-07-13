@@ -8,6 +8,7 @@
 namespace mako\http\routing\attributes;
 
 use Attribute;
+use mako\http\routing\middleware\MiddlewareInterface;
 
 /**
  * Middleware attribute.
@@ -22,6 +23,8 @@ class Middleware
 
 	/**
 	 * Constructor.
+	 *
+	 * @param class-string<MiddlewareInterface> $middleware
 	 */
 	public function __construct(
 		protected string $middleware,

@@ -8,6 +8,7 @@
 namespace mako\http\routing\attributes;
 
 use Attribute;
+use mako\http\routing\constraints\ConstraintInterface;
 
 /**
  * Constraint attribute.
@@ -22,6 +23,8 @@ class Constraint
 
 	/**
 	 * Constructor.
+	 *
+	 * @param class-string<ConstraintInterface> $constraint
 	 */
 	public function __construct(
 		protected string $constraint,
