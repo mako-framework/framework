@@ -11,10 +11,10 @@ use mako\http\exceptions\HttpException;
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\Status;
+use mako\http\response\StatusInterface;
 use Override;
 
 use function in_array;
-use function is_int;
 use function sprintf;
 
 /**
@@ -61,14 +61,14 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Status code.
 	 */
-	protected Status $status;
+	protected StatusInterface $status;
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
 		protected string $location,
-		int|Status $status = Status::Found
+		StatusInterface $status = Status::Found
 	) {
 		$this->setStatus($status);
 	}
@@ -78,12 +78,10 @@ class Redirect implements ResponseSenderInterface
 	 *
 	 * @return $this
 	 */
-	public function setStatus(int|Status $status): Redirect
+	public function setStatus(StatusInterface $status): Redirect
 	{
-		$status = is_int($status) ? Status::from($status) : $status;
-
 		if (!in_array($status, self::SUPPORTED_STATUS_CODES)) {
-			throw new HttpException(sprintf('Unsupported redirect status code [ %s ].', $status->value));
+			throw new HttpException(sprintf('Unsupported redirect status code [ %s ].', $status->getCode()));
 		}
 
 		$this->status = $status;
@@ -154,7 +152,7 @@ class Redirect implements ResponseSenderInterface
 	/**
 	 * Returns the HTTP status.
 	 */
-	public function getStatus(): Status
+	public function getStatus(): StatusInterface
 	{
 		return $this->status;
 	}

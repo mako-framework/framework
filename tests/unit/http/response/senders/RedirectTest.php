@@ -73,7 +73,7 @@ class RedirectTest extends TestCase
 
 		//
 
-		$redirect = new Redirect('http://example.org', 302);
+		$redirect = new Redirect('http://example.org', Status::Found);
 
 		$this->assertSame(Status::Found, $redirect->getStatus());
 
@@ -105,7 +105,7 @@ class RedirectTest extends TestCase
 
 		$redirect = new Redirect('http://example.org');
 
-		$redirect->setStatus(302);
+		$redirect->setStatus(Status::Found);
 
 		$this->assertSame(Status::Found, $redirect->getStatus());
 
@@ -281,6 +281,6 @@ class RedirectTest extends TestCase
 
 		$this->expectExceptionMessage('Unsupported redirect status code [ 404 ].');
 
-		new Redirect('http://example.org', 404);
+		new Redirect('http://example.org', Status::NotFound);
 	}
 }

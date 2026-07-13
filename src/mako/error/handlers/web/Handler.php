@@ -12,6 +12,7 @@ use mako\http\exceptions\HttpStatusException;
 use mako\http\exceptions\ProvidesHeadersInterface;
 use mako\http\Response;
 use mako\http\response\Status;
+use mako\http\response\StatusInterface;
 use mako\utility\UUID;
 use Override;
 use Throwable;
@@ -46,7 +47,7 @@ abstract class Handler implements ProvidesExceptionIdInterface
 	/**
 	 * Returns the status that we should send.
 	 */
-	protected function getHttpStatus(Throwable $exception): Status
+	protected function getHttpStatus(Throwable $exception): StatusInterface
 	{
 		return ($exception instanceof HttpStatusException) ? $exception->getStatus() : Status::InternalServerError;
 	}

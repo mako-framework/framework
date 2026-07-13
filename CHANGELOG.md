@@ -23,6 +23,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Status::isRedirect()`
 	- `Status::isClientError()`
 	- `Status::isServerError()`
+* It is now possible to set non-standard HTTP statuses using the `CustomStatus` class.
 
 #### Changes
 

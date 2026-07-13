@@ -12,12 +12,12 @@ use mako\http\response\Cookies;
 use mako\http\response\Headers;
 use mako\http\response\senders\ResponseSenderInterface;
 use mako\http\response\Status;
+use mako\http\response\StatusInterface;
 use mako\security\Signer;
 
 use function hash;
 use function header;
 use function in_array;
-use function is_int;
 use function ob_end_flush;
 use function ob_get_length;
 use function ob_get_level;
@@ -50,7 +50,7 @@ class Response
 	/**
 	 * HTTP Status.
 	 */
-	protected Status $status = self::DEFAULT_STATUS;
+	protected StatusInterface $status = self::DEFAULT_STATUS;
 
 	/**
 	 * Response headers.
@@ -179,9 +179,9 @@ class Response
 	 *
 	 * @return $this
 	 */
-	public function setStatus(int|Status $status): Response
+	public function setStatus(StatusInterface $status): Response
 	{
-		$this->status = is_int($status) ? Status::from($status): $status;
+		$this->status = $status;
 
 		return $this;
 	}
@@ -189,7 +189,7 @@ class Response
 	/**
 	 * Returns the HTTP status.
 	 */
-	public function getStatus(): Status
+	public function getStatus(): StatusInterface
 	{
 		return $this->status;
 	}
@@ -271,7 +271,7 @@ class Response
 
 		$protocol = $this->request->server->get('SERVER_PROTOCOL', 'HTTP/1.1');
 
-		header("{$protocol} {$this->status->value} {$this->status->getMessage()}");
+		header("{$protocol} {$this->status->getCode()} {$this->status->getMessage()}");
 
 		// Send content type header
 
@@ -315,7 +315,7 @@ class Response
 			return false;
 		}
 
-		if (in_array($this->status->value, [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false) {
+		if (in_array($this->status->getCode(), [200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501]) === false) {
 			return false;
 		}
 
@@ -440,7 +440,7 @@ class Response
 			}
 		}
 
-		if ($sendBody && in_array($this->status->value, [100, 101, 102, 103, 204, 304]) === false) {
+		if ($sendBody && in_array($this->status->getCode(), [100, 101, 102, 103, 204, 304]) === false) {
 			// Start compressed output buffering if output compression is enabled
 
 			if ($this->outputCompression) {

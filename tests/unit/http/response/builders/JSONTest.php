@@ -62,7 +62,7 @@ class JSONTest extends TestCase
 
 		$json = new JSON([1, 2, 3]);
 
-		$json->setStatus(400);
+		$json->setStatus(Status::BadRequest);
 
 		$this->assertSame(Status::BadRequest, $json->getStatus());
 
@@ -114,7 +114,7 @@ class JSONTest extends TestCase
 
 		//
 
-		$json = new JSON([1, 2, 3], 0, 200, 'UTF-8');
+		$json = new JSON([1, 2, 3], 0, Status::Ok, 'UTF-8');
 
 		$this->assertSame(Status::Ok, $json->getStatus());
 
