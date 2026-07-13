@@ -14,7 +14,6 @@ use mako\http\response\Status;
 use mako\http\response\StatusInterface;
 use Override;
 
-use function in_array;
 use function sprintf;
 
 /**
@@ -48,17 +47,6 @@ class Redirect implements ResponseSenderInterface
 	public const Status PERMANENT_REDIRECT = Status::PermanentRedirect;
 
 	/**
-	 * Supported redirect types.
-	 */
-	public const array SUPPORTED_STATUS_CODES = [
-		Status::MovedPermanently,
-		Status::Found,
-		Status::SeeOther,
-		Status::TemporaryRedirect,
-		Status::PermanentRedirect,
-	];
-
-	/**
 	 * Status code.
 	 */
 	protected StatusInterface $status;
@@ -80,7 +68,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function setStatus(StatusInterface $status): Redirect
 	{
-		if (!in_array($status, self::SUPPORTED_STATUS_CODES)) {
+		if (!$status->isRedirect()) {
 			throw new HttpException(sprintf('Unsupported redirect status code [ %s ].', $status->getCode()));
 		}
 
