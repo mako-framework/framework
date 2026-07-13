@@ -9,6 +9,8 @@ namespace mako\http\response;
 
 /**
  * HTTP status codes.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
  */
 enum Status: int
 {
