@@ -12,6 +12,7 @@ use mako\http\Request;
 use mako\http\Response;
 use mako\http\response\builders\JSON;
 use mako\http\response\Cookies;
+use mako\http\response\CustomStatus;
 use mako\http\response\Headers;
 use mako\http\response\senders\Redirect;
 use mako\http\response\Status;
@@ -19,7 +20,6 @@ use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
-use ValueError;
 
 #[Group('unit')]
 class ResponseTest extends TestCase
@@ -184,11 +184,11 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testValidStatus(): void
+	public function testEnumStatus(): void
 	{
 		$response = new Response($this->getRequest());
 
-		$response->setStatus(404);
+		$response->setStatus(Status::NotFound);
 
 		$this->assertEquals(Status::NotFound, $response->getStatus());
 
@@ -197,14 +197,14 @@ class ResponseTest extends TestCase
 	/**
 	 *
 	 */
-	public function testInvaludStatus(): void
+	public function testCustomStatus(): void
 	{
-		$this->expectException(ValueError::class);
-		$this->expectExceptionMessageMatches('/^999 is not a valid backing value for enum/');
-
 		$response = new Response($this->getRequest());
 
-		$response->setStatus(999);
+		$response->setStatus(new CustomStatus(299, 'A OK'));
+
+		$this->assertInstanceOf(CustomStatus::class, $response->getStatus());
+
 	}
 
 	/**
@@ -314,7 +314,7 @@ class ResponseTest extends TestCase
 			$response->getCookies()->add($cookie, $value);
 		}
 
-		$response->setStatus(404);
+		$response->setStatus(Status::NotFound);
 
 		$this->assertCount(2, $response->getHeaders());
 
@@ -348,7 +348,7 @@ class ResponseTest extends TestCase
 			$response->getCookies()->add($cookie, $value);
 		}
 
-		$response->setStatus(404);
+		$response->setStatus(Status::NotFound);
 
 		$this->assertCount(2, $response->getHeaders());
 
@@ -382,7 +382,7 @@ class ResponseTest extends TestCase
 			$response->getCookies()->add($cookie, $value);
 		}
 
-		$response->setStatus(404);
+		$response->setStatus(Status::NotFound);
 
 		$this->assertCount(2, $response->getHeaders());
 
@@ -430,7 +430,7 @@ class ResponseTest extends TestCase
 
 		$response = new Response($request);
 
-		$response->setStatus(400);
+		$response->setStatus(Status::BadRequest);
 
 		$this->assertFalse($response->isCacheable());
 

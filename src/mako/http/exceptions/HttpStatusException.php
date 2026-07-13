@@ -7,10 +7,8 @@
 
 namespace mako\http\exceptions;
 
-use mako\http\response\Status;
+use mako\http\response\StatusInterface;
 use Throwable;
-
-use function is_int;
 
 /**
  * HTTP status exception.
@@ -20,7 +18,7 @@ class HttpStatusException extends HttpException
 	/**
 	 * HTTP status.
 	 */
-	protected Status $status;
+	protected StatusInterface $status;
 
 	/**
 	 * Default message.
@@ -35,17 +33,17 @@ class HttpStatusException extends HttpException
 	/**
 	 * Constructor.
 	 */
-	public function __construct(int|Status $status, string $message = '', ?Throwable $previous = null)
+	public function __construct(StatusInterface $status, string $message = '', ?Throwable $previous = null)
 	{
-		$this->status = is_int($status) ? Status::from($status) : $status;
+		$this->status = $status;
 
-		parent::__construct($message ?: $this->defaultMessage, $this->status->value, $previous);
+		parent::__construct($message ?: $this->defaultMessage, $this->status->getCode(), $previous);
 	}
 
 	/**
 	 * Returns the HTTP status.
 	 */
-	public function getStatus(): Status
+	public function getStatus(): StatusInterface
 	{
 		return $this->status;
 	}

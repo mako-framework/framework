@@ -307,7 +307,7 @@ class ErrorHandler
 		catch (Throwable $e) {
 			if ((PHP_SAPI === 'cli' || headers_sent() === false) && $this->displayErrors()) {
 				if (PHP_SAPI !== 'cli') {
-					http_response_code($exception instanceof HttpStatusException ? $exception->getStatus()->value : 500);
+					http_response_code($exception instanceof HttpStatusException ? $exception->getStatus()->getCode() : 500);
 				}
 
 				// Empty output buffers
