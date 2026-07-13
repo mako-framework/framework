@@ -33,7 +33,7 @@ class CustomStatusTest extends TestCase
 	public function testInvalidCustomStatus(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('The status code must be between 100 and 599.');
+		$this->expectExceptionMessage('A HTTP status code must be between 100 and 599.');
 
 		$status = new CustomStatus(600, 'Invalid status code');
 	}
