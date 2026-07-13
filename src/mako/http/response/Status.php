@@ -66,7 +66,6 @@ enum Status: int
 	case RangeNotSatisfiable = 416;
 	case ExpectationFailed = 417;
 	case ImATeapot = 418;
-	case AuthenticationTimeout = 419;
 	case MisdirectedRequest = 421;
 	case UnprocessableContent = 422;
 	case Locked = 423;
@@ -160,7 +159,6 @@ enum Status: int
 			self::RangeNotSatisfiable => 'Range Not Satisfiable',
 			self::ExpectationFailed => 'Expectation Failed',
 			self::ImATeapot => 'I\'m a teapot',
-			self::AuthenticationTimeout => 'Authentication Timeout',
 			self::MisdirectedRequest => 'Misdirected Request',
 			self::UnprocessableContent => 'Unprocessable Content',
 			self::Locked => 'Locked',
