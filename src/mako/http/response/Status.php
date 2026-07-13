@@ -7,6 +7,8 @@
 
 namespace mako\http\response;
 
+use Deprecated;
+
 /**
  * HTTP status codes.
  *
