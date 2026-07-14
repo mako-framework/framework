@@ -505,7 +505,7 @@
 			</div>
 			<div id="stack-trace" class="body details" data-open="true">
 				<fieldset>
-					<legend>View trace for</legend>
+					<legend>Viewing trace for</legend>
 					<select id="select-trace">
 						{% foreach($traces as $trace) %}
 						<option value="trace-{{str_replace(' ', '-', $trace['name'])}}">{{$trace['name']}}</option>
