@@ -25,6 +25,25 @@
 				width: .9em;
 				height: .9em;
 			}
+			fieldset {
+				border: 1px solid #CCC;
+				background-color: #EEE;
+				border-radius: 8px;
+				padding: 0.75rem 1rem;
+			}
+			legend {
+				background-color: #CCC;
+				border-radius: 4px;
+				padding: .25rem 1rem;
+			}
+			select {
+				width: 100%;
+				background-color: #FCFCFC;
+				border: 1px solid #CCC;
+				border-radius: 4px;
+				padding: .5rem;
+				font-size: 1rem;
+			}
 			.center {
 				text-align: center;
 			}
@@ -142,30 +161,30 @@
 				width: 70%;
 				text-align: left;
 			}
-			.exception > .body.details > .frame {
+			.exception > .body.details .frame {
 				background-color: #EEE;
 				border: 1px solid #CCC;
 				border-radius: 8px;
 				margin-bottom: .5rem;
 			}
-			.exception > .body.details > .frame.error {
+			.exception > .body.details .frame.error {
 				margin-bottom: 2rem;
 			}
-			.exception > .body.details > .frame:not(.error):is(:last-child) {
+			.exception > .body.details .frame:not(.error):is(:last-child) {
 				margin-bottom: 0;
 			}
-			.exception > .body.details > .frame > .title {
+			.exception > .body.details .frame > .title {
 				padding: 1rem;
 				cursor: pointer;
 			}
-			.exception > .body.details > .frame > .title > .title {
+			.exception > .body.details .frame > .title > .title {
 				display: inline-block;
 				padding: .25rem;
 			}
-			.exception > .body.details > .frame > .title > .title > .function {
+			.exception > .body.details .frame > .title > .title > .function {
 				color: #2DB28A;
 			}
-			.exception > .body.details > .frame > .title > .number {
+			.exception > .body.details .frame > .title > .number {
 				display: inline-block;
 				background-color: #CCC;
 				width: 3rem;
@@ -173,7 +192,7 @@
 				border-radius: 4px;
 				text-align: center;
 			}
-			.exception > .body.details > .frame > .title > .type {
+			.exception > .body.details .frame > .title > .type {
 				display: inline-block;
 				background-color: #CCC;
 				width: 4.5rem;
@@ -181,11 +200,11 @@
 				border-radius: 4px;
 				text-align: center;
 			}
-			.exception > .body.details > .frame > .title > .type.app {
+			.exception > .body.details .frame > .title > .type.app {
 				background-color: #123;
 				color: #2DB28A;
 			}
-			.exception > .body.details > .frame > .title > .toggle {
+			.exception > .body.details .frame > .title > .toggle {
 				background-color: #FFF;
 				color: #666;
 				width: 1.3rem;
@@ -194,31 +213,31 @@
 				text-align: center;
 				float: right;
 			}
-			.exception > .body.details > .frame > .title > .toggle:hover {
+			.exception > .body.details .frame > .title > .toggle:hover {
 				background-color: #DDD;
 			}
-			.exception > .body.details > .frame > .details {
+			.exception > .body.details .frame > .details {
 				background-color: #FCFCFC;
 				border-top: 1px solid #CCC;
 				padding: 1rem;
 				border-bottom-left-radius: 8px;
 				border-bottom-right-radius: 8px;
 			}
-			.exception > .body.details > .frame > .details span.info-pill {
+			.exception > .body.details .frame > .details span.info-pill {
 				background-color: #ddd;
 				padding: .25rem;
 				padding-left: .5rem;
 				padding-right: .5rem;
 				border-radius: 4px;
 			}
-			.exception > .body.details > .frame > .details > .location {
+			.exception > .body.details .frame > .details > .location {
 				background-color: #525863;
 				color: #ABB2BF;
 				padding: 1rem;
 				border-top-left-radius: 8px;
 				border-top-right-radius: 8px;
 			}
-			.exception > .body.details > .frame > .details > .code {
+			.exception > .body.details .frame > .details > .code {
 				background-color: #383E49;
 				color: #ABB2BF;
 				padding: 1rem;
@@ -229,10 +248,10 @@
 				tab-size: 4;
 				overflow: auto;
 			}
-			.exception > .body.details > .frame > .details > .code > div {
+			.exception > .body.details .frame > .details > .code > div {
 				line-height: 125%;
 			}
-			.exception > .body.details > .frame > .details > .code > div.highlight {
+			.exception > .body.details .frame > .details > .code > div.highlight {
 				margin-right: -1rem;
 				margin-left: -1rem;
 				padding-left: 1rem;
@@ -244,24 +263,24 @@
 				border-left: none;
 				border-right: none;
 			}
-			.exception > .body.details > .frame > .details > .code > div.highlight:hover {
+			.exception > .body.details .frame > .details > .code > div.highlight:hover {
 				background-color: rgba(178, 45, 45, 0.7);
 			}
-			.exception > .body.details > .frame > .details > .code > div > span.line {
+			.exception > .body.details .frame > .details > .code > div > span.line {
 				display: inline-block;
 				width: 4rem;
 				padding-left: .5rem;
 			}
-			.exception > .body.details > .frame > .details > .code > div > pre {
+			.exception > .body.details .frame > .details > .code > div > pre {
 				display: inline-block;
 				margin: 0;
 				padding: 0;
 			}
-			.exception > .body.details > .frame > .details > .code > div > pre > code {
+			.exception > .body.details .frame > .details > .code > div > pre > code {
 				margin: 0;
 				padding: 0;
 			}
-			.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
+			.exception > .body.details .frame > .details > ol > li:not(:last-child), .exception > .body.details .frame > .details > ul > li:not(:last-child) {
 				border-bottom: 1px solid #CCC;
 				margin-bottom: 1rem;
 			}
@@ -269,6 +288,18 @@
 				body {
 					background-color: #222;
 					color: #EDEDED;
+				}
+				fieldset {
+					border-color: #555;
+					background-color: #222;
+				}
+				legend {
+					background-color: #111;
+				}
+				select {
+					color: #CCC;
+					background-color: #303030;
+					border-color: #555;
 				}
 				.exception {
 					background-color: #333;
@@ -292,28 +323,28 @@
 				.exception > .tabs > .tab.active {
 					border-color: #555;
 				}
-				.exception > .body.details > .frame {
+				.exception > .body.details .frame {
 					background-color: #222;
 					border: 1px solid #555;
 				}
-				.exception > .body.details > .frame > .title > .number, .exception > .body.details > .frame > .title > .type {
+				.exception > .body.details .frame > .title > .number, .exception > .body.details .frame > .title > .type {
 					background-color: #111;
 				}
-				.exception > .body.details > .frame > .title > .toggle {
+				.exception > .body.details .frame > .title > .toggle {
 					background-color: #111;
 				}
-				.exception > .body.details > .frame > .title > .toggle:hover {
+				.exception > .body.details .frame > .title > .toggle:hover {
 					background-color: #333;
 				}
-				.exception > .body.details > .frame > .details {
+				.exception > .body.details .frame > .details {
 					background-color: #303030;
 					border-color: #555;
 					padding: 1rem;
 				}
-				.exception > .body.details > .frame > .details span.info-pill {
+				.exception > .body.details .frame > .details span.info-pill {
 					background-color: #222;
 				}
-				.exception > .body.details > .frame > .details > ol > li:not(:last-child), .exception > .body.details > .frame > .details > ul > li:not(:last-child) {
+				.exception > .body.details .frame > .details > ol > li:not(:last-child), .exception > .body.details .frame > .details > ul > li:not(:last-child) {
 					border-color: #555;
 				}
 			}
@@ -473,48 +504,62 @@
 				{% endif %}
 			</div>
 			<div id="stack-trace" class="body details" data-open="true">
-				{% foreach($trace as $key => $frame) %}
-					<div class="frame{% if($frame['is_error']) %} error{% endif %}">
-						<div class="title">
-							<span class="toggle" aria-hidden="true">
-								<svg class="icon"><use href="#icon-{{$frame['open'] ? 'down' : 'up'}}"></use></svg>
-							</span>
-							<span class="number">{{$key}}</span>
-							<span class="type {{$frame['is_error'] ? 'error' : ($frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor'))}}">{{$frame['is_error'] ? 'Error' : ($frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor'))}}</span>
-							<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}{% if(isset($frame['function'])) %}<span class="function">{{$frame['function']}}()</span>{% endif %}</span>
-						</div>
-						<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">
-							{% if($frame['is_internal']) %}
-								<p>[internal]</p>
-							{% else %}
-								{% if($frame['code'] === null) %}
-									<p>
-										<svg class="icon"><use href="#icon-file"></use></svg>
-										<b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.
-									</p>
-								{% else %}
-									<div class="location">
-										<svg class="icon"><use href="#icon-file"></use></svg>
-										<b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.
-									</div>
-									<div class="code">
-										{% foreach($frame['code'] as $line => $code) %}
-											<div class="{{$line === $frame['line'] ? 'highlight' : 'normal'}}">
-												<span class="line">{{$line}}</span> <pre><code>{{raw:$code}}</code></pre>
+				<fieldset>
+					<legend>View trace for</legend>
+					<select id="select-trace">
+						{% foreach($traces as $trace) %}
+						<option value="trace-{{str_replace(' ', '-', $trace['name'])}}">{{$trace['name']}}</option>
+						{% endforeach %}
+					</select>
+				</fieldset>
+				<br>
+				<br>
+				{% foreach($traces as $key => $trace) %}
+					<div id="trace-{{str_replace(' ', '-', $trace['name'])}}" class="details" data-open="{{$key === 0 ? 'true' : 'false'}}">
+						{% foreach($trace['frames'] as $key => $frame) %}
+							<div class="frame{% if($frame['is_error']) %} error{% endif %}">
+								<div class="title">
+									<span class="toggle" aria-hidden="true">
+										<svg class="icon"><use href="#icon-{{$frame['open'] ? 'down' : 'up'}}"></use></svg>
+									</span>
+									<span class="number">{{$key}}</span>
+									<span class="type {{$frame['is_error'] ? 'error' : ($frame['is_internal'] ? 'internal' : ($frame['is_app'] ? 'app' : 'vendor'))}}">{{$frame['is_error'] ? 'Error' : ($frame['is_internal'] ? 'Internal' : ($frame['is_app'] ? 'App' : 'Vendor'))}}</span>
+									<span class="title">{{$frame['class'], default: ''}}{{$frame['type'], default: ''}}{% if(isset($frame['function'])) %}<span class="function">{{$frame['function']}}()</span>{% endif %}</span>
+								</div>
+								<div class="details" data-open="{{$frame['open'] ? 'true' : 'false'}}">
+									{% if($frame['is_internal']) %}
+										<p>[internal]</p>
+									{% else %}
+										{% if($frame['code'] === null) %}
+											<p>
+												<svg class="icon"><use href="#icon-file"></use></svg>
+												<b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.
+											</p>
+										{% else %}
+											<div class="location">
+												<svg class="icon"><use href="#icon-file"></use></svg>
+												<b>Location:</b> {{$frame['file']}} on line {{$frame['line']}}.
 											</div>
-										{% endforeach %}
-									</div>
-								{% endif %}
-								{% if(!empty($frame['args'])) %}
-									<p><b>Arguments:</b></p>
-									<ol>
-										{% foreach($frame['args'] as $argument) %}
-											<li>{{raw:$dump($argument)}}</li>
-										{% endforeach %}
-									</ol>
-								{% endif %}
-							{% endif %}
-						</div>
+											<div class="code">
+												{% foreach($frame['code'] as $line => $code) %}
+													<div class="{{$line === $frame['line'] ? 'highlight' : 'normal'}}">
+														<span class="line">{{$line}}</span> <pre><code>{{raw:$code}}</code></pre>
+													</div>
+												{% endforeach %}
+											</div>
+										{% endif %}
+										{% if(!empty($frame['args'])) %}
+											<p><b>Arguments:</b></p>
+											<ol>
+												{% foreach($frame['args'] as $argument) %}
+													<li>{{raw:$dump($argument)}}</li>
+												{% endforeach %}
+											</ol>
+										{% endif %}
+									{% endif %}
+								</div>
+							</div>
+						{% endforeach %}
 					</div>
 				{% endforeach %}
 			</div>
@@ -659,6 +704,16 @@
 
 				document.querySelectorAll('.sf-dump-toggle > span').forEach(function(element) {
 					element.innerHTML = '&#9654;'
+				});
+
+				document.getElementById('select-trace').addEventListener('change', function() {
+					const selectedValue = this.value;
+
+					document.querySelectorAll('[id^="trace-"]').forEach(function(element) {
+						element.style.display = 'none';
+					});
+
+					document.getElementById(selectedValue).style.display = 'block';
 				});
 			});
 		</script>

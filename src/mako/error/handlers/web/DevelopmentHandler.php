@@ -209,6 +209,30 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 	}
 
 	/**
+	 * Returns enhanced stack traces.
+	 */
+	protected function getEnhancedStackTraces(Throwable $exception): array
+	{
+		$i = 0;
+		$exceptions = [];
+
+		$exceptions[$i] = [
+			'name'   => "{$i} - " . $exception::class,
+			'frames' => $this->getEnhancedStackTrace($exception),
+		];
+
+		while (($exception = $exception->getPrevious()) !== null) {
+
+			$exceptions[++$i] = [
+				'name'   => "{$i} - " . $exception::class,
+				'frames' => $this->getEnhancedStackTrace($exception),
+			];
+		}
+
+		return $exceptions;
+	}
+
+	/**
 	 * Returns the previous exceptions.
 	 */
 	protected function getPreviousExceptions(Throwable $exception): array
@@ -352,7 +376,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 			'message'      => $exception->getMessage(),
 			'file'         => $exception->getFile(),
 			'line'         => $exception->getLine(),
-			'trace'        => $this->getEnhancedStackTrace($exception),
+			'traces'        => $this->getEnhancedStackTraces($exception),
 			'previous'     => $this->getPreviousExceptions($exception),
 			'dump'         => $this->getDumper(),
 			'queries'      => $this->getQueries(),
