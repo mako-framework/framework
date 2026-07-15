@@ -74,11 +74,8 @@ class Deprecated implements MiddlewareInterface
 
 			// Ensure that the sunset header is a UTC date
 
-			if (
-				$sunsetDate->getTimezone()->getName() !== 'UTC'
-				&& ($sunsetDate instanceof DateTime || $sunsetDate instanceof DateTimeImmutable)
-			) {
-				$sunsetDate = $sunsetDate->setTimezone(new DateTimeZone('UTC'));
+			if ($sunsetDate->getTimezone()->getName() !== 'UTC') {
+				$sunsetDate = DateTimeImmutable::createFromInterface($sunsetDate)->setTimezone(new DateTimeZone('UTC'));
 			}
 
 			$response->headers->add('Sunset', $sunsetDate->format(static::RFC_7231_DATE));
