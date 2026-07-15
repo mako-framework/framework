@@ -7,6 +7,8 @@
 
 namespace mako\chrono\traits;
 
+use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use Override;
 
@@ -16,37 +18,39 @@ use function mktime;
 
 /**
  * Time trait.
+ *
+ * @mixin DateTime|DateTimeImmutable
  */
 trait TimeTrait
 {
 	/**
 	 * Constructor.
 	 */
-	final public function __construct(string $time = 'now', null|DateTimeZone|string $timeZone = null)
+	final public function __construct(string $datetime = 'now', null|DateTimeZone|string $timezone = null)
 	{
-		if ($timeZone !== null && ($timeZone instanceof DateTimeZone) === false) {
-			$timeZone = new DateTimeZone($timeZone);
+		if ($timezone !== null && ($timezone instanceof DateTimeZone) === false) {
+			$timezone = new DateTimeZone($timezone);
 		}
 
-		parent::__construct($time, $timeZone);
+		parent::__construct($datetime, $timezone);
 	}
 
 	/**
 	 * Returns a new instance set to the current time.
 	 */
 	#[Override]
-	public static function now(null|DateTimeZone|string $timeZone = null): static
+	public static function now(null|DateTimeZone|string $timezone = null): static
 	{
-		return new static('now', $timeZone);
+		return new static('now', $timezone);
 	}
 
 	/**
 	 * Returns a new instance according to the specified date.
 	 */
 	#[Override]
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null): static
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timezone = null): static
 	{
-		$date = (clone $now = static::now($timeZone))->setDate($year, 1, 1);
+		$date = (clone $now = static::now($timezone))->setDate($year, 1, 1);
 
 		$month ??= $now->format('n');
 
@@ -59,16 +63,16 @@ trait TimeTrait
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 */
 	#[Override]
-	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null): static
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timezone = null): static
 	{
-		return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timeZone);
+		return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timezone);
 	}
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
 	 */
 	#[Override]
-	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null): static
+	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timezone = null): static
 	{
 		$year     = (($timestamp >> 25) & 0x7F) + 1980;
 		$mon      = ($timestamp >> 21) & 0x0F;
@@ -79,29 +83,39 @@ trait TimeTrait
 
 		$timestamp = mktime($hours, $minutes, $seconds, $mon, $mday, $year);
 
-		return static::createFromTimestamp($timestamp, $timeZone);
+		return static::createFromTimestamp($timestamp, $timezone);
 	}
 
 	/**
 	 * Returns a new instance according to the specified time string.
 	 */
 	#[Override]
-	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null): static
+	public static function createFromFormat(string $format, string $datetime, null|DateTimeZone|string $timezone = null): false|static
 	{
-		return new static(parent::createFromFormat($format, $time)->format('Y-m-d\TH:i:s.u'), $timeZone);
+		if ($timezone !== null && ($timezone instanceof DateTimeZone) === false) {
+			$timezone = new DateTimeZone($timezone);
+		}
+
+		$date = parent::createFromFormat($format, $datetime, $timezone);
+
+		if ($date === false) {
+			return false;
+		}
+
+		return new static($date->format('Y-m-d\TH:i:s.u'), $date->getTimezone());
 	}
 
 	/**
 	 * Sets the time zone.
 	 */
 	#[Override]
-	public function setTimezone(DateTimeZone|string $timeZone): static
+	public function setTimezone(DateTimeZone|string $timezone): static
 	{
-		if (($timeZone instanceof DateTimeZone) === false) {
-			$timeZone = new DateTimeZone($timeZone);
+		if (($timezone instanceof DateTimeZone) === false) {
+			$timezone = new DateTimeZone($timezone);
 		}
 
-		return parent::setTimezone($timeZone);
+		return parent::setTimezone($timezone);
 	}
 
 	/**

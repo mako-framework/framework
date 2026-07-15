@@ -48,27 +48,27 @@ interface TimeInterface extends DateTimeInterface
 	/**
 	 * Returns a new instance set to the current time.
 	 */
-	public static function now(null|DateTimeZone|string $timeZone = null): static;
+	public static function now(null|DateTimeZone|string $timezone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified date.
 	 */
-	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timeZone = null): static;
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timezone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified UNIX timestamp.
 	 */
-	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timeZone = null): static;
+	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timezone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified DOS timestamp.
 	 */
-	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timeZone = null): static;
+	public static function createFromDOSTimestamp(int $timestamp, null|DateTimeZone|string $timezone = null): static;
 
 	/**
 	 * Returns a new instance according to the specified time string.
 	 */
-	public static function createFromFormat(string $format, string $time, null|DateTimeZone|string $timeZone = null): static;
+	public static function createFromFormat(string $format, string $datetime, null|DateTimeZone|string $timezone = null): false|static;
 
 	/**
 	 * Returns a copy of the current instance.
@@ -80,7 +80,7 @@ interface TimeInterface extends DateTimeInterface
 	 *
 	 * @return $this|static
 	 */
-	public function setTimezone(DateTimeZone|string $timeZone): static;
+	public function setTimezone(DateTimeZone|string $timezone): static;
 
 	/**
 	 * Move forward in time by x seconds.
