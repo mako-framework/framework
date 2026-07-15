@@ -7,7 +7,7 @@
 
 namespace mako\validator\rules;
 
-use DateTime;
+use DateTimeImmutable;
 use Override;
 
 use function sprintf;
@@ -37,13 +37,13 @@ class Before extends Rule
 	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		$date = DateTime::createFromFormat($this->format, $value);
+		$date = DateTimeImmutable::createFromFormat($this->format, $value);
 
 		if ($date === false || $date->format($this->format) !== $value) {
 			return false;
 		}
 
-		return $date < DateTime::createFromFormat($this->format, $this->date);
+		return $date < DateTimeImmutable::createFromFormat($this->format, $this->date);
 	}
 
 	/**

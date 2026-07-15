@@ -8,7 +8,6 @@
 namespace mako\http\routing\middleware;
 
 use Closure;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -48,11 +47,11 @@ class Deprecated implements MiddlewareInterface
 		}
 
 		if ($deprecationDate !== null) {
-			$this->deprecationDate = $deprecationDate instanceof DateTimeInterface ? $deprecationDate : new DateTime($deprecationDate, new DateTimeZone('UTC'));
+			$this->deprecationDate = $deprecationDate instanceof DateTimeInterface ? $deprecationDate : new DateTimeImmutable($deprecationDate, new DateTimeZone('UTC'));
 		}
 
 		if ($sunsetDate !== null) {
-			$this->sunsetDate = $sunsetDate instanceof DateTimeInterface ? $sunsetDate : new DateTime($sunsetDate, new DateTimeZone('UTC'));
+			$this->sunsetDate = $sunsetDate instanceof DateTimeInterface ? $sunsetDate : new DateTimeImmutable($sunsetDate, new DateTimeZone('UTC'));
 		}
 
 		if ($deprecationDate !== null && $sunsetDate !== null && $this->deprecationDate >= $this->sunsetDate) {
