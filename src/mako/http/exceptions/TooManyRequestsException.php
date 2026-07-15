@@ -7,7 +7,6 @@
 
 namespace mako\http\exceptions;
 
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -61,11 +60,8 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 
 			// Ensure that the retry-after header is a UTC date
 
-			if (
-				$retryAfter->getTimezone()->getName() !== 'UTC'
-				&& ($retryAfter instanceof DateTime || $retryAfter instanceof DateTimeImmutable)
-			) {
-				$retryAfter = $retryAfter->setTimezone(new DateTimeZone('UTC'));
+			if ($retryAfter->getTimezone()->getName() !== 'UTC') {
+				$retryAfter = DateTimeImmutable::createFromInterface($retryAfter)->setTimezone(new DateTimeZone('UTC'));
 			}
 
 			return ['Retry-After' => $retryAfter->format(static::RFC_7231_DATE)];
