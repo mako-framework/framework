@@ -7,7 +7,7 @@
 
 namespace mako\database\midgard\traits;
 
-use DateTime;
+use DateTimeImmutable;
 
 use function array_shift;
 use function explode;
@@ -26,7 +26,7 @@ trait TimestampedTrait
 		return [
 			'beforeInsert' => [
 				function (array $values, $query): array {
-					$dateTime = new DateTime;
+					$dateTime = new DateTimeImmutable;
 
 					$createdAtColumn = $this->getCreatedAtColumn();
 
@@ -48,7 +48,7 @@ trait TimestampedTrait
 			],
 			'beforeUpdate' => [
 				function (array $values, $query): array {
-					$dateTime = new DateTime;
+					$dateTime = new DateTimeImmutable;
 
 					$updatedAtColumn = $this->getUpdatedAtColumn();
 
