@@ -10,12 +10,11 @@ if (isset($_exception_) && $_exception_ instanceof TooManyRequestsException) {
 	/** @var TooManyRequestsException $_exception_ */
 	$retryAfter = $_exception_->getRetryAfter();
 
-	if (
-		$retryAfter !== null
-		&& $retryAfter->getTimezone()->getName() !== 'UTC'
-		&& ($retryAfter instanceof DateTime || $retryAfter instanceof DateTimeImmutable)
-	) {
-		$retryAfter = $retryAfter->setTimezone(new DateTimeZone('UTC'));
+	if ($retryAfter !== null) {
+		if ($retryAfter->getTimezone()->getName() !== 'UTC') {
+			$retryAfter = DateTimeImmutable::createFromInterface($retryAfter)->setTimezone(new DateTimeZone('UTC'));
+		}
+
 		$retryAfter = $retryAfter->format('Y-m-d\TH:i:sP');
 	}
 }
