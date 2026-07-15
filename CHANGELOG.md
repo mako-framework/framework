@@ -64,6 +64,14 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 
 --------------------------------------------------------
 
+### 12.2.2 <small>(2026-07-15)</small>
+
+#### Bugfixes
+
+* Fixed an error in the 429 error template.
+
+--------------------------------------------------------
+
 ### 12.2.1 <small>(2026-05-04)</small>
 
 #### Improvements
