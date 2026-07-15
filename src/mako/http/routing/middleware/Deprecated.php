@@ -82,7 +82,7 @@ class Deprecated implements MiddlewareInterface
 
 			// Throw a GoneException if automatic disabling is enabled and the current date is after the sunset date
 
-			if ($this->disableAfterSunset && new DateTime(timezone: new DateTimeZone('UTC')) > $sunsetDate) {
+			if ($this->disableAfterSunset && new DateTimeImmutable(timezone: new DateTimeZone('UTC')) > $sunsetDate) {
 				throw new GoneException;
 			}
 		}
