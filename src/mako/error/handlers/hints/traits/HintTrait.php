@@ -9,6 +9,8 @@ namespace mako\error\handlers\hints\traits;
 
 use mako\error\handlers\hints\ArgumentCountError;
 use mako\error\handlers\hints\ContainerException;
+use mako\error\handlers\hints\Deprecations;
+use mako\error\handlers\hints\HintInterface;
 use mako\error\handlers\hints\UndefinedConstant;
 use mako\error\handlers\hints\UndefinedFunction;
 use mako\error\handlers\hints\UndefinedMethod;
@@ -25,7 +27,7 @@ trait HintTrait
 	 */
 	protected function getHint(Throwable $exception): ?string
 	{
-		/** @var array<class-string<\mako\error\handlers\hints\HintInterface>> $hints */
+		/** @var array<class-string<HintInterface>> $hints */
 		$hints = [
 			ArgumentCountError::class,
 			ContainerException::class,
@@ -33,6 +35,7 @@ trait HintTrait
 			UndefinedFunction::class,
 			UndefinedMethod::class,
 			UndefinedProperty::class,
+			Deprecations::class,
 		];
 
 		try {

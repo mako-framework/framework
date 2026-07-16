@@ -12,7 +12,7 @@ use mako\error\handlers\hints\ContainerException;
 use mako\syringe\exceptions\ContainerException as SyringeContainerException;
 use mako\syringe\exceptions\UnableToResolveParameterException;
 use mako\tests\TestCase;
-use PHPUnit\Metadata\Group;
+use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class ContainerExceptionTest extends TestCase

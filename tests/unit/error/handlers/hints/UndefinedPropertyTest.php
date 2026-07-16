@@ -11,7 +11,7 @@ use ErrorException;
 use Exception;
 use mako\error\handlers\hints\UndefinedProperty;
 use mako\tests\TestCase;
-use PHPUnit\Metadata\Group;
+use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class UndefinedPropertyTest extends TestCase

@@ -10,7 +10,7 @@ namespace mako\tests\unit\error\handlers\hints;
 use Exception;
 use mako\error\handlers\hints\UndefinedFunction;
 use mako\tests\TestCase;
-use PHPUnit\Metadata\Group;
+use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class UndefinedFunctionTest extends TestCase

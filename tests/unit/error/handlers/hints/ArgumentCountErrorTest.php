@@ -11,7 +11,7 @@ use ArgumentCountError as ArgumentCountErrorException;
 use Exception;
 use mako\error\handlers\hints\ArgumentCountError;
 use mako\tests\TestCase;
-use PHPUnit\Metadata\Group;
+use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
 class ArgumentCountErrorTest extends TestCase
