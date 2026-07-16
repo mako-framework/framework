@@ -67,11 +67,11 @@ class DevelopmentHandler implements HandlerInterface
 				E_NOTICE            => 'Notice',
 				E_WARNING           => 'Warning',
 				E_RECOVERABLE_ERROR => 'Recoverable Error',
-				E_DEPRECATED        => 'Deprecated',
+				E_DEPRECATED        => 'Deprecation',
 				E_USER_NOTICE       => 'Notice',
 				E_USER_WARNING      => 'Warning',
 				E_USER_ERROR        => 'Error',
-				E_USER_DEPRECATED   => 'Deprecated',
+				E_USER_DEPRECATED   => 'Deprecation',
 			];
 
 			return in_array($code, array_keys($codes)) ? $codes[$code] : 'ErrorException';

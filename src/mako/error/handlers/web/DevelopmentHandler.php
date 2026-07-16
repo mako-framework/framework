@@ -78,7 +78,7 @@ class DevelopmentHandler extends Handler implements HandlerInterface, ProvidesEx
 		if ($exception instanceof ErrorException) {
 			return $exception::class . match ($exception->getCode()) {
 				E_COMPILE_ERROR                 => ': Compile Error',
-				E_DEPRECATED, E_USER_DEPRECATED => ': Deprecated',
+				E_DEPRECATED, E_USER_DEPRECATED => ': Deprecation',
 				E_NOTICE, E_USER_NOTICE         => ': Notice',
 				E_WARNING, E_USER_WARNING       => ': Warning',
 				default                         => '',
