@@ -8,13 +8,14 @@
 namespace mako\chrono;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use mako\chrono\traits\TimeTrait;
 use Override;
 
 /**
  * Extension of the PHP DateTimeImmutable class.
  *
- * @method static setTimezone(\DateTimeZone|string $timeZone)
+ * @method static setTimezone(DateTimeZone|string $timezone)
  * @method static forward(int $seconds)
  * @method static rewind(int $seconds)
  */
