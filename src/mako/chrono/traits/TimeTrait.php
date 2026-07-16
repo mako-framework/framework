@@ -119,7 +119,7 @@ trait TimeTrait
 		if ($date === false) {
 			$errors = static::getLastErrors();
 
-			$message = $errors === false ? 'Unknown error.' : implode('. ', $errors['errors']);
+			$message = $errors === false ? 'Unknown error' : implode('; ', $errors['errors']);
 
 			throw new ChronoException(sprintf(
 				'Unable to create %s instance from value [ %s ] for format [ %s ]. %s.',
