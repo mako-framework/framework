@@ -9,6 +9,7 @@ namespace mako\tests\unit\chrono;
 
 use DateTime;
 use DateTimeZone;
+use mako\chrono\exceptions\ChronoException;
 use mako\chrono\Time;
 use mako\chrono\TimeImmutable;
 use mako\tests\TestCase;
@@ -211,6 +212,27 @@ class TimeImmutableTest extends TestCase
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+	}
+
+	/**
+	 *
+	 */
+	public function testCreateFromFormatWithFaiure(): void
+	{
+		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', 'fail');
+
+		$this->assertFalse($time);
+	}
+
+	/**
+	 *
+	 */
+	public function testCreateFromFormatOrThrow(): void
+	{
+		$this->expectException(ChronoException::class);
+		$this->expectExceptionMessage('Unable to create mako\chrono\TimeImmutable instance from value [ ass ] for format [ Y-m-d ]. A four digit year could not be found. Not enough data available to satisfy format.');
+
+		TimeImmutable::createFromFormatOrThrow('Y-m-d', 'ass');
 	}
 
 	/**

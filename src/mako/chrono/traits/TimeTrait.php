@@ -10,11 +10,14 @@ namespace mako\chrono\traits;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
+use mako\chrono\exceptions\ChronoException;
 use Override;
 
 use function getdate;
+use function implode;
 use function min;
 use function mktime;
+use function sprintf;
 
 /**
  * Time trait.
@@ -103,6 +106,31 @@ trait TimeTrait
 		}
 
 		return new static($date->format('Y-m-d\TH:i:s.u'), $date->getTimezone());
+	}
+
+	/**
+	 * Returns a new instance according to the specified time string.
+	 */
+	#[Override]
+	public static function createFromFormatOrThrow(string $format, string $datetime, null|DateTimeZone|string $timezone = null): static
+	{
+		$date = static::createFromFormat($format, $datetime, $timezone);
+
+		if ($date === false) {
+			$errors = static::getLastErrors();
+
+			$message = $errors === false ? 'Unknown error.' : implode('. ', $errors['errors']);
+
+			throw new ChronoException(sprintf(
+				'Unable to create %s instance from value [ %s ] for format [ %s ]. %s.',
+				static::class,
+				$datetime,
+				$format,
+				$message
+			));
+		}
+
+		return $date;
 	}
 
 	/**

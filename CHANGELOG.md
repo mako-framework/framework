@@ -25,6 +25,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Status::isServerError()`
 * It is now possible to set non-standard HTTP statuses using the `CustomStatus` class.
 * The development error handler now allows you to inspect the stack traces of previous exceptions.
+* Added `TimeInterface::createFromFormatOrThrow()` method.
 
 #### Changes
 

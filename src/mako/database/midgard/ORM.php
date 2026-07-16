@@ -428,7 +428,7 @@ abstract class ORM implements JsonSerializable, Stringable
 				'int'    => (int) $value,
 				'float'  => (float) $value,
 				'bool'   => $value === 'f' ? false : (bool) $value,
-				'date'   => ($value instanceof DateTimeInterface) ? $value : Time::createFromFormat($this->getDateFormat(), $value),
+				'date'   => ($value instanceof DateTimeInterface) ? $value : Time::createFromFormatOrThrow($this->getDateFormat(), $value),
 				'string' => (string) $value,
 				'enum'   => is_object($value) ? $value : $extra::from($value),
 				default  => throw new DatabaseException(sprintf('Unsupported type [ %s ].', $type)),
