@@ -16,12 +16,10 @@ use mako\error\handlers\hints\traits\HintTrait;
 use Override;
 use Throwable;
 
-use function array_keys;
 use function array_map;
 use function explode;
 use function getcwd;
 use function implode;
-use function in_array;
 use function str_replace;
 
 /**
@@ -57,24 +55,13 @@ class DevelopmentHandler implements HandlerInterface
 	protected function determineExceptionType(Throwable $exception): string
 	{
 		if ($exception instanceof ErrorException) {
-			$code = $exception->getCode();
-
-			$codes = [
-				E_ERROR             => 'Fatal Error',
-				E_PARSE             => 'Parse Error',
-				E_COMPILE_ERROR     => 'Compile Error',
-				E_COMPILE_WARNING   => 'Compile Warning',
-				E_NOTICE            => 'Notice',
-				E_WARNING           => 'Warning',
-				E_RECOVERABLE_ERROR => 'Recoverable Error',
-				E_DEPRECATED        => 'Deprecation',
-				E_USER_NOTICE       => 'Notice',
-				E_USER_WARNING      => 'Warning',
-				E_USER_ERROR        => 'Error',
-				E_USER_DEPRECATED   => 'Deprecation',
-			];
-
-			return in_array($code, array_keys($codes)) ? $codes[$code] : 'ErrorException';
+			return $exception::class . match ($exception->getCode()) {
+				E_COMPILE_ERROR                 => ': Compile Error',
+				E_DEPRECATED, E_USER_DEPRECATED => ': Deprecation',
+				E_NOTICE, E_USER_NOTICE         => ': Notice',
+				E_WARNING, E_USER_WARNING       => ': Warning',
+				default                          => '',
+			};
 		}
 
 		return $exception::class;
