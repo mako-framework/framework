@@ -199,18 +199,21 @@ class TimeTest extends TestCase
 	{
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
 
+		$this->assertInstanceOf(Time::class, $time);
 		$this->assertSame('1983-08-30 13:37:33', $time->format('Y-m-d H:i:s'));
 
 		//
 
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
+		$this->assertInstanceOf(Time::class, $time);
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', new DateTimeZone('Asia/Tokyo'));
 
+		$this->assertInstanceOf(Time::class, $time);
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
 
@@ -228,6 +231,17 @@ class TimeTest extends TestCase
 	 *
 	 */
 	public function testCreateFromFormatOrThrow(): void
+	{
+		$time = Time::createFromFormatOrThrow('Y-m-d H:i:s', '1983-08-30 13:37:33');
+
+		$this->assertInstanceOf(Time::class, $time);
+		$this->assertSame('1983-08-30 13:37:33', $time->format('Y-m-d H:i:s'));
+	}
+
+	/**
+	 *
+	 */
+	public function testCreateFromFormatOrThrowWithFaiure(): void
 	{
 		$this->expectException(ChronoException::class);
 		$this->expectExceptionMessage('Unable to create mako\chrono\Time instance from value [ ass ] for format [ Y-m-d ]. A four digit year could not be found; Not enough data available to satisfy format.');

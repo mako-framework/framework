@@ -199,18 +199,21 @@ class TimeImmutableTest extends TestCase
 	{
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33');
 
+		$this->assertInstanceOf(TimeImmutable::class, $time);
 		$this->assertSame('1983-08-30 13:37:33', $time->format('Y-m-d H:i:s'));
 
 		//
 
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
+		$this->assertInstanceOf(TimeImmutable::class, $time);
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 
 		//
 
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', new DateTimeZone('Asia/Tokyo'));
 
+		$this->assertInstanceOf(TimeImmutable::class, $time);
 		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
 	}
 
@@ -228,6 +231,17 @@ class TimeImmutableTest extends TestCase
 	 *
 	 */
 	public function testCreateFromFormatOrThrow(): void
+	{
+		$time = TimeImmutable::createFromFormatOrThrow('Y-m-d H:i:s', '1983-08-30 13:37:33');
+
+		$this->assertInstanceOf(TimeImmutable::class, $time);
+		$this->assertSame('1983-08-30 13:37:33', $time->format('Y-m-d H:i:s'));
+	}
+
+	/**
+	 *
+	 */
+	public function testCreateFromFormatOrThrowWithFaiure(): void
 	{
 		$this->expectException(ChronoException::class);
 		$this->expectExceptionMessage('Unable to create mako\chrono\TimeImmutable instance from value [ ass ] for format [ Y-m-d ]. A four digit year could not be found; Not enough data available to satisfy format.');
