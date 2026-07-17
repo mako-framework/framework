@@ -27,7 +27,7 @@ final class Sleeper implements SleeperInterface
 	#[Override]
 	public function sleep(int $seconds): void
 	{
-		sleep($seconds) === 0;
+		sleep($seconds);
 	}
 
 	/**
@@ -58,7 +58,7 @@ final class Sleeper implements SleeperInterface
 		$seconds = intdiv($nanoseconds, 1_000_000_000);
 		$remainingNanoseconds = $nanoseconds % 1_000_000_000;
 
-		time_nanosleep($seconds, $remainingNanoseconds) === true;
+		time_nanosleep($seconds, $remainingNanoseconds);
 	}
 
 	/**
