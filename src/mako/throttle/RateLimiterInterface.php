@@ -8,7 +8,7 @@
 namespace mako\throttle;
 
 use DateInterval;
-use DateTimeInterface;
+use mako\chrono\TimeImmutable;
 
 /**
  * Rate limiter interface.
@@ -28,7 +28,7 @@ interface RateLimiterInterface
 	/**
 	 * Returns the date and time when the action can be retried.
 	 */
-	public function getRetryAfter(string $action): ?DateTimeInterface;
+	public function getRetryAfter(string $action): ?TimeImmutable;
 
 	/**
 	 * Increments the number of attempts for the action.

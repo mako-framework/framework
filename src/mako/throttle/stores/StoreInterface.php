@@ -8,6 +8,7 @@
 namespace mako\throttle\stores;
 
 use DateTimeInterface;
+use mako\chrono\TimeImmutable;
 
 /**
  * Store interface.
@@ -22,7 +23,7 @@ interface StoreInterface
 	/**
 	 * Returns the expiration date and time for the key or NULL if the key doesn't exist.
 	 */
-	public function getExpiration(string $key): ?DateTimeInterface;
+	public function getExpiration(string $key): ?TimeImmutable;
 
 	/**
 	 * Increments the number of hits for the key and returns the new value.

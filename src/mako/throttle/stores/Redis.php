@@ -50,7 +50,7 @@ class Redis implements StoreInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getExpiration(string $key): ?DateTimeInterface
+	public function getExpiration(string $key): ?TimeImmutable
 	{
 		$ttl = $this->redis->ttl($this->getKey($key));
 

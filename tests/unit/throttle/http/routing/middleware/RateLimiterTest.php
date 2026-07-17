@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\throttle\http\routing\middleware;
 
-use DateTime;
+use mako\chrono\TimeImmutable;
 use mako\http\exceptions\TooManyRequestsException;
 use mako\http\Request;
 use mako\http\Response;
@@ -33,7 +33,7 @@ class RateLimiterTest extends TestCase
 
 		$rateLimiter->shouldReceive('isLimitReached')->once()->with('/foo', 10)->andReturn(true);
 
-		$rateLimiter->shouldReceive('getRetryAfter')->once()->andReturn(new DateTime);
+		$rateLimiter->shouldReceive('getRetryAfter')->once()->andReturn(new TimeImmutable);
 
 		$route = Mockery::mock(Route::class);
 
@@ -55,7 +55,7 @@ class RateLimiterTest extends TestCase
 	 */
 	public function testLimitNotReached(): void
 	{
-		$retryAfter = Mockery::mock(DateTime::class);
+		$retryAfter = Mockery::mock(TimeImmutable::class);
 
 		$retryAfter->shouldReceive('getTimestamp')->once()->andReturn(1234567890);
 

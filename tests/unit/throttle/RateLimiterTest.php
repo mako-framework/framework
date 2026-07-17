@@ -8,8 +8,8 @@
 namespace mako\tests\unit\throttle;
 
 use DateInterval;
-use DateTime;
 use DateTimeInterface;
+use mako\chrono\TimeImmutable;
 use mako\tests\TestCase;
 use mako\throttle\context\ContextInterface;
 use mako\throttle\RateLimiter;
@@ -81,7 +81,7 @@ class RateLimiterTest extends TestCase
 	{
 		$store = Mockery::mock(StoreInterface::class);
 
-		$store->shouldReceive('getExpiration')->once()->with('foo:bar')->andReturn(new DateTime);
+		$store->shouldReceive('getExpiration')->once()->with('foo:bar')->andReturn(new TimeImmutable);
 
 		$context = Mockery::mock(ContextInterface::class);
 

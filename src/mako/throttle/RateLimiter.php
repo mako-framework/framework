@@ -9,7 +9,7 @@ namespace mako\throttle;
 
 use DateInterval;
 use DateTimeImmutable;
-use DateTimeInterface;
+use mako\chrono\TimeImmutable;
 use mako\throttle\context\ContextInterface;
 use mako\throttle\stores\StoreInterface;
 use Override;
@@ -58,7 +58,7 @@ class RateLimiter implements RateLimiterInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getRetryAfter(string $action): ?DateTimeInterface
+	public function getRetryAfter(string $action): ?TimeImmutable
 	{
 		return $this->store->getExpiration($this->getKey($action));
 	}

@@ -51,7 +51,7 @@ class APCu implements StoreInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getExpiration(string $key): ?DateTimeInterface
+	public function getExpiration(string $key): ?TimeImmutable
 	{
 		$info = apcu_key_info($this->getKey($key));
 
