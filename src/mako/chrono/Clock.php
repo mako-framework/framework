@@ -8,6 +8,7 @@
 namespace mako\chrono;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use Override;
 use Psr\Clock\ClockInterface;
 
@@ -17,11 +18,19 @@ use Psr\Clock\ClockInterface;
 final class Clock implements ClockInterface
 {
 	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		private null|DateTimeZone|string $timezone = null
+	) {
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
 	public function now(): DateTimeImmutable
 	{
-		return new DateTimeImmutable;
+		return TimeImmutable::now($this->timezone);
 	}
 }
