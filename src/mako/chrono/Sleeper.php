@@ -22,7 +22,7 @@ use function usleep;
 final class Sleeper implements SleeperInterface
 {
 	/**
-	 * Sleep for the given number of seconds.
+	 * {@inheritDoc}
 	 */
 	#[Override]
 	public function sleep(int $seconds): void
@@ -31,7 +31,7 @@ final class Sleeper implements SleeperInterface
 	}
 
 	/**
-	 * Sleep for the given number of milliseconds.
+	 * {@inheritDoc}
 	 */
 	#[Override]
 	public function milliSleep(int $milliseconds): void
@@ -40,7 +40,7 @@ final class Sleeper implements SleeperInterface
 	}
 
 	/**
-	 * Sleep for the given number of microseconds.
+	 * {@inheritDoc}
 	 */
 	#[Override]
 	public function microSleep(int $microseconds): void
@@ -49,8 +49,7 @@ final class Sleeper implements SleeperInterface
 	}
 
 	/**
-	 * Sleep for the given number of nanoseconds.
-	 * Note that actual sleep duration depends on OS timer resolution.
+	 * {@inheritDoc}
 	 */
 	#[Override]
 	public function nanoSleep(int $nanoseconds): void
@@ -62,7 +61,7 @@ final class Sleeper implements SleeperInterface
 	}
 
 	/**
-	 * Sleep until the specified time.
+	 * {@inheritDoc}
 	 */
 	#[Override]
 	public function sleepUntil(DateTimeInterface $dateTime): void
