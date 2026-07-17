@@ -27,6 +27,8 @@ final class Clock implements ClockInterface
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @return TimeImmutable
 	 */
 	#[Override]
 	public function now(): DateTimeImmutable
