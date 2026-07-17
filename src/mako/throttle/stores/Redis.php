@@ -7,8 +7,8 @@
 
 namespace mako\throttle\stores;
 
-use DateTimeImmutable;
 use DateTimeInterface;
+use mako\chrono\TimeImmutable;
 use mako\redis\Redis as RedisClient;
 use Override;
 
@@ -58,7 +58,7 @@ class Redis implements StoreInterface
 			return null;
 		}
 
-		return DateTimeImmutable::createFromTimestamp(time() + $ttl);
+		return TimeImmutable::createFromTimestamp(time() + $ttl);
 	}
 
 	/**

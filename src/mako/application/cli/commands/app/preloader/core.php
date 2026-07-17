@@ -37,6 +37,8 @@ return
 	mako\cache\stores\IncrementDecrementInterface::class,
 	mako\cache\stores\Store::class,
 	mako\cache\stores\StoreInterface::class,
+	mako\chrono\Time::class,
+	mako\chrono\TimeImmutable::class,
 	mako\chrono\TimeInterface::class,
 	mako\classes\ClassInspector::class,
 	mako\common\AdapterManager::class,
