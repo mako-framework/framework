@@ -55,6 +55,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `InvalidToken`
 	- `TokenRequired`
 * You can no longer use an integer to set the response status code. A `Status` enum case or `StatusInterface` implementation must be used instead.
+* `TimeImmutable` is now returned everywhere that previously returned `Time`.
 
 #### Deprecations
 

@@ -8,9 +8,13 @@
 namespace mako\tests\unit\database\midgard;
 
 use DateTime;
+use DateTimeImmutable;
 use mako\chrono\Time;
+use mako\chrono\TimeImmutable;
 use mako\database\midgard\ORM;
+use mako\database\midgard\Query;
 use mako\database\midgard\traits\OptimisticLockingTrait;
+use mako\database\query\compilers\Compiler;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
@@ -352,7 +356,7 @@ class ORMTest extends TestCase
 	{
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
-		$this->assertInstanceOf(Time::class, $user->created_at);
+		$this->assertInstanceOf(TimeImmutable::class, $user->created_at);
 	}
 
 	/**
@@ -506,9 +510,9 @@ class ORMTest extends TestCase
 	{
 		$cast = new TestCastingDate;
 
-		$cast->date = new DateTime;
+		$cast->date = new DateTimeImmutable;
 
-		$this->assertInstanceOf(DateTime::class, $cast->date);
+		$this->assertInstanceOf(TimeImmutable::class, $cast->date);
 
 		//
 
@@ -522,7 +526,7 @@ class ORMTest extends TestCase
 
 		$cast->date = '2014-01-01 12:12:12';
 
-		$this->assertInstanceOf(DateTime::class, $cast->date);
+		$this->assertInstanceOf(TimeImmutable::class, $cast->date);
 	}
 
 	/**
@@ -583,5 +587,118 @@ class ORMTest extends TestCase
 		$user = new TestUser5(['created_at' => '2014-02-01 13:10:32'], true, false, true);
 
 		$this->assertEquals('{"created_at":"2014-02-01T13:10:32+00:00"}', (string) $user);
+	}
+
+	/**
+	 *
+	 */
+	public function testThatDateCastAlwaysEndsUpAsTimeImmutable(): void
+	{
+		$model = new class extends ORM {
+			protected array $cast = ['date' => 'date'];
+
+			public function getQuery(): Query
+			{
+				$compiler = Mockery::mock(Compiler::class);
+
+				$compiler->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
+
+				$query = Mockery::mock(Query::class);
+
+				$query->shouldReceive('getCompiler')->andReturn($compiler);
+
+				return $query;
+			}
+		};
+
+		//
+
+		$model->date = '2026-07-17 22:07:00';
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->date = new DateTime;
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->date = new DateTimeImmutable;
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->date = new Time;
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->date = new TimeImmutable;
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setRawColumnValue('date', '2026-07-17 22:07:00');
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setRawColumnValue('date', new DateTime);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setRawColumnValue('date', new DateTimeImmutable);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setRawColumnValue('date', new Time);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setRawColumnValue('date', new TimeImmutable);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setColumnValue('date', '2026-07-17 22:07:00');
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setColumnValue('date', new DateTime);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setColumnValue('date', new DateTimeImmutable);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setColumnValue('date', new Time);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
+
+		//
+
+		$model->setColumnValue('date', new TimeImmutable);
+
+		$this->assertInstanceOf(TimeImmutable::class, $model->date);
 	}
 }

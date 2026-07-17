@@ -9,6 +9,7 @@ namespace mako\tests\unit\gatekeeper\entities\user;
 
 use DateTime;
 use mako\chrono\Time;
+use mako\chrono\TimeImmutable;
 use mako\gatekeeper\entities\group\Group;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
@@ -227,7 +228,7 @@ class UserTest extends TestCase
 
 		$user->lockUntil(new DateTime);
 
-		$this->assertInstanceOf(DateTime::class, $user->lockedUntil());
+		$this->assertInstanceOf(TimeImmutable::class, $user->lockedUntil());
 
 		$this->assertTrue($user->isLocked());
 
@@ -257,7 +258,7 @@ class UserTest extends TestCase
 	{
 		$user = new User(['last_fail_at' => '2017-02-02 12:01:02']);
 
-		$this->assertInstanceOf(Time::class, $user->getLastFailAt());
+		$this->assertInstanceOf(TimeImmutable::class, $user->getLastFailAt());
 
 		$user = new User(['last_fail_at' => null]);
 
@@ -277,7 +278,7 @@ class UserTest extends TestCase
 
 		$this->assertFalse($user->isLocked());
 
-		$this->assertInstanceOf(Time::class, $user->getLastFailAt());
+		$this->assertInstanceOf(TimeImmutable::class, $user->getLastFailAt());
 
 		$this->assertNull($user->lockedUntil());
 	}
@@ -295,9 +296,9 @@ class UserTest extends TestCase
 
 		$this->assertTrue($user->isLocked());
 
-		$this->assertInstanceOf(Time::class, $user->getLastFailAt());
+		$this->assertInstanceOf(TimeImmutable::class, $user->getLastFailAt());
 
-		$this->assertInstanceOf(Time::class, $user->lockedUntil());
+		$this->assertInstanceOf(TimeImmutable::class, $user->lockedUntil());
 	}
 
 	/**
@@ -305,11 +306,11 @@ class UserTest extends TestCase
 	 */
 	public function testResetThrottle(): void
 	{
-		$user = new User(['last_fail_at' => Time::now(), 'failed_attempts' => 1, 'locked_until' => Time::now()]);
+		$user = new User(['last_fail_at' => TimeImmutable::now(), 'failed_attempts' => 1, 'locked_until' => TimeImmutable::now()]);
 
-		$this->assertInstanceOf(Time::class, $user->getLastFailAt());
+		$this->assertInstanceOf(TimeImmutable::class, $user->getLastFailAt());
 
-		$this->assertInstanceOf(Time::class, $user->lockedUntil());
+		$this->assertInstanceOf(TimeImmutable::class, $user->lockedUntil());
 
 		$this->assertSame(1, $user->getFailedAttempts());
 

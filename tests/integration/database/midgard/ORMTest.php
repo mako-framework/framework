@@ -10,7 +10,7 @@ namespace mako\tests\integration\database\midgard;
 use DateTime;
 use Generator;
 use LogicException;
-use mako\chrono\Time;
+use mako\chrono\TimeImmutable;
 use mako\database\exceptions\NotFoundException;
 use mako\database\midgard\relations\HasOne;
 use mako\database\midgard\ResultSet;
@@ -450,7 +450,7 @@ class ORMTest extends ORMTestCase
 	{
 		$user = TestUserDateTime::get(1);
 
-		$this->assertInstanceOf(Time::class, $user->created_at);
+		$this->assertInstanceOf(TimeImmutable::class, $user->created_at);
 	}
 
 	/**

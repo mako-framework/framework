@@ -8,7 +8,7 @@
 namespace mako\gatekeeper\entities\user;
 
 use DateTimeInterface;
-use mako\chrono\Time;
+use mako\chrono\TimeImmutable;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
 use mako\database\midgard\traits\SensitiveStringTrait;
@@ -32,8 +32,8 @@ use function time;
  *
  * @method   int                              getId()
  * @property int                              $id
- * @property Time                             $created_at
- * @property Time                             $updated_at
+ * @property TimeImmutable                    $created_at
+ * @property TimeImmutable                    $updated_at
  * @property string                           $email
  * @property string                           $username
  * @property string                           $password
@@ -43,8 +43,8 @@ use function time;
  * @property int                              $activated
  * @property int                              $banned
  * @property int                              $failed_attempts
- * @property ?Time                            $last_fail_at
- * @property ?Time                            $locked_until
+ * @property ?TimeImmutable                   $last_fail_at
+ * @property ?TimeImmutable                   $locked_until
  * @property \mako\database\midgard\ResultSet $groups
  */
 class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface
@@ -305,8 +305,8 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 */
 	public function lockUntil(DateTimeInterface $time): void
 	{
-		if ($time instanceof Time === false) {
-			$time = Time::createFromInterface($time);
+		if ($time instanceof TimeImmutable === false) {
+			$time = TimeImmutable::createFromInterface($time);
 		}
 
 		$this->locked_until = $time;
@@ -315,7 +315,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Returns null if the account isn't locked and a date time instance if it's locked.
 	 */
-	public function lockedUntil(): ?Time
+	public function lockedUntil(): ?TimeImmutable
 	{
 		return $this->locked_until;
 	}
@@ -347,7 +347,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	/**
 	 * Gets the time of the last failed attempt.
 	 */
-	public function getLastFailAt(): null|DateTimeInterface|Time
+	public function getLastFailAt(): ?TimeImmutable
 	{
 		return $this->last_fail_at;
 	}
@@ -357,7 +357,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	 */
 	public function throttle(int $maxLoginAttempts, int $lockTime, bool $autoSave = true): bool
 	{
-		$now = Time::now();
+		$now = TimeImmutable::now();
 
 		// Reset the failed attempt count if the last failed attempt was more than $lockTime seconds ago
 
@@ -376,7 +376,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 		// Lock the account for $lockTime seconds if we have exeeded the maximum number of login attempts
 
 		if ($this->failed_attempts >= $maxLoginAttempts) {
-			$this->locked_until = (clone $now)->forward($lockTime);
+			$this->locked_until = $now->forward($lockTime);
 		}
 
 		// Save the changes to the user if autosave is enabled

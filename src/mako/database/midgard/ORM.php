@@ -10,7 +10,7 @@ namespace mako\database\midgard;
 use DateTimeInterface;
 use JsonSerializable;
 use mako\application\CurrentApplication;
-use mako\chrono\Time;
+use mako\chrono\TimeImmutable;
 use mako\classes\ClassInspector;
 use mako\database\ConnectionManager;
 use mako\database\connections\Connection;
@@ -428,7 +428,7 @@ abstract class ORM implements JsonSerializable, Stringable
 				'int'    => (int) $value,
 				'float'  => (float) $value,
 				'bool'   => $value === 'f' ? false : (bool) $value,
-				'date'   => ($value instanceof DateTimeInterface) ? $value : Time::createFromFormatOrThrow($this->getDateFormat(), $value),
+				'date'   => ($value instanceof DateTimeInterface) ? ($value instanceof TimeImmutable ? $value : TimeImmutable::createFromInterface($value)) : TimeImmutable::createFromFormatOrThrow($this->getDateFormat(), $value),
 				'string' => (string) $value,
 				'enum'   => is_object($value) ? $value : $extra::from($value),
 				default  => throw new DatabaseException(sprintf('Unsupported type [ %s ].', $type)),
