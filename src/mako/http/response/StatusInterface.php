@@ -30,14 +30,14 @@ interface StatusInterface
 	public function isInformational(): bool;
 
 	/**
-	 * Returns TRUE if the status is a success and FALSE if not.
+	 * Returns TRUE if the status is successful and FALSE if not.
 	 */
-	public function isSuccess(): bool;
+	public function isSuccessful(): bool;
 
 	/**
-	 * Returns TRUE if the status is a redirect and FALSE if not.
+	 * Returns TRUE if the status is a redirection and FALSE if not.
 	 */
-	public function isRedirect(): bool;
+	public function isRedirection(): bool;
 
 	/**
 	 * Returns TRUE if the status is a client error and FALSE if not.

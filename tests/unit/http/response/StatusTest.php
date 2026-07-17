@@ -42,8 +42,8 @@ class StatusTest extends TestCase
 	public function testIsInformational(): void
 	{
 		$this->assertTrue(Status::Continue->isInformational());
-		$this->assertFalse(Status::Continue->isSuccess());
-		$this->assertFalse(Status::Continue->isRedirect());
+		$this->assertFalse(Status::Continue->isSuccessful());
+		$this->assertFalse(Status::Continue->isRedirection());
 		$this->assertFalse(Status::Continue->isClientError());
 		$this->assertFalse(Status::Continue->isServerError());
 	}
@@ -51,11 +51,11 @@ class StatusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsSuccess(): void
+	public function testIsSuccessful(): void
 	{
 		$this->assertFalse(Status::Ok->isInformational());
-		$this->assertTrue(Status::Ok->isSuccess());
-		$this->assertFalse(Status::Ok->isRedirect());
+		$this->assertTrue(Status::Ok->isSuccessful());
+		$this->assertFalse(Status::Ok->isRedirection());
 		$this->assertFalse(Status::Ok->isClientError());
 		$this->assertFalse(Status::Ok->isServerError());
 	}
@@ -63,11 +63,11 @@ class StatusTest extends TestCase
 	/**
 	 *
 	 */
-	public function testIsRedirect(): void
+	public function testIsRedirection(): void
 	{
 		$this->assertFalse(Status::MultipleChoices->isInformational());
-		$this->assertFalse(Status::MultipleChoices->isSuccess());
-		$this->assertTrue(Status::MultipleChoices->isRedirect());
+		$this->assertFalse(Status::MultipleChoices->isSuccessful());
+		$this->assertTrue(Status::MultipleChoices->isRedirection());
 		$this->assertFalse(Status::MultipleChoices->isClientError());
 		$this->assertFalse(Status::MultipleChoices->isServerError());
 	}
@@ -78,8 +78,8 @@ class StatusTest extends TestCase
 	public function testIsClientError(): void
 	{
 		$this->assertFalse(Status::BadRequest->isInformational());
-		$this->assertFalse(Status::BadRequest->isSuccess());
-		$this->assertFalse(Status::BadRequest->isRedirect());
+		$this->assertFalse(Status::BadRequest->isSuccessful());
+		$this->assertFalse(Status::BadRequest->isRedirection());
 		$this->assertTrue(Status::BadRequest->isClientError());
 		$this->assertFalse(Status::BadRequest->isServerError());
 	}
@@ -90,8 +90,8 @@ class StatusTest extends TestCase
 	public function testIsServerError(): void
 	{
 		$this->assertFalse(Status::InternalServerError->isInformational());
-		$this->assertFalse(Status::InternalServerError->isSuccess());
-		$this->assertFalse(Status::InternalServerError->isRedirect());
+		$this->assertFalse(Status::InternalServerError->isSuccessful());
+		$this->assertFalse(Status::InternalServerError->isRedirection());
 		$this->assertFalse(Status::InternalServerError->isClientError());
 		$this->assertTrue(Status::InternalServerError->isServerError());
 	}

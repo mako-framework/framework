@@ -68,7 +68,7 @@ class Redirect implements ResponseSenderInterface
 	 */
 	public function setStatus(StatusInterface $status): Redirect
 	{
-		if (!$status->isRedirect()) {
+		if (!$status->isRedirection()) {
 			throw new HttpException(sprintf('Unsupported redirect status code [ %s ].', $status->getCode()));
 		}
 

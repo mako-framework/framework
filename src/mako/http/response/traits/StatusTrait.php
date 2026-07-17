@@ -33,7 +33,7 @@ trait StatusTrait
 	/**
 	 * Returns TRUE if the status is a success and FALSE if not.
 	 */
-	public function isSuccess(): bool
+	public function isSuccessful(): bool
 	{
 		return $this->value >= 200 && $this->value <= 299;
 	}
@@ -41,7 +41,7 @@ trait StatusTrait
 	/**
 	 * Returns TRUE if the status is a redirect and FALSE if not.
 	 */
-	public function isRedirect(): bool
+	public function isRedirection(): bool
 	{
 		return $this->value >= 300 && $this->value <= 399;
 	}

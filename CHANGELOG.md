@@ -19,8 +19,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Inner product`
 * Added the following methods to the `Status` enum:
 	- `Status::isInformational()`
-	- `Status::isSuccess()`
-	- `Status::isRedirect()`
+	- `Status::isSuccessful()`
+	- `Status::isRedirection()`
 	- `Status::isClientError()`
 	- `Status::isServerError()`
 * It is now possible to set non-standard HTTP statuses using the `CustomStatus` class.
