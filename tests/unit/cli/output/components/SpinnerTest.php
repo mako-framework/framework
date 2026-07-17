@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\cli\output\components;
 
+use mako\chrono\SleeperInterface;
 use mako\cli\output\components\Spinner;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -30,7 +31,9 @@ class SpinnerTest extends TestCase
 
 		$output->shouldReceive('write')->once()->with('Doing something...');
 
-		$spinner = new class($output) extends Spinner {
+		$sleeper = Mockery::mock(SleeperInterface::class);
+
+		$spinner = new class($output, sleeper: $sleeper) extends Spinner {
 			protected function canFork(): bool
 			{
 				return false;

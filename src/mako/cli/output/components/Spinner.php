@@ -7,6 +7,8 @@
 
 namespace mako\cli\output\components;
 
+use mako\chrono\Sleeper;
+use mako\chrono\SleeperInterface;
 use mako\cli\output\components\spinner\Theme;
 use mako\cli\output\Output;
 
@@ -17,7 +19,6 @@ use function pcntl_wait;
 use function posix_getpid;
 use function posix_getppid;
 use function posix_kill;
-use function usleep;
 
 /**
  * Spinner component.
@@ -35,6 +36,7 @@ class Spinner
 	public function __construct(
 		protected Output $output,
 		protected Theme $theme = new Theme,
+		protected SleeperInterface $sleeper = new Sleeper
 	) {
 		$this->canFork = $this->canFork();
 	}
@@ -79,7 +81,7 @@ class Spinner
 				posix_kill(posix_getpid(), SIGKILL);
 			}
 
-			usleep($timeBetweenRedraw);
+			$this->sleeper->microSleep($timeBetweenRedraw);
 		}
 	}
 

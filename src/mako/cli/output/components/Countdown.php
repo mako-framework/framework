@@ -7,12 +7,13 @@
 
 namespace mako\cli\output\components;
 
+use mako\chrono\Sleeper;
+use mako\chrono\SleeperInterface;
 use mako\cli\output\Output;
 
 use function str_pad;
 use function str_repeat;
 use function strlen;
-use function usleep;
 
 /**
  * Countdown component.
@@ -28,7 +29,8 @@ class Countdown
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Output $output
+		protected Output $output,
+		protected SleeperInterface $sleeper = new Sleeper
 	) {
 	}
 
@@ -38,14 +40,6 @@ class Countdown
 	public function __destruct()
 	{
 		$this->output->restoreCursor();
-	}
-
-	/**
-	 * Delay execution by SLEEP_TIME microseconds.
-	 */
-	protected function sleep(): void
-	{
-		usleep(static::SLEEP_TIME);
 	}
 
 	/**
@@ -67,7 +61,7 @@ class Countdown
 
 				$this->output->write("\r" . str_pad($numbers . ' ' . str_repeat('.', $dots) . ' ', $totalLength, ' '));
 
-				$this->sleep();
+				$this->sleeper->microSleep(static::SLEEP_TIME);
 			}
 			while ($dots++ < 3);
 

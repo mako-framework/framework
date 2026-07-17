@@ -7,9 +7,9 @@
 
 namespace mako\utility;
 
+use mako\chrono\Sleeper;
+use mako\chrono\SleeperInterface;
 use Throwable;
-
-use function usleep;
 
 /**
  * Helper class that allows you to retry a callable a set number of times if it fails.
@@ -40,7 +40,8 @@ class Retry
 		protected int $attempts = 5,
 		protected int $wait = 50000,
 		protected bool $exponentialWait = false,
-		?callable $decider = null
+		?callable $decider = null,
+		protected SleeperInterface $sleeper = new Sleeper
 	) {
 		$this->callable = $callable;
 
@@ -122,7 +123,7 @@ class Retry
 		}
 		catch (Throwable $e) {
 			if (++$attempts < $this->attempts && ($this->decider === null || ($this->decider)($e) === true)) {
-				usleep($this->calculateWait($attempts));
+				$this->sleeper->microSleep($this->calculateWait($attempts));
 
 				goto start;
 			}

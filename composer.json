@@ -35,17 +35,18 @@
         "php": ">=8.5.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "monolog/monolog": "^3.10",
-        "symfony/var-dumper": "^8.1",
         "doctrine/sql-formatter": "^1.5",
+        "monolog/monolog": "^3.10",
+        "psr/clock": "^1.0",
         "psr/log": "^2.0|^3.0",
         "psr/simple-cache": "^3.0",
+        "symfony/var-dumper": "^8.1",
         "tempest/highlight": "^2.27"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.5",
         "mockery/mockery": "^1.6.12",
-        "phpstan/phpstan": "^2.2"
+        "phpstan/phpstan": "^2.2",
+        "phpunit/phpunit": "^12.5"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",

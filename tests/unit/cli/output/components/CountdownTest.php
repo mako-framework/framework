@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\cli\output\components;
 
+use mako\chrono\SleeperInterface;
 use mako\cli\output\components\Countdown;
 use mako\cli\output\Output;
 use mako\tests\TestCase;
@@ -49,13 +50,11 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$countdown = Mockery::mock(Countdown::class, [$output]);
+		$clock  = Mockery::mock(SleeperInterface::class);
 
-		$countdown->shouldAllowMockingProtectedMethods();
+		$clock->shouldReceive('microSleep')->times(20);
 
-		$countdown->makePartial();
-
-		$countdown->shouldReceive('sleep')->times(20);
+		$countdown = new Countdown($output, $clock);
 
 		$countdown->draw();
 	}
@@ -81,13 +80,11 @@ class CountdownTest extends TestCase
 		$output->shouldReceive('write')->once()->with("\r1 ... ");
 		$output->shouldReceive('write')->once()->with("\r      \r");
 
-		$countdown = Mockery::mock(Countdown::class, [$output]);
+		$sleeper  = Mockery::mock(SleeperInterface::class);
 
-		$countdown->shouldAllowMockingProtectedMethods();
+		$sleeper->shouldReceive('microSleep')->times(8);
 
-		$countdown->makePartial();
-
-		$countdown->shouldReceive('sleep')->times(8);
+		$countdown = new Countdown($output, $sleeper);
 
 		$countdown->draw(2);
 	}
