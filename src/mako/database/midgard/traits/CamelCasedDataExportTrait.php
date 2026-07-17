@@ -7,10 +7,13 @@
 
 namespace mako\database\midgard\traits;
 
+use mako\database\midgard\ORM;
 use mako\utility\Str;
 
 /**
  * Camel cased data export trait.
+ *
+ * @phpstan-require-extends ORM
  */
 trait CamelCasedDataExportTrait
 {

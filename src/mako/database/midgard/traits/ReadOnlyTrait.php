@@ -7,10 +7,13 @@
 
 namespace mako\database\midgard\traits;
 
+use mako\database\midgard\ORM;
 use mako\database\midgard\traits\exceptions\ReadOnlyException;
 
 /**
  * Read-only trait.
+ *
+ * @phpstan-require-extends ORM
  */
 trait ReadOnlyTrait
 {

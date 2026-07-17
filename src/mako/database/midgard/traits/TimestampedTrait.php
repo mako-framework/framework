@@ -8,6 +8,7 @@
 namespace mako\database\midgard\traits;
 
 use mako\chrono\TimeImmutable;
+use mako\database\midgard\ORM;
 
 use function array_shift;
 use function explode;
@@ -15,6 +16,8 @@ use function property_exists;
 
 /**
  * Timestamped trait.
+ *
+ * @phpstan-require-extends ORM
  */
 trait TimestampedTrait
 {

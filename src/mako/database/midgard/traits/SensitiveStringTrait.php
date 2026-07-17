@@ -7,12 +7,15 @@
 
 namespace mako\database\midgard\traits;
 
+use mako\database\midgard\ORM;
 use mako\database\types\SensitiveString;
 
 use function property_exists;
 
 /**
  * Sensitive string trait.
+ *
+ * @phpstan-require-extends ORM
  */
 trait SensitiveStringTrait
 {

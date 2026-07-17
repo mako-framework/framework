@@ -7,10 +7,14 @@
 
 namespace mako\database\midgard\traits;
 
+use mako\database\midgard\ORM;
+
 use function property_exists;
 
 /**
  * Nullable trait.
+ *
+ * @phpstan-require-extends ORM
  */
 trait NullableTrait
 {

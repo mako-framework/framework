@@ -8,6 +8,7 @@
 namespace mako\database\midgard\traits;
 
 use mako\database\exceptions\DatabaseException;
+use mako\database\midgard\ORM;
 use mako\utility\Str;
 
 use function array_key_exists;
@@ -16,6 +17,8 @@ use function sprintf;
 
 /**
  * Camel cased data interaction trait.
+ *
+ * @phpstan-require-extends ORM
  */
 trait CamelCasedDataInteractionTrait
 {
