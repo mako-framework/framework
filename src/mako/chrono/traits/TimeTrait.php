@@ -105,7 +105,7 @@ trait TimeTrait
 			return false;
 		}
 
-		return new static($date->format('Y-m-d\TH:i:s.u'), $date->getTimezone());
+		return static::createFromInterface($date);
 	}
 
 	/**
