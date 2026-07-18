@@ -196,13 +196,7 @@ trait TimeTrait
 	#[Override]
 	public function isLeapYear(): bool
 	{
-		$year = $this->format('Y');
-
-		if ($year % 400 === 0 || ($year % 4 === 0 && $year % 100 !== 0)) {
-			return true;
-		}
-
-		return false;
+		return $this->format('L') === '1';
 	}
 
 	/**
@@ -233,6 +227,6 @@ trait TimeTrait
 	#[Override]
 	public function daysInMonth(): int
 	{
-		return $this->daysInMonths()[(int) $this->format('n') - 1];
+		return (int) $this->format('t');
 	}
 }
