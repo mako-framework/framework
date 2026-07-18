@@ -126,7 +126,7 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame('1983', $time->format('Y'));
 
-		$this->assertSame($time->format('m-d H:i'), (new DateTimeImmutable)->format('m-d H:i'));
+		$this->assertSame((new DateTimeImmutable)->format('m-d 00:00:00'), $time->format('m-d H:i:s'));
 
 		//
 
@@ -134,7 +134,7 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame('1983-08', $time->format('Y-m'));
 
-		$this->assertSame($time->format('d H:i'), (new DateTimeImmutable)->format('d H:i'));
+		$this->assertSame((new DateTimeImmutable)->format('d 00:00:00'), $time->format('d H:i:s'));
 
 		//
 
@@ -142,7 +142,7 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame('1983-08-30', $time->format('Y-m-d'));
 
-		$this->assertSame($time->format('H:i'), (new DateTimeImmutable)->format('H:i'));
+		$this->assertSame('00:00:00', $time->format('H:i:s'));
 
 		//
 

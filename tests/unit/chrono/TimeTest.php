@@ -126,23 +126,23 @@ class TimeTest extends TestCase
 
 		$this->assertSame('1983', $time->format('Y'));
 
-		$this->assertSame($time->format('m-d H:i'), (new DateTime)->format('m-d H:i'));
+		$this->assertSame((new DateTime)->format('m-d 00:00:00'), $time->format('m-d H:i:s'));
 
 		//
 
-		$time = Time::createFromDate(1983, 8);
+		$time = TimeImmutable::createFromDate(1983, 8);
 
 		$this->assertSame('1983-08', $time->format('Y-m'));
 
-		$this->assertSame($time->format('d H:i'), (new DateTime)->format('d H:i'));
+		$this->assertSame((new DateTime)->format('d 00:00:00'), $time->format('d H:i:s'));
 
 		//
 
-		$time = Time::createFromDate(1983, 8, 30);
+		$time = TimeImmutable::createFromDate(1983, 8, 30);
 
 		$this->assertSame('1983-08-30', $time->format('Y-m-d'));
 
-		$this->assertSame($time->format('H:i'), (new DateTime)->format('H:i'));
+		$this->assertSame('00:00:00', $time->format('H:i:s'));
 
 		//
 
