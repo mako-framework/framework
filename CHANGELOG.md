@@ -57,6 +57,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * You can no longer use an integer to set the response status code. A `Status` enum case or `StatusInterface` implementation must be used instead.
 * `TimeImmutable` is now returned everywhere that previously returned `Time`.
 * Removed the `TimeInterface::copy()` method.
+* Renamed the `Time::getImmutable()` method to `Time::toImmutable()`.
+* Renamed the `TimeImmutable::getMutable()` method to `TimeImmutable::toMutable()`.
 
 #### Deprecations
 

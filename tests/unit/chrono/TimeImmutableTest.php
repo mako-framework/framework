@@ -8,6 +8,7 @@
 namespace mako\tests\unit\chrono;
 
 use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use mako\chrono\exceptions\ChronoException;
 use mako\chrono\Time;
@@ -33,13 +34,13 @@ class TimeImmutableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetImmutable(): void
+	public function testToImmutable(): void
 	{
 		$time1 = new TimeImmutable('now', 'Europe/Oslo');
 
 		$time1 = $time1->setTimestamp(0);
 
-		$time2 = $time1->getMutable();
+		$time2 = $time1->toMutable();
 
 		$this->assertInstanceOf(Time::class, $time2);
 
@@ -57,13 +58,13 @@ class TimeImmutableTest extends TestCase
 	{
 		$time = new TimeImmutable;
 
-		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime)->format('Y-m-d H:i'));
+		$this->assertSame($time->format('Y-m-d H:i'), (new DateTimeImmutable)->format('Y-m-d H:i'));
 
 		//
 
 		$time = new TimeImmutable('yesterday');
 
-		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime('yesterday'))->format('Y-m-d H:i'));
+		$this->assertSame($time->format('Y-m-d H:i'), (new DateTimeImmutable('yesterday'))->format('Y-m-d H:i'));
 
 		//
 
@@ -85,7 +86,7 @@ class TimeImmutableTest extends TestCase
 	{
 		$time = TimeImmutable::now();
 
-		$this->assertSame($time->format('Y-m-d H:i'), (new DateTime)->format('Y-m-d H:i'));
+		$this->assertSame($time->format('Y-m-d H:i'), (new DateTimeImmutable)->format('Y-m-d H:i'));
 
 		//
 
@@ -109,7 +110,7 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame('1983', $time->format('Y'));
 
-		$this->assertSame($time->format('m-d H:i'), (new DateTime)->format('m-d H:i'));
+		$this->assertSame($time->format('m-d H:i'), (new DateTimeImmutable)->format('m-d H:i'));
 
 		//
 
@@ -117,7 +118,7 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame('1983-08', $time->format('Y-m'));
 
-		$this->assertSame($time->format('d H:i'), (new DateTime)->format('d H:i'));
+		$this->assertSame($time->format('d H:i'), (new DateTimeImmutable)->format('d H:i'));
 
 		//
 
@@ -125,7 +126,7 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame('1983-08-30', $time->format('Y-m-d'));
 
-		$this->assertSame($time->format('H:i'), (new DateTime)->format('H:i'));
+		$this->assertSame($time->format('H:i'), (new DateTimeImmutable)->format('H:i'));
 
 		//
 

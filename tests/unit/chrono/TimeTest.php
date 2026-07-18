@@ -33,13 +33,13 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
-	public function testGetImmutable(): void
+	public function testToImmutable(): void
 	{
 		$time1 = new Time('now', 'Europe/Oslo');
 
 		$time1->setTimestamp(0);
 
-		$time2 = $time1->getImmutable();
+		$time2 = $time1->toImmutable();
 
 		$this->assertInstanceOf(TimeImmutable::class, $time2);
 
