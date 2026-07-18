@@ -48,6 +48,33 @@ trait TimeTrait
 	}
 
 	/**
+	 * Returns a new instance set to midnight today.
+	 */
+	#[Override]
+	public static function today(null|DateTimeZone|string $timezone = null): static
+	{
+		return new static('midnight', $timezone);
+	}
+
+	/**
+	 * Returns a new instance set to midnight yesterday.
+	 */
+	#[Override]
+	public static function yesterday(null|DateTimeZone|string $timezone = null): static
+	{
+		return new static('yesterday, midnight', $timezone);
+	}
+
+	/**
+	 * Returns a new instance set to midnight tomorrow.
+	 */
+	#[Override]
+	public static function tomorrow(null|DateTimeZone|string $timezone = null): static
+	{
+		return new static('tomorrow, midnight', $timezone);
+	}
+
+	/**
 	 * Returns a new instance according to the specified date.
 	 */
 	#[Override]
@@ -188,6 +215,24 @@ trait TimeTrait
 		}
 
 		return (($time['year'] - 1980) << 25) | ($time['mon'] << 21) | ($time['mday'] << 16) | ($time['hours'] << 11) | ($time['minutes'] << 5) | ($time['seconds'] >> 1);
+	}
+
+	/**
+	 * Returns TRUE if the time is in the past and FALSE if not.
+	 */
+	#[Override]
+	public function isPast(): bool
+	{
+		return $this < new static;
+	}
+
+	/**
+	 * Returns TRUE if the time is in the future and FALSE if not.
+	 */
+	#[Override]
+	public function isFuture(): bool
+	{
+		return $this > new static;
 	}
 
 	/**

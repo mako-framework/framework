@@ -26,7 +26,13 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * It is now possible to set non-standard HTTP statuses using the `CustomStatus` class.
 * The development error handler now allows you to inspect the stack traces of previous exceptions.
 * The development error handler may now provide hints about deprecations.
-* Added `TimeInterface::createFromFormatOrThrow()` method.
+* Added the following methods to the `TimeInterface` interface:
+	- `TimeInterface::createFromFormatOrThrow()`
+	- `TimeInterface::today()`
+	- `TimeInterface::yesterday()`
+	- `TimeInterface::tomorrow()`
+	- `TimeInterface::isPast()`
+	- `TimeInterface::isFuture()`
 * Added `Time::toNative()` method.
 * Added `TimeImmutable::toNative()` method.
 * Added `PSR-20` (ClockInterface) implementation.

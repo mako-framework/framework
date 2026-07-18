@@ -396,4 +396,63 @@ class TimeImmutableTest extends TestCase
 
 		$this->assertSame(31, $time->daysInMonth());
 	}
+
+	/**
+	 *
+	 */
+	public function testToday(): void
+	{
+		$now = TimeImmutable::now();
+		$today = TimeImmutable::today();
+
+		$this->assertSame($now->format('Y-m-d'), $today->format('Y-m-d'));
+
+		$this->assertSame('00:00:00', $today->format('H:i:s'));
+	}
+
+	/**
+	 *
+	 */
+	public function testYesterday(): void
+	{
+		$today = TimeImmutable::today();
+		$yesterday = TimeImmutable::yesterday();
+
+		$this->assertSame($today->modify('-1 day')->format('Y-m-d'), $yesterday->format('Y-m-d'));
+
+		$this->assertSame('00:00:00', $yesterday->format('H:i:s'));
+	}
+
+	/**
+	 *
+	 */
+	public function testTomorrow(): void
+	{
+		$today = TimeImmutable::today();
+		$tomorrow = TimeImmutable::tomorrow();
+
+		$this->assertSame($today->modify('+1 day')->format('Y-m-d'), $tomorrow->format('Y-m-d'));
+
+		$this->assertSame('00:00:00', $tomorrow->format('H:i:s'));
+	}
+
+	/**
+	 *
+	 */
+	public function testIsPast(): void
+	{
+		$time = TimeImmutable::yesterday();
+
+		$this->assertTrue($time->isPast());
+	}
+
+	/**
+	 *
+	 */
+	public function testIsFuture(): void
+	{
+		$time = TimeImmutable::tomorrow();
+
+		$this->assertTrue($time->isFuture());
+	}
 }

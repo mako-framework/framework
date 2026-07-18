@@ -51,6 +51,21 @@ interface TimeInterface extends DateTimeInterface
 	public static function now(null|DateTimeZone|string $timezone = null): static;
 
 	/**
+	 * Returns a new instance set to midnight today.
+	 */
+	public static function today(null|DateTimeZone|string $timezone = null): static;
+
+	/**
+	 * Returns a new instance set to midnight yesterday.
+	 */
+	public static function yesterday(null|DateTimeZone|string $timezone = null): static;
+
+	/**
+	 * Returns a new instance set to midnight tomorrow.
+	 */
+	public static function tomorrow(null|DateTimeZone|string $timezone = null): static;
+
+	/**
 	 * Returns a new instance according to the specified date.
 	 */
 	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timezone = null): static;
@@ -100,6 +115,16 @@ interface TimeInterface extends DateTimeInterface
 	 * Returns the DOS timestamp.
 	 */
 	public function getDOSTimestamp(): int;
+
+	/**
+	 * Returns TRUE if the time is in the past and FALSE if not.
+	 */
+	public function isPast(): bool;
+
+	/**
+	 * Returns TRUE if the time is in the future and FALSE if not.
+	 */
+	public function isFuture(): bool;
 
 	/**
 	 * Returns TRUE if the year is a leap year and FALSE if not.
