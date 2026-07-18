@@ -78,11 +78,11 @@ trait TimeTrait
 	 * Returns a new instance according to the specified date.
 	 */
 	#[Override]
-	public static function createFromDate(?int $year = null, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timezone = null): static
+	public static function createFromDate(int $year, ?int $month = null, ?int $day = null, null|DateTimeZone|string $timezone = null): static
 	{
 		$now = new static('midnight', $timezone);
 
-		$date = (clone $now)->setDate($year ?? (int) $now->format('Y'), 1, 1);
+		$date = (clone $now)->setDate($year, 1, 1);
 
 		$month ??= (int) $now->format('n');
 
