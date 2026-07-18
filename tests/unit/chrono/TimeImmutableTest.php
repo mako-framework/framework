@@ -69,13 +69,13 @@ class TimeImmutableTest extends TestCase
 
 		$time = new TimeImmutable('now', 'Asia/Tokyo');
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 
 		//
 
 		$time = new TimeImmutable('now', new DateTimeZone('Asia/Tokyo'));
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 	}
 
 	/**
@@ -91,13 +91,13 @@ class TimeImmutableTest extends TestCase
 
 		$time = TimeImmutable::now('Asia/Tokyo');
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 
 		//
 
 		$time = TimeImmutable::now(new DateTimeZone('Asia/Tokyo'));
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 	}
 
 	/**
@@ -131,13 +131,13 @@ class TimeImmutableTest extends TestCase
 
 		$time = TimeImmutable::createFromDate(1983, 8, 30, 'Asia/Tokyo');
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 
 		//
 
 		$time = TimeImmutable::createFromDate(1983, 8, 30, new DateTimeZone('Asia/Tokyo'));
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 	}
 
 	/**
@@ -159,13 +159,13 @@ class TimeImmutableTest extends TestCase
 
 		$time = TimeImmutable::createFromTimestamp(431093532, 'Asia/Tokyo');
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 
 		//
 
 		$time = TimeImmutable::createFromTimestamp(431093532, new DateTimeZone('Asia/Tokyo'));
 
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 	}
 
 	/**
@@ -193,14 +193,14 @@ class TimeImmutableTest extends TestCase
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
 		$this->assertInstanceOf(TimeImmutable::class, $time);
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 
 		//
 
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', new DateTimeZone('Asia/Tokyo'));
 
 		$this->assertInstanceOf(TimeImmutable::class, $time);
-		$this->assertSame('Asia/Tokyo', $time->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->getTimezone()->getName());
 	}
 
 	/**
@@ -242,7 +242,7 @@ class TimeImmutableTest extends TestCase
 	{
 		$time = new TimeImmutable;
 
-		$this->assertSame('Asia/Tokyo', $time->setTimeZone('Asia/Tokyo')->getTimeZone()->getName());
+		$this->assertSame('Asia/Tokyo', $time->setTimezone('Asia/Tokyo')->getTimezone()->getName());
 	}
 
 	/**
