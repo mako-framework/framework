@@ -190,6 +190,13 @@ class TimeImmutableTest extends TestCase
 
 		//
 
+		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s.u', '1983-08-30 13:37:33.133700');
+
+		$this->assertInstanceOf(TimeImmutable::class, $time);
+		$this->assertSame('1983-08-30 13:37:33.133700', $time->format('Y-m-d H:i:s.u'));
+
+		//
+
 		$time = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
 		$this->assertInstanceOf(TimeImmutable::class, $time);

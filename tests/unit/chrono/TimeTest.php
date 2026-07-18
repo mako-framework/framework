@@ -190,6 +190,13 @@ class TimeTest extends TestCase
 
 		//
 
+		$time = Time::createFromFormat('Y-m-d H:i:s.u', '1983-08-30 13:37:33.133700');
+
+		$this->assertInstanceOf(Time::class, $time);
+		$this->assertSame('1983-08-30 13:37:33.133700', $time->format('Y-m-d H:i:s.u'));
+
+		//
+
 		$time = Time::createFromFormat('Y-m-d H:i:s', '1983-08-30 13:37:33', 'Asia/Tokyo');
 
 		$this->assertInstanceOf(Time::class, $time);
