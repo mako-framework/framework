@@ -7,7 +7,6 @@
 
 namespace mako\tests\unit\chrono;
 
-use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use mako\chrono\exceptions\ChronoException;
@@ -49,6 +48,23 @@ class TimeImmutableTest extends TestCase
 		$this->assertSame($time1->getTimezone()->getName(), $time2->getTimezone()->getName());
 
 		$this->assertSame($time2, $time2->setTimestamp(1));
+	}
+
+	/**
+	 *
+	 */
+	public function testToNative(): void
+	{
+		$time1 = new TimeImmutable('now', 'Europe/Oslo');
+
+		$time2 = $time1->toNative();
+
+		$this->assertInstanceOf(DateTimeImmutable::class, $time2);
+		$this->assertNotInstanceOf(TimeImmutable::class, $time2);
+
+		$this->assertSame($time1->getTimestamp(), $time2->getTimestamp());
+
+		$this->assertSame($time1->getTimezone()->getName(), $time2->getTimezone()->getName());
 	}
 
 	/**

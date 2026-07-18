@@ -29,4 +29,12 @@ class TimeImmutable extends DateTimeImmutable implements TimeInterface
 	{
 		return Time::createFromImmutable($this);
 	}
+
+	/**
+	 * Returns a native PHP DateTime instance.
+	 */
+	public function toNative(): DateTimeImmutable
+	{
+		return DateTimeImmutable::createFromInterface($this);
+	}
 }
