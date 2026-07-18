@@ -10,7 +10,6 @@ namespace mako\chrono;
 use DateTime;
 use DateTimeZone;
 use mako\chrono\traits\TimeTrait;
-use Override;
 
 /**
  * Extension of the PHP DateTime class.
@@ -22,15 +21,6 @@ use Override;
 class Time extends DateTime implements TimeInterface
 {
 	use TimeTrait;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function copy(): static
-	{
-		return clone $this;
-	}
 
 	/**
 	 * Returns an immutable instance of the current instance.

@@ -33,20 +33,6 @@ class TimeImmutableTest extends TestCase
 	/**
 	 *
 	 */
-	public function testCopy(): void
-	{
-		$time1 = new TimeImmutable;
-
-		$time2 = $time1->copy();
-
-		$time1 = $time1->forward(10);
-
-		$this->assertNotSame($time1->getTimestamp(), $time2->getTimestamp());
-	}
-
-	/**
-	 *
-	 */
 	public function testGetImmutable(): void
 	{
 		$time1 = new TimeImmutable('now', 'Europe/Oslo');

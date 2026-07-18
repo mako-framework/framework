@@ -76,11 +76,6 @@ interface TimeInterface extends DateTimeInterface
 	public static function createFromFormatOrThrow(string $format, string $datetime, null|DateTimeZone|string $timezone = null): static;
 
 	/**
-	 * Returns a copy of the current instance.
-	 */
-	public function copy(): static;
-
-	/**
 	 * Sets the time zone.
 	 *
 	 * @return $this|static
