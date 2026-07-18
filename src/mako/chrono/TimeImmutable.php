@@ -27,6 +27,6 @@ class TimeImmutable extends DateTimeImmutable implements TimeInterface
 	 */
 	public function getMutable(): Time
 	{
-		return new Time($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+		return Time::createFromInterface($this);
 	}
 }
