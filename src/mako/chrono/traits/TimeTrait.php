@@ -68,7 +68,9 @@ trait TimeTrait
 	#[Override]
 	public static function createFromTimestamp(float|int $timestamp, null|DateTimeZone|string $timezone = null): static
 	{
-		return new static(parent::createFromTimestamp($timestamp)->format('Y-m-d\TH:i:s.u'), $timezone);
+		$time = static::createFromInterface(parent::createFromTimestamp($timestamp));
+
+		return $timezone == null ? $time : $time->setTimezone($timezone);
 	}
 
 	/**
