@@ -27,6 +27,6 @@ class Time extends DateTime implements TimeInterface
 	 */
 	public function getImmutable(): TimeImmutable
 	{
-		return TimeImmutable::createFromInterface($this);
+		return TimeImmutable::createFromMutable($this);
 	}
 }
