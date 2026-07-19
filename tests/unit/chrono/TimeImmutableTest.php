@@ -459,6 +459,28 @@ class TimeImmutableTest extends TestCase
 	/**
 	 *
 	 */
+	public function testIsBefore(): void
+	{
+		$time = TimeImmutable::now();
+
+		$this->assertTrue($time->isBefore(new DateTimeImmutable('+10 hours')));
+		$this->assertFalse($time->isBefore(new DateTimeImmutable('-10 hours')));
+	}
+
+	/**
+	 *
+	 */
+	public function testIsAfter(): void
+	{
+		$time = TimeImmutable::now();
+
+		$this->assertTrue($time->isAfter(new DateTimeImmutable('-10 hours')));
+		$this->assertFalse($time->isAfter(new DateTimeImmutable('+10 hours')));
+	}
+
+	/**
+	 *
+	 */
 	public function testIsBetween(): void
 	{
 		$time = TimeImmutable::now();

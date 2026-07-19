@@ -239,6 +239,24 @@ trait TimeTrait
 	}
 
 	/**
+	 * Returns TRUE if the time is before the given instance or FALSE if not.
+	 */
+	#[Override]
+	public function isBefore(DateTimeInterface $time): bool
+	{
+		return $this < $time;
+	}
+
+	/**
+	 * Returns TRUE if the time is after the given instance or FALSE if not.
+	 */
+	#[Override]
+	public function isAfter(DateTimeInterface $time): bool
+	{
+		return $this > $time;
+	}
+
+	/**
 	 * Returns TRUE if the time is between the two given instances or FALSE it not.
 	 */
 	#[Override]

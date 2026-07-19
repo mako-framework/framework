@@ -459,6 +459,28 @@ class TimeTest extends TestCase
 	/**
 	 *
 	 */
+	public function testIsBefore(): void
+	{
+		$time = Time::now();
+
+		$this->assertTrue($time->isBefore(new DateTime('+10 hours')));
+		$this->assertFalse($time->isBefore(new DateTime('-10 hours')));
+	}
+
+	/**
+	 *
+	 */
+	public function testIsAfter(): void
+	{
+		$time = Time::now();
+
+		$this->assertTrue($time->isAfter(new DateTime('-10 hours')));
+		$this->assertFalse($time->isAfter(new DateTime('+10 hours')));
+	}
+
+	/**
+	 *
+	 */
 	public function testIsBetween(): void
 	{
 		$time = Time::now();

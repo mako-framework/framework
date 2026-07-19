@@ -128,6 +128,16 @@ interface TimeInterface extends DateTimeInterface
 	public function isFuture(): bool;
 
 	/**
+	 * Returns TRUE if the time is before the given instance or FALSE if not.
+	 */
+	public function isBefore(DateTimeInterface $time): bool;
+
+	/**
+	 * Returns TRUE if the time is after the given instance or FALSE if not.
+	 */
+	public function isAfter(DateTimeInterface $time): bool;
+
+	/**
 	 * Returns TRUE if the time is between the two given instances or FALSE it not.
 	 */
 	public function isBetween(DateTimeInterface $start, DateTimeInterface $end): bool;
