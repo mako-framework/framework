@@ -9,6 +9,7 @@ namespace mako\chrono\traits;
 
 use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use mako\chrono\exceptions\ChronoException;
 use Override;
@@ -235,6 +236,15 @@ trait TimeTrait
 	public function isFuture(): bool
 	{
 		return $this > new static;
+	}
+
+	/**
+	 * Returns TRUE if the time is between the two given instances or FALSE it not.
+	 */
+	#[Override]
+	public function isBetween(DateTimeInterface $start, DateTimeInterface $end): bool
+	{
+		return $this >= $start && $this <= $end;
 	}
 
 	/**

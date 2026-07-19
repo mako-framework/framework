@@ -9,6 +9,7 @@ namespace mako\chrono;
 
 use DateTimeInterface;
 use DateTimeZone;
+use mako\validator\rules\Date;
 
 /**
  * Time interface.
@@ -125,6 +126,11 @@ interface TimeInterface extends DateTimeInterface
 	 * Returns TRUE if the time is in the future and FALSE if not.
 	 */
 	public function isFuture(): bool;
+
+	/**
+	 * Returns TRUE if the time is between the two given instances or FALSE it not.
+	 */
+	public function isBetween(DateTimeInterface $start, DateTimeInterface $end): bool;
 
 	/**
 	 * Returns TRUE if the year is a leap year and FALSE if not.
