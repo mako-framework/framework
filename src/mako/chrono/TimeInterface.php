@@ -155,4 +155,24 @@ interface TimeInterface extends DateTimeInterface
 	 * Returns the number of days in the current or specified month.
 	 */
 	public function daysInMonth(): int;
+
+	/**
+	 * Returns the time as an ATOM date-time string.
+	 */
+	public function toAtomString(): string;
+
+	/**
+	 * Returns the time as an ISO 8601 date-time string.
+	 */
+	public function toIso8601String(): string;
+
+	/**
+	 * Returns the time as an expanded ISO 8601 date-time string.
+	 */
+	public function toExpandedIso8601String(): string;
+
+	/**
+	 * Returns the time as an RFC 7231 date-time string.
+	 */
+	public function toRfc7231String(): string;
 }

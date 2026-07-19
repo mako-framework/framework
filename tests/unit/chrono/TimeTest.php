@@ -491,4 +491,44 @@ class TimeTest extends TestCase
 
 		$this->assertFalse($time->isBetween(new DateTime('+5 hours'), new DateTime('+10 hours')));
 	}
+
+	/**
+	 *
+	 */
+	public function testToAtomString(): void
+	{
+		$time = new Time('2000-01-01 00:00:00', new DateTimeZone('UTC'));
+
+		$this->assertSame('2000-01-01T00:00:00+00:00', $time->toAtomString());
+	}
+
+	/**
+	 *
+	 */
+	public function testToIso8601String(): void
+	{
+		$time = new Time('2000-01-01 00:00:00', new DateTimeZone('UTC'));
+
+		$this->assertSame('2000-01-01T00:00:00+00:00', $time->toIso8601String());
+	}
+
+	/**
+	 *
+	 */
+	public function testToExpandedIso8601String(): void
+	{
+		$time = new Time('2000-01-01 00:00:00', new DateTimeZone('UTC'));
+
+		$this->assertSame('+2000-01-01T00:00:00+00:00', $time->toExpandedIso8601String());
+	}
+
+	/**
+	 *
+	 */
+	public function testToRfc7231String(): void
+	{
+		$time = new Time('2000-01-01 00:00:00', new DateTimeZone('UTC'));
+
+		$this->assertSame('Sat, 01 Jan 2000 00:00:00 GMT', $time->toRfc7231String());
+	}
 }

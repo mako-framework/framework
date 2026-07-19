@@ -28,6 +28,11 @@ use function sprintf;
 trait TimeTrait
 {
 	/**
+	 * RFC 7231 date format.
+	 */
+	protected const string RFC_7231_DATE = 'D, d M Y H:i:s \G\M\T';
+
+	/**
 	 * Constructor.
 	 */
 	final public function __construct(string $datetime = 'now', null|DateTimeZone|string $timezone = null)
@@ -303,5 +308,41 @@ trait TimeTrait
 	public function daysInMonth(): int
 	{
 		return (int) $this->format('t');
+	}
+
+	/**
+	 * Returns the time as an ATOM date-time string.
+	 */
+	#[Override]
+	public function toAtomString(): string
+	{
+		return $this->format(DateTimeInterface::ATOM);
+	}
+
+	/**
+	 * Returns the time as an ISO 8601 date-time string.
+	 */
+	#[Override]
+	public function toIso8601String(): string
+	{
+		return $this->format(DateTimeInterface::ATOM);
+	}
+
+	/**
+	 * Returns the time as an expanded ISO 8601 date-time string.
+	 */
+	#[Override]
+	public function toExpandedIso8601String(): string
+	{
+		return $this->format(DateTimeInterface::ISO8601_EXPANDED);
+	}
+
+	/**
+	 * Returns the time as an RFC 7231 date-time string.
+	 */
+	#[Override]
+	public function toRfc7231String(): string
+	{
+		return $this->setTimezone('UTC')->format(static::RFC_7231_DATE);
 	}
 }

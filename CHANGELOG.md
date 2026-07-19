@@ -36,6 +36,10 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `TimeInterface::isBefore()`
 	- `TimeInterface::isAfter()`
 	- `TimeInterface::isBetween()`
+	- `TimeInterface::toAtomDateString()`
+	- `TimeInterface::toIso8601String()`
+	- `TimeInterface::toExpandedIso8601String()`
+	- `TimeInterface::toRfc7231DateString()`
 * Added `Time::toNative()` method.
 * Added `TimeImmutable::toNative()` method.
 * Added `PSR-20` (ClockInterface) implementation.
