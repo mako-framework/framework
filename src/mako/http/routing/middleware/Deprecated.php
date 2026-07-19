@@ -8,9 +8,9 @@
 namespace mako\http\routing\middleware;
 
 use Closure;
-use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use mako\chrono\TimeImmutable;
 use mako\http\exceptions\GoneException;
 use mako\http\Request;
 use mako\http\Response;
@@ -20,19 +20,14 @@ use RuntimeException;
 class Deprecated implements MiddlewareInterface
 {
 	/**
-	 * RFC 7231 date format.
-	 */
-	protected const string RFC_7231_DATE = 'D, d M Y H:i:s \G\M\T';
-
-	/**
 	 * Deprecation date.
 	 */
-	protected ?DateTimeInterface $deprecationDate = null;
+	protected ?TimeImmutable $deprecationDate = null;
 
 	/**
 	 * Sunset date.
 	 */
-	protected ?DateTimeInterface $sunsetDate = null;
+	protected ?TimeImmutable $sunsetDate = null;
 
 	/**
 	 * Constructor.
@@ -47,17 +42,28 @@ class Deprecated implements MiddlewareInterface
 		}
 
 		if ($deprecationDate !== null) {
-			$this->deprecationDate = $deprecationDate instanceof DateTimeInterface ? $deprecationDate : new DateTimeImmutable($deprecationDate, new DateTimeZone('UTC'));
+			$this->deprecationDate = $this->createTimeImmutable($deprecationDate);
 		}
 
 		if ($sunsetDate !== null) {
-			$this->sunsetDate = $sunsetDate instanceof DateTimeInterface ? $sunsetDate : new DateTimeImmutable($sunsetDate, new DateTimeZone('UTC'));
+			$this->sunsetDate = $this->createTimeImmutable($sunsetDate);
 		}
 
 		if ($deprecationDate !== null && $sunsetDate !== null && $this->deprecationDate >= $this->sunsetDate) {
 			throw new RuntimeException('The deprecation date must be earlier than the sunset date.');
 		}
 	}
+
+	/**
+	 * Creates a TimeImmutable instance based on the provided input.
+	 */
+	protected function createTimeImmutable(DateTimeInterface|string $date): TimeImmutable
+	{
+		return $date instanceof DateTimeInterface
+			? ($date instanceof TimeImmutable ? $date : TimeImmutable::createFromInterface($date))
+			: new TimeImmutable($date, new DateTimeZone('UTC'));
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -69,19 +75,11 @@ class Deprecated implements MiddlewareInterface
 		}
 
 		if ($this->sunsetDate !== null) {
-			$sunsetDate = $this->sunsetDate;
-
-			// Ensure that the sunset header is a UTC date
-
-			if ($sunsetDate->getTimezone()->getName() !== 'UTC') {
-				$sunsetDate = DateTimeImmutable::createFromInterface($sunsetDate)->setTimezone(new DateTimeZone('UTC'));
-			}
-
-			$response->headers->add('Sunset', $sunsetDate->format(static::RFC_7231_DATE));
+			$response->headers->add('Sunset', $this->sunsetDate->toRfc7231String());
 
 			// Throw a GoneException if automatic disabling is enabled and the current date is after the sunset date
 
-			if ($this->disableAfterSunset && new DateTimeImmutable(timezone: new DateTimeZone('UTC')) > $sunsetDate) {
+			if ($this->disableAfterSunset && TimeImmutable::now() > $this->sunsetDate) {
 				throw new GoneException;
 			}
 		}

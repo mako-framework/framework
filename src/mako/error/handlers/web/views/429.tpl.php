@@ -11,10 +11,6 @@ if (isset($_exception_) && $_exception_ instanceof TooManyRequestsException) {
 	$retryAfter = $_exception_->getRetryAfter();
 
 	if ($retryAfter !== null) {
-		if ($retryAfter->getTimezone()->getName() !== 'UTC') {
-			$retryAfter = DateTimeImmutable::createFromInterface($retryAfter)->setTimezone(new DateTimeZone('UTC'));
-		}
-
 		$retryAfter = $retryAfter->format('Y-m-d\TH:i:sP');
 	}
 }
@@ -31,10 +27,10 @@ if (isset($_exception_) && $_exception_ instanceof TooManyRequestsException) {
 	</p>
 	<script type="text/javascript">
 		const retryDate = document.getElementById('retryDate');
-		const retryUtcDate = retryDate.dataset.date;
+		const retryDateString = retryDate.dataset.date;
 
-		if (retryUtcDate) {
-			retryDate.textContent = (new Date(retryUtcDate)).toLocaleString();
+		if (retryDateString) {
+			retryDate.textContent = (new Date(retryDateString)).toLocaleString();
 
 			const retryAt = document.getElementById('retryAt');
 			retryAt.hidden = false;

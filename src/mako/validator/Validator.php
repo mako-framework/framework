@@ -439,12 +439,12 @@ class Validator
 		return [
 			false,
 			$ruleCombinator->shouldAggregateChildErrors($successes, $errorMessages)
-			? implode(' ', $errorMessages)
-			: $this->getErrorMessage(
-				$ruleCombinator,
-				$field,
-				(object) ['name' => $ruleCombinator::class, 'package' => null]
-			),
+				? implode(' ', $errorMessages)
+				: $this->getErrorMessage(
+					$ruleCombinator,
+					$field,
+					(object) ['name' => $ruleCombinator::class, 'package' => null]
+				),
 		];
 	}
 

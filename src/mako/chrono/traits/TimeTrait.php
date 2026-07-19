@@ -336,13 +336,4 @@ trait TimeTrait
 	{
 		return $this->format(DateTimeInterface::ISO8601_EXPANDED);
 	}
-
-	/**
-	 * Returns the time as an RFC 7231 date-time string.
-	 */
-	#[Override]
-	public function toRfc7231String(): string
-	{
-		return (clone $this)->setTimezone('UTC')->format(static::RFC_7231_DATE);
-	}
 }

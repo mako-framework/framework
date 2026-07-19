@@ -10,6 +10,7 @@ namespace mako\chrono;
 use DateTimeImmutable;
 use DateTimeZone;
 use mako\chrono\traits\TimeTrait;
+use Override;
 
 /**
  * Extension of the PHP DateTimeImmutable class.
@@ -21,6 +22,15 @@ use mako\chrono\traits\TimeTrait;
 class TimeImmutable extends DateTimeImmutable implements TimeInterface
 {
 	use TimeTrait;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function toRfc7231String(): string
+	{
+		return $this->setTimezone('UTC')->format(static::RFC_7231_DATE);
+	}
 
 	/**
 	 * Returns a mutable instance of the current instance.

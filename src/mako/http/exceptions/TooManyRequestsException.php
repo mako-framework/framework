@@ -7,9 +7,8 @@
 
 namespace mako\http\exceptions;
 
-use DateTimeImmutable;
 use DateTimeInterface;
-use DateTimeZone;
+use mako\chrono\TimeImmutable;
 use mako\http\response\Status;
 use Override;
 use Throwable;
@@ -19,11 +18,6 @@ use Throwable;
  */
 class TooManyRequestsException extends HttpStatusException implements ProvidesHeadersInterface
 {
-	/**
-	 * RFC 7231 date format.
-	 */
-	protected const string RFC_7231_DATE = 'D, d M Y H:i:s \G\M\T';
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -56,15 +50,7 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 	public function getHeaders(): array
 	{
 		if ($this->retryAfter !== null) {
-			$retryAfter = $this->retryAfter;
-
-			// Ensure that the retry-after header is a UTC date
-
-			if ($retryAfter->getTimezone()->getName() !== 'UTC') {
-				$retryAfter = DateTimeImmutable::createFromInterface($retryAfter)->setTimezone(new DateTimeZone('UTC'));
-			}
-
-			return ['Retry-After' => $retryAfter->format(static::RFC_7231_DATE)];
+			return ['Retry-After' => TimeImmutable::createFromInterface($this->retryAfter)->toRfc7231String()];
 		}
 
 		return [];
