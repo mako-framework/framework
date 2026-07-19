@@ -36,7 +36,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `TimeInterface::isBefore()`
 	- `TimeInterface::isAfter()`
 	- `TimeInterface::isBetween()`
-	- `TimeInterface::toAtomDateString()`
+	- `TimeInterface::toAtomString()`
 	- `TimeInterface::toIso8601String()`
 	- `TimeInterface::toExpandedIso8601String()`
 	- `TimeInterface::toRfc7231DateString()`
