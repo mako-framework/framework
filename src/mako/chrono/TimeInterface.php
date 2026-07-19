@@ -9,7 +9,6 @@ namespace mako\chrono;
 
 use DateTimeInterface;
 use DateTimeZone;
-use mako\validator\rules\Date;
 
 /**
  * Time interface.
