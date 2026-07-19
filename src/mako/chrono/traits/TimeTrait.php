@@ -343,6 +343,6 @@ trait TimeTrait
 	#[Override]
 	public function toRfc7231String(): string
 	{
-		return $this->setTimezone('UTC')->format(static::RFC_7231_DATE);
+		return (clone $this)->setTimezone('UTC')->format(static::RFC_7231_DATE);
 	}
 }
