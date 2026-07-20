@@ -555,7 +555,7 @@ class ContainerTest extends TestCase
 	{
 		$this->expectException(UnableToResolveParameterException::class);
 
-		$this->expectExceptionMessageIs('Unable to resolve the [ $foo ] parameter of');
+		$this->expectExceptionMessageIs('Unable to resolve the [ $foo ] parameter of [ Closure ].');
 
 		$container = new Container;
 

@@ -620,7 +620,7 @@ class RedisTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$this->expectExceptionMessageIs("ERR unknown command 'foobar'");
+		$this->expectExceptionMessageIs("ERR unknown command 'foobar'.");
 
 		$connection = Mockery::mock(Connection::class);
 
@@ -640,7 +640,7 @@ class RedisTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$this->expectExceptionMessageIs("ERR unknown command 'foobar'");
+		$this->expectExceptionMessageIs("ERR unknown command 'foobar'.");
 
 		$connection = Mockery::mock(Connection::class);
 

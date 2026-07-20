@@ -118,7 +118,7 @@ class FormatterTest extends TestCase
 	{
 		$this->expectException(FormatterException::class);
 
-		$this->expectExceptionMessageIs('Detected missing formatting close tag');
+		$this->expectExceptionMessageIs('Detected missing formatting close tag.');
 
 		$formatter = new Formatter;
 

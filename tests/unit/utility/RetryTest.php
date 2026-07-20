@@ -158,7 +158,7 @@ class RetryTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$this->expectExceptionMessageIs('Failed 4 time(s)');
+		$this->expectExceptionMessageIs('Failed 4 time(s).');
 
 		$sleeper = Mockery::mock(SleeperInterface::class);
 
@@ -183,7 +183,7 @@ class RetryTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$this->expectExceptionMessageIs('Failed 4 time(s)');
+		$this->expectExceptionMessageIs('Failed 4 time(s).');
 
 		$sleeper = Mockery::mock(SleeperInterface::class);
 
@@ -208,7 +208,7 @@ class RetryTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$this->expectExceptionMessageIs('Failed 1 time(s)');
+		$this->expectExceptionMessageIs('Failed 1 time(s).');
 
 		$sleeper = Mockery::mock(SleeperInterface::class);
 
@@ -235,7 +235,7 @@ class RetryTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$this->expectExceptionMessageIs('Failed 1 time(s)');
+		$this->expectExceptionMessageIs('Failed 1 time(s).');
 
 		$sleeper = Mockery::mock(SleeperInterface::class);
 
