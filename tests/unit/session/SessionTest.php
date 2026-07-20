@@ -137,7 +137,7 @@ class SessionTest extends TestCase
 	{
 		$this->expectException(SessionException::class);
 
-		$this->expectExceptionMessage('Attempted to set a secure cookie over a non-secure connection.');
+		$this->expectExceptionMessageIs('Attempted to set a secure cookie over a non-secure connection.');
 
 		$request = $this->getRequestWithCookie();
 

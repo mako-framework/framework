@@ -90,7 +90,7 @@ class FormatterTest extends TestCase
 	{
 		$this->expectException(FormatterException::class);
 
-		$this->expectExceptionMessage('Undefined formatting tag [ fail ] detected.');
+		$this->expectExceptionMessageIs('Undefined formatting tag [ fail ] detected.');
 
 		$formatter = new Formatter;
 
@@ -104,7 +104,7 @@ class FormatterTest extends TestCase
 	{
 		$this->expectException(FormatterException::class);
 
-		$this->expectExceptionMessage('Detected incorrectly nested formatting tag.');
+		$this->expectExceptionMessageIs('Detected incorrectly nested formatting tag.');
 
 		$formatter = new Formatter;
 
@@ -118,7 +118,7 @@ class FormatterTest extends TestCase
 	{
 		$this->expectException(FormatterException::class);
 
-		$this->expectExceptionMessage('Detected missing formatting close tag');
+		$this->expectExceptionMessageIs('Detected missing formatting close tag');
 
 		$formatter = new Formatter;
 

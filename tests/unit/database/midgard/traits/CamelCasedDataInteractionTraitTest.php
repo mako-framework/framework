@@ -101,7 +101,7 @@ class CamelCasedDataInteractionTraitTest extends TestCase
 
 		$this->expectException(DatabaseException::class);
 
-		$this->expectExceptionMessage('Unknown column or relation [ nonExisingProperty ].');
+		$this->expectExceptionMessageIs('Unknown column or relation [ nonExisingProperty ].');
 
 		$class->nonExisingProperty;
 	}

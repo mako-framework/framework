@@ -170,7 +170,7 @@ class UserRepositoryTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('Invalid identifier [ nope ].');
+		$this->expectExceptionMessageIs('Invalid identifier [ nope ].');
 
 		$this->getRepository()->setIdentifier('nope');
 	}

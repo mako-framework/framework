@@ -108,7 +108,7 @@ class QueryBusTest extends TestCase
 	public function testMissingHandler(): void
 	{
 		$this->expectException(QueryBusException::class);
-		$this->expectExceptionMessage('No handler has been registered for [ mako\tests\unit\bus\query\GetUserQuery ] queries.');
+		$this->expectExceptionMessageIs('No handler has been registered for [ mako\tests\unit\bus\query\GetUserQuery ] queries.');
 
 		$container = Mockery::mock(Container::class);
 

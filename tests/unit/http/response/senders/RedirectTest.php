@@ -279,7 +279,7 @@ class RedirectTest extends TestCase
 	{
 		$this->expectException(HttpException::class);
 
-		$this->expectExceptionMessage('Unsupported redirect status code [ 404 ].');
+		$this->expectExceptionMessageIs('Unsupported redirect status code [ 404 ].');
 
 		new Redirect('http://example.org', Status::NotFound);
 	}

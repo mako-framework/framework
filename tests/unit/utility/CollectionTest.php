@@ -171,7 +171,7 @@ class CollectionTest extends TestCase
 	{
 		$this->expectException(OutOfBoundsException::class);
 
-		$this->expectExceptionMessage('Undefined offset [ 0 ].');
+		$this->expectExceptionMessageIs('Undefined offset [ 0 ].');
 
 		$collection = new Collection;
 

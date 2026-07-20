@@ -103,7 +103,7 @@ class CookiesTest extends TestCase
 	{
 		$this->expectException(HttpException::class);
 
-		$this->expectExceptionMessage('A [ Signer ] instance is required to sign cookies.');
+		$this->expectExceptionMessageIs('A [ Signer ] instance is required to sign cookies.');
 
 		$cookies = new Cookies;
 

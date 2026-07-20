@@ -120,7 +120,7 @@ class MessageTest extends TestCase
 	{
 		$this->expectException(RedisException::class);
 
-		$this->expectExceptionMessage('Unable to parse message of type [ foo ].');
+		$this->expectExceptionMessageIs('Unable to parse message of type [ foo ].');
 
 		new Message(['foo']);
 	}

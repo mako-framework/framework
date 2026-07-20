@@ -48,7 +48,7 @@ class GroupTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only add a user to a group that exist in the database.');
+		$this->expectExceptionMessageIs('You can only add a user to a group that exist in the database.');
 
 		$user = Mockery::mock(User::class);
 
@@ -64,7 +64,7 @@ class GroupTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only add a user that exist in the database to a group.');
+		$this->expectExceptionMessageIs('You can only add a user that exist in the database to a group.');
 
 		$user = Mockery::mock(User::class);
 
@@ -82,7 +82,7 @@ class GroupTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only remove a user from a group that exist in the database.');
+		$this->expectExceptionMessageIs('You can only remove a user from a group that exist in the database.');
 
 		$user = Mockery::mock(User::class);
 
@@ -98,7 +98,7 @@ class GroupTest extends TestCase
  	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only remove a user that exist in the database from a group.');
+		$this->expectExceptionMessageIs('You can only remove a user that exist in the database from a group.');
 
 		$user = Mockery::mock(User::class);
 
@@ -116,7 +116,7 @@ class GroupTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only check if a user is a member of a group that exist in the database.');
+		$this->expectExceptionMessageIs('You can only check if a user is a member of a group that exist in the database.');
 
 		$user = Mockery::mock(User::class);
 
@@ -132,7 +132,7 @@ class GroupTest extends TestCase
  	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only check if a user that exist in the database is a member of a group.');
+		$this->expectExceptionMessageIs('You can only check if a user that exist in the database is a member of a group.');
 
 		$user = Mockery::mock(User::class);
 

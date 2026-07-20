@@ -254,7 +254,7 @@ class TimeTest extends TestCase
 	public function testCreateFromFormatOrThrowWithFaiure(): void
 	{
 		$this->expectException(ChronoException::class);
-		$this->expectExceptionMessage('Unable to create mako\chrono\Time instance from value [ ass ] for format [ Y-m-d ]. A four digit year could not be found; Not enough data available to satisfy format.');
+		$this->expectExceptionMessageIs('Unable to create mako\chrono\Time instance from value [ ass ] for format [ Y-m-d ]. A four digit year could not be found; Not enough data available to satisfy format.');
 
 		Time::createFromFormatOrThrow('Y-m-d', 'ass');
 	}

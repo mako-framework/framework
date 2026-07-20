@@ -43,7 +43,7 @@ class PositionalArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('Positional argument names cannot start with "-".');
+		$this->expectExceptionMessageIs('Positional argument names cannot start with "-".');
 
 		new PositionalArgument('-test', 'Test argument', Argument::IS_OPTIONAL, 'default');
 	}

@@ -35,7 +35,7 @@ class ColorTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Red must be between 0 and 255.');
+		$this->expectExceptionMessageIs('Red must be between 0 and 255.');
 
 		$color = new Color(300, 255, 255);
 	}
@@ -47,7 +47,7 @@ class ColorTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Green must be between 0 and 255.');
+		$this->expectExceptionMessageIs('Green must be between 0 and 255.');
 
 		$color = new Color(255, 300, 255);
 	}
@@ -59,7 +59,7 @@ class ColorTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Blue must be between 0 and 255.');
+		$this->expectExceptionMessageIs('Blue must be between 0 and 255.');
 
 		$color = new Color(255, 255, 300);
 	}
@@ -71,7 +71,7 @@ class ColorTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Alpha must be between 0 and 255.');
+		$this->expectExceptionMessageIs('Alpha must be between 0 and 255.');
 
 		$color = new Color(255, 255, 255, 300);
 	}
@@ -132,7 +132,7 @@ class ColorTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Invalid hex color format.');
+		$this->expectExceptionMessageIs('Invalid hex color format.');
 
 		$color = Color::fromHex('foobar');
 	}

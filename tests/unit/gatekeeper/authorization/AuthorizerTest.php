@@ -257,7 +257,7 @@ class AuthorizerTest extends TestCase
 	{
 		$this->expectException(AuthorizerException::class);
 
-		$this->expectExceptionMessage('There is no authorization policy registered for [ mako\tests\unit\gatekeeper\authorization\TestEntity ] entities.');
+		$this->expectExceptionMessageIs('There is no authorization policy registered for [ mako\tests\unit\gatekeeper\authorization\TestEntity ] entities.');
 
 		$container = Mockery::mock(Container::class);
 

@@ -86,7 +86,7 @@ class EnumTest extends TestCase
 	{
 		$this->expectException(ValidatorException::class);
 
-		$this->expectExceptionMessage('[ mako\tests\unit\validator\rules\BazEnum ] is not a valid enum.');
+		$this->expectExceptionMessageIs('[ mako\tests\unit\validator\rules\BazEnum ] is not a valid enum.');
 
 		new Enum(BazEnum::class);
 	}

@@ -24,7 +24,7 @@ class DeprecatedTest extends TestCase
 	 */
 	public function testConstructorWithoutArgs(): void
 	{
-		$this->expectExceptionMessage('You must specify either a deprecation date or a sunset date or both.');
+		$this->expectExceptionMessageIs('You must specify either a deprecation date or a sunset date or both.');
 
 		new Deprecated;
 	}
@@ -34,7 +34,7 @@ class DeprecatedTest extends TestCase
 	 */
 	public function testConstructorWithSunsetBeforeDeprecation(): void
 	{
-		$this->expectExceptionMessage('The deprecation date must be earlier than the sunset date.');
+		$this->expectExceptionMessageIs('The deprecation date must be earlier than the sunset date.');
 
 		new Deprecated('2021-02-01', '2020-01-01');
 	}

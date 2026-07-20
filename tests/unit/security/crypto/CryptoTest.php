@@ -61,7 +61,7 @@ class CryptoTest extends TestCase
 	{
 		$this->expectException(CryptoException::class);
 
-		$this->expectExceptionMessage('Ciphertex has been modified or an invalid authentication key has been provided.');
+		$this->expectExceptionMessageIs('Ciphertex has been modified or an invalid authentication key has been provided.');
 
 		$signer = Mockery::mock(Signer::class);
 

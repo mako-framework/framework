@@ -245,7 +245,7 @@ class ArrTest extends TestCase
 	{
 		$this->expectException(ArrException::class);
 
-		$this->expectExceptionMessage('Unable to convert an array containing a mix of integer and string keys to an object.');
+		$this->expectExceptionMessageIs('Unable to convert an array containing a mix of integer and string keys to an object.');
 
 		$converted = Arr::toObject([1, 'foo' => 2]);
 	}

@@ -137,7 +137,7 @@ class PermissionTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('The integer [ 13337 ] does not represent a valid octal between 0o0000 and 0o7777.');
+		$this->expectExceptionMessageIs('The integer [ 13337 ] does not represent a valid octal between 0o0000 and 0o7777.');
 
 		Permission::hasPermissions(13337, Permission::None);
 	}

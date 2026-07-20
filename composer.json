@@ -46,7 +46,7 @@
     "require-dev": {
         "mockery/mockery": "^1.6.12",
         "phpstan/phpstan": "^2.2",
-        "phpunit/phpunit": "^12.5"
+        "phpunit/phpunit": "^13.2"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",

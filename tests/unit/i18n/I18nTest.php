@@ -209,7 +209,7 @@ class I18nTest extends TestCase
 	{
 		$this->expectException(I18nException::class);
 
-		$this->expectExceptionMessage('The [ en_US ] language pack does not include any inflection rules.');
+		$this->expectExceptionMessageIs('The [ en_US ] language pack does not include any inflection rules.');
 
 		$loader = $this->getLoader();
 

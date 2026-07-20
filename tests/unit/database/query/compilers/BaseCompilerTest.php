@@ -229,7 +229,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$this->expectException(Exception::class);
 
-		$this->expectExceptionMessage('The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.');
+		$this->expectExceptionMessageIs('The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.');
 
 		$query = $this->getBuilder();
 
@@ -1522,7 +1522,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$this->expectException(Exception::class);
 
-		$this->expectExceptionMessage('The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.');
+		$this->expectExceptionMessageIs('The [ mako\database\query\compilers\Compiler ] query compiler does not support the unified JSON field syntax.');
 
 		$query = $this->getBuilder();
 

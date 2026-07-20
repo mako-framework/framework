@@ -70,7 +70,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('Invalid argument name [ --123 ].');
+		$this->expectExceptionMessageIs('Invalid argument name [ --123 ].');
 
 		new Argument('--123');
 	}
@@ -82,7 +82,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('Invalid argument alias [ -po ].');
+		$this->expectExceptionMessageIs('Invalid argument alias [ -po ].');
 
 		new Argument('-po|--port');
 	}
@@ -94,7 +94,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage("Argument can't be both positional and a boolean flag.");
+		$this->expectExceptionMessageIs("Argument can't be both positional and a boolean flag.");
 
 		new Argument('test', '', Argument::IS_BOOL);
 	}
@@ -106,7 +106,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage("Argument can't be both a boolean flag and an array.");
+		$this->expectExceptionMessageIs("Argument can't be both a boolean flag and an array.");
 
 		new Argument('--test', '', Argument::IS_BOOL | Argument::IS_ARRAY);
 	}
@@ -118,7 +118,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage("Argument can't be both a boolean flag and an integer.");
+		$this->expectExceptionMessageIs("Argument can't be both a boolean flag and an integer.");
 
 		new Argument('--test', '', Argument::IS_BOOL | Argument::IS_INT);
 	}
@@ -130,7 +130,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage("Argument can't be both a boolean flag and a float.");
+		$this->expectExceptionMessageIs("Argument can't be both a boolean flag and a float.");
 
 		new Argument('--test', '', Argument::IS_BOOL | Argument::IS_FLOAT);
 	}
@@ -142,7 +142,7 @@ class ArgumentTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage("Argument can't be both a float and an integer.");
+		$this->expectExceptionMessageIs("Argument can't be both a float and an integer.");
 
 		new Argument('--test', '', Argument::IS_INT | Argument::IS_FLOAT);
 	}

@@ -122,7 +122,7 @@ class CommandBusTest extends TestCase
 	public function testMissingHandler(): void
 	{
 		$this->expectException(CommandBusException::class);
-		$this->expectExceptionMessage('No handler has been registered for [ mako\tests\unit\bus\command\CreateUserCommand ] commands.');
+		$this->expectExceptionMessageIs('No handler has been registered for [ mako\tests\unit\bus\command\CreateUserCommand ] commands.');
 
 		$container = Mockery::mock(Container::class);
 

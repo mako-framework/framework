@@ -36,7 +36,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Unknown positional argument with value [ script ].');
+		$this->expectExceptionMessageIs('Unknown positional argument with value [ script ].');
 
 		$parser = new ArgvParser(['script']);
 
@@ -50,7 +50,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Unknown argument [ --unknown ].');
+		$this->expectExceptionMessageIs('Unknown argument [ --unknown ].');
 
 		$parser = new ArgvParser(['--unknown']);
 
@@ -64,7 +64,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(InvalidArgumentException::class);
 
-		$this->expectExceptionMessage('Unknown argument [ --hast ]. Did you mean [ --host ]?');
+		$this->expectExceptionMessageIs('Unknown argument [ --hast ]. Did you mean [ --host ]?');
 
 		$parser = new ArgvParser(['--hast'], [new Argument('--host')]);
 
@@ -78,7 +78,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('Ambiguous argument name. [ --document_root ] will collide with [ --document-root ].');
+		$this->expectExceptionMessageIs('Ambiguous argument name. [ --document_root ] will collide with [ --document-root ].');
 
 		new ArgvParser([], [new Argument('--document-root'), new Argument('--document_root')]);
 	}
@@ -90,7 +90,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('Duplicate alias detected [ -h ]. The alias of [ --host ] will collide with the alias of [ --help ].');
+		$this->expectExceptionMessageIs('Duplicate alias detected [ -h ]. The alias of [ --host ] will collide with the alias of [ --help ].');
 
 		new ArgvParser([], [new Argument('-h|--help'), new Argument('-h|--host')]);
 	}
@@ -102,7 +102,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(UnexpectedValueException::class);
 
-		$this->expectExceptionMessage('The [ --test ] argument expects an integer.');
+		$this->expectExceptionMessageIs('The [ --test ] argument expects an integer.');
 
 		$parser = new ArgvParser(['--test=xxx'], [new Argument('--test', '', Argument::IS_INT)]);
 
@@ -116,7 +116,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(UnexpectedValueException::class);
 
-		$this->expectExceptionMessage('The [ --test ] argument expects a float.');
+		$this->expectExceptionMessageIs('The [ --test ] argument expects a float.');
 
 		$parser = new ArgvParser(['--test=xxx'], [new Argument('--test', '', Argument::IS_FLOAT)]);
 
@@ -130,7 +130,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('Missing value for argument [ --test ].');
+		$this->expectExceptionMessageIs('Missing value for argument [ --test ].');
 
 		$parser = new ArgvParser(['--test'], [new Argument('--test')]);
 
@@ -144,7 +144,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(ArgumentException::class);
 
-		$this->expectExceptionMessage('The [ --test ] argument is a boolean and does not accept values.');
+		$this->expectExceptionMessageIs('The [ --test ] argument is a boolean and does not accept values.');
 
 		$parser = new ArgvParser(['--test=123'], [new Argument('--test', '', Argument::IS_BOOL)]);
 
@@ -158,7 +158,7 @@ class ArgvParserTest extends TestCase
 	{
 		$this->expectException(MissingArgumentException::class);
 
-		$this->expectExceptionMessage('Missing required argument [ --test ].');
+		$this->expectExceptionMessageIs('Missing required argument [ --test ].');
 
 		$parser = new ArgvParser([], [new Argument('--test')]);
 

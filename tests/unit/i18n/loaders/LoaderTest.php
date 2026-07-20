@@ -63,7 +63,7 @@ class LoaderTest extends TestCase
 	{
 		$this->expectException(LoaderException::class);
 
-		$this->expectExceptionMessage('The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.');
+		$this->expectExceptionMessageIs('The [ en_US ] language pack does not have a [ /app/i18n/en_US/strings/foobar.php ] file.');
 
 		$fileSystem = $this->getFileSystem();
 

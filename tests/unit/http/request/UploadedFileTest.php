@@ -145,7 +145,7 @@ class UploadedFileTest extends TestCase
 	{
 		$this->expectException(UploadException::class);
 
-		$this->expectExceptionMessage('The uploaded file exceeds the upload_max_filesize directive in php.ini.');
+		$this->expectExceptionMessageIs('The uploaded file exceeds the upload_max_filesize directive in php.ini.');
 
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', UPLOAD_ERR_INI_SIZE);
 
@@ -159,7 +159,7 @@ class UploadedFileTest extends TestCase
 	{
 		$this->expectException(UploadException::class);
 
-		$this->expectExceptionMessage('The file that you\'re trying to move was not uploaded.');
+		$this->expectExceptionMessageIs('The file that you\'re trying to move was not uploaded.');
 
 		$file = new UploadedFile(__FILE__, 'foo.bar', 123, 'foo/bar', 0);
 
@@ -173,7 +173,7 @@ class UploadedFileTest extends TestCase
 	{
 		$this->expectException(UploadException::class);
 
-		$this->expectExceptionMessage('Failed to move uploaded file to [ ' . __FILE__ . ' ].');
+		$this->expectExceptionMessageIs('Failed to move uploaded file to [ ' . __FILE__ . ' ].');
 
 		/** @var MockInterface&UploadedFile $file */
 		$file = Mockery::mock(

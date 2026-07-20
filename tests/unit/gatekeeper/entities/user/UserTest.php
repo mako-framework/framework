@@ -171,7 +171,7 @@ class UserTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('You can only check memberships for users that exist in the database.');
+		$this->expectExceptionMessageIs('You can only check memberships for users that exist in the database.');
 
 		$user = new User;
 

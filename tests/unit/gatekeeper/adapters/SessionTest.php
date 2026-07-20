@@ -486,7 +486,7 @@ class SessionTest extends TestCase
 	{
 		$this->expectException(GatekeeperException::class);
 
-		$this->expectExceptionMessage('Attempted to set a secure cookie over a non-secure connection.');
+		$this->expectExceptionMessageIs('Attempted to set a secure cookie over a non-secure connection.');
 
 		$user = $this->getUser();
 

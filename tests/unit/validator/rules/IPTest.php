@@ -99,7 +99,7 @@ class IPTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$this->expectExceptionMessage('Invalid IP version [ v7 ]. The accepted versions are v4 and v6.');
+		$this->expectExceptionMessageIs('Invalid IP version [ v7 ]. The accepted versions are v4 and v6.');
 
 		$rule = new IP('v7');
 

@@ -223,7 +223,7 @@ class OnionTest extends TestCase
 	{
 		$this->expectException(OnionException::class);
 
-		$this->expectExceptionMessage('The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].');
+		$this->expectExceptionMessageIs('The Onion instance expects the middleware to be an instance of [ mako\tests\unit\onion\FooMiddleware2Interface ].');
 
 		$onion = new Onion(expectedInterface: FooMiddleware2Interface::class);
 

@@ -255,7 +255,7 @@ class ContainerTest extends TestCase
 	{
 		$this->expectException(UnableToResolveParameterException::class);
 
-		$this->expectExceptionMessage('Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].');
+		$this->expectExceptionMessageIs('Unable to resolve the [ $bax ] parameter of [ mako\tests\unit\syringe\Fox::__construct ].');
 
 		$container = new Container;
 
@@ -344,7 +344,7 @@ class ContainerTest extends TestCase
 	{
 		$this->expectException(UnableToInstantiateException::class);
 
-		$this->expectExceptionMessage('Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.');
+		$this->expectExceptionMessageIs('Unable to create a [ mako\tests\unit\syringe\StoreInterface ] instance.');
 
 		$container = new Container;
 
@@ -555,7 +555,7 @@ class ContainerTest extends TestCase
 	{
 		$this->expectException(UnableToResolveParameterException::class);
 
-		$this->expectExceptionMessage('Unable to resolve the [ $foo ] parameter of');
+		$this->expectExceptionMessageIs('Unable to resolve the [ $foo ] parameter of');
 
 		$container = new Container;
 
@@ -835,7 +835,7 @@ class ContainerTest extends TestCase
 	{
 		$this->expectException(ContainerException::class);
 
-		$this->expectExceptionMessage('Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn\'t been registered.');
+		$this->expectExceptionMessageIs('Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn\'t been registered.');
 
 		$container = new Container;
 
@@ -851,7 +851,7 @@ class ContainerTest extends TestCase
 	{
 		$this->expectException(ContainerException::class);
 
-		$this->expectExceptionMessage('Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn\'t been registered.');
+		$this->expectExceptionMessageIs('Unable to replace [ mako\tests\unit\syringe\ReplaceA ] as it hasn\'t been registered.');
 
 		$container = new Container;
 

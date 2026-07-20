@@ -56,7 +56,7 @@ class MaxFileSizeTest extends TestCase
 	{
 		$this->expectException(RuntimeException::class);
 
-		$this->expectExceptionMessage('Invalid unit type [ Foo ].');
+		$this->expectExceptionMessageIs('Invalid unit type [ Foo ].');
 
 		$rule = new class(0) extends MaxFileSize {
 			public function convert($size)
