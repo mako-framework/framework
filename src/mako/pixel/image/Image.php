@@ -11,6 +11,7 @@ use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
+use function base64_encode;
 use function file_exists;
 use function is_readable;
 use function is_writable;
@@ -18,6 +19,8 @@ use function max;
 use function min;
 use function pathinfo;
 use function sprintf;
+use function str_starts_with;
+use function strtolower;
 
 /**
  * Base image.
@@ -75,6 +78,26 @@ abstract class Image implements ImageInterface
 	abstract protected function getImageResourceAsBlob(?string $type, int $quality): string;
 
 	/**
+	 * Returns a normalized mime type.
+	 */
+	protected function normalizeMimeType(string $type): string
+	{
+		$type = strtolower($type);
+		$type = str_starts_with($type, 'image/') ? $type : "image/{$type}";
+
+		return match ($type) {
+			'image/jpg', 'image/jpeg' => 'image/jpeg',
+			'image/tif', 'image/tiff' => 'image/tiff',
+			default                   => $type,
+		};
+	}
+
+	/**
+	 * Returns the mime type of the image resource.
+	 */
+	abstract protected function getMimeType(?string $type): string;
+
+	/**
 	 * Save an image resource.
 	 */
 	abstract protected function saveImageResource(string $imagePath, int $quality): void;
@@ -120,9 +143,27 @@ abstract class Image implements ImageInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getImageBlob(?string $type = null, int $quality = 95): string
+	public function toBlob(?string $type = null, int $quality = 95): string
 	{
 		return $this->getImageResourceAsBlob($type, $this->normalizeImageQuality($quality));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function toBase64(?string $type = null, int $quality = 95): string
+	{
+		return base64_encode($this->toBlob($type, $quality));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function toDataUri(?string $type = null, int $quality = 95): string
+	{
+		return "data:{$this->getMimeType($type)};base64,{$this->toBase64($type, $quality)}";
 	}
 
 	/**

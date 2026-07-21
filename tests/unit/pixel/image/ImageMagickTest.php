@@ -104,4 +104,21 @@ class ImageMagickTest extends TestCase
 		$this->assertSame('#000000', $colors[0]->toHexString());
 		$this->assertSame('#FFFFFF', $colors[1]->toHexString());
 	}
+
+	/**
+	 *
+	 */
+	public function testToDataUri(): void
+	{
+		$image = new ImageMagick(__DIR__ . '/fixtures/onebyone.jpg');
+
+		$this->assertStringStartsWith('data:image/jpeg;base64,', $image->toDataUri());
+		$this->assertStringStartsWith('data:image/jpeg;base64,', $image->toDataUri('jpg'));
+		$this->assertStringStartsWith('data:image/jpeg;base64,', $image->toDataUri('jpeg'));
+		$this->assertStringStartsWith('data:image/jpeg;base64,', $image->toDataUri('image/jpg'));
+		$this->assertStringStartsWith('data:image/jpeg;base64,', $image->toDataUri('image/jpeg'));
+		$this->assertStringStartsWith('data:image/gif;base64,', $image->toDataUri('gif'));
+		$this->assertStringStartsWith('data:image/tiff;base64,', $image->toDataUri('tif'));
+		$this->assertStringStartsWith('data:image/tiff;base64,', $image->toDataUri('tiff'));
+	}
 }

@@ -61,7 +61,17 @@ interface ImageInterface
 	/**
 	 * Returns the image resource as a blob.
 	 */
-	public function getImageBlob(?string $type = null, int $quality = 95): string;
+	public function toBlob(?string $type = null, int $quality = 95): string;
+
+	/**
+	 * Returns the image resource as a base64 encoded blob.
+	 */
+	public function toBase64(?string $type = null, int $quality = 95): string;
+
+	/**
+	 * Returns the image resource as a data uri.
+	 */
+	public function toDataUri(?string $type = null, int $quality = 95): string;
 
 	/**
 	 * Saves the image resource to a file.

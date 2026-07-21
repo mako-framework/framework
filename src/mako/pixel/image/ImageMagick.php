@@ -121,6 +121,17 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function getMimeType(?string $type): string
+	{
+		return $type === null
+			? $this->normalizeMimeType($this->imageResource->getImageFormat())
+			: $this->normalizeMimeType($type);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
 		$type = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));

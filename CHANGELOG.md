@@ -44,6 +44,9 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added `TimeImmutable::toNative()` method.
 * Added `PSR-20` (ClockInterface) implementation.
 * Added `SleeperInterface` and `Sleeper` implementation for time-based delays.
+* Added the following methods to the `ImageInterface` interface:
+	- `ImageInterface::toBase64()`
+	- `ImageInterface::toDataUri()`
 
 #### Changes
 
@@ -74,6 +77,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Removed the `TimeInterface::copy()` method.
 * Renamed the `Time::getImmutable()` method to `Time::toImmutable()`.
 * Renamed the `TimeImmutable::getMutable()` method to `TimeImmutable::toMutable()`.
+* Renamed the `ImageInterface::getImageBlob()` method to `ImageInterface::toBlob()`.
 
 #### Deprecations
 

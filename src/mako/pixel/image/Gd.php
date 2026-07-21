@@ -123,6 +123,7 @@ class Gd extends Image
 				break;
 			case 'jpg':
 			case 'jpeg':
+			case 'image/jpg':
 			case 'image/jpeg':
 				imagejpeg($this->imageResource, quality: $quality);
 				break;
@@ -149,6 +150,17 @@ class Gd extends Image
 		}
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function getMimeType(?string $type): string
+	{
+		return $type === null
+			? $this->mimeType
+			: $this->normalizeMimeType($type);
 	}
 
 	/**
