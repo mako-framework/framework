@@ -248,7 +248,7 @@ class Application extends BaseApplication
 
 				$attributes = $reflection->getAttributes(CommandName::class);
 
-				if (empty($attributes)) {
+				if ($attributes === []) {
 					continue;
 				}
 

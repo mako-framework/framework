@@ -69,7 +69,7 @@ class ClassInspector
 
 		$searched = [];
 
-		while (!empty($search)) {
+		while ($search !== []) {
 			$trait = array_pop($search);
 
 			if (isset($searched[$trait])) {

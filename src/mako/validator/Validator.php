@@ -261,7 +261,7 @@ class Validator
 				continue;
 			}
 
-			if (!empty($fields = Arr::expandKey($this->input, $field))) {
+			if (($fields = Arr::expandKey($this->input, $field)) !== []) {
 				if ($field !== '*') {
 					$this->saveOriginalFieldNames($fields, $field);
 				}

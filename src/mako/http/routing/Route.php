@@ -252,7 +252,7 @@ class Route
 			$route = preg_replace('/\/{(\w+)}\?/', '(?:/{$1})?', $route);
 		}
 
-		if (!empty($this->patterns)) {
+		if ($this->patterns !== []) {
 			foreach ($this->patterns as $key => $pattern) {
 				$route = str_replace("{{$key}}", "(?P<{$key}>{$pattern})", $route);
 			}

@@ -124,7 +124,7 @@ class Reactor
 	 */
 	protected function drawTable(string $heading, array $headers, array $rows): void
 	{
-		if (!empty($rows)) {
+		if ($rows !== []) {
 			$this->output->write(PHP_EOL);
 
 			$this->output->writeLn("<yellow>{$heading}</yellow>");
@@ -208,7 +208,7 @@ class Reactor
 	{
 		$attributes = $class->getAttributes(CommandDescription::class);
 
-		if (empty($attributes)) {
+		if ($attributes === []) {
 			return '';
 		}
 
@@ -222,7 +222,7 @@ class Reactor
 	{
 		$attributes = $class->getAttributes(CommandDescription::class);
 
-		if (empty($attributes)) {
+		if ($attributes === []) {
 			return '';
 		}
 
@@ -236,8 +236,8 @@ class Reactor
 	{
 		$attributes = $class->getAttributes(CommandArguments::class);
 
-		if (empty($attributes)) {
-			return [];
+		if ($attributes === []) {
+			return $attributes;
 		}
 
 		return $attributes[0]->newInstance()->getArguments();

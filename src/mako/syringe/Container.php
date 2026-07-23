@@ -272,7 +272,7 @@ class Container
 
 		$injectors = $parameter->getAttributes(InjectorInterface::class, ReflectionAttribute::IS_INSTANCEOF);
 
-		if (!empty($injectors)) {
+		if ($injectors !== []) {
 			return $injectors[0]->newInstance()->getParameterValue($this, $parameter);
 		}
 
@@ -360,8 +360,8 @@ class Container
 	 */
 	protected function resolveParameters(array $reflectionParameters, array $providedParameters, ?ReflectionClass $class = null, ?string $method = null): array
 	{
-		if (empty($reflectionParameters)) {
-			return [];
+		if ($reflectionParameters === []) {
+			return $reflectionParameters;
 		}
 
 		// Merge provided parameters with the ones we got using reflection

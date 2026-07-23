@@ -134,8 +134,8 @@ class Formatter implements FormatterInterface
 		elseif (isset($this->userStyles[$tag])) {
 			$codes = [];
 
-			foreach ($this->userStyles[$tag] as $tag) {
-				$codes = [...$codes, ...$this->getStyleCodes($tag)];
+			foreach ($this->userStyles[$tag] as $tagName) {
+				$codes = [...$codes, ...$this->getStyleCodes($tagName)];
 			}
 
 			return $codes;
@@ -185,9 +185,9 @@ class Formatter implements FormatterInterface
 
 		// Append previous styles if the closed tag was nested
 
-		if (!empty($this->openTags)) {
-			foreach ($this->openTags as $tag) {
-				$style .= $this->getSgrStyleSequence($tag);
+		if ($this->openTags !== []) {
+			foreach ($this->openTags as $tagName) {
+				$style .= $this->getSgrStyleSequence($tagName);
 			}
 		}
 
@@ -236,7 +236,7 @@ class Formatter implements FormatterInterface
 				}
 			}
 
-			if (!empty($this->openTags)) {
+			if ($this->openTags !== []) {
 				throw new FormatterException('Detected missing formatting close tag.');
 			}
 		}

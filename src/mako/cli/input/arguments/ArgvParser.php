@@ -297,7 +297,7 @@ class ArgvParser
 	 */
 	protected function parsePositional(string $token, array &$positionals, array &$tokens, bool $parseOptions): void
 	{
-		if (empty($positionals)) {
+		if ($positionals === []) {
 			if ($this->ignoreUnknownArguments === false) {
 				throw new InvalidArgumentException(sprintf('Unknown positional argument with value [ %s ].', $token));
 			}
@@ -331,7 +331,7 @@ class ArgvParser
 	 */
 	public function parse(bool $ignoreUnknownArguments = false, bool $forceParse = false): array
 	{
-		if ($forceParse || empty($this->parsed)) {
+		if ($forceParse || $this->parsed === []) {
 			$this->ignoreUnknownArguments = $ignoreUnknownArguments;
 
 			// Parse input

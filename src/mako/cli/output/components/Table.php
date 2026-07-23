@@ -40,7 +40,7 @@ class Table
 	{
 		$columns = count($columnNames);
 
-		if (!empty($rows)) {
+		if ($rows !== []) {
 			foreach ($rows as $row) {
 				if (count($row) !== $columns) {
 					return false;

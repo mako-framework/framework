@@ -32,7 +32,7 @@ class AllOf extends RuleCombinator
 	#[Override]
 	public function shouldAggregateChildErrors(int $successes, array $errorMessages): bool
 	{
-		return !empty($errorMessages);
+		return $errorMessages !== [];
 	}
 
 	/**

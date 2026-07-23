@@ -31,7 +31,7 @@ class OneOf extends RuleCombinator
 	#[Override]
 	public function shouldAggregateChildErrors(int $successes, array $errorMessages): bool
 	{
-		return !empty($errorMessages) && $successes === 0;
+		return $errorMessages !== [] && $successes === 0;
 	}
 
 	/**

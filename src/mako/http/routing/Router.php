@@ -121,7 +121,7 @@ class Router
 
 			$query = $request->query->all();
 
-			if (!empty($query)) {
+			if ($query !== []) {
 				$url .= '?' . http_build_query($query, arg_separator: '&', encoding_type: PHP_QUERY_RFC3986);
 			}
 

@@ -130,7 +130,7 @@ class Routes
 			$this->namedRoutes[$name] = $route;
 		}
 
-		if (!empty($this->groups)) {
+		if ($this->groups !== []) {
 			foreach ($this->groups as $group) {
 				foreach ($group as $option => $value) {
 					$this->registerGroupOption($route, $option, $value);

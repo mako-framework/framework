@@ -174,7 +174,7 @@ abstract class Command extends BaseCommand
 	{
 		$migrations = $this->getMigrationsFilteredByConnection();
 
-		if (!empty($migrations)) {
+		if ($migrations !== []) {
 			foreach ($this->getMigrated() as $migrated) {
 				foreach ($migrations as $key => $migration) {
 					if ($migrated->package === $migration->package && $migrated->version === $migration->version) {

@@ -28,7 +28,7 @@ class Up extends Command
 	{
 		$migrations = $this->getOutstanding();
 
-		if (empty($migrations)) {
+		if ($migrations === []) {
 			$this->nl();
 			$this->write('<green>There are no outstanding migrations.</green>');
 			$this->nl();

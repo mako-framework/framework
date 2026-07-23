@@ -75,7 +75,7 @@ class URLBuilder
 	{
 		$url = $this->baseURL . ($this->cleanURLs ? '' : "/{$this->scriptName}") . ($language === true ? $this->languagePrefix : (!$language ? '' : "/{$language}")) . $path;
 
-		if (!empty($queryParams)) {
+		if ($queryParams !== []) {
 			$url .= '?' . http_build_query($queryParams, arg_separator: $separator, encoding_type: PHP_QUERY_RFC3986);
 		}
 

@@ -330,7 +330,7 @@ class Session
 	{
 		$flashData = $this->sessionData['mako:flashdata'] ?? [];
 
-		$flashData = empty($keys) ? $flashData : array_intersect_key($flashData, array_flip($keys));
+		$flashData = $keys === [] ? $flashData : array_intersect_key($flashData, array_flip($keys));
 
 		$this->flashData = [...$this->flashData, ...$flashData];
 	}

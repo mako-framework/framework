@@ -237,7 +237,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function isEmpty(): bool
 	{
-		return empty($this->items);
+		return $this->items === [];
 	}
 
 	/**

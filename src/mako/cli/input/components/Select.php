@@ -244,7 +244,7 @@ class Select
 			}
 		}
 
-		if (empty($selection)) {
+		if ($selection === []) {
 			return null;
 		}
 

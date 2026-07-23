@@ -122,11 +122,11 @@ abstract class AccessControl implements MiddlewareInterface
 			$response->headers->add('Access-Control-Allow-Origin', '*');
 		}
 
-		if (!empty($allowedHeaders = $this->getAllowedHeaders())) {
+		if (($allowedHeaders = $this->getAllowedHeaders()) !== []) {
 			$response->headers->add('Access-Control-Allow-Headers', implode(', ', $allowedHeaders));
 		}
 
-		if (!empty($allowedMethods = $this->getAllowedMethods())) {
+		if (($allowedMethods = $this->getAllowedMethods()) !== []) {
 			$response->headers->add('Access-Control-Allow-Methods', implode(', ', $allowedMethods));
 		}
 

@@ -101,7 +101,7 @@ class Dispatcher
 	 */
 	protected function orderMiddlewareByPriority(array $middleware): array
 	{
-		if (empty($this->middlewarePriority)) {
+		if ($this->middlewarePriority === []) {
 			return $middleware;
 		}
 
@@ -127,7 +127,7 @@ class Dispatcher
 	 */
 	protected function addMiddlewareToStack(Onion $onion, array $middleware): void
 	{
-		if (empty($middleware) === false) {
+		if ($middleware !== []) {
 			foreach ($this->orderMiddlewareByPriority($middleware) as $layer) {
 				$onion->addLayer($layer['middleware'], $layer['parameters']);
 			}

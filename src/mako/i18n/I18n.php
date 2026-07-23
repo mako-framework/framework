@@ -215,7 +215,7 @@ class I18n
 
 		$string = Arr::get($this->getStrings($language ?? $this->language, $file), $string, $key);
 
-		if (!empty($vars)) {
+		if ($vars !== []) {
 			$string = vsprintf($string, $vars);
 
 			if (stripos($string, '</') !== false) {

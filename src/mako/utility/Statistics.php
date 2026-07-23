@@ -64,7 +64,7 @@ class Statistics
 	 */
 	protected static function calculateMode(array $values): mixed
 	{
-		if (empty($values)) {
+		if ($values === []) {
 			throw new StatisticsException('The array can not be empty.');
 		}
 
@@ -94,7 +94,7 @@ class Statistics
 	 */
 	public static function midrange(array $numbers): float|int
 	{
-		if (empty($numbers)) {
+		if ($numbers === []) {
 			throw new StatisticsException('The array can not be empty.');
 		}
 
