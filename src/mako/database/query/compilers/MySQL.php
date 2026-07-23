@@ -231,8 +231,10 @@ class MySQL extends Compiler
 		$sql = $this->query->getPrefix()
 		. 'DELETE ';
 
-		if (!empty($this->query->getJoins())) {
-			if (empty($tables)) {
+		$joins = $this->query->getJoins();
+
+		if ($joins !== []) {
+			if ($tables === []) {
 				$sql .= "{$this->escapeTableName($this->query->getTable())} ";
 			}
 			else {
@@ -242,7 +244,7 @@ class MySQL extends Compiler
 
 		$sql .= 'FROM '
 		. $this->escapeTableName($this->query->getTable())
-		. $this->joins($this->query->getJoins())
+		. $this->joins($joins)
 		. $this->wheres($this->query->getWheres());
 
 		return ['sql' => $sql, 'params' => $this->params];

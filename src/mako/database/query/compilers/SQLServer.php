@@ -96,7 +96,7 @@ class SQLServer extends Compiler
 	#[Override]
 	protected function orderings(array $orderings): string
 	{
-		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
+		if ($orderings === [] && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
 			return ' ORDER BY (SELECT 0)';
 		}
 
@@ -144,7 +144,7 @@ class SQLServer extends Compiler
 		$query['sql'] = substr_replace(
 			$query['sql'],
 			' OUTPUT ' . implode(', ', $return),
-			strpos($query['sql'], empty($values) ? 'DEFAULT' : 'VALUES') - 1,
+			strpos($query['sql'], $values === [] ? 'DEFAULT' : 'VALUES') - 1,
 			0
 		);
 

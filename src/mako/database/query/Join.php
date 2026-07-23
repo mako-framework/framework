@@ -49,7 +49,7 @@ class Join
 	 */
 	public function hasConditions(): bool
 	{
-		return !empty($this->conditions);
+		return $this->conditions !== [];
 	}
 
 	/**

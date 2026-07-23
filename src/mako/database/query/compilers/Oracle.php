@@ -91,7 +91,7 @@ class Oracle extends Compiler
 	#[Override]
 	protected function orderings(array $orderings): string
 	{
-		if (empty($orderings) && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
+		if ($orderings === [] && ($this->query->getLimit() !== null || $this->query->getOffset() !== null)) {
 			return ' ORDER BY (SELECT 0)';
 		}
 

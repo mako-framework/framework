@@ -45,7 +45,7 @@ class Postgres extends Compiler
 
 		$last = array_pop($sql);
 
-		if (empty($sql)) {
+		if ($sql === []) {
 			return "{$column}->>{$last}";
 		}
 

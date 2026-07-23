@@ -78,7 +78,7 @@ class Compiler
 	{
 		$parameters = $raw->getParameters();
 
-		if (!empty($parameters)) {
+		if ($parameters !== []) {
 			$this->params = [...$this->params, ...$parameters];
 		}
 
@@ -380,7 +380,7 @@ class Compiler
 	 */
 	protected function setOperations(array $setOperations): string
 	{
-		if (empty($setOperations)) {
+		if ($setOperations === []) {
 			return '';
 		}
 
@@ -599,7 +599,7 @@ class Compiler
 	 */
 	protected function wheres(array $wheres): string
 	{
-		if (empty($wheres)) {
+		if ($wheres === []) {
 			return '';
 		}
 
@@ -651,7 +651,7 @@ class Compiler
 	 */
 	protected function joins(array $joins): string
 	{
-		if (empty($joins)) {
+		if ($joins === []) {
 			return '';
 		}
 
@@ -671,7 +671,7 @@ class Compiler
 	 */
 	protected function groupings(array $groupings): string
 	{
-		return empty($groupings) ? '' : " GROUP BY {$this->columns($groupings)}";
+		return $groupings === [] ? '' : " GROUP BY {$this->columns($groupings)}";
 	}
 
 	/**
@@ -705,7 +705,7 @@ class Compiler
 	 */
 	protected function orderings(array $orderings): string
 	{
-		if (empty($orderings)) {
+		if ($orderings === []) {
 			return '';
 		}
 
@@ -741,7 +741,7 @@ class Compiler
 	 */
 	protected function havings(array $havings): string
 	{
-		if (empty($havings)) {
+		if ($havings === []) {
 			return '';
 		}
 
@@ -826,7 +826,7 @@ class Compiler
 	public function insert(array $values): array
 	{
 		$sql = $this->query->getPrefix()
-		. (empty($values) ? $this->insertWithoutValues() : $this->insertWithValues($values));
+		. ($values === [] ? $this->insertWithoutValues() : $this->insertWithValues($values));
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}

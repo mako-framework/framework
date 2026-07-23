@@ -317,12 +317,12 @@ class ManyToMany extends Relation
 		// If we have no attributes or the attributes are not a list
 		// then we can unlink all the related records in one go
 
-		if (empty($attributes) || !array_is_list($attributes)) {
+		if ($attributes === [] || !array_is_list($attributes)) {
 			if ($id !== null) {
 				$query->in($this->getJunctionKey(), $this->getJunctionKeys($id));
 			}
 
-			if (!empty($attributes)) {
+			if ($attributes !== []) {
 				foreach ($attributes as $column => $value) {
 					$query->where($column, '=', $value);
 				}
@@ -360,7 +360,7 @@ class ManyToMany extends Relation
 	 */
 	public function synchronize(array $ids, array $attributes = []): bool
 	{
-		if (!empty($attributes) && array_is_list($attributes)) {
+		if ($attributes !== [] && array_is_list($attributes)) {
 			throw new DatabaseException('Synchronize can only be used with a single set of attributes.');
 		}
 
@@ -383,13 +383,13 @@ class ManyToMany extends Relation
 
 		// Link new relations
 
-		if (!empty($diff = array_diff($keys, $existing))) {
+		if (($diff = array_diff($keys, $existing)) !== []) {
 			$success = $this->link($diff, $attributes);
 		}
 
 		// Unlink old relations
 
-		if (!empty($diff = array_diff($existing, $keys))) {
+		if (($diff = array_diff($existing, $keys)) !== []) {
 			$success = $success && $this->unlink($diff, $attributes);
 		}
 

@@ -1449,7 +1449,7 @@ class Query
 	{
 		$clone = (clone $this)->clearOrderings();
 
-		if (empty($this->setOperations) && empty($this->groupings) && $this->distinct === false) {
+		if ($this->setOperations === [] && $this->groupings === [] && $this->distinct === false) {
 			return $clone->count();
 		}
 

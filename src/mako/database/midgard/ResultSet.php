@@ -63,7 +63,7 @@ class ResultSet extends BaseResultSet
 	 */
 	public function include(array|string $includes): static
 	{
-		if (!empty($this->items)) {
+		if ($this->items !== []) {
 			(function ($includes, $items): void {
 				$this->including($includes)->loadIncludes($items);
 			})->bindTo($this->items[0]->getQuery(), Query::class)($includes, $this->items);

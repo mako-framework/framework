@@ -529,7 +529,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	protected function setColumValues(array $columns, bool $raw): void
 	{
 		if ($raw) {
-			if (empty($this->cast)) {
+			if ($this->cast === []) {
 				$this->columns = $columns;
 			}
 			else {
@@ -554,7 +554,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	{
 		// Remove columns that are not in the whitelist
 
-		if ($whitelist && !empty($this->assignable)) {
+		if ($whitelist && $this->assignable !== []) {
 			$columns = array_intersect_key($columns, array_flip($this->assignable));
 		}
 
@@ -871,7 +871,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 		// Removes protected columns from the array
 
-		if (!empty($this->protected)) {
+		if ($this->protected !== []) {
 			$columns = array_diff_key($columns, array_flip($this->protected));
 		}
 
@@ -900,12 +900,12 @@ abstract class ORM implements JsonSerializable, Stringable
 				continue;
 			}
 
-			if (!empty($this->protected)) {
+			if ($this->protected !== []) {
 				$protect = array_map(static fn ($value) => substr($value, strlen($relation) + 1),
 					array_filter($this->protected, static fn ($value) => str_starts_with($value, "{$relation}."))
 				);
 
-				if (!empty($protect)) {
+				if ($protect !== []) {
 					$related->protect($protect);
 				}
 			}

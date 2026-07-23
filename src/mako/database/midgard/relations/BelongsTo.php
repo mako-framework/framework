@@ -89,7 +89,7 @@ class BelongsTo extends Relation
 
 		$grouped = [];
 
-		if (!empty($keys = $this->keys($results))) {
+		if (($keys = $this->keys($results)) !== []) {
 			if ($criteria !== null) {
 				$criteria($this);
 			}

@@ -70,7 +70,7 @@ class Query extends QueryBuilder
 	#[Override]
 	public function getColumns(): array
 	{
-		if (empty($this->relationCounters)) {
+		if ($this->relationCounters === []) {
 			return $this->columns;
 		}
 
@@ -91,7 +91,7 @@ class Query extends QueryBuilder
 	#[Override]
 	public function join(Raw|string|Subquery $table, null|Closure|Raw|string $column1 = null, ?string $operator = null, null|Raw|string $column2 = null, string $type = 'INNER JOIN'): static
 	{
-		if (empty($this->joins) && $this->columns === ['*']) {
+		if ($this->joins === [] && $this->columns === ['*']) {
 			$this->select(["{$this->table}.*"]);
 		}
 
@@ -391,7 +391,7 @@ class Query extends QueryBuilder
 	 */
 	public function get(int|string $id, array $columns = []): ?ORM
 	{
-		if (!empty($columns)) {
+		if ($columns !== []) {
 			$this->select($columns);
 		}
 
@@ -405,7 +405,7 @@ class Query extends QueryBuilder
 	 */
 	public function getOrThrow(int|string $id, array $columns = [], string $exception = NotFoundException::class): ORM
 	{
-		if (!empty($columns)) {
+		if ($columns !== []) {
 			$this->select($columns);
 		}
 
@@ -427,10 +427,10 @@ class Query extends QueryBuilder
 
 			$currentIncludes = $this->model->getIncludes();
 
-			if (!empty($currentIncludes)) {
+			if ($currentIncludes !== []) {
 				$withCriterion = array_filter(array_keys($includes), is_string(...));
 
-				if (!empty($withCriterion)) {
+				if ($withCriterion !== []) {
 					foreach ($currentIncludes as $key => $value) {
 						if (in_array($value, $withCriterion)) {
 							unset($currentIncludes[$key]); // Unset relations that have previously been set without a criterion closure
@@ -684,7 +684,7 @@ class Query extends QueryBuilder
 	#[Override]
 	public function batch(Closure $processor, int $batchSize = 1000, int $offsetStart = 0, ?int $offsetEnd = null): void
 	{
-		if (empty($this->orderings)) {
+		if ($this->orderings === []) {
 			$this->ascending($this->model->getPrimaryKey());
 		}
 
