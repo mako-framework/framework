@@ -95,7 +95,7 @@ abstract class Image implements ImageInterface
 	/**
 	 * Returns the mime type of the image resource.
 	 */
-	abstract protected function getMimeType(?string $type): string;
+	abstract protected function getOuputMimeType(?string $type): string;
 
 	/**
 	 * Save an image resource.
@@ -163,7 +163,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	public function toDataUri(?string $type = null, int $quality = 95): string
 	{
-		return "data:{$this->getMimeType($type)};base64,{$this->toBase64($type, $quality)}";
+		return "data:{$this->getOuputMimeType($type)};base64,{$this->toBase64($type, $quality)}";
 	}
 
 	/**

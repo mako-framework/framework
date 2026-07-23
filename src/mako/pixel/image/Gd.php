@@ -156,7 +156,7 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	protected function getMimeType(?string $type): string
+	protected function getOuputMimeType(?string $type): string
 	{
 		return $type === null
 			? $this->mimeType
