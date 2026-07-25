@@ -33,9 +33,19 @@ use function trim;
 final class DotenvLoader
 {
 	/**
+	 * Constructor.
+	 */
+	public function __construct(
+		protected bool $overrideExisting = false,
+		protected bool $interpolateVariables = false,
+		protected bool $usePutEnv = false
+	) {
+	}
+
+	/**
 	 * Strip inline comment from value.
 	 */
-	private static function stripInlineComment(string $value): string
+	private function stripInlineComment(string $value): string
 	{
 		$quote = ($value[0] === '"' || $value[0] === "'") ? $value[0] : null;
 		$escaped = false;
@@ -73,9 +83,9 @@ final class DotenvLoader
 	}
 
 	/**
-	 * Expand variables in value.
+	 * Interpolate variables in value.
 	 */
-	private static function expandVariables(string $value): string
+	private function interpolateVariables(string $value): string
 	{
 		return preg_replace_callback(
 			'/(\\\\*)\$\{([A-Z_][A-Z0-9_]*)\}/i',
@@ -100,7 +110,7 @@ final class DotenvLoader
 	/**
 	 * Unescape values.
 	 */
-	private static function unescape(string $value): string
+	private function unescape(string $value): string
 	{
 		return str_replace(
 			['\\n', '\\r', '\\t', '\\"', '\\\\'],
@@ -112,12 +122,12 @@ final class DotenvLoader
 	/**
 	 * Parse value.
 	 */
-	private static function parseValue(string $value, int $lineNumber, bool $expandVariables): string
+	private function parseValue(string $value, int $lineNumber): string
 	{
 		// Remove inline comments
 
 		if (strpos($value, '#') !== false) {
-			$value = self::stripInlineComment($value);
+			$value = $this->stripInlineComment($value);
 		}
 
 		if ($value === '') {
@@ -139,11 +149,11 @@ final class DotenvLoader
 			$value = substr($value, 1, -1);
 
 			if ($first === '"') {
-				if ($expandVariables && strpos($value, '${') !== false) {
-					$value = self::expandVariables($value);
+				if ($this->interpolateVariables && strpos($value, '${') !== false) {
+					$value = $this->interpolateVariables($value);
 				}
 
-				$value = self::unescape($value);
+				$value = $this->unescape($value);
 			}
 
 			return $value;
@@ -157,7 +167,7 @@ final class DotenvLoader
 	/**
 	 * Loads the file into environment variables.
 	 */
-	public static function load(string $filePath, bool $overrideExisting = false, bool $expandVariables = false, bool $usePutEnv = false): void
+	public function load(string $filePath): void
 	{
 		$lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
@@ -211,17 +221,17 @@ final class DotenvLoader
 
 			// Should we skip overriding existing variables?
 
-			if ($overrideExisting === false && (array_key_exists($key, $_ENV) || getenv($key) !== false)) {
+			if ($this->overrideExisting === false && (array_key_exists($key, $_ENV) || getenv($key) !== false)) {
 				continue;
 			}
 
 			// Parse value and put it into environment
 
 			if ($value !== '') {
-				$value = self::parseValue($value, $lineNumber, $expandVariables);
+				$value = $this->parseValue($value, $lineNumber);
 			}
 
-			if ($usePutEnv) {
+			if ($this->usePutEnv) {
 				putenv("{$key}={$value}");
 			}
 
