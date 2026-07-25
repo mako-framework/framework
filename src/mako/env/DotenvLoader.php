@@ -85,11 +85,11 @@ final class DotenvLoader
 	/**
 	 * Interpolate variables in value.
 	 */
-	private function interpolateVariables(string $value): string
+	private function interpolateVariables(string $value, string $filePath, int $lineNumber): string
 	{
 		return preg_replace_callback(
 			'/(\\\\*)\$\{([A-Z_][A-Z0-9_]*)\}/i',
-			static function (array $matches): string {
+			static function (array $matches) use ($filePath, $lineNumber): string {
 				$slashes = $matches[1];
 				$key = $matches[2];
 
@@ -101,7 +101,15 @@ final class DotenvLoader
 
 				// Even number of backslashes, we'll expand the variable
 
-				return $slashes . (env($key) ?? throw new EnvException(sprintf('Unknown environment variable [ $%s ].', $key)));
+				return $slashes . (
+					env($key)
+					?? throw new EnvException(sprintf(
+						'Undefined environment variable [ $%s ] in [ %s ] on line [ %s ].',
+						$key,
+						$filePath,
+						$lineNumber
+					))
+				);
 			},
 			$value
 		) ?? $value;
@@ -122,7 +130,7 @@ final class DotenvLoader
 	/**
 	 * Parse value.
 	 */
-	private function parseValue(string $value, int $lineNumber): string
+	private function parseValue(string $value, string $filePath, int $lineNumber): string
 	{
 		// Remove inline comments
 
@@ -143,14 +151,18 @@ final class DotenvLoader
 
 		if ($first === '"' || $first === "'") {
 			if ($last !== $first) {
-				throw new EnvException(sprintf('Unterminated quoted value on line [ %s ]', $lineNumber));
+				throw new EnvException(sprintf(
+					'Unterminated quoted value in [ %s ] on line [ %s ].',
+					$filePath,
+					$lineNumber
+				));
 			}
 
 			$value = substr($value, 1, -1);
 
 			if ($first === '"') {
 				if ($this->interpolateVariables && strpos($value, '${') !== false) {
-					$value = $this->interpolateVariables($value);
+					$value = $this->interpolateVariables($value, $filePath, $lineNumber);
 				}
 
 				$value = $this->unescape($value);
@@ -167,7 +179,7 @@ final class DotenvLoader
 	/**
 	 * Loads the file into environment variables.
 	 */
-	public function load(string $filePath): void
+	public function load(string $filePath, string $keyPrefix = ''): void
 	{
 		$lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
@@ -181,7 +193,11 @@ final class DotenvLoader
 			// Check for NUL byte
 
 			if (str_contains($line, "\0")) {
-				throw new EnvException(sprintf('NUL byte detected in [ %s ] on line [ %s ].', $filePath, $lineNumber));
+				throw new EnvException(sprintf(
+					'NUL byte detected in [ %s ] on line [ %s ].',
+					$filePath,
+					$lineNumber
+				));
 			}
 
 			// Strip UTF-8 BOM from first line
@@ -206,18 +222,29 @@ final class DotenvLoader
 
 			// Split key and value
 
-			$pos = strpos($line, '=');
+			$equalPosition = strpos($line, '=');
 
-			if ($pos === false) {
-				throw new EnvException(sprintf('Invalid env declaration in [ %s ] on line [ %s ].', $filePath, $lineNumber));
+			if ($equalPosition === false) {
+				throw new EnvException(sprintf(
+					'Invalid env declaration in [ %s ] on line [ %s ].',
+					$filePath,
+					$lineNumber
+				));
 			}
 
-			$key = trim(substr($line, 0, $pos));
-			$value = trim(substr($line, $pos + 1));
+			$key = trim(substr($line, 0, $equalPosition));
+			$value = trim(substr($line, $equalPosition + 1));
 
 			if ($key === '' || !preg_match('/^(?:[A-Z][A-Z0-9_]*|_[A-Z0-9_]+)$/i', $key)) {
-				throw new EnvException(sprintf('Invalid key [ %s ] in [ %s ] on line [ %s ].', ($key ?: 'empty'), $filePath, $lineNumber));
+				throw new EnvException(sprintf(
+					'Invalid key [ %s ] in [ %s ] on line [ %s ].',
+					($key ?: 'empty'),
+					$filePath,
+					$lineNumber
+				));
 			}
+
+			$key = "{$keyPrefix}{$key}";
 
 			// Should we skip overriding existing variables?
 
@@ -228,7 +255,7 @@ final class DotenvLoader
 			// Parse value and put it into environment
 
 			if ($value !== '') {
-				$value = $this->parseValue($value, $lineNumber);
+				$value = $this->parseValue($value, $filePath, $lineNumber);
 			}
 
 			if ($this->usePutEnv) {
