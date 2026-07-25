@@ -181,7 +181,7 @@ final class DotenvLoader
 	 */
 	public function load(string $filePath, string $keyPrefix = ''): void
 	{
-		$lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$lines = file($filePath, FILE_IGNORE_NEW_LINES);
 
 		if ($lines === false) {
 			throw new EnvException(sprintf('Failed to read env file [ %s ].', $filePath));
