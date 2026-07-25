@@ -203,8 +203,8 @@ final class DotenvLoader
 			// Strip UTF-8 BOM from first line
 
 			if ($lineNumber === 1 && str_starts_with($line, "\xEF\xBB\xBF")) {
-                $line = substr($line, 3);
-            }
+				$line = substr($line, 3);
+			}
 
 			$line = trim($line);
 
