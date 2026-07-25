@@ -47,6 +47,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added the following methods to the `ImageInterface` interface:
 	- `ImageInterface::toBase64()`
 	- `ImageInterface::toDataUri()`
+* Added dotenv loader.
 
 #### Changes
 
