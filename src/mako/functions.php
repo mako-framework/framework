@@ -32,7 +32,7 @@ namespace mako {
 	 */
 	function env(string $variableName, mixed $default = null, bool $localOnly = false, ?Type $as = null): mixed
 	{
-		$value = $_ENV[$variableName] ?? (getenv($variableName, $localOnly) ?: null);
+		$value = $_ENV[$variableName] ?? (($env = getenv($variableName, $localOnly)) !== false ? $env : null);
 
 		return match ($as) {
 			null => $value,
