@@ -36,9 +36,9 @@ final class DotenvLoader
 	 * Constructor.
 	 */
 	public function __construct(
-		protected bool $overrideExisting = false,
-		protected bool $interpolateVariables = false,
-		protected bool $usePutEnv = false
+		private bool $overrideExisting = false,
+		private bool $interpolateVariables = false,
+		private bool $usePutEnv = false
 	) {
 	}
 
