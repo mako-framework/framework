@@ -81,13 +81,13 @@ class GenerateKey extends Command
 
 			$this->updateDotEnv($fileSystem, $dotenv, $dotenvKey, $key);
 
-			$this->write(sprintf("Updated [ %s ]' in [ %s ].", $dotenvKey, $dotenv));
+			$this->write(sprintf('Updated "<yellow>%s</yellow>" in "<yellow>%s</yellow>".', $dotenvKey, $dotenv));
 
 			return static::STATUS_SUCCESS;
 		}
 
 		$this->nl();
-		$this->write("Your encryption key: '<yellow>{$key}</yellow>'.");
+		$this->write('Your encryption key: "<yellow>{$key}</yellow>".');
 		$this->nl();
 
 		return static::STATUS_SUCCESS;
