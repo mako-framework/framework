@@ -21,11 +21,11 @@ use function rtrim;
 use function sprintf;
 
 /**
- * Command that generates an encryption key.
+ * Command that generates a cryptographic key.
  */
-#[CommandDescription('Generates a 256-bit encryption key.')]
+#[CommandDescription('Generates a cryptographic key.')]
 #[CommandArguments(
-	new NamedArgument('key-length', 'l', 'Length of the key to generate', NamedArgument::IS_OPTIONAL | NamedArgument::IS_INT, default: 32),
+	new NamedArgument('key-size', 's', 'Size of the key to generate in bits (default = 256)', NamedArgument::IS_OPTIONAL | NamedArgument::IS_INT, default: 256),
 	new NamedArgument('dotenv', 'd', 'Path to .env file', NamedArgument::IS_OPTIONAL),
 	new NamedArgument('dotenv-key', 'k', 'Name of the .env key to generate', NamedArgument::IS_OPTIONAL),
 )]
@@ -54,9 +54,15 @@ class GenerateKey extends Command
 	/**
 	 * Executes the command.
 	 */
-	public function execute(FileSystem $fileSystem, int $keyLength, ?string $dotenv, ?string $dotenvKey): int
+	public function execute(FileSystem $fileSystem, int $keySize, ?string $dotenv, ?string $dotenvKey): int
 	{
-		$key = Key::generateEncoded($keyLength);
+		if ($keySize % 8 !== 0) {
+			$this->error('Key size must be a multiple of 8 bits.');
+
+			return static::STATUS_ERROR;
+		}
+
+		$key = Key::generateEncoded(intdiv($keySize, 8));
 
 		if ($dotenv !== null && $dotenvKey !== null) {
 			if (!$fileSystem->has($dotenv)) {
