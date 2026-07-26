@@ -14,6 +14,7 @@ use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 use mako\security\Key;
 
+use function intdiv;
 use function preg_match;
 use function preg_quote;
 use function preg_replace;
