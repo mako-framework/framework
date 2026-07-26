@@ -98,7 +98,7 @@ class DevelopmentHandler implements HandlerInterface
 		if (!empty($exception->getFile())) {
 			$info .= PHP_EOL
 			. PHP_EOL
-			. " The error occured in <bold>{$this->escape(str_replace($cwd, '.', $exception->getFile()))}</bold>"
+			. " The error occurred in <bold>{$this->escape(str_replace($cwd, '.', $exception->getFile()))}</bold>"
 			. " on line <bold>{$exception->getLine()}</bold>"
 			. PHP_EOL;
 		}
