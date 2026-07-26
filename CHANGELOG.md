@@ -1,3 +1,11 @@
+### 12.2.3 <small>(2026-07-26)</small>
+
+#### Bugfixes
+
+* Fixed typo in CLI exception handler.
+
+--------------------------------------------------------
+
 ### 12.2.2 <small>(2026-07-15)</small>
 
 #### Bugfixes
