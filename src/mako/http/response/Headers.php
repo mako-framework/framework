@@ -7,11 +7,11 @@
 
 namespace mako\http\response;
 
-use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\http\response\traits\PatternMatcherTrait;
 use Override;
+use Traversable;
 
 use function array_column;
 use function array_filter;
@@ -45,9 +45,9 @@ class Headers implements Countable, IteratorAggregate
 	 * Retruns an array iterator object.
 	 */
 	#[Override]
-	public function getIterator(): ArrayIterator
+	public function getIterator(): Traversable
 	{
-		return new ArrayIterator($this->all());
+		yield from $this->all();
 	}
 
 	/**

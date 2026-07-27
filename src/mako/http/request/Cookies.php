@@ -7,12 +7,12 @@
 
 namespace mako\http\request;
 
-use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\http\exceptions\HttpException;
 use mako\security\Signer;
 use Override;
+use Traversable;
 
 use function count;
 
@@ -43,9 +43,9 @@ class Cookies implements Countable, IteratorAggregate
 	 * Retruns an array iterator object.
 	 */
 	#[Override]
-	public function getIterator(): ArrayIterator
+	public function getIterator(): Traversable
 	{
-		return new ArrayIterator($this->cookies);
+		yield from $this->cookies;
 	}
 
 	/**

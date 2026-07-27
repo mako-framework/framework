@@ -7,11 +7,11 @@
 
 namespace mako\pixel\metadata\xmp\properties;
 
-use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\pixel\metadata\xmp\properties\traits\NameTrait;
 use Override;
+use Traversable;
 
 use function count;
 
@@ -46,8 +46,8 @@ abstract class CollectionProperty implements Countable, IteratorAggregate
 	 * Returns the iterator.
 	 */
 	#[Override]
-	public function getIterator(): ArrayIterator
+	public function getIterator(): Traversable
 	{
-		return new ArrayIterator($this->values);
+		yield from $this->values;
 	}
 }

@@ -7,11 +7,11 @@
 
 namespace mako\http\request;
 
-use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use mako\utility\Arr;
 use Override;
+use Traversable;
 
 use function array_diff_key;
 use function array_flip;
@@ -44,9 +44,9 @@ class Parameters implements Countable, IteratorAggregate
 	 * Retruns an array iterator object.
 	 */
 	#[Override]
-	public function getIterator(): ArrayIterator
+	public function getIterator(): Traversable
 	{
-		return new ArrayIterator($this->parameters);
+		yield from $this->parameters;
 	}
 
 	/**
