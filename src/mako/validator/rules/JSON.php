@@ -19,6 +19,8 @@ class JSON extends Rule
 {
 	/**
 	 * Constructor.
+	 *
+	 * @param int-mask<\JSON_INVALID_UTF8_IGNORE> $flags
 	 */
 	public function __construct(
 		protected int $depth = 512,
