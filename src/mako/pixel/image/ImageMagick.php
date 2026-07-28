@@ -161,33 +161,6 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function snapshot(): void
-	{
-		$this->snapshot = clone $this->imageResource;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function restore(): void
-	{
-		if ($this->imageResource === null) {
-			throw new ImageException('No snapshot to restore.');
-		}
-
-		$this->imageResource = clone $this->snapshot;
-
-		$this->snapshot->clear();
-		$this->snapshot->destroy();
-
-		$this->snapshot = null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
 	public function getWidth(): int
 	{
 		return $this->imageResource->getImageWidth();
@@ -238,5 +211,32 @@ class ImageMagick extends Image
 		$image->destroy();
 
 		return $colors;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function snapshot(): void
+	{
+		$this->snapshot = clone $this->imageResource;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function restore(): void
+	{
+		if ($this->imageResource === null) {
+			throw new ImageException('No snapshot to restore.');
+		}
+
+		$this->imageResource = clone $this->snapshot;
+
+		$this->snapshot->clear();
+		$this->snapshot->destroy();
+
+		$this->snapshot = null;
 	}
 }

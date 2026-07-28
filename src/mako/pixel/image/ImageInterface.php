@@ -25,16 +25,6 @@ interface ImageInterface
 	public function getMimeType(): string;
 
 	/**
-	 * Creates a snapshot of the image resource.
-	 */
-	public function snapshot(): void;
-
-	/**
-	 * Restores an image snapshot.
-	 */
-	public function restore(): void;
-
-	/**
 	 * Returns the image width in pixels.
 	 */
 	public function getWidth(): int;
@@ -57,6 +47,16 @@ interface ImageInterface
 	 * @return Color[]
 	 */
 	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array;
+
+	/**
+	 * Creates a snapshot of the image resource.
+	 */
+	public function snapshot(): void;
+
+	/**
+	 * Restores an image snapshot.
+	 */
+	public function restore(): void;
 
 	/**
 	 * Applies an image operation.

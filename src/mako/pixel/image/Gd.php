@@ -195,35 +195,6 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function snapshot(): void
-	{
-		$width = imagesx($this->imageResource);
-		$height = imagesy($this->imageResource);
-
-		$this->snapshot = imagecreatetruecolor($width, $height);
-
-		imagecopy($this->snapshot, $this->imageResource, 0, 0, 0, 0, $width, $height);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function restore(): void
-	{
-		if ($this->snapshot === null) {
-			throw new ImageException('No snapshot to restore.');
-		}
-
-		$this->imageResource = $this->snapshot;
-
-		$this->snapshot = null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
 	public function getWidth(): int
 	{
 		return imagesx($this->imageResource);
@@ -282,5 +253,34 @@ class Gd extends Image
 		}
 
 		return $colors;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function snapshot(): void
+	{
+		$width = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$this->snapshot = imagecreatetruecolor($width, $height);
+
+		imagecopy($this->snapshot, $this->imageResource, 0, 0, 0, 0, $width, $height);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function restore(): void
+	{
+		if ($this->snapshot === null) {
+			throw new ImageException('No snapshot to restore.');
+		}
+
+		$this->imageResource = $this->snapshot;
+
+		$this->snapshot = null;
 	}
 }
