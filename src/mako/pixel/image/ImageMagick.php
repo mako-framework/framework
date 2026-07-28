@@ -43,7 +43,9 @@ class ImageMagick extends Image
 	{
 		$imageResource = new Imagick($imagePath);
 
-		if (strtolower($imageResource->getImageFormat()) === 'gif' && $imageResource->getNumberImages() > 1) {
+		$this->mimeType = $this->normalizeMimeType($imageResource->getImageFormat());
+
+		if ($this->mimeType === 'image/gif' && $imageResource->getNumberImages() > 1) {
 			$this->isAnimatedGif = true;
 
 			$imageResource = $imageResource->coalesceImages();
@@ -102,7 +104,7 @@ class ImageMagick extends Image
 			$this->imageResource->setImageFormat($type);
 		}
 
-		if ($type === 'gif' || strtolower($this->imageResource->getImageFormat()) === 'gif') {
+		if ($type === 'gif' || $this->mimeType === 'image/gif') {
 			foreach ($this->imageResource as $frame) {
 				$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
 			}
@@ -124,7 +126,7 @@ class ImageMagick extends Image
 	protected function getOuputMimeType(?string $type): string
 	{
 		return $type === null
-			? $this->normalizeMimeType($this->imageResource->getImageFormat())
+			? $this->mimeType
 			: $this->normalizeMimeType($type);
 	}
 

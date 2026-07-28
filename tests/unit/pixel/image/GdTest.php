@@ -120,4 +120,18 @@ class GdTest extends TestCase
 		$this->assertStringStartsWith('data:image/jpeg;base64,', $image->toDataUri('image/jpeg'));
 		$this->assertStringStartsWith('data:image/gif;base64,', $image->toDataUri('gif'));
 	}
+
+	/**
+	 *
+	 */
+	public function testGetMimeType(): void
+	{
+		$image = new Gd(__DIR__ . '/fixtures/001.png');
+
+		$this->assertSame('image/png', $image->getMimeType());
+
+		$image = new Gd(__DIR__ . '/fixtures/002.jpg');
+
+		$this->assertSame('image/jpeg', $image->getMimeType());
+	}
 }

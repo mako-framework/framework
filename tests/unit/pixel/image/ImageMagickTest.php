@@ -121,4 +121,18 @@ class ImageMagickTest extends TestCase
 		$this->assertStringStartsWith('data:image/tiff;base64,', $image->toDataUri('tif'));
 		$this->assertStringStartsWith('data:image/tiff;base64,', $image->toDataUri('tiff'));
 	}
+
+	/**
+	 *
+	 */
+	public function testGetMimeType(): void
+	{
+		$image = new ImageMagick(__DIR__ . '/fixtures/001.png');
+
+		$this->assertSame('image/png', $image->getMimeType());
+
+		$image = new ImageMagick(__DIR__ . '/fixtures/002.jpg');
+
+		$this->assertSame('image/jpeg', $image->getMimeType());
+	}
 }

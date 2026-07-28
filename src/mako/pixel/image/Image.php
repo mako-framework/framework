@@ -33,6 +33,11 @@ abstract class Image implements ImageInterface
 	protected ?object $imageResource = null;
 
 	/**
+	 * Mime type.
+	 */
+	protected string $mimeType;
+
+	/**
 	 * Snapshot image resource.
 	 */
 	protected ?object $snapshot = null;
@@ -63,21 +68,6 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
-	 * Creates an image resource.
-	 */
-	abstract protected function createImageResource(string $imagePath): object;
-
-	/**
-	 * Destroys an image resource.
-	 */
-	abstract protected function destroyImageResource(): void;
-
-	/**
-	 * Returns the image resouce as a blob.
-	 */
-	abstract protected function getImageResourceAsBlob(?string $type, int $quality): string;
-
-	/**
 	 * Returns a normalized mime type.
 	 */
 	protected function normalizeMimeType(string $type): string
@@ -91,6 +81,21 @@ abstract class Image implements ImageInterface
 			default                   => $type,
 		};
 	}
+
+	/**
+	 * Creates an image resource.
+	 */
+	abstract protected function createImageResource(string $imagePath): object;
+
+	/**
+	 * Destroys an image resource.
+	 */
+	abstract protected function destroyImageResource(): void;
+
+	/**
+	 * Returns the image resouce as a blob.
+	 */
+	abstract protected function getImageResourceAsBlob(?string $type, int $quality): string;
 
 	/**
 	 * Returns the mime type of the image resource.
@@ -109,6 +114,15 @@ abstract class Image implements ImageInterface
 	public function getImageResource(): object
 	{
 		return $this->imageResource;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function getMimeType(): string
+	{
+		return $this->mimeType;
 	}
 
 	/**

@@ -55,11 +55,6 @@ use function strtolower;
 class Gd extends Image
 {
 	/**
-	 * Mime type.
-	 */
-	protected ?string $mimeType = null;
-
-	/**
 	 * Returns information about the image.
 	 */
 	protected function getImageInfo(string $imagePath): array
@@ -81,9 +76,7 @@ class Gd extends Image
 	{
 		$imageInfo = $this->getImageInfo($imagePath);
 
-		if ($this->mimeType === null) {
-			$this->mimeType = $imageInfo['mime'];
-		}
+		$this->mimeType = $this->normalizeMimeType($imageInfo['mime']);
 
 		return match ($imageInfo[2]) {
 			IMAGETYPE_JPEG => imagecreatefromjpeg($imagePath),

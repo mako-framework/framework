@@ -20,6 +20,11 @@ interface ImageInterface
 	public function getImageResource(): object;
 
 	/**
+	 * Returns the mime type of the image.
+	 */
+	public function getMimeType(): string;
+
+	/**
 	 * Creates a snapshot of the image resource.
 	 */
 	public function snapshot(): void;
