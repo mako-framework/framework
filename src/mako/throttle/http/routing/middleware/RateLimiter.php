@@ -77,9 +77,9 @@ class RateLimiter implements MiddlewareInterface
 			$hits = $this->rateLimiter->increment($action, $this->getResetAfter());
 
 			if ($this->setRateLimitHeaders) {
-				$response->headers->add('X-RateLimit-Limit', $this->maxRequests);
-				$response->headers->add('X-RateLimit-Remaining', $this->maxRequests - $hits);
-				$response->headers->add('X-RateLimit-Reset', $this->rateLimiter->getRetryAfter($action)->getTimestamp());
+				$response->headers->add('X-RateLimit-Limit', (string) $this->maxRequests);
+				$response->headers->add('X-RateLimit-Remaining', (string) ($this->maxRequests - $hits));
+				$response->headers->add('X-RateLimit-Reset', (string) $this->rateLimiter->getRetryAfter($action)->getTimestamp());
 			}
 		}
 

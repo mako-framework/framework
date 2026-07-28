@@ -87,11 +87,6 @@ class Formatter implements FormatterInterface
 	protected array $userStyles = [];
 
 	/**
-	 * Open tags.
-	 */
-	protected array $openTags = [];
-
-	/**
 	 * Adds a user defined style.
 	 */
 	public function addStyle(string $name, array|string $style): void
@@ -158,9 +153,9 @@ class Formatter implements FormatterInterface
 	 * Returns ANSI SGR escape sequence(s) for the chosen style(s) and
 	 * adds the tag name to the array of open tags.
 	 */
-	protected function openStyle(string $tag): string
+	protected function openStyle(array &$openTags, string $tag): string
 	{
-		$this->openTags[] = $tagName = $this->getTagName($tag);
+		$openTags[] = $tagName = $this->getTagName($tag);
 
 		return $this->getSgrStyleSequence($tagName);
 	}
@@ -169,15 +164,15 @@ class Formatter implements FormatterInterface
 	 * Returns ANSI SGR escape sequence for style reset and
 	 * ANSI SGR escape sequence for parent style if the closed tag was nested.
 	 */
-	protected function closeStyle(string $tag): string
+	protected function closeStyle(array &$openTags, string $tag): string
 	{
-		if ($this->getTagName($tag) !== array_last($this->openTags)) {
+		if ($this->getTagName($tag) !== array_last($openTags)) {
 			throw new FormatterException('Detected incorrectly nested formatting tag.');
 		}
 
 		// Pop the tag off the array of open tags
 
-		array_pop($this->openTags);
+		array_pop($openTags);
 
 		// Reset style
 
@@ -185,8 +180,8 @@ class Formatter implements FormatterInterface
 
 		// Append previous styles if the closed tag was nested
 
-		if ($this->openTags !== []) {
-			foreach ($this->openTags as $tagName) {
+		if ($openTags !== []) {
+			foreach ($openTags as $tagName) {
 				$style .= $this->getSgrStyleSequence($tagName);
 			}
 		}
@@ -210,14 +205,8 @@ class Formatter implements FormatterInterface
 	#[Override]
 	public function format(string $string): string
 	{
-		// Reset open tags
-
-		$this->openTags = [];
-
-		// Continue with string formatting
-
+		$openTags = [];
 		$offset = 0;
-
 		$formatted = '';
 
 		if (preg_match_all(static::TAG_REGEX, $string, $matches, PREG_OFFSET_CAPTURE) > 0) {
@@ -229,14 +218,14 @@ class Formatter implements FormatterInterface
 				$offset = $pos + strlen($tag);
 
 				if ($this->isOpeningTag($tag)) {
-					$formatted .= $this->openStyle($tag);
+					$formatted .= $this->openStyle($openTags, $tag);
 				}
 				else {
-					$formatted .= $this->closeStyle($tag);
+					$formatted .= $this->closeStyle($openTags, $tag);
 				}
 			}
 
-			if ($this->openTags !== []) {
+			if ($openTags !== []) {
 				throw new FormatterException('Detected missing formatting close tag.');
 			}
 		}
