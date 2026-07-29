@@ -70,7 +70,7 @@ class Signer
 		$validated = $this->validate($string);
 
 		if (!$validated) {
-			throw new SignerException('Failed to validate the signed string. The signature is invalid or the data has been tampered with.');
+			throw new SignerException('The signed string has been modified or an invalid signing key has been provided.');
 		}
 
 		return $validated;

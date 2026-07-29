@@ -7,6 +7,7 @@
 
 namespace mako\application\services;
 
+use mako\security\crypto\Crypto;
 use mako\security\crypto\CryptoManager;
 use Override;
 
@@ -30,5 +31,9 @@ class CryptoService extends Service
 
 			return new CryptoManager($config['default'], $config['configurations'], $container);
 		});
+
+		// Register the default Crypto instance
+
+		$this->container->registerSingleton(Crypto::class, static fn ($container) => $container->get(CryptoManager::class)->getCrypto());
 	}
 }

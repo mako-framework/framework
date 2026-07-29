@@ -77,7 +77,7 @@ class SignerTest extends TestCase
 	public function testValidateOrThrowInvalid(): void
 	{
 		$this->expectException(SignerException::class);
-		$this->expectExceptionMessageIs('Failed to validate the signed string. The signature is invalid or the data has been tampered with.');
+		$this->expectExceptionMessageIs('The signed string has been modified or an invalid signing key has been provided.');
 
 		$string = 'hello, world!';
 
