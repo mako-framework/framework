@@ -8,7 +8,7 @@
 namespace mako\tests\unit\http\request;
 
 use mako\http\request\Cookies;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;

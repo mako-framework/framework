@@ -169,7 +169,7 @@ return
 	mako\redis\traits\TimeSeriesTrait::class,
 	mako\redis\traits\TopKTrait::class,
 	mako\security\Key::class,
-	mako\security\Signer::class,
+	mako\security\signer\Signer::class,
 	mako\session\Session::class,
 	mako\session\stores\StoreInterface::class,
 	mako\syringe\attributes\InjectorInterface::class,

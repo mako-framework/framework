@@ -5,8 +5,9 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\security;
+namespace mako\security\signer;
 
+use mako\security\signer\exceptions\SignerException;
 use SensitiveParameter;
 
 use function hash_equals;
@@ -59,5 +60,19 @@ class Signer
 		}
 
 		return false;
+	}
+
+	/**
+	 * Returns the original string if the signature is valid or throws an exception if not.
+	 */
+	public function validateOrThrow(string $string): string
+	{
+		$validated = $this->validate($string);
+
+		if (!$validated) {
+			throw new SignerException('Failed to validate the signed string. The signature is invalid or the data has been tampered with.');
+		}
+
+		return $validated;
 	}
 }

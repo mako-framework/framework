@@ -9,7 +9,8 @@ namespace mako\security\crypto;
 
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\crypto\exceptions\CryptoException;
-use mako\security\Signer;
+use mako\security\signer\exceptions\SignerException;
+use mako\security\signer\Signer;
 use SensitiveParameter;
 
 /**
@@ -39,10 +40,11 @@ class Crypto
 	 */
 	public function decrypt(#[SensitiveParameter] string $string): false|string
 	{
-		$string = $this->signer->validate($string);
-
-		if ($string === false) {
-			throw new CryptoException('Ciphertex has been modified or an invalid authentication key has been provided.');
+		try {
+			$string = $this->signer->validateOrThrow($string);
+		}
+		catch (SignerException $e) {
+			throw new CryptoException('Ciphertex has been modified or an invalid authentication key has been provided.', previous: $e);
 		}
 
 		return $this->encrypter->decrypt($string);

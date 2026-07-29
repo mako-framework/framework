@@ -14,7 +14,7 @@ use mako\http\request\Headers;
 use mako\http\request\Parameters;
 use mako\http\request\Server;
 use mako\http\routing\Route;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use mako\utility\Arr;
 use mako\utility\ip\IP;
 

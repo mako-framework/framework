@@ -11,7 +11,7 @@ use Countable;
 use IteratorAggregate;
 use mako\http\exceptions\HttpException;
 use mako\http\response\traits\PatternMatcherTrait;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use Override;
 use Traversable;
 

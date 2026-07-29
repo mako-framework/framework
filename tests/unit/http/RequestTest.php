@@ -10,7 +10,7 @@ namespace mako\tests\unit\http;
 use mako\http\Request;
 use mako\http\request\UploadedFile;
 use mako\http\routing\Route;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;

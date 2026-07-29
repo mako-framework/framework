@@ -8,7 +8,7 @@
 namespace mako\application\services;
 
 use mako\security\Key;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use Override;
 
 /**

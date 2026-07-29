@@ -10,7 +10,8 @@ namespace mako\tests\unit\security\crypto;
 use mako\security\crypto\Crypto;
 use mako\security\crypto\encrypters\EncrypterInterface;
 use mako\security\crypto\exceptions\CryptoException;
-use mako\security\Signer;
+use mako\security\signer\exceptions\SignerException;
+use mako\security\signer\Signer;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;
@@ -43,7 +44,7 @@ class CryptoTest extends TestCase
 	{
 		$signer = Mockery::mock(Signer::class);
 
-		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn('barfoo');
+		$signer->shouldReceive('validateOrThrow')->once()->with('signedbarfoo')->andReturn('barfoo');
 
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 
@@ -65,7 +66,7 @@ class CryptoTest extends TestCase
 
 		$signer = Mockery::mock(Signer::class);
 
-		$signer->shouldReceive('validate')->once()->with('signedbarfoo')->andReturn(false);
+		$signer->shouldReceive('validateOrThrow')->once()->with('signedbarfoo')->andThrow(new SignerException);
 
 		$encrypter = Mockery::mock(EncrypterInterface::class);
 

@@ -9,7 +9,7 @@ namespace mako\tests\unit\http;
 
 use mako\http\exceptions\HttpException;
 use mako\http\response\Cookies;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use mako\tests\TestCase;
 use Mockery;
 use PHPUnit\Framework\Attributes\Group;

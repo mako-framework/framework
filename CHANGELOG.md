@@ -49,6 +49,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ImageInterface::toDataUri()`
 	- `ImageInterface::getMimeType()`
 * Added dotenv loader.
+* Added `Signer::validateOrThrow()` method.
 
 #### Changes
 
@@ -81,6 +82,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Renamed the `TimeImmutable::getMutable()` method to `TimeImmutable::toMutable()`.
 * Renamed the `ImageInterface::getImageBlob()` method to `ImageInterface::toBlob()`.
 * Removed the `app:generate-secret` command. Use the `app:generate-key` command instead.
+* Moved the `Signer` class from the `mako\security` namespace to the `mako\security\signer` namespace.
 
 #### Deprecations
 

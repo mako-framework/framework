@@ -10,7 +10,7 @@ namespace mako\http\request;
 use Countable;
 use IteratorAggregate;
 use mako\http\exceptions\HttpException;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use Override;
 use Traversable;
 

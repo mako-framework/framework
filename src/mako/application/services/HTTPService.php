@@ -13,7 +13,7 @@ use mako\http\routing\Dispatcher;
 use mako\http\routing\Router;
 use mako\http\routing\Routes;
 use mako\http\routing\URLBuilder;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use Override;
 
 /**

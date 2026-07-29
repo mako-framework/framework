@@ -11,7 +11,7 @@ use mako\common\AdapterManager;
 use mako\security\crypto\encrypters\OpenSSL;
 use mako\security\crypto\exceptions\CryptoException;
 use mako\security\Key;
-use mako\security\Signer;
+use mako\security\signer\Signer;
 use Override;
 
 use function sprintf;
