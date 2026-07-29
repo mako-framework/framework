@@ -37,8 +37,9 @@ use function sprintf;
  * @property \mako\pagination\PaginationFactoryInterface        $pagination
  * @property \mako\redis\ConnectionManager                      $redis
  * @property \mako\security\crypto\CryptoManager                $crypto
- * @property \mako\security\Signer                              $signer
+ * @property \mako\security\signer\Signer                       $signer
  * @property \mako\session\Session                              $session
+ * @property \mako\throttle\RateLimiterInterface                $rateLimiter
  * @property \mako\utility\Humanizer                            $humanizer
  * @property \mako\validator\ValidatorFactory                   $validator
  * @property \mako\view\ViewFactory                             $view
