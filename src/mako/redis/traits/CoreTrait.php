@@ -18,6 +18,98 @@ trait CoreTrait
 {
 	abstract protected function buildAndSendCommandAndReturnResponse(array $command, array $arguments = []): mixed;
 
+	// Array
+
+	public function arCount(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARCOUNT'], $arguments);
+	}
+
+	public function arDel(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARDEL'], $arguments);
+	}
+
+	public function arDelRange(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARDELRANGE'], $arguments);
+	}
+
+	public function arGet(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARGET'], $arguments);
+	}
+
+	public function arGetRange(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARGETRANGE'], $arguments);
+	}
+
+	public function arGrep(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARGREP'], $arguments);
+	}
+
+	public function arInfo(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARINFO'], $arguments);
+	}
+
+	public function arInsert(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARINSERT'], $arguments);
+	}
+
+	public function arLastItems(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARLASTITEMS'], $arguments);
+	}
+
+	public function arLen(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARLEN'], $arguments);
+	}
+
+	public function arMGet(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARMGET'], $arguments);
+	}
+
+	public function arMSet(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARMSET'], $arguments);
+	}
+
+	public function arNext(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARNEXT'], $arguments);
+	}
+
+	public function arOp(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['AROP'], $arguments);
+	}
+
+	public function arRing(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARRING'], $arguments);
+	}
+
+	public function arScan(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARSCAN'], $arguments);
+	}
+
+	public function arSeek(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARSEEK'], $arguments);
+	}
+
+	public function arSet(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['ARSET'], $arguments);
+	}
+
 	// Bitmap
 
 	public function bitCount(...$arguments): mixed
@@ -137,6 +229,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'MEET'], $arguments);
 	}
 
+	public function clusterMigration(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'MIGRATION'], $arguments);
+	}
+
 	public function clusterMyId(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'MYID'], $arguments);
@@ -196,6 +293,11 @@ trait CoreTrait
 	public function clusterSlaves(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLAVES'], $arguments);
+	}
+
+	public function clusterSlotStats(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['CLUSTER', 'SLOT-STATS'], $arguments);
 	}
 
 	#[Deprecated('use the "clusterShards" method instead', since: 'Redis 7.0.0')]
@@ -602,6 +704,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['HGETEX'], $arguments);
 	}
 
+	public function hImport(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HIMPORT'], $arguments);
+	}
+
 	public function hIncrBy(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['HINCRBY'], $arguments);
@@ -732,6 +839,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['BLMOVE'], $arguments);
 	}
 
+	public function blMoveM(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['BLMOVEM'], $arguments);
+	}
+
 	public function blMPop(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['BLMPOP'], $arguments);
@@ -771,6 +883,11 @@ trait CoreTrait
 	public function lMove(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['LMOVE'], $arguments);
+	}
+
+	public function lMoveM(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['LMOVEM'], $arguments);
 	}
 
 	public function lMPop(...$arguments): mixed
@@ -1083,6 +1200,31 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['FLUSHDB'], $arguments);
 	}
 
+	public function hotkeys(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HOTKEYS'], $arguments);
+	}
+
+	public function hotkeysGet(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HOTKEYS', 'GET'], $arguments);
+	}
+
+	public function hotkeysReset(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HOTKEYS', 'RESET'], $arguments);
+	}
+
+	public function hotkeysStart(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HOTKEYS', 'START'], $arguments);
+	}
+
+	public function hotkeysStop(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['HOTKEYS', 'STOP'], $arguments);
+	}
+
 	public function info(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['INFO'], $arguments);
@@ -1261,6 +1403,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['SDIFF'], $arguments);
 	}
 
+	public function sDiffCard(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['SDIFFCARD'], $arguments);
+	}
+
 	public function sDiffStore(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SDIFFSTORE'], $arguments);
@@ -1324,6 +1471,11 @@ trait CoreTrait
 	public function sUnion(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['SUNION'], $arguments);
+	}
+
+	public function sUnionCard(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['SUNIONCARD'], $arguments);
 	}
 
 	public function sUnionStore(...$arguments): mixed
@@ -1535,6 +1687,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['XAUTOCLAIM'], $arguments);
 	}
 
+	public function xCfgSet(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['XCFGSET'], $arguments);
+	}
+
 	public function xClaim(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['XCLAIM'], $arguments);
@@ -1575,6 +1732,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['XGROUP', 'SETID'], $arguments);
 	}
 
+	public function xIdmpRecord(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['XIDMPRECORD'], $arguments);
+	}
+
 	public function xInfoConsumers(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['XINFO', 'CONSUMERS'], $arguments);
@@ -1593,6 +1755,11 @@ trait CoreTrait
 	public function xLen(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['XLEN'], $arguments);
+	}
+
+	public function xNAck(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['XNACK'], $arguments);
 	}
 
 	public function xPending(...$arguments): mixed
@@ -1647,6 +1814,16 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['DECRBY'], $arguments);
 	}
 
+	public function delEx(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['DELEX'], $arguments);
+	}
+
+	public function digest(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['DIGEST'], $arguments);
+	}
+
 	public function get(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['GET'], $arguments);
@@ -1688,6 +1865,11 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['INCRBYFLOAT'], $arguments);
 	}
 
+	public function incrEx(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['INCREX'], $arguments);
+	}
+
 	public function lcs(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['LCS'], $arguments);
@@ -1701,6 +1883,11 @@ trait CoreTrait
 	public function mSet(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['MSET'], $arguments);
+	}
+
+	public function mSetX(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['MSETX'], $arguments);
 	}
 
 	public function mSetNx(...$arguments): mixed
@@ -1819,6 +2006,11 @@ trait CoreTrait
 	public function vRandMember(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['VRANDMEMBER'], $arguments);
+	}
+
+	public function vRange(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['VRANGE'], $arguments);
 	}
 
 	public function vRem(...$arguments): mixed

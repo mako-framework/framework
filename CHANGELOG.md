@@ -83,6 +83,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Renamed the `ImageInterface::getImageBlob()` method to `ImageInterface::toBlob()`.
 * Removed the `app:generate-secret` command. Use the `app:generate-key` command instead.
 * Moved the `Signer` class from the `mako\security` namespace to the `mako\security\signer` namespace.
+* Added new Redis commands added in Redis 8.2, 8.4, 8.6, 8.8 and 8.10.
 
 #### Deprecations
 

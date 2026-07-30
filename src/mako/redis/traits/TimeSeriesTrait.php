@@ -81,6 +81,16 @@ trait TimeSeriesTrait
 		return $this->buildAndSendCommandAndReturnResponse(['TS.MRANGE'], $arguments);
 	}
 
+	public function tsNRange(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['TS.NRANGE'], $arguments);
+	}
+
+	public function tsNRevRange(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['TS.NREVRANGE'], $arguments);
+	}
+
 	public function tsMRevRange(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['TS.MREVRANGE'], $arguments);
@@ -91,9 +101,19 @@ trait TimeSeriesTrait
 		return $this->buildAndSendCommandAndReturnResponse(['TS.QUERYINDEX'], $arguments);
 	}
 
+	public function tsQueryLabels(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['TS.QUERYLABELS'], $arguments);
+	}
+
 	public function tsRange(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['TS.RANGE'], $arguments);
+	}
+
+	public function tsRead(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['TS.READ'], $arguments);
 	}
 
 	public function tsRevRange(...$arguments): mixed

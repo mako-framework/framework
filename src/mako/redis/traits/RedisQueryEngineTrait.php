@@ -38,6 +38,11 @@ trait RedisQueryEngineTrait
 		return $this->buildAndSendCommandAndReturnResponse(['FT.ALIASDEL'], $arguments);
 	}
 
+	public function ftAliasList(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['FT.ALIASLIST'], $arguments);
+	}
+
 	public function ftAliasUpdate(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['FT.ALIASUPDATE'], $arguments);
@@ -103,6 +108,11 @@ trait RedisQueryEngineTrait
 	public function ftExplainCli(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['FT.EXPLAINCLI'], $arguments);
+	}
+
+	public function ftHybrid(...$arguments): mixed
+	{
+		return $this->buildAndSendCommandAndReturnResponse(['FT.HYBRID'], $arguments);
 	}
 
 	public function ftInfo(...$arguments): mixed
