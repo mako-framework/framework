@@ -133,7 +133,11 @@ class Connection
 			return $connection;
 		}
 		catch (Throwable $e) {
-			throw new RedisException(trim(sprintf('Failed to connect to [ %s ]. %s', $this->name ?? "{$host}:{$port}", $errstr ?? '')), (int) ($errno ?? 0), $e);
+			throw new RedisException(
+				trim(sprintf('Failed to connect to [ %s ]. %s', $this->name ?? "{$host}:{$port}", $errstr ?? '')),
+				(int) ($errno ?? 0),
+				$e
+			);
 		}
 	}
 
