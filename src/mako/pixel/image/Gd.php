@@ -180,17 +180,6 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	protected function getOuputMimeType(?string $type): string
-	{
-		return $type === null
-			? $this->mimeType
-			: $this->normalizeMimeType($type);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
 		$extension = pathinfo($imagePath, PATHINFO_EXTENSION);

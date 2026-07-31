@@ -131,11 +131,6 @@ abstract class Image implements ImageInterface
 	abstract protected function getImageResourceAsBlob(?string $type, int $quality): string;
 
 	/**
-	 * Returns the mime type of the image resource.
-	 */
-	abstract protected function getOuputMimeType(?string $type): string;
-
-	/**
 	 * Save an image resource.
 	 */
 	abstract protected function saveImageResource(string $imagePath, int $quality): void;
@@ -202,6 +197,16 @@ abstract class Image implements ImageInterface
 	public function toBase64(?string $type = null, int $quality = 95): string
 	{
 		return base64_encode($this->toBlob($type, $quality));
+	}
+
+	/**
+	 * {Returns the output mime type of the image resource.
+	 */
+	protected function getOuputMimeType(?string $type): string
+	{
+		return $type === null
+			? $this->mimeType
+			: $this->normalizeMimeType($type);
 	}
 
 	/**
