@@ -10,6 +10,7 @@ namespace mako\pixel\image;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
+use ReflectionClass;
 
 use function base64_encode;
 use function file_exists;
@@ -33,6 +34,11 @@ abstract class Image implements ImageInterface
 	protected ?object $imageResource = null;
 
 	/**
+	 * Image path.
+	 */
+	protected ?string $imagePath = null;
+
+	/**
 	 * Mime type.
 	 */
 	protected string $mimeType;
@@ -45,8 +51,8 @@ abstract class Image implements ImageInterface
 	/**
 	 * Constructor.
 	 */
-	public function __construct(
-		protected string $imagePath
+	final public function __construct(
+		string $imagePath
 	) {
 		if (file_exists($imagePath) === false) {
 			throw new ImageException(sprintf('The image [ %s ] does not exist.', $imagePath));
@@ -56,15 +62,37 @@ abstract class Image implements ImageInterface
 			throw new ImageException(sprintf('The image [ %s ] is not readable.', $imagePath));
 		}
 
-		$this->imageResource = $this->createImageResource($imagePath);
+		$this->imageResource = $this->createImageResourceFromPath($imagePath);
 	}
 
 	/**
 	 * Destructor.
 	 */
-	public function __destruct()
+	final public function __destruct()
 	{
 		$this->destroyImageResource();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	final public static function fromPath(string $imagePath): static
+	{
+		return new static($imagePath);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	final public static function fromBlob(string $blob): static
+	{
+		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
+
+		$image->createImageResourceFromBlob($blob);
+
+		return $image;
 	}
 
 	/**
@@ -83,9 +111,14 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
-	 * Creates an image resource.
+	 * Creates an image resource from a file path.
 	 */
-	abstract protected function createImageResource(string $imagePath): object;
+	abstract protected function createImageResourceFromPath(string $imagePath): object;
+
+	/**
+	 * Creates an image resource from a binary blob.
+	 */
+	abstract protected function createImageResourceFromBlob(string $blob): object;
 
 	/**
 	 * Destroys an image resource.
@@ -186,7 +219,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	public function save(?string $imagePath = null, int $quality = 95): void
 	{
-		$imagePath ??= $this->imagePath;
+		$imagePath ??= $this->imagePath ?? throw new ImageException('An image path must be provided when saving images created from a blob.');
 
 		if (file_exists($imagePath)) {
 			if (!is_writable($imagePath)) {

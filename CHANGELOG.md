@@ -45,6 +45,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added `PSR-20` (ClockInterface) implementation.
 * Added `SleeperInterface` and `Sleeper` implementation for time-based delays.
 * Added the following methods to the `ImageInterface` interface:
+	- `ImageInterface::fromPath()`
+	- `ImageInterface::fromBlob()`
 	- `ImageInterface::toBase64()`
 	- `ImageInterface::toDataUri()`
 	- `ImageInterface::getMimeType()`

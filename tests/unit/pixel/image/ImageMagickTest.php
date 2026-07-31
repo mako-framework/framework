@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\pixel\image;
 
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\operations\imagemagick\Bitonal;
 use mako\pixel\image\operations\imagemagick\Negate;
@@ -134,5 +135,38 @@ class ImageMagickTest extends TestCase
 		$image = new ImageMagick(__DIR__ . '/fixtures/002.jpg');
 
 		$this->assertSame('image/jpeg', $image->getMimeType());
+	}
+
+	/**
+	 *
+	 */
+	public function testFromPath(): void
+	{
+		$image = ImageMagick::fromPath(__DIR__ . '/fixtures/001.png');
+
+		$this->assertSame('image/png', $image->getMimeType());
+	}
+
+	/**
+	 *
+	 */
+	public function testFromBlob(): void
+	{
+		$image = ImageMagick::fromBlob(file_get_contents(__DIR__ . '/fixtures/001.png'));
+
+		$this->assertSame('image/png', $image->getMimeType());
+	}
+
+	/**
+	 *
+	 */
+	public function testSaveFromBlobWithoutPath(): void
+	{
+		$this->expectException(ImageException::class);
+		$this->expectExceptionMessageIs('An image path must be provided when saving images created from a blob.');
+
+		$image = ImageMagick::fromBlob(file_get_contents(__DIR__ . '/fixtures/001.png'));
+
+		$image->save();
 	}
 }
