@@ -190,7 +190,7 @@ abstract class Image implements ImageInterface
 
 		if (file_exists($imagePath)) {
 			if (!is_writable($imagePath)) {
-				throw new ImageException(sprintf('The file [ %s ] isn\'t writable.', $imagePath));
+				throw new ImageException(sprintf('The file [ %s ] is not writable.', $imagePath));
 			}
 		}
 		else {
@@ -201,7 +201,7 @@ abstract class Image implements ImageInterface
 			}
 
 			if (!is_writable($directory)) {
-				throw new ImageException(sprintf('The directory [ %s ] isn\'t writable.', $directory));
+				throw new ImageException(sprintf('The directory [ %s ] is not writable.', $directory));
 			}
 		}
 
