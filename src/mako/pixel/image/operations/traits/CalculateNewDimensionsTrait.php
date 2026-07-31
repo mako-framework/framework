@@ -27,19 +27,19 @@ trait CalculateNewDimensionsTrait
 
 			$percentage = min(($width / $oldWidth), ($height / $oldHeight));
 
-			$newWidth  = round($oldWidth * $percentage);
-			$newHeight = round($oldHeight * $percentage);
+			$newWidth  = (int) round($oldWidth * $percentage);
+			$newHeight = (int) round($oldHeight * $percentage);
 		}
 		elseif ($aspectRatio === AspectRatio::Width) {
 			// Base new size on given width while maintaining aspect ratio
 
 			$newWidth  = $width;
-			$newHeight = round($oldHeight * ($width / $oldWidth));
+			$newHeight = (int) round($oldHeight * ($width / $oldWidth));
 		}
 		elseif ($aspectRatio === AspectRatio::Height) {
 			// Base new size on given height while maintaining aspect ratio
 
-			$newWidth  = round($oldWidth * ($height / $oldHeight));
+			$newWidth  = (int) round($oldWidth * ($height / $oldHeight));
 			$newHeight = $height;
 		}
 		else {
