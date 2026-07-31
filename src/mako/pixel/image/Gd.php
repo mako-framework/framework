@@ -84,7 +84,7 @@ class Gd extends Image
 			IMAGETYPE_PNG  => imagecreatefrompng($imagePath),
 			IMAGETYPE_WEBP => imagecreatefromwebp($imagePath),
 			IMAGETYPE_AVIF => imagecreatefromavif($imagePath),
-			default        => throw new ImageException(sprintf('Unable to create image resource from [ %s ]. Unsupported image type.', $imagePath)),
+			default        => throw new ImageException(sprintf('Unable to create image resource from [ %s ]. Unsupported image type [ %s ].', $imagePath, $this->mimeType)),
 		};
     }
 
