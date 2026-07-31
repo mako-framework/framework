@@ -15,6 +15,16 @@ use mako\pixel\image\operations\OperationInterface;
 interface ImageInterface
 {
 	/**
+	 * Creates an image instance from a file path.
+	 */
+	public static function fromPath(string $imagePath): static;
+
+	/**
+	 * Creates an image instance from a binary blob.
+	 */
+	public static function fromBlob(string $blob): static;
+
+	/**
 	 * Returns the underlying image resource object.
 	 */
 	public function getImageResource(): object;

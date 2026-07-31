@@ -36,13 +36,10 @@ class ImageMagick extends Image
 	protected bool $isAnimatedGif = false;
 
 	/**
-	 * {@inheritDoc}
+	 * Stores the mime type and performs a gif check.
 	 */
-	#[Override]
-	protected function createImageResource(string $imagePath): object
+	protected function collectMimeTypeAndPerformGifCheck(Imagick $imageResource): Imagick
 	{
-		$imageResource = new Imagick($imagePath);
-
 		$this->mimeType = $this->normalizeMimeType($imageResource->getImageFormat());
 
 		if ($this->mimeType === 'image/gif' && $imageResource->getNumberImages() > 1) {
@@ -58,12 +55,40 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function createImageResourceFromPath(string $imagePath): object
+	{
+		$this->imagePath = $imagePath;
+
+		$imageResource = new Imagick($imagePath);
+
+		return $this->collectMimeTypeAndPerformGifCheck($imageResource);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function createImageResourceFromBlob(string $blob): object
+	{
+		$imageResource = new Imagick;
+
+		$imageResource->readImageBlob($blob);
+
+		return $this->collectMimeTypeAndPerformGifCheck($imageResource);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function destroyImageResource(): void
 	{
-		$this->imageResource->clear();
-		$this->imageResource->destroy();
+		if ($this->imageResource !== null) {
+			$this->imageResource->clear();
+			$this->imageResource->destroy();
 
-		$this->imageResource = null;
+			$this->imageResource = null;
+		}
 
 		if ($this->snapshot !== null) {
 			$this->snapshot->clear();
@@ -117,17 +142,6 @@ class ImageMagick extends Image
 		$this->imageResource->setImageCompressionQuality($quality);
 
 		return $this->imageResource->getImageBlob();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	protected function getOuputMimeType(?string $type): string
-	{
-		return $type === null
-			? $this->mimeType
-			: $this->normalizeMimeType($type);
 	}
 
 	/**

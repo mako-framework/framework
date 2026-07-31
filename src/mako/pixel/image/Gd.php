@@ -16,6 +16,7 @@ use function array_slice;
 use function arsort;
 use function explode;
 use function getimagesize;
+use function getimagesizefromstring;
 use function imagealphablending;
 use function imageavif;
 use function imagebmp;
@@ -25,6 +26,7 @@ use function imagecreatefromavif;
 use function imagecreatefromgif;
 use function imagecreatefromjpeg;
 use function imagecreatefrompng;
+use function imagecreatefromstring;
 use function imagecreatefromwebp;
 use function imagecreatetruecolor;
 use function imagegif;
@@ -57,7 +59,7 @@ class Gd extends Image
 	/**
 	 * Returns information about the image.
 	 */
-	protected function getImageInfo(string $imagePath): array
+	protected function getImageInfoFromPath(string $imagePath): array
 	{
 		$imageInfo = getimagesize($imagePath);
 
@@ -72,9 +74,11 @@ class Gd extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	protected function createImageResource(string $imagePath): object
+	protected function createImageResourceFromPath(string $imagePath): object
 	{
-		$imageInfo = $this->getImageInfo($imagePath);
+		$this->imagePath = $imagePath;
+
+		$imageInfo = $this->getImageInfoFromPath($imagePath);
 
 		$this->mimeType = $this->normalizeMimeType($imageInfo['mime']);
 
@@ -86,6 +90,33 @@ class Gd extends Image
 			IMAGETYPE_AVIF => imagecreatefromavif($imagePath),
 			default        => throw new ImageException(sprintf('Unable to create image resource from [ %s ]. Unsupported image type [ %s ].', $imagePath, $this->mimeType)),
 		};
+    }
+
+	/**
+	 * Returns information about the image.
+	 */
+	protected function getImageInfoFromBlob(string $blob): array
+	{
+		$imageInfo = getimagesizefromstring($blob);
+
+		if ($imageInfo === false) {
+			throw new ImageException('Unable to process the image.');
+		}
+
+		return $imageInfo;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function createImageResourceFromBlob(string $blob): object
+	{
+		$imageInfo = $this->getImageInfoFromBlob($blob);
+
+		$this->mimeType = $this->normalizeMimeType($imageInfo['mime']);
+
+		return imagecreatefromstring($blob);
     }
 
 	/**
@@ -143,17 +174,6 @@ class Gd extends Image
 		}
 
 		return ob_get_clean();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	protected function getOuputMimeType(?string $type): string
-	{
-		return $type === null
-			? $this->mimeType
-			: $this->normalizeMimeType($type);
 	}
 
 	/**

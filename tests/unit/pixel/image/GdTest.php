@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\pixel\image;
 
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\Gd;
 use mako\pixel\image\operations\gd\Bitonal;
 use mako\pixel\image\operations\gd\Negate;
@@ -133,5 +134,38 @@ class GdTest extends TestCase
 		$image = new Gd(__DIR__ . '/fixtures/002.jpg');
 
 		$this->assertSame('image/jpeg', $image->getMimeType());
+	}
+
+	/**
+	 *
+	 */
+	public function testFromPath(): void
+	{
+		$image = Gd::fromPath(__DIR__ . '/fixtures/001.png');
+
+		$this->assertSame('image/png', $image->getMimeType());
+	}
+
+	/**
+	 *
+	 */
+	public function testFromBlob(): void
+	{
+		$image = Gd::fromBlob(file_get_contents(__DIR__ . '/fixtures/001.png'));
+
+		$this->assertSame('image/png', $image->getMimeType());
+	}
+
+	/**
+	 *
+	 */
+	public function testSaveFromBlobWithoutPath(): void
+	{
+		$this->expectException(ImageException::class);
+		$this->expectExceptionMessageIs('An image path must be provided when saving images created from a blob.');
+
+		$image = Gd::fromBlob(file_get_contents(__DIR__ . '/fixtures/001.png'));
+
+		$image->save();
 	}
 }
