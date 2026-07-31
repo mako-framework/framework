@@ -132,14 +132,12 @@ class ImageMagick extends Image
 				$image->setImageFormat($type);
 			}
 
-			if ($type === 'gif' || ($type === null && $this->mimeType === 'image/gif')) {
+			if ($this->isAnimatedGif && ($type === 'gif' || ($type === null && $this->mimeType === 'image/gif'))) {
 				foreach ($image as $frame) {
 					$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
 				}
 
-				if ($this->isAnimatedGif) {
-					return $image->getImagesBlob();
-				}
+				return $image->getImagesBlob();
 			}
 
 			$image->setImageCompressionQuality($quality);
@@ -167,15 +165,14 @@ class ImageMagick extends Image
 				$image->setImageFormat($type);
 			}
 
-			if ($type === 'gif' || ($type === null && $this->mimeType === 'image/gif')) {
+			if ($this->isAnimatedGif && ($type === 'gif' || ($type === null && $this->mimeType === 'image/gif'))) {
 				foreach ($image as $frame) {
 					$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
 				}
 
-				if ($this->isAnimatedGif) {
-					$image->writeImagesFile($stream);
-					return;
-				}
+				$image->writeImagesFile($stream);
+
+				return;
 			}
 
 			$image->setImageCompressionQuality($quality);
@@ -201,15 +198,14 @@ class ImageMagick extends Image
 
 			$image->setImageFormat($type);
 
-			if ($type === 'gif') {
+			if ($this->isAnimatedGif && $type === 'gif') {
 				foreach ($image as $frame) {
 					$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
 				}
 
-				if ($this->isAnimatedGif) {
-					$image->writeImages($imagePath, true);
-					return;
-				}
+				$image->writeImages($imagePath, true);
+
+				return;
 			}
 
 			$image->setImageCompressionQuality($quality);
