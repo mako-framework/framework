@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image;
 
+use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\OperationInterface;
 
 /**
@@ -59,11 +60,14 @@ interface ImageInterface
 	public function getDimensions(): array;
 
 	/**
-	 * Returns the n top colors found in the image.
+	 * Returns information about the image using the given inspector.
 	 *
-	 * @return Color[]
+	 * @template T
+	 *
+	 * @param  InspectorInterface<T> $inspector
+	 * @return T
 	 */
-	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array;
+	public function inspect(InspectorInterface $inspector): mixed;
 
 	/**
 	 * Applies an image operation.

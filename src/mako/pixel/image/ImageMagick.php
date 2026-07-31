@@ -8,16 +8,13 @@
 namespace mako\pixel\image;
 
 use Imagick;
-use ImagickPixel;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
 use function array_last;
-use function count;
 use function explode;
 use function pathinfo;
 use function strtolower;
-use function usort;
 
 /**
  * ImageMagick.
@@ -247,43 +244,5 @@ class ImageMagick extends Image
 	public function getHeight(): int
 	{
 		return $this->imageResource->getImageHeight();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array
-	{
-		$image = clone $this->imageResource;
-
-		$image->setImageColorspace(Imagick::COLORSPACE_RGB);
-
-		$image->quantizeImage(64, Imagick::COLORSPACE_RGB, 0, false, false);
-
-		$histogram = $image->getImageHistogram();
-
-		usort($histogram, fn (ImagickPixel $a, ImagickPixel $b): int => $b->getColorCount() <=> $a->getColorCount());
-
-		$colors = [];
-
-		foreach ($histogram as $pixel) {
-			if (count($colors) >= $limit) {
-				break;
-			}
-
-			$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
-
-			if ($rgba['a'] === 0) {
-				continue;
-			}
-
-			$colors[] = new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
-		}
-
-		$image->clear();
-		$image->destroy();
-
-		return $colors;
 	}
 }

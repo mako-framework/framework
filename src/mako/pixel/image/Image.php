@@ -8,6 +8,7 @@
 namespace mako\pixel\image;
 
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 use ReflectionClass;
@@ -186,6 +187,15 @@ abstract class Image implements ImageInterface
 	public function getDimensions(): array
 	{
 		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function inspect(InspectorInterface $inspector): mixed
+	{
+		return $inspector->inspect($this->imageResource);
 	}
 
 	/**

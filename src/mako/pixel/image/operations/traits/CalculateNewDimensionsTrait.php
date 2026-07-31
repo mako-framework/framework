@@ -20,39 +20,33 @@ trait CalculateNewDimensionsTrait
 	/**
 	 * Calculates new image dimensions.
 	 */
-	protected function calculateNewDimensions(int $width, ?int $height, int $oldWidth, int $oldHeight, AspectRatio $aspectRatio): array
+	protected function calculateNewDimensions(int $width, int $height, int $oldWidth, int $oldHeight, AspectRatio $aspectRatio): array
 	{
-		if ($height === null) {
-			$newWidth  = round($oldWidth * ($width / 100));
-			$newHeight = round($oldHeight * ($width / 100));
+		if ($aspectRatio === AspectRatio::Auto) {
+			// Calculate smallest size based on given height and width while maintaining aspect ratio
+
+			$percentage = min(($width / $oldWidth), ($height / $oldHeight));
+
+			$newWidth  = round($oldWidth * $percentage);
+			$newHeight = round($oldHeight * $percentage);
+		}
+		elseif ($aspectRatio === AspectRatio::Width) {
+			// Base new size on given width while maintaining aspect ratio
+
+			$newWidth  = $width;
+			$newHeight = round($oldHeight * ($width / $oldWidth));
+		}
+		elseif ($aspectRatio === AspectRatio::Height) {
+			// Base new size on given height while maintaining aspect ratio
+
+			$newWidth  = round($oldWidth * ($height / $oldHeight));
+			$newHeight = $height;
 		}
 		else {
-			if ($aspectRatio === AspectRatio::Auto) {
-				// Calculate smallest size based on given height and width while maintaining aspect ratio
+			// Ignone aspect ratio
 
-				$percentage = min(($width / $oldWidth), ($height / $oldHeight));
-
-				$newWidth  = round($oldWidth * $percentage);
-				$newHeight = round($oldHeight * $percentage);
-			}
-			elseif ($aspectRatio === AspectRatio::Width) {
-				// Base new size on given width while maintaining aspect ratio
-
-				$newWidth  = $width;
-				$newHeight = round($oldHeight * ($width / $oldWidth));
-			}
-			elseif ($aspectRatio === AspectRatio::Height) {
-				// Base new size on given height while maintaining aspect ratio
-
-				$newWidth  = round($oldWidth * ($height / $oldHeight));
-				$newHeight = $height;
-			}
-			else {
-				// Ignone aspect ratio
-
-				$newWidth  = $width;
-				$newHeight = $height;
-			}
+			$newWidth  = $width;
+			$newHeight = $height;
 		}
 
 		return [$newWidth, $newHeight];

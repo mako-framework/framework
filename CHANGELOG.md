@@ -55,6 +55,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ImageInterface::toStream()`
 	- `ImageInterface::getMimeType()`
 * Added operation `Pipeline` class to the pixel library.
+* It is now possible to implement custom image inspectors to retrieve information from the images.
+* Added a `TopColors` inspector to replace the `ImageInterface::getTopColors()` method.
 * Added dotenv loader.
 * Added `Signer::validateOrThrow()` method.
 * Added support for all new Redis commands added in Redis 8.2, 8.4, 8.6, 8.8 and 8.10 to the Redis client.
@@ -90,6 +92,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Renamed the `TimeImmutable::getMutable()` method to `TimeImmutable::toMutable()`.
 * Removed the `ImageInterface::snapshot()` method.
 * Removed the `ImageInterface::restore()` method.
+* Removed the `ImageInterface::getTopColors()` method.
 * Renamed the `ImageInterface::getImageBlob()` method to `ImageInterface::toBlob()`.
 * Removed the `app:generate-secret` command. Use the `app:generate-key` command instead.
 * Moved the `Signer` class from the `mako\security` namespace to the `mako\security\signer` namespace.
