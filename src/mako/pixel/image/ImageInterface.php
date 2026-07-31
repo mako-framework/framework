@@ -84,6 +84,13 @@ interface ImageInterface
 	public function toDataUri(?string $type = null, int $quality = 95): string;
 
 	/**
+	 * Returns the image resource as a data stream.
+	 *
+	 * @return resource
+	 */
+	public function toStream(?string $type = null, int $quality = 95, StreamStorage $stream = StreamStorage::Temp): mixed;
+
+	/**
 	 * Saves the image resource to a file.
 	 */
 	public function save(?string $imagePath = null, int $quality = 95): void;

@@ -19,6 +19,7 @@ use function is_writable;
 use function max;
 use function min;
 use function pathinfo;
+use function rewind;
 use function sprintf;
 use function str_starts_with;
 use function strtolower;
@@ -131,6 +132,13 @@ abstract class Image implements ImageInterface
 	abstract protected function getImageResourceAsBlob(?string $type, int $quality): string;
 
 	/**
+	 * Writes the image resource to a stream.
+	 *
+	 * @param resource $stream
+	 */
+	abstract protected function writeImageResourceToStream(mixed $stream, ?string $type, int $quality): void;
+
+	/**
 	 * Save an image resource.
 	 */
 	abstract protected function saveImageResource(string $imagePath, int $quality): void;
@@ -225,6 +233,21 @@ abstract class Image implements ImageInterface
 	public function toDataUri(?string $type = null, int $quality = 95): string
 	{
 		return "data:{$this->getOuputMimeType($type)};base64,{$this->toBase64($type, $quality)}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function toStream(?string $type = null, int $quality = 95, StreamStorage $stream = StreamStorage::Temp): mixed
+	{
+		$stream = $stream->create();
+
+		$this->writeImageResourceToStream($stream, $type, $this->normalizeImageQuality($quality));
+
+		rewind($stream);
+
+		return $stream;
 	}
 
 	/**

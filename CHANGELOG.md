@@ -51,6 +51,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ImageInterface::applyOnClone()`
 	- `ImageInterface::toBase64()`
 	- `ImageInterface::toDataUri()`
+	- `ImageInterface::toStream()`
 	- `ImageInterface::getMimeType()`
 * Added dotenv loader.
 * Added `Signer::validateOrThrow()` method.

@@ -123,25 +123,69 @@ class ImageMagick extends Image
 	#[Override]
 	protected function getImageResourceAsBlob(?string $type, int $quality): string
 	{
-		if ($type !== null) {
-			$type = strtolower(array_last(explode('/', $type)));
+		$image = clone $this->imageResource;
 
-			$this->imageResource->setImageFormat($type);
-		}
+		try {
+			if ($type !== null) {
+				$type = strtolower(array_last(explode('/', $type)));
 
-		if ($type === 'gif' || $this->mimeType === 'image/gif') {
-			foreach ($this->imageResource as $frame) {
-				$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+				$image->setImageFormat($type);
 			}
 
-			if ($this->isAnimatedGif) {
-				return $this->imageResource->getImagesBlob();
+			if ($type === 'gif' || ($type === null && $this->mimeType === 'image/gif')) {
+				foreach ($image as $frame) {
+					$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+				}
+
+				if ($this->isAnimatedGif) {
+					return $image->getImagesBlob();
+				}
 			}
+
+			$image->setImageCompressionQuality($quality);
+
+			return $image->getImageBlob();
 		}
+		finally {
+			$image->clear();
+			$image->destroy();
+		}
+	}
 
-		$this->imageResource->setImageCompressionQuality($quality);
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function writeImageResourceToStream(mixed $stream, ?string $type, int $quality): void
+	{
+		$image = clone $this->imageResource;
 
-		return $this->imageResource->getImageBlob();
+		try {
+			if ($type !== null) {
+				$type = strtolower(array_last(explode('/', $type)));
+
+				$image->setImageFormat($type);
+			}
+
+			if ($type === 'gif' || ($type === null && $this->mimeType === 'image/gif')) {
+				foreach ($image as $frame) {
+					$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+				}
+
+				if ($this->isAnimatedGif) {
+					$image->writeImagesFile($stream);
+					return;
+				}
+			}
+
+			$image->setImageCompressionQuality($quality);
+
+			$image->writeImageFile($stream);
+		}
+		finally {
+			$image->clear();
+			$image->destroy();
+		}
 	}
 
 	/**
@@ -150,25 +194,32 @@ class ImageMagick extends Image
 	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
-		$type = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
+		$image = clone $this->imageResource;
 
-		$this->imageResource->setImageFormat($type);
+		try {
+			$type = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
 
-		if ($type === 'gif') {
-			foreach ($this->imageResource as $frame) {
-				$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+			$image->setImageFormat($type);
+
+			if ($type === 'gif') {
+				foreach ($image as $frame) {
+					$frame->evaluateImage(Imagick::EVALUATE_THRESHOLD, 0, Imagick::CHANNEL_ALPHA);
+				}
+
+				if ($this->isAnimatedGif) {
+					$image->writeImages($imagePath, true);
+					return;
+				}
 			}
 
-			if ($this->isAnimatedGif) {
-				$this->imageResource->writeImages($imagePath, true);
+			$image->setImageCompressionQuality($quality);
 
-				return;
-			}
+			$image->writeImage($imagePath);
 		}
-
-		$this->imageResource->setImageCompressionQuality($quality);
-
-		$this->imageResource->writeImage($imagePath);
+		finally {
+			$image->clear();
+			$image->destroy();
+		}
 	}
 
 	/**

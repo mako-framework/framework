@@ -15,6 +15,7 @@ use function array_map;
 use function array_slice;
 use function arsort;
 use function explode;
+use function fwrite;
 use function getimagesize;
 use function getimagesizefromstring;
 use function imagealphablending;
@@ -190,6 +191,15 @@ class Gd extends Image
 		}
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function writeImageResourceToStream(mixed $stream, ?string $type = null, int $quality = 95): void
+	{
+		fwrite($stream, $this->getImageResourceAsBlob($type, $quality));
 	}
 
 	/**
