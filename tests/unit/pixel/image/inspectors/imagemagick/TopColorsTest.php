@@ -36,9 +36,9 @@ class TopColorsTest extends TestCase
 
 		$this->assertCount(3, $colors);
 
-		$this->assertSame('#0070C0', $colors[0]->toHexString());
-		$this->assertSame('#B01000', $colors[1]->toHexString());
-		$this->assertSame('#007000', $colors[2]->toHexString());
+		$this->assertSame('#0376BB', $colors[0]->toHexString());
+		$this->assertSame('#B51700', $colors[1]->toHexString());
+		$this->assertSame('#047101', $colors[2]->toHexString());
 	}
 
 	/**

@@ -32,7 +32,7 @@ class NegateTest extends TestCase
 	 */
 	public function testNegate(): void
 	{
-		$image = new ImageMagick(__DIR__ . '/fixtures/002.jpg');
+		$image = new ImageMagick(__DIR__ . '/../../fixtures/002.jpg');
 
 		$image->apply(new Bitonal);
 		$image->apply(new Negate);
