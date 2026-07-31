@@ -83,10 +83,12 @@ class ImageMagick extends Image
 	#[Override]
 	protected function destroyImageResource(): void
 	{
-		$this->imageResource->clear();
-		$this->imageResource->destroy();
+		if ($this->imageResource !== null) {
+			$this->imageResource->clear();
+			$this->imageResource->destroy();
 
-		$this->imageResource = null;
+			$this->imageResource = null;
+		}
 
 		if ($this->snapshot !== null) {
 			$this->snapshot->clear();
