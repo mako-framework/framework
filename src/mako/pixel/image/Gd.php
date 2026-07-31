@@ -52,10 +52,28 @@ use function strtolower;
  * @see https://www.php.net/manual/en/book.image.php
  *
  * @property ?\GdImage $imageResource
- * @property ?\GdImage $snapshot
  */
 class Gd extends Image
 {
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	final public function __clone()
+	{
+		$width = imagesx($this->imageResource);
+		$height = imagesy($this->imageResource);
+
+		$imageResource = imagecreatetruecolor($width, $height);
+
+		imagealphablending($imageResource, false);
+		imagesavealpha($imageResource, true);
+
+		imagecopy($imageResource, $this->imageResource, 0, 0, 0, 0, $width, $height);
+
+		$this->imageResource = $imageResource;
+	}
+
 	/**
 	 * Returns information about the image.
 	 */
@@ -126,8 +144,6 @@ class Gd extends Image
 	protected function destroyImageResource(): void
 	{
 		$this->imageResource = null;
-
-		$this->snapshot = null;
 	}
 
 	/**
@@ -273,34 +289,5 @@ class Gd extends Image
 		}
 
 		return $colors;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function snapshot(): void
-	{
-		$width = imagesx($this->imageResource);
-		$height = imagesy($this->imageResource);
-
-		$this->snapshot = imagecreatetruecolor($width, $height);
-
-		imagecopy($this->snapshot, $this->imageResource, 0, 0, 0, 0, $width, $height);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function restore(): void
-	{
-		if ($this->snapshot === null) {
-			throw new ImageException('No snapshot to restore.');
-		}
-
-		$this->imageResource = $this->snapshot;
-
-		$this->snapshot = null;
 	}
 }

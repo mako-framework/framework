@@ -44,11 +44,6 @@ abstract class Image implements ImageInterface
 	protected string $mimeType;
 
 	/**
-	 * Snapshot image resource.
-	 */
-	protected ?object $snapshot = null;
-
-	/**
 	 * Constructor.
 	 */
 	final public function __construct(
@@ -64,6 +59,11 @@ abstract class Image implements ImageInterface
 
 		$this->imageResource = $this->createImageResourceFromPath($imagePath);
 	}
+
+	/**
+	 * Clones the object.
+	 */
+	abstract public function __clone();
 
 	/**
 	 * Destructor.
@@ -171,6 +171,15 @@ abstract class Image implements ImageInterface
 		$operation->apply($this->imageResource);
 
 		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function applyOnClone(OperationInterface $operation): static
+	{
+		return (clone $this)->apply($operation);
 	}
 
 	/**

@@ -44,9 +44,11 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added `TimeImmutable::toNative()` method.
 * Added `PSR-20` (ClockInterface) implementation.
 * Added `SleeperInterface` and `Sleeper` implementation for time-based delays.
+* The `Gd` and `ImageMagick` implementations of `ImageInterface` are now cloneable.
 * Added the following methods to the `ImageInterface` interface:
 	- `ImageInterface::fromPath()`
 	- `ImageInterface::fromBlob()`
+	- `ImageInterface::applyOnClone()`
 	- `ImageInterface::toBase64()`
 	- `ImageInterface::toDataUri()`
 	- `ImageInterface::getMimeType()`
@@ -83,6 +85,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Removed the `TimeInterface::copy()` method.
 * Renamed the `Time::getImmutable()` method to `Time::toImmutable()`.
 * Renamed the `TimeImmutable::getMutable()` method to `TimeImmutable::toMutable()`.
+* Removed the `ImageInterface::snapshot()` method.
+* Removed the `ImageInterface::restore()` method.
 * Renamed the `ImageInterface::getImageBlob()` method to `ImageInterface::toBlob()`.
 * Removed the `app:generate-secret` command. Use the `app:generate-key` command instead.
 * Moved the `Signer` class from the `mako\security` namespace to the `mako\security\signer` namespace.

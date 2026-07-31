@@ -59,19 +59,14 @@ interface ImageInterface
 	public function getTopColors(int $limit = 5, bool $ignoreTransparent = true): array;
 
 	/**
-	 * Creates a snapshot of the image resource.
-	 */
-	public function snapshot(): void;
-
-	/**
-	 * Restores an image snapshot.
-	 */
-	public function restore(): void;
-
-	/**
 	 * Applies an image operation.
 	 */
 	public function apply(OperationInterface $operation): static;
+
+	/**
+	 * Applies an image operation on a cloned instance.
+	 */
+	public function applyOnClone(OperationInterface $operation): static;
 
 	/**
 	 * Returns the image resource as a blob.

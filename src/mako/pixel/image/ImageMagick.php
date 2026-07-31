@@ -9,7 +9,6 @@ namespace mako\pixel\image;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -26,10 +25,18 @@ use function usort;
  * @see https://www.php.net/manual/en/book.imagick.php
  *
  * @property ?Imagick $imageResource
- * @property ?Imagick $snapshot
  */
 class ImageMagick extends Image
 {
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	final public function __clone()
+	{
+		$this->imageResource = clone $this->imageResource;
+	}
+
 	/**
 	 * Are we working with an animated gif?
 	 */
@@ -88,13 +95,6 @@ class ImageMagick extends Image
 			$this->imageResource->destroy();
 
 			$this->imageResource = null;
-		}
-
-		if ($this->snapshot !== null) {
-			$this->snapshot->clear();
-			$this->snapshot->destroy();
-
-			$this->snapshot = null;
 		}
 	}
 
@@ -225,32 +225,5 @@ class ImageMagick extends Image
 		$image->destroy();
 
 		return $colors;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function snapshot(): void
-	{
-		$this->snapshot = clone $this->imageResource;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function restore(): void
-	{
-		if ($this->imageResource === null) {
-			throw new ImageException('No snapshot to restore.');
-		}
-
-		$this->imageResource = clone $this->snapshot;
-
-		$this->snapshot->clear();
-		$this->snapshot->destroy();
-
-		$this->snapshot = null;
 	}
 }
