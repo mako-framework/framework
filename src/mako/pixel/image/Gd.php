@@ -45,6 +45,7 @@ use function ob_start;
 use function pathinfo;
 use function round;
 use function sprintf;
+use function stream_get_contents;
 use function strtolower;
 
 /**
@@ -136,6 +137,15 @@ class Gd extends Image
 		$this->mimeType = $this->normalizeMimeType($imageInfo['mime']);
 
 		return imagecreatefromstring($blob);
+    }
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function createImageResourceFromStream(mixed $stream): object
+	{
+		return $this->createImageResourceFromBlob(stream_get_contents($stream));
     }
 
 	/**

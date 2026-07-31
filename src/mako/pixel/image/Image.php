@@ -97,6 +97,19 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	final public static function fromStream(mixed $stream): static
+	{
+		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
+
+		$image->imageResource = $image->createImageResourceFromStream($stream);
+
+		return $image;
+	}
+
+	/**
 	 * Returns a normalized mime type.
 	 */
 	protected function normalizeMimeType(string $type): string
@@ -120,6 +133,11 @@ abstract class Image implements ImageInterface
 	 * Creates an image resource from a binary blob.
 	 */
 	abstract protected function createImageResourceFromBlob(string $blob): object;
+
+	/**
+	 * Creates an image resource from a stream.
+	 */
+	abstract protected function createImageResourceFromStream(mixed $stream): object;
 
 	/**
 	 * Destroys an image resource.

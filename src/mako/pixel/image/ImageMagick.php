@@ -88,6 +88,19 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	protected function createImageResourceFromStream(mixed $stream): object
+	{
+		$imageResource = new Imagick;
+
+		$imageResource->readImageFile($stream);
+
+		return $this->collectMimeTypeAndPerformGifCheck($imageResource);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	protected function destroyImageResource(): void
 	{
 		if ($this->imageResource !== null) {

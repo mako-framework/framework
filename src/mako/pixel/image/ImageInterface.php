@@ -25,6 +25,13 @@ interface ImageInterface
 	public static function fromBlob(string $blob): static;
 
 	/**
+	 * Creates an image instance from a stream.
+	 *
+	 * @param resource $stream
+	 */
+	public static function fromStream(mixed $stream): static;
+
+	/**
 	 * Returns the underlying image resource object.
 	 */
 	public function getImageResource(): object;

@@ -168,4 +168,18 @@ class GdTest extends TestCase
 
 		$image->save();
 	}
+
+	/**
+	 *
+	 */
+	public function testFromStream(): void
+	{
+		$stream = fopen(__DIR__ . '/fixtures/001.png', 'rb');
+
+		$image = Gd::fromStream($stream);
+
+		$this->assertSame('image/png', $image->getMimeType());
+
+		fclose($stream);
+	}
 }
