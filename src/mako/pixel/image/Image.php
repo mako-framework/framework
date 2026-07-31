@@ -90,7 +90,7 @@ abstract class Image implements ImageInterface
 	{
 		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
 
-		$image->createImageResourceFromBlob($blob);
+		$image->imageResource = $image->createImageResourceFromBlob($blob);
 
 		return $image;
 	}
