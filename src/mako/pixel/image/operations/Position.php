@@ -20,7 +20,7 @@ final class Position
 {
 	/**
 	 * Returns the position required to place an object at the top-left corner
-	 * of a container.
+	 * of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -32,7 +32,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the top center
-	 * of a container.
+	 * of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -46,7 +46,8 @@ final class Position
 	}
 
 	/**
-	 * Returns the position required to center an object inside a container.
+	 * Returns the position required to center an object inside a container
+	 * with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -61,7 +62,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the top-right corner
-	 * of a container.
+	 * of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -76,7 +77,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the center-left
-	 * of a container.
+	 * of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -91,7 +92,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the center-right
-	 * of a container.
+	 * of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -106,7 +107,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the bottom-left
-	 * corner of a container.
+	 * corner of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -121,7 +122,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the bottom center
-	 * of a container.
+	 * of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
@@ -136,7 +137,7 @@ final class Position
 
 	/**
 	 * Returns the position required to place an object at the bottom-right
-	 * corner of a container.
+	 * corner of a container with the given margin from the edges.
 	 *
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
