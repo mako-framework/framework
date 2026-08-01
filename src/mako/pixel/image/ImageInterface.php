@@ -63,7 +63,6 @@ interface ImageInterface
 	 * Returns information about the image using the given inspector.
 	 *
 	 * @template T
-	 *
 	 * @param  InspectorInterface<T> $inspector
 	 * @return T
 	 */
