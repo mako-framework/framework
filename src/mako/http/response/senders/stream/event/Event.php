@@ -15,7 +15,7 @@ class Event
 	/**
 	 * Event fields.
 	 *
-	 * @var Field[]
+	 * @var array<int, Field>
 	 */
 	public protected(set) array $fields;
 

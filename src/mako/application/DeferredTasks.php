@@ -15,7 +15,7 @@ class DeferredTasks
 	/**
 	 * Deferred tasks.
 	 *
-	 * @var callable[]
+	 * @var array<int, callable>
 	 */
 	protected array $deferredTasks = [];
 
@@ -30,7 +30,7 @@ class DeferredTasks
 	/**
 	 * Returns the deferred tasks.
 	 *
-	 * @return callable[]
+	 * @return array<int, callable>
 	 */
 	public function getTasks(): array
 	{

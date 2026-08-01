@@ -23,7 +23,7 @@ class Permissions
 	/**
 	 * Permissions.
 	 *
-	 * @var Permission[]
+	 * @var array<int, Permission>
 	 */
 	protected array $permissions = [];
 
@@ -103,7 +103,7 @@ class Permissions
 	/**
 	 * Returns the permissions.
 	 *
-	 * @return Permission[]
+	 * @return array<int, Permission>
 	 */
 	public function getPermissions(): array
 	{

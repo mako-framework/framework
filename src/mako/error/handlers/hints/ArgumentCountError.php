@@ -12,6 +12,7 @@ use Override;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
+use ReflectionParameter;
 use Throwable;
 
 use function explode;
@@ -40,7 +41,7 @@ class ArgumentCountError implements HintInterface
     }
 
 	/**
-	 * @param array<\ReflectionParameter> $reflectionParameters
+	 * @param array<ReflectionParameter> $reflectionParameters
 	 */
 	protected function getParameters(array $reflectionParameters): string
 	{

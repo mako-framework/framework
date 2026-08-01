@@ -19,7 +19,7 @@ class CommandArguments
 	/**
 	 * Arguments.
 	 *
-	 * @var Argument[]
+	 * @var array<int, Argument>
 	 */
 	protected array $arguments;
 
