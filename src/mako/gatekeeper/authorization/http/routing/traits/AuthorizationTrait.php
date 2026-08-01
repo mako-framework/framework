@@ -7,13 +7,15 @@
 
 namespace mako\gatekeeper\authorization\http\routing\traits;
 
+use mako\gatekeeper\authorization\AuthorizerInterface;
+use mako\gatekeeper\Gatekeeper;
 use mako\http\exceptions\ForbiddenException;
 
 /**
  * Authorization trait.
  *
- * @property \mako\gatekeeper\authorization\AuthorizerInterface $authorizer
- * @property \mako\gatekeeper\Gatekeeper                        $gatekeeper
+ * @property AuthorizerInterface $authorizer
+ * @property Gatekeeper          $gatekeeper
  */
 trait AuthorizationTrait
 {

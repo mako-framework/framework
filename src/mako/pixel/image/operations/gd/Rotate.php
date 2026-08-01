@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use GdImage;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
@@ -31,7 +32,7 @@ class Rotate implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \GdImage &$imageResource
+	 * @param GdImage &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

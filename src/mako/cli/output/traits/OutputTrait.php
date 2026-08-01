@@ -7,12 +7,14 @@
 
 namespace mako\cli\output\traits;
 
+use mako\cli\output\Output;
+
 use function substr_count;
 
 /**
  * Output trait.
  *
- * @property \mako\cli\output\Output $output
+ * @property Output $output
  */
 trait OutputTrait
 {

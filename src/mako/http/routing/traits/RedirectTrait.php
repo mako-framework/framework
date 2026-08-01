@@ -8,12 +8,14 @@
 namespace mako\http\routing\traits;
 
 use mako\http\response\senders\Redirect;
+use mako\http\routing\Routes;
+use mako\http\routing\URLBuilder;
 
 /**
  * Redirect trait.
  *
- * @property \mako\http\routing\Routes     $routes
- * @property \mako\http\routing\UrlBuilder $urlBuilder
+ * @property Routes     $routes
+ * @property URLBuilder $urlBuilder
  */
 trait RedirectTrait
 {

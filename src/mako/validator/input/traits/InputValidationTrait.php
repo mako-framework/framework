@@ -7,16 +7,18 @@
 
 namespace mako\validator\input\traits;
 
+use mako\syringe\Container;
 use mako\validator\exceptions\ValidationException;
 use mako\validator\input\InputInterface;
+use mako\validator\ValidatorFactory;
 
 use function is_string;
 
 /**
  * Input validation trait.
  *
- * @property \mako\syringe\Container          $container
- * @property \mako\validator\ValidatorFactory $validator
+ * @property Container        $container
+ * @property ValidatorFactory $validator
  */
 trait InputValidationTrait
 {

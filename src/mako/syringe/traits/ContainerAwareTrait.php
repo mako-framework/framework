@@ -7,42 +7,70 @@
 
 namespace mako\syringe\traits;
 
+use mako\application\Application;
+use mako\bus\command\CommandBusInterface;
+use mako\bus\event\EventBusInterface;
+use mako\bus\query\QueryBusInterface;
+use mako\cache\CacheManager;
+use mako\cli\input\Input;
+use mako\cli\output\Output;
+use mako\config\Config;
+use mako\database\ConnectionManager as DatabaseConnectionManager;
+use mako\error\ErrorHandler;
+use mako\file\FileSystem;
+use mako\gatekeeper\authorization\AuthorizerInterface;
+use mako\gatekeeper\Gatekeeper;
+use mako\http\Request;
+use mako\http\Response;
+use mako\http\routing\Routes;
+use mako\http\routing\URLBuilder;
+use mako\i18n\I18n;
+use mako\logger\Logger;
+use mako\pagination\PaginationFactoryInterface;
+use mako\redis\ConnectionManager as RedisConnectionManager;
+use mako\security\crypto\CryptoManager;
+use mako\security\signer\Signer;
+use mako\session\Session;
 use mako\syringe\Container;
 use mako\syringe\exceptions\ContainerException;
+use mako\throttle\RateLimiterInterface;
+use mako\utility\Humanizer;
+use mako\validator\ValidatorFactory;
+use mako\view\ViewFactory;
 
 use function sprintf;
 
 /**
  * Container aware trait.
  *
- * @property \mako\application\Application                      $app
- * @property \mako\bus\command\CommandBusInterface              $commandBus
- * @property \mako\bus\event\EventBusInterface                  $eventBus
- * @property \mako\bus\query\QueryBusInterface                  $queryBus
- * @property \mako\cache\CacheManager                           $cache
- * @property \mako\cli\input\Input                              $input
- * @property \mako\cli\output\Output                            $output
- * @property \mako\config\Config                                $config
- * @property \mako\database\ConnectionManager                   $database
- * @property \mako\error\ErrorHandler                           $errorHandler
- * @property \mako\file\FileSystem                              $fileSystem
- * @property \mako\gatekeeper\authorization\AuthorizerInterface $authorizer
- * @property \mako\gatekeeper\Gatekeeper                        $gatekeeper
- * @property \mako\http\Request                                 $request
- * @property \mako\http\Response                                $response
- * @property \mako\http\routing\Routes                          $routes
- * @property \mako\http\routing\URLBuilder                      $urlBuilder
- * @property \mako\i18n\I18n                                    $i18n
- * @property \mako\logger\Logger                                $logger
- * @property \mako\pagination\PaginationFactoryInterface        $pagination
- * @property \mako\redis\ConnectionManager                      $redis
- * @property \mako\security\crypto\CryptoManager                $crypto
- * @property \mako\security\signer\Signer                       $signer
- * @property \mako\session\Session                              $session
- * @property \mako\throttle\RateLimiterInterface                $rateLimiter
- * @property \mako\utility\Humanizer                            $humanizer
- * @property \mako\validator\ValidatorFactory                   $validator
- * @property \mako\view\ViewFactory                             $view
+ * @property Application                $app
+ * @property CommandBusInterface        $commandBus
+ * @property EventBusInterface          $eventBus
+ * @property QueryBusInterface          $queryBus
+ * @property CacheManager               $cache
+ * @property Input                      $input
+ * @property Output                     $output
+ * @property Config                     $config
+ * @property DatabaseConnectionManager  $database
+ * @property ErrorHandler               $errorHandler
+ * @property FileSystem                 $fileSystem
+ * @property AuthorizerInterface        $authorizer
+ * @property Gatekeeper                 $gatekeeper
+ * @property Request                    $request
+ * @property Response                   $response
+ * @property Routes                     $routes
+ * @property URLBuilder                 $urlBuilder
+ * @property I18n                       $i18n
+ * @property Logger                     $logger
+ * @property PaginationFactoryInterface $pagination
+ * @property RedisConnectionManager     $redis
+ * @property CryptoManager              $crypto
+ * @property Signer                     $signer
+ * @property Session                    $session
+ * @property RateLimiterInterface       $rateLimiter
+ * @property Humanizer                  $humanizer
+ * @property ValidatorFactory           $validator
+ * @property ViewFactory                $view
  */
 trait ContainerAwareTrait
 {

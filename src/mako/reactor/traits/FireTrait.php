@@ -8,6 +8,7 @@
 namespace mako\reactor\traits;
 
 use Closure;
+use mako\application\cli\Application;
 
 use function escapeshellarg;
 use function escapeshellcmd;
@@ -20,7 +21,7 @@ use function str_contains;
 /**
  * Fire trait.
  *
- * @property \mako\application\cli\Application $app
+ * @property Application $app
  */
 trait FireTrait
 {

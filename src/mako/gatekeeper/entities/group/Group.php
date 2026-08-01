@@ -10,6 +10,7 @@ namespace mako\gatekeeper\entities\group;
 use mako\chrono\TimeImmutable;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
+use mako\database\midgard\ResultSet;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\entities\user\User;
 use mako\gatekeeper\exceptions\GatekeeperException;
@@ -18,12 +19,12 @@ use Override;
 /**
  * Group.
  *
- * @method   int                              getId()
- * @property int                              $id
- * @property TimeImmutable                    $created_at
- * @property TimeImmutable                    $updated_at
- * @property string                           $name
- * @property \mako\database\midgard\ResultSet $users
+ * @method   int           getId()
+ * @property int           $id
+ * @property TimeImmutable $created_at
+ * @property TimeImmutable $updated_at
+ * @property string        $name
+ * @property ResultSet     $users
  */
 class Group extends ORM implements GroupEntityInterface
 {

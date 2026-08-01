@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\inspectors\gd;
 
+use GdImage;
 use mako\pixel\image\Color;
 use mako\pixel\image\inspectors\InspectorInterface;
 use Override;
@@ -43,7 +44,7 @@ class TopColors implements InspectorInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \GdImage &$imageResource
+	 * @param GdImage &$imageResource
 	 */
 	#[Override]
 	public function inspect(object &$imageResource): mixed

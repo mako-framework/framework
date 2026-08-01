@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -26,7 +27,7 @@ class Pixelate implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

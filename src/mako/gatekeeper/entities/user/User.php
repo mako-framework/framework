@@ -11,11 +11,13 @@ use DateTimeInterface;
 use mako\chrono\TimeImmutable;
 use mako\database\midgard\ORM;
 use mako\database\midgard\relations\ManyToMany;
+use mako\database\midgard\ResultSet;
 use mako\database\midgard\traits\SensitiveStringTrait;
 use mako\database\midgard\traits\TimestampedTrait;
 use mako\gatekeeper\authorization\AuthorizableInterface;
 use mako\gatekeeper\authorization\traits\AuthorizableTrait;
 use mako\gatekeeper\entities\group\Group;
+use mako\gatekeeper\entities\group\GroupEntityInterface;
 use mako\gatekeeper\exceptions\GatekeeperException;
 use mako\security\password\Bcrypt;
 use mako\security\password\HasherInterface;
@@ -30,22 +32,22 @@ use function time;
 /**
  * User.
  *
- * @method   int                              getId()
- * @property int                              $id
- * @property TimeImmutable                    $created_at
- * @property TimeImmutable                    $updated_at
- * @property string                           $email
- * @property string                           $username
- * @property string                           $password
- * @property string                           $ip
- * @property string                           $action_token
- * @property string                           $access_token
- * @property int                              $activated
- * @property int                              $banned
- * @property int                              $failed_attempts
- * @property ?TimeImmutable                   $last_fail_at
- * @property ?TimeImmutable                   $locked_until
- * @property \mako\database\midgard\ResultSet $groups
+ * @method   int            getId()
+ * @property int            $id
+ * @property TimeImmutable  $created_at
+ * @property TimeImmutable  $updated_at
+ * @property string         $email
+ * @property string         $username
+ * @property string         $password
+ * @property string         $ip
+ * @property string         $action_token
+ * @property string         $access_token
+ * @property int            $activated
+ * @property int            $banned
+ * @property int            $failed_attempts
+ * @property ?TimeImmutable $last_fail_at
+ * @property ?TimeImmutable $locked_until
+ * @property ResultSet      $groups
  */
 class User extends ORM implements AuthorizableInterface, MemberInterface, UserEntityInterface
 {
@@ -289,7 +291,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 		}
 
 		foreach ((array) $group as $check) {
-			/** @var \mako\gatekeeper\entities\group\GroupEntityInterface&ORM $userGroup */
+			/** @var GroupEntityInterface&ORM $userGroup */
 			foreach ($this->groups as $userGroup) {
 				if ((is_int($check) && (int) $userGroup->getId() === $check) || $userGroup->getName() === $check) {
 					return true;

@@ -10,6 +10,7 @@ namespace mako\http\routing;
 use Closure;
 use mako\http\routing\attributes\Constraint;
 use mako\http\routing\attributes\Middleware;
+use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -107,7 +108,7 @@ class Route
 	{
 		$attributeValues = [];
 
-		/** @var \ReflectionAttribute $attribute */
+		/** @var ReflectionAttribute $attribute */
 		foreach ($attributes as $attribute) {
 			$attributeValues = [...$attributeValues, ...[$attribute->newInstance()->{$method}()]];
 		}

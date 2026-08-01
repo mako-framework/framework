@@ -7,6 +7,8 @@
 
 namespace mako\cli\output\components\traits;
 
+use mako\cli\output\Output;
+
 use function implode;
 use function mb_strrpos;
 use function mb_strwidth;
@@ -18,7 +20,7 @@ use function trim;
 /**
  * String helper trait.
  *
- * @property \mako\cli\output\Output $output
+ * @property Output $output
  */
 trait StringHelperTrait
 {

@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use ImagickDraw;
 use ImagickPixel;
 use mako\pixel\image\Color;
@@ -30,7 +31,7 @@ class Border implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

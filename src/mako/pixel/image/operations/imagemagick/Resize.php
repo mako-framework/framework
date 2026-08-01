@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\CalculateNewDimensionsTrait;
@@ -32,7 +33,7 @@ class Resize implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

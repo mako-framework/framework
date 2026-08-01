@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use GdImage;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
@@ -31,7 +32,7 @@ class Brightness implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \GdImage &$imageResource
+	 * @param GdImage &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

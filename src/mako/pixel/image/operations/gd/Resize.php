@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use GdImage;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
@@ -41,7 +42,7 @@ class Resize implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \GdImage &$imageResource
+	 * @param GdImage &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

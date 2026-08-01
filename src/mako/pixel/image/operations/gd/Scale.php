@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
@@ -44,7 +45,7 @@ class Scale implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \GdImage &$imageResource
+	 * @param GdImage &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

@@ -7,13 +7,15 @@
 
 namespace mako\bus\traits;
 
+use mako\syringe\Container;
+
 use function is_callable;
 use function is_string;
 
 /**
  * Resolve handler trait.
  *
- * @property \mako\syringe\Container $container
+ * @property Container $container
  */
 trait ResolveHandlerTrait
 {

@@ -7,6 +7,7 @@
 
 namespace mako\validator\input\http\routing\traits;
 
+use mako\http\Request;
 use mako\validator\input\traits\InputValidationTrait as BaseInputValidationTrait;
 
 use function is_string;
@@ -14,7 +15,7 @@ use function is_string;
 /**
  * Input validation trait.
  *
- * @property \mako\http\Request $request
+ * @property Request $request
  */
 trait InputValidationTrait
 {

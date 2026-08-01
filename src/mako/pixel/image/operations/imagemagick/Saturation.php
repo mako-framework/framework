@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
@@ -29,7 +30,7 @@ class Saturation implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

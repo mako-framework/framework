@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\gd;
 
+use GdImage;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -20,7 +21,7 @@ class Bitonal implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \GdImage &$imageResource
+	 * @param GdImage &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void

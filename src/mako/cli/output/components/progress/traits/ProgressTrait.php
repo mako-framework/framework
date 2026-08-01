@@ -7,6 +7,9 @@
 
 namespace mako\cli\output\components\progress\traits;
 
+use mako\cli\output\components\progress\Theme;
+use mako\cli\output\Output;
+
 use function floor;
 use function microtime;
 use function min;
@@ -18,8 +21,8 @@ use function strlen;
 /**
  * Progress trait.
  *
- * @property \mako\cli\output\Output                    $output
- * @property \mako\cli\output\components\progress\Theme $theme
+ * @property Output $output
+ * @property Theme  $theme
  */
 trait ProgressTrait
 {

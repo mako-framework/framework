@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image\operations\imagemagick;
 
+use Imagick;
 use ImagickPixel;
 use mako\pixel\image\Color;
 use mako\pixel\image\operations\OperationInterface;
@@ -28,7 +29,7 @@ class Colorize implements OperationInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param \Imagick &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function apply(object &$imageResource): void
