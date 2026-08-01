@@ -13,7 +13,6 @@ use mako\pixel\image\Dimensions;
 use Override;
 use Traversable;
 
-use function array_map;
 use function count;
 use function max;
 use function min;
@@ -24,19 +23,19 @@ use function round;
  *
  * @implements IteratorAggregate<int, Point>
  */
-class Vertices implements Countable, IteratorAggregate
+final class Vertices implements Countable, IteratorAggregate
 {
 	/**
 	 *  Vertices.
 	 *
 	 * @var array<Point>
 	 */
-	protected readonly array $points;
+	private readonly array $points;
 
 	/**
 	 * Dimensions.
 	 */
-	protected ?Dimensions $dimensions = null;
+	private ?Dimensions $dimensions = null;
 
 	/**
 	 * Constructor.
@@ -113,22 +112,27 @@ class Vertices implements Countable, IteratorAggregate
 			$dimensions->height / $current->height,
 		);
 
-		$points = [];
+		$coordinates = [];
+
+		$minX = PHP_INT_MAX;
+		$minY = PHP_INT_MAX;
 
 		foreach ($this->points as $point) {
-			$points[] = new Point(
-				(int) round($point->x * $scale),
-				(int) round($point->y * $scale),
-			);
+			$x = (int) round($point->x * $scale);
+			$y = (int) round($point->y * $scale);
+
+			$coordinates[] = [$x, $y];
+
+			$minX = min($minX, $x);
+			$minY = min($minY, $y);
 		}
 
-		$minX = min(...array_map(fn (Point $p) => $p->x, $points));
-		$minY = min(...array_map(fn (Point $p) => $p->y, $points));
+		$points = [];
 
-		foreach ($points as $key => $point) {
-			$points[$key] = new Point(
-				$point->x - $minX,
-				$point->y - $minY,
+		foreach ($coordinates as [$x, $y]) {
+			$points[] = new Point(
+				$x - $minX,
+				$y - $minY,
 			);
 		}
 

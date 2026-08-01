@@ -10,7 +10,7 @@ namespace mako\pixel\image\operations;
 /**
  * Represents a 2D coordinate.
  */
-readonly class Point
+final readonly class Point
 {
 	/**
 	 * Constructor.

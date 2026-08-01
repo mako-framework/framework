@@ -10,7 +10,7 @@ namespace mako\pixel\image;
 /**
  * Dimensions in pixels.
  */
-readonly class Dimensions
+final readonly class Dimensions
 {
 	/**
 	 * Constructor.
