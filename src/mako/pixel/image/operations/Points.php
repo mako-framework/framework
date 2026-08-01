@@ -19,14 +19,14 @@ use function min;
 use function round;
 
 /**
- * Vertices.
+ * Points.
  *
  * @implements IteratorAggregate<int, Point>
  */
-final class Vertices implements Countable, IteratorAggregate
+final class Points implements Countable, IteratorAggregate
 {
 	/**
-	 *  Vertices.
+	 *  Points.
 	 *
 	 * @var array<Point>
 	 */
@@ -64,7 +64,7 @@ final class Vertices implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the points contained in the vertices.
+	 * Returns the points contained in collection.
 	 *
 	 * @return array<Point>
 	 */
@@ -74,7 +74,7 @@ final class Vertices implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the dimensions of the bounding box containing the vertices.
+	 * Returns the dimensions of the bounding box containing points.
 	 */
 	public function getDimensions(): Dimensions
 	{
@@ -101,7 +101,7 @@ final class Vertices implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns a new set of vertices fitted to the given dimensions
+	 * Returns a new set of points fitted to the given dimensions
 	 * while preserving the aspect ratio and normalized to 0,0.
 	 */
 	public function fitTo(Dimensions $dimensions): self

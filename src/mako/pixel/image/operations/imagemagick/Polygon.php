@@ -14,7 +14,7 @@ use InvalidArgumentException;
 use mako\pixel\image\Color;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Vertices;
+use mako\pixel\image\operations\Points;
 use Override;
 
 use function count;
@@ -28,14 +28,14 @@ class Polygon implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected Vertices $vertices,
+		protected Points $points,
 		protected ?Color $fill = null,
 		protected ?Color $stroke = null,
 		protected int $strokeWidth = 1,
 		protected Point $offset = new Point(0, 0)
 	) {
-		if (count($vertices) < 3) {
-			throw new InvalidArgumentException('A polygon requires at least 3 vertices.');
+		if (count($points) < 3) {
+			throw new InvalidArgumentException('A polygon requires at least 3 points.');
 		}
 
 		if ($this->fill === null && $this->stroke === null) {
@@ -68,7 +68,7 @@ class Polygon implements OperationInterface
 
 			$points = [];
 
-			foreach ($this->vertices as $point) {
+			foreach ($this->points as $point) {
 				$points[] = [
 					'x' => $point->x + $this->offset->x,
 					'y' => $point->y + $this->offset->y,

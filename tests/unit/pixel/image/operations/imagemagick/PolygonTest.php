@@ -11,7 +11,7 @@ use InvalidArgumentException;
 use mako\pixel\image\Color;
 use mako\pixel\image\operations\imagemagick\Polygon;
 use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Vertices;
+use mako\pixel\image\operations\Points;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -31,13 +31,13 @@ class PolygonTest extends TestCase
 	/**
 	 *
 	 */
-	public function testInvalidVertices(): void
+	public function testInvalidPoints(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('A polygon requires at least 3 vertices.');
+		$this->expectExceptionMessageIs('A polygon requires at least 3 points.');
 
 		new Polygon(
-			new Vertices(
+			new Points(
 				new Point(0, 0),
 				new Point(0, 0),
 			),
@@ -54,7 +54,7 @@ class PolygonTest extends TestCase
 		$this->expectExceptionMessageIs('A polygon requires either a fill or a stroke.');
 
 		new Polygon(
-			new Vertices(
+			new Points(
 				new Point(0, 0),
 				new Point(0, 0),
 				new Point(0, 0),
@@ -71,7 +71,7 @@ class PolygonTest extends TestCase
 		$this->expectExceptionMessageIs('Stroke width must be greater than 0.');
 
 		new Polygon(
-			new Vertices(
+			new Points(
 				new Point(0, 0),
 				new Point(0, 0),
 				new Point(0, 0),
@@ -87,7 +87,7 @@ class PolygonTest extends TestCase
 	public function testOnlyFill(): void
 	{
 		$polygon = new Polygon(
-			new Vertices(
+			new Points(
 				new Point(0, 0),
 				new Point(0, 0),
 				new Point(0, 0),
@@ -104,7 +104,7 @@ class PolygonTest extends TestCase
 	public function testOnlyStroke(): void
 	{
 		$polygon = new Polygon(
-			new Vertices(
+			new Points(
 				new Point(0, 0),
 				new Point(0, 0),
 				new Point(0, 0),
@@ -121,7 +121,7 @@ class PolygonTest extends TestCase
 	public function testFillAndStroke(): void
 	{
 		$polygon = new Polygon(
-			new Vertices(
+			new Points(
 				new Point(0, 0),
 				new Point(0, 0),
 				new Point(0, 0),

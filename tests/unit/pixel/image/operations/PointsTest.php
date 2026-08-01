@@ -9,24 +9,24 @@ namespace mako\tests\unit\pixel\image\operations;
 
 use mako\pixel\image\Dimensions;
 use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Vertices;
+use mako\pixel\image\operations\Points;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('unit')]
-class VerticesTest extends TestCase
+class PointsTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testCount(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(0, 0),
 			new Point(0, 0)
 		);
 
-		$this->assertSame(2, count($vertices));
+		$this->assertSame(2, count($points));
 	}
 
 	/**
@@ -34,12 +34,12 @@ class VerticesTest extends TestCase
 	 */
 	public function testIterate(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(0, 0),
 			new Point(0, 0)
 		);
 
-		foreach ($vertices as $point) {
+		foreach ($points as $point) {
 			$this->assertInstanceOf(Point::class, $point);
 		}
 	}
@@ -49,12 +49,12 @@ class VerticesTest extends TestCase
 	 */
 	public function testGetPoints(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(0, 0),
 			new Point(0, 0)
 		);
 
-		$points = $vertices->getPoints();
+		$points = $points->getPoints();
 
 		$this->assertSame(2, count($points));
 
@@ -68,14 +68,14 @@ class VerticesTest extends TestCase
 	 */
 	public function testGetDimensionsWithZeroOffset(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(0, 0),    // top-left
 			new Point(100, 0),  // top-right
 			new Point(100, 50), // bottom-right
 			new Point(0, 50),   // bottom-left
 		);
 
-		$dimensions = $vertices->getDimensions();
+		$dimensions = $points->getDimensions();
 
 		$this->assertSame(100, $dimensions->width);
 		$this->assertSame(50, $dimensions->height);
@@ -86,14 +86,14 @@ class VerticesTest extends TestCase
 	 */
 	public function testGetDimensionsWith50Offset(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(50, 50),   // top-left
 			new Point(150, 50),  // top-right
 			new Point(150, 100), // bottom-right
 			new Point(50, 100),  // bottom-left
 		);
 
-		$dimensions = $vertices->getDimensions();
+		$dimensions = $points->getDimensions();
 
 		$this->assertSame(100, $dimensions->width);
 		$this->assertSame(50, $dimensions->height);
@@ -104,26 +104,26 @@ class VerticesTest extends TestCase
 	 */
 	public function testFitTosWithZeroOffset(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(0, 0),    // top-left
 			new Point(100, 0),  // top-right
 			new Point(100, 50), // bottom-right
 			new Point(0, 50),   // bottom-left
 		);
 
-		$dimensions = $vertices->getDimensions();
+		$dimensions = $points->getDimensions();
 
 		$this->assertSame(100, $dimensions->width);
 		$this->assertSame(50, $dimensions->height);
 
-		$vertices = $vertices->fitTo(new Dimensions(50, 50));
+		$points = $points->fitTo(new Dimensions(50, 50));
 
-		$dimensions = $vertices->getDimensions();
+		$dimensions = $points->getDimensions();
 
 		$this->assertSame(50, $dimensions->width);
 		$this->assertSame(25, $dimensions->height);
 
-		$points = $vertices->getPoints();
+		$points = $points->getPoints();
 
 		$this->assertSame(0, $points[0]->x);
 		$this->assertSame(0, $points[0]->y);
@@ -143,26 +143,26 @@ class VerticesTest extends TestCase
 	 */
 	public function testfitToWith50Offset(): void
 	{
-		$vertices = new Vertices(
+		$points = new Points(
 			new Point(50, 50),   // top-left
 			new Point(150, 50),  // top-right
 			new Point(150, 100), // bottom-right
 			new Point(50, 100),  // bottom-left
 		);
 
-		$dimensions = $vertices->getDimensions();
+		$dimensions = $points->getDimensions();
 
 		$this->assertSame(100, $dimensions->width);
 		$this->assertSame(50, $dimensions->height);
 
-		$vertices = $vertices->fitTo(new Dimensions(50, 50));
+		$points = $points->fitTo(new Dimensions(50, 50));
 
-		$dimensions = $vertices->getDimensions();
+		$dimensions = $points->getDimensions();
 
 		$this->assertSame(50, $dimensions->width);
 		$this->assertSame(25, $dimensions->height);
 
-		$points = $vertices->getPoints();
+		$points = $points->getPoints();
 
 		$this->assertSame(0, $points[0]->x);
 		$this->assertSame(0, $points[0]->y);
