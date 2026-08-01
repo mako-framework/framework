@@ -13,6 +13,7 @@ use ImagickPixel;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Point;
 use mako\pixel\image\operations\Vertices;
 use Override;
 
@@ -31,8 +32,7 @@ class Polygon implements OperationInterface
 		protected ?Color $fill = null,
 		protected ?Color $stroke = null,
 		protected int $strokeWidth = 1,
-		protected int $offsetX = 0,
-		protected int $offsetY = 0
+		protected Point $offset = new Point(0, 0)
 	) {
 		if (count($vertices) < 3) {
 			throw new InvalidArgumentException('A polygon requires at least 3 vertices.');
@@ -70,8 +70,8 @@ class Polygon implements OperationInterface
 
 			foreach ($this->vertices as $point) {
 				$points[] = [
-					'x' => $point->x + $this->offsetX,
-					'y' => $point->y + $this->offsetY,
+					'x' => $point->x + $this->offset->x,
+					'y' => $point->y + $this->offset->y,
 				];
 			}
 
