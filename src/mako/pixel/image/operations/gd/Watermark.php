@@ -8,6 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\Gd;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\WatermarkPosition;
@@ -77,32 +78,16 @@ class Watermark implements OperationInterface
 			}
 		}
 
-		switch ($this->position) {
-			case WatermarkPosition::TopRight:
-				$x = imagesx($imageResource) - $watermarkWidth - $this->margin;
-				$y = 0 + $this->margin;
-				break;
-			case WatermarkPosition::BottomLeft:
-				$x = 0 + $this->margin;
-				$y = imagesy($imageResource) - $watermarkHeight - $this->margin;
-				break;
-			case WatermarkPosition::BottomRight:
-				$x = imagesx($imageResource) - $watermarkWidth - $this->margin;
-				$y = imagesy($imageResource) - $watermarkHeight - $this->margin;
-				break;
-			case WatermarkPosition::Center:
-				$x = (imagesx($imageResource) - $watermarkWidth) / 2;
-				$y = (imagesy($imageResource) - $watermarkHeight) / 2;
-				break;
-			default:
-				$x = 0 + $this->margin;
-				$y = 0 + $this->margin;
-		}
-
 		imagealphablending($imageResource, true);
 
 		imagesavealpha($imageResource, true);
 
-		imagecopy($imageResource, $watermark, $x, $y, 0, 0, $watermarkWidth, $watermarkHeight);
+		$point = $this->position->resolvePosition(
+			new Dimensions(imagesx($imageResource), imagesy($imageResource)),
+			new Dimensions($watermarkWidth, $watermarkHeight),
+			$this->margin
+		);
+
+		imagecopy($imageResource, $watermark, $point->x, $point->y, 0, 0, $watermarkWidth, $watermarkHeight);
 	}
 }

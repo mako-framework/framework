@@ -46,21 +46,6 @@ final class Position
 	}
 
 	/**
-	 * Returns the position required to center an object inside a container
-	 * with the given margin from the edges.
-	 *
-	 * The returned point represents the top-left coordinate where the object
-	 * should be placed.
-	 */
-	public static function center(Dimensions $container, Dimensions $object): Point
-	{
-		return new Point(
-			(int) (($container->width - $object->width) / 2),
-			(int) (($container->height - $object->height) / 2),
-		);
-	}
-
-	/**
 	 * Returns the position required to place an object at the top-right corner
 	 * of a container with the given margin from the edges.
 	 *
@@ -86,6 +71,21 @@ final class Position
 	{
 		return new Point(
 			$margin,
+			(int) (($container->height - $object->height) / 2),
+		);
+	}
+
+	/**
+	 * Returns the position required to center an object inside a container
+	 * with the given margin from the edges.
+	 *
+	 * The returned point represents the top-left coordinate where the object
+	 * should be placed.
+	 */
+	public static function center(Dimensions $container, Dimensions $object): Point
+	{
+		return new Point(
+			(int) (($container->width - $object->width) / 2),
 			(int) (($container->height - $object->height) / 2),
 		);
 	}
