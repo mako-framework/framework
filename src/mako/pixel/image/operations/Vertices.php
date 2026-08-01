@@ -64,7 +64,7 @@ final class Vertices implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the vertices.
+	 * Returns the points contained in the vertices.
 	 *
 	 * @return array<Point>
 	 */
@@ -101,7 +101,8 @@ final class Vertices implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns a new set of vertices fitted to the given dimensions and normalized to 0,0.
+	 * Returns a new set of vertices fitted to the given dimensions
+	 * while preserving the aspect ratio and normalized to 0,0.
 	 */
 	public function fitTo(Dimensions $dimensions): self
 	{
