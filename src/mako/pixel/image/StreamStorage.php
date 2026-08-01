@@ -17,7 +17,17 @@ use function sprintf;
  */
 enum StreamStorage: string
 {
+	/**
+	 * Stores stream data in temporary storage.
+	 *
+	 * Data is kept in memory until the configured memory limit is reached,
+	 * after which it is stored in a temporary file.
+	 */
 	case Temp = 'php://temp';
+
+	/**
+	 * Stores stream data entirely in memory.
+	 */
 	case Memory = 'php://memory';
 
 	/**
