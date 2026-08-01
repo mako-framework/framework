@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\pixel\image\operations\gd;
 
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\Gd;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\gd\Resize;
@@ -33,7 +34,7 @@ class ResizeTest extends TestCase
 	{
 		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
 
-		$image->apply(new Resize(50, 50));
+		$image->apply(new Resize(new Dimensions(50, 50)));
 
 		$this->assertSame(50, $image->getHeight());
 		$this->assertSame(50, $image->getWidth());
@@ -46,7 +47,7 @@ class ResizeTest extends TestCase
 	{
 		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
 
-		$image->apply(new Resize(100, 50, AspectRatio::Height));
+		$image->apply(new Resize(new Dimensions(100, 50), AspectRatio::Height));
 
 		$this->assertSame(50, $image->getHeight());
 		$this->assertSame(50, $image->getWidth());
@@ -59,7 +60,7 @@ class ResizeTest extends TestCase
 	{
 		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
 
-		$image->apply(new Resize(100, 50, AspectRatio::Width));
+		$image->apply(new Resize(new Dimensions(100, 50), AspectRatio::Width));
 
 		$this->assertSame(100, $image->getHeight());
 		$this->assertSame(100, $image->getWidth());
@@ -72,7 +73,7 @@ class ResizeTest extends TestCase
 	{
 		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
 
-		$image->apply(new Resize(100, 50, AspectRatio::Ignore));
+		$image->apply(new Resize(new Dimensions(100, 50), AspectRatio::Ignore));
 
 		$this->assertSame(50, $image->getHeight());
 		$this->assertSame(100, $image->getWidth());

@@ -8,8 +8,10 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Point;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -29,10 +31,8 @@ class Crop implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected int $width,
-		protected int $height,
-		protected int $x,
-		protected int $y
+		protected Dimensions $dimensions,
+		protected Point $position
 	) {
 	}
 
@@ -47,7 +47,7 @@ class Crop implements OperationInterface
 		$oldWidth = imagesx($imageResource);
 		$oldHeight = imagesy($imageResource);
 
-		$temp = imagecreatetruecolor($this->width, $this->height);
+		$temp = imagecreatetruecolor($this->dimensions->width, $this->dimensions->height);
 
 		if (!$temp) {
 			throw new ImageException('Failed to create temporary image resource.');
@@ -57,7 +57,7 @@ class Crop implements OperationInterface
 
 		imagefill($temp, 0, 0, $transparent);
 
-		imagecopy($temp, $imageResource, 0, 0, $this->x, $this->y, $oldWidth, $oldHeight);
+		imagecopy($temp, $imageResource, 0, 0, $this->position->x, $this->position->y, $oldWidth, $oldHeight);
 
 		imagecolortransparent($temp, $transparent);
 

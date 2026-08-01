@@ -8,7 +8,9 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Point;
 use Override;
 
 /**
@@ -20,10 +22,8 @@ class Crop implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected int $width,
-		protected int $height,
-		protected int $x,
-		protected int $y
+		protected Dimensions $dimensions,
+		protected Point $position
 	) {
 	}
 
@@ -35,6 +35,6 @@ class Crop implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$imageResource->cropImage($this->width, $this->height, $this->x, $this->y);
+		$imageResource->cropImage($this->dimensions->width, $this->dimensions->height, $this->position->x, $this->position->y);
 	}
 }

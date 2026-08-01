@@ -8,6 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
@@ -33,8 +34,7 @@ class Resize implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected int $width,
-		protected int $height,
+		protected Dimensions $dimensions,
 		protected AspectRatio $aspectRatio = AspectRatio::Auto
 	) {
 	}
@@ -50,7 +50,7 @@ class Resize implements OperationInterface
 		$oldWidth = imagesx($imageResource);
 		$oldHeight = imagesy($imageResource);
 
-		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->width, $this->height, $oldWidth, $oldHeight, $this->aspectRatio);
+		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->dimensions->width, $this->dimensions->height, $oldWidth, $oldHeight, $this->aspectRatio);
 
 		$temp = imagecreatetruecolor($newWidth, $newHeight);
 

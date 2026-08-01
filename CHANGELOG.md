@@ -97,6 +97,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Removed the `ImageInterface::restore()` method.
 * Removed the `ImageInterface::getTopColors()` method.
 * Renamed the `ImageInterface::getImageBlob()` method to `ImageInterface::toBlob()`.
+* The pixel `Resize` operation now takes a `Dimensions` instance instead of width and height integers.
+* The pixel `Crop` operation now takes a `Dimensions` instance and a `Point` instance instead of width, height, x and y integers.
 * Removed the `app:generate-secret` command. Use the `app:generate-key` command instead.
 * Moved the `Signer` class from the `mako\security` namespace to the `mako\security\signer` namespace.
 

@@ -8,6 +8,7 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\CalculateNewDimensionsTrait;
@@ -24,8 +25,7 @@ class Resize implements OperationInterface
 	 * Constructor.
 	 */
 	public function __construct(
-		protected int $width,
-		protected int $height,
+		protected Dimensions $dimensions,
 		protected AspectRatio $aspectRatio = AspectRatio::Auto
 	) {
 	}
@@ -41,7 +41,7 @@ class Resize implements OperationInterface
 		$oldWidth = $imageResource->getImageWidth();
 		$oldHeight = $imageResource->getImageHeight();
 
-		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->width, $this->height, $oldWidth, $oldHeight, $this->aspectRatio);
+		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->dimensions->width, $this->dimensions->height, $oldWidth, $oldHeight, $this->aspectRatio);
 
 		$imageResource->scaleImage($newWidth, $newHeight);
 	}
