@@ -64,7 +64,7 @@ final class Points implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the points contained in collection.
+	 * Returns the points contained in the collection.
 	 *
 	 * @return array<Point>
 	 */
@@ -74,7 +74,7 @@ final class Points implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the dimensions of the bounding box containing points.
+	 * Returns the dimensions of the bounding box containing the points.
 	 */
 	public function getDimensions(): Dimensions
 	{
