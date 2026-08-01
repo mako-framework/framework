@@ -184,9 +184,9 @@ abstract class Image implements ImageInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getDimensions(): array
+	public function getDimensions(): Dimensions
 	{
-		return ['width' => $this->getWidth(), 'height' => $this->getHeight()];
+		return new Dimensions($this->getWidth(), $this->getHeight());
 	}
 
 	/**

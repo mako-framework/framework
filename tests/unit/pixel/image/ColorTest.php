@@ -22,6 +22,11 @@ class ColorTest extends TestCase
 	{
 		$color = new Color(50, 100, 150, 200);
 
+		$this->assertSame(50, $color->red);
+		$this->assertSame(100, $color->green);
+		$this->assertSame(150, $color->blue);
+		$this->assertSame(200, $color->alpha);
+
 		$this->assertSame(50, $color->getRed());
 		$this->assertSame(100, $color->getGreen());
 		$this->assertSame(150, $color->getBlue());

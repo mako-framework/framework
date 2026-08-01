@@ -36,7 +36,10 @@ class GdTest extends TestCase
 
 		$this->assertSame(300, $image->getHeight());
 
-		$this->assertSame(['width' => 300, 'height' => 300], $image->getDimensions());
+		$dimensions = $image->getDimensions();
+
+		$this->assertSame(300, $dimensions->width);
+		$this->assertSame(300, $dimensions->height);
 	}
 
 	/**

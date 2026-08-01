@@ -30,7 +30,7 @@ class Color
 	 * Constructor.
 	 */
 	final public function __construct(
-		protected int $red {
+		public private(set) int $red {
 			set(int $value) {
 				if ($value < 0 || $value > 255) {
 					throw new InvalidArgumentException('Red must be between 0 and 255.');
@@ -38,7 +38,7 @@ class Color
 				$this->red = $value;
 			}
 		},
-		protected int $green {
+		public private(set) int $green {
 			set(int $value) {
 				if ($value < 0 || $value > 255) {
 					throw new InvalidArgumentException('Green must be between 0 and 255.');
@@ -46,7 +46,7 @@ class Color
 				$this->green = $value;
 			}
 		},
-		protected int $blue {
+		public private(set) int $blue {
 			set(int $value) {
 				if ($value < 0 || $value > 255) {
 					throw new InvalidArgumentException('Blue must be between 0 and 255.');
@@ -54,7 +54,7 @@ class Color
 				$this->blue = $value;
 			}
 		},
-		protected int $alpha = 255 {
+		public private(set) int $alpha = 255 {
 			set(int $value) {
 				if ($value < 0 || $value > 255) {
 					throw new InvalidArgumentException('Alpha must be between 0 and 255.');

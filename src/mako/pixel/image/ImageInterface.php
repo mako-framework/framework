@@ -53,11 +53,9 @@ interface ImageInterface
 	public function getHeight(): int;
 
 	/**
-	 * Returns an array containing the image dimensions in pixels.
-	 *
-	 * @return array{width: int, height: int}
+	 * Returns a dimensions object.
 	 */
-	public function getDimensions(): array;
+	public function getDimensions(): Dimensions;
 
 	/**
 	 * Returns information about the image using the given inspector.

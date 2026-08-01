@@ -45,10 +45,10 @@ class Border implements OperationInterface
 
 		$color = imagecolorallocatealpha(
 			$imageResource,
-			$this->color->getRed(),
-			$this->color->getGreen(),
-			$this->color->getBlue(),
-			127 - (int) round($this->color->getAlpha() * 127 / 255)
+			$this->color->red,
+			$this->color->green,
+			$this->color->blue,
+			127 - (int) round($this->color->alpha * 127 / 255)
 		);
 
 		for ($i = 0; $i < $this->width; $i++) {

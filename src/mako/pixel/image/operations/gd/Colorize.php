@@ -45,9 +45,9 @@ class Colorize implements OperationInterface
 	public function apply(object &$imageResource): void
 	{
 		$colors = [
-			'r' => $this->color->getRed(),
-			'g' => $this->color->getGreen(),
-			'b' => $this->color->getBlue(),
+			'r' => $this->color->red,
+			'g' => $this->color->green,
+			'b' => $this->color->blue,
 		];
 
 		$width = imagesx($imageResource);
