@@ -25,9 +25,9 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function topLeft(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function topLeft(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
-		return new Point($padding, $padding);
+		return new Point($margin, $margin);
 	}
 
 	/**
@@ -37,11 +37,11 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function top(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function top(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
 			(int) (($container->width - $object->width) / 2),
-			$padding,
+			$margin,
 		);
 	}
 
@@ -66,11 +66,11 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function topRight(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function topRight(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
-			$container->width - $object->width - $padding,
-			$padding,
+			$container->width - $object->width - $margin,
+			$margin,
 		);
 	}
 
@@ -81,10 +81,10 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function centerLeft(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function centerLeft(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
-			$padding,
+			$margin,
 			(int) (($container->height - $object->height) / 2),
 		);
 	}
@@ -96,10 +96,10 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function centerRight(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function centerRight(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
-			$container->width - $object->width - $padding,
+			$container->width - $object->width - $margin,
 			(int) (($container->height - $object->height) / 2),
 		);
 	}
@@ -111,11 +111,11 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function bottomLeft(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function bottomLeft(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
-			$padding,
-			$container->height - $object->height - $padding,
+			$margin,
+			$container->height - $object->height - $margin,
 		);
 	}
 
@@ -126,11 +126,11 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function bottom(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function bottom(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
 			(int) (($container->width - $object->width) / 2),
-			$container->height - $object->height - $padding,
+			$container->height - $object->height - $margin,
 		);
 	}
 
@@ -141,11 +141,11 @@ final class Position
 	 * The returned point represents the top-left coordinate where the object
 	 * should be placed.
 	 */
-	public static function bottomRight(Dimensions $container, Dimensions $object, int $padding = 0): Point
+	public static function bottomRight(Dimensions $container, Dimensions $object, int $margin = 0): Point
 	{
 		return new Point(
-			$container->width - $object->width - $padding,
-			$container->height - $object->height - $padding,
+			$container->width - $object->width - $margin,
+			$container->height - $object->height - $margin,
 		);
 	}
 }
