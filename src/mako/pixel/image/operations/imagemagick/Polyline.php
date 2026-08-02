@@ -31,7 +31,7 @@ class Polyline implements OperationInterface
 		protected Points $points,
 		protected Color $stroke,
 		protected int $strokeWidth = 1,
-		protected Point $offset = new Point(0, 0)
+		protected Point $position = new Point(0, 0)
 	) {
 		if (count($points) < 2) {
 			throw new InvalidArgumentException('A polyline requires at least 2 points.');
@@ -63,8 +63,8 @@ class Polyline implements OperationInterface
 
 			foreach ($this->points as $point) {
 				$points[] = [
-					'x' => $point->x + $this->offset->x,
-					'y' => $point->y + $this->offset->y,
+					'x' => $point->x + $this->position->x,
+					'y' => $point->y + $this->position->y,
 				];
 			}
 

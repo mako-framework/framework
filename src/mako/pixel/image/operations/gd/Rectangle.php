@@ -35,7 +35,7 @@ class Rectangle implements OperationInterface
 		protected ?Color $fill = null,
 		protected ?Color $stroke = null,
 		protected int $strokeWidth = 1,
-		protected Point $offset = new Point(0, 0)
+		protected Point $position = new Point(0, 0)
 	) {
 		if ($this->fill === null && $this->stroke === null) {
 			throw new InvalidArgumentException('A rectangle requires either a fill or a stroke.');
@@ -59,10 +59,10 @@ class Rectangle implements OperationInterface
 		if ($this->fill !== null) {
 			imagefilledrectangle(
 				$imageResource,
-				$this->offset->x,
-				$this->offset->y,
-				$this->offset->x + $this->dimensions->width,
-				$this->offset->y + $this->dimensions->height,
+				$this->position->x,
+				$this->position->y,
+				$this->position->x + $this->dimensions->width,
+				$this->position->y + $this->dimensions->height,
 				imagecolorallocatealpha(
 					$imageResource,
 					$this->fill->red,
@@ -78,10 +78,10 @@ class Rectangle implements OperationInterface
 
 			imagerectangle(
 				$imageResource,
-				$this->offset->x,
-				$this->offset->y,
-				$this->offset->x + $this->dimensions->width,
-				$this->offset->y + $this->dimensions->height,
+				$this->position->x,
+				$this->position->y,
+				$this->position->x + $this->dimensions->width,
+				$this->position->y + $this->dimensions->height,
 				imagecolorallocatealpha(
 					$imageResource,
 					$this->stroke->red,

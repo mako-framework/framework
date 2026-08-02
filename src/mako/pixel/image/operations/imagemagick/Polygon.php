@@ -32,7 +32,7 @@ class Polygon implements OperationInterface
 		protected ?Color $fill = null,
 		protected ?Color $stroke = null,
 		protected int $strokeWidth = 1,
-		protected Point $offset = new Point(0, 0)
+		protected Point $position = new Point(0, 0)
 	) {
 		if (count($points) < 3) {
 			throw new InvalidArgumentException('A polygon requires at least 3 points.');
@@ -70,8 +70,8 @@ class Polygon implements OperationInterface
 
 			foreach ($this->points as $point) {
 				$points[] = [
-					'x' => $point->x + $this->offset->x,
-					'y' => $point->y + $this->offset->y,
+					'x' => $point->x + $this->position->x,
+					'y' => $point->y + $this->position->y,
 				];
 			}
 

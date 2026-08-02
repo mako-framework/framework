@@ -36,7 +36,7 @@ class Polygon implements OperationInterface
 		protected ?Color $fill = null,
 		protected ?Color $stroke = null,
 		protected int $strokeWidth = 1,
-		protected Point $offset = new Point(0, 0)
+		protected Point $position = new Point(0, 0)
 	) {
 		if (count($points) < 3) {
 			throw new InvalidArgumentException('A polygon requires at least 3 points.');
@@ -62,8 +62,8 @@ class Polygon implements OperationInterface
 		$points = [];
 
 		foreach ($this->points as $point) {
-			$points[] = $point->x + $this->offset->x;
-			$points[] = $point->y + $this->offset->y;
+			$points[] = $point->x + $this->position->x;
+			$points[] = $point->y + $this->position->y;
 		}
 
 		imagealphablending($imageResource, true);

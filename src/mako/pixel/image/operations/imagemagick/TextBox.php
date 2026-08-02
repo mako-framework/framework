@@ -44,7 +44,7 @@ class TextBox implements OperationInterface
 		protected ?Color $fill = null,
 		protected ?Color $stroke = null,
 		protected int $strokeWidth = 1,
-		protected Point $offset = new Point(0, 0)
+		protected Point $position = new Point(0, 0)
 	) {
 		if ($this->stroke !== null && $this->strokeWidth < 1) {
 			throw new InvalidArgumentException('Stroke width must be greater than 0.');
@@ -72,10 +72,10 @@ class TextBox implements OperationInterface
 				}
 
 				$draw->rectangle(
-					$this->offset->x,
-					$this->offset->y,
-					$this->offset->x + $this->dimensions->width,
-					$this->offset->y + $this->dimensions->height,
+					$this->position->x,
+					$this->position->y,
+					$this->position->x + $this->dimensions->width,
+					$this->position->y + $this->dimensions->height,
 				);
 
 				$imageResource->drawImage($draw);
@@ -95,14 +95,14 @@ class TextBox implements OperationInterface
 			$lineHeight = $metrics['textHeight'];
 			$totalHeight = count($lines) * $lineHeight;
 
-			$y = $this->offset->y
+			$y = $this->position->y
 				+ (($this->dimensions->height - $totalHeight) / 2)
 				+ $metrics['ascender'];
 
 			foreach ($lines as $line) {
 				$imageResource->annotateImage(
 					$draw,
-					$this->offset->x + ($this->dimensions->width / 2),
+					$this->position->x + ($this->dimensions->width / 2),
 					$y,
 					0,
 					$line,
