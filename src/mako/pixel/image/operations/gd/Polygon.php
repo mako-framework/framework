@@ -24,7 +24,7 @@ use function imagesetthickness;
 use function round;
 
 /**
- * Draws a polygon.
+ * Draws a polygon on the image.
  */
 class Polygon implements OperationInterface
 {

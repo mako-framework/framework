@@ -20,7 +20,7 @@ use Override;
 use function count;
 
 /**
- * Draws a polygon.
+ * Draws a polygon on the image.
  */
 class Polygon implements OperationInterface
 {

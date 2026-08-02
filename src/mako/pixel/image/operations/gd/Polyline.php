@@ -23,7 +23,7 @@ use function imagesetthickness;
 use function round;
 
 /**
- * Draws a polyline.
+ * Draws a polyline on the image.
  */
 class Polyline implements OperationInterface
 {

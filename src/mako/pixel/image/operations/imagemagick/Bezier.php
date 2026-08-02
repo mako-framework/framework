@@ -20,7 +20,7 @@ use Override;
 use function count;
 
 /**
- * Draws a Bézier curve.
+ * Draws a Bézier curve on the image.
  */
 class Bezier implements OperationInterface
 {

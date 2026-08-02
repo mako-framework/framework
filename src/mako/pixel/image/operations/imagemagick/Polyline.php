@@ -20,7 +20,7 @@ use Override;
 use function count;
 
 /**
- * Draws a polyline.
+ * Draws a polyline on the image.
  */
 class Polyline implements OperationInterface
 {
