@@ -56,6 +56,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ImageInterface::getMimeType()`
 * Added the following operations to the pixel library:
 	- `Bezier`
+	- `Circle`
 	- `Polygon`
 	- `Polyline`
 	- `Scale`
