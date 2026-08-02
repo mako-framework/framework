@@ -11,20 +11,12 @@ use mako\pixel\image\Gd;
 use mako\pixel\image\inspectors\gd\TopColors;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('gd')]
 class TopColorsTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('gd')) {
-			$this->markTestSkipped('The "gd" extension is not enabled.');
-		}
-	}
-
 	/**
 	 * Note that the colors extracted by GD aren't 100% accurate.
 	 */

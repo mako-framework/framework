@@ -11,20 +11,12 @@ use mako\pixel\image\ImageMagick;
 use mako\pixel\image\inspectors\imagemagick\TopColors;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('imagick')]
 class TopColorsTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('imagick')) {
-			$this->markTestSkipped('The "imagick" extension is not enabled.');
-		}
-	}
-
 	/**
 	 *
 	 */

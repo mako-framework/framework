@@ -58,7 +58,7 @@ class Polygon implements OperationInterface
 		$draw = new ImagickDraw;
 
 		try {
-			$draw->setFillColor(new ImagickPixel($this->fill?->toRgbaString() ?? 'transparent'));
+			$draw->setFillColor($this->fill !== null ? new ImagickPixel($this->fill->toRgbaString()) : 'transparent');
 
 			if ($this->stroke !== null) {
 				$draw->setStrokeColor(new ImagickPixel($this->stroke->toRgbaString()));

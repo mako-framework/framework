@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
-#[RequiresPhpExtension('imagick')]
+#[RequiresPhpExtension('gd')]
 class PolylineTest extends TestCase
 {
 	/**

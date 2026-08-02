@@ -11,20 +11,12 @@ use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\ImageMagick;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('imagick')]
 class ImageMagickTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('imagick')) {
-			$this->markTestSkipped('The "imagick" extension is not enabled.');
-		}
-	}
-
 	/**
 	 *
 	 */

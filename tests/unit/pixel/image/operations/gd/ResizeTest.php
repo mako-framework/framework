@@ -13,20 +13,12 @@ use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\gd\Resize;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('gd')]
 class ResizeTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('gd')) {
-			$this->markTestSkipped('The "gd" extension is not enabled.');
-		}
-	}
-
 	/**
 	 *
 	 */

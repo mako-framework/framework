@@ -11,20 +11,12 @@ use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\Gd;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('gd')]
 class GdTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('gd')) {
-			$this->markTestSkipped('The "gd" extension is not enabled.');
-		}
-	}
-
 	/**
 	 *
 	 */

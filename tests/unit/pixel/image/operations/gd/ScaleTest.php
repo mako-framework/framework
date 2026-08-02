@@ -12,20 +12,12 @@ use mako\pixel\image\Gd;
 use mako\pixel\image\operations\gd\Scale;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('gd')]
 class ScaleTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('gd')) {
-			$this->markTestSkipped('The "gd" extension is not enabled.');
-		}
-	}
-
 	/**
 	 *
 	 */

@@ -14,20 +14,12 @@ use mako\pixel\image\operations\Point;
 use mako\pixel\image\operations\Points;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
+#[RequiresPhpExtension('imagick')]
 class PolygonTest extends TestCase
 {
-	/**
-	 *
-	 */
-	public function setUp(): void
-	{
-		if (!extension_loaded('imagick')) {
-			$this->markTestSkipped('The "imagick" extension is not enabled.');
-		}
-	}
-
 	/**
 	 *
 	 */
