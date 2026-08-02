@@ -18,6 +18,7 @@ use function imageavif;
 use function imagebmp;
 use function imagecopy;
 use function imagecreatefromavif;
+use function imagecreatefrombmp;
 use function imagecreatefromgif;
 use function imagecreatefromjpeg;
 use function imagecreatefrompng;
@@ -99,6 +100,7 @@ class Gd extends Image
 			IMAGETYPE_PNG  => imagecreatefrompng($imagePath),
 			IMAGETYPE_WEBP => imagecreatefromwebp($imagePath),
 			IMAGETYPE_AVIF => imagecreatefromavif($imagePath),
+			IMAGETYPE_BMP  => imagecreatefrombmp($imagePath),
 			default        => throw new ImageException(sprintf('Unable to create image resource from [ %s ]. Unsupported image type [ %s ].', $imagePath, $this->mimeType)),
 		};
     }
