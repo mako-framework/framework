@@ -67,7 +67,9 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `TextBox`
 * Added operation `Pipeline` class to the pixel library.
 * It is now possible to implement custom image inspectors to retrieve information from the images.
-* Added `TopColors` inspector to the pixel library.
+* Added the following inspectors to the pixel library:
+	- `PixelColor`
+	- `TopColors`
 * Added dotenv loader.
 * Added `Signer::validateOrThrow()` method.
 * Added support for all new Redis commands added in Redis 8.2, 8.4, 8.6, 8.8 and 8.10 to the Redis client.

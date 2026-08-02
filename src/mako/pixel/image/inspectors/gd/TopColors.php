@@ -58,17 +58,17 @@ class TopColors implements InspectorInterface
 
 		for ($y = 0; $y < $height; $y += $step) {
 			for ($x = 0; $x < $width; $x += $step) {
-				$rgb = imagecolorat($imageResource, $x, $y);
+				$color = imagecolorat($imageResource, $x, $y);
 
-				$alpha = 1 - ((($rgb & 0x7F000000) >> 24) / 127);
+				$alpha = 1 - ((($color & 0x7F000000) >> 24) / 127);
 
 				if ($this->ignoreTransparent && $alpha === 0) {
 					continue;
 				}
 
-				$r = max(0, min(255, (int) round((($rgb >> 16) & 0xFF) / 16) * 16));
-				$g = max(0, min(255, (int) round((($rgb >> 8) & 0xFF) / 16) * 16));
-				$b = max(0, min(255, (int) round(($rgb & 0xFF) / 16) * 16));
+				$r = max(0, min(255, (int) round((($color >> 16) & 0xFF) / 16) * 16));
+				$g = max(0, min(255, (int) round((($color >> 8) & 0xFF) / 16) * 16));
+				$b = max(0, min(255, (int) round(($color & 0xFF) / 16) * 16));
 
 				$key = "$r,$g,$b,$alpha";
 
