@@ -11,6 +11,9 @@ use mako\pixel\image\Color;
 
 /**
  * Represents a font.
+ *
+ * Font sizes are interpreted by the underlying rendering engine and may
+ * produce slightly different results between GD and ImageMagick.
  */
 final readonly class Font
 {
