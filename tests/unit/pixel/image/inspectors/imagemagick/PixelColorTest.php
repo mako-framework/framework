@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\pixel\image\inspectors\imagemagick;
 
-use mako\pixel\exceptions\PixelException;
 use mako\pixel\image\Color;
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\inspectors\imagemagick\PixelColor;
 use mako\pixel\image\operations\Point;
@@ -51,8 +51,8 @@ class PixelColorTest extends TestCase
 	 */
 	public function testPixelColorWithInvalidPosition(): void
 	{
-		$this->expectException(PixelException::class);
-		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 100 ] are outside image bounds [ 300, 300 ].');
+		$this->expectException(ImageException::class);
+		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 100 ] are outside image bounds [ 300 x 300 ].');
 
 		$image = new ImageMagick(__DIR__ . '/../../fixtures/001.png');
 

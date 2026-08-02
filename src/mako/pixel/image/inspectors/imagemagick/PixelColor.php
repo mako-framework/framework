@@ -8,8 +8,8 @@
 namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
-use mako\pixel\exceptions\PixelException;
 use mako\pixel\image\Color;
+use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\Point;
 use Override;
@@ -45,8 +45,8 @@ class PixelColor implements InspectorInterface
 			$this->pixel->x >= $imageResource->getImageWidth() ||
 			$this->pixel->y >= $imageResource->getImageHeight()
 		) {
-			throw new PixelException(sprintf(
-				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d, %d ].',
+			throw new ImageException(sprintf(
+				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d x %d ].',
 				$this->pixel->x,
 				$this->pixel->y,
 				$imageResource->getImageWidth(),
