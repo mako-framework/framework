@@ -10,6 +10,7 @@ namespace mako\pixel\image\inspectors\gd;
 use GdImage;
 use mako\pixel\image\Color;
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
 use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\Point;
 use Override;
@@ -17,9 +18,6 @@ use Override;
 use function imagecolorat;
 use function imagesx;
 use function imagesy;
-use function max;
-use function min;
-use function round;
 use function sprintf;
 
 /**
@@ -29,6 +27,8 @@ use function sprintf;
  */
 class PixelColor implements InspectorInterface
 {
+	use InspectorTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -62,10 +62,7 @@ class PixelColor implements InspectorInterface
 
 		$color = imagecolorat($imageResource, $this->pixel->x, $this->pixel->y);
 
-		$r = max(0, min(255, (int) round((($color >> 16) & 0xFF) / 16) * 16));
-		$g = max(0, min(255, (int) round((($color >> 8) & 0xFF) / 16) * 16));
-		$b = max(0, min(255, (int) round(($color & 0xFF) / 16) * 16));
-		$a = 1 - ((($color & 0x7F000000) >> 24) / 127);
+		[$r, $g, $b, $a] = $this->convertColorToRgba($color);
 
 		return new Color($r, $g, $b, $a);
 	}

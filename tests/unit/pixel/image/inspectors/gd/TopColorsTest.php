@@ -18,7 +18,7 @@ use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 class TopColorsTest extends TestCase
 {
 	/**
-	 * Note that the colors extracted by GD aren't 100% accurate.
+	 *
 	 */
 	public function testTopColors(): void
 	{
@@ -28,13 +28,13 @@ class TopColorsTest extends TestCase
 
 		$this->assertCount(3, $colors);
 
-		$this->assertSame('#0070C0', $colors[0]->toHexString());
-		$this->assertSame('#B01000', $colors[1]->toHexString());
-		$this->assertSame('#007000', $colors[2]->toHexString());
+		$this->assertSame('#0376BB', $colors[0]->toHexString());
+		$this->assertSame('#B51700', $colors[1]->toHexString());
+		$this->assertSame('#047101', $colors[2]->toHexString());
 	}
 
 	/**
-	 * Note that the colors extracted by GD aren't 100% accurate.
+	 *
 	 */
 	public function testTopColorsWithLimit(): void
 	{
@@ -44,7 +44,7 @@ class TopColorsTest extends TestCase
 
 		$this->assertCount(2, $colors);
 
-		$this->assertSame('#0070C0', $colors[0]->toHexString());
-		$this->assertSame('#B01000', $colors[1]->toHexString());
+		$this->assertSame('#0376BB', $colors[0]->toHexString());
+		$this->assertSame('#B51700', $colors[1]->toHexString());
 	}
 }

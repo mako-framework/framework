@@ -21,7 +21,7 @@ use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 class PixelColorTest extends TestCase
 {
 	/**
-	 * Note that the colors extracted by GD aren't 100% accurate.
+	 *
 	 */
 	public function testPixelColor(): void
 	{
@@ -31,19 +31,19 @@ class PixelColorTest extends TestCase
 
 		$this->assertInstanceOf(Color::class, $color);
 
-		$this->assertSame('#B01000', $color->toHexString());
+		$this->assertSame('#B51700', $color->toHexString());
 
 		$color = $image->inspect(new PixelColor(new Point(0, 100)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
-		$this->assertSame('#0070C0', $color->toHexString());
+		$this->assertSame('#0376BB', $color->toHexString());
 
 		$color = $image->inspect(new PixelColor(new Point(0, 275)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
-		$this->assertSame('#007000', $color->toHexString());
+		$this->assertSame('#047101', $color->toHexString());
 	}
 
 	/**

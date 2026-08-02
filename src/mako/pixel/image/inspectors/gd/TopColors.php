@@ -9,6 +9,7 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
+use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
 use mako\pixel\image\inspectors\InspectorInterface;
 use Override;
 
@@ -21,9 +22,6 @@ use function imagecolorat;
 use function imagesx;
 use function imagesy;
 use function intval;
-use function max;
-use function min;
-use function round;
 
 /**
  * Top colors inspector.
@@ -32,6 +30,8 @@ use function round;
  */
 class TopColors implements InspectorInterface
 {
+	use InspectorTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -60,17 +60,13 @@ class TopColors implements InspectorInterface
 			for ($x = 0; $x < $width; $x += $step) {
 				$color = imagecolorat($imageResource, $x, $y);
 
-				$alpha = 1 - ((($color & 0x7F000000) >> 24) / 127);
-
-				if ($this->ignoreTransparent && $alpha === 0) {
+				if ($this->ignoreTransparent && (($color & 0x7F000000) >> 24) === 127) {
 					continue;
 				}
 
-				$r = max(0, min(255, (int) round((($color >> 16) & 0xFF) / 16) * 16));
-				$g = max(0, min(255, (int) round((($color >> 8) & 0xFF) / 16) * 16));
-				$b = max(0, min(255, (int) round(($color & 0xFF) / 16) * 16));
+				[$r, $g, $b, $a] = $this->convertColorToRgba($color);
 
-				$key = "$r,$g,$b,$alpha";
+				$key = "$r,$g,$b,$a";
 
 				$buckets[$key] = ($buckets[$key] ?? 0) + 1;
 			}
@@ -83,7 +79,7 @@ class TopColors implements InspectorInterface
 		foreach (array_slice(array_keys($buckets), 0, $this->limit) as $rgba) {
 			[$r, $g, $b, $a] = array_map(intval(...), explode(',', $rgba));
 
-			$colors[] = new Color($r, $g, $b, $a * 255);
+			$colors[] = new Color($r, $g, $b, $a);
 		}
 
 		return $colors;
