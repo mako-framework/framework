@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\pixel\image;
 
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\ImageMagick;
 use mako\tests\TestCase;
@@ -91,7 +92,7 @@ class ImageMagickTest extends TestCase
 	public function testSaveFromBlobWithoutPath(): void
 	{
 		$this->expectException(ImageException::class);
-		$this->expectExceptionMessageIs('An image path must be provided when saving images created from a blob.');
+		$this->expectExceptionMessageIs('An image path must be provided when saving images that were not loaded from a file.');
 
 		$image = ImageMagick::fromBlob(file_get_contents(__DIR__ . '/fixtures/001.png'));
 
@@ -110,5 +111,20 @@ class ImageMagickTest extends TestCase
 		$this->assertSame('image/png', $image->getMimeType());
 
 		fclose($stream);
+	}
+
+	/**
+	 *
+	 */
+	public function testCreate(): void
+	{
+		$image = ImageMagick::create(new Dimensions(1, 2));
+
+		$dimensions = $image->getDimensions();
+
+		$this->assertSame(1, $dimensions->width);
+		$this->assertSame(2, $dimensions->height);
+
+		$this->assertSame('image/png', $image->getMimeType());
 	}
 }

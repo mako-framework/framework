@@ -16,6 +16,7 @@ use function getimagesizefromstring;
 use function imagealphablending;
 use function imageavif;
 use function imagebmp;
+use function imagecolorallocatealpha;
 use function imagecopy;
 use function imagecreatefromavif;
 use function imagecreatefrombmp;
@@ -25,6 +26,7 @@ use function imagecreatefrompng;
 use function imagecreatefromstring;
 use function imagecreatefromwebp;
 use function imagecreatetruecolor;
+use function imagefill;
 use function imagegif;
 use function imagejpeg;
 use function imagepng;
@@ -66,6 +68,29 @@ class Gd extends Image
 		imagecopy($imageResource, $this->imageResource, 0, 0, 0, 0, $width, $height);
 
 		$this->imageResource = $imageResource;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function createImageResource(Dimensions $dimensions, Color $fill): object
+	{
+		$this->mimeType = 'image/png';
+
+		$imageResource = imagecreatetruecolor($dimensions->width, $dimensions->height);
+
+		$color = imagecolorallocatealpha(
+			$imageResource,
+			$fill->red,
+			$fill->green,
+			$fill->blue,
+			127 - (int) round($fill->alpha / 255 * 127),
+		);
+
+		imagefill($imageResource, 0, 0, $color);
+
+		return $imageResource;
 	}
 
 	/**

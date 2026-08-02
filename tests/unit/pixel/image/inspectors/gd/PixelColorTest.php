@@ -8,6 +8,7 @@
 namespace mako\tests\unit\pixel\image\inspectors\gd;
 
 use mako\pixel\image\Color;
+use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\Gd;
 use mako\pixel\image\inspectors\gd\PixelColor;
@@ -44,6 +45,30 @@ class PixelColorTest extends TestCase
 		$this->assertInstanceOf(Color::class, $color);
 
 		$this->assertSame('#047101', $color->toHexString());
+	}
+
+	/**
+	 *
+	 */
+	public function testPixelColorFromCreated(): void
+	{
+		$image = Gd::create(new Dimensions(1, 1));
+
+		$color = $image->inspect(new PixelColor(new Point(0, 0)));
+
+		$this->assertInstanceOf(Color::class, $color);
+
+		$this->assertSame('#00000000', $color->toHexaString());
+
+		//
+
+		$image = Gd::create(new Dimensions(1, 1), new Color(0, 0, 0));
+
+		$color = $image->inspect(new PixelColor(new Point(0, 0)));
+
+		$this->assertInstanceOf(Color::class, $color);
+
+		$this->assertSame('#000000FF', $color->toHexaString());
 	}
 
 	/**

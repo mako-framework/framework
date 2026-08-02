@@ -8,6 +8,7 @@
 namespace mako\pixel\image;
 
 use Imagick;
+use ImagickPixel;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
@@ -26,6 +27,11 @@ use function strtolower;
 class ImageMagick extends Image
 {
 	/**
+	 * Are we working with an animated gif?
+	 */
+	protected bool $isAnimatedGif = false;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
@@ -35,9 +41,25 @@ class ImageMagick extends Image
 	}
 
 	/**
-	 * Are we working with an animated gif?
+	 * {@inheritDoc}
 	 */
-	protected bool $isAnimatedGif = false;
+	#[Override]
+	protected function createImageResource(Dimensions $dimensions, Color $fill): object
+	{
+		$this->mimeType = 'image/png';
+
+		$imageResource = new Imagick;
+
+		$imageResource->newImage(
+			$dimensions->width,
+			$dimensions->height,
+			new ImagickPixel($fill->toRgbaString())
+		);
+
+		$imageResource->setImageFormat('png');
+
+		return $imageResource;
+	}
 
 	/**
 	 * Stores the mime type and performs a gif check.

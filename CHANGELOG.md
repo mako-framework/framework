@@ -46,6 +46,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added `SleeperInterface` and `Sleeper` implementation for time-based delays.
 * The `Gd` and `ImageMagick` implementations of `ImageInterface` are now cloneable.
 * Added the following methods to the `ImageInterface` interface:
+	- `ImageInterface::create()`
 	- `ImageInterface::fromPath()`
 	- `ImageInterface::fromBlob()`
 	- `ImageInterface::fromStream()`

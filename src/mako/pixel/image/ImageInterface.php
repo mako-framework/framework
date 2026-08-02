@@ -16,6 +16,11 @@ use mako\pixel\image\operations\OperationInterface;
 interface ImageInterface
 {
 	/**
+	 * Creates a blank image instance.
+	 */
+	public static function create(Dimensions $dimensions, Color $fill = new Color(0, 0, 0, 0)): static;
+
+	/**
 	 * Creates an image instance from a file path.
 	 */
 	public static function fromPath(string $imagePath): static;

@@ -79,6 +79,19 @@ abstract class Image implements ImageInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
+	final public static function create(Dimensions $dimensions, Color $fill = new Color(0, 0, 0, 0)): static
+	{
+		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
+
+		$image->imageResource = $image->createImageResource($dimensions, $fill);
+
+		return $image;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
 	final public static function fromPath(string $imagePath): static
 	{
 		return new static($imagePath);
@@ -124,6 +137,11 @@ abstract class Image implements ImageInterface
 			default                   => $type,
 		};
 	}
+
+	/**
+	 * Creates a image resource.
+	 */
+	abstract protected function createImageResource(Dimensions $dimensions, Color $fill): object;
 
 	/**
 	 * Creates an image resource from a file path.
@@ -284,7 +302,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	public function save(?string $imagePath = null, int $quality = 95): void
 	{
-		$imagePath ??= $this->imagePath ?? throw new ImageException('An image path must be provided when saving images created from a blob.');
+		$imagePath ??= $this->imagePath ?? throw new ImageException('An image path must be provided when saving images that were not loaded from a file.');
 
 		if (file_exists($imagePath)) {
 			if (!is_writable($imagePath)) {
