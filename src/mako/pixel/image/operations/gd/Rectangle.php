@@ -38,7 +38,7 @@ class Rectangle implements OperationInterface
 		protected Point $position = new Point(0, 0)
 	) {
 		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('A rectangle requires either a fill or a stroke.');
+			throw new InvalidArgumentException('A rectangle requires a fill, a stroke, or both.');
 		}
 
 		if ($this->stroke !== null && $this->strokeWidth < 1) {

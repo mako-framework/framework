@@ -32,7 +32,7 @@ class Circle implements OperationInterface
 		protected Point $center = new Point(0, 0)
 	) {
 		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('A circle requires either a fill or a stroke.');
+			throw new InvalidArgumentException('A circle requires a fill, a stroke, or both.');
 		}
 
 		if ($this->stroke !== null && $this->strokeWidth < 1) {

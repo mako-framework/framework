@@ -43,7 +43,7 @@ class PolygonTest extends TestCase
 	public function testMissingFillAndStroke(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('A polygon requires either a fill or a stroke.');
+		$this->expectExceptionMessageIs('A polygon requires a fill, a stroke, or both.');
 
 		new Polygon(
 			new Points(

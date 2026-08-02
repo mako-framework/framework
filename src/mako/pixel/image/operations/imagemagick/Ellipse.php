@@ -33,7 +33,7 @@ class Ellipse implements OperationInterface
 		protected Point $center = new Point(0, 0)
 	) {
 		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('An ellipse requires either a fill or a stroke.');
+			throw new InvalidArgumentException('An ellipse requires a fill, a stroke, or both.');
 		}
 
 		if ($this->stroke !== null && $this->strokeWidth < 1) {

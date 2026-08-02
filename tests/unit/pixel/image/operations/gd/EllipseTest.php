@@ -25,7 +25,7 @@ class EllipseTest extends TestCase
 	public function testMissingFillAndStroke(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('An ellipse requires either a fill or a stroke.');
+		$this->expectExceptionMessageIs('An ellipse requires a fill, a stroke, or both.');
 
 		new Ellipse(
 			new Dimensions(0, 0)

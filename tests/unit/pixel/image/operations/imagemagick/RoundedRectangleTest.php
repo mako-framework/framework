@@ -25,7 +25,7 @@ class RoundedRectangleTest extends TestCase
 	public function testMissingFillAndStroke(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('A rounded rectangle requires either a fill or a stroke.');
+		$this->expectExceptionMessageIs('A rounded rectangle requires a fill, a stroke, or both.');
 
 		new RoundedRectangle(
 			new Dimensions(0, 0),

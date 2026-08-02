@@ -43,7 +43,7 @@ class Polygon implements OperationInterface
 		}
 
 		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('A polygon requires either a fill or a stroke.');
+			throw new InvalidArgumentException('A polygon requires a fill, a stroke, or both.');
 		}
 
 		if ($this->stroke !== null && $this->strokeWidth < 1) {

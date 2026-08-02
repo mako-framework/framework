@@ -24,7 +24,7 @@ class CircleTest extends TestCase
 	public function testMissingFillAndStroke(): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('A circle requires either a fill or a stroke.');
+		$this->expectExceptionMessageIs('A circle requires a fill, a stroke, or both.');
 
 		new Circle(
 			10
