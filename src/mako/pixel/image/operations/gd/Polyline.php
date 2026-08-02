@@ -40,7 +40,7 @@ class Polyline implements OperationInterface
 			throw new InvalidArgumentException('A polyline requires at least 2 points.');
 		}
 
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
+		if ($this->strokeWidth < 1) {
 			throw new InvalidArgumentException('Stroke width must be greater than 0.');
 		}
 	}
