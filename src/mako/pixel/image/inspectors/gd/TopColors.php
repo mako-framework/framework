@@ -54,7 +54,7 @@ class TopColors implements InspectorInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		// Ensure truecolor image
+		// Ensure truecolor image for accurate colors
 
 		$cloneCreated = false;
 

@@ -63,7 +63,7 @@ class PixelColor implements InspectorInterface
 			));
 		}
 
-		// Ensure truecolor image
+		// Ensure truecolor image for accurate colors
 
 		$cloneCreated = false;
 
