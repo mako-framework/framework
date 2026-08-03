@@ -45,22 +45,41 @@ class PixelColor implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
+		$width = imagesx($imageResource);
+		$height = imagesy($imageResource);
+
 		if (
 			$this->pixel->x < 0 ||
 			$this->pixel->y < 0 ||
-			$this->pixel->x >= imagesx($imageResource) ||
-			$this->pixel->y >= imagesy($imageResource)
+			$this->pixel->x >= $width ||
+			$this->pixel->y >= $height
 		) {
 			throw new ImageException(sprintf(
 				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d x %d ].',
 				$this->pixel->x,
 				$this->pixel->y,
-				imagesx($imageResource),
-				imagesy($imageResource),
+				$width,
+				$height,
 			));
 		}
 
-		$color = imagecolorat($imageResource, $this->pixel->x, $this->pixel->y);
+		// Ensure truecolor image
+
+		$cloneCreated = false;
+
+		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $cloneCreated);
+
+		// Extract color
+
+		$color = imagecolorat($image, $this->pixel->x, $this->pixel->y);
+
+		// Destroy clone if one was created
+
+		if ($cloneCreated) {
+			$image = null;
+		}
+
+		// Return color
 
 		[$r, $g, $b, $a] = $this->convertColorToRgba($color);
 

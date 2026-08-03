@@ -39,18 +39,21 @@ class PixelColor implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
+		$width = $imageResource->getImageWidth();
+		$height = $imageResource->getImageHeight();
+
 		if (
 			$this->pixel->x < 0 ||
 			$this->pixel->y < 0 ||
-			$this->pixel->x >= $imageResource->getImageWidth() ||
-			$this->pixel->y >= $imageResource->getImageHeight()
+			$this->pixel->x >= $width ||
+			$this->pixel->y >= $height
 		) {
 			throw new ImageException(sprintf(
 				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d x %d ].',
 				$this->pixel->x,
 				$this->pixel->y,
-				$imageResource->getImageWidth(),
-				$imageResource->getImageHeight(),
+				$width,
+				$height,
 			));
 		}
 

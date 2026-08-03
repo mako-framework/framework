@@ -54,11 +54,19 @@ class TopColors implements InspectorInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
+		// Ensure truecolor image
+
+		$cloneCreated = false;
+
+		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $cloneCreated);
+
+		// Extract colors
+
 		$colorBuckets = [];
 
 		for ($y = 0; $y < $height; $y += static::SAMPLE_STEP) {
 			for ($x = 0; $x < $width; $x += static::SAMPLE_STEP) {
-				$color = imagecolorat($imageResource, $x, $y);
+				$color = imagecolorat($image, $x, $y);
 
 				if ($this->ignoreTransparent && (($color & 0x7F000000) >> 24) === 127) {
 					continue;
@@ -67,6 +75,14 @@ class TopColors implements InspectorInterface
 				$colorBuckets[$color] = ($colorBuckets[$color] ?? 0) + 1;
 			}
 		}
+
+		// Destroy clone if one was created
+
+		if ($cloneCreated) {
+			$image = null;
+		}
+
+		// Return top colors
 
 		arsort($colorBuckets);
 
