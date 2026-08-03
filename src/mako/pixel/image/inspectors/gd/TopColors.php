@@ -30,6 +30,11 @@ class TopColors implements InspectorInterface
 	use InspectorTrait;
 
 	/**
+	 * Pixel sampling interval used when scanning images.
+	 */
+	protected const int SAMPLE_STEP = 5;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct(
@@ -46,15 +51,13 @@ class TopColors implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
-		$step = 5;
-
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
 		$colorBuckets = [];
 
-		for ($y = 0; $y < $height; $y += $step) {
-			for ($x = 0; $x < $width; $x += $step) {
+		for ($y = 0; $y < $height; $y += static::SAMPLE_STEP) {
+			for ($x = 0; $x < $width; $x += static::SAMPLE_STEP) {
 				$color = imagecolorat($imageResource, $x, $y);
 
 				if ($this->ignoreTransparent && (($color & 0x7F000000) >> 24) === 127) {
