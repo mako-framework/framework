@@ -189,6 +189,34 @@ class ColorTest extends TestCase
 		$this->assertSame(255, $inverted->blue);
 	}
 
+	/**
+	 *
+	 */
+	public function testComplementary(): void
+	{
+		$color = new Color(255, 0, 0);
+
+		$complementary = $color->complementary();
+
+		$this->assertNotSame($color, $complementary);
+
+		$this->assertSame(0, $complementary->red);
+		$this->assertSame(255, $complementary->green);
+		$this->assertSame(255, $complementary->blue);
+
+		//
+
+		$color = new Color(128, 1, 254);
+
+		$complementary = $color->complementary();
+
+		$this->assertNotSame($color, $complementary);
+
+		$this->assertSame(127, $complementary->red);
+		$this->assertSame(254, $complementary->green);
+		$this->assertSame(1, $complementary->blue);
+	}
+
 	/*
 	 *
 	 */

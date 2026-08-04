@@ -72,6 +72,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ColorAt`
 	- `TopColors`
 * Added the following methods to the `Color` class:
+	- `Color::complementary()`
 	- `Color::fromHsl()`
 	- `Color::fromHwb()`
 	- `Color::invert()`

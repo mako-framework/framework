@@ -144,7 +144,7 @@ class Color
 		$floor = $l - ($chroma / 2);
 		$ceiling = $floor + $chroma;
 
-		// Convert hue to rgb float components
+		// Convert hue to RGB float components
 
 		[$rf, $gf, $bf] = self::hueToRgbFloat($h);
 
@@ -193,6 +193,77 @@ class Color
 	}
 
 	/**
+	 * Returns HSL components.
+	 */
+	protected function getHslComponents(): array
+	{
+		$r = $this->red / 255;
+		$g = $this->green / 255;
+		$b = $this->blue / 255;
+
+		$max = max($r, $g, $b);
+		$min = min($r, $g, $b);
+		$delta = $max - $min;
+
+		$h = 0;
+		$s = 0;
+		$l = ($max + $min) / 2;
+
+		if ($delta !== 0) {
+			$s = $delta / (1 - abs(2 * $l - 1));
+
+			// @phpstan-ignore match.unhandled
+			match ($max) {
+				$r => $h = 60 * fmod((($g - $b) / $delta), 6),
+				$g => $h = 60 * ((($b - $r) / $delta) + 2),
+				$b => $h = 60 * ((($r - $g) / $delta) + 4),
+			};
+
+			if ($h < 0) {
+				$h += 360;
+			}
+		}
+
+		return [$h, $s * 100, $l * 100];
+	}
+
+	/**
+	 * Returns HWB components.
+	 */
+	protected function getHwbComponents(): array
+	{
+		// Get hue from HSL calculation
+
+		[$h] = $this->getHslComponents();
+
+		// Whiteness and blackness
+
+		$r = $this->red / 255;
+		$g = $this->green / 255;
+		$b = $this->blue / 255;
+
+		$wh = min($r, $g, $b) * 100;
+		$bl = (1 - max($r, $g, $b)) * 100;
+
+		// Return HWB
+
+		return [$h, $wh, $bl];
+	}
+
+	/**
+	 * Returns a copy of the color with one or more channels changed.
+	 */
+	public function with(?int $red = null, ?int $green = null, ?int $blue = null, ?int $alpha = null): static
+	{
+		return new static(
+			$red ?? $this->red,
+			$green ?? $this->green,
+			$blue ?? $this->blue,
+			$alpha ?? $this->alpha
+		);
+	}
+
+	/**
 	 * Returns an inverted copy of the color.
 	 *
 	 * The red, green, and blue channels are inverted while
@@ -209,16 +280,16 @@ class Color
 	}
 
 	/**
-	 * Returns a copy of the color with one or more channels changed.
+	 * Returns a complementary copy of the color.
+	 *
+	 * The hue is rotated by 180 degrees while the saturation,
+	 * lightness, and alpha channels remain unchanged.
 	 */
-	public function with(?int $red = null, ?int $green = null, ?int $blue = null, ?int $alpha = null): static
+	public function complementary(): static
 	{
-		return new static(
-			$red ?? $this->red,
-			$green ?? $this->green,
-			$blue ?? $this->blue,
-			$alpha ?? $this->alpha
-		);
+		[$h, $s, $l] = $this->getHslComponents();
+
+		return static::fromHsl($h + 180, $s, $l, $this->alpha);
 	}
 
 	/**
@@ -262,7 +333,7 @@ class Color
 	}
 
 	/**
-	 * Returns a hexa string representation of the color.
+	 * Returns a hex string representation of the color including alpha.
 	 */
 	public function toHexaString(): string
 	{
@@ -270,7 +341,7 @@ class Color
 	}
 
 	/**
-	 * Returns a RGB string representation of the color.
+	 * Returns an RGB string representation of the color.
 	 */
 	public function toRgbString(): string
 	{
@@ -278,7 +349,7 @@ class Color
 	}
 
 	/**
-	 * Returns a RGBA string representation of the color.
+	 * Returns an RGBA string representation of the color.
 	 */
 	public function toRgbaString(): string
 	{
@@ -286,42 +357,7 @@ class Color
 	}
 
 	/**
-	 * Returns HSL components.
-	 */
-	protected function getHslComponents(): array
-	{
-		$r = $this->red / 255;
-		$g = $this->green / 255;
-		$b = $this->blue / 255;
-
-		$max = max($r, $g, $b);
-		$min = min($r, $g, $b);
-		$delta = $max - $min;
-
-		$h = 0;
-		$s = 0;
-		$l = ($max + $min) / 2;
-
-		if ($delta !== 0) {
-			$s = $delta / (1 - abs(2 * $l - 1));
-
-			// @phpstan-ignore match.unhandled
-			match ($max) {
-				$r => $h = 60 * fmod((($g - $b) / $delta), 6),
-				$g => $h = 60 * ((($b - $r) / $delta) + 2),
-				$b => $h = 60 * ((($r - $g) / $delta) + 4),
-			};
-
-			if ($h < 0) {
-				$h += 360;
-			}
-		}
-
-		return [$h, $s, $l];
-	}
-
-	/**
-	 * Returns a HSL string representation of the color.
+	 * Returns an HSL string representation of the color.
 	 */
 	public function toHslString(): string
 	{
@@ -329,11 +365,11 @@ class Color
 
 		$h = ((int) round($h)) % 360;
 
-		return sprintf('hsl(%d %.1f%% %.1f%%)', $h, $s * 100, $l * 100);
+		return sprintf('hsl(%d %.1f%% %.1f%%)', $h, $s, $l);
 	}
 
 	/**
-	 * Returns a HSLA string representation of the color.
+	 * Returns an HSLA string representation of the color.
 	 */
 	public function toHslaString(): string
 	{
@@ -341,34 +377,11 @@ class Color
 
 		$h = ((int) round($h)) % 360;
 
-		return sprintf('hsla(%d %.1f%% %.1f%% / %.3f)', $h, $s * 100, $l * 100, $this->alpha / 255);
+		return sprintf('hsla(%d %.1f%% %.1f%% / %.3f)', $h, $s, $l, $this->alpha / 255);
 	}
 
 	/**
-	 * Returns HWB components.
-	 */
-	protected function getHwbComponents(): array
-	{
-		// Get hue from HSL calculation
-
-		[$h] = $this->getHslComponents();
-
-		// Whiteness and blackness
-
-		$r = $this->red / 255;
-		$g = $this->green / 255;
-		$b = $this->blue / 255;
-
-		$wh = min($r, $g, $b) * 100;
-		$bl = (1 - max($r, $g, $b)) * 100;
-
-		// Return HWB
-
-		return [$h, $wh, $bl];
-	}
-
-	/**
-	 * Returns a HWB string representation of the color.
+	 * Returns an HWB string representation of the color.
 	 */
 	public function toHwbString(): string
 	{
@@ -380,7 +393,7 @@ class Color
 	}
 
 	/**
-	 * Returns a HWBA string representation of the color.
+	 * Returns an HWBA string representation of the color.
 	 */
 	public function toHwbaString(): string
 	{
