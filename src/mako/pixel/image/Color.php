@@ -16,7 +16,6 @@ use function ltrim;
 use function max;
 use function min;
 use function preg_match;
-use function round;
 use function sprintf;
 use function strlen;
 use function substr;
@@ -209,7 +208,7 @@ class Color
 			}
 		}
 
-		return [round($h), $s, $l];
+		return [$h, $s, $l];
 	}
 
 	/**
@@ -218,6 +217,8 @@ class Color
 	public function toHslString(): string
 	{
 		[$h, $s, $l] = $this->getHslValues();
+
+		$h = ((int) round($h)) % 360;
 
 		return sprintf('hsl(%d %.1f%% %.1f%%)', $h, $s * 100, $l * 100);
 	}
@@ -228,6 +229,8 @@ class Color
 	public function toHslaString(): string
 	{
 		[$h, $s, $l] = $this->getHslValues();
+
+		$h = ((int) round($h)) % 360;
 
 		return sprintf('hsla(%d %.1f%% %.1f%% / %.3f)', $h, $s * 100, $l * 100, $this->alpha / 255);
 	}
@@ -247,8 +250,8 @@ class Color
 		$g = $this->green / 255;
 		$b = $this->blue / 255;
 
-		$wh = round(min($r, $g, $b) * 100, 1);
-		$bl = round((1 - max($r, $g, $b)) * 100, 1);
+		$wh = min($r, $g, $b) * 100;
+		$bl = (1 - max($r, $g, $b)) * 100;
 
 		// Return HWB
 
@@ -262,6 +265,8 @@ class Color
 	{
 		[$h, $w, $b] = $this->getHwbValues();
 
+		$h = ((int) round($h)) % 360;
+
 		return sprintf('hwb(%d %.1f%% %.1f%%)', $h, $w, $b);
 	}
 
@@ -271,6 +276,8 @@ class Color
 	public function toHwbaString(): string
 	{
 		[$h, $w, $b] = $this->getHwbValues();
+
+		$h = ((int) round($h)) % 360;
 
 		return sprintf('hwb(%d %.1f%% %.1f%% / %.3f)', $h, $w, $b, $this->alpha / 255);
 	}
