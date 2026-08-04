@@ -66,7 +66,7 @@ class Color
 	}
 
 	/**
-	 * Returns a Color instance based on a hex value.
+	 * Creates a Color instance from on a hex value.
 	 */
 	public static function fromHex(string $hex): static
 	{
@@ -82,6 +82,35 @@ class Color
 		$alpha = strlen($hex) === 8 ? hexdec(substr($hex, 6, 2)) : 255;
 
 		return new static($red, $green, $blue, $alpha);
+	}
+
+	/**
+	 * Returns an inverted version of the color.
+	 * The red, green, and blue channels are inverted while the alpha channel
+	 * remains unchanged.
+	 */
+	public function invert(): static
+	{
+		return new static(
+			255 - $this->red,
+			255 - $this->green,
+			255 - $this->blue,
+			$this->alpha
+		);
+	}
+
+	/**
+	 * Returns a copy of the color with one or more channels changed.
+	 * Any channel set to null will retain its current value.
+	 */
+	public function with(?int $red = null, ?int $green = null, ?int $blue = null, ?int $alpha = null): static
+	{
+		return new static(
+			$red ?? $this->red,
+			$green ?? $this->green,
+			$blue ?? $this->blue,
+			$alpha ?? $this->alpha
+		);
 	}
 
 	/**
@@ -151,7 +180,7 @@ class Color
 	/**
 	 * Returns a HSL representation of the color.
 	 */
-	protected function getHsl(): array
+	protected function getHslValues(): array
 	{
 		$r = $this->red / 255;
 		$g = $this->green / 255;
@@ -188,9 +217,9 @@ class Color
 	 */
 	public function toHslString(): string
 	{
-		[$h, $s, $l] = $this->getHsl();
+		[$h, $s, $l] = $this->getHslValues();
 
-		return sprintf('hsl(%d, %.1f%%, %.1f%%)', $h, $s * 100, $l * 100);
+		return sprintf('hsl(%d %.1f%% %.1f%%)', $h, $s * 100, $l * 100);
 	}
 
 	/**
@@ -198,19 +227,19 @@ class Color
 	 */
 	public function toHslaString(): string
 	{
-		[$h, $s, $l] = $this->getHsl();
+		[$h, $s, $l] = $this->getHslValues();
 
-		return sprintf('hsla(%d, %.1f%%, %.1f%%, %.3f)', $h, $s * 100, $l * 100, $this->alpha / 255);
+		return sprintf('hsla(%d %.1f%% %.1f%% / %.3f)', $h, $s * 100, $l * 100, $this->alpha / 255);
 	}
 
 	/**
 	 * Returns a HWB representation of the color.
 	 */
-	protected function getHwb(): array
+	protected function getHwbValues(): array
 	{
 		// Get hue from HSL calculation
 
-		[$h] = $this->getHsl();
+		[$h] = $this->getHslValues();
 
 		// Whiteness and blackness
 
@@ -231,7 +260,7 @@ class Color
 	 */
 	public function toHwbString(): string
 	{
-		[$h, $w, $b] = $this->getHwb();
+		[$h, $w, $b] = $this->getHwbValues();
 
 		return sprintf('hwb(%d %.1f%% %.1f%%)', $h, $w, $b);
 	}
@@ -241,7 +270,7 @@ class Color
 	 */
 	public function toHwbaString(): string
 	{
-		[$h, $w, $b] = $this->getHwb();
+		[$h, $w, $b] = $this->getHwbValues();
 
 		return sprintf('hwb(%d %.1f%% %.1f%% / %.3f)', $h, $w, $b, $this->alpha / 255);
 	}

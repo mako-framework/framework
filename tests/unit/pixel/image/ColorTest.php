@@ -142,6 +142,53 @@ class ColorTest extends TestCase
 		$color = Color::fromHex('foobar');
 	}
 
+	/**
+	 *
+	 */
+	public function testWith(): void
+	{
+		$color1 = new Color(0, 0, 0);
+
+		$this->assertSame(0, $color1->red);
+		$this->assertSame(0, $color1->green);
+		$this->assertSame(0, $color1->blue);
+		$this->assertSame(255, $color1->alpha);
+
+		$color2 = $color1->with(red: 100);
+
+		$this->assertNotSame($color1, $color2);
+
+		$this->assertSame(100, $color2->red);
+		$this->assertSame(0, $color2->green);
+		$this->assertSame(0, $color2->blue);
+		$this->assertSame(255, $color2->alpha);
+
+		$color3 = $color2->with(green: 110, blue: 120, alpha: 127);
+
+		$this->assertNotSame($color2, $color3);
+
+		$this->assertSame(100, $color3->red);
+		$this->assertSame(110, $color3->green);
+		$this->assertSame(120, $color3->blue);
+		$this->assertSame(127, $color3->alpha);
+	}
+
+	/**
+	 *
+	 */
+	public function testInvert(): void
+	{
+		$color = new Color(0, 0, 0);
+
+		$inverted = $color->invert();
+
+		$this->assertNotSame($color, $inverted);
+
+		$this->assertSame(255, $inverted->red);
+		$this->assertSame(255, $inverted->green);
+		$this->assertSame(255, $inverted->blue);
+	}
+
 	/*
 	 *
 	 */
@@ -223,15 +270,15 @@ class ColorTest extends TestCase
 	{
 		$color = new Color(255, 0, 0);
 
-		$this->assertSame('hsl(0, 100.0%, 50.0%)', $color->toHslString());
+		$this->assertSame('hsl(0 100.0% 50.0%)', $color->toHslString());
 
 		$color = new Color(0, 255, 0);
 
-		$this->assertSame('hsl(120, 100.0%, 50.0%)', $color->toHslString());
+		$this->assertSame('hsl(120 100.0% 50.0%)', $color->toHslString());
 
 		$color = new Color(0, 0, 255);
 
-		$this->assertSame('hsl(240, 100.0%, 50.0%)', $color->toHslString());
+		$this->assertSame('hsl(240 100.0% 50.0%)', $color->toHslString());
 	}
 
 	/*
@@ -241,21 +288,21 @@ class ColorTest extends TestCase
 	{
 		$color = new Color(255, 0, 0);
 
-		$this->assertSame('hsla(0, 100.0%, 50.0%, 1.000)', $color->toHslaString());
+		$this->assertSame('hsla(0 100.0% 50.0% / 1.000)', $color->toHslaString());
 
 		$color = new Color(0, 255, 0);
 
-		$this->assertSame('hsla(120, 100.0%, 50.0%, 1.000)', $color->toHslaString());
+		$this->assertSame('hsla(120 100.0% 50.0% / 1.000)', $color->toHslaString());
 
 		$color = new Color(0, 0, 255);
 
-		$this->assertSame('hsla(240, 100.0%, 50.0%, 1.000)', $color->toHslaString());
+		$this->assertSame('hsla(240 100.0% 50.0% / 1.000)', $color->toHslaString());
 
 		//
 
 		$color = new Color(255, 0, 0, 127);
 
-		$this->assertSame('hsla(0, 100.0%, 50.0%, 0.498)', $color->toHslaString());
+		$this->assertSame('hsla(0 100.0% 50.0% / 0.498)', $color->toHslaString());
 	}
 
 	/*
