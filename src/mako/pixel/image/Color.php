@@ -85,7 +85,8 @@ class Color
 	}
 
 	/**
-	 * Returns an inverted version of the color.
+	 * Returns an inverted copy of the color.
+	 *
 	 * The red, green, and blue channels are inverted while the alpha channel
 	 * remains unchanged.
 	 */
@@ -101,7 +102,6 @@ class Color
 
 	/**
 	 * Returns a copy of the color with one or more channels changed.
-	 * Any channel set to null will retain its current value.
 	 */
 	public function with(?int $red = null, ?int $green = null, ?int $blue = null, ?int $alpha = null): static
 	{
