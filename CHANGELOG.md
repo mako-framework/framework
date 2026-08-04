@@ -69,7 +69,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added operation `Pipeline` class to the pixel library.
 * It is now possible to implement custom image inspectors to retrieve information from the images.
 * Added the following inspectors to the pixel library:
-	- `PixelColor`
+	- `ColorAt`
 	- `TopColors`
 * Added dotenv loader.
 * Added `Signer::validateOrThrow()` method.

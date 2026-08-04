@@ -5,19 +5,15 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\image\inspectors\gd;
+namespace mako\pixel\image\inspectors\imagemagick;
 
-use GdImage;
+use Imagick;
 use mako\pixel\image\Color;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
 use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\Point;
 use Override;
 
-use function imagecolorat;
-use function imagesx;
-use function imagesy;
 use function sprintf;
 
 /**
@@ -25,10 +21,8 @@ use function sprintf;
  *
  * @implements InspectorInterface<Color>
  */
-class PixelColor implements InspectorInterface
+class ColorAt implements InspectorInterface
 {
-	use InspectorTrait;
-
 	/**
 	 * Constructor.
 	 */
@@ -40,13 +34,13 @@ class PixelColor implements InspectorInterface
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param GdImage &$imageResource
+	 * @param Imagick &$imageResource
 	 */
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
-		$width = imagesx($imageResource);
-		$height = imagesy($imageResource);
+		$width = $imageResource->getImageWidth();
+		$height = $imageResource->getImageHeight();
 
 		if (
 			$this->pixel->x < 0 ||
@@ -63,26 +57,10 @@ class PixelColor implements InspectorInterface
 			));
 		}
 
-		// Ensure truecolor image for accurate colors
+		$pixel = $imageResource->getImagePixelColor($this->pixel->x, $this->pixel->y);
 
-		$cloneCreated = false;
+		$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
 
-		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $cloneCreated);
-
-		// Extract color
-
-		$color = imagecolorat($image, $this->pixel->x, $this->pixel->y);
-
-		// Destroy clone if one was created
-
-		if ($cloneCreated) {
-			$image = null;
-		}
-
-		// Return color
-
-		[$r, $g, $b, $a] = $this->convertColorToRgba($color);
-
-		return new Color($r, $g, $b, $a);
+		return new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
 	}
 }

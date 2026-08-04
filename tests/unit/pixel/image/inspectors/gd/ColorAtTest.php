@@ -11,7 +11,7 @@ use mako\pixel\image\Color;
 use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\Gd;
-use mako\pixel\image\inspectors\gd\PixelColor;
+use mako\pixel\image\inspectors\gd\ColorAt;
 use mako\pixel\image\operations\Point;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
@@ -19,28 +19,28 @@ use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
 #[RequiresPhpExtension('imagick')]
-class PixelColorTest extends TestCase
+class ColorAtTest extends TestCase
 {
 	/**
 	 *
 	 */
-	public function testPixelColor(): void
+	public function testColorAt(): void
 	{
 		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
 
-		$color = $image->inspect(new PixelColor(new Point(0, 0)));
+		$color = $image->inspect(new ColorAt(new Point(0, 0)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
 		$this->assertSame('#B51700', $color->toHexString());
 
-		$color = $image->inspect(new PixelColor(new Point(0, 100)));
+		$color = $image->inspect(new ColorAt(new Point(0, 100)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
 		$this->assertSame('#0376BB', $color->toHexString());
 
-		$color = $image->inspect(new PixelColor(new Point(0, 275)));
+		$color = $image->inspect(new ColorAt(new Point(0, 275)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
@@ -50,11 +50,11 @@ class PixelColorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPixelColorFromCreated(): void
+	public function testColorAtFromCreated(): void
 	{
 		$image = Gd::create(new Dimensions(1, 1));
 
-		$color = $image->inspect(new PixelColor(new Point(0, 0)));
+		$color = $image->inspect(new ColorAt(new Point(0, 0)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
@@ -64,7 +64,7 @@ class PixelColorTest extends TestCase
 
 		$image = Gd::create(new Dimensions(1, 1), new Color(0, 0, 0));
 
-		$color = $image->inspect(new PixelColor(new Point(0, 0)));
+		$color = $image->inspect(new ColorAt(new Point(0, 0)));
 
 		$this->assertInstanceOf(Color::class, $color);
 
@@ -74,13 +74,13 @@ class PixelColorTest extends TestCase
 	/**
 	 *
 	 */
-	public function testPixelColorWithInvalidPosition(): void
+	public function testColorAtWithInvalidPosition(): void
 	{
 		$this->expectException(ImageException::class);
 		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 100 ] are outside image bounds [ 300 x 300 ].');
 
 		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
 
-		$image->inspect(new PixelColor(new Point(1000, 100)));
+		$image->inspect(new ColorAt(new Point(1000, 100)));
 	}
 }
