@@ -66,7 +66,7 @@ class Color
 	}
 
 	/**
-	 * Creates a Color instance from on a hex value.
+	 * Creates a Color instance from a hex value.
 	 */
 	public static function fromHex(string $hex): static
 	{
@@ -85,10 +85,118 @@ class Color
 	}
 
 	/**
+	 * Normalizes hue to a value greater than or equal to 0 and less than 360.
+	 */
+	protected static function normalizeHue(float $h): float
+	{
+		$h = fmod($h, 360.0);
+
+		return $h < 0 ? $h + 360.0 : $h;
+	}
+
+	/**
+	 * Converts a hue angle to normalized RGB float components.
+	 */
+	protected static function hueToRgbFloat(float $h): array
+	{
+		$x = 1 - abs(fmod(($h / 60), 2) - 1);
+
+		return match (true) {
+			$h < 60  => [1.0, $x, 0.0],
+			$h < 120 => [$x, 1.0, 0.0],
+			$h < 180 => [0.0, 1.0, $x],
+			$h < 240 => [0.0, $x, 1.0],
+			$h < 300 => [$x, 0.0, 1.0],
+			default  => [1.0, 0.0, $x],
+		};
+	}
+
+	/**
+	 * Linearly interpolates a normalized component float between a floor and ceiling value,
+	 * then clamps and scales the result to an 8-bit integer byte.
+	 */
+	protected static function lerpFloatToByte(float $component, float $floor, float $ceiling): int
+	{
+		$range = $ceiling - $floor;
+
+		$byte = (int) round((($component * $range) + $floor) * 255);
+
+		return min(255, max(0, $byte));
+	}
+
+	/**
+	 * Creates a Color instance from HSL values.
+	 */
+	public static function fromHsl(float $h, float $s, float $l, int $alpha = 255): static
+	{
+		if ($s < 0 || $s > 100 || $l < 0 || $l > 100) {
+			throw new InvalidArgumentException('Saturation and lightness must be between 0 and 100.');
+		}
+
+		$h = self::normalizeHue($h);
+		$s /= 100;
+		$l /= 100;
+
+		$chroma = (1 - abs((2 * $l) - 1)) * $s;
+
+		// Define the generic floor and ceiling boundaries for HSL
+
+		$floor = $l - ($chroma / 2);
+		$ceiling = $floor + $chroma;
+
+		// Convert hue to rgb float components
+
+		[$rf, $gf, $bf] = self::hueToRgbFloat($h);
+
+		return new static(
+			static::lerpFloatToByte($rf, $floor, $ceiling),
+			static::lerpFloatToByte($gf, $floor, $ceiling),
+			static::lerpFloatToByte($bf, $floor, $ceiling),
+			$alpha
+		);
+	}
+
+	/**
+	 * Creates a Color instance from HWB values.
+	 */
+	public static function fromHwb(float $h, float $w, float $b, int $alpha = 255): static
+	{
+		if ($w < 0 || $w > 100 || $b < 0 || $b > 100) {
+			throw new InvalidArgumentException('Whiteness and blackness must be between 0 and 100.');
+		}
+
+		$h = self::normalizeHue($h);
+		$w /= 100;
+		$b /= 100;
+
+		if (($w + $b) > 1) {
+			$ratio = 1 / ($w + $b);
+			$w *= $ratio;
+			$b *= $ratio;
+		}
+
+		// Define the generic floor and ceiling boundaries for HWB
+
+		$floor = $w;
+		$ceiling = 1 - $b;
+
+		// Convert hue to rgb float components
+
+		[$rf, $gf, $bf] = self::hueToRgbFloat($h);
+
+		return new static(
+			static::lerpFloatToByte($rf, $floor, $ceiling),
+			static::lerpFloatToByte($gf, $floor, $ceiling),
+			static::lerpFloatToByte($bf, $floor, $ceiling),
+			$alpha
+		);
+	}
+
+	/**
 	 * Returns an inverted copy of the color.
 	 *
-	 * The red, green, and blue channels are inverted while the alpha channel
-	 * remains unchanged.
+	 * The red, green, and blue channels are inverted while
+	 * the alpha channel remains unchanged.
 	 */
 	public function invert(): static
 	{

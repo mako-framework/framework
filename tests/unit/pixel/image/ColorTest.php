@@ -279,6 +279,20 @@ class ColorTest extends TestCase
 		$color = new Color(0, 0, 255);
 
 		$this->assertSame('hsl(240 100.0% 50.0%)', $color->toHslString());
+
+		//
+
+		$color = Color::fromHsl(0, 100.0, 50.0);
+
+		$this->assertSame('hsl(0 100.0% 50.0%)', $color->toHslString());
+
+		$color = Color::fromHsl(120, 100.0, 50.0);
+
+		$this->assertSame('hsl(120 100.0% 50.0%)', $color->toHslString());
+
+		$color = Color::fromHsl(240, 100.0, 50.0);
+
+		$this->assertSame('hsl(240 100.0% 50.0%)', $color->toHslString());
 	}
 
 	/*
@@ -319,6 +333,20 @@ class ColorTest extends TestCase
 		$this->assertSame('hwb(120 0.0% 0.0%)', $color->toHwbString());
 
 		$color = new Color(0, 0, 255);
+
+		$this->assertSame('hwb(240 0.0% 0.0%)', $color->toHwbString());
+
+		//
+
+		$color = Color::fromHwb(0, 0.0, 0.0);
+
+		$this->assertSame('hwb(0 0.0% 0.0%)', $color->toHwbString());
+
+		$color = Color::fromHwb(120, 0.0, 0.0);
+
+		$this->assertSame('hwb(120 0.0% 0.0%)', $color->toHwbString());
+
+		$color = Color::fromHwb(240, 0.0, 0.0);
 
 		$this->assertSame('hwb(240 0.0% 0.0%)', $color->toHwbString());
 	}
