@@ -16,6 +16,7 @@ use function ltrim;
 use function max;
 use function min;
 use function preg_match;
+use function round;
 use function sprintf;
 use function strlen;
 use function substr;
