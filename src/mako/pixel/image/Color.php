@@ -286,9 +286,9 @@ class Color
 	}
 
 	/**
-	 * Returns a HSL representation of the color.
+	 * Returns HSL components.
 	 */
-	protected function getHslValues(): array
+	protected function getHslComponents(): array
 	{
 		$r = $this->red / 255;
 		$g = $this->green / 255;
@@ -325,7 +325,7 @@ class Color
 	 */
 	public function toHslString(): string
 	{
-		[$h, $s, $l] = $this->getHslValues();
+		[$h, $s, $l] = $this->getHslComponents();
 
 		$h = ((int) round($h)) % 360;
 
@@ -337,7 +337,7 @@ class Color
 	 */
 	public function toHslaString(): string
 	{
-		[$h, $s, $l] = $this->getHslValues();
+		[$h, $s, $l] = $this->getHslComponents();
 
 		$h = ((int) round($h)) % 360;
 
@@ -345,13 +345,13 @@ class Color
 	}
 
 	/**
-	 * Returns a HWB representation of the color.
+	 * Returns HWB components.
 	 */
-	protected function getHwbValues(): array
+	protected function getHwbComponents(): array
 	{
 		// Get hue from HSL calculation
 
-		[$h] = $this->getHslValues();
+		[$h] = $this->getHslComponents();
 
 		// Whiteness and blackness
 
@@ -372,7 +372,7 @@ class Color
 	 */
 	public function toHwbString(): string
 	{
-		[$h, $w, $b] = $this->getHwbValues();
+		[$h, $w, $b] = $this->getHwbComponents();
 
 		$h = ((int) round($h)) % 360;
 
@@ -384,7 +384,7 @@ class Color
 	 */
 	public function toHwbaString(): string
 	{
-		[$h, $w, $b] = $this->getHwbValues();
+		[$h, $w, $b] = $this->getHwbComponents();
 
 		$h = ((int) round($h)) % 360;
 
