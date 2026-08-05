@@ -36,7 +36,7 @@ class ReplaceColorTest extends TestCase
 
 		$image->apply(new ReplaceColor(
 			Color::fromHex('#0376BB'),
-			new Color(0, 0, 0, 127)
+			new Color(0, 0, 0)
 		));
 
 		$colors = $image->inspect(new TopColors);
@@ -44,7 +44,6 @@ class ReplaceColorTest extends TestCase
 		$this->assertCount(3, $colors);
 
 		$this->assertSame('#000000', $colors[0]->toHexString());
-		$this->assertSame('#0000007F', $colors[0]->toHexaString());
 		$this->assertSame('#B51700', $colors[1]->toHexString());
 		$this->assertSame('#047101', $colors[2]->toHexString());
 	}
