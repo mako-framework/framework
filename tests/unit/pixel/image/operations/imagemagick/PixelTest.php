@@ -12,7 +12,7 @@ use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\inspectors\imagemagick\ColorAt;
-use mako\pixel\image\operations\gd\Pixel;
+use mako\pixel\image\operations\imagemagick\Pixel;
 use mako\pixel\image\operations\Point;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
