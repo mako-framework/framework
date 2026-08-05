@@ -11,7 +11,7 @@ use function max;
 use function min;
 
 /**
- * Trait containing common value normalization methods.
+ * Trait containing common methods methods for normalizing values.
  */
 trait NormalizeTrait
 {
