@@ -9,20 +9,21 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
+use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
-use function imagecolorallocatealpha;
 use function imagerectangle;
 use function imagesx;
 use function imagesy;
-use function round;
 
 /**
  * Adds a border to the image.
  */
 class Border implements OperationInterface
 {
+	use OperationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -43,13 +44,7 @@ class Border implements OperationInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$color = imagecolorallocatealpha(
-			$imageResource,
-			$this->color->red,
-			$this->color->green,
-			$this->color->blue,
-			127 - (int) round($this->color->alpha * 127 / 255)
-		);
+		$color = $this->allocateColor($imageResource, $this->color);
 
 		for ($i = 0; $i < $this->width; $i++) {
 			$x = --$width;

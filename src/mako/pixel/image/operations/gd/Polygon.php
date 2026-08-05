@@ -10,6 +10,7 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
+use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
 use mako\pixel\image\operations\Points;
@@ -17,17 +18,17 @@ use Override;
 
 use function count;
 use function imagealphablending;
-use function imagecolorallocatealpha;
 use function imagefilledpolygon;
 use function imagepolygon;
 use function imagesetthickness;
-use function round;
 
 /**
  * Draws a polygon on the image.
  */
 class Polygon implements OperationInterface
 {
+	use OperationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -72,13 +73,7 @@ class Polygon implements OperationInterface
 			imagefilledpolygon(
 				$imageResource,
 				$points,
-				imagecolorallocatealpha(
-					$imageResource,
-					$this->fill->red,
-					$this->fill->green,
-					$this->fill->blue,
-					127 - (int) round($this->fill->alpha / 255 * 127),
-				),
+				$this->allocateColor($imageResource, $this->fill),
 			);
 		}
 
@@ -88,13 +83,7 @@ class Polygon implements OperationInterface
 			imagepolygon(
 				$imageResource,
 				$points,
-				imagecolorallocatealpha(
-					$imageResource,
-					$this->stroke->red,
-					$this->stroke->green,
-					$this->stroke->blue,
-					127 - (int) round($this->stroke->alpha / 255 * 127),
-				),
+				$this->allocateColor($imageResource, $this->stroke),
 			);
 
 			imagesetthickness($imageResource, 1);

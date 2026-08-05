@@ -11,22 +11,23 @@ use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
 use mako\pixel\image\Dimensions;
+use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
 use Override;
 
 use function imagealphablending;
-use function imagecolorallocatealpha;
 use function imagefilledrectangle;
 use function imagerectangle;
 use function imagesetthickness;
-use function round;
 
 /**
  * Draws a rectangle on the image.
  */
 class Rectangle implements OperationInterface
 {
+	use OperationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -63,13 +64,7 @@ class Rectangle implements OperationInterface
 				$this->position->y,
 				$this->position->x + $this->dimensions->width,
 				$this->position->y + $this->dimensions->height,
-				imagecolorallocatealpha(
-					$imageResource,
-					$this->fill->red,
-					$this->fill->green,
-					$this->fill->blue,
-					127 - (int) round($this->fill->alpha / 255 * 127),
-				)
+				$this->allocateColor($imageResource, $this->fill)
 			);
 		}
 
@@ -82,13 +77,7 @@ class Rectangle implements OperationInterface
 				$this->position->y,
 				$this->position->x + $this->dimensions->width,
 				$this->position->y + $this->dimensions->height,
-				imagecolorallocatealpha(
-					$imageResource,
-					$this->stroke->red,
-					$this->stroke->green,
-					$this->stroke->blue,
-					127 - (int) round($this->stroke->alpha / 255 * 127),
-				)
+				$this->allocateColor($imageResource, $this->stroke)
 			);
 
 			imagesetthickness($imageResource, 1);

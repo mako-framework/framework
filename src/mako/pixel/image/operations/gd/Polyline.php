@@ -10,6 +10,7 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
+use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
 use mako\pixel\image\operations\Points;
@@ -17,16 +18,16 @@ use Override;
 
 use function count;
 use function imagealphablending;
-use function imagecolorallocatealpha;
 use function imageline;
 use function imagesetthickness;
-use function round;
 
 /**
  * Draws a polyline on the image.
  */
 class Polyline implements OperationInterface
 {
+	use OperationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -57,13 +58,7 @@ class Polyline implements OperationInterface
 
 		imagesetthickness($imageResource, $this->strokeWidth);
 
-		$color = imagecolorallocatealpha(
-			$imageResource,
-			$this->stroke->red,
-			$this->stroke->green,
-			$this->stroke->blue,
-			127 - (int) round($this->stroke->alpha / 255 * 127),
-		);
+		$color = $this->allocateColor($imageResource, $this->stroke);
 
 		$points = $this->points->getPoints();
 

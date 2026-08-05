@@ -10,15 +10,14 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use mako\pixel\image\Color;
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
 use Override;
 
-use function imagecolorallocatealpha;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
-use function round;
 use function sprintf;
 
 /**
@@ -26,6 +25,8 @@ use function sprintf;
  */
 class Pixel implements OperationInterface
 {
+	use OperationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -65,13 +66,7 @@ class Pixel implements OperationInterface
 			$imageResource,
 			$this->pixel->x,
 			$this->pixel->y,
-			imagecolorallocatealpha(
-				$imageResource,
-				$this->color->red,
-				$this->color->green,
-				$this->color->blue,
-				127 - (int) round($this->color->alpha / 255 * 127),
-			)
+			$this->allocateColor($imageResource, $this->color)
 		);
 	}
 }
