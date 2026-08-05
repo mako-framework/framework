@@ -17,7 +17,7 @@ use function max;
 use function min;
 
 /**
- * Replaces the chosen color with the specified one.
+ * Replaces pixels matching a specified color with another color.
  */
 class ReplaceColor implements OperationInterface
 {
