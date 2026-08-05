@@ -77,9 +77,9 @@ class ColorAtTest extends TestCase
 	public function testColorAtWithInvalidPosition(): void
 	{
 		$this->expectException(ImageException::class);
-		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 100 ] are outside image bounds [ 300 x 300 ].');
+		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 100 ] are outside image bounds [ 4 x 4 ].');
 
-		$image = new Gd(__DIR__ . '/../../fixtures/001.png');
+		$image = Gd::create(new Dimensions(4, 4));
 
 		$image->inspect(new ColorAt(new Point(1000, 100)));
 	}

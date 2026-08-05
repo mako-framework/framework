@@ -42,10 +42,10 @@ class PixelTest extends TestCase
 	public function testPixelWithInvalidPosition(): void
 	{
 		$this->expectException(ImageException::class);
-		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 1000 ] are outside image bounds [ 4 x 4 ].');
+		$this->expectExceptionMessageIs('Pixel coordinates [ 1000, 100 ] are outside image bounds [ 4 x 4 ].');
 
 		$image = ImageMagick::create(new Dimensions(4, 4));
 
-		$image->apply(new Pixel(new Point(1000, 1000), new Color(0, 0, 0)));
+		$image->apply(new Pixel(new Point(1000, 100), new Color(0, 0, 0)));
 	}
 }
