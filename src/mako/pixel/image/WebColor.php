@@ -7,6 +7,9 @@
 
 namespace mako\pixel\image;
 
+use function hexdec;
+use function substr;
+
 /**
  * Web colors.
  */
@@ -189,4 +192,19 @@ enum WebColor: string
 	case Silver = '#C0C0C0';
 	case LightGray = '#D3D3D3';
 	case Gainsboro = '#DCDCDC';
+
+	/**
+	 * Returns a Color instance representing this web color.
+	 */
+	public function toColor(int $alpha = 255): Color
+	{
+		$hex = $this->value;
+
+		return new Color(
+			hexdec(substr($hex, 1, 2)),
+			hexdec(substr($hex, 3, 2)),
+			hexdec(substr($hex, 5, 2)),
+			$alpha
+		);
+	}
 }

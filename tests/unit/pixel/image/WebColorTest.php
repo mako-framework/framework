@@ -29,4 +29,30 @@ class WebColorTest extends TestCase
 	{
 		$this->assertSame(WebColor::Cyan, WebColor::Aqua);
 	}
+
+	/**
+	 *
+	 */
+	public function testToColor(): void
+	{
+		$color = WebColor::Red->toColor();
+
+		$this->assertSame(255, $color->red);
+		$this->assertSame(0, $color->green);
+		$this->assertSame(0, $color->blue);
+		$this->assertSame(255, $color->alpha);
+	}
+
+	/**
+	 *
+	 */
+	public function testToColorWithAlpha(): void
+	{
+		$color = WebColor::Red->toColor(127);
+
+		$this->assertSame(255, $color->red);
+		$this->assertSame(0, $color->green);
+		$this->assertSame(0, $color->blue);
+		$this->assertSame(127, $color->alpha);
+	}
 }

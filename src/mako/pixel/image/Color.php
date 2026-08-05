@@ -87,9 +87,9 @@ final class Color
 	/**
 	 * Creates a Color instance from a WebColor case.
 	 */
-	public static function fromWebColor(WebColor $webColor): self
+	public static function fromWebColor(WebColor $webColor, int $alpha = 255): self
 	{
-		return self::fromHex($webColor->value);
+		return $webColor->toColor($alpha);
 	}
 
 	/**
