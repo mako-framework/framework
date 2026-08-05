@@ -24,12 +24,12 @@ use function substr;
 /**
  * Color.
  */
-class Color
+final class Color
 {
 	/**
 	 * Constructor.
 	 */
-	final public function __construct(
+	public function __construct(
 		public private(set) int $red {
 			set(int $value) {
 				if ($value < 0 || $value > 255) {
@@ -81,13 +81,13 @@ class Color
 		$blue  = hexdec(substr($hex, 4, 2));
 		$alpha = strlen($hex) === 8 ? hexdec(substr($hex, 6, 2)) : 255;
 
-		return new static($red, $green, $blue, $alpha);
+		return new self($red, $green, $blue, $alpha);
 	}
 
 	/**
 	 * Normalizes hue to a value greater than or equal to 0 and less than 360.
 	 */
-	protected static function normalizeHue(float $h): float
+	private static function normalizeHue(float $h): float
 	{
 		$h = fmod($h, 360.0);
 
@@ -97,7 +97,7 @@ class Color
 	/**
 	 * Converts a hue angle to normalized RGB float components.
 	 */
-	protected static function hueToRgbFloat(float $h): array
+	private static function hueToRgbFloat(float $h): array
 	{
 		$x = 1 - abs(fmod(($h / 60), 2) - 1);
 
@@ -115,7 +115,7 @@ class Color
 	 * Linearly interpolates a normalized component float between a floor and ceiling value,
 	 * then clamps and scales the result to an 8-bit integer byte.
 	 */
-	protected static function lerpFloatToByte(float $component, float $floor, float $ceiling): int
+	private static function lerpFloatToByte(float $component, float $floor, float $ceiling): int
 	{
 		$range = $ceiling - $floor;
 
@@ -195,7 +195,7 @@ class Color
 	/**
 	 * Returns HSL components.
 	 */
-	protected function getHslComponents(): array
+	private function getHslComponents(): array
 	{
 		$r = $this->red / 255;
 		$g = $this->green / 255;
@@ -230,7 +230,7 @@ class Color
 	/**
 	 * Returns HWB components.
 	 */
-	protected function getHwbComponents(): array
+	private function getHwbComponents(): array
 	{
 		// Get hue from HSL calculation
 
