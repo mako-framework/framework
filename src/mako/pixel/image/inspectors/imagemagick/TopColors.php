@@ -40,13 +40,9 @@ class TopColors implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
-		$image = clone $imageResource;
+		$hasAlphaChannel = $imageResource->getImageAlphaChannel();
 
-		$image->setImageColorspace(Imagick::COLORSPACE_RGB);
-
-		$image->quantizeImage(64, Imagick::COLORSPACE_RGB, 0, false, false);
-
-		$histogram = $image->getImageHistogram();
+		$histogram = $imageResource->getImageHistogram();
 
 		usort($histogram, fn (ImagickPixel $a, ImagickPixel $b): int => $b->getColorCount() <=> $a->getColorCount());
 
@@ -59,15 +55,12 @@ class TopColors implements InspectorInterface
 
 			$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
 
-			if ($this->ignoreTransparent && $rgba['a'] === 0) {
+			if ($hasAlphaChannel && $this->ignoreTransparent && $rgba['a'] === 0) {
 				continue;
 			}
 
 			$colors[] = new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
 		}
-
-		$image->clear();
-		$image->destroy();
 
 		return $colors;
 	}
