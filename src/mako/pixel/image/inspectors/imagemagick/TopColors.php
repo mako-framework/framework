@@ -58,7 +58,7 @@ class TopColors implements InspectorInterface
 			$r = (int) round($color['r'] * 255);
 			$g = (int) round($color['g'] * 255);
 			$b = (int) round($color['b'] * 255);
-			$a = (int) round($color['a'] * 255);
+			$a = (int) round($pixel->getColorValue(Imagick::COLOR_ALPHA) * 255);
 
 			if ($hasAlphaChannel && $this->ignoreTransparent && $a === 0) {
 				continue;

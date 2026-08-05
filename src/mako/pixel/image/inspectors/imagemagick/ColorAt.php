@@ -52,7 +52,7 @@ class ColorAt implements InspectorInterface
 		$r = (int) round($color['r'] * 255);
 		$g = (int) round($color['g'] * 255);
 		$b = (int) round($color['b'] * 255);
-		$a = (int) round($color['a'] * 255);
+		$a = (int) round($pixel->getColorValue(Imagick::COLOR_ALPHA) * 255);
 
 		return new Color($r, $g, $b, $a);
 	}
