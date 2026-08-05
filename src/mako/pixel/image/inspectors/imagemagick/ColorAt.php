@@ -47,8 +47,13 @@ class ColorAt implements InspectorInterface
 
 		$pixel = $imageResource->getImagePixelColor($this->pixel->x, $this->pixel->y);
 
-		$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
+		$color = $pixel->getColor(1);
 
-		return new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
+		$r = (int) round($color['r'] * 255);
+		$g = (int) round($color['g'] * 255);
+		$b = (int) round($color['b'] * 255);
+		$a = (int) round($color['a'] * 255);
+
+		return new Color($r, $g, $b, $a);
 	}
 }

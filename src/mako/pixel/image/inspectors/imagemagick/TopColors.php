@@ -53,13 +53,18 @@ class TopColors implements InspectorInterface
 				break;
 			}
 
-			$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
+			$color = $pixel->getColor(1);
 
-			if ($hasAlphaChannel && $this->ignoreTransparent && $rgba['a'] === 0) {
+			$r = (int) round($color['r'] * 255);
+			$g = (int) round($color['g'] * 255);
+			$b = (int) round($color['b'] * 255);
+			$a = (int) round($color['a'] * 255);
+
+			if ($hasAlphaChannel && $this->ignoreTransparent && $a === 0) {
 				continue;
 			}
 
-			$colors[] = new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
+			$colors[] = new Color($r, $g, $b, $a);
 		}
 
 		return $colors;
