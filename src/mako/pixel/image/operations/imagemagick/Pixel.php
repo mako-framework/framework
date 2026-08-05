@@ -9,18 +9,18 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
-use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
-
-use function sprintf;
 
 /**
  * Draws a pixel on the image at the specified coordinates.
  */
 class Pixel implements OperationInterface
 {
+	use PixelValidationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -38,23 +38,11 @@ class Pixel implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$width = $imageResource->getImageWidth();
-		$height = $imageResource->getImageHeight();
-
-		if (
-			$this->pixel->x < 0 ||
-			$this->pixel->y < 0 ||
-			$this->pixel->x >= $width ||
-			$this->pixel->y >= $height
-		) {
-			throw new ImageException(sprintf(
-				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d x %d ].',
-				$this->pixel->x,
-				$this->pixel->y,
-				$width,
-				$height,
-			));
-		}
+		$this->validatePixel(
+			$this->pixel,
+			$imageResource->getImageWidth(),
+			$imageResource->getImageHeight()
+		);
 
 		$imageResource->importImagePixels(
 			$this->pixel->x,

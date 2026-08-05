@@ -9,16 +9,15 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
-use function sprintf;
 
 /**
  * Draws a pixel on the image at the specified coordinates.
@@ -26,6 +25,7 @@ use function sprintf;
 class Pixel implements OperationInterface
 {
 	use OperationTrait;
+	use PixelValidationTrait;
 
 	/**
 	 * Constructor.
@@ -44,23 +44,11 @@ class Pixel implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$width = imagesx($imageResource);
-		$height = imagesy($imageResource);
-
-		if (
-			$this->pixel->x < 0 ||
-			$this->pixel->y < 0 ||
-			$this->pixel->x >= $width ||
-			$this->pixel->y >= $height
-		) {
-			throw new ImageException(sprintf(
-				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d x %d ].',
-				$this->pixel->x,
-				$this->pixel->y,
-				$width,
-				$height,
-			));
-		}
+		$this->validatePixel(
+			$this->pixel,
+			imagesx($imageResource),
+			imagesy($imageResource)
+		);
 
 		imagesetpixel(
 			$imageResource,

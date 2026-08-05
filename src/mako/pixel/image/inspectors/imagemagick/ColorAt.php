@@ -9,12 +9,10 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
-use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
-
-use function sprintf;
 
 /**
  * Returns the color of the specified pixel.
@@ -23,6 +21,8 @@ use function sprintf;
  */
 class ColorAt implements InspectorInterface
 {
+	use PixelValidationTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -39,23 +39,11 @@ class ColorAt implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
-		$width = $imageResource->getImageWidth();
-		$height = $imageResource->getImageHeight();
-
-		if (
-			$this->pixel->x < 0 ||
-			$this->pixel->y < 0 ||
-			$this->pixel->x >= $width ||
-			$this->pixel->y >= $height
-		) {
-			throw new ImageException(sprintf(
-				'Pixel coordinates [ %d, %d ] are outside image bounds [ %d x %d ].',
-				$this->pixel->x,
-				$this->pixel->y,
-				$width,
-				$height,
-			));
-		}
+		$this->validatePixel(
+			$this->pixel,
+			$imageResource->getImageWidth(),
+			$imageResource->getImageHeight()
+		);
 
 		$pixel = $imageResource->getImagePixelColor($this->pixel->x, $this->pixel->y);
 
