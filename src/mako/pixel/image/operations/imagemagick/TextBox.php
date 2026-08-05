@@ -63,10 +63,10 @@ class TextBox implements OperationInterface
 
 		try {
 			if ($this->fill !== null || $this->stroke !== null) {
-				$draw->setFillColor(new ImagickPixel($this->fill?->toRgbaString() ?? 'transparent'));
+				$draw->setFillColor(new ImagickPixel($this->fill?->toHexaString() ?? 'transparent'));
 
 				if ($this->stroke !== null) {
-					$draw->setStrokeColor(new ImagickPixel($this->stroke->toRgbaString()));
+					$draw->setStrokeColor(new ImagickPixel($this->stroke->toHexaString()));
 
 					$draw->setStrokeWidth($this->strokeWidth);
 				}
@@ -85,7 +85,7 @@ class TextBox implements OperationInterface
 
 			$draw->setFont($this->font->path);
 			$draw->setFontSize($this->font->size);
-			$draw->setFillColor(new ImagickPixel($this->font->color->toRgbaString()));
+			$draw->setFillColor(new ImagickPixel($this->font->color->toHexaString()));
 			$draw->setTextAlignment(Imagick::ALIGN_CENTER);
 
 			$lines = explode("\n", $this->text);

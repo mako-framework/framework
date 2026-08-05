@@ -55,7 +55,7 @@ class Polyline implements OperationInterface
 		try {
 			$draw->setFillColor('transparent');
 
-			$draw->setStrokeColor(new ImagickPixel(($this->stroke->toRgbaString())));
+			$draw->setStrokeColor(new ImagickPixel($this->stroke->toHexaString()));
 
 			$draw->setStrokeWidth($this->strokeWidth);
 

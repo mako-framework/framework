@@ -38,7 +38,7 @@ class Border implements OperationInterface
 	{
 		$draw = new ImagickDraw;
 
-		$draw->setStrokeColor(new ImagickPixel($this->color->toRgbaString()));
+		$draw->setStrokeColor(new ImagickPixel($this->color->toHexaString()));
 		$draw->setStrokeWidth($this->width);
 		$draw->setFillOpacity(0);
 		$draw->setStrokeAntialias(true);

@@ -43,7 +43,7 @@ class Text implements OperationInterface
 		try {
 			$draw->setFont($this->font->path);
 			$draw->setFontSize($this->font->size);
-			$draw->setFillColor(new ImagickPixel($this->font->color->toRgbaString()));
+			$draw->setFillColor(new ImagickPixel($this->font->color->toHexaString()));
 
 			$imageResource->annotateImage(
 				$draw,

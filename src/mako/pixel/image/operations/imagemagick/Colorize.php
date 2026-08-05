@@ -34,7 +34,7 @@ class Colorize implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$pixel = new ImagickPixel($this->color->toRgbaString());
+		$pixel = new ImagickPixel($this->color->toHexaString());
 
 		$imageResource->colorizeImage($pixel, $pixel);
 	}

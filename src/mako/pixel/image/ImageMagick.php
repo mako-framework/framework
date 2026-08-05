@@ -53,7 +53,7 @@ class ImageMagick extends Image
 		$imageResource->newImage(
 			$dimensions->width,
 			$dimensions->height,
-			new ImagickPixel($fill->toRgbaString())
+			new ImagickPixel($fill->toHexaString())
 		);
 
 		$imageResource->setImageFormat('png');

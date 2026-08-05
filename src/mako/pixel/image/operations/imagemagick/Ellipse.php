@@ -52,10 +52,10 @@ class Ellipse implements OperationInterface
 		$draw = new ImagickDraw;
 
 		try {
-			$draw->setFillColor(new ImagickPixel($this->fill?->toRgbaString() ?? 'transparent'));
+			$draw->setFillColor(new ImagickPixel($this->fill?->toHexaString() ?? 'transparent'));
 
 			if ($this->stroke !== null) {
-				$draw->setStrokeColor(new ImagickPixel(($this->stroke->toRgbaString())));
+				$draw->setStrokeColor(new ImagickPixel($this->stroke->toHexaString()));
 
 				$draw->setStrokeWidth($this->strokeWidth);
 			}
