@@ -63,6 +63,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Polygon`
 	- `Polyline`
 	- `Rectangle`
+	- `ReplaceColor`
 	- `RoundedRectangle`
 	- `Scale`
 	- `Text`
