@@ -75,8 +75,10 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Color::complementary()`
 	- `Color::fromHsl()`
 	- `Color::fromHwb()`
+	- `Color::fromWebColor()`
 	- `Color::invert()`
 	- `Color::with()`
+* Added `WebColor` enum.
 * Added dotenv loader.
 * Added `Signer::validateOrThrow()` method.
 * Added support for all new Redis commands added in Redis 8.2, 8.4, 8.6, 8.8 and 8.10 to the Redis client.

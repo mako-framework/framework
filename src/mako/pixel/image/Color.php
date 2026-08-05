@@ -68,7 +68,7 @@ final class Color
 	/**
 	 * Creates a Color instance from a hex value.
 	 */
-	public static function fromHex(string $hex): static
+	public static function fromHex(string $hex): self
 	{
 		$hex = ltrim($hex, '#');
 
@@ -82,6 +82,14 @@ final class Color
 		$alpha = strlen($hex) === 8 ? hexdec(substr($hex, 6, 2)) : 255;
 
 		return new self($red, $green, $blue, $alpha);
+	}
+
+	/**
+	 * Creates a Color instance from a WebColor case.
+	 */
+	public static function fromWebColor(WebColor $webColor): self
+	{
+		return self::fromHex($webColor->value);
 	}
 
 	/**
@@ -127,7 +135,7 @@ final class Color
 	/**
 	 * Creates a Color instance from HSL values.
 	 */
-	public static function fromHsl(float $h, float $s, float $l, int $alpha = 255): static
+	public static function fromHsl(float $h, float $s, float $l, int $alpha = 255): self
 	{
 		if ($s < 0 || $s > 100 || $l < 0 || $l > 100) {
 			throw new InvalidArgumentException('Saturation and lightness must be between 0 and 100.');
@@ -148,10 +156,10 @@ final class Color
 
 		[$rf, $gf, $bf] = self::hueToRgbFloat($h);
 
-		return new static(
-			static::lerpFloatToByte($rf, $floor, $ceiling),
-			static::lerpFloatToByte($gf, $floor, $ceiling),
-			static::lerpFloatToByte($bf, $floor, $ceiling),
+		return new self(
+			self::lerpFloatToByte($rf, $floor, $ceiling),
+			self::lerpFloatToByte($gf, $floor, $ceiling),
+			self::lerpFloatToByte($bf, $floor, $ceiling),
 			$alpha
 		);
 	}
@@ -159,7 +167,7 @@ final class Color
 	/**
 	 * Creates a Color instance from HWB values.
 	 */
-	public static function fromHwb(float $h, float $w, float $b, int $alpha = 255): static
+	public static function fromHwb(float $h, float $w, float $b, int $alpha = 255): self
 	{
 		if ($w < 0 || $w > 100 || $b < 0 || $b > 100) {
 			throw new InvalidArgumentException('Whiteness and blackness must be between 0 and 100.');
@@ -184,10 +192,10 @@ final class Color
 
 		[$rf, $gf, $bf] = self::hueToRgbFloat($h);
 
-		return new static(
-			static::lerpFloatToByte($rf, $floor, $ceiling),
-			static::lerpFloatToByte($gf, $floor, $ceiling),
-			static::lerpFloatToByte($bf, $floor, $ceiling),
+		return new self(
+			self::lerpFloatToByte($rf, $floor, $ceiling),
+			self::lerpFloatToByte($gf, $floor, $ceiling),
+			self::lerpFloatToByte($bf, $floor, $ceiling),
 			$alpha
 		);
 	}
@@ -253,9 +261,9 @@ final class Color
 	/**
 	 * Returns a copy of the color with one or more channels changed.
 	 */
-	public function with(?int $red = null, ?int $green = null, ?int $blue = null, ?int $alpha = null): static
+	public function with(?int $red = null, ?int $green = null, ?int $blue = null, ?int $alpha = null): self
 	{
-		return new static(
+		return new self(
 			$red ?? $this->red,
 			$green ?? $this->green,
 			$blue ?? $this->blue,
@@ -269,9 +277,9 @@ final class Color
 	 * The red, green, and blue channels are inverted while
 	 * the alpha channel remains unchanged.
 	 */
-	public function invert(): static
+	public function invert(): self
 	{
-		return new static(
+		return new self(
 			255 - $this->red,
 			255 - $this->green,
 			255 - $this->blue,
@@ -285,11 +293,11 @@ final class Color
 	 * The hue is rotated by 180 degrees while the saturation,
 	 * lightness, and alpha channels remain unchanged.
 	 */
-	public function complementary(): static
+	public function complementary(): self
 	{
 		[$h, $s, $l] = $this->getHslComponents();
 
-		return static::fromHsl($h + 180, $s, $l, $this->alpha);
+		return self::fromHsl($h + 180, $s, $l, $this->alpha);
 	}
 
 	/**

@@ -9,6 +9,7 @@ namespace mako\tests\unit\pixel\image;
 
 use InvalidArgumentException;
 use mako\pixel\image\Color;
+use mako\pixel\image\WebColor;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -140,6 +141,16 @@ class ColorTest extends TestCase
 		$this->expectExceptionMessageIs('Invalid hex color format.');
 
 		$color = Color::fromHex('foobar');
+	}
+
+	/**
+	 *
+	 */
+	public function testFromWebColor(): void
+	{
+		$color = Color::fromWebColor(WebColor::SeaGreen);
+
+		$this->assertSame(WebColor::SeaGreen->value, $color->toHexString());
 	}
 
 	/**
