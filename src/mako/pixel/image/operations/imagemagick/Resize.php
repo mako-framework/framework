@@ -11,7 +11,7 @@ use Imagick;
 use mako\pixel\image\Dimensions;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\traits\CalculateNewDimensionsTrait;
+use mako\pixel\image\operations\traits\ResizeTrait;
 use Override;
 
 /**
@@ -19,7 +19,7 @@ use Override;
  */
 class Resize implements OperationInterface
 {
-	use CalculateNewDimensionsTrait;
+	use ResizeTrait;
 
 	/**
 	 * Constructor.

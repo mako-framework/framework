@@ -13,9 +13,9 @@ use function min;
 use function round;
 
 /**
- * Trait containing methods for calculating new dimensions.
+ * Trait containing common methods for resizing.
  */
-trait CalculateNewDimensionsTrait
+trait ResizeTrait
 {
 	/**
 	 * Calculates new image dimensions.
