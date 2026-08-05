@@ -10,6 +10,8 @@ namespace mako\pixel\image\traits;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\Point;
 
+use function sprintf;
+
 /**
  * Pixel validation trait.
  */
