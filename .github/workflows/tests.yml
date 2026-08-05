@@ -30,6 +30,10 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v7"
+      - name: "Pre-install system image libraries"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpng-dev libjpeg-dev libwebp-dev imagemagick
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
         with:
