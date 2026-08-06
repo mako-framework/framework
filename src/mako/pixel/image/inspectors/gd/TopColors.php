@@ -35,7 +35,7 @@ class TopColors implements InspectorInterface
 	/**
 	 * Pixel sampling interval used when scanning images.
 	 */
-	protected const int SAMPLE_STEP = 5;
+	protected const int SAMPLE_STEP = 2;
 
 	/**
 	 * Constructor.
