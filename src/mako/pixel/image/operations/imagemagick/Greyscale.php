@@ -32,7 +32,7 @@ class Greyscale implements OperationInterface
 
 		$imageResource->setImageType(Imagick::IMGTYPE_GRAYSCALE);
 
-		if ($alpha === null) {
+		if ($alpha !== null) {
 			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
 
 			$alpha->clear();
