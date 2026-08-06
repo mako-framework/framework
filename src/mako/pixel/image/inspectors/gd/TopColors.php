@@ -63,6 +63,7 @@ class TopColors implements InspectorInterface
 		// Extract colors
 
 		$colorBuckets = [];
+		$representatives = [];
 
 		for ($y = 0; $y < $height; $y += static::SAMPLE_STEP) {
 			for ($x = 0; $x < $width; $x += static::SAMPLE_STEP) {
@@ -72,7 +73,12 @@ class TopColors implements InspectorInterface
 					continue;
 				}
 
-				$colorBuckets[$color] = ($colorBuckets[$color] ?? 0) + 1;
+				// Keep the two most significant bits of each RGB channel.
+
+				$bucket = $color & 0x00C0C0C0;
+
+				$colorBuckets[$bucket] = ($colorBuckets[$bucket] ?? 0) + 1;
+				$representatives[$bucket] ??= $color;
 			}
 		}
 
@@ -88,8 +94,8 @@ class TopColors implements InspectorInterface
 
 		$colors = [];
 
-		foreach (array_slice(array_keys($colorBuckets), 0, $this->limit) as $color) {
-			[$r, $g, $b, $a] = $this->convertColorToRgba($color);
+		foreach (array_slice(array_keys($colorBuckets), 0, $this->limit) as $bucket) {
+			[$r, $g, $b, $a] = $this->convertColorToRgba($representatives[$bucket]);
 
 			$colors[] = new Color($r, $g, $b, $a);
 		}
