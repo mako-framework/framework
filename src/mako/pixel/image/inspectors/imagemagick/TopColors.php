@@ -16,7 +16,10 @@ use function array_slice;
 use function usort;
 
 /**
- * Top colors inspector.
+ * Extracts the dominant colors from an image.
+ *
+ * Similar colors are grouped together to avoid returning multiple
+ * variations of the same color.
  *
  * @implements InspectorInterface<array<int, Color>>
  */
@@ -52,7 +55,7 @@ class TopColors implements InspectorInterface
 				continue;
 			}
 
-			// Keep the two most significant bits from each RGB channel.
+			// Group similar colors by quantizing each RGB channel to its two most significant bits.
 
 			$key = ($rgba['r'] & 0xC0) | (($rgba['g'] & 0xC0) >> 2) | (($rgba['b'] & 0xC0) >> 4);
 
