@@ -343,22 +343,36 @@ final class Color
 	{
 		[$h, $s, $l] = $this->getHslComponents();
 
+		if ($l <= 10) {
+			return ColorFamily::Black;
+		}
+
+		if ($l >= 95) {
+			return ColorFamily::White;
+		}
+
+		if ($s <= 10) {
+			return ColorFamily::Gray;
+		}
+
+		$isRedHue = $h >= 345 || $h < 15;
+		$isDarkBurgundy = $h >= 340 && $h < 345 && $l < 50;
+
 		return match (true) {
-			$l <= 10                                      => ColorFamily::Black,
-			$l >= 95                                      => ColorFamily::White,
-			$s <= 10                                      => ColorFamily::Gray,
-			($h >= 330 || $h < 15) && $l >= 70            => ColorFamily::Pink,
-			($h >= 345 || $h < 15) && $s <= 70 && $l < 50 => ColorFamily::Brown,
-			$h >= 15 && $h < 45 && $l < 45                => ColorFamily::Brown,
-			$h < 15 || $h >= 345                          => ColorFamily::Red,
-			$h < 45                                       => ColorFamily::Orange,
-			$h < 70                                       => ColorFamily::Yellow,
-			$h < 165                                      => ColorFamily::Green,
-			$h < 195                                      => ColorFamily::Cyan,
-			$h < 255                                      => ColorFamily::Blue,
-			$h < 330                                      => ColorFamily::Purple,
-			$h < 345 && $l < 50                           => ColorFamily::Purple,
-			default                                       => ColorFamily::Pink,
+			$isRedHue && $s <= 70 && $l < 50  => ColorFamily::Brown,
+			$h >= 15 && $h < 45 && $l < 45    => ColorFamily::Brown,
+			$isRedHue && $l >= 70             => ColorFamily::Pink,
+			$isRedHue || $isDarkBurgundy      => ColorFamily::Red,
+			$h >= 15 && $h < 45               => ColorFamily::Orange,
+			$h >= 45 && $h < 70               => ColorFamily::Yellow,
+			$h >= 70 && $h < 165              => ColorFamily::Green,
+			$h >= 165 && $h < 195             => ColorFamily::Cyan,
+			$h >= 195 && $h < 245             => ColorFamily::Blue,
+			$h >= 245 && $h < 250 && $l >= 60 => ColorFamily::Blue,
+			$h >= 245 && $h < 250 && $l < 60  => ColorFamily::Purple,
+			$h >= 250 && $h < 330             => ColorFamily::Purple,
+			$h >= 330 && $h < 340 && $l < 50  => ColorFamily::Purple,
+			default                           => ColorFamily::Pink,
 		};
 	}
 
