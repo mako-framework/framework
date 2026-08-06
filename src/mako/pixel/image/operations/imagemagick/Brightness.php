@@ -41,9 +41,9 @@ class Brightness implements OperationInterface
 			return;
 		}
 
-		$hasAlpha = $imageResource->getImageAlphaChannel();
+		$alpha = null;
 
-		if ($hasAlpha) {
+		if ($imageResource->getImageAlphaChannel()) {
 			$alpha = clone $imageResource;
 		}
 
@@ -51,7 +51,7 @@ class Brightness implements OperationInterface
 
 		$imageResource->sigmoidalContrastImage($level > 0, abs($level) / 100 * 8, 0.5);
 
-		if ($hasAlpha) {
+		if ($alpha !== null) {
 			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
 
 			$alpha->clear();

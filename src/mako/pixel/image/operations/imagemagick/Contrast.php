@@ -42,9 +42,9 @@ class Contrast implements OperationInterface
 			return;
 		}
 
-		$hasAlpha = $imageResource->getImageAlphaChannel();
+		$alpha = null;
 
-		if ($hasAlpha) {
+		if ($imageResource->getImageAlphaChannel()) {
 			$alpha = clone $imageResource;
 		}
 
@@ -71,7 +71,7 @@ class Contrast implements OperationInterface
 		$iterator->clear();
 		$iterator->destroy();
 
-		if ($hasAlpha) {
+		if ($alpha !== null) {
 			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
 
 			$alpha->clear();

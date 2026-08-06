@@ -24,15 +24,15 @@ class Greyscale implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$hasAlpha = $imageResource->getImageAlphaChannel();
+		$alpha = null;
 
-		if ($hasAlpha) {
+		if ($imageResource->getImageAlphaChannel()) {
 			$alpha = clone $imageResource;
 		}
 
 		$imageResource->setImageType(Imagick::IMGTYPE_GRAYSCALE);
 
-		if ($hasAlpha) {
+		if ($alpha === null) {
 			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
 
 			$alpha->clear();
