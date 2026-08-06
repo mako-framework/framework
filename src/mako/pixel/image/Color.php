@@ -357,6 +357,7 @@ final class Color
 			$h < 195                                      => ColorFamily::Cyan,
 			$h < 255                                      => ColorFamily::Blue,
 			$h < 330                                      => ColorFamily::Purple,
+			$h < 345 && $l < 50                           => ColorFamily::Purple,
 			default                                       => ColorFamily::Pink,
 		};
 	}
