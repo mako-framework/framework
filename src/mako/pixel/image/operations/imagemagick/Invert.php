@@ -12,9 +12,9 @@ use mako\pixel\image\operations\OperationInterface;
 use Override;
 
 /**
- * Negates the image.
+ * Inverts the colors of the image.
  */
-class Negate implements OperationInterface
+class Invert implements OperationInterface
 {
 	/**
 	 * {@inheritDoc}
@@ -24,15 +24,15 @@ class Negate implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$hasAlpha = $imageResource->getImageAlphaChannel();
+		$alpha = null;
 
-		if ($hasAlpha) {
+		if ($imageResource->getImageAlphaChannel()) {
 			$alpha = clone $imageResource;
 		}
 
 		$imageResource->negateImage(false);
 
-		if ($hasAlpha) {
+		if ($alpha !== null) {
 			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
 
 			$alpha->clear();

@@ -14,9 +14,9 @@ use Override;
 use function imagefilter;
 
 /**
- * Negates the image.
+ * Inverts the colors of the image.
  */
-class Negate implements OperationInterface
+class Invert implements OperationInterface
 {
 	/**
 	 * {@inheritDoc}

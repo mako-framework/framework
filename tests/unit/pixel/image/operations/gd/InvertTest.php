@@ -5,29 +5,29 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\pixel\image\operations\imagemagick;
+namespace mako\tests\unit\pixel\image\operations\gd;
 
-use mako\pixel\image\ImageMagick;
-use mako\pixel\image\inspectors\imagemagick\TopColors;
-use mako\pixel\image\operations\imagemagick\Bitonal;
-use mako\pixel\image\operations\imagemagick\Negate;
+use mako\pixel\image\Gd;
+use mako\pixel\image\inspectors\gd\TopColors;
+use mako\pixel\image\operations\gd\Bitonal;
+use mako\pixel\image\operations\gd\Invert;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[Group('unit')]
-#[RequiresPhpExtension('imagick')]
-class NegateTest extends TestCase
+#[RequiresPhpExtension('gd')]
+class InvertTest extends TestCase
 {
 	/**
 	 *
 	 */
 	public function testNegate(): void
 	{
-		$image = new ImageMagick(__DIR__ . '/../../fixtures/002.jpg');
+		$image = new Gd(__DIR__ . '/../../fixtures/002.jpg');
 
 		$image->apply(new Bitonal);
-		$image->apply(new Negate);
+		$image->apply(new Invert);
 
 		$colors = $image->inspect(new TopColors);
 
