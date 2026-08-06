@@ -333,6 +333,35 @@ final class Color
 	}
 
 	/**
+	 * Returns the color family that most closely represents this color.
+	 *
+	 * Color families are determined using HSL hue, saturation and lightness
+	 * values and are intended for general classification rather than exact
+	 * color naming.
+	 */
+	public function toColorFamily(): ColorFamily
+	{
+		[$h, $s, $l] = $this->getHslComponents();
+
+		return match (true) {
+			$l <= 10                                      => ColorFamily::Black,
+			$l >= 95                                      => ColorFamily::White,
+			$s <= 10                                      => ColorFamily::Gray,
+			($h >= 330 || $h < 15) && $l >= 70            => ColorFamily::Pink,
+			($h >= 345 || $h < 15) && $s <= 70 && $l < 50 => ColorFamily::Brown,
+			$h >= 15 && $h < 45 && $l < 45                => ColorFamily::Brown,
+			$h < 15 || $h >= 345                          => ColorFamily::Red,
+			$h < 45                                       => ColorFamily::Orange,
+			$h < 70                                       => ColorFamily::Yellow,
+			$h < 165                                      => ColorFamily::Green,
+			$h < 195                                      => ColorFamily::Cyan,
+			$h < 255                                      => ColorFamily::Blue,
+			$h < 330                                      => ColorFamily::Purple,
+			default                                       => ColorFamily::Pink,
+		};
+	}
+
+	/**
 	 * Returns a hex string representation of the color.
 	 */
 	public function toHexString(): string
