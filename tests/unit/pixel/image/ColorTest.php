@@ -332,6 +332,12 @@ class ColorTest extends TestCase
 		$color = Color::fromHsl(240, 100.0, 50.0);
 
 		$this->assertSame('hsl(240 100.0% 50.0%)', $color->toHslString());
+
+		// Grayscale
+
+		$color = new Color(192, 192, 192);
+
+		$this->assertSame('hsla(0 0.0% 75.3% / 1.000)', $color->toHslaString());
 	}
 
 	/*

@@ -217,7 +217,7 @@ final class Color
 		$s = 0;
 		$l = ($max + $min) / 2;
 
-		if ($delta !== 0) {
+		if ($delta > 0) {
 			$s = $delta / (1 - abs(2 * $l - 1));
 
 			// @phpstan-ignore match.unhandled
