@@ -85,6 +85,10 @@ class TopColors implements InspectorInterface
 		$colors = [];
 
 		foreach (array_slice($groups, 0, $this->limit) as $group) {
+			if ($group['count'] === 0) {
+				continue;
+			}
+
 			$colors[] = new Color(
 				(int) ($group['r'] / $group['count']),
 				(int) ($group['g'] / $group['count']),
