@@ -13,12 +13,15 @@ use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
 use mako\pixel\image\inspectors\InspectorInterface;
 use Override;
 
-use function array_keys;
 use function array_slice;
-use function arsort;
+use function ceil;
 use function imagecolorat;
 use function imagesx;
 use function imagesy;
+use function log;
+use function max;
+use function min;
+use function usort;
 
 /**
  * Extracts the dominant colors from an image.
@@ -33,9 +36,10 @@ class TopColors implements InspectorInterface
 	use InspectorTrait;
 
 	/**
-	 * Pixel sampling interval used when scanning images.
+	 * Upper bound on the sampling step, to avoid skipping too many pixels
+	 * on extremely large images where accuracy matters less.
 	 */
-	protected const int SAMPLE_STEP = 2;
+	protected const int MAX_SAMPLE_STEP = 8;
 
 	/**
 	 * Constructor.
@@ -44,6 +48,22 @@ class TopColors implements InspectorInterface
 		protected int $limit = 5,
 		protected bool $ignoreTransparent = true
 	) {
+	}
+
+	/**
+	 * Calculates the sampling step size based on image dimensions.
+	 *
+	 * The step grows logarithmically with the image's megapixel count, so that
+	 * sampling density decreases gradually as images get larger, rather than
+	 * dropping sharply at certain resolution thresholds.
+	 */
+	protected function getSampleStep(int $width, int $height): int
+	{
+		$megapixels = ($width * $height) / 1_000_000;
+
+		$step = (int) ceil(1 + log(max(1, $megapixels), 2));
+
+		return max(1, min(static::MAX_SAMPLE_STEP, $step));
 	}
 
 	/**
@@ -57,6 +77,8 @@ class TopColors implements InspectorInterface
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
+		$sampleStep = $this->getSampleStep($width, $height);
+
 		// Ensure truecolor image for accurate colors
 
 		$cloneCreated = false;
@@ -65,11 +87,11 @@ class TopColors implements InspectorInterface
 
 		// Extract colors
 
-		$colorBuckets = [];
-		$representatives = [];
+		$colorCounts = [];
+		$groups = [];
 
-		for ($y = 0; $y < $height; $y += static::SAMPLE_STEP) {
-			for ($x = 0; $x < $width; $x += static::SAMPLE_STEP) {
+		for ($y = 0; $y < $height; $y += $sampleStep) {
+			for ($x = 0; $x < $width; $x += $sampleStep) {
 				$color = imagecolorat($image, $x, $y);
 
 				if ($this->ignoreTransparent && (($color & 0x7F000000) >> 24) === 127) {
@@ -77,11 +99,27 @@ class TopColors implements InspectorInterface
 				}
 
 				// Group similar colors by quantizing each RGB channel to its two most significant bits.
+				// Track the total sample count for the group so that groups can be ranked by
+				// overall frequency and keep only the most frequently occurring individual color.
 
-				$bucket = $color & 0x00C0C0C0;
+				$key = $color & 0x00C0C0C0;
 
-				$colorBuckets[$bucket] = ($colorBuckets[$bucket] ?? 0) + 1;
-				$representatives[$bucket] ??= $color;
+				$colorCounts[$key][$color] ??= 0;
+
+				$groups[$key] ??= [
+					'totalCount' => 0,
+					'dominantCount' => 0,
+					'color' => $color,
+				];
+
+				$colorCount = ++$colorCounts[$key][$color];
+
+				$groups[$key]['totalCount']++;
+
+				if ($colorCount > $groups[$key]['dominantCount']) {
+					$groups[$key]['dominantCount'] = $colorCount;
+					$groups[$key]['color'] = $color;
+				}
 			}
 		}
 
@@ -93,12 +131,12 @@ class TopColors implements InspectorInterface
 
 		// Return top colors
 
-		arsort($colorBuckets);
+		usort($groups, fn (array $a, array $b): int => $b['totalCount'] <=> $a['totalCount']);
 
 		$colors = [];
 
-		foreach (array_slice(array_keys($colorBuckets), 0, $this->limit) as $bucket) {
-			[$r, $g, $b, $a] = $this->convertColorToRgba($representatives[$bucket]);
+		foreach (array_slice($groups, 0, $this->limit) as $group) {
+			[$r, $g, $b, $a] = $this->convertColorToRgba($group['color']);
 
 			$colors[] = new Color($r, $g, $b, $a);
 		}
