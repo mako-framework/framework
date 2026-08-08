@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\security;
 
+use mako\security\exceptions\SecurityException;
 use mako\security\Key;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
@@ -44,6 +45,22 @@ class KeyTest extends TestCase
 		$this->assertEquals('hex:', mb_substr($encoded, 0, 4, '8bit'));
 
 		$this->assertEquals($key, Key::decode($encoded));
+	}
+
+	/**
+	 *
+	 */
+	public function testDecodeWithInvalidKey(): void
+	{
+		$this->expectException(SecurityException::class);
+		$this->expectExceptionMessageIs('Invalid hex-encoded key.');
+
+		$key = Key::generate(16);
+		$encoded = Key::encode($key);
+
+		$encoded = substr($encoded, 0, -1);
+
+		Key::decode($encoded);
 	}
 
 	/**
