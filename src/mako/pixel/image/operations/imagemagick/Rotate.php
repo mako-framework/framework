@@ -37,6 +37,6 @@ class Rotate implements OperationInterface
 			return;
 		}
 
-		$imageResource->rotateImage(new ImagickPixel('none'), $this->degrees);
+		$imageResource->rotateImage(new ImagickPixel('transparent'), $this->degrees);
 	}
 }
