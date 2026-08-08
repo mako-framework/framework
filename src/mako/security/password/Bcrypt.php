@@ -18,6 +18,16 @@ use function min;
 class Bcrypt extends Hasher
 {
 	/**
+	 * Minimum supported cost.
+	 */
+	protected const int MIN_COST = 4;
+
+	/**
+	 * Maximum supported cost.
+	 */
+	protected const int MAX_COST = 31;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
@@ -27,7 +37,7 @@ class Bcrypt extends Hasher
 			'cost' => PASSWORD_BCRYPT_DEFAULT_COST,
 		];
 
-		$options['cost'] = max(min($options['cost'], 31), 4);
+		$options['cost'] = max(min($options['cost'], static::MAX_COST), static::MIN_COST);
 
 		return $options;
 	}
