@@ -22,11 +22,11 @@ class KeyTest extends TestCase
 	{
 		$key = Key::generate(16);
 
-		$this->assertEquals(16, mb_strlen($key, '8bit'));
+		$this->assertEquals(16, strlen($key));
 
 		$key = Key::generate(32);
 
-		$this->assertEquals(32, mb_strlen($key, '8bit'));
+		$this->assertEquals(32, strlen($key));
 	}
 
 	/**
@@ -36,13 +36,13 @@ class KeyTest extends TestCase
 	{
 		$key = Key::generate(16);
 
-		$this->assertEquals(16, mb_strlen($key, '8bit'));
+		$this->assertEquals(16, strlen($key));
 
 		$encoded = Key::encode($key);
 
-		$this->assertEquals(36, mb_strlen($encoded, '8bit')); // encoded key = 32 byte and prefix = 4 byte
+		$this->assertEquals(36, strlen($encoded)); // encoded key = 32 byte and prefix = 4 byte
 
-		$this->assertEquals('hex:', mb_substr($encoded, 0, 4, '8bit'));
+		$this->assertEquals('hex:', substr($encoded, 0, 4));
 
 		$this->assertEquals($key, Key::decode($encoded));
 	}
@@ -70,10 +70,10 @@ class KeyTest extends TestCase
 	{
 		$key = Key::generateEncoded(16);
 
-		$this->assertEquals(36, mb_strlen($key, '8bit')); // encoded key = 32 byte and prefix = 4 byte
+		$this->assertEquals(36, strlen($key)); // encoded key = 32 byte and prefix = 4 byte
 
 		$key = Key::generateEncoded(32);
 
-		$this->assertEquals(68, mb_strlen($key, '8bit')); // encoded key = 64 byte and prefix = 4 byte
+		$this->assertEquals(68, strlen($key)); // encoded key = 64 byte and prefix = 4 byte
 	}
 }

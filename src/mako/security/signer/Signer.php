@@ -12,7 +12,7 @@ use SensitiveParameter;
 
 use function hash_equals;
 use function hash_hmac;
-use function mb_substr;
+use function substr;
 
 /**
  * Signs and validates strings using MACs (message authentication codes).
@@ -53,9 +53,9 @@ class Signer
 	 */
 	public function validate(string $string): false|string
 	{
-		$validated = mb_substr($string, static::MAC_LENGTH, encoding: '8bit');
+		$validated = substr($string, static::MAC_LENGTH);
 
-		if (hash_equals($this->getSignature($validated), mb_substr($string, 0, static::MAC_LENGTH, '8bit'))) {
+		if (hash_equals($this->getSignature($validated), substr($string, 0, static::MAC_LENGTH))) {
 			return $validated;
 		}
 

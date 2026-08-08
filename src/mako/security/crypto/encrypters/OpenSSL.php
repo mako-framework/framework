@@ -12,11 +12,11 @@ use SensitiveParameter;
 
 use function base64_decode;
 use function base64_encode;
-use function mb_substr;
 use function openssl_cipher_iv_length;
 use function openssl_decrypt;
 use function openssl_encrypt;
 use function openssl_random_pseudo_bytes;
+use function substr;
 
 /**
  * OpenSSL encrypter.
@@ -65,9 +65,9 @@ class OpenSSL extends Encrypter implements EncrypterInterface
 			return false;
 		}
 
-		$iv = mb_substr($string, 0, $this->ivSize, '8bit');
+		$iv = substr($string, 0, $this->ivSize);
 
-		$string = mb_substr($string, $this->ivSize, encoding: '8bit');
+		$string = substr($string, $this->ivSize);
 
 		$key = $this->deriveKey($this->key, $iv, 32);
 
