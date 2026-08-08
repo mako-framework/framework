@@ -13,11 +13,11 @@ use Override;
 use function max;
 
 /**
- * Argon trait.
+ * Argon2 trait.
  *
  * @phpstan-require-extends Hasher
  */
-trait ArgonTrait
+trait Argon2Trait
 {
 	/**
 	 * Minimum supported time cost.

@@ -7,7 +7,7 @@
 
 namespace mako\security\password;
 
-use mako\security\password\traits\ArgonTrait;
+use mako\security\password\traits\Argon2Trait;
 use Override;
 
 /**
@@ -15,7 +15,7 @@ use Override;
  */
 class Argon2id extends Hasher
 {
-	use ArgonTrait;
+	use Argon2Trait;
 
 	/**
 	 * {@inheritDoc}
