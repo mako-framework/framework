@@ -69,7 +69,7 @@ class Signer
 	{
 		$validated = $this->validate($string);
 
-		if (!$validated) {
+		if ($validated === false) {
 			throw new SignerException('The signed string has been modified or an invalid signing key has been provided.');
 		}
 
