@@ -36,8 +36,8 @@ class TopColors implements InspectorInterface
 	use InspectorTrait;
 
 	/**
-	 * Upper bound on the sampling step, to avoid skipping too many pixels
-	 * on extremely large images where accuracy matters less.
+	 * Upper bound on the sampling step, so that very large images don't get
+	 * sampled too sparsely and risk missing small but visually significant colors.
 	 */
 	protected const int MAX_SAMPLE_STEP = 8;
 
