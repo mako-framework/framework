@@ -46,7 +46,7 @@ class Bcrypt extends Hasher
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	protected function getAlgorithm(): ?string
+	protected function getAlgorithm(): string
 	{
 		return PASSWORD_BCRYPT;
 	}
