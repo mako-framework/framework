@@ -542,7 +542,11 @@ class ColorTest extends TestCase
 		];
 
 		foreach ($colors as $color => $expected) {
-			$this->assertSame($expected, Color::fromHex($color)->toColorFamily());
+			$this->assertSame(
+				$expected,
+				Color::fromHex($color)->toColorFamily(),
+				"Color {$color} should have been identified as {$expected->name}."
+			);
 		}
 	}
 }
