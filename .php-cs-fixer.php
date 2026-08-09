@@ -62,6 +62,7 @@ return (new Config)->setRules
 	'no_mixed_echo_print' => true,
 	'no_multiline_whitespace_around_double_arrow' => true,
 	'no_multiple_statements_per_line' => true,
+	'no_redundant_readonly_property' => true,
 	'no_singleline_whitespace_before_semicolons' => true,
 	'no_space_around_double_colon' => true,
 	'no_trailing_comma_in_singleline' => true,
