@@ -10,9 +10,9 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
-use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagealphablending;
@@ -25,7 +25,7 @@ use function imagesetthickness;
  */
 class Circle implements OperationInterface
 {
-	use OperationTrait;
+	use GdTrait;
 
 	/**
 	 * Constructor.

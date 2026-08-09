@@ -11,14 +11,15 @@ use GdImage;
 use mako\pixel\image\Dimensions;
 use mako\pixel\image\Gd;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\traits\NormalizeTrait;
 use mako\pixel\image\operations\WatermarkPosition;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagealphablending;
 use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagecopy;
-use function imagesavealpha;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
@@ -30,6 +31,9 @@ use function round;
  */
 class Watermark implements OperationInterface
 {
+	use GdTrait;
+	use NormalizeTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -54,14 +58,17 @@ class Watermark implements OperationInterface
 	{
 		$watermark = $this->image->getImageResource();
 
-		imagealphablending($watermark, false);
-		imagesavealpha($watermark, true);
-
 		$watermarkWidth = imagesx($watermark);
 		$watermarkHeight = imagesy($watermark);
 
 		if ($this->opacity < 100) {
-			$opacityAlpha = 127 - round($this->opacity * 127 / 100);
+			$watermark = $this->createTruecolorCopyIfNeeded($watermark, $watermarkWidth, $watermarkHeight, $copyCreated);
+
+			if ($copyCreated === false) {
+				imagealphablending($watermark, false);
+			}
+
+			$opacityAlpha = 127 - round($this->normalizePercent($this->opacity) * 127 / 100);
 
 			for ($x = 0; $x < $watermarkWidth; $x++) {
 				for ($y = 0; $y < $watermarkHeight; $y++) {
@@ -77,10 +84,6 @@ class Watermark implements OperationInterface
 				}
 			}
 		}
-
-		imagealphablending($imageResource, true);
-
-		imagesavealpha($imageResource, true);
 
 		$point = $this->position->resolvePosition(
 			new Dimensions(imagesx($imageResource), imagesy($imageResource)),

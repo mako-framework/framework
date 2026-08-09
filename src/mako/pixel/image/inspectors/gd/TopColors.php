@@ -9,8 +9,8 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
 use mako\pixel\image\inspectors\InspectorInterface;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function array_slice;
@@ -33,7 +33,7 @@ use function usort;
  */
 class TopColors implements InspectorInterface
 {
-	use InspectorTrait;
+	use GdTrait;
 
 	/**
 	 * Upper bound on the sampling step, so that very large images don't get
@@ -81,9 +81,7 @@ class TopColors implements InspectorInterface
 
 		// Ensure truecolor image for accurate colors
 
-		$cloneCreated = false;
-
-		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $cloneCreated);
+		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $copyCreated);
 
 		// Extract colors
 
@@ -123,9 +121,9 @@ class TopColors implements InspectorInterface
 			}
 		}
 
-		// Destroy clone if one was created
+		// Destroy copy if one was created
 
-		if ($cloneCreated) {
+		if ($copyCreated) {
 			$image = null;
 		}
 

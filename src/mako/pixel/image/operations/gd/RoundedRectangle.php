@@ -11,9 +11,9 @@ use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
 use mako\pixel\image\Dimensions;
-use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function cos;
@@ -32,7 +32,7 @@ use function sin;
  */
 class RoundedRectangle implements OperationInterface
 {
-	use OperationTrait;
+	use GdTrait;
 
 	/**
 	 * Number of segments used to approximate each corner arc.

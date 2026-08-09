@@ -9,9 +9,9 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\GdTrait;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
@@ -24,7 +24,7 @@ use function imagesy;
  */
 class Pixel implements OperationInterface
 {
-	use OperationTrait;
+	use GdTrait;
 	use PixelValidationTrait;
 
 	/**

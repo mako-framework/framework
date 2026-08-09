@@ -9,9 +9,9 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
 use mako\pixel\image\inspectors\InspectorInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\GdTrait;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
@@ -26,7 +26,7 @@ use function imagesy;
  */
 class ColorAt implements InspectorInterface
 {
-	use InspectorTrait;
+	use GdTrait;
 	use PixelValidationTrait;
 
 	/**
@@ -52,17 +52,15 @@ class ColorAt implements InspectorInterface
 
 		// Ensure truecolor image for accurate colors
 
-		$cloneCreated = false;
-
-		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $cloneCreated);
+		$image = $this->createTruecolorCopyIfNeeded($imageResource, $width, $height, $copyCreated);
 
 		// Extract color
 
 		$color = imagecolorat($image, $this->pixel->x, $this->pixel->y);
 
-		// Destroy clone if one was created
+		// Destroy copy if one was created
 
-		if ($cloneCreated) {
+		if ($copyCreated) {
 			$image = null;
 		}
 

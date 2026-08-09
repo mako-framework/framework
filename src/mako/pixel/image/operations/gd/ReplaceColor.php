@@ -9,9 +9,8 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\gd\traits\InspectorTrait;
-use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function abs;
@@ -29,8 +28,7 @@ use function min;
  */
 class ReplaceColor implements OperationInterface
 {
-	use InspectorTrait;
-	use OperationTrait;
+	use GdTrait;
 
 	/**
 	 * Constructor.

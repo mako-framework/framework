@@ -11,6 +11,7 @@ use Imagick;
 use mako\pixel\image\Dimensions;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\traits\NormalizeTrait;
 use mako\pixel\image\operations\WatermarkPosition;
 use Override;
 
@@ -19,6 +20,8 @@ use Override;
  */
 class Watermark implements OperationInterface
 {
+	use NormalizeTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -44,7 +47,11 @@ class Watermark implements OperationInterface
 		$watermark = $this->image->getImageResource();
 
 		if ($this->opacity < 100) {
-			$watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, ($this->opacity / 100), Imagick::CHANNEL_ALPHA);
+			$watermark->evaluateImage(
+				Imagick::EVALUATE_MULTIPLY,
+				($this->normalizePercent($this->opacity) / 100),
+				Imagick::CHANNEL_ALPHA
+			);
 		}
 
 		$point = $this->position->resolvePosition(

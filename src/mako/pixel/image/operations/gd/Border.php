@@ -9,8 +9,8 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagerectangle;
@@ -22,7 +22,7 @@ use function imagesy;
  */
 class Border implements OperationInterface
 {
-	use OperationTrait;
+	use GdTrait;
 
 	/**
 	 * Constructor.

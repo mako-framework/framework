@@ -5,9 +5,10 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\image\inspectors\gd\traits;
+namespace mako\pixel\image\traits;
 
 use GdImage;
+use mako\pixel\image\Color;
 
 use function imagealphablending;
 use function imagecolorallocatealpha;
@@ -19,9 +20,9 @@ use function imagesavealpha;
 use function round;
 
 /**
- * Inspector trait.
+ * Gd trait.
  */
-trait InspectorTrait
+trait GdTrait
 {
 	/**
 	 * Palette images (e.g. GIF) make imagecolorat() return palette indexes, not
@@ -29,7 +30,7 @@ trait InspectorTrait
 	 * preserves transparency so bit-shift RGBA extraction works consistently.
 	 * Truecolor images are returned unchanged.
 	 */
-	protected function createTruecolorCopyIfNeeded(GdImage $imageResource, int $width, int $height, bool &$cloneCreated): GdImage
+	protected function createTruecolorCopyIfNeeded(GdImage $imageResource, int $width, int $height, ?bool &$copyCreated = null): GdImage
 	{
 		if (!imageistruecolor($imageResource)) {
 			$image = imagecreatetruecolor($width, $height);
@@ -41,10 +42,12 @@ trait InspectorTrait
 
 			imagecopy($image, $imageResource, 0, 0, 0, 0, $width, $height);
 
-			$cloneCreated = true;
+			$copyCreated = true;
 
 			return $image;
 		}
+
+		$copyCreated = false;
 
 		return $imageResource;
 	}
@@ -62,5 +65,19 @@ trait InspectorTrait
 		$a = (int) round((127 - (($color & 0x7F000000) >> 24)) / 127 * 255);
 
 		return [$r, $g, $b, $a];
+	}
+
+	/**
+	 * Allocates a color in the provided GD image resource.
+	 */
+	protected function allocateColor(GdImage $imageResource, Color $color): int
+	{
+		return imagecolorallocatealpha(
+			$imageResource,
+			$color->red,
+			$color->green,
+			$color->blue,
+			127 - (int) round($color->alpha / 255 * 127),
+		);
 	}
 }

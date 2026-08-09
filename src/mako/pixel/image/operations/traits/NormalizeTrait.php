@@ -16,7 +16,15 @@ use function min;
 trait NormalizeTrait
 {
 	/**
-	 * Makes sure that the level is between -100 and 100.
+	 * Makes sure that the percent value is between 0 and 100.
+	 */
+	protected function normalizePercent(int $percent): int
+	{
+		return max(0, min(100, $percent));
+	}
+
+	/**
+	 * Makes sure that the level value is between -100 and 100.
 	 */
 	protected function normalizeLevel(int $level): int
 	{

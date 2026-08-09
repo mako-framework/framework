@@ -9,9 +9,9 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\operations\Font;
-use mako\pixel\image\operations\gd\traits\OperationTrait;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\Point;
+use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagettftext;
@@ -21,7 +21,7 @@ use function imagettftext;
  */
 class Text implements OperationInterface
 {
-	use OperationTrait;
+	use GdTrait;
 
 	/**
 	 * Constructor.
