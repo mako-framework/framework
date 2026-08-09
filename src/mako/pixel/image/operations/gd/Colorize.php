@@ -63,9 +63,9 @@ class Colorize implements OperationInterface
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
-				$rgb = imagecolorat($imageResource, $x, $y);
+				$color = imagecolorat($imageResource, $x, $y);
 
-				$a = ($rgb >> 24) & 0x7F;
+				$a = ($color >> 24) & 0x7F;
 
 				if ($a === 127) {
 					continue;
@@ -73,10 +73,10 @@ class Colorize implements OperationInterface
 
 				imagesetpixel($temp, $x, $y, imagecolorallocatealpha(
 					$temp,
-					max(0, min(255, (($rgb >> 16) & 0xFF) + $colors['r'])), // R
-					max(0, min(255, (($rgb >> 8) & 0xFF) + $colors['g'])),  // G
-					max(0, min(255, ($rgb & 0xFF) + $colors['b'])),         // B
-					$a                                                      // A
+					max(0, min(255, (($color >> 16) & 0xFF) + $colors['r'])), // R
+					max(0, min(255, (($color >> 8) & 0xFF) + $colors['g'])),  // G
+					max(0, min(255, ($color & 0xFF) + $colors['b'])),         // B
+					$a                                                        // A
 				));
 			}
 		}

@@ -48,16 +48,17 @@ class Sepia implements OperationInterface
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
-				$rgb = imagecolorat($imageResource, $x, $y);
+				$color = imagecolorat($imageResource, $x, $y);
 
-				$r = ($rgb >> 16) & 0xFF;
-				$g = ($rgb >> 8) & 0xFF;
-				$b = $rgb & 0xFF;
-				$a = ($rgb >> 24) & 0x7F;
+				$a = ($color >> 24) & 0x7F;
 
 				if ($a === 127) {
 					continue;
 				}
+
+				$r = ($color >> 16) & 0xFF;
+				$g = ($color >> 8) & 0xFF;
+				$b = $color & 0xFF;
 
 				imagesetpixel($temp, $x, $y, imagecolorallocatealpha(
 					$temp,

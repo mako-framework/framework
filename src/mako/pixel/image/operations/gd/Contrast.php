@@ -54,9 +54,9 @@ class Contrast implements OperationInterface
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
-				$rgb = imagecolorat($imageResource, $x, $y);
+				$color = imagecolorat($imageResource, $x, $y);
 
-				$a = ($rgb >> 24) & 0x7F;
+				$a = ($color >> 24) & 0x7F;
 
 				if ($a === 127) {
 					continue;
@@ -64,10 +64,10 @@ class Contrast implements OperationInterface
 
 				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
 					$imageResource,
-					max(0, min(255, (((($rgb >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
-					max(0, min(255, (((($rgb >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
-					max(0, min(255, ((($rgb & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
-					$a                                                                             // A
+					max(0, min(255, (((($color >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
+					max(0, min(255, (((($color >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
+					max(0, min(255, ((($color & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
+					$a                                                                               // A
 				));
 			}
 		}

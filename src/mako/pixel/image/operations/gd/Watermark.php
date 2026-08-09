@@ -72,14 +72,14 @@ class Watermark implements OperationInterface
 
 			for ($x = 0; $x < $watermarkWidth; $x++) {
 				for ($y = 0; $y < $watermarkHeight; $y++) {
-					$rgb = imagecolorat($watermark, $x, $y);
+					$color = imagecolorat($watermark, $x, $y);
 
 					imagesetpixel($watermark, $x, $y, imagecolorallocatealpha(
 						$watermark,
-						($rgb >> 16) & 0xFF,                            // R
-						($rgb >> 8) & 0xFF,                             // G
-						$rgb & 0xFF,                                    // B
-						min(127, (($rgb >> 24) & 0x7F) + $opacityAlpha) // A
+						($color >> 16) & 0xFF,                            // R
+						($color >> 8) & 0xFF,                             // G
+						$color & 0xFF,                                    // B
+						min(127, (($color >> 24) & 0x7F) + $opacityAlpha) // A
 					));
 				}
 			}
