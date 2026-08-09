@@ -35,6 +35,7 @@ return (new Config)->setRules
 	'function_to_constant' => true,
 	'get_class_to_class_keyword' => true,
 	'heredoc_to_nowdoc' => true,
+	'include' => true,
 	'integer_literal_case' => true,
 	'lambda_not_used_import' => true,
 	'linebreak_after_opening_tag' => true,
