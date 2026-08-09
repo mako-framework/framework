@@ -38,10 +38,13 @@ class Resize implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$oldWidth = $imageResource->getImageWidth();
-		$oldHeight = $imageResource->getImageHeight();
-
-		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->dimensions->width, $this->dimensions->height, $oldWidth, $oldHeight, $this->aspectRatio);
+		[$newWidth, $newHeight] = $this->calculateNewDimensions(
+			$this->dimensions->width,
+			$this->dimensions->height,
+			$imageResource->getImageWidth(),
+			$imageResource->getImageHeight(),
+			$this->aspectRatio
+		);
 
 		$imageResource->scaleImage($newWidth, $newHeight);
 	}

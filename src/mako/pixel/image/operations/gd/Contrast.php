@@ -62,13 +62,18 @@ class Contrast implements OperationInterface
 					continue;
 				}
 
-				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
+				imagesetpixel(
 					$imageResource,
-					max(0, min(255, (((($color >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
-					max(0, min(255, (((($color >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
-					max(0, min(255, ((($color & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
-					$a                                                                               // A
-				));
+					$x,
+					$y,
+					imagecolorallocatealpha(
+						$imageResource,
+						max(0, min(255, (((($color >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
+						max(0, min(255, (((($color >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
+						max(0, min(255, ((($color & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
+						$a                                                                               // A
+					)
+				);
 			}
 		}
 	}

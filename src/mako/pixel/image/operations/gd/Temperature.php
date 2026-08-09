@@ -73,13 +73,18 @@ class Temperature implements OperationInterface
 					continue;
 				}
 
-				imagesetpixel($imageResource, $x, $y, imagecolorallocatealpha(
+				imagesetpixel(
 					$imageResource,
-					min(255, max(0, (int) ((($color >> 16) & 0xFF) * $redMultiplier))), // R
-					($color >> 8) & 0xFF,                                               // G
-					min(255, max(0, (int) (($color & 0xFF) * $blueMultiplier))),        // B
-					$a                                                                  // A
-				));
+					$x,
+					$y,
+					imagecolorallocatealpha(
+						$imageResource,
+						min(255, max(0, (int) ((($color >> 16) & 0xFF) * $redMultiplier))), // R
+						($color >> 8) & 0xFF,                                               // G
+						min(255, max(0, (int) (($color & 0xFF) * $blueMultiplier))),        // B
+						$a                                                                  // A
+					)
+				);
 			}
 		}
 	}

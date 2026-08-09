@@ -60,13 +60,18 @@ class Sepia implements OperationInterface
 				$g = ($color >> 8) & 0xFF;
 				$b = $color & 0xFF;
 
-				imagesetpixel($temp, $x, $y, imagecolorallocatealpha(
+				imagesetpixel(
 					$temp,
-					max(0, min(255, ($r * 0.393 + $g * 0.769 + $b * 0.189) * 0.85)), // R
-					max(0, min(255, ($r * 0.349 + $g * 0.686 + $b * 0.168) * 0.85)), // G
-					max(0, min(255, ($r * 0.272 + $g * 0.534 + $b * 0.131) * 0.85)), // B
-					$a                                                               // A
-				));
+					$x,
+					$y,
+					imagecolorallocatealpha(
+						$temp,
+						max(0, min(255, ($r * 0.393 + $g * 0.769 + $b * 0.189) * 0.85)), // R
+						max(0, min(255, ($r * 0.349 + $g * 0.686 + $b * 0.168) * 0.85)), // G
+						max(0, min(255, ($r * 0.272 + $g * 0.534 + $b * 0.131) * 0.85)), // B
+						$a                                                               // A
+					)
+				);
 			}
 		}
 

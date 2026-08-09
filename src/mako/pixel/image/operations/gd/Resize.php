@@ -50,7 +50,13 @@ class Resize implements OperationInterface
 		$oldWidth = imagesx($imageResource);
 		$oldHeight = imagesy($imageResource);
 
-		[$newWidth, $newHeight] = $this->calculateNewDimensions($this->dimensions->width, $this->dimensions->height, $oldWidth, $oldHeight, $this->aspectRatio);
+		[$newWidth, $newHeight] = $this->calculateNewDimensions(
+			$this->dimensions->width,
+			$this->dimensions->height,
+			$oldWidth,
+			$oldHeight,
+			$this->aspectRatio
+		);
 
 		$temp = imagecreatetruecolor($newWidth, $newHeight);
 
