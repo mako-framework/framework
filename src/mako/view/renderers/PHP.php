@@ -31,7 +31,7 @@ class PHP implements RendererInterface
 
 		ob_start();
 
-		include ($__view__);
+		include $__view__;
 
 		return ob_get_clean();
 	}
