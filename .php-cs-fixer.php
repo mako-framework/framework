@@ -74,6 +74,7 @@ return (new Config)->setRules
 	'no_unused_imports' => true,
 	'no_useless_concat_operator' => true,
 	'no_useless_printf' => true,
+	'no_useless_return' => true,
 	'no_useless_sprintf' => true,
 	'no_whitespace_before_comma_in_array' => true,
 	'no_whitespace_in_blank_line' => true,
