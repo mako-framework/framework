@@ -27,7 +27,7 @@ class FireTraitTest extends TestCase
 			public function __construct()
 			{
 				$this->app = new class {
-					public function getPath()
+					public function getPath(): string
 					{
 						return DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'bar';
 					}
@@ -56,14 +56,14 @@ class FireTraitTest extends TestCase
 			public function __construct()
 			{
 				$this->app = new class {
-					public function getPath()
+					public function getPath(): string
 					{
 						return '/foo/bar';
 					}
 
-					public function getEnvironment(): void
+					public function getEnvironment(): ?string
 					{
-
+						return null;
 					}
 				};
 			}
@@ -97,14 +97,14 @@ class FireTraitTest extends TestCase
 			public function __construct()
 			{
 				$this->app = new class {
-					public function getPath()
+					public function getPath(): string
 					{
 						return '/foo/bar';
 					}
 
-					public function getEnvironment(): void
+					public function getEnvironment(): ?string
 					{
-
+						return null;
 					}
 				};
 			}
@@ -138,12 +138,12 @@ class FireTraitTest extends TestCase
 			public function __construct()
 			{
 				$this->app = new class {
-					public function getPath()
+					public function getPath(): string
 					{
 						return '/foo/bar';
 					}
 
-					public function getEnvironment()
+					public function getEnvironment(): ?string
 					{
 						return 'dev';
 					}
@@ -179,12 +179,12 @@ class FireTraitTest extends TestCase
 			public function __construct()
 			{
 				$this->app = new class {
-					public function getPath()
+					public function getPath(): string
 					{
 						return '/foo/bar';
 					}
 
-					public function getEnvironment()
+					public function getEnvironment(): ?string
 					{
 						return 'dev';
 					}
@@ -220,12 +220,12 @@ class FireTraitTest extends TestCase
 			public function __construct()
 			{
 				$this->app = new class {
-					public function getPath()
+					public function getPath(): string
 					{
 						return '/foo/bar';
 					}
 
-					public function getEnvironment()
+					public function getEnvironment(): ?string
 					{
 						return 'dev';
 					}
