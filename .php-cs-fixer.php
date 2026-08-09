@@ -117,6 +117,7 @@ return (new Config)->setRules
 	'spaces_inside_parentheses' => ['space' => 'none'],
 	'standardize_increment' => true,
 	'standardize_not_equals' => true,
+	'stringable_for_to_string' => true,
 	'switch_case_semicolon_to_colon' => true,
 	'switch_case_space' => true,
 	'ternary_to_null_coalescing' => true,
