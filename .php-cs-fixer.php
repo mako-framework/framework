@@ -108,6 +108,7 @@ return (new Config)->setRules
 	'semicolon_after_instruction' => true,
 	'short_scalar_cast' => true,
 	'simple_to_complex_string_variable' => true,
+	'simplified_null_return' => true,
 	'single_blank_line_at_eof' => true,
 	'single_class_element_per_statement' => true,
 	'single_import_per_statement' => true,

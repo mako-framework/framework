@@ -61,9 +61,9 @@ class FireTraitTest extends TestCase
 						return '/foo/bar';
 					}
 
-					public function getEnvironment()
+					public function getEnvironment(): void
 					{
-						return null;
+
 					}
 				};
 			}
@@ -102,9 +102,9 @@ class FireTraitTest extends TestCase
 						return '/foo/bar';
 					}
 
-					public function getEnvironment()
+					public function getEnvironment(): void
 					{
-						return null;
+
 					}
 				};
 			}
