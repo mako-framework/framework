@@ -44,14 +44,8 @@ class Watermark implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$watermark = $this->image->getImageResource();
-
 		if ($this->opacity < 100) {
-			$watermark->evaluateImage(
-				Imagick::EVALUATE_MULTIPLY,
-				($this->normalizePercent($this->opacity) / 100),
-				Imagick::CHANNEL_ALPHA
-			);
+			$this->image->apply(new Opacity($this->opacity));
 		}
 
 		$point = $this->position->resolvePosition(
@@ -60,6 +54,6 @@ class Watermark implements OperationInterface
 			$this->margin
 		);
 
-		$imageResource->compositeImage($watermark, Imagick::COMPOSITE_OVER, $point->x, $point->y);
+		new Composite($this->image, $point)->apply($imageResource);
 	}
 }
