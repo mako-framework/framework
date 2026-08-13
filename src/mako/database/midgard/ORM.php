@@ -30,12 +30,10 @@ use Stringable;
 
 use function array_diff;
 use function array_diff_key;
-use function array_filter;
 use function array_flip;
 use function array_intersect_key;
 use function array_key_exists;
 use function array_key_first;
-use function array_map;
 use function array_merge_recursive;
 use function array_unique;
 use function count;
@@ -901,13 +899,16 @@ abstract class ORM implements JsonSerializable, Stringable
 			}
 
 			if ($this->protected !== []) {
-				$protect = array_map(
-					static fn ($value) => substr($value, strlen($relation) + 1),
-					array_filter(
-						$this->protected,
-						static fn ($value) => str_starts_with($value, "{$relation}.")
-					)
-				);
+				$prefix = "{$relation}.";
+				$prefixLength = strlen($prefix);
+
+				$protect = [];
+
+				foreach ($this->protected as $protectedColumn) {
+					if (str_starts_with($protectedColumn, $prefix)) {
+						$protect[] = substr($protectedColumn, $prefixLength);
+					}
+				}
 
 				if ($protect !== []) {
 					$related->protect($protect);
