@@ -18,16 +18,13 @@ use ReflectionNamedType;
 use Traversable;
 
 use function array_chunk;
-use function array_combine;
 use function array_diff_key;
 use function array_filter;
 use function array_first;
 use function array_flip;
 use function array_intersect_key;
 use function array_key_exists;
-use function array_keys;
 use function array_last;
-use function array_map;
 use function array_pop;
 use function array_push;
 use function array_shift;
@@ -385,11 +382,13 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function map(callable $callable): static
 	{
-		$keys = array_keys($this->items);
+		$items = [];
 
-		$values = array_map($callable, $this->items, $keys);
+		foreach ($this->items as $key => $value) {
+			$items[$key] = $callable($value, $key);
+		}
 
-		return new static(array_combine($keys, $values));
+		return new static($items);
 	}
 
 	/**

@@ -901,8 +901,12 @@ abstract class ORM implements JsonSerializable, Stringable
 			}
 
 			if ($this->protected !== []) {
-				$protect = array_map(static fn ($value) => substr($value, strlen($relation) + 1),
-					array_filter($this->protected, static fn ($value) => str_starts_with($value, "{$relation}."))
+				$protect = array_map(
+					static fn ($value) => substr($value, strlen($relation) + 1),
+					array_filter(
+						$this->protected,
+						static fn ($value) => str_starts_with($value, "{$relation}.")
+					)
 				);
 
 				if ($protect !== []) {
