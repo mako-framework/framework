@@ -191,6 +191,18 @@ class Route
 	}
 
 	/**
+	 * Sets a custom pattern.
+	 *
+	 * @return $this
+	 */
+	public function pattern(string $key, string $pattern): Route
+	{
+		$this->patterns[$key] = $pattern;
+
+		return $this;
+	}
+
+	/**
 	 * Sets the custom patterns.
 	 *
 	 * @return $this

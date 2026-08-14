@@ -152,6 +152,16 @@ class RouteTest extends TestCase
 	 */
 	public function testMatchWithParameterConstraints(): void
 	{
+		$route = (new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!'))->pattern('id', '[0-9]+');
+
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
+
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/'));
+
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc'));
+
+		//
+
 		$route = (new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
 
 		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
@@ -159,6 +169,18 @@ class RouteTest extends TestCase
 		$this->assertSame(0, preg_match($route->getRegex(), '/foo/123/'));
 
 		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc'));
+
+		//
+
+		$route = (new Route(['GET'], '/foo/{id}/', fn () => 'Hello, world!'))->pattern('id', '[0-9]+');
+
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123'));
+
+		$this->assertSame(1, preg_match($route->getRegex(), '/foo/123/'));
+
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc'));
+
+		$this->assertSame(0, preg_match($route->getRegex(), '/foo/abc/'));
 
 		//
 
