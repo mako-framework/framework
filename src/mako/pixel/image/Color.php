@@ -79,13 +79,12 @@ final class Color
 
 		$value = hexdec($hex);
 
-		$hasAlpha = strlen($hex) === 8;
+		$alpha = 255;
 
-		$alpha = $hasAlpha ? $value & 0xFF : 255;
-
-		if ($hasAlpha) {
-            $value >>= 8;
-        }
+		if (strlen($hex) === 8) {
+			$alpha = $value & 0xFF;
+			$value >>= 8;
+		}
 
 		return new self(
 			($value >> 16) & 0xFF,
