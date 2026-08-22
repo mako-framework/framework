@@ -9,7 +9,8 @@ namespace mako\validator\rules;
 
 use Override;
 
-use function preg_match;
+use function ctype_xdigit;
+use function is_string;
 use function sprintf;
 
 /**
@@ -23,7 +24,7 @@ class Hex extends Rule
 	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		return preg_match('/^[a-f0-9]+$/i', $value) === 1;
+		return is_string($value) && ctype_xdigit($value);
 	}
 
 	/**
