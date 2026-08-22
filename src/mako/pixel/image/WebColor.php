@@ -198,12 +198,12 @@ enum WebColor: string
 	 */
 	public function toColor(int $alpha = 255): Color
 	{
-		$hex = $this->value;
+		$rgb = hexdec(substr($this->value, 1));
 
 		return new Color(
-			hexdec(substr($hex, 1, 2)),
-			hexdec(substr($hex, 3, 2)),
-			hexdec(substr($hex, 5, 2)),
+			($rgb >> 16) & 0xFF,
+			($rgb >> 8) & 0xFF,
+			$rgb & 0xFF,
 			$alpha
 		);
 	}

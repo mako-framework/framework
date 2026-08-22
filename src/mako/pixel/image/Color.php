@@ -10,16 +10,15 @@ namespace mako\pixel\image;
 use InvalidArgumentException;
 
 use function abs;
+use function ctype_xdigit;
 use function fmod;
 use function hexdec;
 use function ltrim;
 use function max;
 use function min;
-use function preg_match;
 use function round;
 use function sprintf;
 use function strlen;
-use function substr;
 
 /**
  * Color.
@@ -72,16 +71,28 @@ final class Color
 	{
 		$hex = ltrim($hex, '#');
 
-		if (preg_match('/^[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/', $hex) !== 1) {
+		$length = strlen($hex);
+
+		if (($length !== 6 && $length !== 8) || !ctype_xdigit($hex)) {
 			throw new InvalidArgumentException('Invalid hex color format.');
 		}
 
-		$red   = hexdec(substr($hex, 0, 2));
-		$green = hexdec(substr($hex, 2, 2));
-		$blue  = hexdec(substr($hex, 4, 2));
-		$alpha = strlen($hex) === 8 ? hexdec(substr($hex, 6, 2)) : 255;
+		$value = hexdec($hex);
 
-		return new self($red, $green, $blue, $alpha);
+		$hasAlpha = strlen($hex) === 8;
+
+		$alpha = $hasAlpha ? $value & 0xFF : 255;
+
+		if ($hasAlpha) {
+            $value >>= 8;
+        }
+
+		return new self(
+			($value >> 16) & 0xFF,
+			($value >> 8) & 0xFF,
+			$value & 0xFF,
+			$alpha
+		);
 	}
 
 	/**
