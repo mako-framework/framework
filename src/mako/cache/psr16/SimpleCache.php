@@ -17,7 +17,7 @@ use Psr\SimpleCache\CacheInterface;
 use function array_keys;
 use function is_array;
 use function iterator_to_array;
-use function preg_match;
+use function strpbrk;
 
 /**
  * Simple Cache adapter.
@@ -41,7 +41,7 @@ class SimpleCache implements CacheInterface
 			throw new InvalidArgumentException('A valid cache key must be a non-empty string.');
 		}
 
-		if (preg_match('/\{|\}|\@|\:|\(|\)|\/|\\\/', $key) === 1) {
+		if (strpbrk($key, '{}@:()/\\') !== false) {
 			throw new InvalidArgumentException('A valid cache key can not contain any of the following characters: [ {}()/\@: ].');
 		}
 
