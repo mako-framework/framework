@@ -45,9 +45,22 @@ class ColorAt implements InspectorInterface
 			$imageResource->getImageHeight()
 		);
 
-		$pixel = $imageResource->getImagePixelColor($this->pixel->x, $this->pixel->y);
+		$needsConversion = $imageResource->getImageColorspace() !== Imagick::COLORSPACE_SRGB;
+
+		$image = $needsConversion ? clone $imageResource : $imageResource;
+
+		if ($needsConversion) {
+			$image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
+		}
+
+		$pixel = $image->getImagePixelColor($this->pixel->x, $this->pixel->y);
 
 		$rgba = $pixel->getColor(2); // 2 = RGBA normalized to 0-255
+
+		if ($needsConversion) {
+			$image->clear();
+			$image->destroy();
+		}
 
 		return new Color($rgba['r'], $rgba['g'], $rgba['b'], $rgba['a']);
 	}
