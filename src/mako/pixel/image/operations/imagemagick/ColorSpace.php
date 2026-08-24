@@ -14,6 +14,7 @@ use mako\pixel\image\operations\OperationInterface;
 use Override;
 
 use function constant;
+use function defined;
 use function sprintf;
 use function strtoupper;
 

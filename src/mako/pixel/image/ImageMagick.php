@@ -54,10 +54,11 @@ class ImageMagick extends Image
 		$imageResource->newImage(
 			$dimensions->width,
 			$dimensions->height,
-			new ImagickPixel($fill->toHexaString())
+			new ImagickPixel($fill->toHexaString()),
+			'png'
 		);
 
-		$imageResource->setImageFormat('png');
+		$imageResource->setImageColorspace(Imagick::COLORSPACE_SRGB);
 
 		return $imageResource;
 	}
