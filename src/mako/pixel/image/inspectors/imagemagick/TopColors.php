@@ -42,9 +42,22 @@ class TopColors implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): mixed
 	{
-		$hasAlphaChannel = $imageResource->getImageAlphaChannel();
+		$needsConversion = $imageResource->getImageColorspace() !== Imagick::COLORSPACE_SRGB;
 
-		$histogram = $imageResource->getImageHistogram();
+		$image = $needsConversion ? clone $imageResource : $imageResource;
+
+		if ($needsConversion) {
+			$image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
+		}
+
+		$hasAlphaChannel = $image->getImageAlphaChannel();
+
+		$histogram = $image->getImageHistogram();
+
+		if ($needsConversion) {
+			$image->clear();
+			$image->destroy();
+		}
 
 		$groups = [];
 
