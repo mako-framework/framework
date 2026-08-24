@@ -58,6 +58,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added the following operations to the pixel library:
 	- `Bezier`
 	- `Circle`
+	- `ColorSpace`
 	- `Composite`
 	- `Ellipse`
 	- `Opacity`
@@ -75,6 +76,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * It is now possible to implement custom image inspectors to retrieve information from the images.
 * Added the following inspectors to the pixel library:
 	- `ColorAt`
+	- `ColorSpace`
 	- `TopColors`
 * Added the following methods to the `Color` class:
 	- `Color::complementary()`

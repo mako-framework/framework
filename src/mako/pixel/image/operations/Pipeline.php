@@ -12,12 +12,12 @@ use Override;
 /**
  * Operation pipeline.
  */
-final class Pipeline implements OperationInterface
+class Pipeline implements OperationInterface
 {
 	/**
 	 * @var array<OperationInterface>
 	 */
-	private array $operations;
+	protected array $operations;
 
 	/**
 	 * Constructor.
