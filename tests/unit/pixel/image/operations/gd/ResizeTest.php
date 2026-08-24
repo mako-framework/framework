@@ -7,8 +7,8 @@
 
 namespace mako\tests\unit\pixel\image\operations\gd;
 
-use mako\pixel\image\Dimensions;
 use mako\pixel\image\Gd;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\gd\Resize;
 use mako\tests\TestCase;

@@ -8,7 +8,7 @@
 namespace mako\pixel\image\traits;
 
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Point;
+use mako\pixel\image\geometry\Point;
 
 use function sprintf;
 

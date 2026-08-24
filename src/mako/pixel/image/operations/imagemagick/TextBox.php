@@ -12,10 +12,10 @@ use ImagickDraw;
 use ImagickPixel;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
+use mako\pixel\image\geometry\Point;
 use mako\pixel\image\operations\Font;
 use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\Point;
 use Override;
 
 use function count;

@@ -9,6 +9,7 @@ namespace mako\pixel\image;
 
 use Imagick;
 use ImagickPixel;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 

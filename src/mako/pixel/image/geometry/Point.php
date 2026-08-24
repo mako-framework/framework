@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\image\operations;
+namespace mako\pixel\image\geometry;
 
 /**
  * Represents a 2D coordinate.

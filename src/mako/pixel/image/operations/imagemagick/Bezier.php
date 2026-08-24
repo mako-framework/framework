@@ -12,9 +12,9 @@ use ImagickDraw;
 use ImagickPixel;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
+use mako\pixel\image\geometry\Point;
+use mako\pixel\image\geometry\Points;
 use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Points;
 use Override;
 
 use function count;

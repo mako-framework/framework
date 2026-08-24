@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\ResizeTrait;

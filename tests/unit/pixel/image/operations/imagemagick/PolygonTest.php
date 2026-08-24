@@ -9,9 +9,9 @@ namespace mako\tests\unit\pixel\image\operations\imagemagick;
 
 use InvalidArgumentException;
 use mako\pixel\image\Color;
+use mako\pixel\image\geometry\Point;
+use mako\pixel\image\geometry\Points;
 use mako\pixel\image\operations\imagemagick\Polygon;
-use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Points;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;

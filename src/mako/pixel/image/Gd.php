@@ -8,6 +8,7 @@
 namespace mako\pixel\image;
 
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\geometry\Dimensions;
 use Override;
 
 use function fwrite;

@@ -10,9 +10,9 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use InvalidArgumentException;
 use mako\pixel\image\Color;
+use mako\pixel\image\geometry\Point;
+use mako\pixel\image\geometry\Points;
 use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Points;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 

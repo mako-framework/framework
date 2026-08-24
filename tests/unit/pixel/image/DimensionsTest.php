@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\pixel\image;
 
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 

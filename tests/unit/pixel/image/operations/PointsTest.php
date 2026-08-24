@@ -7,9 +7,9 @@
 
 namespace mako\tests\unit\pixel\image\operations;
 
-use mako\pixel\image\Dimensions;
-use mako\pixel\image\operations\Point;
-use mako\pixel\image\operations\Points;
+use mako\pixel\image\geometry\Dimensions;
+use mako\pixel\image\geometry\Point;
+use mako\pixel\image\geometry\Points;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 

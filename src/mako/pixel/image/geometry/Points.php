@@ -5,11 +5,10 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\image\operations;
+namespace mako\pixel\image\geometry;
 
 use Countable;
 use IteratorAggregate;
-use mako\pixel\image\Dimensions;
 use Override;
 use Traversable;
 

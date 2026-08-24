@@ -5,9 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\pixel\image\operations;
-
-use mako\pixel\image\Dimensions;
+namespace mako\pixel\image\geometry;
 
 /**
  * Position calculation helpers.

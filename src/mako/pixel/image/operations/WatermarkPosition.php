@@ -7,7 +7,9 @@
 
 namespace mako\pixel\image\operations;
 
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
+use mako\pixel\image\geometry\Point;
+use mako\pixel\image\geometry\Position;
 
 /**
  * Defines the position of a watermark within a container.

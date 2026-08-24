@@ -8,10 +8,10 @@
 namespace mako\tests\unit\pixel\image\operations\imagemagick;
 
 use mako\pixel\image\ColorFamily;
+use mako\pixel\image\geometry\Point;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\inspectors\imagemagick\ColorAt;
 use mako\pixel\image\operations\imagemagick\Orient;
-use mako\pixel\image\operations\Point;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;

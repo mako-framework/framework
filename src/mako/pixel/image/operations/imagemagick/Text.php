@@ -10,9 +10,9 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
+use mako\pixel\image\geometry\Point;
 use mako\pixel\image\operations\Font;
 use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\Point;
 use Override;
 
 /**

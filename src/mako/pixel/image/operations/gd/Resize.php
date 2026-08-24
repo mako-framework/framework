@@ -8,8 +8,8 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\ResizeTrait;

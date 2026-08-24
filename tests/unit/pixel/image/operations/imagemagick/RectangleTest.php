@@ -9,7 +9,7 @@ namespace mako\tests\unit\pixel\image\operations\imagemagick;
 
 use InvalidArgumentException;
 use mako\pixel\image\Color;
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\operations\imagemagick\Rectangle;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;

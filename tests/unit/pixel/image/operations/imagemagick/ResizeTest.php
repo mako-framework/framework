@@ -7,7 +7,7 @@
 
 namespace mako\tests\unit\pixel\image\operations\imagemagick;
 
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\operations\AspectRatio;
 use mako\pixel\image\operations\imagemagick\Resize;

@@ -9,8 +9,8 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
+use mako\pixel\image\geometry\Point;
 use mako\pixel\image\inspectors\InspectorInterface;
-use mako\pixel\image\operations\Point;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 

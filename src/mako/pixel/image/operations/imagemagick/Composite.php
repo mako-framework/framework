@@ -8,9 +8,9 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
+use mako\pixel\image\geometry\Point;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\Point;
 use Override;
 
 /**

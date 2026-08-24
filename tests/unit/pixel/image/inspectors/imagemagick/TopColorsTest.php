@@ -8,7 +8,7 @@
 namespace mako\tests\unit\pixel\image\inspectors\imagemagick;
 
 use mako\pixel\image\Color;
-use mako\pixel\image\Dimensions;
+use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\inspectors\imagemagick\TopColors;
 use mako\tests\TestCase;

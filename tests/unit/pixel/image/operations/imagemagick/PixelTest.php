@@ -8,12 +8,12 @@
 namespace mako\tests\unit\pixel\image\operations\imagemagick;
 
 use mako\pixel\image\Color;
-use mako\pixel\image\Dimensions;
 use mako\pixel\image\exceptions\ImageException;
+use mako\pixel\image\geometry\Dimensions;
+use mako\pixel\image\geometry\Point;
 use mako\pixel\image\ImageMagick;
 use mako\pixel\image\inspectors\imagemagick\ColorAt;
 use mako\pixel\image\operations\imagemagick\Pixel;
-use mako\pixel\image\operations\Point;
 use mako\tests\TestCase;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
