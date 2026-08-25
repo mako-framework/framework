@@ -24,6 +24,6 @@ class Sharpen implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$imageResource->sharpenImage(0, 1);
+		$imageResource->sharpenImage(0, 2);
 	}
 }

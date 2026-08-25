@@ -28,7 +28,7 @@ class Sharpen implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$sharpen = [[-1.2, -1, -1.2], [-1, 20, -1], [-1.2, -1, -1.2]];
+		$sharpen = [[-2, -1.6, -2], [-1.6, 30, -1.6], [-2, -1.6, -2]];
 
 		$divisor = array_sum(array_map(array_sum(...), $sharpen));
 
