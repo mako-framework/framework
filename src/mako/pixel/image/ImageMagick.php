@@ -136,25 +136,6 @@ class ImageMagick extends Image
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function apply(OperationInterface $operation): static
-	{
-		if (!$this->isAnimatedGif) {
-			return parent::apply($operation);
-		}
-
-		foreach ($this->imageResource as $frame) {
-			$operation->apply($frame);
-
-			$frame->setImagePage(0, 0, 0, 0);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
 	protected function getImageResourceAsBlob(?string $type, int $quality): string
 	{
 		$image = clone $this->imageResource;
@@ -268,5 +249,24 @@ class ImageMagick extends Image
 	public function getHeight(): int
 	{
 		return $this->imageResource->getImageHeight();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function apply(OperationInterface $operation): static
+	{
+		if (!$this->isAnimatedGif) {
+			return parent::apply($operation);
+		}
+
+		foreach ($this->imageResource as $frame) {
+			$operation->apply($frame);
+
+			$frame->setImagePage(0, 0, 0, 0);
+		}
+
+		return $this;
 	}
 }
