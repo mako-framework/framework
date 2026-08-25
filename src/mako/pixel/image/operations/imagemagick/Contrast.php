@@ -12,9 +12,6 @@ use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
-use function max;
-use function min;
-
 /**
  * Adjusts the image contrast.
  */
@@ -42,40 +39,6 @@ class Contrast implements OperationInterface
 			return;
 		}
 
-		$alpha = null;
-
-		if ($imageResource->getImageAlphaChannel()) {
-			$alpha = clone $imageResource;
-		}
-
-		$level = $this->normalizeLevel($this->level);
-
-		$factor = 1 + (((100 + $level) / 100) - 1) * 0.8;
-
-		$iterator = $imageResource->getPixelIterator();
-
-		foreach ($iterator as $row => $pixels) {
-			foreach ($pixels as $col => $pixel) {
-				$colors = $pixel->getColor();
-
-				$r = max(0, min(255, (($colors['r'] / 255 - 0.5) * $factor + 0.5) * 255));
-				$g = max(0, min(255, (($colors['g'] / 255 - 0.5) * $factor + 0.5) * 255));
-				$b = max(0, min(255, (($colors['b'] / 255 - 0.5) * $factor + 0.5) * 255));
-
-				$pixel->setColor("rgb($r, $g, $b)");
-			}
-
-			$iterator->syncIterator();
-		}
-
-		$iterator->clear();
-		$iterator->destroy();
-
-		if ($alpha !== null) {
-			$imageResource->compositeImage($alpha, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
-
-			$alpha->clear();
-			$alpha->destroy();
-		}
+		$imageResource->brightnessContrastImage(0, $this->normalizeLevel($this->level));
 	}
 }

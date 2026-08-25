@@ -12,13 +12,7 @@ use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
-use function imagecolorallocatealpha;
-use function imagecolorat;
-use function imagesetpixel;
-use function imagesx;
-use function imagesy;
-use function max;
-use function min;
+use function imagefilter;
 
 /**
  * Adjusts the image contrast.
@@ -47,34 +41,8 @@ class Contrast implements OperationInterface
 			return;
 		}
 
-		$width = imagesx($imageResource);
-		$height = imagesy($imageResource);
+		// GD's IMG_FILTER_CONTRAST uses inverted values (negative = more contrast).
 
-		$factor = 1 + (((100 + $this->normalizeLevel($this->level)) / 100) - 1) * 0.8;
-
-		for ($x = 0; $x < $width; $x++) {
-			for ($y = 0; $y < $height; $y++) {
-				$color = imagecolorat($imageResource, $x, $y);
-
-				$a = ($color >> 24) & 0x7F;
-
-				if ($a === 127) {
-					continue;
-				}
-
-				imagesetpixel(
-					$imageResource,
-					$x,
-					$y,
-					imagecolorallocatealpha(
-						$imageResource,
-						max(0, min(255, (((($color >> 16) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)), // R
-						max(0, min(255, (((($color >> 8) & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),  // G
-						max(0, min(255, ((($color & 0xFF) / 255 - 0.5) * $factor + 0.5) * 255)),         // B
-						$a                                                                               // A
-					)
-				);
-			}
-		}
+		imagefilter($imageResource, IMG_FILTER_CONTRAST, -$this->normalizeLevel($this->level));
 	}
 }
