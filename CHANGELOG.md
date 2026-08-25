@@ -61,6 +61,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `ColorSpace`
 	- `Composite`
 	- `Ellipse`
+	- `Gamma`
 	- `Opacity`
 	- `Orient`
 	- `Pixel`
