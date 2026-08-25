@@ -38,6 +38,10 @@ class Gamma implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
+		if ($this->gamma === 1.0) {
+			return;
+		}
+
 		imagegammacorrect($imageResource, 1.0, $this->gamma);
 	}
 }
