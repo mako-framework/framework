@@ -41,8 +41,10 @@ class Contrast implements OperationInterface
 			return;
 		}
 
-		// GD's IMG_FILTER_CONTRAST uses inverted values (negative = more contrast).
-
-		imagefilter($imageResource, IMG_FILTER_CONTRAST, -$this->normalizeLevel($this->level));
+		imagefilter(
+			$imageResource,
+			IMG_FILTER_CONTRAST,
+			-$this->normalizeLevel($this->level) // negative = more contrast
+		);
 	}
 }
