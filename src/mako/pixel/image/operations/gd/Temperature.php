@@ -82,9 +82,9 @@ class Temperature implements OperationInterface
 					$imageResource,
 					$x,
 					$y,
-					($a << 24)                                                              // A (unchanged)
+					($a << 24)                                                              // A
 					| (min(255, (int) ((($color >> 16) & 0xFF) * $redMultiplier)) << 16)    // R
-					| ($color & 0x0000FF00)                                                 // G (unchanged)
+					| ($color & 0x0000FF00)                                                 // G
 					| min(255, (int) (($color & 0xFF) * $blueMultiplier))                   // B
 				);
 			}
