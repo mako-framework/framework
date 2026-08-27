@@ -19,6 +19,7 @@ enum ColorSpace: string
 	case Hsl = 'hsl';
 	case Hwb = 'hwb';
 	case Lab = 'lab';
+	case Lch = 'lch';
 	case Log = 'log';
 	case Luv = 'luv';
 	case Ohta = 'ohta';
@@ -31,4 +32,5 @@ enum ColorSpace: string
 	case Yiq = 'yiq';
 	case Ypbpr = 'ypbpr';
 	case Yuv = 'yuv';
+	case Yxy = 'yxy';
 }
