@@ -4,6 +4,7 @@
 .phpunit.cache
 .phpunit.result.cache
 /.idea
+/.vscode
 /vendor
 composer.lock
 composer.phar

@@ -14,6 +14,8 @@ use mako\pixel\image\Color;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
+use function max;
+
 /**
  * Adds a border to the image.
  */
@@ -24,8 +26,9 @@ class Border implements OperationInterface
 	 */
 	public function __construct(
 		protected Color $color = new Color(0, 0, 0),
-		protected int $width = 5
+		protected int $width = 4
 	) {
+		$this->width = max(0, $this->width);
 	}
 
 	/**
@@ -36,6 +39,10 @@ class Border implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
+		if ($this->width === 0) {
+			return;
+		}
+
 		$draw = new ImagickDraw;
 
 		$draw->setStrokeColor(new ImagickPixel($this->color->toHexaString()));
