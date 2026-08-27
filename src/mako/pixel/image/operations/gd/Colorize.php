@@ -9,14 +9,13 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
-use function imagecolorallocatealpha;
+use function imagealphablending;
 use function imagecolorat;
-use function imagecreatetruecolor;
-use function imagefill;
+use function imageistruecolor;
+use function imagepalettetotruecolor;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
@@ -44,48 +43,35 @@ class Colorize implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$colors = [
-			'r' => $this->color->red,
-			'g' => $this->color->green,
-			'b' => $this->color->blue,
-		];
+		if (!imageistruecolor($imageResource)) {
+			imagepalettetotruecolor($imageResource);
+		}
+
+		// Disable blending so that pixels are replaced instead of blended
+
+		imagealphablending($imageResource, false);
+
+		$r = $this->color->red;
+		$g = $this->color->green;
+		$b = $this->color->blue;
 
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
-
-		$temp = imagecreatetruecolor($width, $height);
-
-		if (!$temp) {
-			throw new ImageException('Failed to create temporary image resource.');
-		}
-
-		imagefill($temp, 0, 0, imagecolorallocatealpha($temp, 0, 0, 0, 127));
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
 				$color = imagecolorat($imageResource, $x, $y);
 
-				$a = ($color >> 24) & 0x7F;
-
-				if ($a === 127) {
-					continue;
-				}
-
 				imagesetpixel(
-					$temp,
+					$imageResource,
 					$x,
 					$y,
-					imagecolorallocatealpha(
-						$temp,
-						max(0, min(255, (($color >> 16) & 0xFF) + $colors['r'])), // R
-						max(0, min(255, (($color >> 8) & 0xFF) + $colors['g'])),  // G
-						max(0, min(255, ($color & 0xFF) + $colors['b'])),         // B
-						$a                                                        // A
-					)
+					($color & 0x7F000000)                                    // A
+					| (max(0, min(255, (($color >> 16) & 0xFF) + $r)) << 16) // R
+					| (max(0, min(255, (($color >> 8) & 0xFF) + $g)) << 8)   // G
+					| max(0, min(255, ($color & 0xFF) + $b))                 // B
 				);
 			}
 		}
-
-		$imageResource = $temp;
 	}
 }

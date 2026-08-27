@@ -8,18 +8,16 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\operations\OperationInterface;
 use Override;
 
-use function imagecolorallocatealpha;
+use function imagealphablending;
 use function imagecolorat;
-use function imagecreatetruecolor;
-use function imagefill;
+use function imageistruecolor;
+use function imagepalettetotruecolor;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
-use function max;
 use function min;
 
 /**
@@ -35,16 +33,16 @@ class Sepia implements OperationInterface
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
-		$width = imagesx($imageResource);
-		$height = imagesy($imageResource);
-
-		$temp = imagecreatetruecolor($width, $height);
-
-		if (!$temp) {
-			throw new ImageException('Failed to create temporary image resource.');
+		if (!imageistruecolor($imageResource)) {
+			imagepalettetotruecolor($imageResource);
 		}
 
-		imagefill($temp, 0, 0, imagecolorallocatealpha($temp, 0, 0, 0, 127));
+		// Disable blending so that pixels are replaced instead of blended
+
+		imagealphablending($imageResource, false);
+
+		$width = imagesx($imageResource);
+		$height = imagesy($imageResource);
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
@@ -61,20 +59,15 @@ class Sepia implements OperationInterface
 				$b = $color & 0xFF;
 
 				imagesetpixel(
-					$temp,
+					$imageResource,
 					$x,
 					$y,
-					imagecolorallocatealpha(
-						$temp,
-						max(0, min(255, ($r * 0.393 + $g * 0.769 + $b * 0.189) * 0.85)), // R
-						max(0, min(255, ($r * 0.349 + $g * 0.686 + $b * 0.168) * 0.85)), // G
-						max(0, min(255, ($r * 0.272 + $g * 0.534 + $b * 0.131) * 0.85)), // B
-						$a                                                               // A
-					)
+					($a << 24)                                                              // A
+					| ((int) min(255, ($r * 0.393 + $g * 0.769 + $b * 0.189) * 0.85) << 16) // R
+					| ((int) min(255, ($r * 0.349 + $g * 0.686 + $b * 0.168) * 0.85) << 8)  // G
+					| (int) min(255, ($r * 0.272 + $g * 0.534 + $b * 0.131) * 0.85)         // B
 				);
 			}
 		}
-
-		$imageResource = $temp;
 	}
 }

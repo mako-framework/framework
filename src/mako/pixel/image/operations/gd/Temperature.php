@@ -12,12 +12,13 @@ use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
-use function imagecolorallocatealpha;
+use function imagealphablending;
 use function imagecolorat;
+use function imageistruecolor;
+use function imagepalettetotruecolor;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
-use function max;
 use function min;
 
 /**
@@ -46,6 +47,14 @@ class Temperature implements OperationInterface
 		if ($this->level === 0) {
 			return;
 		}
+
+		if (!imageistruecolor($imageResource)) {
+			imagepalettetotruecolor($imageResource);
+		}
+
+		// Disable blending so that pixels are replaced instead of blended
+
+		imagealphablending($imageResource, false);
 
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
@@ -77,13 +86,10 @@ class Temperature implements OperationInterface
 					$imageResource,
 					$x,
 					$y,
-					imagecolorallocatealpha(
-						$imageResource,
-						min(255, max(0, (int) ((($color >> 16) & 0xFF) * $redMultiplier))), // R
-						($color >> 8) & 0xFF,                                               // G
-						min(255, max(0, (int) (($color & 0xFF) * $blueMultiplier))),        // B
-						$a                                                                  // A
-					)
+					($a << 24)                                                              // A (unchanged)
+					| (min(255, (int) ((($color >> 16) & 0xFF) * $redMultiplier)) << 16)    // R
+					| ($color & 0x0000FF00)                                                 // G (unchanged)
+					| min(255, (int) (($color & 0xFF) * $blueMultiplier))                   // B
 				);
 			}
 		}

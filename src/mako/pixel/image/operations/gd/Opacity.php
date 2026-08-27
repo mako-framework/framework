@@ -14,7 +14,6 @@ use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagealphablending;
-use function imagecolorallocatealpha;
 use function imagecolorat;
 use function imagesetpixel;
 use function imagesx;
@@ -68,13 +67,8 @@ class Opacity implements OperationInterface
 					$imageResource,
 					$x,
 					$y,
-					imagecolorallocatealpha(
-						$imageResource,
-						($color >> 16) & 0xFF,       // R
-						($color >> 8) & 0xFF,        // G
-						$color & 0xFF,               // B
-						min(127, $a + $opacityAlpha) // A
-					)
+					((int) min(127, $a + $opacityAlpha) << 24) // A
+					| ($color & 0x00FFFFFF)                    // RGB
 				);
 			}
 		}

@@ -12,8 +12,10 @@ use mako\pixel\image\operations\OperationInterface;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
-use function imagecolorallocatealpha;
+use function imagealphablending;
 use function imagecolorat;
+use function imageistruecolor;
+use function imagepalettetotruecolor;
 use function imagesetpixel;
 use function imagesx;
 use function imagesy;
@@ -47,6 +49,14 @@ class Saturation implements OperationInterface
 			return;
 		}
 
+		if (!imageistruecolor($imageResource)) {
+			imagepalettetotruecolor($imageResource);
+		}
+
+		// Disable blending so that pixels are replaced instead of blended
+
+        imagealphablending($imageResource, false);
+
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
@@ -72,13 +82,10 @@ class Saturation implements OperationInterface
 					$imageResource,
 					$x,
 					$y,
-					imagecolorallocatealpha(
-						$imageResource,
-						max(0, min(255, ($gray + ($r - $gray) * $factor))), // R
-						max(0, min(255, ($gray + ($g - $gray) * $factor))), // G
-						max(0, min(255, ($gray + ($b - $gray) * $factor))), // B
-						$a                                                  // A
-					)
+					($a << 24)                                                         // A
+					| (max(0, min(255, (int) ($gray + ($r - $gray) * $factor))) << 16) // R
+					| (max(0, min(255, (int) ($gray + ($g - $gray) * $factor))) << 8)  // G
+					| max(0, min(255, (int) ($gray + ($b - $gray) * $factor)))         // B
 				);
 			}
 		}
