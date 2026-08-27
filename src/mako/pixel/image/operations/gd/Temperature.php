@@ -61,16 +61,12 @@ class Temperature implements OperationInterface
 
 		$level = $this->normalizeLevel($this->level);
 
-		$factor = $level / 200;
+		 // Warm: boost red, reduce blue - Cool: the opposite
 
-		if ($level > 0) {
-			$redMultiplier = 1.3 + $factor;
-			$blueMultiplier = 1.2 - $factor;
-		}
-		else {
-			$redMultiplier = 1.22 + $factor;
-			$blueMultiplier = 0.75 - $factor;
-		}
+		$shift = $level * 0.0022;
+
+		$redMultiplier = 1 + $shift;
+		$blueMultiplier = 1 - $shift;
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
