@@ -30,7 +30,7 @@ class Scale implements OperationInterface
 				}
 				$this->percent = $value;
 			}
-		},
+		}
 	) {
 	}
 
