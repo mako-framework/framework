@@ -129,7 +129,7 @@ class Gd extends Image
 			IMAGETYPE_BMP  => imagecreatefrombmp($imagePath),
 			default        => throw new ImageException(sprintf('Unable to create image resource from [ %s ]. Unsupported image type [ %s ].', $imagePath, $this->mimeType)),
 		};
-    }
+	}
 
 	/**
 	 * Returns information about the image.
@@ -156,7 +156,7 @@ class Gd extends Image
 		$this->mimeType = $this->normalizeMimeType($imageInfo['mime']);
 
 		return imagecreatefromstring($blob);
-    }
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -165,7 +165,7 @@ class Gd extends Image
 	protected function createImageResourceFromStream(mixed $stream): object
 	{
 		return $this->createImageResourceFromBlob(stream_get_contents($stream));
-    }
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -177,47 +177,53 @@ class Gd extends Image
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Outputs the image resource to a file or to the output buffer.
 	 */
-	#[Override]
-	protected function getImageResourceAsBlob(?string $type, int $quality): string
+	protected function outputImageResource(string $type, ?string $imagePath, int $quality): void
 	{
-		$type ??= $this->mimeType;
-
-		ob_start();
-
 		switch (strtolower($type)) {
 			case 'gif':
 			case 'image/gif':
-				imagegif($this->imageResource);
+				imagegif($this->imageResource, $imagePath);
 				break;
 			case 'jpg':
 			case 'jpeg':
 			case 'image/jpg':
 			case 'image/jpeg':
-				imagejpeg($this->imageResource, quality: $quality);
+				imagejpeg($this->imageResource, $imagePath, $quality);
 				break;
 			case 'png':
 			case 'image/png':
 				imagealphablending($this->imageResource, true);
 				imagesavealpha($this->imageResource, true);
-				imagepng($this->imageResource, quality: (int) (9 - (round(($quality / 100) * 9))));
+				imagepng($this->imageResource, $imagePath, (int) (9 - (round(($quality / 100) * 9))));
 				break;
 			case 'webp':
 			case 'image/webp':
-				imagewebp($this->imageResource, quality: $quality);
+				imagewebp($this->imageResource, $imagePath, $quality);
 				break;
 			case 'avif':
 			case 'image/avif':
-				imageavif($this->imageResource, quality: $quality);
+				imageavif($this->imageResource, $imagePath, $quality);
 				break;
 			case 'bmp':
 			case 'image/bmp':
-				imagebmp($this->imageResource);
+				imagebmp($this->imageResource, $imagePath);
 				break;
 			default:
 				throw new ImageException(sprintf('Unsupported image type [ %s ].', $type));
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	protected function getImageResourceAsBlob(?string $type, int $quality): string
+	{
+		ob_start();
+
+		$this->outputImageResource($type ?? $this->mimeType, null, $quality);
 
 		return ob_get_clean();
 	}
@@ -237,33 +243,7 @@ class Gd extends Image
 	#[Override]
 	protected function saveImageResource(string $imagePath, int $quality): void
 	{
-		$extension = pathinfo($imagePath, PATHINFO_EXTENSION);
-
-		switch (strtolower($extension)) {
-			case 'gif':
-				imagegif($this->imageResource, $imagePath);
-				break;
-			case 'jpg':
-			case 'jpeg':
-				imagejpeg($this->imageResource, $imagePath, $quality);
-				break;
-			case 'png':
-				imagealphablending($this->imageResource, true);
-				imagesavealpha($this->imageResource, true);
-				imagepng($this->imageResource, $imagePath, (int) (9 - (round(($quality / 100) * 9))));
-				break;
-			case 'webp':
-				imagewebp($this->imageResource, $imagePath, $quality);
-				break;
-			case 'avif':
-				imageavif($this->imageResource, $imagePath, $quality);
-				break;
-			case 'bmp':
-				imagebmp($this->imageResource, $imagePath);
-				break;
-			default:
-				throw new ImageException(sprintf('Unable to save as [ %s ]. Unsupported image format.', $extension));
-		}
+		$this->outputImageResource(pathinfo($imagePath, PATHINFO_EXTENSION), $imagePath, $quality);
 	}
 
 	/**
