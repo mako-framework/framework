@@ -66,7 +66,7 @@ class ImageMagick extends Image
 	/**
 	 * Stores the mime type and performs a gif check.
 	 */
-	protected function collectMimeTypeAndPerformGifCheck(Imagick $imageResource): Imagick
+	protected function detectMimeTypeAndPerformGifCheck(Imagick &$imageResource): void
 	{
 		$this->mimeType = $this->normalizeMimeType($imageResource->getImageFormat());
 
@@ -75,8 +75,6 @@ class ImageMagick extends Image
 
 			$imageResource = $imageResource->coalesceImages();
 		}
-
-		return $imageResource;
 	}
 
 	/**
@@ -89,7 +87,9 @@ class ImageMagick extends Image
 
 		$imageResource = new Imagick($imagePath);
 
-		return $this->collectMimeTypeAndPerformGifCheck($imageResource);
+		$this->detectMimeTypeAndPerformGifCheck($imageResource);
+
+		return $imageResource;
 	}
 
 	/**
@@ -102,7 +102,9 @@ class ImageMagick extends Image
 
 		$imageResource->readImageBlob($blob);
 
-		return $this->collectMimeTypeAndPerformGifCheck($imageResource);
+		$this->detectMimeTypeAndPerformGifCheck($imageResource);
+
+		return $imageResource;
 	}
 
 	/**
@@ -115,7 +117,9 @@ class ImageMagick extends Image
 
 		$imageResource->readImageFile($stream);
 
-		return $this->collectMimeTypeAndPerformGifCheck($imageResource);
+		$this->detectMimeTypeAndPerformGifCheck($imageResource);
+
+		return $imageResource;
 	}
 
 	/**
