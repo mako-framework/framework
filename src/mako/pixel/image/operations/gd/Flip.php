@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Flip as BaseFlip;
+use mako\pixel\image\operations\Flip as FlipOperation;
 use mako\pixel\image\operations\FlipDirection;
 use Override;
 
@@ -24,7 +24,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  */
-class Flip extends BaseFlip
+class Flip extends FlipOperation
 {
 	/**
 	 * {@inheritDoc}

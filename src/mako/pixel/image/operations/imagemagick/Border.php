@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\Border as BaseBorder;
+use mako\pixel\image\operations\Border as BorderOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Border extends BaseBorder
+class Border extends BorderOperation
 {
 	/**
 	 * {@inheritDoc}

@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Rotate as BaseRotate;
+use mako\pixel\image\operations\Rotate as RotateOperation;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -19,7 +19,7 @@ use function imagerotate;
 /**
  * {@inheritDoc}
  */
-class Rotate extends BaseRotate
+class Rotate extends RotateOperation
 {
 	/**
 	 * {@inheritDoc}

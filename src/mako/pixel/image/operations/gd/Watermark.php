@@ -10,7 +10,7 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use mako\pixel\image\Gd;
 use mako\pixel\image\geometry\Dimensions;
-use mako\pixel\image\operations\Watermark as BaseWatermark;
+use mako\pixel\image\operations\Watermark as WatermarkOperation;
 use Override;
 
 use function imagesx;
@@ -19,9 +19,9 @@ use function imagesy;
 /**
  * {@inheritDoc}
  *
- * @extends BaseWatermark<Gd>
+ * @extends WatermarkOperation<Gd>
  */
-class Watermark extends BaseWatermark
+class Watermark extends WatermarkOperation
 {
 	/**
 	 * {@inheritDoc}

@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Greyscale as BaseGreyscale;
+use mako\pixel\image\operations\Greyscale as GreyscaleOperation;
 use Override;
 
 use function imagefilter;
@@ -16,7 +16,7 @@ use function imagefilter;
 /**
  * {@inheritDoc}
  */
-class Greyscale extends BaseGreyscale
+class Greyscale extends GreyscaleOperation
 {
 	/**
 	 * {@inheritDoc}

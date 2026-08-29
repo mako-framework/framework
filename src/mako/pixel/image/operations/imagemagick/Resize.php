@@ -8,14 +8,14 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Resize as BaseResize;
+use mako\pixel\image\operations\Resize as ResizeOperation;
 use mako\pixel\image\operations\traits\ResizeTrait;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Resize extends BaseResize
+class Resize extends ResizeOperation
 {
 	use ResizeTrait;
 

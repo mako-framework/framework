@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Circle as BaseCircle;
+use mako\pixel\image\operations\Circle as CircleOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -20,7 +20,7 @@ use function imagesetthickness;
 /**
  * {@inheritDoc}
  */
-class Circle extends BaseCircle
+class Circle extends CircleOperation
 {
 	use GdTrait;
 

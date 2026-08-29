@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\Text as BaseText;
+use mako\pixel\image\operations\Text as TextOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Text extends BaseText
+class Text extends TextOperation
 {
 	/**
 	 * {@inheritDoc}

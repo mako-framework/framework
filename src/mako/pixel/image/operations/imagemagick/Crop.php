@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Crop as BaseCrop;
+use mako\pixel\image\operations\Crop as CropOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Crop extends BaseCrop
+class Crop extends CropOperation
 {
 	/**
 	 * {@inheritDoc}

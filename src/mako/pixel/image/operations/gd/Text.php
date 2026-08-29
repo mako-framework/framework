@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Text as BaseText;
+use mako\pixel\image\operations\Text as TextOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -17,7 +17,7 @@ use function imagettftext;
 /**
  * {@inheritDoc}
  */
-class Text extends BaseText
+class Text extends TextOperation
 {
 	use GdTrait;
 

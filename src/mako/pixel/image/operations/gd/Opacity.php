@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Opacity as BaseOpacity;
+use mako\pixel\image\operations\Opacity as OpacityOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use mako\pixel\image\traits\GdTrait;
 use Override;
@@ -24,7 +24,7 @@ use function round;
 /**
  * {@inheritDoc}
  */
-class Opacity extends BaseOpacity
+class Opacity extends OpacityOperation
 {
 	use GdTrait;
 	use NormalizeTrait;

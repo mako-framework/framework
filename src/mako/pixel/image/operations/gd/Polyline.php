@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Polyline as BasePolyline;
+use mako\pixel\image\operations\Polyline as PolylineOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -19,7 +19,7 @@ use function imagesetthickness;
 /**
  * {@inheritDoc}
  */
-class Polyline extends BasePolyline
+class Polyline extends PolylineOperation
 {
 	use GdTrait;
 

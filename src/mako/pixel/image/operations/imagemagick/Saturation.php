@@ -8,14 +8,14 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Saturation as BaseSaturation;
+use mako\pixel\image\operations\Saturation as SaturationOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Saturation extends BaseSaturation
+class Saturation extends SaturationOperation
 {
 	use NormalizeTrait;
 

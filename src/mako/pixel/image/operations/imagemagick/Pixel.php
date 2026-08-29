@@ -8,14 +8,14 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Pixel as BasePixel;
+use mako\pixel\image\operations\Pixel as PixelOperation;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Pixel extends BasePixel
+class Pixel extends PixelOperation
 {
 	use PixelValidationTrait;
 

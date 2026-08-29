@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Crop as BaseCrop;
+use mako\pixel\image\operations\Crop as CropOperation;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -23,7 +23,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  */
-class Crop extends BaseCrop
+class Crop extends CropOperation
 {
 	/**
 	 * {@inheritDoc}

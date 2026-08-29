@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\Bezier as BaseBezier;
+use mako\pixel\image\operations\Bezier as BezierOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Bezier extends BaseBezier
+class Bezier extends BezierOperation
 {
 	/**
 	 * {@inheritDoc}

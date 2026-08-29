@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\Ellipse as BaseEllipse;
+use mako\pixel\image\operations\Ellipse as EllipseOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Ellipse extends BaseEllipse
+class Ellipse extends EllipseOperation
 {
 	/**
 	 * {@inheritDoc}

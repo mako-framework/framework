@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\ColorSpace as BaseColorSpace;
+use mako\pixel\image\operations\ColorSpace as ColorSpaceOperation;
 use Override;
 
 use function constant;
@@ -20,7 +20,7 @@ use function strtoupper;
 /**
  * {@inheritDoc}
  */
-class ColorSpace extends BaseColorSpace
+class ColorSpace extends ColorSpaceOperation
 {
 	/**
 	 * {@inheritDoc}

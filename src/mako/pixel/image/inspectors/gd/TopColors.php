@@ -9,7 +9,7 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\TopColors as BaseTopColors;
+use mako\pixel\image\inspectors\TopColors as TopColorsInspector;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -26,7 +26,7 @@ use function usort;
 /**
  * {@inheritDoc}
  */
-class TopColors extends BaseTopColors
+class TopColors extends TopColorsInspector
 {
 	use GdTrait;
 

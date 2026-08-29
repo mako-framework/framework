@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\SrgbPipeline as BaseSrgbPipeline;
+use mako\pixel\image\operations\SrgbPipeline as SrgbPipelineOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class SrgbPipeline extends BaseSrgbPipeline
+class SrgbPipeline extends SrgbPipelineOperation
 {
 	/**
 	 * {@inheritDoc}

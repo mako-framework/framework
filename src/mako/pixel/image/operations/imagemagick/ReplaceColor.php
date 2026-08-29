@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\operations\ReplaceColor as BaseReplaceColor;
+use mako\pixel\image\operations\ReplaceColor as ReplaceColorOperation;
 use Override;
 
 use function max;
@@ -18,7 +18,7 @@ use function min;
 /**
  * {@inheritDoc}
  */
-class ReplaceColor extends BaseReplaceColor
+class ReplaceColor extends ReplaceColorOperation
 {
 	/**
 	 * Converts the tolerance percentage to the active Imagick quantum range.

@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Invert as BaseInvert;
+use mako\pixel\image\operations\Invert as InvertOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Invert extends BaseInvert
+class Invert extends InvertOperation
 {
 	/**
 	 * {@inheritDoc}

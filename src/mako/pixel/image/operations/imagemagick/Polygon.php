@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\Polygon as BasePolygon;
+use mako\pixel\image\operations\Polygon as PolygonOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Polygon extends BasePolygon
+class Polygon extends PolygonOperation
 {
 	/**
 	 * {@inheritDoc}

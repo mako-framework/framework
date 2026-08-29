@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\RoundedRectangle as BaseRoundedRectangle;
+use mako\pixel\image\operations\RoundedRectangle as RoundedRectangleOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class RoundedRectangle extends BaseRoundedRectangle
+class RoundedRectangle extends RoundedRectangleOperation
 {
 	/**
 	 * {@inheritDoc}

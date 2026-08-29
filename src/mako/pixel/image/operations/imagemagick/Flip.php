@@ -8,14 +8,14 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Flip as BaseFlip;
+use mako\pixel\image\operations\Flip as FlipOperation;
 use mako\pixel\image\operations\FlipDirection;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Flip extends BaseFlip
+class Flip extends FlipOperation
 {
 	/**
 	 * {@inheritDoc}

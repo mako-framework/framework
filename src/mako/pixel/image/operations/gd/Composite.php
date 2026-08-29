@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Gd;
-use mako\pixel\image\operations\Composite as BaseComposite;
+use mako\pixel\image\operations\Composite as CompositeOperation;
 use Override;
 
 use function imagecopy;
@@ -19,9 +19,9 @@ use function imagesy;
 /**
  * {@inheritDoc}
  *
- * @extends BaseComposite<Gd>
+ * @extends CompositeOperation<Gd>
  */
-class Composite extends BaseComposite
+class Composite extends CompositeOperation
 {
 	/**
 	 * {@inheritDoc}

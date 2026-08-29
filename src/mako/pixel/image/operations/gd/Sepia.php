@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Sepia as BaseSepia;
+use mako\pixel\image\operations\Sepia as SepiaOperation;
 use Override;
 
 use function imagealphablending;
@@ -23,7 +23,7 @@ use function min;
 /**
  * {@inheritDoc}
  */
-class Sepia extends BaseSepia
+class Sepia extends SepiaOperation
 {
 	/**
 	 * {@inheritDoc}

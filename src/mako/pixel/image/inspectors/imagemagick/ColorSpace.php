@@ -9,7 +9,7 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\ColorSpace as ColorSpaceEnum;
-use mako\pixel\image\inspectors\ColorSpace as BaseColorSpace;
+use mako\pixel\image\inspectors\ColorSpace as ColorspaceInspector;
 use Override;
 use ReflectionClass;
 
@@ -20,7 +20,7 @@ use function strtolower;
 /**
  * {@inheritDoc}
  */
-class ColorSpace extends BaseColorSpace
+class ColorSpace extends ColorspaceInspector
 {
 	/**
 	 * Returns a map of the available color spaces.

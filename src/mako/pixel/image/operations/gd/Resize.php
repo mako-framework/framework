@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Resize as BaseResize;
+use mako\pixel\image\operations\Resize as ResizeOperation;
 use mako\pixel\image\operations\traits\ResizeTrait;
 use Override;
 
@@ -24,7 +24,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  */
-class Resize extends BaseResize
+class Resize extends ResizeOperation
 {
 	use ResizeTrait;
 

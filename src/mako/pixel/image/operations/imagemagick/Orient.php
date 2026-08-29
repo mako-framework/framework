@@ -9,13 +9,13 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\operations\Orient as BaseOrient;
+use mako\pixel\image\operations\Orient as OrientOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Orient extends BaseOrient
+class Orient extends OrientOperation
 {
 	/**
 	 * {@inheritDoc}

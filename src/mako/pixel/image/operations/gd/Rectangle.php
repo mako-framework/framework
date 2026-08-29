@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Rectangle as BaseRectangle;
+use mako\pixel\image\operations\Rectangle as RectangleOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -20,7 +20,7 @@ use function imagesetthickness;
 /**
  * {@inheritDoc}
  */
-class Rectangle extends BaseRectangle
+class Rectangle extends RectangleOperation
 {
 	use GdTrait;
 

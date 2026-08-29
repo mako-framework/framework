@@ -9,7 +9,7 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\TopColors as BaseTopColors;
+use mako\pixel\image\inspectors\TopColors as TopColorsInspector;
 use Override;
 
 use function array_slice;
@@ -18,7 +18,7 @@ use function usort;
 /**
  * {@inheritDoc}
  */
-class TopColors extends BaseTopColors
+class TopColors extends TopColorsInspector
 {
 	/**
 	 * {@inheritDoc}

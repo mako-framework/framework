@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Ellipse as BaseEllipse;
+use mako\pixel\image\operations\Ellipse as EllipseOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -20,7 +20,7 @@ use function imagesetthickness;
 /**
  * {@inheritDoc}
  */
-class Ellipse extends BaseEllipse
+class Ellipse extends EllipseOperation
 {
 	use GdTrait;
 

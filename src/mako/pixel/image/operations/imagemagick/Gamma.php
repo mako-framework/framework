@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Gamma as BaseGamma;
+use mako\pixel\image\operations\Gamma as GammaOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Gamma extends BaseGamma
+class Gamma extends GammaOperation
 {
 	/**
 	 * {@inheritDoc}

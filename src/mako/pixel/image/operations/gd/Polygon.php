@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Polygon as BasePolygon;
+use mako\pixel\image\operations\Polygon as PolygonOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -20,7 +20,7 @@ use function imagesetthickness;
 /**
  * {@inheritDoc}
  */
-class Polygon extends BasePolygon
+class Polygon extends PolygonOperation
 {
 	use GdTrait;
 

@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Pixel as BasePixel;
+use mako\pixel\image\operations\Pixel as PixelOperation;
 use mako\pixel\image\traits\GdTrait;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
@@ -20,7 +20,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  */
-class Pixel extends BasePixel
+class Pixel extends PixelOperation
 {
 	use GdTrait;
 	use PixelValidationTrait;

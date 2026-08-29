@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Temperature as BaseTemperature;
+use mako\pixel\image\operations\Temperature as TemperatureOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
@@ -24,7 +24,7 @@ use function min;
 /**
  * {@inheritDoc}
  */
-class Temperature extends BaseTemperature
+class Temperature extends TemperatureOperation
 {
 	use NormalizeTrait;
 

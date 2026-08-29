@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Pixelate as BasePixelate;
+use mako\pixel\image\operations\Pixelate as PixelateOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Pixelate extends BasePixelate
+class Pixelate extends PixelateOperation
 {
 	/**
 	 * {@inheritDoc}

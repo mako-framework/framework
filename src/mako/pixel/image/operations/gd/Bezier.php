@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Bezier as BaseBezier;
+use mako\pixel\image\operations\Bezier as BezierOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -20,7 +20,7 @@ use function imagesetthickness;
 /**
  * {@inheritDoc}
  */
-class Bezier extends BaseBezier
+class Bezier extends BezierOperation
 {
 	use GdTrait;
 

@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Contrast as BaseContrast;
+use mako\pixel\image\operations\Contrast as ContrastOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
@@ -17,7 +17,7 @@ use function imagefilter;
 /**
  * {@inheritDoc}
  */
-class Contrast extends BaseContrast
+class Contrast extends ContrastOperation
 {
 	use NormalizeTrait;
 

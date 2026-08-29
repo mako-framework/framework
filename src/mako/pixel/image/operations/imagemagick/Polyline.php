@@ -10,13 +10,13 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\Polyline as BasePolyline;
+use mako\pixel\image\operations\Polyline as PolylineOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Polyline extends BasePolyline
+class Polyline extends PolylineOperation
 {
 	/**
 	 * {@inheritDoc}

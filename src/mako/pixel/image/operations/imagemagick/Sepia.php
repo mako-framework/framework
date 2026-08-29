@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Sepia as BaseSepia;
+use mako\pixel\image\operations\Sepia as SepiaOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Sepia extends BaseSepia
+class Sepia extends SepiaOperation
 {
 	/**
 	 * {@inheritDoc}

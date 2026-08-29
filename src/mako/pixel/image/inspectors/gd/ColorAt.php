@@ -9,7 +9,7 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\ColorAt as BaseColorAt;
+use mako\pixel\image\inspectors\ColorAt as ColorAtInspector;
 use mako\pixel\image\traits\GdTrait;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
@@ -21,7 +21,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  */
-class ColorAt extends BaseColorAt
+class ColorAt extends ColorAtInspector
 {
 	use GdTrait;
 	use PixelValidationTrait;

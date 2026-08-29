@@ -9,15 +9,15 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use mako\pixel\image\ImageMagick;
-use mako\pixel\image\operations\Composite as BaseComposite;
+use mako\pixel\image\operations\Composite as CompositeOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  *
- * @extends BaseComposite<ImageMagick>
+ * @extends CompositeOperation<ImageMagick>
  */
-class Composite extends BaseComposite
+class Composite extends CompositeOperation
 {
 	/**
 	 * {@inheritDoc}

@@ -9,13 +9,13 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\operations\Rotate as BaseRotate;
+use mako\pixel\image\operations\Rotate as RotateOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Rotate extends BaseRotate
+class Rotate extends RotateOperation
 {
 	/**
 	 * {@inheritDoc}

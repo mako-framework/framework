@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Colorize as BaseColorize;
+use mako\pixel\image\operations\Colorize as ColorizeOperation;
 use Override;
 
 use function imagealphablending;
@@ -24,7 +24,7 @@ use function min;
 /**
  * {@inheritDoc}
  */
-class Colorize extends BaseColorize
+class Colorize extends ColorizeOperation
 {
 	/**
 	 * {@inheritDoc}

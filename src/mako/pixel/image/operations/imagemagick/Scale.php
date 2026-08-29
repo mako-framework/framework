@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Scale as BaseScale;
+use mako\pixel\image\operations\Scale as ScaleOperation;
 use Override;
 
 use function round;
@@ -16,7 +16,7 @@ use function round;
 /**
  * {@inheritDoc}
  */
-class Scale extends BaseScale
+class Scale extends ScaleOperation
 {
 	/**
 	 * {@inheritDoc}

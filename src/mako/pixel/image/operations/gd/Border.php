@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Border as BaseBorder;
+use mako\pixel\image\operations\Border as BorderOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -19,7 +19,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  */
-class Border extends BaseBorder
+class Border extends BorderOperation
 {
 	use GdTrait;
 

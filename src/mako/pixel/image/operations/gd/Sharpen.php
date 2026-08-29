@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Sharpen as BaseSharpen;
+use mako\pixel\image\operations\Sharpen as SharpenOperation;
 use Override;
 
 use function array_map;
@@ -18,7 +18,7 @@ use function imageconvolution;
 /**
  * {@inheritDoc}
  */
-class Sharpen extends BaseSharpen
+class Sharpen extends SharpenOperation
 {
 	/**
 	 * {@inheritDoc}

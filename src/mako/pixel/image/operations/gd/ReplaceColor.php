@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\ReplaceColor as BaseReplaceColor;
+use mako\pixel\image\operations\ReplaceColor as ReplaceColorOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -25,7 +25,7 @@ use function min;
 /**
  * {@inheritDoc}
  */
-class ReplaceColor extends BaseReplaceColor
+class ReplaceColor extends ReplaceColorOperation
 {
 	use GdTrait;
 

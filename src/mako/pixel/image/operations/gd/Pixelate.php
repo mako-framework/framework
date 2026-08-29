@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Pixelate as BasePixelate;
+use mako\pixel\image\operations\Pixelate as PixelateOperation;
 use Override;
 
 use function imagefilter;
@@ -16,7 +16,7 @@ use function imagefilter;
 /**
  * {@inheritDoc}
  */
-class Pixelate extends BasePixelate
+class Pixelate extends PixelateOperation
 {
 	/**
 	 * {@inheritDoc}

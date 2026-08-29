@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\RoundedRectangle as BaseRoundedRectangle;
+use mako\pixel\image\operations\RoundedRectangle as RoundedRectangleOperation;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -24,7 +24,7 @@ use function sin;
 /**
  * {@inheritDoc}
  */
-class RoundedRectangle extends BaseRoundedRectangle
+class RoundedRectangle extends RoundedRectangleOperation
 {
 	use GdTrait;
 

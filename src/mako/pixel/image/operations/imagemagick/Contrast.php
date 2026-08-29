@@ -8,14 +8,14 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Contrast as BaseContrast;
+use mako\pixel\image\operations\Contrast as ContrastOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Contrast extends BaseContrast
+class Contrast extends ContrastOperation
 {
 	use NormalizeTrait;
 

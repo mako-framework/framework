@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Bitonal as BaseBitonal;
+use mako\pixel\image\operations\Bitonal as BitonalOperation;
 use Override;
 
 use function imagefilter;
@@ -16,7 +16,7 @@ use function imagefilter;
 /**
  * {@inheritDoc}
  */
-class Bitonal extends BaseBitonal
+class Bitonal extends BitonalOperation
 {
 	/**
 	 * {@inheritDoc}

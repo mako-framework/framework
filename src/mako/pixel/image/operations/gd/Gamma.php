@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Gamma as BaseGamma;
+use mako\pixel\image\operations\Gamma as GammaOperation;
 use Override;
 
 use function imagegammacorrect;
@@ -16,7 +16,7 @@ use function imagegammacorrect;
 /**
  * {@inheritDoc}
  */
-class Gamma extends BaseGamma
+class Gamma extends GammaOperation
 {
 	/**
 	 * {@inheritDoc}

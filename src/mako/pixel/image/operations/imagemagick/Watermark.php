@@ -10,15 +10,15 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\ImageMagick;
-use mako\pixel\image\operations\Watermark as BaseWatermark;
+use mako\pixel\image\operations\Watermark as WatermarkOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  *
- * @extends BaseWatermark<ImageMagick>
+ * @extends WatermarkOperation<ImageMagick>
  */
-class Watermark extends BaseWatermark
+class Watermark extends WatermarkOperation
 {
 	/**
 	 * {@inheritDoc}

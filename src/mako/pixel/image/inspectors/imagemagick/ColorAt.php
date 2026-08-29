@@ -9,14 +9,14 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\ColorAt as BaseColorAt;
+use mako\pixel\image\inspectors\ColorAt as ColorAtInspector;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
 /**
  * @inheritDoc}
  */
-class ColorAt extends BaseColorAt
+class ColorAt extends ColorAtInspector
 {
 	use PixelValidationTrait;
 

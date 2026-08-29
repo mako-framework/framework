@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Brightness as BaseBrightness;
+use mako\pixel\image\operations\Brightness as BrightnessOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
@@ -17,7 +17,7 @@ use function imagefilter;
 /**
  * {@inheritDoc}
  */
-class Brightness extends BaseBrightness
+class Brightness extends BrightnessOperation
 {
 	use NormalizeTrait;
 

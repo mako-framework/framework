@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\Saturation as BaseSaturation;
+use mako\pixel\image\operations\Saturation as SaturationOperation;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
@@ -25,7 +25,7 @@ use function min;
 /**
  * {@inheritDoc}
  */
-class Saturation extends BaseSaturation
+class Saturation extends SaturationOperation
 {
 	use NormalizeTrait;
 

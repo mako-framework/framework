@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Scale as BaseScale;
+use mako\pixel\image\operations\Scale as ScaleOperation;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -24,7 +24,7 @@ use function round;
 /**
  * {@inheritDoc}
  */
-class Scale extends BaseScale
+class Scale extends ScaleOperation
 {
 	/**
 	 * {@inheritDoc}

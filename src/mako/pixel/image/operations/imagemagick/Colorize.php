@@ -9,13 +9,13 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\operations\Colorize as BaseColorize;
+use mako\pixel\image\operations\Colorize as ColorizeOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Colorize extends BaseColorize
+class Colorize extends ColorizeOperation
 {
 	/**
 	 * {@inheritDoc}

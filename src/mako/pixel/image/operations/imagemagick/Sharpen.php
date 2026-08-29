@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Sharpen as BaseSharpen;
+use mako\pixel\image\operations\Sharpen as SharpenOperation;
 use Override;
 
 /**
  * {@inheritDoc}
  */
-class Sharpen extends BaseSharpen
+class Sharpen extends SharpenOperation
 {
 	/**
 	 * {@inheritDoc}

@@ -10,7 +10,7 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use mako\pixel\image\operations\TextBox as BaseTextBox;
+use mako\pixel\image\operations\TextBox as TextBoxOperation;
 use Override;
 
 use function count;
@@ -19,7 +19,7 @@ use function explode;
 /**
  * {@inheritDoc}
  */
-class TextBox extends BaseTextBox
+class TextBox extends TextBoxOperation
 {
 	/**
 	 * Metrics sample.
