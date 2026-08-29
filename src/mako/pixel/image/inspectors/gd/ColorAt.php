@@ -9,8 +9,7 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\inspectors\InspectorInterface;
+use mako\pixel\image\inspectors\ColorAt as BaseColorAt;
 use mako\pixel\image\traits\GdTrait;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
@@ -20,22 +19,12 @@ use function imagesx;
 use function imagesy;
 
 /**
- * Returns the color of the specified pixel.
- *
- * @implements InspectorInterface<Color>
+ * {@inheritDoc}
  */
-class ColorAt implements InspectorInterface
+class ColorAt extends BaseColorAt
 {
 	use GdTrait;
 	use PixelValidationTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Point $pixel
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

@@ -9,27 +9,16 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\inspectors\InspectorInterface;
+use mako\pixel\image\inspectors\ColorAt as BaseColorAt;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
 /**
- * Returns the color of the specified pixel.
- *
- * @implements InspectorInterface<Color>
+ * @inheritDoc}
  */
-class ColorAt implements InspectorInterface
+class ColorAt extends BaseColorAt
 {
 	use PixelValidationTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Point $pixel
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}
