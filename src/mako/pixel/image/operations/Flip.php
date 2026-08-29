@@ -8,17 +8,15 @@
 namespace mako\pixel\image\operations;
 
 /**
- * Flip.
+ * Flips the image.
  */
-enum Flip
+abstract class Flip implements OperationInterface
 {
 	/**
-	 * Flip horizontally.
+	 * Constructor.
 	 */
-	case Horizontal;
-
-	/**
-	 * Flip vertically.
-	 */
-	case Vertical;
+	final public function __construct(
+		protected FlipDirection $direction = FlipDirection::Horizontal
+	) {
+	}
 }

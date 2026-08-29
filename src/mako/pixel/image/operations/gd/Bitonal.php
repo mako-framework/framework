@@ -8,15 +8,15 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Bitonal as BaseBitonal;
 use Override;
 
 use function imagefilter;
 
 /**
- * Turns the image into bitonal.
+ * {@inheritDoc}
  */
-class Bitonal implements OperationInterface
+class Bitonal extends BaseBitonal
 {
 	/**
 	 * {@inheritDoc}

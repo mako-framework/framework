@@ -10,30 +10,26 @@ namespace mako\pixel\image\operations\gd;
 use GdImage;
 use mako\pixel\image\Gd;
 use mako\pixel\image\geometry\Dimensions;
-use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\WatermarkPosition;
+use mako\pixel\image\operations\Watermark as BaseWatermark;
 use Override;
 
 use function imagesx;
 use function imagesy;
 
 /**
- * Adds a watermark to the image.
+ * {@inheritDoc}
+ *
+ * @property Gd $image
  */
-class Watermark implements OperationInterface
+class Watermark extends BaseWatermark
 {
 	/**
-	 * Constructor.
+	 * {@inheritDoc}
 	 */
-	public function __construct(
-		protected Gd|string $image,
-		protected WatermarkPosition $position = WatermarkPosition::BottomRight,
-		protected int $opacity = 100,
-		protected int $margin = 0
-	) {
-		if ($image instanceof Gd === false) {
-			$this->image = new Gd($image);
-		}
+	#[Override]
+	protected function getImageClass(): string
+	{
+		return Gd::class;
 	}
 
 	/**

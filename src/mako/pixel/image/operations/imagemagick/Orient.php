@@ -9,13 +9,13 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Orient as BaseOrient;
 use Override;
 
 /**
- * Orients the image according to its metadata.
+ * {@inheritDoc}
  */
-class Orient implements OperationInterface
+class Orient extends BaseOrient
 {
 	/**
 	 * {@inheritDoc}

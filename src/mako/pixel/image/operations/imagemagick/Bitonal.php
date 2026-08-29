@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Bitonal as BaseBitonal;
 use Override;
 
 /**
- * Turns the image into bitonal.
+ * {@inheritDoc}
  */
-class Bitonal implements OperationInterface
+class Bitonal extends BaseBitonal
 {
 	/**
 	 * {@inheritDoc}

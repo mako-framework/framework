@@ -9,9 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\geometry\Dimensions;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Crop as BaseCrop;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -23,19 +21,10 @@ use function imagesx;
 use function imagesy;
 
 /**
- * Crops the image.
+ * {@inheritDoc}
  */
-class Crop implements OperationInterface
+class Crop extends BaseCrop
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Dimensions $dimensions,
-		protected Point $position
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

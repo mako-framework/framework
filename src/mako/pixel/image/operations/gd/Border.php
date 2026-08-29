@@ -8,32 +8,20 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\Color;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Border as BaseBorder;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagerectangle;
 use function imagesx;
 use function imagesy;
-use function max;
 
 /**
- * Adds a border to the image.
+ * {@inheritDoc}
  */
-class Border implements OperationInterface
+class Border extends BaseBorder
 {
 	use GdTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Color $color = new Color(0, 0, 0),
-		protected int $width = 4
-	) {
-		$this->width = max(0, $this->width);
-	}
 
 	/**
 	 * {@inheritDoc}

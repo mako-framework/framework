@@ -8,26 +8,14 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use InvalidArgumentException;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Gamma as BaseGamma;
 use Override;
 
 /**
- * Adjusts the gamma level of the image.
+ * {@inheritDoc}
  */
-class Gamma implements OperationInterface
+class Gamma extends BaseGamma
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected float $gamma
-	) {
-		if ($gamma <= 0) {
-			throw new InvalidArgumentException('Gamma must be greater than 0.');
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,43 +10,14 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use InvalidArgumentException;
-use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\geometry\Points;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Polygon as BasePolygon;
 use Override;
 
-use function count;
-
 /**
- * Draws a polygon on the image.
+ * {@inheritDoc}
  */
-class Polygon implements OperationInterface
+class Polygon extends BasePolygon
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Points $points,
-		protected ?Color $fill = null,
-		protected ?Color $stroke = null,
-		protected int $strokeWidth = 1,
-		protected Point $position = new Point(0, 0)
-	) {
-		if (count($points) < 3) {
-			throw new InvalidArgumentException('A polygon requires at least 3 points.');
-		}
-
-		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('A polygon requires a fill, a stroke, or both.');
-		}
-
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
-			throw new InvalidArgumentException('Stroke width must be greater than 0.');
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

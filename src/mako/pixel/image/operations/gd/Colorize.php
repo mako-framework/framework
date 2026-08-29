@@ -8,8 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\Color;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Colorize as BaseColorize;
 use Override;
 
 use function imagealphablending;
@@ -23,18 +22,10 @@ use function max;
 use function min;
 
 /**
- * Colorizes the image.
+ * {@inheritDoc}
  */
-class Colorize implements OperationInterface
+class Colorize extends BaseColorize
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Color $color
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

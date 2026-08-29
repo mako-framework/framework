@@ -8,14 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\Pipeline;
+use mako\pixel\image\operations\SrgbPipeline as BaseSrgbPipeline;
 use Override;
 
 /**
- * Temporarily converts the image to sRGB while applying the pipelined operations,
- * then restores the original color space.
+ * {@inheritDoc}
  */
-class SrgbPipeline extends Pipeline
+class SrgbPipeline extends BaseSrgbPipeline
 {
 	/**
 	 * {@inheritDoc}

@@ -10,38 +10,14 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use InvalidArgumentException;
-use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Dimensions;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\RoundedRectangle as BaseRoundedRectangle;
 use Override;
 
 /**
- * Draws a rounded rectangle on the image.
+ * {@inheritDoc}
  */
-class RoundedRectangle implements OperationInterface
+class RoundedRectangle extends BaseRoundedRectangle
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Dimensions $dimensions,
-		protected int $radius,
-		protected ?Color $fill = null,
-		protected ?Color $stroke = null,
-		protected int $strokeWidth = 1,
-		protected Point $position = new Point(0, 0)
-	) {
-		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('A rounded rectangle requires a fill, a stroke, or both.');
-		}
-
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
-			throw new InvalidArgumentException('Stroke width must be greater than 0.');
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

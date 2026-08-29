@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Invert as BaseInvert;
 use Override;
 
 /**
- * Inverts the colors of the image.
+ * {@inheritDoc}
  */
-class Invert implements OperationInterface
+class Invert extends BaseInvert
 {
 	/**
 	 * {@inheritDoc}

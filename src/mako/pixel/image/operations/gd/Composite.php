@@ -9,8 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\Gd;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Composite as BaseComposite;
 use Override;
 
 use function imagecopy;
@@ -18,16 +17,12 @@ use function imagesx;
 use function imagesy;
 
 /**
- * Composites an image onto the image at the specified position.
+ * {@inheritDoc}
+ *
+ * @property Gd $image
  */
-class Composite implements OperationInterface
+class Composite extends BaseComposite
 {
-	public function __construct(
-		protected Gd $image,
-		protected Point $position = new Point(0, 0)
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

@@ -8,22 +8,17 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\geometry\Point;
 use mako\pixel\image\ImageMagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Composite as BaseComposite;
 use Override;
 
 /**
- * Composites an image onto the image at the specified position.
+ * {@inheritDoc}
+ *
+ * @property ImageMagick $image
  */
-class Composite implements OperationInterface
+class Composite extends BaseComposite
 {
-	public function __construct(
-		protected ImageMagick $image,
-		protected Point $position = new Point(0, 0)
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,21 +10,16 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use InvalidArgumentException;
-use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Dimensions;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\Font;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\TextBox as BaseTextBox;
 use Override;
 
 use function count;
 use function explode;
 
 /**
- * Draws a text box on the image.
+ * {@inheritDoc}
  */
-class TextBox implements OperationInterface
+class TextBox extends BaseTextBox
 {
 	/**
 	 * Metrics sample.
@@ -33,23 +28,6 @@ class TextBox implements OperationInterface
 	 * g = provides a lowercase glyph with a descender
 	 */
 	protected const string METRICS_SAMPLE = 'Ag';
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected string $text,
-		protected Dimensions $dimensions,
-		protected Font $font,
-		protected ?Color $fill = null,
-		protected ?Color $stroke = null,
-		protected int $strokeWidth = 1,
-		protected Point $position = new Point(0, 0)
-	) {
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
-			throw new InvalidArgumentException('Stroke width must be greater than 0.');
-		}
-	}
 
 	/**
 	 * {@inheritDoc}

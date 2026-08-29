@@ -8,27 +8,16 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\geometry\Dimensions;
-use mako\pixel\image\operations\AspectRatio;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Resize as BaseResize;
 use mako\pixel\image\operations\traits\ResizeTrait;
 use Override;
 
 /**
- * Resizes the image.
+ * {@inheritDoc}
  */
-class Resize implements OperationInterface
+class Resize extends BaseResize
 {
 	use ResizeTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Dimensions $dimensions,
-		protected AspectRatio $aspectRatio = AspectRatio::Auto
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

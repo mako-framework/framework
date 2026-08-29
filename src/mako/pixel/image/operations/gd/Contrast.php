@@ -8,26 +8,18 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Contrast as BaseContrast;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 use function imagefilter;
 
 /**
- * Adjusts the image contrast.
+ * {@inheritDoc}
  */
-class Contrast implements OperationInterface
+class Contrast extends BaseContrast
 {
 	use NormalizeTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $level = 0
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}
