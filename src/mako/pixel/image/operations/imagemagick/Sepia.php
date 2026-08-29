@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Sepia as BaseSepia;
 use Override;
 
 /**
- * Turns the image into sepia.
+ * {@inheritDoc}
  */
-class Sepia implements OperationInterface
+class Sepia extends BaseSepia
 {
 	/**
 	 * {@inheritDoc}

@@ -9,7 +9,7 @@ namespace mako\pixel\image\inspectors\gd;
 
 use GdImage;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\InspectorInterface;
+use mako\pixel\image\inspectors\TopColors as BaseTopColors;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -24,14 +24,9 @@ use function min;
 use function usort;
 
 /**
- * Extracts the dominant colors from an image.
- *
- * Similar colors are grouped together to avoid returning multiple
- * variations of the same color.
- *
- * @implements InspectorInterface<array<int, Color>>
+ * {@inheritDoc}
  */
-class TopColors implements InspectorInterface
+class TopColors extends BaseTopColors
 {
 	use GdTrait;
 
@@ -40,15 +35,6 @@ class TopColors implements InspectorInterface
 	 * sampled too sparsely and risk missing small but visually significant colors.
 	 */
 	protected const int MAX_SAMPLE_STEP = 8;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $limit = 5,
-		protected bool $ignoreTransparent = true
-	) {
-	}
 
 	/**
 	 * Calculates the sampling step size based on image dimensions.

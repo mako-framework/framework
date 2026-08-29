@@ -8,26 +8,18 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Brightness as BaseBrightness;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 use function abs;
 
 /**
- * Adjusts the image brightness.
+ * {@inheritDoc}
  */
-class Brightness implements OperationInterface
+class Brightness extends BaseBrightness
 {
 	use NormalizeTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $level = 0
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

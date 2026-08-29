@@ -8,10 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use InvalidArgumentException;
-use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Circle as BaseCircle;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -21,30 +18,11 @@ use function imagefilledellipse;
 use function imagesetthickness;
 
 /**
- * Draws a circle on the image.
+ * {@inheritDoc}
  */
-class Circle implements OperationInterface
+class Circle extends BaseCircle
 {
 	use GdTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $radius,
-		protected ?Color $fill = null,
-		protected ?Color $stroke = null,
-		protected int $strokeWidth = 1,
-		protected Point $center = new Point(0, 0)
-	) {
-		if ($this->fill === null && $this->stroke === null) {
-			throw new InvalidArgumentException('A circle requires a fill, a stroke, or both.');
-		}
-
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
-			throw new InvalidArgumentException('Stroke width must be greater than 0.');
-		}
-	}
 
 	/**
 	 * {@inheritDoc}

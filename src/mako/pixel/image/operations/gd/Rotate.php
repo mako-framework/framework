@@ -9,7 +9,7 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Rotate as BaseRotate;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -17,18 +17,10 @@ use function imagecolortransparent;
 use function imagerotate;
 
 /**
- * Rotates the image.
+ * {@inheritDoc}
  */
-class Rotate implements OperationInterface
+class Rotate extends BaseRotate
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $degrees = 0
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

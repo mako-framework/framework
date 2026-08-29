@@ -9,31 +9,17 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\Color;
-use mako\pixel\image\inspectors\InspectorInterface;
+use mako\pixel\image\inspectors\TopColors as BaseTopColors;
 use Override;
 
 use function array_slice;
 use function usort;
 
 /**
- * Extracts the dominant colors from an image.
- *
- * Similar colors are grouped together to avoid returning multiple
- * variations of the same color.
- *
- * @implements InspectorInterface<array<int, Color>>
+ * {@inheritDoc}
  */
-class TopColors implements InspectorInterface
+class TopColors extends BaseTopColors
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $limit = 5,
-		protected bool $ignoreTransparent = true,
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

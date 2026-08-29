@@ -8,30 +8,18 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\Font;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Text as BaseText;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
 use function imagettftext;
 
 /**
- * Draws text on the image.
+ * {@inheritDoc}
  */
-class Text implements OperationInterface
+class Text extends BaseText
 {
 	use GdTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected string $text,
-		protected Font $font,
-		protected Point $position,
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

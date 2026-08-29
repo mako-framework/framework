@@ -9,7 +9,7 @@ namespace mako\pixel\image\inspectors\imagemagick;
 
 use Imagick;
 use mako\pixel\image\ColorSpace as ColorSpaceEnum;
-use mako\pixel\image\inspectors\InspectorInterface;
+use mako\pixel\image\inspectors\ColorSpace as BaseColorSpace;
 use Override;
 use ReflectionClass;
 
@@ -18,11 +18,9 @@ use function str_starts_with;
 use function strtolower;
 
 /**
- * Returns the color space of the image.
- *
- * @implements InspectorInterface<ColorSpaceEnum>
+ * {@inheritDoc}
  */
-class ColorSpace implements InspectorInterface
+class ColorSpace extends BaseColorSpace
 {
 	/**
 	 * Returns a map of the available color spaces.

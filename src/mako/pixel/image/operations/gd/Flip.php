@@ -9,8 +9,8 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\Flip as FlipDirection;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Flip as BaseFlip;
+use mako\pixel\image\operations\FlipDirection;
 use Override;
 
 use function imagecolorallocatealpha;
@@ -22,18 +22,10 @@ use function imagesx;
 use function imagesy;
 
 /**
- * Flips the image.
+ * {@inheritDoc}
  */
-class Flip implements OperationInterface
+class Flip extends BaseFlip
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected FlipDirection $direction = FlipDirection::Horizontal
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,32 +10,16 @@ namespace mako\pixel\image\operations\imagemagick;
 use Imagick;
 use mako\pixel\image\geometry\Dimensions;
 use mako\pixel\image\ImageMagick;
-use mako\pixel\image\operations\OperationInterface;
-use mako\pixel\image\operations\traits\NormalizeTrait;
-use mako\pixel\image\operations\WatermarkPosition;
+use mako\pixel\image\operations\Watermark as BaseWatermark;
 use Override;
 
 /**
- * Adds a watermark to the image.
+ * {@inheritDoc}
+ *
+ * @extends BaseWatermark<ImageMagick>
  */
-class Watermark implements OperationInterface
+class Watermark extends BaseWatermark
 {
-	use NormalizeTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected ImageMagick|string $image,
-		protected WatermarkPosition $position = WatermarkPosition::BottomRight,
-		protected int $opacity = 100,
-		protected int $margin = 0
-	) {
-		if ($image instanceof ImageMagick === false) {
-			$this->image = new ImageMagick($image);
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

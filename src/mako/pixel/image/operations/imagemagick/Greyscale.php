@@ -8,13 +8,13 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Greyscale as BaseGreyscale;
 use Override;
 
 /**
- * Turns the image into greyscale.
+ * {@inheritDoc}
  */
-class Greyscale implements OperationInterface
+class Greyscale extends BaseGreyscale
 {
 	/**
 	 * {@inheritDoc}

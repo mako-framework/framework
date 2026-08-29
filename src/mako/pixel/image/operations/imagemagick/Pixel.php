@@ -8,27 +8,16 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\Color;
-use mako\pixel\image\geometry\Point;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Pixel as BasePixel;
 use mako\pixel\image\traits\PixelValidationTrait;
 use Override;
 
 /**
- * Draws a pixel on the image at the specified coordinates.
+ * {@inheritDoc}
  */
-class Pixel implements OperationInterface
+class Pixel extends BasePixel
 {
 	use PixelValidationTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Point $pixel,
-		protected Color $color
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

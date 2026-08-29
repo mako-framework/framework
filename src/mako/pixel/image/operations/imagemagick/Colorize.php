@@ -9,23 +9,14 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\Color;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Colorize as BaseColorize;
 use Override;
 
 /**
- * Colorizes the image.
+ * {@inheritDoc}
  */
-class Colorize implements OperationInterface
+class Colorize extends BaseColorize
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected Color $color
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

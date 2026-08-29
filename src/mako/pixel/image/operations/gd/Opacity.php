@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Opacity as BaseOpacity;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use mako\pixel\image\traits\GdTrait;
 use Override;
@@ -22,17 +22,12 @@ use function min;
 use function round;
 
 /**
- * Adjusts the opacity of the image.
+ * {@inheritDoc}
  */
-class Opacity implements OperationInterface
+class Opacity extends BaseOpacity
 {
 	use GdTrait;
 	use NormalizeTrait;
-
-	public function __construct(
-		protected int $opacity
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

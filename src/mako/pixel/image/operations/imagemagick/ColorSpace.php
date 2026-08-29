@@ -8,9 +8,8 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\ColorSpace as ColorSpaceEnum;
 use mako\pixel\image\exceptions\ImageException;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\ColorSpace as BaseColorSpace;
 use Override;
 
 use function constant;
@@ -19,18 +18,10 @@ use function sprintf;
 use function strtoupper;
 
 /**
- * Transforms the color space of the image.
+ * {@inheritDoc}
  */
-class ColorSpace implements OperationInterface
+class ColorSpace extends BaseColorSpace
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected ColorSpaceEnum $colorSpace
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

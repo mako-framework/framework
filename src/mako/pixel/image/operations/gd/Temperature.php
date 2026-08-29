@@ -8,7 +8,7 @@
 namespace mako\pixel\image\operations\gd;
 
 use GdImage;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Temperature as BaseTemperature;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
@@ -22,19 +22,11 @@ use function imagesy;
 use function min;
 
 /**
- * Adjusts the image color temperature.
+ * {@inheritDoc}
  */
-class Temperature implements OperationInterface
+class Temperature extends BaseTemperature
 {
 	use NormalizeTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $level = 0
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

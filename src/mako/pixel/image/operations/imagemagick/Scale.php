@@ -8,32 +8,16 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use InvalidArgumentException;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Scale as BaseScale;
 use Override;
 
 use function round;
 
 /**
- * Scales the image.
+ * {@inheritDoc}
  */
-class Scale implements OperationInterface
+class Scale extends BaseScale
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $percent {
-			set(int $value) {
-				if ($value <= 0) {
-					throw new InvalidArgumentException('Scale percentage must be greater than zero.');
-				}
-				$this->percent = $value;
-			}
-		}
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

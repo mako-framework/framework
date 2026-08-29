@@ -8,21 +8,16 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Opacity as BaseOpacity;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 /**
- * Adjusts the opacity of the image.
+ * {@inheritDoc}
  */
-class Opacity implements OperationInterface
+class Opacity extends BaseOpacity
 {
 	use NormalizeTrait;
-
-	public function __construct(
-		protected int $opacity
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

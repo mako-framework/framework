@@ -8,24 +8,16 @@
 namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Contrast as BaseContrast;
 use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 /**
- * Adjusts the image contrast.
+ * {@inheritDoc}
  */
-class Contrast implements OperationInterface
+class Contrast extends BaseContrast
 {
 	use NormalizeTrait;
-
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $level = 0
-	) {
-	}
 
 	/**
 	 * {@inheritDoc}

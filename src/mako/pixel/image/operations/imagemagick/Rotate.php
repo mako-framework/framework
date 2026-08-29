@@ -9,22 +9,14 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use ImagickPixel;
-use mako\pixel\image\operations\OperationInterface;
+use mako\pixel\image\operations\Rotate as BaseRotate;
 use Override;
 
 /**
- * Rotates the image.
+ * {@inheritDoc}
  */
-class Rotate implements OperationInterface
+class Rotate extends BaseRotate
 {
-	/**
-	 * Constructor.
-	 */
-	public function __construct(
-		protected int $degrees = 0
-	) {
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *
