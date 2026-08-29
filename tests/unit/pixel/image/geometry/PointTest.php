@@ -5,7 +5,7 @@
  * @license   http://www.makoframework.com/license
  */
 
-namespace mako\tests\unit\pixel\image\operations;
+namespace mako\tests\unit\pixel\image\geometry;
 
 use mako\pixel\image\geometry\Point;
 use mako\tests\TestCase;
