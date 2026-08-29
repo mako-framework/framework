@@ -11,27 +11,29 @@ use mako\pixel\image\ImageInterface;
 
 /**
  * Adds a watermark to the image.
+ *
+ * @template T of ImageInterface
  */
 abstract class Watermark implements OperationInterface
 {
 	/**
+	 * Image.
+	 *
+	 * @var T $image
+	 */
+	protected ImageInterface $image;
+
+	/**
 	 * Constructor.
+	 *
+	 * @param T $image
 	 */
 	final public function __construct(
-		protected ImageInterface|string $image,
+		ImageInterface $image,
 		protected WatermarkPosition $position = WatermarkPosition::BottomRight,
 		protected int $opacity = 100,
 		protected int $margin = 0
 	) {
-		if ($image instanceof ($this->getImageClass()) === false) {
-			$this->image = new ($this->getImageClass())($image);
-		}
+		$this->image = $image;
 	}
-
-	/**
-	 * Returns the image implementation class name.
-	 *
-	 * @return class-string<ImageInterface>
-	 */
-	abstract protected function getImageClass(): string;
 }

@@ -16,19 +16,10 @@ use Override;
 /**
  * {@inheritDoc}
  *
- * @property ImageMagick $image
+ * @extends BaseWatermark<ImageMagick>
  */
 class Watermark extends BaseWatermark
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	protected function getImageClass(): string
-	{
-		return ImageMagick::class;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

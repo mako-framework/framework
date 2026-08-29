@@ -19,19 +19,10 @@ use function imagesy;
 /**
  * {@inheritDoc}
  *
- * @property Gd $image
+ * @extends BaseWatermark<Gd>
  */
 class Watermark extends BaseWatermark
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	protected function getImageClass(): string
-	{
-		return Gd::class;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 *

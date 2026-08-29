@@ -12,15 +12,27 @@ use mako\pixel\image\ImageInterface;
 
 /**
  * Composites an image onto the image at the specified position.
+ *
+ * @template T of ImageInterface
  */
 abstract class Composite implements OperationInterface
 {
 	/**
+	 * Image.
+	 *
+	 * @var T $image
+	 */
+	protected ImageInterface $image;
+
+	/**
 	 * Constructor.
+	 *
+	 * @param T $image
 	 */
 	final public function __construct(
-		protected ImageInterface $image,
+		ImageInterface $image,
 		protected Point $position = new Point(0, 0)
 	) {
+		$this->image = $image;
 	}
 }

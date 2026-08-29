@@ -15,7 +15,7 @@ use Override;
 /**
  * {@inheritDoc}
  *
- * @property ImageMagick $image
+ * @extends BaseComposite<ImageMagick>
  */
 class Composite extends BaseComposite
 {

@@ -19,7 +19,7 @@ use function imagesy;
 /**
  * {@inheritDoc}
  *
- * @property Gd $image
+ * @extends BaseComposite<Gd>
  */
 class Composite extends BaseComposite
 {
