@@ -40,7 +40,7 @@ use function str_pad;
 class ListRoutes extends Command
 {
 	/**
-	 * Returns a normalzed action name.
+	 * Returns a normalized action name.
 	 */
 	protected function getNormalizedActionName(Route $route): string
 	{
