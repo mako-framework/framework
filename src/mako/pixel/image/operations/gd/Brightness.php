@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\operations\Brightness as BrightnessOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 use function imagefilter;
@@ -19,8 +18,6 @@ use function imagefilter;
  */
 class Brightness extends BrightnessOperation
 {
-	use NormalizeTrait;
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -33,6 +30,6 @@ class Brightness extends BrightnessOperation
 			return;
 		}
 
-		imagefilter($imageResource, IMG_FILTER_BRIGHTNESS, $this->normalizeLevel($this->level));
+		imagefilter($imageResource, IMG_FILTER_BRIGHTNESS, $this->level);
 	}
 }

@@ -27,11 +27,11 @@ abstract class Rectangle implements OperationInterface
 		protected int $strokeWidth = 1,
 		protected Point $position = new Point(0, 0)
 	) {
-		if ($this->fill === null && $this->stroke === null) {
+		if ($fill === null && $stroke === null) {
 			throw new InvalidArgumentException('A rectangle requires a fill, a stroke, or both.');
 		}
 
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
+		if ($stroke !== null && $strokeWidth < 1) {
 			throw new InvalidArgumentException('Stroke width must be greater than 0.');
 		}
 	}

@@ -29,7 +29,7 @@ class Opacity extends OpacityOperation
 	{
 		$imageResource->evaluateImage(
 			Imagick::EVALUATE_MULTIPLY,
-			($this->normalizePercent($this->opacity) / 100),
+			$this->opacity / 100,
 			Imagick::CHANNEL_ALPHA
 		);
 	}

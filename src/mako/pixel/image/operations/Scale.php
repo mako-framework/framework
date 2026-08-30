@@ -18,14 +18,10 @@ abstract class Scale implements OperationInterface
 	 * Constructor.
 	 */
 	final public function __construct(
-		protected int $percent {
-			set(int $value) {
-				if ($value <= 0) {
-					throw new InvalidArgumentException('Scale percentage must be greater than zero.');
-				}
-				$this->percent = $value;
-			}
-		},
+		protected int $percent
 	) {
+		if ($percent <= 0) {
+			throw new InvalidArgumentException('Scale percentage must be greater than zero.');
+		}
 	}
 }

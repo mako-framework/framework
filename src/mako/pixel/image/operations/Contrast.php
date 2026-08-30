@@ -7,16 +7,21 @@
 
 namespace mako\pixel\image\operations;
 
+use mako\pixel\image\operations\traits\NormalizeTrait;
+
 /**
  * Adjusts the image contrast.
  */
 abstract class Contrast implements OperationInterface
 {
+	use NormalizeTrait;
+
 	/**
 	 * Constructor.
 	 */
 	final public function __construct(
-		protected int $level = 0
+		protected int $level
 	) {
+		$this->level = $this->normalizeLevel($level);
 	}
 }

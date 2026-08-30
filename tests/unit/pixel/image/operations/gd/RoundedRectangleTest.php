@@ -22,6 +22,20 @@ class RoundedRectangleTest extends TestCase
 	/**
 	 *
 	 */
+	public function testNegativeRadius(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessageIs('The radius must be a non-negative number.');
+
+		new RoundedRectangle(
+			new Dimensions(0, 0),
+			-20
+		);
+	}
+
+	/**
+	 *
+	 */
 	public function testMissingFillAndStroke(): void
 	{
 		$this->expectException(InvalidArgumentException::class);

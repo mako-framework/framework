@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\operations\Temperature as TemperatureOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 use function imagealphablending;
@@ -26,8 +25,6 @@ use function min;
  */
 class Temperature extends TemperatureOperation
 {
-	use NormalizeTrait;
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -51,11 +48,9 @@ class Temperature extends TemperatureOperation
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$level = $this->normalizeLevel($this->level);
-
 		 // Warm: boost red, reduce blue - Cool: the opposite
 
-		$shift = $level * 0.0022;
+		$shift = $this->level * 0.0022;
 
 		$redMultiplier = 1 + $shift;
 		$blueMultiplier = 1 - $shift;

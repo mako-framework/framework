@@ -29,7 +29,7 @@ abstract class TextBox implements OperationInterface
 		protected int $strokeWidth = 1,
 		protected Point $position = new Point(0, 0)
 	) {
-		if ($this->stroke !== null && $this->strokeWidth < 1) {
+		if ($stroke !== null && $strokeWidth < 1) {
 			throw new InvalidArgumentException('Stroke width must be greater than 0.');
 		}
 	}

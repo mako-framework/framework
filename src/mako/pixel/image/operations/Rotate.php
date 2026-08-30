@@ -16,7 +16,7 @@ abstract class Rotate implements OperationInterface
 	 * Constructor.
 	 */
 	final public function __construct(
-		protected int $degrees = 0
+		protected int $degrees
 	) {
 	}
 }

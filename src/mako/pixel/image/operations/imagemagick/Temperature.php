@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use mako\pixel\image\operations\Temperature as TemperatureOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 use function abs;
@@ -19,8 +18,6 @@ use function abs;
  */
 class Temperature extends TemperatureOperation
 {
-	use NormalizeTrait;
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -33,9 +30,7 @@ class Temperature extends TemperatureOperation
 			return;
 		}
 
-		$level = $this->normalizeLevel($this->level);
-
-		$shift = $level * 0.0022;
+		$shift = $this->level * 0.0022;
 
 		if ($shift > 0) {
 			$imageResource->evaluateImage(Imagick::EVALUATE_MULTIPLY, 1 + $shift, Imagick::CHANNEL_RED);

@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\operations\Saturation as SaturationOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 use function imagealphablending;
@@ -27,8 +26,6 @@ use function min;
  */
 class Saturation extends SaturationOperation
 {
-	use NormalizeTrait;
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -52,7 +49,7 @@ class Saturation extends SaturationOperation
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);
 
-		$factor = 1 + ($this->normalizeLevel($this->level) / 100);
+		$factor = 1 + ($this->level / 100);
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {

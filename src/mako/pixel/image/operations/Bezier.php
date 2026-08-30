@@ -32,7 +32,7 @@ abstract class Bezier implements OperationInterface
 			throw new InvalidArgumentException('A Bézier curve requires at least 2 points.');
 		}
 
-		if ($this->strokeWidth < 1) {
+		if ($strokeWidth < 1) {
 			throw new InvalidArgumentException('Stroke width must be greater than 0.');
 		}
 	}

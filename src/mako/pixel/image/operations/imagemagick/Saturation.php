@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use mako\pixel\image\operations\Saturation as SaturationOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 /**
@@ -17,8 +16,6 @@ use Override;
  */
 class Saturation extends SaturationOperation
 {
-	use NormalizeTrait;
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -31,9 +28,7 @@ class Saturation extends SaturationOperation
 			return;
 		}
 
-		$level = $this->normalizeLevel($this->level);
-
-		$saturation = 100 + $level;
+		$saturation = 100 + $this->level;
 
 		$imageResource->modulateImage(100, $saturation, 100);
 	}

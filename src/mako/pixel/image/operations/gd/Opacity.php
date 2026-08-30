@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\gd;
 
 use GdImage;
 use mako\pixel\image\operations\Opacity as OpacityOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use mako\pixel\image\traits\GdTrait;
 use Override;
 
@@ -27,7 +26,6 @@ use function round;
 class Opacity extends OpacityOperation
 {
 	use GdTrait;
-	use NormalizeTrait;
 
 	/**
 	 * {@inheritDoc}
@@ -46,7 +44,7 @@ class Opacity extends OpacityOperation
 			imagealphablending($imageResource, false);
 		}
 
-		$opacityAlpha = 127 - round($this->normalizePercent($this->opacity) * 127 / 100);
+		$opacityAlpha = 127 - round($this->opacity * 127 / 100);
 
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {

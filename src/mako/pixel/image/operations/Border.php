@@ -7,9 +7,8 @@
 
 namespace mako\pixel\image\operations;
 
+use InvalidArgumentException;
 use mako\pixel\image\Color;
-
-use function max;
 
 /**
  * Adds a border to the image.
@@ -23,6 +22,8 @@ abstract class Border implements OperationInterface
 		protected Color $color = new Color(0, 0, 0),
 		protected int $width = 4
 	) {
-		$this->width = max(0, $this->width);
+		if ($width < 0) {
+			throw new InvalidArgumentException('The border width must be a non-negative number.');
+		}
 	}
 }
