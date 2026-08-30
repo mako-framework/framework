@@ -12,9 +12,6 @@ use ImagickPixel;
 use mako\pixel\image\operations\ReplaceColor as ReplaceColorOperation;
 use Override;
 
-use function max;
-use function min;
-
 /**
  * {@inheritDoc}
  */
@@ -25,11 +22,9 @@ class ReplaceColor extends ReplaceColorOperation
 	 */
 	protected function normalizeTolerance(): float
 	{
-		$tolerance = max(0, min(100, $this->tolerance));
-
 		$quantumRange = (float) Imagick::getQuantumRange()['quantumRangeLong'];
 
-		return ($tolerance / 100) * $quantumRange;
+		return ($this->tolerance / 100) * $quantumRange;
 	}
 
 	/**

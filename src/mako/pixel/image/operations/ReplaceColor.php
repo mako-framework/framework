@@ -8,12 +8,21 @@
 namespace mako\pixel\image\operations;
 
 use mako\pixel\image\Color;
+use mako\pixel\image\operations\traits\NormalizeTrait;
 
 /**
  * Replaces pixels matching a specified color with another color.
+ *
+ * The tolerance ranges from 0 (only exact matches are replaced) to 100
+ * (all colors match). Values outside this range will be clamped.
+ *
+ * Setting the invert match flag to true inverts the matching, replacing
+ * all pixels that do NOT match the specified color.
  */
 abstract class ReplaceColor implements OperationInterface
 {
+	use NormalizeTrait;
+
 	/**
 	 * Constructor.
 	 */
@@ -23,5 +32,6 @@ abstract class ReplaceColor implements OperationInterface
 		protected int $tolerance = 0,
 		protected bool $invertMatch = false
 	) {
+		$this->tolerance = $this->normalizePercent($tolerance);
 	}
 }

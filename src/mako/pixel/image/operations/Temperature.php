@@ -11,6 +11,9 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
 
 /**
  * Adjusts the image color temperature.
+ *
+ * The level ranges from -100 (coolest) to 100 (warmest).
+ * Values outside this range will be clamped.
  */
 abstract class Temperature implements OperationInterface
 {

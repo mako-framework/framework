@@ -11,6 +11,9 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
 
 /**
  * Adjusts the opacity of the image.
+ *
+ * The opacity ranges from 0 (fully transparent) to 100 (fully opaque).
+ * Values outside this range will be clamped.
  */
 abstract class Opacity implements OperationInterface
 {

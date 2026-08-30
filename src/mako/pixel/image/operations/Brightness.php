@@ -11,6 +11,9 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
 
 /**
  * Adjusts the image brightness.
+ *
+ * The level ranges from -100 (minimum brightness) to 100 (maximum brightness).
+ * Values outside this range will be clamped.
  */
 abstract class Brightness implements OperationInterface
 {

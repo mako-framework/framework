@@ -21,7 +21,15 @@ use function sprintf;
 use function strlen;
 
 /**
- * Color.
+ * Represents an immutable RGBA color.
+ *
+ * Each channel (red, green, blue and alpha) is stored as an 8-bit integer
+ * ranging from 0 to 255, where an alpha value of 0 is fully transparent
+ * and 255 is fully opaque.
+ *
+ * Colors can be created from RGB(A) values, hex strings, web color names,
+ * as well as HSL and HWB values, and can be converted to hex, RGB(A),
+ * HSL(A) and HWB(A) string representations.
  */
 final class Color
 {

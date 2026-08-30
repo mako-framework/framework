@@ -11,6 +11,9 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
 
 /**
  * Adjusts the color saturation.
+ *
+ * The level ranges from -100 (minimum saturation) to 100 (maximum saturation).
+ * Values outside this range will be clamped.
  */
 abstract class Saturation implements OperationInterface
 {

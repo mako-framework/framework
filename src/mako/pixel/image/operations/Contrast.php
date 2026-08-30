@@ -11,6 +11,9 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
 
 /**
  * Adjusts the image contrast.
+ *
+ * The level ranges from -100 (minimum contrast) to 100 (maximum contrast).
+ * Values outside this range will be clamped.
  */
 abstract class Contrast implements OperationInterface
 {

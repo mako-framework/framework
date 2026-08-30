@@ -11,6 +11,9 @@ use InvalidArgumentException;
 
 /**
  * Adjusts the gamma level of the image.
+ *
+ * The gamma value must be greater than 0. Values below 1.0 darken the image,
+ * a value of 1.0 leaves it unchanged, and values above 1.0 brighten it.
  */
 abstract class Gamma implements OperationInterface
 {
