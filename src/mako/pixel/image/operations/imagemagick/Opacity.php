@@ -9,7 +9,6 @@ namespace mako\pixel\image\operations\imagemagick;
 
 use Imagick;
 use mako\pixel\image\operations\Opacity as OpacityOperation;
-use mako\pixel\image\operations\traits\NormalizeTrait;
 use Override;
 
 /**
@@ -17,8 +16,6 @@ use Override;
  */
 class Opacity extends OpacityOperation
 {
-	use NormalizeTrait;
-
 	/**
 	 * {@inheritDoc}
 	 *

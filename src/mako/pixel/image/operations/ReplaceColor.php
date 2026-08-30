@@ -8,7 +8,9 @@
 namespace mako\pixel\image\operations;
 
 use mako\pixel\image\Color;
-use mako\pixel\image\operations\traits\NormalizeTrait;
+
+use function max;
+use function min;
 
 /**
  * Replaces pixels matching a specified color with another color.
@@ -21,8 +23,6 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
  */
 abstract class ReplaceColor implements OperationInterface
 {
-	use NormalizeTrait;
-
 	/**
 	 * Constructor.
 	 */
@@ -32,6 +32,6 @@ abstract class ReplaceColor implements OperationInterface
 		protected int $tolerance = 0,
 		protected bool $invertMatch = false
 	) {
-		$this->tolerance = $this->normalizePercent($tolerance);
+		$this->tolerance = max(0, min(100, $tolerance));
 	}
 }

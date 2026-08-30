@@ -7,7 +7,8 @@
 
 namespace mako\pixel\image\operations;
 
-use mako\pixel\image\operations\traits\NormalizeTrait;
+use function max;
+use function min;
 
 /**
  * Adjusts the opacity of the image.
@@ -17,14 +18,12 @@ use mako\pixel\image\operations\traits\NormalizeTrait;
  */
 abstract class Opacity implements OperationInterface
 {
-	use NormalizeTrait;
-
 	/**
 	 * Constructor.
 	 */
 	final public function __construct(
 		protected int $opacity
 	) {
-		$this->opacity = $this->normalizePercent($opacity);
+		$this->opacity = max(0, min(100, $opacity));
 	}
 }
