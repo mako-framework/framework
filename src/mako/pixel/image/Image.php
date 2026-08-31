@@ -28,11 +28,15 @@ use function strtolower;
 
 /**
  * Base image.
+ *
+ * @template T of object
  */
 abstract class Image implements ImageInterface
 {
 	/**
 	 * Image resource.
+	 *
+	 * @var T|null
 	 */
 	protected ?object $imageResource = null;
 
@@ -60,6 +64,8 @@ abstract class Image implements ImageInterface
 			throw new ImageException(sprintf('The image [ %s ] is not readable.', $imagePath));
 		}
 
+		$this->imagePath = $imagePath;
+
 		$this->imageResource = $this->createImageResourceFromPath($imagePath);
 	}
 
@@ -82,6 +88,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	final public static function create(Dimensions $dimensions, Color $fill = new Color(0, 0, 0, 0)): static
 	{
+		/** @var static<T> $image */
 		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
 
 		$image->imageResource = $image->createImageResource($dimensions, $fill);
@@ -104,6 +111,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	final public static function fromBlob(string $blob): static
 	{
+		/** @var static<T> $image */
 		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
 
 		$image->imageResource = $image->createImageResourceFromBlob($blob);
@@ -117,6 +125,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	final public static function fromStream(mixed $stream): static
 	{
+		/** @var static<T> $image */
 		$image = (new ReflectionClass(static::class))->newInstanceWithoutConstructor();
 
 		$image->imageResource = $image->createImageResourceFromStream($stream);
@@ -141,21 +150,29 @@ abstract class Image implements ImageInterface
 
 	/**
 	 * Creates a image resource.
+	 *
+	 * @return T
 	 */
 	abstract protected function createImageResource(Dimensions $dimensions, Color $fill): object;
 
 	/**
 	 * Creates an image resource from a file path.
+	 *
+	 * @return T
 	 */
 	abstract protected function createImageResourceFromPath(string $imagePath): object;
 
 	/**
 	 * Creates an image resource from a binary blob.
+	 *
+	 * @return T
 	 */
 	abstract protected function createImageResourceFromBlob(string $blob): object;
 
 	/**
 	 * Creates an image resource from a stream.
+	 *
+	 * @return T
 	 */
 	abstract protected function createImageResourceFromStream(mixed $stream): object;
 
@@ -183,6 +200,8 @@ abstract class Image implements ImageInterface
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @return T
 	 */
 	#[Override]
 	public function getImageResource(): object
@@ -264,9 +283,9 @@ abstract class Image implements ImageInterface
 	}
 
 	/**
-	 * {Returns the output mime type of the image resource.
+	 * Returns the output mime type of the image resource.
 	 */
-	protected function getOuputMimeType(?string $type): string
+	protected function getOutputMimeType(?string $type): string
 	{
 		return $type === null
 			? $this->mimeType
@@ -279,7 +298,7 @@ abstract class Image implements ImageInterface
 	#[Override]
 	public function toDataUri(?string $type = null, int $quality = 95): string
 	{
-		return "data:{$this->getOuputMimeType($type)};base64,{$this->toBase64($type, $quality)}";
+		return "data:{$this->getOutputMimeType($type)};base64,{$this->toBase64($type, $quality)}";
 	}
 
 	/**
@@ -314,7 +333,7 @@ abstract class Image implements ImageInterface
 			$directory = pathinfo($imagePath, PATHINFO_DIRNAME);
 
 			if (!file_exists($directory)) {
-				throw new ImageException(sprintf('The directory [ %s ] does not exist.', $imagePath));
+				throw new ImageException(sprintf('The directory [ %s ] does not exist.', $directory));
 			}
 
 			if (!is_writable($directory)) {

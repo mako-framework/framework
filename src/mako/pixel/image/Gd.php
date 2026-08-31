@@ -7,6 +7,7 @@
 
 namespace mako\pixel\image;
 
+use GdImage;
 use mako\pixel\image\exceptions\ImageException;
 use mako\pixel\image\geometry\Dimensions;
 use Override;
@@ -48,7 +49,7 @@ use function strtolower;
  *
  * @see https://www.php.net/manual/en/book.image.php
  *
- * @property ?\GdImage $imageResource
+ * @extends Image<GdImage>
  */
 class Gd extends Image
 {
@@ -114,8 +115,6 @@ class Gd extends Image
 	#[Override]
 	protected function createImageResourceFromPath(string $imagePath): object
 	{
-		$this->imagePath = $imagePath;
-
 		$imageInfo = $this->getImageInfoFromPath($imagePath);
 
 		$this->mimeType = $this->normalizeMimeType($imageInfo['mime']);

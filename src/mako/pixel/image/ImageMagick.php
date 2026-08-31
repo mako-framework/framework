@@ -23,7 +23,7 @@ use function strtolower;
  *
  * @see https://www.php.net/manual/en/book.imagick.php
  *
- * @property ?Imagick $imageResource
+ * @extends Image<Imagick>
  */
 class ImageMagick extends Image
 {
@@ -83,8 +83,6 @@ class ImageMagick extends Image
 	#[Override]
 	protected function createImageResourceFromPath(string $imagePath): object
 	{
-		$this->imagePath = $imagePath;
-
 		$imageResource = new Imagick($imagePath);
 
 		$this->detectMimeTypeAndPerformGifCheck($imageResource);

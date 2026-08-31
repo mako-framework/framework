@@ -13,28 +13,37 @@ use mako\pixel\image\operations\OperationInterface;
 
 /**
  * Image.
+ *
+ * @template T of object
  */
 interface ImageInterface
 {
 	/**
 	 * Creates a blank image instance.
+	 *
+	 * @return static<T>
 	 */
 	public static function create(Dimensions $dimensions, Color $fill = new Color(0, 0, 0, 0)): static;
 
 	/**
 	 * Creates an image instance from a file path.
+	 *
+	 * @return static<T>
 	 */
 	public static function fromPath(string $imagePath): static;
 
 	/**
 	 * Creates an image instance from a binary blob.
+	 *
+	 * @return static<T>
 	 */
 	public static function fromBlob(string $blob): static;
 
 	/**
 	 * Creates an image instance from a stream.
 	 *
-	 * @param resource $stream
+	 * @param  resource  $stream
+	 * @return static<T>
 	 */
 	public static function fromStream(mixed $stream): static;
 
@@ -66,9 +75,9 @@ interface ImageInterface
 	/**
 	 * Returns information about the image using the given inspector.
 	 *
-	 * @template T
-	 * @param  InspectorInterface<T> $inspector
-	 * @return T
+	 * @template TReturn
+	 * @param  InspectorInterface<TReturn> $inspector
+	 * @return TReturn
 	 */
 	public function inspect(InspectorInterface $inspector): mixed;
 
