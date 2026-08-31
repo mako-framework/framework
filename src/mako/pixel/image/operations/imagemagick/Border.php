@@ -32,20 +32,15 @@ class Border extends BorderOperation
 
 		$draw = new ImagickDraw;
 
-		$draw->setStrokeColor(new ImagickPixel($this->color->toHexaString()));
-		$draw->setStrokeWidth($this->width);
-		$draw->setFillOpacity(0);
-		$draw->setStrokeAntialias(true);
+		$draw->setFillColor(new ImagickPixel($this->color->toHexaString()));
 
 		$width = $imageResource->getImageWidth();
 		$height = $imageResource->getImageHeight();
 
-		$draw->rectangle(
-			$this->width / 2,
-			$this->width / 2,
-			$width - $this->width / 2,
-			$height - $this->width / 2
-		);
+		$draw->rectangle(0, 0, $width - 1, $this->width - 1);
+		$draw->rectangle(0, $height - $this->width, $width - 1, $height - 1);
+		$draw->rectangle(0, 0, $this->width - 1, $height - 1);
+		$draw->rectangle($width - $this->width, 0, $width - 1, $height - 1);
 
 		$imageResource->drawImage($draw);
 
