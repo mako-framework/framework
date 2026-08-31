@@ -20,7 +20,7 @@ abstract class Composite implements OperationInterface
 	/**
 	 * Image.
 	 *
-	 * @var T $image
+	 * @var T
 	 */
 	protected ImageInterface $image;
 
