@@ -31,7 +31,7 @@ class TextBoxTest extends TestCase
 		new TextBox(
 			'Hello, world!',
 			new Dimensions(0, 0),
-			new Font('foo', 1),
+			new Font('foo', 'foo', 1),
 			stroke: new Color(0, 0, 0),
 			strokeWidth: 0
 		);

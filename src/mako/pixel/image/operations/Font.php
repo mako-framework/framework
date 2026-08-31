@@ -12,8 +12,9 @@ use mako\pixel\image\Color;
 /**
  * Represents a font.
  *
- * Font sizes are interpreted by the underlying rendering engine and may
- * produce slightly different results between GD and ImageMagick.
+ * The name is the font family name (e.g. "DejaVu Sans") and the size is
+ * specified in pixels. Text rendering may produce slightly different
+ * results between drivers as they use different rasterizers.
  */
 final readonly class Font
 {
@@ -21,6 +22,7 @@ final readonly class Font
 	 * Constructor.
 	 */
 	public function __construct(
+		public string $name,
 		public string $path,
 		public int $size,
 		public Color $color = new Color(0, 0, 0)
