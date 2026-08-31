@@ -50,7 +50,7 @@ class ColorSpace extends ColorspaceInspector
 	 * @param Imagick &$imageResource
 	 */
 	#[Override]
-	public function inspect(object &$imageResource): mixed
+	public function inspect(object $imageResource): mixed
 	{
 		$value = static::getColorSpaceMap()[$imageResource->getImageColorspace()] ?? null;
 

@@ -58,7 +58,7 @@ class TopColors extends TopColorsInspector
 	 * @param GdImage &$imageResource
 	 */
 	#[Override]
-	public function inspect(object &$imageResource): mixed
+	public function inspect(object $imageResource): mixed
 	{
 		$width = imagesx($imageResource);
 		$height = imagesy($imageResource);

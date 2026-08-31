@@ -26,7 +26,7 @@ class ColorAt extends ColorAtInspector
 	 * @param Imagick &$imageResource
 	 */
 	#[Override]
-	public function inspect(object &$imageResource): mixed
+	public function inspect(object $imageResource): mixed
 	{
 		$this->validatePixel(
 			$this->pixel,

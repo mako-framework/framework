@@ -26,7 +26,7 @@ class TopColors extends TopColorsInspector
 	 * @param Imagick &$imageResource
 	 */
 	#[Override]
-	public function inspect(object &$imageResource): mixed
+	public function inspect(object $imageResource): mixed
 	{
 		$needsConversion = $imageResource->getImageColorspace() !== Imagick::COLORSPACE_SRGB;
 

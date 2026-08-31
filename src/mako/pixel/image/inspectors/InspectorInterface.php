@@ -19,5 +19,5 @@ interface InspectorInterface
 	 *
 	 * @return T
 	 */
-	public function inspect(object &$imageResource): mixed;
+	public function inspect(object $imageResource): mixed;
 }
