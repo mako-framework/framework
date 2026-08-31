@@ -9,6 +9,7 @@ namespace mako\pixel\metadata\xmp;
 
 use FFI;
 use FFI\CData;
+use FFI\Exception as FFIException;
 use mako\pixel\metadata\xmp\exceptions\XmpException;
 use mako\pixel\metadata\xmp\properties\ArrayProperty;
 use mako\pixel\metadata\xmp\properties\QualifierProperty;
@@ -37,6 +38,11 @@ class XmpReader implements Stringable
 	 * Exempi readonly flag.
 	 */
 	protected const int XMP_OPEN_READ = 0x00000001;
+
+	/**
+	 * Number of live instances.
+	 */
+	protected static int $instances = 0;
 
 	/**
 	 * Should we register a shutdown function to clean up?
@@ -73,6 +79,8 @@ class XmpReader implements Stringable
 		}
 
 		$this->xmp = $this->loadXmp($imagePath);
+
+		static::$instances++;
 	}
 
 	/**
@@ -85,7 +93,7 @@ class XmpReader implements Stringable
 			$this->xmp = null;
 		}
 
-		if (!static::$registerShutdownFunction) {
+		if (!static::$registerShutdownFunction && --static::$instances === 0) {
 			static::terminateExempi();
 		}
 	}
@@ -111,7 +119,7 @@ class XmpReader implements Stringable
 	{
 		// Create bindings
 
-		$code = <<<'CODE'
+		$header = <<<'HEADER'
 		typedef void* XmpPtr;
 		typedef void* XmpStringPtr;
 		typedef void* XmpFilePtr;
@@ -136,16 +144,32 @@ class XmpReader implements Stringable
 		void xmp_string_free(XmpStringPtr str);
 
 		void xmp_serialize(XmpPtr xmp, XmpStringPtr output, int options, int padding);
-		CODE;
+		HEADER;
 
-		$library ??= match (PHP_OS_FAMILY) {
-			'Windows' => 'libexempi.dll',
-			'Darwin' => 'libexempi.dylib',
-			'Linux' => 'libexempi.so',
-			default => throw new XmpException('Unable to automatically determine the name of the libexempi library. Please provide the library path manually.'),
+		// Attempt to load the libexempi library, either from the user-provided
+		// path or from a list of platform-specific candidates
+
+		$candidates = $library !== null ? [$library] : match (PHP_OS_FAMILY) {
+			'Windows' => ['libexempi.dll', 'exempi.dll'],
+			'Darwin'  => ['libexempi.dylib', '/opt/homebrew/lib/libexempi.dylib', '/usr/local/lib/libexempi.dylib'],
+			default   => ['libexempi.so.8', 'libexempi.so'],
 		};
 
-		static::$ffi = FFI::cdef($code, $library);
+		$lastException = null;
+
+		foreach ($candidates as $candidate) {
+			try {
+				static::$ffi = FFI::cdef($header, $candidate);
+				break;
+			}
+			catch (FFIException $e) {
+				$lastException = $e;
+			}
+		}
+
+		if (static::$ffi === null) {
+			throw new XmpException('Unable to load the libexempi library. Please provide the library path manually.', previous: $lastException);
+		}
 
 		// Initialize Exempi
 
@@ -179,6 +203,10 @@ class XmpReader implements Stringable
 	protected function loadXmp(string $file): CData
 	{
 		$filePointer = static::$ffi->xmp_files_open_new($file, static::XMP_OPEN_READ);
+
+		if ($filePointer === null) {
+			throw new XmpException(sprintf('Unable to open [ %s ].', $file));
+		}
 
 		$xmp = static::$ffi->xmp_files_get_new_xmp($filePointer);
 
@@ -215,34 +243,37 @@ class XmpReader implements Stringable
 
 		$options = static::$ffi->new('int');
 
-		while (static::$ffi->xmp_iterator_next(
-			$iterator,
-			$namespaceString,
-			$nameString,
-			$valueString,
-			FFI::addr($options)
-		) === 1) {
-			$namespace = static::$ffi->xmp_string_cstr($namespaceString);
-			$name = static::$ffi->xmp_string_cstr($nameString);
-			$value = static::$ffi->xmp_string_cstr($valueString);
+		try {
+			while (static::$ffi->xmp_iterator_next(
+				$iterator,
+				$namespaceString,
+				$nameString,
+				$valueString,
+				FFI::addr($options)
+			) === 1) {
+				$namespace = static::$ffi->xmp_string_cstr($namespaceString);
+				$name = static::$ffi->xmp_string_cstr($nameString);
+				$value = static::$ffi->xmp_string_cstr($valueString);
 
-			if ($name === '' && $value === '') {
-				continue;
+				if ($name === '' && $value === '') {
+					continue;
+				}
+
+				$properties[$name] = [
+					'namespace' => $namespace,
+					'options' => (int) $options->cdata,
+					'name' => $name,
+					'value' => $value,
+				];
 			}
-
-			$properties[$name] = [
-				'namespace' => $namespace,
-				'options' => (int) $options->cdata,
-				'name' => $name,
-				'value' => $value,
-			];
 		}
+		finally {
+			static::$ffi->xmp_string_free($namespaceString);
+			static::$ffi->xmp_string_free($nameString);
+			static::$ffi->xmp_string_free($valueString);
 
-		static::$ffi->xmp_string_free($namespaceString);
-		static::$ffi->xmp_string_free($nameString);
-		static::$ffi->xmp_string_free($valueString);
-
-		static::$ffi->xmp_iterator_free($iterator);
+			static::$ffi->xmp_iterator_free($iterator);
+		}
 
 		return $properties;
 	}
@@ -333,20 +364,24 @@ class XmpReader implements Stringable
 			$name = $property->fullyQualifiedName;
 
 			if (str_ends_with($name, ']')) {
-				$this->appendChildProperty(
-					$properties[$this->getParentArrayKey($name)],
-					$property,
-					'values'
-				);
-				$unset[] = $key;
+				$parentKey = $this->getParentArrayKey($name);
+
+				if (isset($properties[$parentKey])) {
+					$this->appendChildProperty($properties[$parentKey], $property, 'values');
+					$unset[] = $key;
+				}
 			}
 			elseif (str_contains($name, '/')) {
-				$this->appendChildProperty(
-					$properties[$this->getParentStructKey($name)],
-					$property,
-					$property instanceof QualifierProperty ? 'qualifiers' : 'values'
-				);
-				$unset[] = $key;
+				$parentKey = $this->getParentStructKey($name);
+
+				if (isset($properties[$parentKey])) {
+					$this->appendChildProperty(
+						$properties[$parentKey],
+						$property,
+						$property instanceof QualifierProperty ? 'qualifiers' : 'values'
+					);
+					$unset[] = $key;
+				}
 			}
 		}
 
@@ -368,17 +403,18 @@ class XmpReader implements Stringable
 	{
 		$xmlString = static::$ffi->xmp_string_new();
 
-		static::$ffi->xmp_serialize($this->xmp, $xmlString, 0, 0);
+		try {
+			static::$ffi->xmp_serialize($this->xmp, $xmlString, 0, 0);
 
-		$xml = static::$ffi->xmp_string_cstr($xmlString);
-
-		static::$ffi->xmp_string_free($xmlString);
-
-		return $xml;
+			return static::$ffi->xmp_string_cstr($xmlString);
+		}
+		finally {
+			static::$ffi->xmp_string_free($xmlString);
+		}
 	}
 
 	/**
-	 * Returns an array contaning all properties matching the provided namespace and property name.
+	 * Returns an array containing all properties matching the provided namespace and property name.
 	 *
 	 * @return array<ArrayProperty|StructProperty|ValueProperty>
 	 */
