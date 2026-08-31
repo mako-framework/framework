@@ -31,7 +31,7 @@ class Text extends TextOperation
 	{
 		imagettftext(
 			$imageResource,
-			$this->font->size,
+			$this->normalizeFontSize($this->font->size),
 			0,
 			$this->position->x,
 			$this->position->y,

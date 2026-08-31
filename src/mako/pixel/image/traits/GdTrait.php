@@ -25,6 +25,18 @@ use function round;
 trait GdTrait
 {
 	/**
+	 * Converts a font size from pixels to GD points.
+	 *
+	 * GD interprets font sizes as points rendered at 96 DPI while the
+	 * library expects sizes to be specified in pixels (72 DPI), so we
+	 * scale the size by 72/96 to keep the drivers consistent.
+	 */
+	protected function normalizeFontSize(float|int $fontSize): float
+	{
+		return $fontSize * 0.75;
+	}
+
+	/**
 	 * Palette images (e.g. GIF) make imagecolorat() return palette indexes, not
 	 * packed color values. In that case, this method creates a truecolor copy and
 	 * preserves transparency so bit-shift RGBA extraction works consistently.
