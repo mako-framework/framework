@@ -68,7 +68,7 @@ class Router
 	}
 
 	/**
-	 * Returns TRUE if the route matches the request path and FALSE if not.
+	 * Returns true if the route matches the request path and false if not.
 	 */
 	protected function matches(Route $route, string $path): bool
 	{
@@ -98,7 +98,7 @@ class Router
 	}
 
 	/**
-	 * Returns TRUE if all the route constraints are satisfied and FALSE if not.
+	 * Returns true if all the route constraints are satisfied and false if not.
 	 */
 	protected function constraintsAreSatisfied(Route $route): bool
 	{

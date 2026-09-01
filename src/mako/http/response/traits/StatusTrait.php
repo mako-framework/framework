@@ -23,7 +23,7 @@ trait StatusTrait
 	}
 
 	/**
-	 * Returns TRUE if the status is informational and FALSE if not.
+	 * Returns true if the status is informational and false if not.
 	 */
 	public function isInformational(): bool
 	{
@@ -31,7 +31,7 @@ trait StatusTrait
 	}
 
 	/**
-	 * Returns TRUE if the status is a success and FALSE if not.
+	 * Returns true if the status is a success and false if not.
 	 */
 	public function isSuccessful(): bool
 	{
@@ -39,7 +39,7 @@ trait StatusTrait
 	}
 
 	/**
-	 * Returns TRUE if the status is a redirect and FALSE if not.
+	 * Returns true if the status is a redirect and false if not.
 	 */
 	public function isRedirection(): bool
 	{
@@ -47,7 +47,7 @@ trait StatusTrait
 	}
 
 	/**
-	 * Returns TRUE if the status is a client error and FALSE if not.
+	 * Returns true if the status is a client error and false if not.
 	 */
 	public function isClientError(): bool
 	{
@@ -55,7 +55,7 @@ trait StatusTrait
 	}
 
 	/**
-	 * Returns TRUE if the status is a server error and FALSE if not.
+	 * Returns true if the status is a server error and false if not.
 	 */
 	public function isServerError(): bool
 	{

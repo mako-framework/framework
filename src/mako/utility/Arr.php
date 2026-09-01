@@ -71,7 +71,7 @@ class Arr
 	}
 
 	/**
-	 * Search for an array value using "dot notation". Returns TRUE if the array key exists and FALSE if not.
+	 * Search for an array value using "dot notation". Returns true if the array key exists and false if not.
 	 */
 	public static function has(array $array, string $path): bool
 	{
@@ -137,7 +137,7 @@ class Arr
 	}
 
 	/**
-	 * Returns TRUE if the array is associative and FALSE if not.
+	 * Returns true if the array is associative and false if not.
 	 */
 	public static function isAssoc(array $array): bool
 	{

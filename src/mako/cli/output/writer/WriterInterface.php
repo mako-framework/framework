@@ -20,7 +20,7 @@ interface WriterInterface
 	public function setStream($stream): void;
 
 	/**
-	 * Returns TRUE if the output isn't redirected or piped and FALSE in all other situations.
+	 * Returns true if the output isn't redirected or piped and false in all other situations.
 	 */
 	public function isDirect(): bool;
 

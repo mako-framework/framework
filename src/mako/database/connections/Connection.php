@@ -470,7 +470,7 @@ class Connection
 	}
 
 	/**
-	 * Executes the query and returns TRUE on success or FALSE on failure.
+	 * Executes the query and returns true on success or false on failure.
 	 */
 	public function query(string $query, array $params = []): bool
 	{
@@ -661,7 +661,7 @@ class Connection
 	}
 
 	/**
-	 * Returns TRUE if we're in a transaction and FALSE if not.
+	 * Returns true if we're in a transaction and false if not.
 	 */
 	public function inTransaction(): bool
 	{

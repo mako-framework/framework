@@ -91,7 +91,7 @@ class UploadedFile extends FileInfo
 	}
 
 	/**
-	 * Returns TRUE if the file has been uploaded and FALSE if not.
+	 * Returns true if the file has been uploaded and false if not.
 	 */
 	public function isUploaded(): bool
 	{

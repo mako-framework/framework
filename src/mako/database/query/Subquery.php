@@ -55,7 +55,7 @@ class Subquery
 	}
 
 	/**
-	 * Returns TRUE if the subquery provides its own query builder instance and FALSE if not.
+	 * Returns true if the subquery provides its own query builder instance and false if not.
 	 */
 	public function providesBuilderInstance(): bool
 	{

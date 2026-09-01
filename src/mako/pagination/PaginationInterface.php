@@ -40,7 +40,7 @@ interface PaginationInterface extends JsonSerializable
 	public function numberOfPages(): int;
 
 	/**
-	 * Returns TRUE if we're on a valid page and FALSE if not.
+	 * Returns true if we're on a valid page and false if not.
 	 */
 	public function isValidPage(): bool;
 

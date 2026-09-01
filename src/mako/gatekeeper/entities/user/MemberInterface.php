@@ -13,7 +13,7 @@ namespace mako\gatekeeper\entities\user;
 interface MemberInterface
 {
 	/**
-	 * Returns TRUE if a user is a member of the group(s) and FALSE if not.
+	 * Returns true if a user is a member of the group(s) and false if not.
 	 */
 	public function isMemberOf(array|int|string $group): bool;
 }

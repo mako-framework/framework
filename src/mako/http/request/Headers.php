@@ -92,7 +92,7 @@ class Headers implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns TRUE if the header exists and FALSE if not.
+	 * Returns true if the header exists and false if not.
 	 */
 	public function has(string $name): bool
 	{

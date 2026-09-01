@@ -136,7 +136,7 @@ class Cookies implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns TRUE if the cookie exists and FALSE if not.
+	 * Returns true if the cookie exists and false if not.
 	 */
 	public function has(string $name): bool
 	{

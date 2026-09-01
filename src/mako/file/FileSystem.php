@@ -52,7 +52,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if a resource exists and FALSE if not.
+	 * Returns true if a resource exists and false if not.
 	 */
 	public function has(string $path): bool
 	{
@@ -60,7 +60,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the provided path is a file and FALSE if not.
+	 * Returns true if the provided path is a file and false if not.
 	 */
 	public function isFile(string $path): bool
 	{
@@ -68,7 +68,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the provided path is a directory and FALSE if not.
+	 * Returns true if the provided path is a directory and false if not.
 	 */
 	public function isDirectory(string $path): bool
 	{
@@ -76,7 +76,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if a file or directory is empty and FALSE if not.
+	 * Returns true if a file or directory is empty and false if not.
 	 */
 	public function isEmpty(string $path): bool
 	{
@@ -106,7 +106,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
+	 * Returns true if the file permissions contain the specified permissions and false if not.
 	 */
 	public function hasPermissions(string $path, int|Permissions $permissions): bool
 	{
@@ -116,7 +116,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the file is readable and FALSE if not.
+	 * Returns true if the file is readable and false if not.
 	 */
 	public function isReadable(string $path): bool
 	{
@@ -124,7 +124,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the file or directory is writable and FALSE if not.
+	 * Returns true if the file or directory is writable and false if not.
 	 */
 	public function isWritable(string $path): bool
 	{
@@ -132,7 +132,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the file is executable and FALSE if not.
+	 * Returns true if the file is executable and false if not.
 	 */
 	public function isExecutable(string $path): bool
 	{
@@ -140,7 +140,7 @@ class FileSystem
 	}
 
 	/**
-	 * Returns TRUE if the provided path is a link and FALSE if not.
+	 * Returns true if the provided path is a link and false if not.
 	 */
 	public function isLink(string $path): bool
 	{

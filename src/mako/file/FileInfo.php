@@ -54,7 +54,7 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns TRUE if the file matches the provided hash and FALSE if not.
+	 * Returns true if the file matches the provided hash and false if not.
 	 */
 	public function validateHash(string $hash, string $algorithm = 'sha256', bool $raw = false): bool
 	{
@@ -70,7 +70,7 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns TRUE if the file matches the provided HMAC and FALSE if not.
+	 * Returns true if the file matches the provided HMAC and false if not.
 	 */
 	public function validateHmac(string $hmac, #[SensitiveParameter] string $key, string $algorithm = 'sha256', bool $raw = false): bool
 	{
@@ -86,7 +86,7 @@ class FileInfo extends SplFileInfo
 	}
 
 	/**
-	 * Returns TRUE if the file permissions contain the specified permissions and FALSE if not.
+	 * Returns true if the file permissions contain the specified permissions and false if not.
 	 */
 	public function hasPermissions(int|Permissions $permissions): bool
 	{

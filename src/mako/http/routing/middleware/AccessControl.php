@@ -46,7 +46,7 @@ abstract class AccessControl implements MiddlewareInterface
 	protected array $allowedMethods = [];
 
 	/**
-	 * Returns TRUE if we allows credentials and FALSE if not.
+	 * Returns true if we allows credentials and false if not.
 	 */
 	protected function allowsCredentials(): bool
 	{
@@ -54,7 +54,7 @@ abstract class AccessControl implements MiddlewareInterface
 	}
 
 	/**
-	 * Returns TRUE if we allow all domains and FALSE if not.
+	 * Returns true if we allow all domains and false if not.
 	 */
 	protected function allowsAllDomains(): bool
 	{
@@ -78,7 +78,7 @@ abstract class AccessControl implements MiddlewareInterface
 	}
 
 	/**
-	 * Returns TRUE if the domain is allowed and FALSE if not.
+	 * Returns true if the domain is allowed and false if not.
 	 */
 	protected function isDomainAllowed(string $domain): bool
 	{

@@ -102,7 +102,7 @@ class Group extends ORM implements GroupEntityInterface
 	}
 
 	/**
-	 * Returns TRUE if a user is a member of the group and FALSE if not.
+	 * Returns true if a user is a member of the group and false if not.
 	 */
 	public function isMember(User $user)
 	{

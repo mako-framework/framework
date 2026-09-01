@@ -225,7 +225,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * Returns TRUE of the user is activated and FALSE if not.
+	 * Returns true of the user is activated and false if not.
 	 */
 	public function isActivated(): bool
 	{
@@ -249,7 +249,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * Returns TRUE if the user is banned and FALSE if not.
+	 * Returns true if the user is banned and false if not.
 	 */
 	public function isBanned(): bool
 	{
@@ -257,7 +257,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * Returns TRUE if the provided password is correct and FALSE if not.
+	 * Returns true if the provided password is correct and false if not.
 	 */
 	public function validatePassword(#[SensitiveParameter] string $password, bool $autoSave = true): bool
 	{
@@ -331,7 +331,7 @@ class User extends ORM implements AuthorizableInterface, MemberInterface, UserEn
 	}
 
 	/**
-	 * Returns TRUE if the account is locked and FALSE if not.
+	 * Returns true if the account is locked and false if not.
 	 */
 	public function isLocked(): bool
 	{

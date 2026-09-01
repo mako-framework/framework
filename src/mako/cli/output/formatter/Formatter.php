@@ -103,7 +103,7 @@ class Formatter implements FormatterInterface
 	}
 
 	/**
-	 * Returns TRUE if the tag is a closing tag and FALSE if not.
+	 * Returns true if the tag is a closing tag and false if not.
 	 */
 	protected function isOpeningTag(string $tag): bool
 	{

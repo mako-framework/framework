@@ -380,7 +380,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	}
 
 	/**
-	 * Returns TRUE if the model has included the relationship and FALSE if not.
+	 * Returns true if the model has included the relationship and false if not.
 	 */
 	public function includes(string $relation): bool
 	{
@@ -480,7 +480,7 @@ abstract class ORM implements JsonSerializable, Stringable
 	}
 
 	/**
-	 * Returns TRUE if it's probable that $name is a relation and FALSE if not.
+	 * Returns true if it's probable that $name is a relation and false if not.
 	 */
 	protected function isRelation(string $name): bool
 	{
@@ -836,7 +836,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 	/**
 	 * Excludes the chosen columns and relations from array and json representations of the record.
-	 * You expose all fields by passing FALSE.
+	 * You expose all fields by passing false.
 	 *
 	 * @return $this
 	 */
@@ -849,7 +849,7 @@ abstract class ORM implements JsonSerializable, Stringable
 
 	/**
 	 * Exposes the chosen columns and relations in the array and json representations of the record.
-	 * You can expose all fields by passing TRUE.
+	 * You can expose all fields by passing true.
 	 *
 	 * @return $this
 	 */

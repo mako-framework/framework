@@ -43,6 +43,6 @@ class BooleanFalseTest extends TestCase
 
 		$this->assertFalse($rule->validate(true, '', []));
 
-		$this->assertSame('The foobar field must contain the boolean value FALSE.', $rule->getErrorMessage('foobar'));
+		$this->assertSame('The foobar field must contain the boolean value false.', $rule->getErrorMessage('foobar'));
 	}
 }

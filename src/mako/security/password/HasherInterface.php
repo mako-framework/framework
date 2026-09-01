@@ -25,7 +25,7 @@ interface HasherInterface
 	public function verify(#[SensitiveParameter] string $password, string $hash): bool;
 
 	/**
-	 * Returns TRUE if the password needs rehashing and FALSE if not.
+	 * Returns true if the password needs rehashing and false if not.
 	 */
 	public function needsRehash(string $hash): bool;
 }

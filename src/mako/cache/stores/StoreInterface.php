@@ -23,7 +23,7 @@ interface StoreInterface
 	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool;
 
 	/**
-	 * Returns TRUE if the cache key exists and FALSE if not.
+	 * Returns true if the cache key exists and false if not.
 	 */
 	public function has(string $key): bool;
 

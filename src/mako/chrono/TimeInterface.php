@@ -117,32 +117,32 @@ interface TimeInterface extends DateTimeInterface
 	public function getDOSTimestamp(): int;
 
 	/**
-	 * Returns TRUE if the time is in the past and FALSE if not.
+	 * Returns true if the time is in the past and false if not.
 	 */
 	public function isPast(): bool;
 
 	/**
-	 * Returns TRUE if the time is in the future and FALSE if not.
+	 * Returns true if the time is in the future and false if not.
 	 */
 	public function isFuture(): bool;
 
 	/**
-	 * Returns TRUE if the time is before the given instance or FALSE if not.
+	 * Returns true if the time is before the given instance or false if not.
 	 */
 	public function isBefore(DateTimeInterface $time): bool;
 
 	/**
-	 * Returns TRUE if the time is after the given instance or FALSE if not.
+	 * Returns true if the time is after the given instance or false if not.
 	 */
 	public function isAfter(DateTimeInterface $time): bool;
 
 	/**
-	 * Returns TRUE if the time is between the two given instances or FALSE it not.
+	 * Returns true if the time is between the two given instances or false if not.
 	 */
 	public function isBetween(DateTimeInterface $start, DateTimeInterface $end): bool;
 
 	/**
-	 * Returns TRUE if the year is a leap year and FALSE if not.
+	 * Returns true if the year is a leap year and false if not.
 	 */
 	public function isLeapYear(): bool;
 

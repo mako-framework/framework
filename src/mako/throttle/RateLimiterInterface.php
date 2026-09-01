@@ -16,7 +16,7 @@ use mako\chrono\TimeImmutable;
 interface RateLimiterInterface
 {
 	/**
-	 * Returns TRUE if the rate limit has been reached for the action and FALSE if not.
+	 * Returns true if the rate limit has been reached for the action and false if not.
 	 */
 	public function isLimitReached(string $action, int $maxAttempts): bool;
 

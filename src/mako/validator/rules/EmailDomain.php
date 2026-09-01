@@ -20,7 +20,7 @@ use function str_contains;
 class EmailDomain extends Rule
 {
 	/**
-	 * Returns TRUE if the domain has a MX record and FALSE if not.
+	 * Returns true if the domain has a MX record and false if not.
 	 */
 	protected function hasMXRecord(string $domain): bool
 	{

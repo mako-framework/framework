@@ -37,7 +37,7 @@ class ReplaceColor extends ReplaceColorOperation
 	}
 
 	/**
-	 * Returns TRUE if pixel color matches target color within tolerance and FALSE if not.
+	 * Returns true if pixel color matches target color within tolerance and false if not.
 	 */
 	protected function matchesColor(array $pixelColor, array $targetColor, float $tolerance): bool
 	{

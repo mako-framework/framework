@@ -31,6 +31,6 @@ class BooleanFalse extends Rule
 	#[Override]
 	public function getErrorMessage(string $field): string
 	{
-		return sprintf('The %1$s field must contain the boolean value FALSE.', $field);
+		return sprintf('The %1$s field must contain the boolean value false.', $field);
 	}
 }

@@ -420,7 +420,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request has form data and FALSE if not.
+	 * Returns true if the request has form data and false if not.
 	 */
 	protected function hasFormData(): bool
 	{
@@ -488,7 +488,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request was made using Ajax and FALSE if not.
+	 * Returns true if the request was made using Ajax and false if not.
 	 */
 	public function isAjax(): bool
 	{
@@ -496,7 +496,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request was made using HTTPS and FALSE if not.
+	 * Returns true if the request was made using HTTPS and false if not.
 	 */
 	public function isSecure(): bool
 	{
@@ -512,7 +512,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request method is considered safe and FALSE if not.
+	 * Returns true if the request method is considered safe and false if not.
 	 */
 	public function isSafe(): bool
 	{
@@ -520,7 +520,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request method is considered idempotent and FALSE if not.
+	 * Returns true if the request method is considered idempotent and false if not.
 	 */
 	public function isIdempotent(): bool
 	{
@@ -528,7 +528,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request method is considered cacheable and FALSE if not.
+	 * Returns true if the request method is considered cacheable and false if not.
 	 */
 	public function isCacheable(): bool
 	{
@@ -596,7 +596,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the resource was requested with a "clean" URL and FALSE if not.
+	 * Returns true if the resource was requested with a "clean" URL and false if not.
 	 */
 	public function isClean(): bool
 	{
@@ -636,7 +636,7 @@ class Request
 	}
 
 	/**
-	 * Returns TRUE if the request method has been faked and FALSE if not.
+	 * Returns true if the request method has been faked and false if not.
 	 */
 	public function isFaked(): bool
 	{

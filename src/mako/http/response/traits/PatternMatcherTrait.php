@@ -16,7 +16,7 @@ use function preg_match;
 trait PatternMatcherTrait
 {
 	/**
-	 * Returns TRUE if the string matches one of the patterns and FALSE if not.
+	 * Returns true if the string matches one of the patterns and false if not.
 	 */
 	protected function matchesPatterns(string $string, array $patterns): bool
 	{

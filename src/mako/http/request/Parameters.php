@@ -58,7 +58,7 @@ class Parameters implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns TRUE if the parameter exists and FALSE if not.
+	 * Returns true if the parameter exists and false if not.
 	 */
 	public function has(string $name): bool
 	{

@@ -59,7 +59,7 @@ class ListRoutes extends Command
 	}
 
 	/**
-	 * Returns TRUE if the route matches the filter and FALSE if not.
+	 * Returns true if the route matches the filter and false if not.
 	 */
 	protected function routeMatches(string $filter, Route $route): bool
 	{

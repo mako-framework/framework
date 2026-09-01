@@ -49,7 +49,7 @@ class Signer
 	}
 
 	/**
-	 * Returns the original string if the signature is valid or FALSE if not.
+	 * Returns the original string if the signature is valid or false if not.
 	 */
 	public function validate(string $string): false|string
 	{

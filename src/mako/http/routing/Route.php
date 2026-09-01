@@ -239,7 +239,7 @@ class Route
 	}
 
 	/**
-	 * Returns TRUE if the route allows the specified method or FALSE if not.
+	 * Returns true if the route allows the specified method or false if not.
 	 */
 	public function allowsMethod(string $method): bool
 	{
@@ -247,7 +247,7 @@ class Route
 	}
 
 	/**
-	 * Returns TRUE if the route has a trailing slash and FALSE if not.
+	 * Returns true if the route has a trailing slash and false if not.
 	 */
 	public function hasTrailingSlash(): bool
 	{

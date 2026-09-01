@@ -22,12 +22,12 @@ interface RuleCombinatorInterface
 	public function getRules(): array;
 
 	/**
-	 * Returns TRUE if the combinator is considered successful and FALSE if not.
+	 * Returns true if the combinator is considered successful and false if not.
 	 */
 	public function isSuccessful(int $successes): bool;
 
     /**
-     * Returns TRUE if child rule error messages should be aggregated for this failure and FALSE if not.
+     * Returns true if child rule error messages should be aggregated for this failure and false if not.
      */
     public function shouldAggregateChildErrors(int $successes, array $errorMessages): bool;
 

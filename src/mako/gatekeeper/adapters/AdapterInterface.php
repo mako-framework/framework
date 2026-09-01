@@ -50,12 +50,12 @@ interface AdapterInterface
 	public function getUser(): ?UserEntityInterface;
 
 	/**
-	 * Returns TRUE if we don't have an active user and FALSE if we do.
+	 * Returns true if we don't have an active user and false if we do.
 	 */
 	public function isGuest(): bool;
 
 	/**
-	 * Returns TRUE if we have an active user and FALSE if we don't.
+	 * Returns true if we have an active user and false if we don't.
 	 */
 	public function isLoggedIn(): bool;
 }

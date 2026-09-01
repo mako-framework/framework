@@ -102,8 +102,8 @@ class XmpReader implements Stringable
 	 * Should we register a shutdown function to automatically
 	 * terminate the Exempi library when the program ends?
 	 *
-	 * If TRUE (default) is passed then we'll keep Exempi initialized until the program ends.
-	 * If FALSE is passed then Exempi will be terminated when the XmpReader object is destructed.
+	 * If true (default) is passed then we'll keep Exempi initialized until the program ends.
+	 * If false is passed then Exempi will be terminated when the XmpReader object is destructed.
 	 *
 	 * NB! This function must be called before the first XmpReader instance is created.
 	 */

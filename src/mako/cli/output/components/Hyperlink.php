@@ -37,7 +37,7 @@ class Hyperlink
 	}
 
 	/**
-	 * Returns TRUE if the terminal supports hyperlinks and FALSE if not.
+	 * Returns true if the terminal supports hyperlinks and false if not.
 	 */
 	protected function hasHyperlinkSupport(): bool
 	{

@@ -13,7 +13,7 @@ namespace mako\http\routing\constraints;
 interface ConstraintInterface
 {
 	/**
-	 * Returns TRUE if the constraint is satisfied and FALSE if not.
+	 * Returns true if the constraint is satisfied and false if not.
 	 */
 	public function isSatisfied(): bool;
 }

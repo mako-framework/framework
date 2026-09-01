@@ -46,7 +46,7 @@ enum LoginStatus: int
 	}
 
 	/**
-	 * Returns TRUE if Ok and FALSE otherwise.
+	 * Returns true if Ok and false otherwise.
 	 */
 	public function toBool(): bool
 	{

@@ -105,7 +105,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns TRUE if the item key exists and FALSE if not.
+	 * Returns true if the item key exists and false if not.
 	 *
 	 * @param TKey $key
 	 */
@@ -230,7 +230,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns TRUE if the collection is empty and FALSE if not.
+	 * Returns true if the collection is empty and false if not.
 	 */
 	public function isEmpty(): bool
 	{
@@ -303,7 +303,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
 	/**
 	 * Sorts the collection using the specified comparator callable
-	 * and returns TRUE on success and FALSE on failure.
+	 * and returns true on success and false on failure.
 	 *
 	 * @return $this
 	 */

@@ -25,27 +25,27 @@ interface StatusInterface
 	public function getMessage(): string;
 
 	/**
-	 * Returns TRUE if the status is informational and FALSE if not.
+	 * Returns true if the status is informational and false if not.
 	 */
 	public function isInformational(): bool;
 
 	/**
-	 * Returns TRUE if the status is successful and FALSE if not.
+	 * Returns true if the status is successful and false if not.
 	 */
 	public function isSuccessful(): bool;
 
 	/**
-	 * Returns TRUE if the status is a redirection and FALSE if not.
+	 * Returns true if the status is a redirection and false if not.
 	 */
 	public function isRedirection(): bool;
 
 	/**
-	 * Returns TRUE if the status is a client error and FALSE if not.
+	 * Returns true if the status is a client error and false if not.
 	 */
 	public function isClientError(): bool;
 
 	/**
-	 * Returns TRUE if the status is a server error and FALSE if not.
+	 * Returns true if the status is a server error and false if not.
 	 */
 	public function isServerError(): bool;
 }

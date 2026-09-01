@@ -15,7 +15,7 @@ use Throwable;
 interface HintInterface
 {
 	/**
-	 * Returns TRUE if the hint can provide a solution for the exception and FALSE if not.
+	 * Returns true if the hint can provide a solution for the exception and false if not.
 	 */
 	public function canProvideHint(Throwable $exception): bool;
 

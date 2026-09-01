@@ -13,7 +13,7 @@ namespace mako\validator\rules\traits;
 trait ValidatesWhenEmptyTrait
 {
 	/**
-	 * Returns TRUE if the rule should be executed when the input is empty and FALSE if not.
+	 * Returns true if the rule should be executed when the input is empty and false if not.
 	 */
 	public function validateWhenEmpty(): bool
 	{

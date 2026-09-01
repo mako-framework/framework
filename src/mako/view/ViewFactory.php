@@ -191,7 +191,7 @@ class ViewFactory
 	}
 
 	/**
-	 * Returns TRUE if the view exists and FALSE if not.
+	 * Returns true if the view exists and false if not.
 	 */
 	public function exists(string $view): bool
 	{

@@ -79,7 +79,7 @@ enum Permission: int
 	}
 
 	/**
-	 * Returns TRUE if the permissions contain the specified permissions and FALSE if not.
+	 * Returns true if the permissions contain the specified permissions and false if not.
 	 */
 	public static function hasPermissions(int $permissions, Permission ...$permission): bool
 	{

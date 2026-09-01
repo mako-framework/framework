@@ -18,7 +18,7 @@ interface AuthorizableInterface
 	public function setAuthorizer(AuthorizerInterface $authorizer): void;
 
 	/**
-	 * Returns TRUE if allowed to perform the action on the entity and FALSE if not.
+	 * Returns true if allowed to perform the action on the entity and false if not.
 	 */
 	public function can(string $action, object|string $entity, mixed ...$parameters): bool;
 }

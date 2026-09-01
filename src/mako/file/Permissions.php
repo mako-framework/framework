@@ -111,7 +111,7 @@ class Permissions
 	}
 
 	/**
-	 * Returns TRUE if the permissions contain the specified permissions and FALSE if not.
+	 * Returns true if the permissions contain the specified permissions and false if not.
 	 */
 	public function hasPermissions(Permission ...$permissions): bool
 	{

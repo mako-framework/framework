@@ -244,7 +244,7 @@ class Session
 	}
 
 	/**
-	 * Returns TRUE if key exists in the session and FALSE if not.
+	 * Returns true if key exists in the session and false if not.
 	 */
 	public function has(string $key): bool
 	{
@@ -300,7 +300,7 @@ class Session
 	}
 
 	/**
-	 * Returns TRUE if key exists in the session and FALSE if not.
+	 * Returns true if key exists in the session and false if not.
 	 */
 	public function hasFlash(string $key): bool
 	{

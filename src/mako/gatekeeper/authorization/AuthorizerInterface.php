@@ -20,7 +20,7 @@ interface AuthorizerInterface
 	public function registerPolicy(string $entityClass, string $policyClass): void;
 
 	/**
-	 * Returns TRUE if the user is allowed to perform the action on the entity.
+	 * Returns true if the user is allowed to perform the action on the entity.
 	 */
 	public function can(?UserEntityInterface $user, string $action, object|string $entity, mixed ...$parameters): bool;
 }

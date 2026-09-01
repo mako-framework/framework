@@ -286,7 +286,7 @@ class Reactor
 	}
 
 	/**
-	 * Returns TRUE if the command exists and FALSE if not.
+	 * Returns true if the command exists and false if not.
 	 */
 	protected function commandExists(string $command): bool
 	{
@@ -386,7 +386,7 @@ class Reactor
 	}
 
 	/**
-	 * Returns TRUE if we should prompt for a missing argument and FALSE if not.
+	 * Returns true if we should prompt for a missing argument and false if not.
 	 */
 	protected function shouldPromptForMissingArgument(string $command): bool
 	{

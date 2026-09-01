@@ -59,7 +59,7 @@ class Routes
 	}
 
 	/**
-	 * Returns TRUE if the named route exists and FALSE if not.
+	 * Returns true if the named route exists and false if not.
 	 */
 	public function hasNamedRoute(string $name): bool
 	{

@@ -459,7 +459,7 @@ class Container
 	}
 
 	/**
-	 * Returns TRUE if the class is registered in the container and FALSE if not.
+	 * Returns true if the class is registered in the container and false if not.
 	 */
 	public function has(string $class): bool
 	{
@@ -469,7 +469,7 @@ class Container
 	}
 
 	/**
-	 * Returns TRUE if there's an instance of the class in the container and FALSE if not.
+	 * Returns true if there's an instance of the class in the container and false if not.
 	 */
 	public function hasInstanceOf(string $class): bool
 	{
@@ -493,7 +493,7 @@ class Container
 	}
 
 	/**
-	 * Returns TRUE if a class has been registered as a singleton and FALSE if not.
+	 * Returns true if a class has been registered as a singleton and false if not.
 	 */
 	public function isSingleton(string $class): bool
 	{

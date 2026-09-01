@@ -155,7 +155,7 @@ class I18n
 	}
 
 	/**
-	 * Returns TRUE if the string exists and FALSE if not.
+	 * Returns true if the string exists and false if not.
 	 */
 	public function has(string $key, ?string $language = null): bool
 	{

@@ -51,7 +51,7 @@ class Template extends PHP
 	}
 
 	/**
-	 * Returns TRUE if the template needs to be compiled and FALSE if not.
+	 * Returns true if the template needs to be compiled and false if not.
 	 */
 	protected function needToCompile(string $view, string $compiled): bool
 	{

@@ -50,7 +50,7 @@ class Spinner
 	}
 
 	/**
-	 * Returns TRUE if we can fork the process and FALSE if not.
+	 * Returns true if we can fork the process and false if not.
 	 */
 	protected function canFork(): bool
 	{

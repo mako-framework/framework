@@ -222,7 +222,7 @@ class Validator
 	}
 
 	/**
-	 * Returns TRUE if the field name has a wildcard and FALSE if not.
+	 * Returns true if the field name has a wildcard and false if not.
 	 */
 	protected function hasWilcard(string $string): bool
 	{
@@ -345,7 +345,7 @@ class Validator
 	}
 
 	/**
-	 * Returns TRUE if the input field is considered empty and FALSE if not.
+	 * Returns true if the input field is considered empty and false if not.
 	 */
 	protected function isInputFieldEmpty(mixed $value): bool
 	{
@@ -472,7 +472,7 @@ class Validator
 	}
 
 	/**
-	 * Returns TRUE if all rules passed and FALSE if validation failed.
+	 * Returns true if all rules passed and false if validation failed.
 	 */
 	public function isValid(?array &$errors = null): bool
 	{
@@ -482,7 +482,7 @@ class Validator
 	}
 
 	/**
-	 * Returns FALSE if all rules passed and true if validation failed.
+	 * Returns false if all rules passed and true if validation failed.
 	 */
 	public function isInvalid(?array &$errors = null): bool
 	{

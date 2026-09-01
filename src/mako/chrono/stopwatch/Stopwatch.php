@@ -38,7 +38,7 @@ class Stopwatch
 	}
 
 	/**
-	 * Returns TRUE if the stopwatch is still running and FALSE if not.
+	 * Returns true if the stopwatch is still running and false if not.
 	 */
 	public function isRunning(): bool
 	{

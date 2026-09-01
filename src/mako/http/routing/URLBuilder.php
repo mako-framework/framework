@@ -53,7 +53,7 @@ class URLBuilder
 	}
 
 	/**
-	 * Returns TRUE if the pattern matches the current route and FALSE if not.
+	 * Returns true if the pattern matches the current route and false if not.
 	 */
 	public function matches(string $pattern): bool
 	{
