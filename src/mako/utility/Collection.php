@@ -282,7 +282,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the first item of the collection or NULL if the collection is empty.
+	 * Returns the first item of the collection or null if the collection is empty.
 	 *
 	 * @return ?TValue
 	 */
@@ -292,7 +292,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the last item of the collection or NULL if the collection is empty.
+	 * Returns the last item of the collection or null if the collection is empty.
 	 *
 	 * @return ?TValue
 	 */

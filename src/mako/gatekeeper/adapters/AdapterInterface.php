@@ -45,7 +45,7 @@ interface AdapterInterface
 	public function setUser(?UserEntityInterface $user): void;
 
 	/**
-	 * Returns the active user or NULL if there isn't one.
+	 * Returns the active user or null if there isn't one.
 	 */
 	public function getUser(): ?UserEntityInterface;
 

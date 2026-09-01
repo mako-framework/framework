@@ -36,7 +36,7 @@ class TooManyRequestsException extends HttpStatusException implements ProvidesHe
 	}
 
 	/**
-	 * Returns the retry after time or NULL if one isn't set.
+	 * Returns the retry after time or null if one isn't set.
 	 */
 	public function getRetryAfter(): ?DateTimeInterface
 	{

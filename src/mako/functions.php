@@ -28,7 +28,7 @@ namespace mako {
 	}
 
 	/**
-	 * Returns the value of the chosen environment variable or NULL if it does not exist.
+	 * Returns the value of the chosen environment variable or null if it does not exist.
 	 */
 	function env(string $variableName, mixed $default = null, bool $localOnly = false, ?Type $as = null): mixed
 	{

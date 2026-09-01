@@ -2871,7 +2871,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 * Added ```Container::call()```  method ([#116](https://github.com/mako-framework/framework/pull/116)).
 * Route actions are now executed by the ```Container::call()``` method ([#118](https://github.com/mako-framework/framework/pull/118)).
 * Route filters are now executed by the ```Container::call()``` method ([#119](https://github.com/mako-framework/framework/pull/119)).
-* Added a session NULL store.
+* Added a session null store.
 
 #### Changes
 
@@ -3041,7 +3041,7 @@ The major version bump is due to dropped support for PHP `7.0` and `7.1` and a s
 
 #### Bugfixes
 
-* Fixed bug where User::isMemberOf would return NULL if group id was used instead of group name.
+* Fixed bug where User::isMemberOf would return null if group id was used instead of group name.
 
 --------------------------------------------------------
 

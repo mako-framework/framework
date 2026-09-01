@@ -61,7 +61,7 @@ abstract class Store implements StoreInterface
 	}
 
 	/**
-	 * Fetch data from the cache and replace it. NULL will be returned if the item does not exist.
+	 * Fetch data from the cache and replace it. Null will be returned if the item does not exist.
 	 */
 	public function getAndPut(string $key, mixed $data, int $ttl = 0): mixed
 	{
@@ -73,7 +73,7 @@ abstract class Store implements StoreInterface
 	}
 
 	/**
-	 * Fetch data from the cache and remove it. NULL will be returned if the item does not exist.
+	 * Fetch data from the cache and remove it. Null will be returned if the item does not exist.
 	 */
 	public function getAndRemove(string $key): mixed
 	{

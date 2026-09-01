@@ -210,7 +210,7 @@ class Headers implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Returns the bearer token or NULL if there isn't one.
+	 * Returns the bearer token or null if there isn't one.
 	 */
 	public function getBearerToken(): ?string
 	{

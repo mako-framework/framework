@@ -20,7 +20,7 @@ interface HintInterface
 	public function canProvideHint(Throwable $exception): bool;
 
 	/**
-	 * Returns a hint if possible and NULL if not.
+	 * Returns a hint if possible and null if not.
 	 */
 	public function getHint(Throwable $exception): ?string;
 }

@@ -13,7 +13,7 @@ namespace mako\i18n\loaders;
 interface LoaderInterface
 {
 	/**
-	 * Returns the inflection rules or NULL if they don't exist.
+	 * Returns the inflection rules or null if they don't exist.
 	 */
 	public function loadInflection(string $language): ?array;
 

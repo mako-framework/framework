@@ -194,7 +194,7 @@ abstract class Application
 	}
 
 	/**
-	 * Returns the Mako environment. NULL is returned if no environment is specified.
+	 * Returns the Mako environment. Null is returned if no environment is specified.
 	 */
 	public function getEnvironment(): ?string
 	{

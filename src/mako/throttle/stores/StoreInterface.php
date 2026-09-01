@@ -21,7 +21,7 @@ interface StoreInterface
 	public function getHits(string $key): int;
 
 	/**
-	 * Returns the expiration date and time for the key or NULL if the key doesn't exist.
+	 * Returns the expiration date and time for the key or null if the key doesn't exist.
 	 */
 	public function getExpiration(string $key): ?TimeImmutable;
 

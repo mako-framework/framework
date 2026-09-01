@@ -195,7 +195,7 @@ class Connection
 	}
 
 	/**
-	 * Returns the PDO instance or NULL if the connection has been closed.
+	 * Returns the PDO instance or null if the connection has been closed.
 	 */
 	public function getPDO(): ?PDO
 	{
@@ -488,7 +488,7 @@ class Connection
 	}
 
 	/**
-	 * Returns the first row of the result set or NULL if nothing is found.
+	 * Returns the first row of the result set or null if nothing is found.
 	 */
 	public function first(string $query, array $params = [], mixed ...$fetchMode): mixed
 	{
@@ -522,7 +522,7 @@ class Connection
 	}
 
 	/**
-	 * Returns the value of the first column of the first row of the result set or NULL if nothing is found.
+	 * Returns the value of the first column of the first row of the result set or null if nothing is found.
 	 */
 	public function column(string $query, array $params = []): mixed
 	{

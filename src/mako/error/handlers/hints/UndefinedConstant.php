@@ -42,7 +42,7 @@ class UndefinedConstant implements HintInterface
 	}
 
 	/**
-	 * Returns a class constant suggestion if possible and NULL if not.
+	 * Returns a class constant suggestion if possible and null if not.
 	 */
 	protected function getClassConstantSuggestion(string $classConstant): ?string
 	{
@@ -56,7 +56,7 @@ class UndefinedConstant implements HintInterface
 	}
 
 	/**
-	 * Returns a constant suggestion if possible and NULL if not.
+	 * Returns a constant suggestion if possible and null if not.
 	 */
 	protected function getConstantSuggestion(string $constant): ?string
 	{
