@@ -145,29 +145,11 @@ class Connection
 	{
 		$this->name = "{$this->name}_clone";
 
-		$this->log = [];
+		$this->clearLog();
 
 		$this->transactionNestingLevel = 0;
 
 		$this->pdo = $this->connect();
-	}
-
-	/**
-	 * Closes the database connection.
-	 */
-	public function close(): void
-	{
-		$this->pdo = null;
-
-		$this->transactionNestingLevel = 0;
-	}
-
-	/**
-	 * Does the connection support transactional DDL?
-	 */
-	public function supportsTransactionalDDL(): bool
-	{
-		return static::SUPPORTS_TRANSACTIONAL_DDL;
 	}
 
 	/**
@@ -176,24 +158,6 @@ class Connection
 	public function getName(): string
 	{
 		return $this->name;
-	}
-
-	/**
-	 * Returns a query builder helper instance.
-	 */
-	public function getQueryBuilderHelper(): HelperInterface
-	{
-		static $queryBuilderHelper = [];
-
-		return $queryBuilderHelper[static::class] ?? ($queryBuilderHelper[static::class] = new $this->queryBuilderHelper);
-	}
-
-	/**
-	 * Returns a query compiler instance.
-	 */
-	public function getQueryCompiler(Query $query): Compiler
-	{
-		return new ($this->queryCompiler)($query);
 	}
 
 	/**
@@ -218,6 +182,92 @@ class Connection
 	public function disableLog(): void
 	{
 		$this->enableLog = false;
+	}
+
+	/**
+	 * Clears the query log.
+	 */
+	public function clearLog(): void
+	{
+		$this->log = [];
+	}
+
+	/**
+	 * Returns the query log.
+	 */
+	public function getLog(): array
+	{
+		return $this->log;
+	}
+
+	/**
+	 * Resets the connection.
+	 */
+	public function reset(): void
+	{
+		if ($this->pdo === null) {
+			return;
+		}
+
+		try {
+			// Rollback any open transactions
+
+			while ($this->transactionNestingLevel > 0) {
+				$this->rollBackTransaction();
+			}
+
+			// Rollback potential transaction created directly on the PDO instance
+
+			if ($this->pdo->inTransaction()) {
+				$this->pdo->rollBack();
+			}
+		}
+		finally {
+			$this->clearLog();
+		}
+	}
+
+	/**
+	 * Closes the database connection.
+	 */
+	public function close(): void
+	{
+		try {
+			$this->reset();
+		}
+		catch (Throwable) {
+			// The connection is being closed so we don't care if the reset fails
+		}
+
+		$this->pdo = null;
+
+		$this->transactionNestingLevel = 0;
+	}
+
+	/**
+	 * Does the connection support transactional DDL?
+	 */
+	public function supportsTransactionalDDL(): bool
+	{
+		return static::SUPPORTS_TRANSACTIONAL_DDL;
+	}
+
+	/**
+	 * Returns a query builder helper instance.
+	 */
+	public function getQueryBuilderHelper(): HelperInterface
+	{
+		static $queryBuilderHelper = [];
+
+		return $queryBuilderHelper[static::class] ?? ($queryBuilderHelper[static::class] = new $this->queryBuilderHelper);
+	}
+
+	/**
+	 * Returns a query compiler instance.
+	 */
+	public function getQueryCompiler(Query $query): Compiler
+	{
+		return new ($this->queryCompiler)($query);
 	}
 
 	/**
@@ -272,10 +322,14 @@ class Connection
 	 */
 	public function isAlive(): bool
 	{
+		if ($this->pdo === null) {
+			return false;
+		}
+
 		try {
 			$this->pdo->query('SELECT 1');
 		}
-		catch (PDOException $e) {
+		catch (PDOException) {
 			return false;
 		}
 
@@ -318,22 +372,6 @@ class Connection
 		$query = $this->prepareQueryForLog($query, $params);
 
 		$this->log[] = ['query' => $query, 'time' => $time];
-	}
-
-	/**
-	 * Clears the query log.
-	 */
-	public function clearLog(): void
-	{
-		$this->log = [];
-	}
-
-	/**
-	 * Returns the query log for the connection.
-	 */
-	public function getLog(): array
-	{
-		return $this->log;
 	}
 
 	/**
@@ -667,7 +705,7 @@ class Connection
 	 */
 	public function inTransaction(): bool
 	{
-		return $this->pdo->inTransaction();
+		return $this->pdo?->inTransaction() ?? false;
 	}
 
 	/**
@@ -691,32 +729,5 @@ class Connection
 		}
 
 		return $returnValue;
-	}
-
-	/**
-	 * Resets the connection.
-	 */
-	public function reset(): void
-	{
-		if ($this->pdo === null) {
-			return;
-		}
-
-		try {
-			// Rollback any open transactions
-
-			while ($this->transactionNestingLevel > 0) {
-				$this->rollBackTransaction();
-			}
-
-			// Rollback potential transaction created directly on the PDO instance
-
-			if ($this->pdo->inTransaction()) {
-				$this->pdo->rollBack();
-			}
-		}
-		finally {
-			$this->clearLog();
-		}
 	}
 }
