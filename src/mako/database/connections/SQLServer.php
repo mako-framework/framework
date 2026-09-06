@@ -17,6 +17,12 @@ class SQLServer extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
+	//#[Override]
+	protected const bool SUPPORTS_TRANSACTIONAL_DDL = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	#[Override]
 	protected function createSavepoint(): bool
 	{

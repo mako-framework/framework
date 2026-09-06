@@ -17,6 +17,6 @@ class Postgres extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
-	#[Override]
-	protected bool $supportsTransactionalDDL = true;
+	//#[Override]
+	protected const bool SUPPORTS_TRANSACTIONAL_DDL = true;
 }

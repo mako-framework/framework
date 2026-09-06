@@ -47,6 +47,11 @@ use function trim;
 class Connection
 {
 	/**
+	 * Does the connection support transactional DDL?
+	 */
+	protected const bool SUPPORTS_TRANSACTIONAL_DDL = false;
+
+	/**
 	 * Connection DSN.
 	 */
 	protected string $dsn;
@@ -100,11 +105,6 @@ class Connection
 	 * Query log.
 	 */
 	protected array $log = [];
-
-	/**
-	 * Does the connection support transactional DDL?
-	 */
-	protected bool $supportsTransactionalDDL = false;
 
 	/**
 	 * Constructor.
@@ -167,7 +167,7 @@ class Connection
 	 */
 	public function supportsTransactionalDDL(): bool
 	{
-		return $this->supportsTransactionalDDL;
+		return static::SUPPORTS_TRANSACTIONAL_DDL;
 	}
 
 	/**
