@@ -158,6 +158,8 @@ class Connection
 	public function close(): void
 	{
 		$this->pdo = null;
+
+		$this->transactionNestingLevel = 0;
 	}
 
 	/**
@@ -689,5 +691,32 @@ class Connection
 		}
 
 		return $returnValue;
+	}
+
+	/**
+	 * Resets the connection.
+	 */
+	public function reset(): void
+	{
+		if ($this->pdo === null) {
+			return;
+		}
+
+		try {
+			// Rollback any open transactions
+
+			while ($this->transactionNestingLevel > 0) {
+				$this->rollBackTransaction();
+			}
+
+			// Rollback potential transaction created directly on the PDO instance
+
+			if ($this->pdo->inTransaction()) {
+				$this->pdo->rollBack();
+			}
+		}
+		finally {
+			$this->clearLog();
+		}
 	}
 }

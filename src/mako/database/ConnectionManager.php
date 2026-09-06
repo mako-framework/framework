@@ -221,4 +221,14 @@ class ConnectionManager extends BaseConnectionManager
 
 		return $logs;
 	}
+
+	/**
+	 * Resets all connections.
+	 */
+	public function resetAll(): void
+	{
+		foreach ($this->connections as $connection) {
+			$connection->reset();
+		}
+	}
 }

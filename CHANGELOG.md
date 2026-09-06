@@ -23,6 +23,8 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Status::isRedirection()`
 	- `Status::isClientError()`
 	- `Status::isServerError()`
+* Added `Connection::reset()` method to the database connection base class.
+* Added `ConnectionManager::resetAll()` method to the database connection manager.
 * It is now possible to set non-standard HTTP statuses using the `CustomStatus` class.
 * The development error handler now allows you to inspect the stack traces of previous exceptions.
 * The development error handler may now provide hints about deprecations.
