@@ -73,6 +73,16 @@ abstract class ConnectionManager
 	}
 
 	/**
+	 * Closes all the connections.
+	 */
+	public function closeAll(): void
+	{
+		foreach ($this->connections as $name => $connection) {
+			$this->close($name);
+		}
+	}
+
+	/**
 	 * Executes the passed closure using the chosen connection before closing it.
 	 */
 	public function executeAndClose(Closure $closure, ?string $connection = null): mixed
