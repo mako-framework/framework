@@ -8,6 +8,7 @@
 namespace mako\redis\traits;
 
 use Deprecated;
+use SensitiveParameter;
 
 /**
  * Redis core commands.
@@ -318,7 +319,7 @@ trait CoreTrait
 
 	// Connection management
 
-	public function auth(...$arguments): mixed
+	public function auth(#[SensitiveParameter] ...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['AUTH'], $arguments);
 	}
@@ -413,7 +414,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['ECHO'], $arguments);
 	}
 
-	public function hello(...$arguments): mixed
+	public function hello(#[SensitiveParameter] ...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['HELLO'], $arguments);
 	}
@@ -481,7 +482,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['KEYS'], $arguments);
 	}
 
-	public function migrate(...$arguments): mixed
+	public function migrate(#[SensitiveParameter] ...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['MIGRATE'], $arguments);
 	}
@@ -1100,7 +1101,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['ACL', 'SAVE'], $arguments);
 	}
 
-	public function aclSetUser(...$arguments): mixed
+	public function aclSetUser(#[SensitiveParameter] ...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['ACL', 'SETUSER'], $arguments);
 	}
@@ -1175,7 +1176,7 @@ trait CoreTrait
 		return $this->buildAndSendCommandAndReturnResponse(['CONFIG', 'REWRITE'], $arguments);
 	}
 
-	public function configSet(...$arguments): mixed
+	public function configSet(#[SensitiveParameter] ...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CONFIG', 'SET'], $arguments);
 	}

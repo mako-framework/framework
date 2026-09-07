@@ -16,7 +16,7 @@ trait CountMinSketchTrait
 {
 	abstract protected function buildAndSendCommandAndReturnResponse(array $command, array $arguments = []): mixed;
 
-	public function cmsIncryBy(...$arguments): mixed
+	public function cmsIncrBy(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['CMS.INCRBY'], $arguments);
 	}

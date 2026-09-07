@@ -56,7 +56,7 @@ trait TimeSeriesTrait
 		return $this->buildAndSendCommandAndReturnResponse(['TS.GET'], $arguments);
 	}
 
-	public function tsIncBy(...$arguments): mixed
+	public function tsIncrBy(...$arguments): mixed
 	{
 		return $this->buildAndSendCommandAndReturnResponse(['TS.INCRBY'], $arguments);
 	}
