@@ -31,6 +31,15 @@ class Pipeline implements Countable, OperationInterface
 	}
 
 	/**
+	 * Returns the number of operations in the pipeline.
+	 */
+	#[Override]
+	public function count(): int
+	{
+		return count($this->operations);
+	}
+
+	/**
 	 * Appends one or more operations to the pipeline.
 	 *
 	 * @return $this
@@ -40,15 +49,6 @@ class Pipeline implements Countable, OperationInterface
 		$this->operations = [...$this->operations, ...$operation];
 
 		return $this;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	#[Override]
-	public function count(): int
-	{
-		return count($this->operations);
 	}
 
 	/**

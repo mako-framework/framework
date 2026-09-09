@@ -18,7 +18,7 @@ use function min;
 use function round;
 
 /**
- * Points.
+ * A collection of points.
  *
  * @implements IteratorAggregate<int, Point>
  */
@@ -45,7 +45,7 @@ final class Points implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns the number of points in the collection.
 	 */
 	#[Override]
 	public function count(): int
