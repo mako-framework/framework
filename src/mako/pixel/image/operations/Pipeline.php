@@ -7,12 +7,13 @@
 
 namespace mako\pixel\image\operations;
 
+use Countable;
 use Override;
 
 /**
  * Operation pipeline.
  */
-class Pipeline implements OperationInterface
+class Pipeline implements Countable, OperationInterface
 {
 	/**
 	 * @var array<OperationInterface>
@@ -27,6 +28,18 @@ class Pipeline implements OperationInterface
 		$this->operations = $operation;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function count(): int
+	{
+		return count($this->operations);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	#[Override]
 	public function apply(object &$imageResource): void
 	{
