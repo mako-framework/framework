@@ -10,6 +10,8 @@ namespace mako\pixel\image\operations;
 use Countable;
 use Override;
 
+use function count;
+
 /**
  * Operation pipeline.
  */
@@ -26,6 +28,18 @@ class Pipeline implements Countable, OperationInterface
 	public function __construct(OperationInterface ...$operation)
 	{
 		$this->operations = $operation;
+	}
+
+	/**
+	 * Appends one or more operations to the pipeline.
+	 *
+	 * @return $this
+	 */
+	public function append(OperationInterface ...$operation): static
+	{
+		$this->operations = [...$this->operations, ...$operation];
+
+		return $this;
 	}
 
 	/**
