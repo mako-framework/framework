@@ -300,8 +300,8 @@ abstract class Application
 	 */
 	protected function bootPackagesByType(string $type): void
 	{
+		/** @var class-string<Package> $package */
 		foreach ($this->config->get("application.packages.{$type}") as $package) {
-			/** @var Package $package */
 			$package = new $package($this->container);
 
 			$package->boot();
@@ -309,6 +309,8 @@ abstract class Application
 			foreach ($package->getServices() as $service) {
 				$this->registerService($service);
 			}
+
+			$package->bootstrap();
 
 			$this->packages[$package->getName()] = $package;
 		}

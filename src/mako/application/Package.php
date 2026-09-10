@@ -160,14 +160,6 @@ abstract class Package
 	}
 
 	/**
-	 * Gets executed at the end of the package boot sequence.
-	 */
-	protected function bootstrap(): void
-	{
-		// Nothing here
-	}
-
-	/**
 	 * Boots the package.
 	 */
 	public function boot(): void
@@ -199,9 +191,13 @@ abstract class Package
 		if ($fileSystem->isDirectory($path = $this->getViewPath()) && $this->container->has(ViewFactory::class)) {
 			$this->container->get(ViewFactory::class)->registerNamespace($this->getFileNamespace(), $path);
 		}
+	}
 
-		// Bootstrap package
-
-		$this->bootstrap();
+	/**
+	 * Initializes the package after its resource namespaces and services have been registered.
+	 */
+	public function bootstrap(): void
+	{
+		// Nothing here
 	}
 }
