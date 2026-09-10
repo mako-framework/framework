@@ -45,6 +45,8 @@ class Reactor
 
 	/**
 	 * Commands.
+	 *
+	 * @var array<string, class-string<CommandInterface>>
 	 */
 	protected array $commands = [];
 
@@ -83,6 +85,8 @@ class Reactor
 
 	/**
 	 * Registers a command.
+	 *
+	 * @param class-string<CommandInterface> $class
 	 */
 	public function registerCommand(string $command, string $class): void
 	{

@@ -8,6 +8,7 @@
 namespace mako\application;
 
 use mako\application\exceptions\ApplicationException;
+use mako\application\services\Service;
 use mako\config\Config;
 use mako\config\loaders\Loader;
 use mako\file\FileSystem;
@@ -59,6 +60,8 @@ abstract class Application
 
 	/**
 	 * Booted packages.
+	 *
+	 * @var array<int, Package>
 	 */
 	protected array $packages = [];
 
@@ -228,21 +231,31 @@ abstract class Application
 	}
 
 	/**
+	 * Registers a service.
+	 *
+	 * @param class-string<Service> $service
+	 */
+	protected function registerService(string $service): void
+	{
+		(new $service($this, $this->container, $this->config))->register();
+	}
+
+	/**
 	 * Registers services in the container.
 	 */
-	protected function serviceRegistrar(string $type): void
+	protected function registerServicesByType(string $type): void
 	{
 		foreach ($this->config->get("application.services.{$type}") as $service) {
-			(new $service($this, $this->container, $this->config))->register();
+			$this->registerService($service);
 		}
 	}
 
 	/**
 	 * Registers command line services.
 	 */
-	protected function registerCLIServices(): void
+	protected function registerCliServices(): void
 	{
-		$this->serviceRegistrar('cli');
+		$this->registerServicesByType('cli');
 	}
 
 	/**
@@ -250,7 +263,7 @@ abstract class Application
 	 */
 	protected function registerWebServices(): void
 	{
-		$this->serviceRegistrar('web');
+		$this->registerServicesByType('web');
 	}
 
 	/**
@@ -260,12 +273,12 @@ abstract class Application
 	{
 		// Register core services
 
-		$this->serviceRegistrar('core');
+		$this->registerServicesByType('core');
 
 		// Register environment specific services
 
 		if ($this->isCommandLine()) {
-			$this->registerCLIServices();
+			$this->registerCliServices();
 		}
 		else {
 			$this->registerWebServices();
@@ -285,12 +298,17 @@ abstract class Application
 	/**
 	 * Boots packages.
 	 */
-	protected function packageBooter(string $type): void
+	protected function bootPackagesByType(string $type): void
 	{
 		foreach ($this->config->get("application.packages.{$type}") as $package) {
+			/** @var Package $package */
 			$package = new $package($this->container);
 
 			$package->boot();
+
+			foreach ($package->getServices() as $service) {
+				$this->registerService($service);
+			}
 
 			$this->packages[$package->getName()] = $package;
 		}
@@ -301,7 +319,7 @@ abstract class Application
 	 */
 	protected function bootCliPackages(): void
 	{
-		$this->packageBooter('cli');
+		$this->bootPackagesByType('cli');
 	}
 
 	/**
@@ -309,7 +327,7 @@ abstract class Application
 	 */
 	protected function bootWebPackages(): void
 	{
-		$this->packageBooter('web');
+		$this->bootPackagesByType('web');
 	}
 
 	/**
@@ -317,9 +335,9 @@ abstract class Application
 	 */
 	protected function bootPackages(): void
 	{
-		$this->packageBooter('core');
+		$this->bootPackagesByType('core');
 
-		// Register environment specific services
+		// Register environment specific packages
 
 		if ($this->isCommandLine()) {
 			$this->bootCliPackages();

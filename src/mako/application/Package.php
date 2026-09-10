@@ -7,11 +7,13 @@
 
 namespace mako\application;
 
+use mako\application\services\Service;
 use mako\config\Config;
 use mako\config\loaders\NamespacedLoaderInterface as NamespacedConfigLoaderInterface;
 use mako\file\FileSystem;
 use mako\i18n\I18n;
 use mako\i18n\loaders\NamespacedLoaderInterface as NamespacedI18nLoaderInterface;
+use mako\reactor\CommandInterface;
 use mako\syringe\Container;
 use mako\view\ViewFactory;
 use ReflectionClass;
@@ -48,7 +50,16 @@ abstract class Package
 	protected string $classNamespace;
 
 	/**
+	 * Services.
+	 *
+	 * @var array<int, class-string<Service>>
+	 */
+	protected array $services = [];
+
+	/**
 	 * Commands.
+	 *
+	 * @var array<int, class-string<CommandInterface>>
 	 */
 	protected array $commands = [];
 
@@ -129,7 +140,19 @@ abstract class Package
 	}
 
 	/**
+	 * Returns the package services.
+	 *
+	 * @return array<int, class-string<Service>>
+	 */
+	public function getServices(): array
+	{
+		return $this->services;
+	}
+
+	/**
 	 * Returns the package commands.
+	 *
+	 * @return array<int, class-string<CommandInterface>>
 	 */
 	public function getCommands(): array
 	{

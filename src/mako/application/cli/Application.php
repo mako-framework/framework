@@ -262,6 +262,8 @@ class Application extends BaseApplication
 
 	/**
 	 * Returns all registered commands.
+	 *
+	 * @return array<string, class-string<CommandInterface>>
 	 */
 	protected function getCommands(): array
 	{

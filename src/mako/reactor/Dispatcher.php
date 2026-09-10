@@ -27,6 +27,8 @@ class Dispatcher
 
 	/**
 	 * Resolves the command.
+	 *
+	 * @param class-string<CommandInterface> $command
 	 */
 	protected function resolve(string $command): CommandInterface
 	{
@@ -51,6 +53,8 @@ class Dispatcher
 
 	/**
 	 * Dispatches the command.
+	 *
+	 * @param class-string<CommandInterface> $command
 	 */
 	public function dispatch(string $command, array $arguments): int
 	{
