@@ -241,29 +241,13 @@ abstract class Application
 	}
 
 	/**
-	 * Registers services in the container.
+	 * Registers services in the container by type.
 	 */
 	protected function registerServicesByType(string $type): void
 	{
 		foreach ($this->config->get("application.services.{$type}") as $service) {
 			$this->registerService($service);
 		}
-	}
-
-	/**
-	 * Registers command line services.
-	 */
-	protected function registerCliServices(): void
-	{
-		$this->registerServicesByType('cli');
-	}
-
-	/**
-	 * Registers web services.
-	 */
-	protected function registerWebServices(): void
-	{
-		$this->registerServicesByType('web');
 	}
 
 	/**
@@ -278,10 +262,10 @@ abstract class Application
 		// Register environment specific services
 
 		if ($this->isCommandLine()) {
-			$this->registerCliServices();
+			$this->registerServicesByType('cli');
 		}
 		else {
-			$this->registerWebServices();
+			$this->registerServicesByType('web');
 		}
 	}
 
@@ -296,7 +280,7 @@ abstract class Application
 	}
 
 	/**
-	 * Boots packages.
+	 * Boots packages by type.
 	 */
 	protected function bootPackagesByType(string $type): void
 	{
@@ -317,22 +301,6 @@ abstract class Application
 	}
 
 	/**
-	 * Boots command line packages.
-	 */
-	protected function bootCliPackages(): void
-	{
-		$this->bootPackagesByType('cli');
-	}
-
-	/**
-	 * Boots web packages.
-	 */
-	protected function bootWebPackages(): void
-	{
-		$this->bootPackagesByType('web');
-	}
-
-	/**
 	 * Boot packages.
 	 */
 	protected function bootPackages(): void
@@ -342,10 +310,10 @@ abstract class Application
 		// Register environment specific packages
 
 		if ($this->isCommandLine()) {
-			$this->bootCliPackages();
+			$this->bootPackagesByType('cli');
 		}
 		else {
-			$this->bootWebPackages();
+			$this->bootPackagesByType('web');
 		}
 	}
 
