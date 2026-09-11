@@ -286,15 +286,36 @@ abstract class Application
 	{
 		/** @var class-string<Package> $package */
 		foreach ($this->config->get("application.packages.{$type}") as $package) {
+			// Boot package
+
 			$package = new $package($this->container);
 
 			$package->boot();
 
-			foreach ($package->getServices() as $service) {
+			// Register package core services
+
+			foreach ($package->getServices('core') as $service) {
 				$this->registerService($service);
 			}
 
+			// Register package cli or web services
+
+			if ($this->isCommandLine()) {
+				foreach ($package->getServices('cli') as $service) {
+					$this->registerService($service);
+				}
+			}
+			else {
+				foreach ($package->getServices('web') as $service) {
+					$this->registerService($service);
+				}
+			}
+
+			// Bootstrap package
+
 			$package->bootstrap();
+
+			// Register booted package
 
 			$this->packages[$package->getName()] = $package;
 		}
