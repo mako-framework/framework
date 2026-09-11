@@ -52,9 +52,13 @@ abstract class Package
 	/**
 	 * Services.
 	 *
-	 * @var array<int, class-string<Service>>
+	 * @var array{
+	 *	core?: array<int, class-string<Service>>,
+	 *	web?: array<int, class-string<Service>>,
+	 *	cli?: array<int, class-string<Service>>
+	 * }
 	 */
-	protected array $services = [];
+	protected array $services = ['core' => [], 'web' => [], 'cli' => []];
 
 	/**
 	 * Commands.
@@ -142,11 +146,12 @@ abstract class Package
 	/**
 	 * Returns the package services.
 	 *
+	 * @param  'cli'|'core'|'web'                $type
 	 * @return array<int, class-string<Service>>
 	 */
-	public function getServices(): array
+	public function getServices(string $type): array
 	{
-		return $this->services;
+		return $this->services[$type] ?? [];
 	}
 
 	/**
