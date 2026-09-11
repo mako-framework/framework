@@ -63,7 +63,7 @@ abstract class Package
 	/**
 	 * Commands.
 	 *
-	 * @var array<int, class-string<CommandInterface>>
+	 * @var array<string, class-string<CommandInterface>>
 	 */
 	protected array $commands = [];
 
@@ -157,7 +157,7 @@ abstract class Package
 	/**
 	 * Returns the package commands.
 	 *
-	 * @return array<int, class-string<CommandInterface>>
+	 * @return array<string, class-string<CommandInterface>>
 	 */
 	public function getCommands(): array
 	{
