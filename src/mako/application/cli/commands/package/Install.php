@@ -22,6 +22,7 @@ use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
 use function array_diff;
+use function array_unique;
 use function basename;
 use function file_get_contents;
 use function in_array;
@@ -51,7 +52,7 @@ class Install extends Command
 	];
 
 	/**
-	 * Should we force overriding of existing files.
+	 * Should we force overriding of existing files?
 	 */
 	protected bool $force = false;
 
@@ -154,14 +155,15 @@ class Install extends Command
 	/**
 	 * Install resources.
 	 */
-	public function execute(array $package = [], bool $force = false): void
+	public function execute(array $package = [], bool $force = false): int
 	{
 		$this->force = $force;
 
 		$found = [];
 		$installed = 0;
+		$success = true;
 
-		$packagesToInstall = $package === [] ? static::WHITELIST : $package;
+		$packagesToInstall = $package === [] ? static::WHITELIST : array_unique($package);
 
 		$this->nl();
 
@@ -202,6 +204,8 @@ class Install extends Command
 			$installedResources = false;
 
 			if (($makoExtra['install']['config'] ?? false) && $this->copyConfig($packageName, $packagePath)) {
+				$this->write(sprintf('Installed config file(s) from "<yellow>%s</yellow>".', $packageName));
+				$this->nl();
 				$installedResources = true;
 			}
 
@@ -211,9 +215,11 @@ class Install extends Command
 		// Print report
 
 		if ($package !== []) {
-			$notFound = array_diff($package, $found);
+			$notFound = array_diff($packagesToInstall, $found);
 
 			if ($notFound !== []) {
+				$success = false;
+
 				$this->error('The following packages were not found:');
 
 				foreach ($notFound as $notFoundPackage) {
@@ -227,5 +233,7 @@ class Install extends Command
 		$this->write(sprintf('Installed resources from <yellow>%s</yellow> %s.', $installed, $installed === 1 ? 'package' : 'packages'));
 
 		$this->nl();
+
+		return $success ? Command::STATUS_SUCCESS : Command::STATUS_ERROR;
 	}
 }
