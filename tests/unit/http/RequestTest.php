@@ -966,7 +966,7 @@ class RequestTest extends TestCase
 	/**
 	 *
 	 */
-	public function testSetAndGetAttribute(): void
+	public function testAttributes(): void
 	{
 		$request = new Request;
 
@@ -979,6 +979,8 @@ class RequestTest extends TestCase
 		$this->assertEquals(123, $request->getAttribute('foo'));
 
 		$this->assertEquals(123, $request->getAttribute('foo', false));
+
+		$this->assertSame(['foo' => 123], $request->getAttributes());
 	}
 
 	/**

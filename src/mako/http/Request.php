@@ -342,6 +342,14 @@ class Request
 	}
 
 	/**
+	 * Returns all the request attributes.
+	 */
+	public function getAttributes(): array
+	{
+		return $this->attributes;
+	}
+
+	/**
 	 * Returns the raw request body.
 	 */
 	public function getRawBody(): string
