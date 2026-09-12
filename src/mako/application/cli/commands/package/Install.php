@@ -195,16 +195,21 @@ class Install extends Command
 				associative: true
 			);
 
-			$makoExtra = $composerData['extra']['mako'] ?? null;
+			$makoInstall = $composerData['extra']['mako']['install'] ?? null;
 
-			if ($makoExtra === null) {
+			if ($makoInstall === null) {
+				if ($package !== []) {
+					$this->write(sprintf('<blue>*</blue> The "<yellow>%s</yellow>" package has no installable resources.', $packageName));
+					$this->nl();
+				}
+
 				continue;
 			}
 
 			$installedResources = false;
 
-			if (($makoExtra['install']['config'] ?? false) && $this->copyConfig($packageName, $packagePath)) {
-				$this->write(sprintf('Installed config file(s) from "<yellow>%s</yellow>".', $packageName));
+			if (($makoInstall['config'] ?? false) && $this->copyConfig($packageName, $packagePath)) {
+				$this->write(sprintf('<green>*</green> Installed config file(s) from "<yellow>%s</yellow>".', $packageName));
 				$this->nl();
 				$installedResources = true;
 			}
