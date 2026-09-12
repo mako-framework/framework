@@ -37,17 +37,17 @@ abstract class Package
 	/**
 	 * Package path.
 	 */
-	protected string $path;
+	final protected string $path;
 
 	/**
 	 * File namespace.
 	 */
-	protected string $fileNamespace;
+	final protected string $fileNamespace;
 
 	/**
 	 * Class namespace.
 	 */
-	protected string $classNamespace;
+	final protected string $classNamespace;
 
 	/**
 	 * Services.
@@ -70,7 +70,7 @@ abstract class Package
 	/**
 	 * Constructor.
 	 */
-	public function __construct(
+	final public function __construct(
 		protected Container $container
 	) {
 	}
@@ -78,7 +78,7 @@ abstract class Package
 	/**
 	 * Returns the package name.
 	 */
-	public function getName(): string
+	final public function getName(): string
 	{
 		return $this->packageName;
 	}
@@ -86,9 +86,9 @@ abstract class Package
 	/**
 	 * Returns the package namespace.
 	 */
-	public function getFileNamespace(): string
+	final public function getFileNamespace(): string
 	{
-		if (empty($this->fileNamespace)) {
+		if (!isset($this->fileNamespace)) {
 			$this->fileNamespace = str_replace('/', '-', strtolower($this->packageName));
 		}
 
@@ -98,9 +98,9 @@ abstract class Package
 	/**
 	 * Returns the class namespace.
 	 */
-	public function getClassNamespace(bool $prefix = false): string
+	final public function getClassNamespace(bool $prefix = false): string
 	{
-		if (empty($this->classNamespace)) {
+		if (!isset($this->classNamespace)) {
 			$this->classNamespace = substr(static::class, 0, strrpos(static::class, '\\'));
 		}
 
@@ -110,9 +110,9 @@ abstract class Package
 	/**
 	 * Returns package path.
 	 */
-	public function getPath(): string
+	final public function getPath(): string
 	{
-		if (empty($this->path)) {
+		if (!isset($this->path)) {
 			$this->path = dirname((new ReflectionClass($this))->getFileName(), 2);
 		}
 
@@ -122,7 +122,7 @@ abstract class Package
 	/**
 	 * Returns the path to the package configuration files.
 	 */
-	public function getConfigPath(): string
+	final public function getConfigPath(): string
 	{
 		return "{$this->getPath()}/config";
 	}
@@ -130,7 +130,7 @@ abstract class Package
 	/**
 	 * Returns the path to the package i18n strings.
 	 */
-	public function getI18nPath(): string
+	final public function getI18nPath(): string
 	{
 		return "{$this->getPath()}/resources/i18n";
 	}
@@ -138,7 +138,7 @@ abstract class Package
 	/**
 	 * Returns the path to the package views.
 	 */
-	public function getViewPath(): string
+	final public function getViewPath(): string
 	{
 		return "{$this->getPath()}/resources/views";
 	}
@@ -149,7 +149,7 @@ abstract class Package
 	 * @param  'cli'|'core'|'web'                $type
 	 * @return array<int, class-string<Service>>
 	 */
-	public function getServices(string $type): array
+	final public function getServices(string $type): array
 	{
 		return $this->services[$type] ?? [];
 	}
@@ -159,7 +159,7 @@ abstract class Package
 	 *
 	 * @return array<string, class-string<CommandInterface>>
 	 */
-	public function getCommands(): array
+	final public function getCommands(): array
 	{
 		return $this->commands;
 	}
@@ -167,7 +167,7 @@ abstract class Package
 	/**
 	 * Boots the package.
 	 */
-	public function boot(): void
+	final public function boot(): void
 	{
 		$fileSystem = $this->container->get(FileSystem::class);
 
