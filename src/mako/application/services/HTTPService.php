@@ -43,75 +43,93 @@ class HTTPService extends Service
 
 		// Request
 
-		$this->container->registerSingleton([Request::class, 'request'], static function ($container) use ($config) {
-			$request = new Request(
-				['languages' => $config['languages']],
-				$container->get(Signer::class),
-				$config['script_name'] ?? null,
-				$config['trusted_proxies'] ?? []
-			);
+		$this->container->registerSingleton(
+			[Request::class, 'request'],
+			static function ($container) use ($config) {
+				$request = new Request(
+					['languages' => $config['languages']],
+					$container->get(Signer::class),
+					$config['script_name'] ?? null,
+					$config['trusted_proxies'] ?? []
+				);
 
-			return $request;
-		});
+				return $request;
+			}
+		);
 
 		// Response
 
-		$this->container->registerSingleton([Response::class, 'response'], static fn ($container) => new Response(
-			$container->get(Request::class),
-			$app->getCharset(),
-			$container->get(Signer::class)
-		));
+		$this->container->registerSingleton(
+			[Response::class, 'response'],
+			static fn ($container) => new Response(
+				$container->get(Request::class),
+				$app->getCharset(),
+				$container->get(Signer::class)
+			)
+		);
 
 		// Routes
 
-		$this->container->registerSingleton([Routes::class, 'routes'], static function ($container) use ($app, $routingPath) {
-			$routes = new Routes;
+		$this->container->registerSingleton(
+			[Routes::class, 'routes'],
+			static function ($container) use ($app, $routingPath) {
+				$routes = new Routes;
 
-			(function ($app, $container, $routes) use ($routingPath): void {
-				include "{$routingPath}/routes.php";
-			})
-			->bindTo($app)($app, $container, $routes);
+				(function ($app, $container, $routes) use ($routingPath): void {
+					include "{$routingPath}/routes.php";
+				})
+				->bindTo($app)($app, $container, $routes);
 
-			return $routes;
-		});
+				return $routes;
+			}
+		);
 
 		// Router
 
-		$this->container->registerSingleton(Router::class, static function ($container) use ($app, $config, $routingPath) {
-			$router = new Router(
-				$container->get(Routes::class),
-				$container,
-				$config['ingress_prefix'] ?? null
-			);
+		$this->container->registerSingleton(
+			Router::class,
+			static function ($container) use ($app, $config, $routingPath) {
+				$router = new Router(
+					$container->get(Routes::class),
+					$container,
+					$config['ingress_prefix'] ?? null
+				);
 
-			(function ($app, $container, $router) use ($routingPath): void {
-				include "{$routingPath}/constraints.php";
-			})
-			->bindTo($app)($app, $container, $router);
+				(function ($app, $container, $router) use ($routingPath): void {
+					include "{$routingPath}/constraints.php";
+				})
+				->bindTo($app)($app, $container, $router);
 
-			return $router;
-		});
+				return $router;
+			}
+		);
 
 		// Dispatcher
 
-		$this->container->registerSingleton(Dispatcher::class, static function ($container) use ($app, $routingPath) {
-			$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
+		$this->container->registerSingleton(
+			Dispatcher::class,
+			static function ($container) use ($app, $routingPath) {
+				$dispatcher = new Dispatcher($container->get(Request::class), $container->get(Response::class), $container);
 
-			(function ($app, $container, $dispatcher) use ($routingPath): void {
-				include "{$routingPath}/middleware.php";
-			})
-			->bindTo($app)($app, $container, $dispatcher);
+				(function ($app, $container, $dispatcher) use ($routingPath): void {
+					include "{$routingPath}/middleware.php";
+				})
+				->bindTo($app)($app, $container, $dispatcher);
 
-			return $dispatcher;
-		});
+				return $dispatcher;
+			}
+		);
 
 		// URLBuilder
 
-		$this->container->registerSingleton([URLBuilder::class, 'urlBuilder'], static fn ($container) => new URLBuilder(
-			$container->get(Request::class),
-			$container->get(Routes::class),
-			$config['clean_urls'],
-			$config['base_url']
-		));
+		$this->container->registerSingleton(
+			[URLBuilder::class, 'urlBuilder'],
+			static fn ($container) => new URLBuilder(
+				$container->get(Request::class),
+				$container->get(Routes::class),
+				$config['clean_urls'],
+				$config['base_url']
+			)
+		);
 	}
 }

@@ -28,18 +28,24 @@ class DatabaseService extends Service
 
 		// Register the connection manager
 
-		$this->container->registerSingleton([ConnectionManager::class, 'database'], static function ($container) use ($config) {
-			if ($container->has(PaginationFactoryInterface::class)) {
-				Query::setPaginationFactory(static fn () => $container->get(PaginationFactoryInterface::class));
+		$this->container->registerSingleton(
+			[ConnectionManager::class, 'database'],
+			static function ($container) use ($config) {
+				if ($container->has(PaginationFactoryInterface::class)) {
+					Query::setPaginationFactory(static fn () => $container->get(PaginationFactoryInterface::class));
+				}
+
+				$config = $config->get('database');
+
+				return new ConnectionManager($config['default'], $config['configurations']);
 			}
-
-			$config = $config->get('database');
-
-			return new ConnectionManager($config['default'], $config['configurations']);
-		});
+		);
 
 		// Register the default connection
 
-		$this->container->registerSingleton(Connection::class, static fn ($container) => $container->get(ConnectionManager::class)->getConnection());
+		$this->container->registerSingleton(
+			Connection::class,
+			static fn ($container) => $container->get(ConnectionManager::class)->getConnection()
+		);
 	}
 }

@@ -31,20 +31,23 @@ class ViewFactoryService extends Service
 	#[Override]
 	public function register(): void
 	{
-		$this->container->registerSingleton([ViewFactory::class, 'view'], function ($container) {
-			$fileSystem = $container->get(FileSystem::class);
+		$this->container->registerSingleton(
+			[ViewFactory::class, 'view'],
+			function ($container) {
+				$fileSystem = $container->get(FileSystem::class);
 
-			// Create factory instance
+				// Create factory instance
 
-			$factory = new ViewFactory($fileSystem, "{$this->app->getPath()}/resources/views", $this->app->getCharset(), $container);
+				$factory = new ViewFactory($fileSystem, "{$this->app->getPath()}/resources/views", $this->app->getCharset(), $container);
 
-			// Register template renderer
+				// Register template renderer
 
-			$factory->extend('.tpl.php', fn () => new Template($fileSystem, $this->getStoragePath()));
+				$factory->extend('.tpl.php', fn () => new Template($fileSystem, $this->getStoragePath()));
 
-			// Return factory instance
+				// Return factory instance
 
-			return $factory;
-		});
+				return $factory;
+			}
+		);
 	}
 }

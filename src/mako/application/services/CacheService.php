@@ -26,20 +26,26 @@ class CacheService extends Service
 
 		// Register the cache manager
 
-		$this->container->registerSingleton([CacheManager::class, 'cache'], static function ($container) use ($config) {
-			// Get configuration
+		$this->container->registerSingleton(
+			[CacheManager::class, 'cache'],
+			static function ($container) use ($config) {
+				// Get configuration
 
-			$classWhitelist = $config->get('application.deserialization_whitelist');
+				$classWhitelist = $config->get('application.deserialization_whitelist');
 
-			$config = $config->get('cache');
+				$config = $config->get('cache');
 
-			// Create and return cache manager
+				// Create and return cache manager
 
-			return new CacheManager($config['default'], $config['configurations'], $container, $classWhitelist);
-		});
+				return new CacheManager($config['default'], $config['configurations'], $container, $classWhitelist);
+			}
+		);
 
 		// Register the default cache store
 
-		$this->container->registerSingleton(StoreInterface::class, static fn ($container) => $container->get(CacheManager::class)->getInstance());
+		$this->container->registerSingleton(
+			StoreInterface::class,
+			static fn ($container) => $container->get(CacheManager::class)->getInstance()
+		);
 	}
 }

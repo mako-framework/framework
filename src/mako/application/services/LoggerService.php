@@ -37,7 +37,10 @@ class LoggerService extends Service
 			try {
 				$user = ['ip_address' => $this->container->get(Request::class)->getIp()];
 
-				if ($this->container->hasInstanceOf(Gatekeeper::class) && ($gatekeeperUser = $this->container->get(Gatekeeper::class)->getUser()) !== null) {
+				if (
+					$this->container->hasInstanceOf(Gatekeeper::class)
+					&& ($gatekeeperUser = $this->container->get(Gatekeeper::class)->getUser()) !== null
+				) {
 					$user += ['id' => $gatekeeperUser->getId(), 'username' => $gatekeeperUser->getUsername()];
 				}
 
@@ -93,7 +96,10 @@ class LoggerService extends Service
 	 */
 	protected function getSyslogHandler(): SyslogHandler
 	{
-		return new SyslogHandler($this->config->get('application.logger.syslog.identifier', 'Mako'), $this->config->get('application.logger.syslog.facility', LOG_USER));
+		return new SyslogHandler(
+			$this->config->get('application.logger.syslog.identifier', 'Mako'),
+			$this->config->get('application.logger.syslog.facility', LOG_USER)
+		);
 	}
 
 	/**
@@ -120,16 +126,20 @@ class LoggerService extends Service
 	{
 		$config = $this->config->get('application.logger');
 
-		$this->container->registerSingleton([LoggerInterface::class, 'logger'], function () use ($config) {
-			$processors = ($config['replace_placeholders'] ?? true) === false ? [] : [new PsrLogMessageProcessor];
+		$this->container->registerSingleton(
+			[LoggerInterface::class, 'logger'],
+			function () use ($config) {
+				$monolog = new MonoLogger(
+					$config['channel'] ?? 'mako',
+					processors: ($config['replace_placeholders'] ?? true) === false ? [] : [new PsrLogMessageProcessor]
+				);
 
-			$monolog = new MonoLogger($config['channel'] ?? 'mako', processors: $processors);
+				foreach ($config['handler'] as $handler) {
+					$monolog->pushHandler($this->getHandler($handler));
+				}
 
-			foreach ($config['handler'] as $handler) {
-				$monolog->pushHandler($this->getHandler($handler));
+				return (new Logger($monolog))->setContext($this->getContext());
 			}
-
-			return (new Logger($monolog))->setContext($this->getContext());
-		});
+		);
 	}
 }

@@ -76,15 +76,18 @@ abstract class BusService extends Service
 		if ($this->registerCommandBus) {
 			$commandHandlers = $this->getCommandHandlers();
 
-			$this->container->registerSingleton([CommandBusInterface::class, 'commandBus'], static function ($container) use ($commandHandlers) {
-				$commandBus = new CommandBus($container);
+			$this->container->registerSingleton(
+				[CommandBusInterface::class, 'commandBus'],
+				static function ($container) use ($commandHandlers) {
+					$commandBus = new CommandBus($container);
 
-				foreach ($commandHandlers as $command => $handler) {
-					$commandBus->registerHandler($command, $handler);
+					foreach ($commandHandlers as $command => $handler) {
+						$commandBus->registerHandler($command, $handler);
+					}
+
+					return $commandBus;
 				}
-
-				return $commandBus;
-			});
+			);
 		}
 
 		// Register event bus
@@ -92,17 +95,20 @@ abstract class BusService extends Service
 		if ($this->registerEventBus) {
 			$eventHandlers = $this->getEventHandlers();
 
-			$this->container->registerSingleton([EventBusInterface::class, 'eventBus'], static function ($container) use ($eventHandlers) {
-				$eventBus = new EventBus($container);
+			$this->container->registerSingleton(
+				[EventBusInterface::class, 'eventBus'],
+				static function ($container) use ($eventHandlers) {
+					$eventBus = new EventBus($container);
 
-				foreach ($eventHandlers as $event => $handlers) {
-					foreach ((array) $handlers as $handler) {
-						$eventBus->registerHandler($event, $handler);
+					foreach ($eventHandlers as $event => $handlers) {
+						foreach ((array) $handlers as $handler) {
+							$eventBus->registerHandler($event, $handler);
+						}
 					}
-				}
 
-				return $eventBus;
-			});
+					return $eventBus;
+				}
+			);
 		}
 
 		// Register query bus
@@ -110,15 +116,18 @@ abstract class BusService extends Service
 		if ($this->registerQueryBus) {
 			$queryHandlers = $this->getQueryHandlers();
 
-			$this->container->registerSingleton([QueryBusInterface::class, 'queryBus'], static function ($container) use ($queryHandlers) {
-				$queryBus = new QueryBus($container);
+			$this->container->registerSingleton(
+				[QueryBusInterface::class, 'queryBus'],
+				static function ($container) use ($queryHandlers) {
+					$queryBus = new QueryBus($container);
 
-				foreach ($queryHandlers as $query => $handler) {
-					$queryBus->registerHandler($query, $handler);
+					foreach ($queryHandlers as $query => $handler) {
+						$queryBus->registerHandler($query, $handler);
+					}
+
+					return $queryBus;
 				}
-
-				return $queryBus;
-			});
+			);
 		}
 	}
 }

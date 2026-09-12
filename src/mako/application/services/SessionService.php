@@ -96,30 +96,33 @@ class SessionService extends Service
 	#[Override]
 	public function register(): void
 	{
-		$this->container->registerSingleton([Session::class, 'session'], function ($container) {
-			// Get configuration
+		$this->container->registerSingleton(
+			[Session::class, 'session'],
+			function ($container) {
+				// Get configuration
 
-			$config = $this->config->get('session');
+				$config = $this->config->get('session');
 
-			$classWhitelist = $this->config->get('application.deserialization_whitelist');
+				$classWhitelist = $this->config->get('application.deserialization_whitelist');
 
-			// Build options array
+				// Build options array
 
-			$options = [
-				'name'           => $config['session_name'],
-				'data_ttl'       => $config['ttl']['data'],
-				'cookie_ttl'     => $config['ttl']['cookie'],
-				'cookie_options' => $config['cookie_options'],
-			];
+				$options = [
+					'name'           => $config['session_name'],
+					'data_ttl'       => $config['ttl']['data'],
+					'cookie_ttl'     => $config['ttl']['cookie'],
+					'cookie_options' => $config['cookie_options'],
+				];
 
-			// Create session and return it
+				// Create session and return it
 
-			return new Session(
-				$container->get(Request::class),
-				$container->get(Response::class),
-				$this->getStore($container, $config, $classWhitelist),
-				$options
-			);
-		});
+				return new Session(
+					$container->get(Request::class),
+					$container->get(Response::class),
+					$this->getStore($container, $config, $classWhitelist),
+					$options
+				);
+			}
+		);
 	}
 }
