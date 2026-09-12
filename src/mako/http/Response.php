@@ -7,6 +7,7 @@
 
 namespace mako\http;
 
+use InvalidArgumentException;
 use mako\http\response\builders\ResponseBuilderInterface;
 use mako\http\response\Cookies;
 use mako\http\response\Headers;
@@ -22,6 +23,7 @@ use function ob_end_flush;
 use function ob_get_length;
 use function ob_get_level;
 use function ob_start;
+use function preg_match;
 use function setcookie;
 use function setrawcookie;
 use function str_replace;
@@ -36,6 +38,11 @@ class Response
 	 * Default HTTP status.
 	 */
 	public const Status DEFAULT_STATUS = Status::Ok;
+
+	/**
+	 * Protocol version.
+	 */
+	protected ?string $protocolVersion = null;
 
 	/**
 	 * Response body.
@@ -96,6 +103,24 @@ class Response
 	public function getRequest(): Request
 	{
 		return $this->request;
+	}
+
+	/**
+	 * Sets the HTTP protocol version.
+	 *
+	 * Pass null to restore automatic protocol detection.
+	 *
+	 * @return $this
+	 */
+	public function setProtocolVersion(?string $protocolVersion): Response
+	{
+		if ($protocolVersion !== null && preg_match('/\A[0-9]+(?:\.[0-9]+)?\z/', $protocolVersion) !== 1) {
+			throw new InvalidArgumentException('Unsupported HTTP protocol version.');
+		}
+
+		$this->protocolVersion = $protocolVersion;
+
+		return $this;
 	}
 
 	/**
@@ -269,19 +294,23 @@ class Response
 	{
 		// Send status header
 
-		$protocol = $this->request->server->get('SERVER_PROTOCOL', 'HTTP/1.1');
+		$protocol = $this->protocolVersion !== null
+			? "HTTP/{$this->protocolVersion}"
+			: $this->request->server->get('SERVER_PROTOCOL', 'HTTP/1.1');
 
 		header("{$protocol} {$this->status->getCode()} {$this->status->getMessage()}");
 
-		// Send content type header
+		// Send content type header unless explicitly provided
 
-		$contentType = $this->contentType;
+		if (!$this->headers->has('Content-Type')) {
+			$contentType = $this->contentType;
 
-		if (stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml', 'application/rss+xml', 'application/atom+xml'])) {
-			$contentType .= "; charset={$this->charset}";
+			if (stripos($contentType, 'text/') === 0 || in_array($contentType, ['application/json', 'application/xml', 'application/rss+xml', 'application/atom+xml'])) {
+				$contentType .= "; charset={$this->charset}";
+			}
+
+			header("Content-Type: {$contentType}");
 		}
-
-		header("Content-Type: {$contentType}");
 
 		// Send other headers
 
