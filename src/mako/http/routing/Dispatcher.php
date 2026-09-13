@@ -139,7 +139,13 @@ class Dispatcher
 	 */
 	protected function executeClosure(Closure $action, array $parameters): Response
 	{
-		return $this->response->setBody($this->container->call($action, $parameters));
+		$returnValue = $this->container->call($action, $parameters);
+
+		if ($returnValue !== null) {
+			$this->response->setBody($returnValue);
+		}
+
+		return $this->response;
 	}
 
 	/**
@@ -151,17 +157,23 @@ class Dispatcher
 
 		$controller = $this->container->get($controller);
 
+		$returnValue = null;
+
 		// Execute the before action method if we have one
 
 		if (method_exists($controller, 'beforeAction')) {
 			$returnValue = $this->container->call($controller->beforeAction(...));
 		}
 
-		if (empty($returnValue)) {
+		if ($returnValue === null) {
 			// The before action method didn't return any data so we can set the
 			// response body to whatever the route action returns
 
-			$this->response->setBody($this->container->call([$controller, $method], $parameters));
+			$returnValue = $this->container->call([$controller, $method], $parameters);
+
+			if ($returnValue !== null) {
+				$this->response->setBody($returnValue);
+			}
 
 			// Execute the after action method if we have one
 
