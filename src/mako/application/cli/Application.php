@@ -18,7 +18,7 @@ use mako\application\cli\commands\migrations\Down;
 use mako\application\cli\commands\migrations\Reset;
 use mako\application\cli\commands\migrations\Status;
 use mako\application\cli\commands\migrations\Up;
-use mako\application\cli\commands\package\Install;
+use mako\application\cli\commands\package\Publish;
 use mako\application\cli\commands\server\Server;
 use mako\cache\CacheManager;
 use mako\classes\ClassFinder;
@@ -273,7 +273,7 @@ class Application extends BaseApplication
 		$commands = [
 			'app:generate-key'       => GenerateKey::class,
 			'app:generate-preloader' => GeneratePreloader::class,
-			'package:install'        => Install::class,
+			'package:publish'        => Publish::class,
 		];
 
 		if ($this->container->has(Routes::class)) {

@@ -33,26 +33,26 @@ use function sprintf;
 use function str_replace;
 
 /**
- * Command that installs package resources into the application.
+ * Command that publishes package resources into the application.
  */
 #[CommandDescription(
-	'Installs package resources into the application.',
+	'Publishes package resources into the application.',
 	additionalInformation: <<<'INFO'
 	Note that this command does not install the packages themselves; it only copies resources from packages that are already installed via Composer.
 
-	If no package names are provided then resources from a set of whitelisted first-party packages will be installed.
+	If no package names are provided then resources from a set of whitelisted first-party packages will be published.
 
 	Existing files that differ from the package versions are skipped by default. Use the --force flag to override them without confirming or the --confirm flag to be asked about each file.
 
-	Packages opt in to resource installation through the "extra.mako.install" section of their composer.json file.
+	Packages opt in to resource publication through the "extra.mako.publish" section of their composer.json file.
 	INFO
 )]
 #[CommandArguments(
-	new PositionalArgument('package', 'Package names to install', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
+	new PositionalArgument('package', 'Package names to publish', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
 	new NamedArgument('force', 'f', 'Override existing files without confirming', Argument::IS_BOOL),
 	new NamedArgument('confirm', 'c', 'Ask for confirmation before overriding existing files', Argument::IS_BOOL),
 )]
-class Install extends Command
+class Publish extends Command
 {
 	/**
 	 * Whitelisted packages.
@@ -69,7 +69,7 @@ class Install extends Command
 	protected bool $force = false;
 
 	/**
-	 * Should ask for confirmation before overriding existing files?
+	 * Should we ask for confirmation before overriding existing files?
 	 */
 	protected bool $confirm = false;
 
@@ -192,7 +192,7 @@ class Install extends Command
 	}
 
 	/**
-	 * Install resources.
+	 * Publish resources.
 	 */
 	public function execute(array $package = [], bool $force = false, bool $confirm = false): int
 	{
@@ -216,15 +216,15 @@ class Install extends Command
 		$this->confirm = $confirm;
 
 		$found = [];
-		$installed = 0;
+		$published = 0;
 		$success = true;
 
-		$packagesToInstall = $package === [] ? static::WHITELIST : array_unique($package);
+		$packagesToPublish = $package === [] ? static::WHITELIST : array_unique($package);
 
-		// Loop over packages and install resources
+		// Loop over packages and publish resources
 
 		foreach (InstalledVersions::getInstalledPackages() as $packageName) {
-			if (!in_array($packageName, $packagesToInstall)) {
+			if (!in_array($packageName, $packagesToPublish)) {
 				continue;
 			}
 
@@ -249,32 +249,32 @@ class Install extends Command
 				associative: true
 			);
 
-			$makoInstall = $composerData['extra']['mako']['install'] ?? null;
+			$makoPublish = $composerData['extra']['mako']['publish'] ?? null;
 
-			if ($makoInstall === null) {
+			if ($makoPublish === null) {
 				if ($package !== []) {
-					$this->write(sprintf('<blue>*</blue> The "<yellow>%s</yellow>" package has no installable resources.', $packageName));
+					$this->write(sprintf('<blue>*</blue> The "<yellow>%s</yellow>" package has no publishable resources.', $packageName));
 					$this->nl();
 				}
 
 				continue;
 			}
 
-			$installedResources = false;
+			$publishedResources = false;
 
-			if (($makoInstall['config'] ?? false) && $this->copyConfig($packageName, $packagePath)) {
-				$this->write(sprintf('<green>*</green> Installed config file(s) from "<yellow>%s</yellow>".', $packageName));
+			if (($makoPublish['config'] ?? false) && $this->copyConfig($packageName, $packagePath)) {
+				$this->write(sprintf('<green>*</green> Published config file(s) from "<yellow>%s</yellow>".', $packageName));
 				$this->nl();
-				$installedResources = true;
+				$publishedResources = true;
 			}
 
-			$installedResources && $installed++;
+			$publishedResources && $published++;
 		}
 
 		// Print report
 
 		if ($package !== []) {
-			$notFound = array_diff($packagesToInstall, $found);
+			$notFound = array_diff($packagesToPublish, $found);
 
 			if ($notFound !== []) {
 				$success = false;
@@ -289,7 +289,7 @@ class Install extends Command
 			}
 		}
 
-		$this->write(sprintf('Installed resources from <yellow>%s</yellow> %s.', $installed, $installed === 1 ? 'package' : 'packages'));
+		$this->write(sprintf('Published resources from <yellow>%s</yellow> %s.', $published, $published === 1 ? 'package' : 'packages'));
 		$this->nl();
 
 		return $success ? Command::STATUS_SUCCESS : Command::STATUS_ERROR;
