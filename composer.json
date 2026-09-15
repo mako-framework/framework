@@ -36,17 +36,17 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "doctrine/sql-formatter": "^1.5",
-        "monolog/monolog": "^3.10",
+        "monolog/monolog": "^3.12",
         "psr/clock": "^1.0",
         "psr/log": "^2.0|^3.0",
         "psr/simple-cache": "^3.0",
         "symfony/var-dumper": "^8.1",
-        "tempest/highlight": "^2.27"
+        "tempest/highlight": "^2.28"
     },
     "require-dev": {
-        "mockery/mockery": "^1.6.12",
+        "mockery/mockery": "^1.6.15",
         "phpstan/phpstan": "^2.2",
-        "phpunit/phpunit": "^13.2"
+        "phpunit/phpunit": "^13.3"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",
