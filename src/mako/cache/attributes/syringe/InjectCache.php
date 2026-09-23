@@ -33,8 +33,8 @@ class InjectCache implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(Container $container, ReflectionParameter $parameter): StoreInterface
-    {
+	public function getParameterValue(Container $container, ReflectionParameter $parameter): StoreInterface
+	{
 		return $container->get(CacheManager::class)->getInstance($this->configuration);
 	}
 }

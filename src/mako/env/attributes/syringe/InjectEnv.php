@@ -37,8 +37,8 @@ class InjectEnv implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(Container $container, ReflectionParameter $parameter): mixed
-    {
+	public function getParameterValue(Container $container, ReflectionParameter $parameter): mixed
+	{
 		return env($this->variableName, $this->default, $this->localOnly, $this->as);
 	}
 }

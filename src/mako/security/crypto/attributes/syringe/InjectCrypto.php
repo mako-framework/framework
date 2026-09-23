@@ -33,8 +33,8 @@ class InjectCrypto implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(Container $container, ReflectionParameter $parameter): Crypto
-    {
+	public function getParameterValue(Container $container, ReflectionParameter $parameter): Crypto
+	{
 		return $container->get(CryptoManager::class)->getInstance($this->configuration);
 	}
 }

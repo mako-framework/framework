@@ -33,8 +33,8 @@ class InjectConfig implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(Container $container, ReflectionParameter $parameter): mixed
-    {
+	public function getParameterValue(Container $container, ReflectionParameter $parameter): mixed
+	{
 		return $container->get(Config::class)->get($this->key, $this->default);
 	}
 }

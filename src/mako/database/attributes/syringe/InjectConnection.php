@@ -33,8 +33,8 @@ class InjectConnection implements InjectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-    public function getParameterValue(Container $container, ReflectionParameter $parameter): Connection
-    {
+	public function getParameterValue(Container $container, ReflectionParameter $parameter): Connection
+	{
 		return $container->get(ConnectionManager::class)->getConnection($this->connection);
 	}
 }
