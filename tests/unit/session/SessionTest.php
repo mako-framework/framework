@@ -127,7 +127,7 @@ class SessionTest extends TestCase
 	 */
 	public function testStartWithCookie(): void
 	{
-		new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 	}
 
 	/**
@@ -143,7 +143,7 @@ class SessionTest extends TestCase
 
 		$request->shouldReceive('isSecure')->once()->andReturn(false);
 
-		new TestSession($request, $this->getResponse(), $this->getStore(), ['cookie_options' => ['secure' => true]], false);
+		new TestSession($request, $this->getResponse(), $this->getStore(), ['cookie_options' => ['secure' => true]]);
 	}
 
 	/**
@@ -165,7 +165,7 @@ class SessionTest extends TestCase
 			$this->cookies = $responseCookies;
 		})->bindTo($response, Response::class)();
 
-		new TestSession($request, $response, $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), ['cookie_options' => ['secure' => true]], false);
+		new TestSession($request, $response, $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), ['cookie_options' => ['secure' => true]]);
 	}
 
 	/**
@@ -173,7 +173,7 @@ class SessionTest extends TestCase
 	 */
 	public function testCommit(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar'], true), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar'], true), []);
 
 		$session->commit();
 	}
@@ -203,7 +203,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foobar', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($request, $response, $store, [], false);
+		$session = new TestSession($request, $response, $store, []);
 
 		$session->commit();
 	}
@@ -213,7 +213,7 @@ class SessionTest extends TestCase
 	 */
 	public function testGetId(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertEquals('foo123', $session->getId());
 	}
@@ -237,7 +237,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foobar', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $response, $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $response, $store, []);
 
 		$session->regenerateId();
 
@@ -259,7 +259,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foobar', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $response, $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $response, $store, []);
 
 		$session->regenerateId(true);
 
@@ -271,7 +271,7 @@ class SessionTest extends TestCase
 	 */
 	public function testGetData(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertEquals(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar'], $session->getData());
 	}
@@ -287,7 +287,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['bax' => 123, 'mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$session->put('bax', 123);
 
@@ -299,7 +299,7 @@ class SessionTest extends TestCase
 	 */
 	public function testHas(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertTrue($session->has('foo'));
 
@@ -311,7 +311,7 @@ class SessionTest extends TestCase
 	 */
 	public function testGet(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertEquals('bar', $session->get('foo'));
 
@@ -331,7 +331,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$session->remove('foo');
 
@@ -349,7 +349,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => ['bax' => 123], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$session->putFlash('bax', 123);
 
@@ -367,7 +367,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertTrue($session->hasFlash('bax'));
 
@@ -387,7 +387,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertTrue($session->hasFlash('bax'));
 
@@ -409,7 +409,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => ['bax' => 123, 'baz' => 456], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$session->reflash();
 
@@ -427,7 +427,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => ['bax' => 123], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$session->reflash(['bax']);
 
@@ -439,7 +439,7 @@ class SessionTest extends TestCase
 	 */
 	public function testGetToken(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertSame('foobar', $session->getToken());
 	}
@@ -473,7 +473,7 @@ class SessionTest extends TestCase
 	 */
 	public function testValidateToken(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertTrue($session->validateToken('foobar'));
 
@@ -491,7 +491,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:tokens' => ['foobar'], 'mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$token = $session->generateOneTimeToken();
 
@@ -505,7 +505,7 @@ class SessionTest extends TestCase
 	 */
 	public function testValidateNonExistentOneTimeToken(): void
 	{
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $this->getDefaultStore(['foo' => 'bar', 'mako:flashdata' => [], 'mako:token' => 'foobar']), []);
 
 		$this->assertFalse($session->validateOneTimeToken('bar456'));
 	}
@@ -521,7 +521,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:tokens' => [], 'mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertTrue($session->validateOneTimeToken('bar456'));
 
@@ -539,7 +539,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => []], 1800);
 
-		$session = new Session($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new Session($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$session->clear();
 
@@ -581,7 +581,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['foo' => 'baz', 'mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertEquals('bar', $session->getAndPut('foo', 'baz', 'bax'));
 
@@ -599,7 +599,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['foo' => 'baz', 'mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertEquals('bax', $session->getAndPut('foo', 'baz', 'bax'));
 
@@ -617,7 +617,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertEquals('bar', $session->getAndRemove('foo', 'bax'));
 
@@ -635,7 +635,7 @@ class SessionTest extends TestCase
 
 		$store->shouldReceive('write')->once()->with('foo123', ['mako:flashdata' => [], 'mako:token' => 'foobar'], 1800);
 
-		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, [], false);
+		$session = new TestSession($this->getRequestWithCookie(), $this->getResponseSetCookie(), $store, []);
 
 		$this->assertEquals('bax', $session->getAndRemove('foo', 'bax'));
 

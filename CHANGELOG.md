@@ -133,6 +133,9 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * The pixel `Crop` operation now takes a `Dimensions` instance and a `Point` instance instead of width, height, x and y integers.
 * Removed the `app:generate-secret` command. Use the `app:generate-key` command instead.
 * Moved the `Signer` class from the `mako\security` namespace to the `mako\security\signer` namespace.
+* Removed the following methods from the `Session` class:
+	- `Session::disableAutoCommit()`
+	- `Session::enableAutoCommit()`
 
 #### Deprecations
 

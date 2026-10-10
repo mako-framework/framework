@@ -81,24 +81,13 @@ class Session
 		protected Request $request,
 		protected Response $response,
 		protected StoreInterface $store,
-		array $options = [],
-		protected bool $autoCommit = true
+		array $options = []
 	) {
 		$this->options = array_replace_recursive($this->options, $options);
 
 		$this->gc();
 
 		$this->start();
-	}
-
-	/**
-	 * Destructor.
-	 */
-	public function __destruct()
-	{
-		if ($this->autoCommit) {
-			$this->commit();
-		}
 	}
 
 	/**
@@ -125,22 +114,6 @@ class Session
 		}
 
 		$this->token = $this->sessionData['mako:token'];
-	}
-
-	/**
-	 * Disables auto commit.
-	 */
-	public function disableAutoCommit(): void
-	{
-		$this->autoCommit = false;
-	}
-
-	/**
-	 * Enables auto commit.
-	 */
-	public function enableAutoCommit(): void
-	{
-		$this->autoCommit = true;
 	}
 
 	/**

@@ -15,6 +15,8 @@ use mako\http\routing\Router;
 use mako\i18n\I18n;
 use mako\session\Session;
 use Override;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 use function fastcgi_finish_request;
 use function function_exists;
@@ -34,6 +36,30 @@ class Application extends BaseApplication
 		parent::initialize();
 
 		$this->container->registerSingleton(DeferredTasks::class, DeferredTasks::class);
+	}
+
+	/**
+	 * Commits the session if one exists.
+	 */
+	protected function commitSession(): void
+	{
+		if ($this->container->has(Session::class)) {
+			$session = $this->container->get(Session::class);
+
+			try {
+				$session->commit();
+			}
+			catch (Throwable $e) {
+				if (!$this->container->has(LoggerInterface::class)) {
+					throw $e;
+				}
+
+				$this->container->get(LoggerInterface::class)->error(
+					'Failed to commit session.',
+					['exception' => $e]
+				);
+			}
+		}
 	}
 
 	/**
@@ -64,16 +90,14 @@ class Application extends BaseApplication
 
 		$this->container->get(Dispatcher::class)->dispatch($route)->send();
 
+		// Commit session
+
+		$this->commitSession();
+
 		// Execute deferred tasks
 
 		if ($this->container->has(DeferredTasks::class)) {
 			if (function_exists('fastcgi_finish_request')) {
-				if ($this->container->has(Session::class)) {
-					$session = $this->container->get(Session::class);
-					$session->disableAutoCommit();
-					$session->commit();
-				}
-
 				fastcgi_finish_request();
 			}
 
