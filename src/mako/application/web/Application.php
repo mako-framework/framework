@@ -44,10 +44,8 @@ class Application extends BaseApplication
 	protected function commitSession(): void
 	{
 		if ($this->container->has(Session::class)) {
-			$session = $this->container->get(Session::class);
-
 			try {
-				$session->commit();
+				$this->container->get(Session::class)->commit();
 			}
 			catch (Throwable $e) {
 				if (!$this->container->has(LoggerInterface::class)) {
