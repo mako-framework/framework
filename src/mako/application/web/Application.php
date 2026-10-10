@@ -43,7 +43,7 @@ class Application extends BaseApplication
 	 */
 	protected function commitSession(): void
 	{
-		if ($this->container->has(Session::class)) {
+		if ($this->container->hasInstanceOf(Session::class)) {
 			try {
 				$this->container->get(Session::class)->commit();
 			}
@@ -94,7 +94,7 @@ class Application extends BaseApplication
 
 		// Execute deferred tasks
 
-		if ($this->container->has(DeferredTasks::class)) {
+		if ($this->container->hasInstanceOf(DeferredTasks::class)) {
 			if (function_exists('fastcgi_finish_request')) {
 				fastcgi_finish_request();
 			}
