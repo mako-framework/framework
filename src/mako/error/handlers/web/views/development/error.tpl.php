@@ -466,7 +466,7 @@
 			<div class="body">
 				<div class="error">
 					<h1>{{$type}} {% if(!empty($code)) %}({{$code}}){% endif %}</h1>
-					<p>{{rtrim($message, '.')}}.</p>
+					<p>{{preg_replace('/\.$/', '', $message)}}.</p>
 				</div>
 
 				{% if($hint !== null) %}
@@ -481,7 +481,7 @@
 						{% foreach($previous as $exception) %}
 							<li>
 								<em>{{$exception['type']}}{% if(!empty($exception['code'])) %} ({{$exception['code']}}){% endif %}</em> in {{$exception['file']}} on line {{$exception['line']}}.
-								{% if(!empty($exception['message'])) %}<small><p>{{rtrim($exception['message'], '.')}}.</p></small>{% endif %}
+								{% if(!empty($exception['message'])) %}<small><p>{{preg_replace('/\.$/', '', $exception['message'])}}.</p></small>{% endif %}
 							</li>
 						{% endforeach %}
 					</ol>
