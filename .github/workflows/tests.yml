@@ -30,11 +30,15 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v7"
+      - name: "Install libexempi"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libexempi8
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: mbstring, sqlite, pdo, pdo_sqlite, gd, imagick
+          extensions: mbstring, sqlite, pdo, pdo_sqlite, gd, imagick, ffi
           ini-values: "memory_limit=-1"
           tools: composer:v2
           coverage: none
