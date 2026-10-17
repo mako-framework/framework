@@ -11,7 +11,6 @@ use FFI\Exception as FFIException;
 use mako\pixel\metadata\xmp\exceptions\XmpException;
 use mako\pixel\metadata\xmp\properties\ArrayProperty;
 use mako\pixel\metadata\xmp\properties\ValueProperty;
-use mako\pixel\metadata\xmp\XmpNamespace;
 use mako\pixel\metadata\xmp\XmpReader;
 use mako\tests\TestCase;
 use Override;
@@ -56,23 +55,23 @@ class XmpReaderTest extends TestCase
 
 		// Test namespace
 
-		$properties = $reader->getProperties(XmpNamespace::DC);
+		$properties = $reader->getProperties(XmpReader::NS_DC);
 
 		$this->assertCount(3, $properties);
 
-		$properties = $reader->getProperties(XmpNamespace::TIFF);
+		$properties = $reader->getProperties(XmpReader::NS_TIFF);
 
 		$this->assertCount(1, $properties);
 
 		// Test namespace + property name
 
-		$properties = $reader->getProperties(XmpNamespace::DC, 'dc:creator');
+		$properties = $reader->getProperties(XmpReader::NS_DC, 'dc:creator');
 
 		$this->assertInstanceOf(ArrayProperty::class, $properties[0]);
 
 		$this->assertInstanceOf(ValueProperty::class, $properties[0]->values[0]);
 
-		$this->assertSame(XmpNamespace::DC, $properties[0]->values[0]->namespace);
+		$this->assertSame(XmpReader::NS_DC, $properties[0]->values[0]->namespace);
 
 		$this->assertSame('dc:creator[1]', $properties[0]->values[0]->fullyQualifiedName);
 
@@ -86,11 +85,11 @@ class XmpReaderTest extends TestCase
 	{
 		$reader = new XmpReader(static::FIXTURE);
 
-		$property = $reader->getProperty(XmpNamespace::DC, 'dc:creator[1]');
+		$property = $reader->getProperty(XmpReader::NS_DC, 'dc:creator[1]');
 
 		$this->assertInstanceOf(ValueProperty::class, $property);
 
-		$this->assertSame(XmpNamespace::DC, $property->namespace);
+		$this->assertSame(XmpReader::NS_DC, $property->namespace);
 
 		$this->assertSame('dc:creator[1]', $property->fullyQualifiedName);
 
