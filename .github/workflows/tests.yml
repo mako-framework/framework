@@ -39,7 +39,7 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: mbstring, sqlite, pdo, pdo_sqlite, gd, imagick, ffi
-          ini-values: "memory_limit=-1"
+          ini-values: "memory_limit=-1, ffi.enable=true"
           tools: composer:v2
           coverage: none
       - name: "Install dependencies"
