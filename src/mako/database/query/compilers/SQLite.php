@@ -131,9 +131,9 @@ class SQLite extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function insertMultipleAndReturn(array $return, array ...$values): array
+	public function insertMultipleAndReturn(array $values, array $return): array
 	{
-		['sql' => $sql, 'params' => $params] = $this->insertMultiple(...$values);
+		['sql' => $sql, 'params' => $params] = $this->insertMultiple($values);
 
 		$sql .= " RETURNING {$this->columnNames($return)}";
 

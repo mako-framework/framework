@@ -476,17 +476,19 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 		$query = new Query($this->connectionManager->getConnection());
 
 		$inserted = $query->table('users')->insertMultipleAndReturn(
-			['id', 'username'],
-			[
-				'created_at' => '2025-05-28 23:23:00',
-				'username'   => 'bax',
-				'email'      => 'bax@example.org',
+			values: [
+				[
+					'created_at' => '2025-05-28 23:23:00',
+					'username'   => 'bax',
+					'email'      => 'bax@example.org',
+				],
+				[
+					'created_at' => '2025-05-28 23:23:00',
+					'username'   => 'fox',
+					'email'      => 'fox@example.org',
+				],
 			],
-			[
-				'created_at' => '2025-05-28 23:23:00',
-				'username'   => 'fox',
-				'email'      => 'fox@example.org',
-			]
+			return: ['id', 'username']
 		);
 
 		$this->assertInstanceOf(ResultSet::class, $inserted);

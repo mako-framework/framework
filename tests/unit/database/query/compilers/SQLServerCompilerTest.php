@@ -490,7 +490,7 @@ class SQLServerCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query = $query->getCompiler()->insertMultipleAndReturn(['id', 'foo'], ['foo' => 'bar'], ['bar' => 'baz']);
+		$query = $query->getCompiler()->insertMultipleAndReturn([['foo' => 'bar'], ['bar' => 'baz']], ['id', 'foo']);
 
 		$this->assertEquals('INSERT INTO [foobar] ([foo]) OUTPUT INSERTED.[id], INSERTED.[foo] VALUES (?), (?)', $query['sql']);
 		$this->assertEquals(['bar', 'baz'], $query['params']);

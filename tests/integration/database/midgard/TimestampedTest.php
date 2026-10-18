@@ -147,7 +147,7 @@ class TimestampedTest extends ORMTestCase
 	{
 		$now = new DateTime;
 
-		(new TimestampedFoo)->insertMultiple(['value' => 'test_insert2'], ['value' => 'test_insert3']);
+		(new TimestampedFoo)->insertMultiple([['value' => 'test_insert2'], ['value' => 'test_insert3']]);
 
 		$this->assertSame($now->format('Y-m-d'), (new TimestampedFoo)->where('value', '=', 'test_insert2')->first()->created_at->format('Y-m-d'));
 
@@ -161,7 +161,7 @@ class TimestampedTest extends ORMTestCase
 	{
 		$now = new DateTime;
 
-		$inserted = (new TimestampedFoo)->insertMultipleAndReturn(['created_at'], ['value' => 'test_insert4'], ['value' => 'test_insert5']);
+		$inserted = (new TimestampedFoo)->insertMultipleAndReturn([['value' => 'test_insert4'], ['value' => 'test_insert5']], ['created_at']);
 
 		$this->assertSame($now->format('Y-m-d'), $inserted[0]->created_at->format('Y-m-d'));
 		$this->assertSame($now->format('Y-m-d'), $inserted[1]->created_at->format('Y-m-d'));

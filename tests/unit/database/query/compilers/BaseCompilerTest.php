@@ -1496,7 +1496,7 @@ class BaseCompilerTest extends TestCase
 	{
 		$query = $this->getBuilder();
 
-		$query = $query->getCompiler()->insertMultiple(['foo' => 'bar', 'baz' => 'bax'], ['foo' => 'bar', 'baz' => 'bax']);
+		$query = $query->getCompiler()->insertMultiple([['foo' => 'bar', 'baz' => 'bax'], ['foo' => 'bar', 'baz' => 'bax']]);
 
 		$this->assertEquals('INSERT INTO "foobar" ("foo", "baz") VALUES (?, ?), (?, ?)', $query['sql']);
 		$this->assertEquals(['bar', 'bax', 'bar', 'bax'], $query['params']);

@@ -162,7 +162,7 @@ class Query extends QueryBuilder
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function insertMultiple(array ...$values): bool
+	public function insertMultiple(array $values): bool
 	{
 		// Execute "beforeInsert" hooks
 
@@ -174,7 +174,7 @@ class Query extends QueryBuilder
 
 		// Insert records
 
-		$inserted = parent::insertMultiple(...$values);
+		$inserted = parent::insertMultiple($values);
 
 		// Execute "afterInsert" hooks
 
@@ -191,7 +191,7 @@ class Query extends QueryBuilder
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function insertMultipleAndReturn(array $return, array ...$values): ResultSet
+	public function insertMultipleAndReturn(array $values, array $return): ResultSet
 	{
 		// Execute "beforeInsert" hooks
 
@@ -207,7 +207,7 @@ class Query extends QueryBuilder
 			$return = array_unique([$this->model->getPrimaryKey(), ...$return]);
 		}
 
-		$inserted = parent::insertMultipleAndReturnAll($return, $values, false, PDO::FETCH_ASSOC);
+		$inserted = parent::insertMultipleAndReturnAll($values, $return, false, PDO::FETCH_ASSOC);
 
 		// Execute "afterInsert" hooks
 

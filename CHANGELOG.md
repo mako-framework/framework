@@ -117,6 +117,9 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 	- `Query::orderBy()`
 	- `Query::orderByRaw()`
 	- `Query::orderByVectorDistance()`
+* Changed the method signature for the following methods for better consistency:
+	- `Query::insertMultiple()`
+	- `Query::insertMultipleAndReturn()`
 * Removed non-standard cases from the `Status` enum:
 	- `InvalidToken`
 	- `TokenRequired`

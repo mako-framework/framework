@@ -703,17 +703,19 @@ class ORMTest extends ORMTestCase
 	public function testInsertMultipleAndReturn(): void
 	{
 		$inserted = (new TestUser)->insertMultipleAndReturn(
-			['*'],
-			[
-				'created_at' => '2025-05-28 23:23:00',
-				'username'   => 'bax',
-				'email'      => 'bax@example.org',
+			values: [
+				[
+					'created_at' => '2025-05-28 23:23:00',
+					'username'   => 'bax',
+					'email'      => 'bax@example.org',
+				],
+				[
+					'created_at' => '2025-05-28 23:23:00',
+					'username'   => 'fox',
+					'email'      => 'fox@example.org',
+				],
 			],
-			[
-				'created_at' => '2025-05-28 23:23:00',
-				'username'   => 'fox',
-				'email'      => 'fox@example.org',
-			]
+			return: ['*']
 		);
 
 		$this->assertInstanceOf(ResultSet::class, $inserted);
