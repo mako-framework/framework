@@ -476,7 +476,7 @@ class SQLiteCompilerTest extends InMemoryDbTestCase
 		$query = new Query($this->connectionManager->getConnection());
 
 		$inserted = $query->table('users')->insertMultipleAndReturn(
-			values: [
+			rows: [
 				[
 					'created_at' => '2025-05-28 23:23:00',
 					'username'   => 'bax',

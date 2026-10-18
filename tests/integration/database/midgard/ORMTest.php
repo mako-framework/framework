@@ -703,7 +703,7 @@ class ORMTest extends ORMTestCase
 	public function testInsertMultipleAndReturn(): void
 	{
 		$inserted = (new TestUser)->insertMultipleAndReturn(
-			values: [
+			rows: [
 				[
 					'created_at' => '2025-05-28 23:23:00',
 					'username'   => 'bax',

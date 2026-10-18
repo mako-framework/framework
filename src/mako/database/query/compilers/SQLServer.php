@@ -155,13 +155,13 @@ class SQLServer extends Compiler
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function insertMultipleAndReturn(array $values, array $return): array
+	public function insertMultipleAndReturn(array $rows, array $return): array
 	{
 		foreach ($return as $key => $column) {
 			$return[$key] = "INSERTED.{$this->columnName($column)}";
 		}
 
-		$query = $this->insertMultiple($values);
+		$query = $this->insertMultiple($rows);
 
 		$query['sql'] = substr_replace(
 			$query['sql'],

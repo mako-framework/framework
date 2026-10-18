@@ -1616,13 +1616,13 @@ class Query
 	/**
 	 * Inserts multiple rows of data into the chosen table.
 	 */
-	public function insertMultiple(array $values): bool
+	public function insertMultiple(array $rows): bool
 	{
-		if ($values === []) {
+		if ($rows === []) {
 			return true;
 		}
 
-		$query = $this->compiler->insertMultiple($values);
+		$query = $this->compiler->insertMultiple($rows);
 
 		return $this->connection->query($query['sql'], $query['params']);
 	}
@@ -1630,13 +1630,13 @@ class Query
 	/**
 	 * Inserts multiple rows of data into the chosen table and returns an array or result set containing all of the inserted rows.
 	 */
-	protected function insertMultipleAndReturnAll(array $values, array $return, bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
+	protected function insertMultipleAndReturnAll(array $rows, array $return, bool $returnResultSet, mixed ...$fetchMode): array|ResultSet
 	{
-		if ($values === []) {
+		if ($rows === []) {
 			return $returnResultSet ? $this->createResultSet([]) : [];
 		}
 
-		$query = $this->compiler->insertMultipleAndReturn($values, $return);
+		$query = $this->compiler->insertMultipleAndReturn($rows, $return);
 
 		$results = $this->connection->all($query['sql'], $query['params'], ...$fetchMode);
 
@@ -1648,9 +1648,9 @@ class Query
 	 *
 	 * @return ResultSet<int, Result>
 	 */
-	public function insertMultipleAndReturn(array $values, array $return): ResultSet
+	public function insertMultipleAndReturn(array $rows, array $return): ResultSet
 	{
-		return $this->insertMultipleAndReturnAll($values, $return, true, PDO::FETCH_CLASS, Result::class);
+		return $this->insertMultipleAndReturnAll($rows, $return, true, PDO::FETCH_CLASS, Result::class);
 	}
 
 	/**

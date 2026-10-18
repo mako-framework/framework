@@ -88,9 +88,9 @@ class MariaDB extends MySQL
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function insertMultipleAndReturn(array $values, array $return): array
+	public function insertMultipleAndReturn(array $rows, array $return): array
 	{
-		['sql' => $sql, 'params' => $params] = $this->insertMultiple($values);
+		['sql' => $sql, 'params' => $params] = $this->insertMultiple($rows);
 
 		$sql .= " RETURNING {$this->columnNames($return)}";
 

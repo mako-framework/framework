@@ -846,20 +846,20 @@ class Compiler
 	 *
 	 * @return array{sql: string, params: array}
 	 */
-	public function insertMultiple(array $values): array
+	public function insertMultiple(array $rows): array
 	{
 		$sql = $this->query->getPrefix()
 		. "INSERT INTO {$this->escapeTableName($this->query->getTable())} "
-		. "({$this->escapeIdentifiers(array_keys($values[0]))})"
+		. "({$this->escapeIdentifiers(array_keys($rows[0]))})"
 		. ' VALUES ';
 
-		$rows = [];
+		$compiledRows = [];
 
-		foreach ($values as $rowValues) {
-			$rows[] =  "({$this->params($rowValues)})";
+		foreach ($rows as $rowValues) {
+			$compiledRows[] =  "({$this->params($rowValues)})";
 		}
 
-		$sql .= implode(', ', $rows);
+		$sql .= implode(', ', $compiledRows);
 
 		return ['sql' => $sql, 'params' => $this->params];
 	}
@@ -869,7 +869,7 @@ class Compiler
 	 *
 	 * @return array{sql: string, params: array}
 	 */
-	public function insertMultipleAndReturn(array $values, array $return): array
+	public function insertMultipleAndReturn(array $rows, array $return): array
 	{
 		throw new CompilerException(sprintf('The [ %s ] query compiler does not support "insert multiple and return" queries.', static::class));
 	}
