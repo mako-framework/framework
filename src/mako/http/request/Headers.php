@@ -13,7 +13,6 @@ use Override;
 use Traversable;
 
 use function array_column;
-use function array_map;
 use function array_shift;
 use function count;
 use function explode;
@@ -227,7 +226,8 @@ class Headers implements Countable, IteratorAggregate
 					return [];
 				}
 
-				[$name, $parameterValue] = array_map(trim(...), $pair);
+				$name = trim($pair[0]);
+				$parameterValue = trim($pair[1]);
 
 				if ($name === '' || $parameterValue === '') {
 					return [];
