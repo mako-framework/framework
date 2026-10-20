@@ -18,6 +18,7 @@ use function array_shift;
 use function count;
 use function explode;
 use function preg_match;
+use function str_contains;
 use function str_replace;
 use function strcasecmp;
 use function stripos;
