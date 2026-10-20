@@ -234,10 +234,10 @@ class Headers implements Countable, IteratorAggregate
 				}
 
 				if (strcasecmp($name, 'q') === 0) {
-					if ($hasQuality || !preg_match(
-						'/\A(?:0(?:\.[0-9]{0,3})?|1(?:\.0{0,3})?)\z/',
-						$parameterValue
-					)) {
+					if (
+						$hasQuality
+						|| !preg_match('/\A(?:0(?:\.[0-9]{0,3})?|1(?:\.0{0,3})?)\z/', $parameterValue)
+					) {
 						return [];
 					}
 
