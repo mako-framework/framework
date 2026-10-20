@@ -12,23 +12,36 @@ use IteratorAggregate;
 use Override;
 use Traversable;
 
-use function array_merge;
-use function array_values;
+use function array_column;
+use function array_map;
+use function array_shift;
 use function count;
 use function explode;
-use function krsort;
-use function str_contains;
+use function preg_match;
 use function str_replace;
+use function strcasecmp;
 use function stripos;
+use function strlen;
 use function strtoupper;
 use function substr;
 use function trim;
+use function usort;
 
 /**
  * Headers.
  */
 class Headers implements Countable, IteratorAggregate
 {
+	/**
+	 * Max accept header size.
+	 */
+	protected const int MAX_ACCEPT_HEADER_SIZE = 16384;
+
+	/**
+	 * Invalid accept header characters.
+	 */
+	protected const string DISALLOWED_HEADER_CONTROL_CHARS_PATTERN = '/[\x00-\x08\x0A-\x1F\x7F]/';
+
 	/**
 	 * Acceptable content types.
 	 */
@@ -124,41 +137,125 @@ class Headers implements Countable, IteratorAggregate
 	}
 
 	/**
-	 * Parses a accpet header and returns the values in descending order of preference.
+	 * Splits a string on a delimiter while ignoring delimiters inside quoted strings.
+	 *
+	 * Returns null if the input contains control characters or has an unterminated quote or escape sequence.
+	 */
+	protected function splitOutsideQuotes(string $input, string $delimiter): ?array
+	{
+		$parts = [];
+		$start = 0;
+		$quoted = false;
+		$escaped = false;
+
+		for ($i = 0, $length = strlen($input); $i < $length; ++$i) {
+			$char = $input[$i];
+
+			if ($escaped) {
+				$escaped = false;
+			}
+			elseif ($quoted && $char === '\\') {
+				$escaped = true;
+			}
+			elseif ($char === '"') {
+				$quoted = !$quoted;
+			}
+			elseif (!$quoted && $char === $delimiter) {
+				$parts[] = substr($input, $start, $i - $start);
+				$start = $i + 1;
+			}
+		}
+
+		if ($quoted || $escaped) {
+			return null;
+		}
+
+		$parts[] = substr($input, $start);
+
+		return $parts;
+	}
+
+	/**
+	 * Parses an accept header and returns the values in descending order of preference.
 	 */
 	protected function parseAcceptHeader(?string $headerValue): array
 	{
-		$groupedAccepts = [];
-
-		if (empty($headerValue)) {
-			return $groupedAccepts;
+		if (
+			$headerValue === null
+			|| strlen($headerValue) > static::MAX_ACCEPT_HEADER_SIZE
+			|| trim($headerValue) === ''
+			|| preg_match(static::DISALLOWED_HEADER_CONTROL_CHARS_PATTERN, $headerValue)
+		) {
+			return [];
 		}
 
-		// Collect acceptable values
+		$hasQuotes = str_contains($headerValue, '"');
 
-		foreach (explode(',', $headerValue) as $accept) {
-			$quality = 1;
+		$entries = $hasQuotes
+			? $this->splitOutsideQuotes($headerValue, ',')
+			: explode(',', $headerValue);
 
-			if (str_contains($accept, ';')) {
-				// We have a quality so we need to split some more
+		if ($entries === null) {
+			return [];
+		}
 
-				[$accept, $quality] = explode(';', $accept, 2);
+		$accepts = [];
 
-				// Strip the "q=" part so that we're left with only the numeric value
+		foreach ($entries as $accept) {
+			$parts = $hasQuotes && str_contains($accept, '"')
+				? $this->splitOutsideQuotes($accept, ';')
+				: explode(';', $accept);
 
-				$quality = substr(trim($quality), 2);
+			if ($parts === null) {
+				return [];
 			}
 
-			$groupedAccepts[$quality][] = trim($accept);
+			$value = trim(array_shift($parts));
+
+			if ($value === '') {
+				continue;
+			}
+
+			$quality = 1.0;
+			$hasQuality = false;
+
+			foreach ($parts as $parameter) {
+				$pair = explode('=', $parameter, 2);
+
+				if (count($pair) !== 2) {
+					return [];
+				}
+
+				[$name, $parameterValue] = array_map(trim(...), $pair);
+
+				if ($name === '' || $parameterValue === '') {
+					return [];
+				}
+
+				if (strcasecmp($name, 'q') === 0) {
+					if ($hasQuality || !preg_match(
+						'/\A(?:0(?:\.[0-9]{0,3})?|1(?:\.0{0,3})?)\z/',
+						$parameterValue
+					)) {
+						return [];
+					}
+
+					$quality = (float) $parameterValue;
+					$hasQuality = true;
+				}
+			}
+
+			if ($quality > 0) {
+				$accepts[] = ['value' => $value, 'quality' => $quality];
+			}
 		}
 
-		// Sort in descending order of preference
+		usort(
+			$accepts,
+			static fn (array $a, array $b): int => $b['quality'] <=> $a['quality']
+		);
 
-		krsort($groupedAccepts);
-
-		// Flatten array and return it
-
-		return array_merge(...array_values($groupedAccepts));
+		return array_column($accepts, 'value');
 	}
 
 	/**
