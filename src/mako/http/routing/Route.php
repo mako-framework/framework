@@ -277,6 +277,6 @@ class Route
 			$route .= '?';
 		}
 
-		return "#^{$route}$#su";
+		return "#^{$route}$#suD";
 	}
 }

@@ -306,55 +306,55 @@ class RouteTest extends TestCase
 	{
 		$route = new Route(['GET'], '/', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/?$#su', $route->getRegex());
+		$this->assertSame('#^/?$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/foo$#su', $route->getRegex());
+		$this->assertSame('#^/foo$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/foo/?$#su', $route->getRegex());
+		$this->assertSame('#^/foo/?$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/bar', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/foo/bar$#su', $route->getRegex());
+		$this->assertSame('#^/foo/bar$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/{id}', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/(?P<id>[^/]++)$#su', $route->getRegex());
+		$this->assertSame('#^/(?P<id>[^/]++)$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/foo/(?P<id>[^/]++)$#su', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[^/]++)$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/bar', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/foo/(?P<id>[^/]++)/bar$#su', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[^/]++)/bar$#suD', $route->getRegex());
 
 		//
 
 		$route = new Route(['GET'], '/foo/{id}/', fn () => 'Hello, world!');
 
-		$this->assertSame('#^/foo/(?P<id>[^/]++)/?$#su', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[^/]++)/?$#suD', $route->getRegex());
 
 		//
 
 		$route = (new Route(['GET'], '/foo/{id}', fn () => 'Hello, world!'))->patterns(['id' => '[0-9]+']);
 
-		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#su', $route->getRegex());
+		$this->assertSame('#^/foo/(?P<id>[0-9]+)$#suD', $route->getRegex());
 	}
 
 	/**
