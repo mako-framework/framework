@@ -33,14 +33,19 @@ use function usort;
 class Headers implements Countable, IteratorAggregate
 {
 	/**
-	 * Max accept header size.
+	 * Maximum accept header size.
 	 */
-	protected const int MAX_ACCEPT_HEADER_SIZE = 16384;
+	protected const int ACCEPT_HEADER_MAX_SIZE = 16384;
 
 	/**
 	 * Invalid accept header characters.
 	 */
-	protected const string DISALLOWED_HEADER_CONTROL_CHARS_PATTERN = '/[\x00-\x08\x0A-\x1F\x7F]/';
+	protected const string ACCEPT_HEADER_DISALLOWED_CONTROL_CHARS_PATTERN = '/[\x00-\x08\x0A-\x1F\x7F]/';
+
+	/**
+	 * The maximum allowed number of entries in a accept header.
+	 */
+	protected const int ACCEPT_HEADER_MAX_ENTRIES = 100;
 
 	/**
 	 * Acceptable content types.
@@ -182,9 +187,9 @@ class Headers implements Countable, IteratorAggregate
 	{
 		if (
 			$headerValue === null
-			|| strlen($headerValue) > static::MAX_ACCEPT_HEADER_SIZE
+			|| strlen($headerValue) > static::ACCEPT_HEADER_MAX_SIZE
 			|| trim($headerValue) === ''
-			|| preg_match(static::DISALLOWED_HEADER_CONTROL_CHARS_PATTERN, $headerValue)
+			|| preg_match(static::ACCEPT_HEADER_DISALLOWED_CONTROL_CHARS_PATTERN, $headerValue)
 		) {
 			return [];
 		}
@@ -193,9 +198,9 @@ class Headers implements Countable, IteratorAggregate
 
 		$entries = $hasQuotes
 			? $this->splitOutsideQuotes($headerValue, ',')
-			: explode(',', $headerValue);
+			: explode(',', $headerValue, static::ACCEPT_HEADER_MAX_ENTRIES + 1);
 
-		if ($entries === null) {
+		if ($entries === null || count($entries) > static::ACCEPT_HEADER_MAX_ENTRIES) {
 			return [];
 		}
 
