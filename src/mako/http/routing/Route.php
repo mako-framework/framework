@@ -110,7 +110,7 @@ class Route
 
 		/** @var ReflectionAttribute $attribute */
 		foreach ($attributes as $attribute) {
-			$attributeValues = [...$attributeValues, ...[$attribute->newInstance()->{$method}()]];
+			$attributeValues[] = $attribute->newInstance()->{$method}();
 		}
 
 		return $attributeValues;
@@ -221,7 +221,7 @@ class Route
 	 */
 	public function middleware(string $middleware, mixed ...$parameters): Route
 	{
-		$this->middleware = [...$this->middleware, ...[['middleware' => $middleware, 'parameters' => $parameters]]];
+		$this->middleware[] = ['middleware' => $middleware, 'parameters' => $parameters];
 
 		return $this;
 	}
@@ -233,7 +233,7 @@ class Route
 	 */
 	public function constraint(string $constraint, mixed ...$parameters): Route
 	{
-		$this->constraints = [...$this->constraints, ...[['constraint' => $constraint, 'parameters' => $parameters]]];
+		$this->constraints[] = ['constraint' => $constraint, 'parameters' => $parameters];
 
 		return $this;
 	}
