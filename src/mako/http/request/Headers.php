@@ -152,6 +152,7 @@ class Headers implements Countable, IteratorAggregate
 		$start = 0;
 		$quoted = false;
 		$escaped = false;
+		$partCount = 1;
 
 		for ($i = 0, $length = strlen($input); $i < $length; ++$i) {
 			$char = $input[$i];
@@ -166,6 +167,10 @@ class Headers implements Countable, IteratorAggregate
 				$quoted = !$quoted;
 			}
 			elseif (!$quoted && $char === $delimiter) {
+				if (++$partCount > static::ACCEPT_HEADER_MAX_ENTRIES) {
+					return null;
+				}
+
 				$parts[] = substr($input, $start, $i - $start);
 				$start = $i + 1;
 			}
@@ -209,9 +214,9 @@ class Headers implements Countable, IteratorAggregate
 		foreach ($entries as $accept) {
 			$parts = $hasQuotes && str_contains($accept, '"')
 				? $this->splitOutsideQuotes($accept, ';')
-				: explode(';', $accept);
+				: explode(';', $accept, static::ACCEPT_HEADER_MAX_ENTRIES + 1);
 
-			if ($parts === null) {
+			if ($parts === null || count($parts) > static::ACCEPT_HEADER_MAX_ENTRIES) {
 				return [];
 			}
 
