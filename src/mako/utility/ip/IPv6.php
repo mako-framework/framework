@@ -7,12 +7,15 @@
 
 namespace mako\utility\ip;
 
+use function ctype_digit;
 use function explode;
 use function inet_pton;
+use function intdiv;
 use function pack;
 use function str_contains;
 use function str_pad;
 use function str_repeat;
+use function strlen;
 
 /**
  * IPv6 utilities.
@@ -30,25 +33,29 @@ class IPv6
 		else {
 			[$range, $netmask] = explode('/', $range, 2);
 
-			if ($netmask < 1 || $netmask > 128) {
+			if (!ctype_digit($netmask) || (int) $netmask > 128) {
 				return false;
 			}
+
+			$netmask = (int) $netmask;
 		}
 
 		$ip    = inet_pton($ip);
 		$range = inet_pton($range);
 
-		if ($ip === false || $range === false) {
+		if ($ip === false || $range === false || strlen($ip) !== 16 || strlen($range) !== 16) {
 			return false;
 		}
 
-		$binNetmask = str_repeat('f', (int) ($netmask / 4)) . match ($netmask % 4) {
+		$binNetmask = str_repeat('f', intdiv($netmask, 4)) . match ($netmask % 4) {
 			1       => '8',
 			2       => 'c',
 			3       => 'e',
 			default => '',
- 		};
+		};
 
-		return ($ip & pack('H*', str_pad($binNetmask, 32, '0'))) === $range;
+		$mask = pack('H*', str_pad($binNetmask, 32, '0'));
+
+		return ($ip & $mask) === ($range & $mask);
 	}
 }

@@ -7,6 +7,7 @@
 
 namespace mako\utility\ip;
 
+use function ctype_digit;
 use function explode;
 use function ip2long;
 use function str_contains;
@@ -27,9 +28,11 @@ class IPv4
 		else {
 			[$range, $netmask] = explode('/', $range, 2);
 
-			if ($netmask < 0 || $netmask > 32) {
+			if (!ctype_digit($netmask) || (int) $netmask > 32) {
 				return false;
 			}
+
+			$netmask = (int) $netmask;
 		}
 
 		if (($ip2Long = ip2long($ip)) === false || ($range2Long = ip2long($range)) === false) {
