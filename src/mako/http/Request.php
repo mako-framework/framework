@@ -21,12 +21,12 @@ use mako\utility\ip\IP;
 use function array_map;
 use function array_reverse;
 use function basename;
-use function current;
 use function explode;
 use function file_get_contents;
 use function filter_var;
 use function fopen;
 use function in_array;
+use function is_string;
 use function ltrim;
 use function mb_strlen;
 use function mb_substr;
@@ -471,25 +471,36 @@ class Request
 		if ($this->ip === null) {
 			$ip = $this->server->get('REMOTE_ADDR');
 
-			if ($ip !== null && $this->isTrustedProxy($ip)) {
-				$ips = $this->server->get('HTTP_X_FORWARDED_FOR');
+			if (!is_string($ip) || filter_var($ip, FILTER_VALIDATE_IP) === false) {
+				return $this->ip = static::REMOTE_ADDRESS_FALLBACK;
+			}
 
-				if (!empty($ips)) {
-					$ips = array_reverse(array_map(trim(...), explode(',', $ips)));
+			if ($this->isTrustedProxy($ip)) {
+				$forwarded = $this->server->get('HTTP_X_FORWARDED_FOR');
 
-					foreach ($ips as $key => $value) {
-						if ($this->isTrustedProxy($value) === false) {
+				if (is_string($forwarded) && $forwarded !== '') {
+					$ips = array_reverse(array_map(trim(...), explode(',', $forwarded)));
+
+					$clientIp = $ip;
+
+					foreach ($ips as $candidate) {
+						if (filter_var($candidate, FILTER_VALIDATE_IP) === false) {
+							$clientIp = $ip;
 							break;
 						}
 
-						unset($ips[$key]);
+						$clientIp = $candidate;
+
+						if ($this->isTrustedProxy($candidate) === false) {
+							break;
+						}
 					}
 
-					$ip = current($ips);
+					$ip = $clientIp;
 				}
 			}
 
-			$this->ip = (filter_var($ip, FILTER_VALIDATE_IP) !== false) ? $ip : static::REMOTE_ADDRESS_FALLBACK;
+			$this->ip = $ip;
 		}
 
 		return $this->ip;
@@ -509,7 +520,10 @@ class Request
 	public function isSecure(): bool
 	{
 		if ($this->isSecure === null) {
-			if ($this->isTrustedProxy($this->server->get('REMOTE_ADDR', static::REMOTE_ADDRESS_FALLBACK)) && $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https') {
+			if (
+				$this->isTrustedProxy($this->server->get('REMOTE_ADDR', static::REMOTE_ADDRESS_FALLBACK))
+				&& $this->server->get('HTTP_X_FORWARDED_PROTO') === 'https'
+			) {
 				return $this->isSecure = true;
 			}
 

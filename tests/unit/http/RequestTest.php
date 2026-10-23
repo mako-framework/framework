@@ -201,6 +201,63 @@ class RequestTest extends TestCase
 		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24']);
 
 		$this->assertEquals('10.17.13.1', $request->getIp());
+
+		// Should return the leftmost IP if all forwarded IPs are trusted
+
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24', '10.17.13.0/24']);
+
+		$this->assertEquals('10.17.13.0', $request->getIp());
+
+		// Should fall back to REMOTE_ADDR if a forwarded IP is invalid
+
+		$server['HTTP_X_FORWARDED_FOR'] = '10.17.13.0, invalid ip, 10.17.12.212, 10.17.12.213';
+
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24']);
+
+		$this->assertEquals('10.17.12.214', $request->getIp());
+
+		// Should fall back to REMOTE_ADDR if X-Forwarded-For is empty
+
+		$server['HTTP_X_FORWARDED_FOR'] = '';
+
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24']);
+
+		$this->assertEquals('10.17.12.214', $request->getIp());
+
+		// Should fall back to REMOTE_ADDR if X-Forwarded-For is missing
+
+		unset($server['HTTP_X_FORWARDED_FOR']);
+
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24']);
+
+		$this->assertEquals('10.17.12.214', $request->getIp());
+
+		// Should ignore X-Forwarded-For if REMOTE_ADDR is not a trusted proxy
+
+		$server['REMOTE_ADDR'] = '10.17.13.5';
+		$server['HTTP_X_FORWARDED_FOR'] = '10.17.12.212, 10.17.12.213';
+
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24']);
+
+		$this->assertEquals('10.17.13.5', $request->getIp());
+
+		// Should support IPv6 trusted proxies
+
+		$server['REMOTE_ADDR'] = '2001:db8::3';
+		$server['HTTP_X_FORWARDED_FOR'] = '2001:db8:1::100, 2001:db8::2';
+
+		$request = new Request(['server' => $server], trustedProxies: ['2001:db8::/64']);
+
+		$this->assertEquals('2001:db8:1::100', $request->getIp());
+
+		// Should support mixed IPv4 and IPv6 proxy chains
+
+		$server['REMOTE_ADDR'] = '2001:db8::3';
+		$server['HTTP_X_FORWARDED_FOR'] = '10.17.13.1, 10.17.12.212, 2001:db8::2';
+
+		$request = new Request(['server' => $server], trustedProxies: ['10.17.12.0/24', '2001:db8::/64']);
+
+		$this->assertEquals('10.17.13.1', $request->getIp());
 	}
 
 	/**
