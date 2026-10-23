@@ -32,6 +32,7 @@ use function count;
 use function is_array;
 use function is_int;
 use function is_object;
+use function method_exists;
 use function sprintf;
 
 /**
@@ -300,7 +301,10 @@ class Container
 				// A nullable intersection type will be detected as a union type so we'll have to dig a bit deeper
 
 				elseif ($parameterType instanceof ReflectionUnionType && $parameterType->allowsNull()) {
-					$intersection = array_filter($parameterType->getTypes(), static fn ($type) => $type instanceof ReflectionIntersectionType);
+					$intersection = array_filter(
+						$parameterType->getTypes(),
+						static fn ($type) => $type instanceof ReflectionIntersectionType
+					);
 
 					if (count($intersection) === 1) {
 						$parameterClassName = (string) $intersection[0];
@@ -319,7 +323,10 @@ class Container
 
 			if ($parameterClassName !== null) {
 				if ($class !== null) {
-					$parameterClassName = $this->resolveContextualDependency(($method === null ? $class->getName() : "{$class->getName()}::{$method}"), $parameterClassName);
+					$parameterClassName = $this->resolveContextualDependency(
+						($method === null ? $class->getName() : "{$class->getName()}::{$method}"),
+						$parameterClassName
+					);
 				}
 
 				try {
@@ -352,7 +359,13 @@ class Container
 
 		// We have exhausted all our options. All we can do now is throw an exception
 
-		throw new UnableToResolveParameterException(sprintf('Unable to resolve the [ $%s ] parameter of [ %s ].', $parameter->getName(), $this->getDeclaringFunction($parameter)));
+		throw new UnableToResolveParameterException(
+			sprintf(
+				'Unable to resolve the [ $%s ] parameter of [ %s ].',
+				$parameter->getName(),
+				$this->getDeclaringFunction($parameter)
+			)
+		);
 	}
 
 	/**
@@ -362,6 +375,18 @@ class Container
 	{
 		if ($reflectionParameters === []) {
 			return $reflectionParameters;
+		}
+
+		// Fast path when no parameters are provided
+
+		if ($providedParameters === []) {
+			$parameters = [];
+
+			foreach ($reflectionParameters as $parameter) {
+				$parameters[] = $this->resolveParameter($parameter, $class, $method);
+			}
+
+			return $parameters;
 		}
 
 		// Merge provided parameters with the ones we got using reflection
@@ -386,9 +411,7 @@ class Container
 	 */
 	protected function isContainerAware(object $class): bool
 	{
-		$traits = ClassInspector::getTraits($class);
-
-		return isset($traits[ContainerAwareTrait::class]);
+		return method_exists($class, 'setContainer') && isset(ClassInspector::getTraits($class)[ContainerAwareTrait::class]);
 	}
 
 	/**
@@ -400,7 +423,7 @@ class Container
 	{
 		// Pass the container as the first parameter followed by the the provided parameters
 
-		return $factory(...[$this, ...$parameters]);
+		return $factory($this, ...$parameters);
 	}
 
 	/**
@@ -558,9 +581,17 @@ class Container
 		if (is_array($callable)) {
 			$reflection = new ReflectionMethod($callable[0], $callable[1]);
 
-			return $callable(...$this->resolveParameters($reflection->getParameters(), $parameters, $reflection->getDeclaringClass(), $callable[1]));
+			return $callable(
+				...$this->resolveParameters($reflection->getParameters(),
+				$parameters,
+				$reflection->getDeclaringClass(),
+				$callable[1])
+			);
 		}
 
-		return $callable(...$this->resolveParameters((new ReflectionFunction($callable))->getParameters(), $parameters));
+		return $callable(
+			...$this->resolveParameters((new ReflectionFunction($callable))->getParameters(),
+			$parameters)
+		);
 	}
 }
