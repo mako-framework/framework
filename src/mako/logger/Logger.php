@@ -16,6 +16,9 @@ use Stringable;
  */
 class Logger implements LoggerInterface
 {
+	/**
+	 * Context.
+	 */
 	protected array $context = [];
 
 	/**
