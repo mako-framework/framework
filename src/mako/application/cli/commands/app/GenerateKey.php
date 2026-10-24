@@ -26,7 +26,7 @@ use function sprintf;
  */
 #[CommandDescription('Generates a cryptographic key.')]
 #[CommandArguments(
-	new NamedArgument('key-size', 's', 'Size of the key to generate in bits (default = 256)', NamedArgument::IS_OPTIONAL | NamedArgument::IS_INT, default: 256),
+	new NamedArgument('key-size', 's', 'Size of the key to generate in bits (minimum and default = 256)', NamedArgument::IS_OPTIONAL | NamedArgument::IS_INT, default: 256),
 	new NamedArgument('dotenv', 'd', 'Path to .env file', NamedArgument::IS_OPTIONAL),
 	new NamedArgument('dotenv-key', 'k', 'Name of the .env key to generate', NamedArgument::IS_OPTIONAL),
 )]
@@ -63,6 +63,12 @@ class GenerateKey extends Command
 			return static::STATUS_ERROR;
 		}
 
+		if ($keySize < 256) {
+			$this->error('Key size must be at least 256 bits.');
+
+			return static::STATUS_ERROR;
+		}
+
 		$key = Key::generateEncoded(intdiv($keySize, 8));
 
 		if ($dotenv !== null && $dotenvKey !== null) {
@@ -94,7 +100,7 @@ class GenerateKey extends Command
 		}
 
 		$this->nl();
-		$this->write('Your cryptographic key: "<yellow>{$key}</yellow>".');
+		$this->write(sprintf('Your cryptographic key: "<yellow>%s</yellow>".', $key));
 		$this->nl();
 
 		return static::STATUS_SUCCESS;
