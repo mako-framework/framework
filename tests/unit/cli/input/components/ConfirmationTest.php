@@ -193,11 +193,11 @@ class ConfirmationTest extends TestCase
 
 	/**
 	 * @return array{
-	 * 	Input&Mockery\MockInterface,
+	 *	Input&Mockery\MockInterface,
 	 *	Environment&Mockery\MockInterface,
-	 *  Cursor&Mockery\MockInterface,
-	 * 	Mockery\MockInterface&Output,
-	 * 	Confirmation&Mockery\MockInterface
+	 *	Cursor&Mockery\MockInterface,
+	 *	Mockery\MockInterface&Output,
+	 *	Confirmation&Mockery\MockInterface
 	 * }
 	 */
 	protected function getInteractiveMocks(

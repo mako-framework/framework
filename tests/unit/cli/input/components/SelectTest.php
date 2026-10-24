@@ -291,11 +291,11 @@ class SelectTest extends TestCase
 
 	/**
 	 * @return array{
-	 * 	Input&Mockery\MockInterface,
+	 *	Input&Mockery\MockInterface,
 	 *	Environment&Mockery\MockInterface,
-	 *  Cursor&Mockery\MockInterface,
-	 * 	Mockery\MockInterface&Output,
-	 * 	Mockery\MockInterface&Select
+	 *	Cursor&Mockery\MockInterface,
+	 *	Mockery\MockInterface&Output,
+	 *	Mockery\MockInterface&Select
 	 * }
 	 */
 	protected function getInteractiveMocks(
