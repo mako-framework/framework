@@ -46,7 +46,7 @@ class Redis implements StoreInterface
 	{
 		$sessionData = $this->redis->get("{$this->prefix}{$sessionId}");
 
-		return ($sessionData !== null) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
+		return ($sessionData !== null) ? (unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) ?: []) : [];
 	}
 
 	/**

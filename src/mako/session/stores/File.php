@@ -59,7 +59,10 @@ class File implements StoreInterface
 		$sessionData = [];
 
 		if ($this->fileSystem->has($this->sessionFile($sessionId)) && $this->fileSystem->isReadable($this->sessionFile($sessionId))) {
-			$sessionData = unserialize($this->fileSystem->get($this->sessionFile($sessionId)), ['allowed_classes' => $this->classWhitelist]);
+			$sessionData = unserialize(
+				$this->fileSystem->get($this->sessionFile($sessionId)),
+				['allowed_classes' => $this->classWhitelist]
+			) ?: [];
 		}
 
 		return $sessionData;

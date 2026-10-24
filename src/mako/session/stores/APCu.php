@@ -47,7 +47,7 @@ class APCu implements StoreInterface
 	{
 		$sessionData = apcu_fetch("{$this->prefix}{$sessionId}");
 
-		return ($sessionData !== false) ? unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) : [];
+		return ($sessionData !== false) ? (unserialize($sessionData, ['allowed_classes' => $this->classWhitelist]) ?: []) : [];
 	}
 
 	/**
