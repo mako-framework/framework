@@ -51,6 +51,7 @@ class Session
 			'secure'      => false,
 			'partitioned' => false,
 			'httponly'    => true,
+			'samesite'    => 'Lax',
 		],
 	];
 
@@ -159,7 +160,12 @@ class Session
 			throw new SessionException('Attempted to set a secure cookie over a non-secure connection.');
 		}
 
-		$this->response->cookies->addSigned($this->options['name'], $this->sessionId, $this->options['cookie_ttl'], $this->options['cookie_options']);
+		$this->response->cookies->addSigned(
+			$this->options['name'],
+			$this->sessionId,
+			$this->options['cookie_ttl'],
+			$this->options['cookie_options']
+		);
 	}
 
 	/**
@@ -374,7 +380,9 @@ class Session
 	 */
 	public function clear(): void
 	{
-		$this->sessionData = [];
+		$this->sessionData = ['mako:token' => $this->token];
+
+		$this->flashData = [];
 	}
 
 	/**
