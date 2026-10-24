@@ -12,6 +12,8 @@ use SensitiveParameter;
 
 use function hash_equals;
 use function hash_hmac;
+use function sprintf;
+use function strlen;
 use function substr;
 
 /**
@@ -19,6 +21,11 @@ use function substr;
  */
 class Signer
 {
+	/**
+	 * Minimum key length in bytes.
+	 */
+	protected const int MIN_KEY_LENGTH = 32;
+
 	/**
 	 * MAC length.
 	 */
@@ -30,6 +37,9 @@ class Signer
 	public function __construct(
 		#[SensitiveParameter] protected readonly string $secret
 	) {
+		if (strlen($secret) < static::MIN_KEY_LENGTH) {
+			throw new SignerException(sprintf('The signing key must be at least %s bytes long.', static::MIN_KEY_LENGTH));
+		}
 	}
 
 	/**

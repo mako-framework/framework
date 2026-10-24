@@ -22,7 +22,7 @@ class SignerTest extends TestCase
 	{
 		$string = 'hello, world!';
 
-		$signer = new Signer('foobar');
+		$signer = new Signer(random_bytes(32));
 
 		$signed = $signer->sign($string);
 
@@ -38,7 +38,7 @@ class SignerTest extends TestCase
 	{
 		$string = 'hello, world!';
 
-		$signer = new Signer('foobar');
+		$signer = new Signer(random_bytes(32));
 
 		$signed = $signer->sign($string);
 
@@ -52,7 +52,7 @@ class SignerTest extends TestCase
 	{
 		$string = 'hello, world!';
 
-		$signer = new Signer('foobar');
+		$signer = new Signer(random_bytes(32));
 
 		$this->assertFalse($signer->validate(str_repeat('0', 64) . $string));
 	}
@@ -64,7 +64,7 @@ class SignerTest extends TestCase
 	{
 		$string = 'hello, world!';
 
-		$signer = new Signer('foobar');
+		$signer = new Signer(random_bytes(32));
 
 		$signed = $signer->sign($string);
 
@@ -81,8 +81,19 @@ class SignerTest extends TestCase
 
 		$string = 'hello, world!';
 
-		$signer = new Signer('foobar');
+		$signer = new Signer(random_bytes(32));
 
 		$signer->validateOrThrow(str_repeat('0', 64) . $string);
+	}
+
+	/**
+	 *
+	 */
+	public function testTooShortSecret(): void
+	{
+		$this->expectException(SignerException::class);
+		$this->expectExceptionMessageIs('The signing key must be at least 32 bytes long.');
+
+		new Signer(123);
 	}
 }
