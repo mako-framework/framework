@@ -35,14 +35,24 @@ class ConnectionManager extends BaseConnectionManager
 
 		$config = $this->configurations[$connection];
 
-		$options = [
-			'name'               => $connection,
-			'persistent'         => $config['persistent'] ?? false,
-			'connection_timeout' => $config['connection_timeout'] ?? 5,
-			'read_write_timeout' => $config['timeout'] ?? 60,
-			'tcp_nodelay'        => $config['tcp_nodelay'] ?? true,
+		$clientOptions = [
+			'resp'     => $config['resp'] ?? null,
+			'username' => $config['username'] ?? null,
+			'password' => $config['password'] ?? null,
+			'database' => $config['database'] ?? null,
 		];
 
-		return new Redis(new Connection($config['host'], $config['port'], $options), $config);
+		$connectionOptions = [
+			'name'               => $connection,
+			'persistent'         => $config['persistent'] ?? null,
+			'connection_timeout' => $config['connection_timeout'] ?? null,
+			'read_write_timeout' => $config['timeout'] ?? null,
+			'tcp_nodelay'        => $config['tcp_nodelay'] ?? null,
+		];
+
+		return new Redis(
+			new Connection($config['host'], $config['port'], $connectionOptions),
+			$clientOptions
+		);
 	}
 }

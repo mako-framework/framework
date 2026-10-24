@@ -36,6 +36,13 @@ use function trim;
  * Redis client.
  *
  * @see https://redis.io/docs/latest/develop/reference/protocol-spec/ Redis protocol specification.
+ *
+ * @phpstan-type RedisOptions array{
+ *	resp?: int|null,
+ *	username?: string|null,
+ *	password?: string|null,
+ *	database?: int|null,
+ * }
  */
 class Redis
 {
@@ -107,6 +114,8 @@ class Redis
 
 	/**
 	 * Constructor.
+	 *
+	 * @param RedisOptions $options
 	 */
 	final public function __construct(
 		protected Connection $connection,

@@ -29,6 +29,14 @@ use function trim;
 
 /**
  * Redis connection.
+ *
+ * @phpstan-type ConnectionOptions array{
+ *	name?: string|null,
+ *	persistent?: bool|null,
+ *	connection_timeout?: int|null,
+ *	read_write_timeout?: int|null,
+ *	tcp_nodelay?: bool|null,
+ * }
  */
 class Connection
 {
@@ -66,6 +74,8 @@ class Connection
 
 	/**
 	 * Constructor.
+	 *
+	 * @param ConnectionOptions $options
 	 */
 	public function __construct(string $host, int $port = 6379, #[SensitiveParameter] array $options = [])
 	{
@@ -98,6 +108,8 @@ class Connection
 
 	/**
 	 * Returns the connection options.
+	 *
+	 * @return ConnectionOptions
 	 */
 	public function getOptions(): array
 	{
