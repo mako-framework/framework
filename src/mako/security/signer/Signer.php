@@ -28,7 +28,7 @@ class Signer
 	 * Constructor.
 	 */
 	public function __construct(
-		#[SensitiveParameter] protected string $secret
+		#[SensitiveParameter] protected readonly string $secret
 	) {
 	}
 
