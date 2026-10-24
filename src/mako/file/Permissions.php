@@ -174,9 +174,29 @@ class Permissions
 	{
 		$permissions = Permission::calculate(...$this->permissions);
 
-		$owner = $this->getGroupAsRwxString($permissions, Permission::OwnerRead, Permission::OwnerWrite, Permission::OwnerExecute, 'owner');
-		$group = $this->getGroupAsRwxString($permissions, Permission::GroupRead, Permission::GroupWrite, Permission::GroupExecute, 'group');
-		$public = $this->getGroupAsRwxString($permissions, Permission::PublicRead, Permission::PublicWrite, Permission::PublicExecute, 'public');
+		$owner = $this->getGroupAsRwxString(
+			$permissions,
+			Permission::OwnerRead,
+			Permission::OwnerWrite,
+			Permission::OwnerExecute,
+			'owner'
+		);
+
+		$group = $this->getGroupAsRwxString(
+			$permissions,
+			Permission::GroupRead,
+			Permission::GroupWrite,
+			Permission::GroupExecute,
+			'group'
+		);
+
+		$public = $this->getGroupAsRwxString(
+			$permissions,
+			Permission::PublicRead,
+			Permission::PublicWrite,
+			Permission::PublicExecute,
+			'public'
+		);
 
 		return "{$owner}{$group}{$public}";
 	}
