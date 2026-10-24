@@ -36,20 +36,20 @@ class Key
 	 */
 	public static function decode(#[SensitiveParameter] string $key): string
 	{
-		if (str_starts_with($key, 'hex:')) {
-			$hex = substr($key, 4);
-
-			// Ensure that the key is valid hex of even length before attempting to decode it,
-			// as hex2bin() returns false (with a warning) on invalid or odd-length hex strings.
-
-			if (ctype_xdigit($hex) === false || (strlen($hex) % 2) !== 0) {
-				throw new SecurityException('Invalid hex-encoded key.');
-			}
-
-			return hex2bin($hex);
+		if (!str_starts_with($key, 'hex:')) {
+			throw new SecurityException('Invalid key encoding.');
 		}
 
-		return $key;
+		$hex = substr($key, 4);
+
+		// Ensure that the key is valid hex of even length before attempting to decode it,
+		// as hex2bin() returns false (with a warning) on invalid or odd-length hex strings.
+
+		if (!ctype_xdigit($hex) || (strlen($hex) % 2) !== 0) {
+			throw new SecurityException('Invalid hex-encoded key.');
+		}
+
+		return hex2bin($hex);
 	}
 
 	/**
