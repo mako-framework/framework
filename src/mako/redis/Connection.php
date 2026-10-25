@@ -7,6 +7,7 @@
 
 namespace mako\redis;
 
+use InvalidArgumentException;
 use mako\redis\exceptions\RedisException;
 use SensitiveParameter;
 use Throwable;
@@ -220,12 +221,16 @@ class Connection
 	 */
 	public function read(int $bytes): string
 	{
+		if ($bytes <= 0) {
+			throw new InvalidArgumentException('Read length must be greater than zero.');
+		}
+
 		$bytesLeft = $bytes;
 
 		$data = '';
 
 		do {
-			$chunk = fread($this->connection, min($bytesLeft, 4096));
+			$chunk = fread($this->connection, min($bytesLeft, 8192));
 
 			if ($chunk === false || $chunk === '') {
 				throw new RedisException(...$this->getMessageAndStreamMetadata('Failed to read data from the server.'));
