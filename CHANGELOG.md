@@ -93,6 +93,7 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 * Added `WebColor` enum.
 * Added dotenv loader.
 * Added `Signer::validateOrThrow()` method.
+* Added TLS support for Redis connections.
 * Added support for all new Redis commands added in Redis 8.2, 8.4, 8.6, 8.8 and 8.10 to the Redis client.
 * Added `package:publish` command for publishing package resources.
 

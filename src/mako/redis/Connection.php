@@ -36,6 +36,8 @@ use function trim;
  *	connection_timeout?: int|null,
  *	read_write_timeout?: int|null,
  *	tcp_nodelay?: bool|null,
+ *	tls?: bool|null,
+ *	tls_options?: array<string, mixed>|null,
  * }
  */
 class Connection
@@ -73,6 +75,16 @@ class Connection
 	protected bool $tcpNodelay;
 
 	/**
+	 * Use TLS?
+	 */
+	protected bool $tls;
+
+	/**
+	 * TLS stream context options.
+	 */
+	protected array $tlsOptions;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param ConnectionOptions $options
@@ -90,6 +102,10 @@ class Connection
 		$this->readWriteTimeout = $options['read_write_timeout'] ?? 60;
 
 		$this->tcpNodelay = $options['tcp_nodelay'] ?? true;
+
+		$this->tls = $options['tls'] ?? false;
+
+		$this->tlsOptions = $options['tls_options'] ?? [];
 
 		// Create connection
 
@@ -119,6 +135,8 @@ class Connection
 			'connection_timeout' => $this->connectionTimeout,
 			'read_write_timeout' => $this->readWriteTimeout,
 			'tcp_nodelay'        => $this->tcpNodelay,
+			'tls'                => $this->tls,
+			'tls_options'        => $this->tlsOptions,
 		];
 	}
 
@@ -134,11 +152,19 @@ class Connection
 		}
 
 		try {
+			$scheme = $this->tls ? 'tls' : 'tcp';
+
 			$flags = $this->isPersistent ? STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT : STREAM_CLIENT_CONNECT;
 
-			$context = stream_context_create(['socket' => ['tcp_nodelay' => $this->tcpNodelay]]);
+			$contextOptions = ['socket' => ['tcp_nodelay' => $this->tcpNodelay]];
 
-			$connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags, $context);
+			if ($this->tls && !empty($this->tlsOptions)) {
+				$contextOptions['ssl'] = $this->tlsOptions;
+			}
+
+			$context = stream_context_create($contextOptions);
+
+			$connection = stream_socket_client("{$scheme}://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags, $context);
 
 			stream_set_timeout($connection, $this->readWriteTimeout);
 
@@ -157,12 +183,19 @@ class Connection
 	 * Returns the message with the read error reason to the
 	 * error message if possible along with the stream metadata.
 	 */
-	protected function getMessageAndStreamMetadata($message): array
+	protected function getMessageAndStreamMetadata(string $message): array
 	{
 		$metadata = stream_get_meta_data($this->connection);
 
 		if ($metadata['timed_out']) {
 			$message = "{$message} The stream timed out while waiting for data.";
+		}
+		elseif ($metadata['eof']) {
+			$message = "{$message} The server closed the connection.";
+
+			if (!$this->tls) {
+				$message .= ' This can happen if the server requires TLS and the [ tls ] option is not enabled.';
+			}
 		}
 
 		return ['message' => $message, 'streamMetadata' => $metadata];
@@ -194,7 +227,7 @@ class Connection
 		do {
 			$chunk = fread($this->connection, min($bytesLeft, 4096));
 
-			if ($chunk === false) {
+			if ($chunk === false || $chunk === '') {
 				throw new RedisException(...$this->getMessageAndStreamMetadata('Failed to read data from the server.'));
 			}
 

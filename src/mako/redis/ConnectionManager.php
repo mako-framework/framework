@@ -48,6 +48,8 @@ class ConnectionManager extends BaseConnectionManager
 			'connection_timeout' => $config['connection_timeout'] ?? null,
 			'read_write_timeout' => $config['timeout'] ?? null,
 			'tcp_nodelay'        => $config['tcp_nodelay'] ?? null,
+			'tls'                => $config['tls'] ?? null,
+			'tls_options'        => $config['tls_options'] ?? null,
 		];
 
 		return new Redis(

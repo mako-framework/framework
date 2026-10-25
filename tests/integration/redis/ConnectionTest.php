@@ -67,5 +67,9 @@ class ConnectionTest extends TestCase
 		$this->assertSame(59, $options['read_write_timeout']);
 
 		$this->assertFalse($options['tcp_nodelay']);
+
+		$this->assertFalse($options['tls']);
+
+		$this->assertSame([], $options['tls_options']);
 	}
 }
