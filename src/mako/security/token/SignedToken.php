@@ -109,10 +109,7 @@ class SignedToken
 	{
 		// Ensure that the string only contains valid Base64URL characters and has a valid length
 
-		if (
-			preg_match('/\A[A-Za-z0-9_-]+\z/', $string) !== 1 ||
-			strlen($string) % 4 === 1
-		) {
+		if (preg_match('/\A[A-Za-z0-9_-]+\z/', $string) !== 1 || strlen($string) % 4 === 1) {
 			return false;
 		}
 
