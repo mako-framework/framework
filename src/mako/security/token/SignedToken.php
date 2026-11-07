@@ -42,6 +42,22 @@ class SignedToken
 	}
 
 	/**
+	 * Calculates the expiration timestamp.
+	 */
+	protected function getExpiration(int $ttl): int
+	{
+		$now = $this->clock->now()->getTimestamp();
+
+		if ($ttl <= 0 || $ttl > PHP_INT_MAX - $now) {
+			throw new InvalidArgumentException('Invalid token TTL.');
+		}
+
+		$expires = $now + $ttl;
+
+		return $expires;
+	}
+
+	/**
 	 * Builds the signed payload.
 	 *
 	 * Metadata values are type-sensitive and must match during validation.
@@ -81,13 +97,7 @@ class SignedToken
 	 */
 	public function create(string $identifier, int $ttl, array $meta = []): string
 	{
-		$now = $this->clock->now()->getTimestamp();
-
-		if ($ttl <= 0 || $ttl > PHP_INT_MAX - $now) {
-			throw new InvalidArgumentException('Invalid token TTL.');
-		}
-
-		$expires = $now + $ttl;
+		$expires = $this->getExpiration($ttl);
 
 		$payload = $this->buildPayload($identifier, $expires, $meta);
 
