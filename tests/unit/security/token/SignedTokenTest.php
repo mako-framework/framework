@@ -98,12 +98,12 @@ class SignedTokenTest extends TestCase
 	public static function invalidMetaProvider(): array
 	{
 		return [
-			'float value'  => [['foo' => 1.5]],
-			'bool value'   => [['foo' => true]],
-			'null value'   => [['foo' => null]],
-			'array value'  => [['foo' => ['bar']]],
-			'object value' => [['foo' => new stdClass]],
-			'integer key'  => [[0 => 'foo']],
+			'float value'  => [['foo' => 1.5], 'Invalid token metadata value for key [ foo ].'],
+			'bool value'   => [['foo' => true], 'Invalid token metadata value for key [ foo ].'],
+			'null value'   => [['foo' => null], 'Invalid token metadata value for key [ foo ].'],
+			'array value'  => [['foo' => ['bar']], 'Invalid token metadata value for key [ foo ].'],
+			'object value' => [['foo' => new stdClass], 'Invalid token metadata value for key [ foo ].'],
+			'integer key'  => [[0 => 'foo'], 'Token metadata keys must be strings.'],
 		];
 	}
 
@@ -210,10 +210,10 @@ class SignedTokenTest extends TestCase
 	 *
 	 */
 	#[DataProvider('invalidMetaProvider')]
-	public function testCreateWithInvalidMeta(array $meta): void
+	public function testCreateWithInvalidMeta(array $meta, string $message): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('Invalid token metadata.');
+		$this->expectExceptionMessageIs($message);
 
 		$this->getSignedToken()->create('foobar', 3600, $meta);
 	}
@@ -266,10 +266,10 @@ class SignedTokenTest extends TestCase
 	 *
 	 */
 	#[DataProvider('invalidMetaProvider')]
-	public function testValidateWithInvalidMeta(array $meta): void
+	public function testValidateWithInvalidMeta(array $meta, string $message): void
 	{
 		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessageIs('Invalid token metadata.');
+		$this->expectExceptionMessageIs($message);
 
 		$signedToken = $this->getSignedToken();
 

@@ -45,7 +45,7 @@ class Signer
 	/**
 	 * Returns the signature.
 	 */
-	protected function getSignature(string $string): string
+	protected function getSignature(#[SensitiveParameter] string $string): string
 	{
 		return hash_hmac('sha256', $string, $this->secret);
 	}
@@ -53,7 +53,7 @@ class Signer
 	/**
 	 * Returns a signed string.
 	 */
-	public function sign(string $string): string
+	public function sign(#[SensitiveParameter] string $string): string
 	{
 		return "{$this->getSignature($string)}$string";
 	}
@@ -61,7 +61,7 @@ class Signer
 	/**
 	 * Returns the original string if the signature is valid or false if not.
 	 */
-	public function validate(string $string): false|string
+	public function validate(#[SensitiveParameter] string $string): false|string
 	{
 		$validated = substr($string, static::MAC_LENGTH);
 
@@ -75,7 +75,7 @@ class Signer
 	/**
 	 * Returns the original string if the signature is valid or throws an exception if not.
 	 */
-	public function validateOrThrow(string $string): string
+	public function validateOrThrow(#[SensitiveParameter] string $string): string
 	{
 		$validated = $this->validate($string);
 

@@ -13,6 +13,7 @@ use mako\chrono\Clock;
 use mako\security\signer\Signer;
 use mako\security\token\exceptions\TokenException;
 use Psr\Clock\ClockInterface;
+use SensitiveParameter;
 
 use function base64_decode;
 use function base64_encode;
@@ -23,6 +24,7 @@ use function json_encode;
 use function ksort;
 use function preg_match;
 use function rtrim;
+use function sprintf;
 use function strlen;
 use function strtr;
 use function substr;
@@ -69,11 +71,18 @@ final class SignedToken
 	 *
 	 * @param array<string, int|string> $meta
 	 */
-	private function buildPayload(string $identifier, int $expires, array $meta): string
-	{
+	private function buildPayload(
+		#[SensitiveParameter] string $identifier,
+		int $expires,
+		#[SensitiveParameter] array $meta
+	): string {
 		foreach ($meta as $key => $value) {
-			if (!is_string($key) || !(is_string($value) || is_int($value))) {
-				throw new InvalidArgumentException('Invalid token metadata.');
+			if (!is_string($key)) {
+				throw new InvalidArgumentException('Token metadata keys must be strings.');
+			}
+
+			if (!(is_string($value) || is_int($value))) {
+				throw new InvalidArgumentException(sprintf('Invalid token metadata value for key [ %s ].', $key));
 			}
 		}
 
@@ -90,7 +99,7 @@ final class SignedToken
 	/**
 	 * Base64URL encodes a string.
 	 */
-	private function encode(string $string): string
+	private function encode(#[SensitiveParameter] string $string): string
 	{
 		return rtrim(strtr(base64_encode($string), '+/', '-_'), '=');
 	}
@@ -100,8 +109,11 @@ final class SignedToken
 	 *
 	 * @param array<string, int|string> $meta
 	 */
-	public function create(string $identifier, int $ttl, array $meta = []): string
-	{
+	public function create(
+		#[SensitiveParameter] string $identifier,
+		int $ttl,
+		#[SensitiveParameter] array $meta = []
+	): string {
 		$expires = $this->getExpiration($ttl);
 
 		$payload = $this->buildPayload($identifier, $expires, $meta);
@@ -120,7 +132,7 @@ final class SignedToken
 	/**
 	 * Base64URL decodes a string.
 	 */
-	private function decode(string $string): false|string
+	private function decode(#[SensitiveParameter] string $string): false|string
 	{
 		// Ensure that the string only contains valid Base64URL characters and has a valid length
 
@@ -142,8 +154,11 @@ final class SignedToken
 	 *
 	 * @param array<string, int|string> $meta
 	 */
-	public function validate(string $token, string $identifier, array $meta = []): bool
-	{
+	public function validate(
+		#[SensitiveParameter] string $token,
+		#[SensitiveParameter] string $identifier,
+		#[SensitiveParameter] array $meta = []
+	): bool {
 		if ($token === '' || strlen($token) > self::MAX_TOKEN_LENGTH) {
 			return false;
 		}
@@ -182,8 +197,11 @@ final class SignedToken
 	 *
 	 * @param array<string, int|string> $meta
 	 */
-	public function validateOrThrow(string $token, string $identifier, array $meta = []): void
-	{
+	public function validateOrThrow(
+		#[SensitiveParameter] string $token,
+		#[SensitiveParameter] string $identifier,
+		#[SensitiveParameter] array $meta = []
+	): void {
 		if (!$this->validate($token, $identifier, $meta)) {
 			throw new TokenException('The token is invalid or has expired.');
 		}
