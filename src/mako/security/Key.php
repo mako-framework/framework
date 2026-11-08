@@ -21,7 +21,7 @@ use function substr;
 /**
  * Key helpers.
  */
-class Key
+final class Key
 {
 	/**
 	 * Converts a binary key into its hexadecimal representation.
@@ -65,6 +65,6 @@ class Key
 	 */
 	public static function generateEncoded(int $length = 32): string
 	{
-		return static::encode(static::generate($length));
+		return self::encode(self::generate($length));
 	}
 }
