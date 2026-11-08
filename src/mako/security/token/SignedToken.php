@@ -30,21 +30,26 @@ use function substr;
 /**
  * Creates and validates time-limited signed tokens.
  */
-class SignedToken
+final class SignedToken
 {
+	/**
+	 * Maximum token length.
+	 */
+	private const int MAX_TOKEN_LENGTH = 1024;
+
 	/**
 	 * Constructor.
 	 */
 	public function __construct(
-		protected readonly Signer $signer,
-		protected readonly ClockInterface $clock = new Clock
+		private readonly Signer $signer,
+		private readonly ClockInterface $clock = new Clock
 	) {
 	}
 
 	/**
 	 * Calculates the expiration timestamp.
 	 */
-	protected function getExpiration(int $ttl): int
+	private function getExpiration(int $ttl): int
 	{
 		$now = $this->clock->now()->getTimestamp();
 
@@ -64,7 +69,7 @@ class SignedToken
 	 *
 	 * @param array<string, int|string> $meta
 	 */
-	protected function buildPayload(string $identifier, int $expires, array $meta): string
+	private function buildPayload(string $identifier, int $expires, array $meta): string
 	{
 		foreach ($meta as $key => $value) {
 			if (!is_string($key) || !(is_string($value) || is_int($value))) {
@@ -85,7 +90,7 @@ class SignedToken
 	/**
 	 * Base64URL encodes a string.
 	 */
-	protected function encode(string $string): string
+	private function encode(string $string): string
 	{
 		return rtrim(strtr(base64_encode($string), '+/', '-_'), '=');
 	}
@@ -115,7 +120,7 @@ class SignedToken
 	/**
 	 * Base64URL decodes a string.
 	 */
-	protected function decode(string $string): false|string
+	private function decode(string $string): false|string
 	{
 		// Ensure that the string only contains valid Base64URL characters and has a valid length
 
@@ -139,7 +144,7 @@ class SignedToken
 	 */
 	public function validate(string $token, string $identifier, array $meta = []): bool
 	{
-		if ($token === '' || strlen($token) > 1024) {
+		if ($token === '' || strlen($token) > self::MAX_TOKEN_LENGTH) {
 			return false;
 		}
 
