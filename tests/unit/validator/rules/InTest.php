@@ -47,4 +47,30 @@ class InTest extends TestCase
 
 		$this->assertSame('The foobar field must contain one of the available options.', $rule->getErrorMessage('foobar'));
 	}
+
+	/**
+	 *
+	 */
+	public function testWithValidValueInStrictMode(): void
+	{
+		$rule = new In([1, 2, 3], strict: true);
+
+		$this->assertTrue($rule->validate(1, '', []));
+		$this->assertTrue($rule->validate(2, '', []));
+		$this->assertTrue($rule->validate(3, '', []));
+	}
+
+	/**
+	 *
+	 */
+	public function testWithInvalidValueInStrictMode(): void
+	{
+		$rule = new In([1, 2, 3], strict: true);
+
+		$this->assertFalse($rule->validate('1', '', []));
+		$this->assertFalse($rule->validate(1.0, '', []));
+		$this->assertFalse($rule->validate(true, '', []));
+
+		$this->assertSame('The foobar field must contain one of the available options.', $rule->getErrorMessage('foobar'));
+	}
 }
