@@ -36,8 +36,6 @@ class SecurityHeadersTest extends TestCase
 
 		$headers->shouldReceive('add')->once()->with('X-Frame-Options', 'sameorigin');
 
-		$headers->shouldReceive('add')->once()->with('X-XSS-Protection', '1; mode=block');
-
 		(function () use ($headers): void {
 			$this->headers = $headers;
 		})->bindTo($response, Response::class)();

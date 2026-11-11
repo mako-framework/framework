@@ -23,7 +23,6 @@ class SecurityHeaders implements MiddlewareInterface
 	protected array $headers = [
 		'X-Content-Type-Options' => 'nosniff',
 		'X-Frame-Options'        => 'sameorigin',
-		'X-XSS-Protection'       => '1; mode=block',
 	];
 
 	/**
