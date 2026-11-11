@@ -21,7 +21,8 @@ class NotIn extends Rule
 	 * Constructor.
 	 */
 	public function __construct(
-		protected array $values
+		protected array $values,
+		protected bool $strict = false
 	) {
 	}
 
@@ -36,7 +37,7 @@ class NotIn extends Rule
 	#[Override]
 	public function validate(mixed $value, string $field, array $input): bool
 	{
-		return !in_array($value, $this->values);
+		return !in_array($value, $this->values, $this->strict);
 	}
 
 	/**

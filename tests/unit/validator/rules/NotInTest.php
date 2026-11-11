@@ -48,4 +48,30 @@ class NotInTest extends TestCase
 
 		$this->assertSame('The foobar field contains an invalid value.', $rule->getErrorMessage('foobar'));
 	}
+
+	/**
+	 *
+	 */
+	public function testWithValidValueInStrictMode(): void
+	{
+		$rule = new NotIn([1, 2, 3], strict: true);
+
+		$this->assertTrue($rule->validate('1', '', []));
+		$this->assertTrue($rule->validate(1.0, '', []));
+		$this->assertTrue($rule->validate(true, '', []));
+	}
+
+	/**
+	 *
+	 */
+	public function testWithInvalidValueInStrictMode(): void
+	{
+		$rule = new NotIn([1, 2, 3], strict: true);
+
+		$this->assertFalse($rule->validate(1, '', []));
+		$this->assertFalse($rule->validate(2, '', []));
+		$this->assertFalse($rule->validate(3, '', []));
+
+		$this->assertSame('The foobar field contains an invalid value.', $rule->getErrorMessage('foobar'));
+	}
 }
