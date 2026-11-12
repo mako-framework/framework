@@ -101,10 +101,6 @@ class Dispatcher
 	 */
 	protected function orderMiddlewareByPriority(array $middleware): array
 	{
-		if ($this->middlewarePriority === []) {
-			return $middleware;
-		}
-
 		// Ensure that each middleware only exists once in the final list
 
 		$middlewareByName = [];
@@ -113,9 +109,22 @@ class Dispatcher
 			$middlewareByName[$value['middleware']] = $value;
 		}
 
+		if ($this->middlewarePriority === []) {
+			return $middlewareByName;
+		}
+
 		// Sort middleware by priority
 
-		$priority = array_intersect_key($this->middlewarePriority, $middlewareByName) + array_fill_keys(array_keys(array_diff_key($middlewareByName, $this->middlewarePriority)), static::MIDDLEWARE_DEFAULT_PRIORITY);
+		$priority = array_intersect_key($this->middlewarePriority, $middlewareByName)
+		+ array_fill_keys(
+			array_keys(
+				array_diff_key(
+					$middlewareByName,
+					$this->middlewarePriority
+				)
+			),
+			static::MIDDLEWARE_DEFAULT_PRIORITY
+		);
 
 		asort($priority);
 
