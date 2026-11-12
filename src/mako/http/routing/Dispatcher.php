@@ -14,10 +14,6 @@ use mako\http\routing\middleware\MiddlewareInterface;
 use mako\onion\Onion;
 use mako\syringe\Container;
 
-use function array_diff_key;
-use function array_fill_keys;
-use function array_intersect_key;
-use function array_keys;
 use function asort;
 use function is_array;
 use function method_exists;
@@ -115,16 +111,11 @@ class Dispatcher
 
 		// Sort middleware by priority
 
-		$priority = array_intersect_key($this->middlewarePriority, $middlewareByName)
-		+ array_fill_keys(
-			array_keys(
-				array_diff_key(
-					$middlewareByName,
-					$this->middlewarePriority
-				)
-			),
-			static::MIDDLEWARE_DEFAULT_PRIORITY
-		);
+		$priority = [];
+
+		foreach ($middlewareByName as $name => $_) {
+			$priority[$name] = $this->middlewarePriority[$name] ?? static::MIDDLEWARE_DEFAULT_PRIORITY;
+		}
 
 		asort($priority);
 
