@@ -105,6 +105,8 @@ class Dispatcher
 			$middlewareByName[$value['middleware']] = $value;
 		}
 
+		// Return early if there are no priorities
+
 		if ($this->middlewarePriority === []) {
 			return $middlewareByName;
 		}
