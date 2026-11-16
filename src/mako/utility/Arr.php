@@ -171,6 +171,8 @@ class Arr
 
 		start:
 
+		$remaining = '';
+
 		$expanded = [];
 
 		foreach ($keys as $key) {
@@ -188,7 +190,7 @@ class Arr
 			}
 		}
 
-		if (isset($remaining) && str_contains($remaining, '*')) {
+		if (!empty($expanded) && str_contains($remaining, '*')) {
 			$keys = $expanded;
 
 			goto start;
