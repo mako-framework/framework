@@ -154,6 +154,14 @@ The major version bump is due to upping the required PHP version from `8.5` to `
 
 --------------------------------------------------------
 
+### 12.2.4 <small>(2026-11-26)</small>
+
+#### Bugfixes
+
+* Fixed potential infinite loop issue in `Arr::expandKey()`.
+
+--------------------------------------------------------
+
 ### 12.2.3 <small>(2026-07-26)</small>
 
 #### Bugfixes
