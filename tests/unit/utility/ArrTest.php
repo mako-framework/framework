@@ -195,6 +195,23 @@ class ArrTest extends TestCase
 	/**
 	 *
 	 */
+	public function testExpandKeyWithUnmatchedIntermediateWildcard(): void
+	{
+		// Regression test: these would previously cause an infinite loop
+		// since a wildcard remained after a pass that produced no keys.
+
+		$arr = ['foo' => ['bar' => [1, 2], 'baz' => [1, 2]]];
+
+		$this->assertSame([], Arr::expandKey($arr, 'bax.*.*'));
+
+		$this->assertSame([], Arr::expandKey($arr, 'foo.bax.*.*'));
+
+		$this->assertSame([], Arr::expandKey([], '*.*'));
+	}
+
+	/**
+	 *
+	 */
 	public function testAssociativeArrayToObject(): void
 	{
 		$converted = Arr::toObject(['foo' => 1, 'bar' => 2]);
