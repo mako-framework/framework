@@ -8,6 +8,7 @@
 namespace mako\chrono;
 
 use DateTimeInterface;
+use Time\Duration;
 
 /**
  * Sleeper interface.
@@ -39,4 +40,9 @@ interface SleeperInterface
 	 * Sleep until the specified time.
 	 */
 	public function sleepUntil(DateTimeInterface $dateTime): void;
+
+	/**
+	 * Sleep for the specified duration.
+	 */
+	public function sleepFor(Duration $duration): void;
 }
