@@ -8,6 +8,7 @@
 namespace mako\chrono;
 
 use DateTimeInterface;
+use InvalidArgumentException;
 use Override;
 use Time\Duration;
 
@@ -76,6 +77,10 @@ final class Sleeper implements SleeperInterface
 	#[Override]
 	public function sleepFor(Duration $duration): void
 	{
+		if ($duration->negative) {
+			throw new InvalidArgumentException('The sleep duration cannot be negative.');
+		}
+
 		time_nanosleep($duration->seconds, $duration->nanoseconds);
 	}
 }
