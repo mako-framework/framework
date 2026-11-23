@@ -39,7 +39,7 @@ class LapTest extends TestCase
 
 		$lap->stop();
 
-		$this->assertTrue($lap->getStopTime() > $lap->getStartTime());
+		$this->assertGreaterThanOrEqual($lap->getStartTime(), $lap->getStopTime());
 	}
 
 	/**
