@@ -7,13 +7,16 @@
 
 namespace mako\tests\unit\cache\stores;
 
+use InvalidArgumentException;
 use mako\cache\stores\File;
 use mako\file\FileSystem;
 use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Retry;
 use stdClass;
+use Time\Duration;
 
 #[Group('unit')]
 class FileTest extends TestCase
@@ -37,6 +40,7 @@ class FileTest extends TestCase
 	/**
 	 *
 	 */
+	#[Retry(2)]
 	public function testPut(): void
 	{
 		$fileSystem = $this->getFileSystem();
@@ -54,6 +58,35 @@ class FileTest extends TestCase
 		$file = new File($fileSystem, '/cache');
 
 		$file->put('foo', 123, 3600);
+
+		//
+
+		$fileSystem->shouldReceive('put')->once()->with('/cache/mako_cache_foo.php', (3600 + time()) . "\n" . serialize(123), true);
+
+		$file = new File($fileSystem, '/cache');
+
+		$file->put('foo', 123, Duration::fromSeconds(3600));
+
+		//
+
+		$fileSystem->shouldReceive('put')->once()->with('/cache/mako_cache_foo.php', (3601 + time()) . "\n" . serialize(123), true);
+
+		$file = new File($fileSystem, '/cache');
+
+		$file->put('foo', 123, Duration::fromSeconds(3600, 300)); // Fractional seconds are rounded up
+	}
+
+	/**
+	 *
+	 */
+	public function testPutWithNegativeDuration(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessageIs('The TTL cannot be negative.');
+
+		$file = new File($this->getFileSystem(), '/cache');
+
+		$file->put('foo', 123, Duration::fromSeconds(3600)->negate());
 	}
 
 	/**

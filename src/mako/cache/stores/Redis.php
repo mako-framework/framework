@@ -9,6 +9,7 @@ namespace mako\cache\stores;
 
 use mako\redis\Redis as RedisClient;
 use Override;
+use Time\Duration;
 
 use function array_chunk;
 use function is_numeric;
@@ -33,11 +34,13 @@ class Redis extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function put(string $key, mixed $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
 		$key = $this->getPrefixedKey($key);
 
 		$data = is_numeric($data) ? $data : serialize($data);
+
+		$ttl = $this->normalizeTtl($ttl);
 
 		if ($ttl === 0) {
 			return (bool) $this->redis->set($key, $data);
@@ -50,11 +53,13 @@ class Redis extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
 		$key = $this->getPrefixedKey($key);
 
 		$data = is_numeric($data) ? $data : serialize($data);
+
+		$ttl = $this->normalizeTtl($ttl);
 
 		if ($ttl === 0) {
 			return (bool) $this->redis->set($key, $data, 'NX');

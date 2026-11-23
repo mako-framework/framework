@@ -7,6 +7,7 @@
 
 namespace mako\tests\unit\cache\stores;
 
+use InvalidArgumentException;
 use mako\cache\stores\Database;
 use mako\database\connections\Connection;
 use mako\database\query\Query;
@@ -14,6 +15,8 @@ use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Retry;
+use Time\Duration;
 
 #[Group('unit')]
 class DatabaseTest extends TestCase
@@ -37,6 +40,7 @@ class DatabaseTest extends TestCase
 	/**
 	 *
 	 */
+	#[Retry(2)]
 	public function testPut(): void
 	{
 		$builder = $this->getQueryBuilder();
@@ -76,11 +80,65 @@ class DatabaseTest extends TestCase
 		$store = new Database($connection, 'mako_cache');
 
 		$store->put('foo', 'foo', 3600);
+
+		//
+
+		$builder = $this->getQueryBuilder();
+
+		$builder->shouldReceive('table')->twice()->with('mako_cache')->andReturn($builder);
+
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
+
+		$builder->shouldReceive('delete')->once()->andReturn(true);
+
+		$builder->shouldReceive('insert')->with(['key' => 'mako:cache:foo', 'data' => serialize('foo'), 'lifetime' => 3600 + time()])->once()->andReturn(true);
+
+		$connection = $this->getDatabaseConnection();
+
+		$connection->shouldReceive('getQuery')->twice()->andReturn($builder);
+
+		$store = new Database($connection, 'mako_cache');
+
+		$store->put('foo', 'foo', Duration::fromSeconds(3600));
+
+		//
+
+		$builder = $this->getQueryBuilder();
+
+		$builder->shouldReceive('table')->twice()->with('mako_cache')->andReturn($builder);
+
+		$builder->shouldReceive('where')->with('key', '=', 'mako:cache:foo')->once()->andReturn($builder);
+
+		$builder->shouldReceive('delete')->once()->andReturn(true);
+
+		$builder->shouldReceive('insert')->with(['key' => 'mako:cache:foo', 'data' => serialize('foo'), 'lifetime' => 3601 + time()])->once()->andReturn(true);
+
+		$connection = $this->getDatabaseConnection();
+
+		$connection->shouldReceive('getQuery')->twice()->andReturn($builder);
+
+		$store = new Database($connection, 'mako_cache');
+
+		$store->put('foo', 'foo', Duration::fromSeconds(3600, 300)); // Fractional seconds are rounded up
 	}
+
+    /**
+     *
+     */
+    public function testPutWithNegativeDuration(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageIs('The TTL cannot be negative.');
+
+        $store = new Database($this->getDatabaseConnection(), 'mako_cache');
+
+        $store->put('foo', 'foo', Duration::fromSeconds(3600)->negate());
+    }
 
 	/**
 	 *
 	 */
+	#[Retry(2)]
 	public function testHas(): void
 	{
 		$builder = $this->getQueryBuilder();

@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use Override;
+use Time\Duration;
 
 use function apcu_add;
 use function apcu_clear_cache;
@@ -28,18 +29,18 @@ class APCu extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function put(string $key, mixed $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
-		return apcu_store($this->getPrefixedKey($key), $data, $ttl);
+		return apcu_store($this->getPrefixedKey($key), $data, $this->normalizeTtl($ttl));
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
-		return apcu_add($this->getPrefixedKey($key), $data, $ttl);
+		return apcu_add($this->getPrefixedKey($key), $data, $this->normalizeTtl($ttl));
 	}
 
 	/**
@@ -84,9 +85,9 @@ class APCu extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getOrElse(string $key, callable $data, int $ttl = 0): mixed
+	public function getOrElse(string $key, callable $data, Duration|int $ttl = 0): mixed
 	{
-		return apcu_entry($this->getPrefixedKey($key), $data, $ttl);
+		return apcu_entry($this->getPrefixedKey($key), $data, $this->normalizeTtl($ttl));
 	}
 
 	/**

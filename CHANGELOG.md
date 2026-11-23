@@ -282,6 +282,7 @@ The major version bump is due to upping the required PHP version from `8.4` to `
 * New and vastly improved image processing library (`pixel`) that replaces the the old `pixl` library.
 * Added CLI frame output component.
 * Added CLI notification output component for sending desktop notifications.
+* All cache stores now accept `Time\Duration` as a TTL in addition to an integer.
 * Added a `SimpleCache` (`PSR-16`) implementation to the framework core.
 * Added the following methods introduced in Redis 8.0.0:
 	- `Redis::hGetDel()`
