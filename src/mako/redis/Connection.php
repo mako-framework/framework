@@ -165,7 +165,14 @@ class Connection
 
 			$context = stream_context_create($contextOptions);
 
-			$connection = stream_socket_client("{$scheme}://{$host}:{$port}", $errno, $errstr, $this->connectionTimeout, $flags, $context);
+			$connection = stream_socket_client(
+				"{$scheme}://{$host}:{$port}",
+				$errno,
+				$errstr,
+				$this->connectionTimeout,
+				$flags,
+				$context
+			);
 
 			stream_set_timeout($connection, $this->readWriteTimeout);
 
@@ -257,7 +264,7 @@ class Connection
 		do {
 			$totalBytesWritten += $bytesWritten = fwrite($this->connection, $data);
 
-			if ($bytesWritten === false) {
+			if ($bytesWritten === false || $bytesWritten === 0) {
 				throw new RedisException('Failed to write data to the server.');
 			}
 
