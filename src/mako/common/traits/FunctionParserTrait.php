@@ -10,7 +10,6 @@ namespace mako\common\traits;
 use mako\common\traits\exceptions\FunctionParserTraitException;
 
 use function json_decode;
-use function json_last_error;
 use function preg_match;
 use function sprintf;
 use function str_contains;
@@ -48,10 +47,10 @@ trait FunctionParserTrait
 			$namedParameters = preg_match('/^"[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"\s*:/', $function[1]) === 1;
 		}
 
-		$parameters = json_decode(($namedParameters === true ? "{{$function[1]}}" : "[{$function[1]}]"), true);
+		$parameters = json_decode($namedParameters ? "{{$function[1]}}" : "[{$function[1]}]", true);
 
-		if ($parameters === null && json_last_error() !== JSON_ERROR_NONE) {
-			throw new FunctionParserTraitException('Failed to decode function parameters.');
+		if ($parameters === null) {
+			throw new FunctionParserTraitException(sprintf('Failed to decode parameters of [ %s ].', $function[0]));
 		}
 
 		return [$function[0], $parameters];
