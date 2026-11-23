@@ -87,9 +87,10 @@ class SignedTokenTest extends TestCase
 	public static function invalidTtlProvider(): array
 	{
 		return [
-			'zero'     => [0],
-			'negative' => [-1],
-			'overflow' => [PHP_INT_MAX],
+			'zero'              => [0],
+			'negative'          => [-1],
+			'overflow'          => [PHP_INT_MAX],
+			'negative-duration' => [Duration::fromSeconds(100)->negate()],
 		];
 	}
 
@@ -209,7 +210,7 @@ class SignedTokenTest extends TestCase
 	 *
 	 */
 	#[DataProvider('invalidTtlProvider')]
-	public function testCreateWithInvalidTtl(int $ttl): void
+	public function testCreateWithInvalidTtl(Duration|int $ttl): void
 	{
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessageIs('Invalid token TTL.');
