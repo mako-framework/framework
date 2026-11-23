@@ -14,6 +14,7 @@ use mako\security\signer\Signer;
 use mako\security\token\exceptions\TokenException;
 use Psr\Clock\ClockInterface;
 use SensitiveParameter;
+use Time\Duration;
 
 use function base64_decode;
 use function base64_encode;
@@ -51,8 +52,12 @@ final class SignedToken
 	/**
 	 * Calculates the expiration timestamp.
 	 */
-	private function getExpiration(int $ttl): int
+	private function getExpiration(Duration|int $ttl): int
 	{
+		if ($ttl instanceof Duration) {
+			$ttl = $ttl->negative ? -$ttl->seconds : $ttl->seconds;
+		}
+
 		$now = $this->clock->now()->getTimestamp();
 
 		if ($ttl <= 0 || $ttl > PHP_INT_MAX - $now) {
@@ -111,7 +116,7 @@ final class SignedToken
 	 */
 	public function create(
 		#[SensitiveParameter] string $identifier,
-		int $ttl,
+		Duration|int $ttl,
 		#[SensitiveParameter] array $meta = []
 	): string {
 		$expires = $this->getExpiration($ttl);

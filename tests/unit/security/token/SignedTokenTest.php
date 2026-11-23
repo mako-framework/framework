@@ -19,6 +19,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Psr\Clock\ClockInterface;
 use stdClass;
+use Time\Duration;
 
 #[Group('unit')]
 class SignedTokenTest extends TestCase
@@ -152,6 +153,16 @@ class SignedTokenTest extends TestCase
 	public function testCreate(): void
 	{
 		$token = $this->getSignedToken()->create('foobar', 3600);
+
+		$this->assertSame(static::buildToken(static::NOW + 3600, 'foobar'), $token);
+	}
+
+	/**
+	 *
+	 */
+	public function testCreateWithDuration(): void
+	{
+		$token = $this->getSignedToken()->create('foobar', Duration::fromSeconds(3600));
 
 		$this->assertSame(static::buildToken(static::NOW + 3600, 'foobar'), $token);
 	}
