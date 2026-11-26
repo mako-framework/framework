@@ -65,6 +65,10 @@ abstract class Store implements StoreInterface
 			return $ttl->nanoseconds > 0 ? $ttl->seconds + 1 : $ttl->seconds;
 		}
 
+		if ($ttl < 0) {
+			throw new InvalidArgumentException('The TTL cannot be negative.');
+		}
+
 		return $ttl;
 	}
 
