@@ -19,6 +19,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Psr\Clock\ClockInterface;
 use stdClass;
+use Time\Duration;
 
 #[Group('unit')]
 class SignedTokenTest extends TestCase
@@ -86,9 +87,10 @@ class SignedTokenTest extends TestCase
 	public static function invalidTtlProvider(): array
 	{
 		return [
-			'zero'     => [0],
-			'negative' => [-1],
-			'overflow' => [PHP_INT_MAX],
+			'zero'              => [0],
+			'negative'          => [-1],
+			'overflow'          => [PHP_INT_MAX],
+			'negative-duration' => [Duration::fromSeconds(100)->negate()],
 		];
 	}
 
@@ -159,6 +161,16 @@ class SignedTokenTest extends TestCase
 	/**
 	 *
 	 */
+	public function testCreateWithDuration(): void
+	{
+		$token = $this->getSignedToken()->create('foobar', Duration::fromSeconds(3600));
+
+		$this->assertSame(static::buildToken(static::NOW + 3600, 'foobar'), $token);
+	}
+
+	/**
+	 *
+	 */
 	public function testCreateWithMeta(): void
 	{
 		$token = $this->getSignedToken()->create('foobar', 3600, ['foo' => 'bar', 'bar' => 1]);
@@ -198,7 +210,7 @@ class SignedTokenTest extends TestCase
 	 *
 	 */
 	#[DataProvider('invalidTtlProvider')]
-	public function testCreateWithInvalidTtl(int $ttl): void
+	public function testCreateWithInvalidTtl(Duration|int $ttl): void
 	{
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessageIs('Invalid token TTL.');

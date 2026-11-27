@@ -7,7 +7,9 @@
 
 namespace mako\cache\stores;
 
+use InvalidArgumentException;
 use Override;
+use Time\Duration;
 
 /**
  * Base store.
@@ -48,10 +50,33 @@ abstract class Store implements StoreInterface
 	}
 
 	/**
+	 * Normalizes the TTL to an integer number of seconds.
+	 *
+	 * Durations with a fractional second are rounded up to avoid
+	 * a sub-second TTL being truncated to 0 ("cache forever").
+	 */
+	protected function normalizeTtl(Duration|int $ttl): int
+	{
+		if ($ttl instanceof Duration) {
+			if ($ttl->negative) {
+				throw new InvalidArgumentException('The TTL cannot be negative.');
+			}
+
+			return $ttl->nanoseconds > 0 ? $ttl->seconds + 1 : $ttl->seconds;
+		}
+
+		if ($ttl < 0) {
+			throw new InvalidArgumentException('The TTL cannot be negative.');
+		}
+
+		return $ttl;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function putIfNotExists(string $key, $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
 		if ($this->has($key) === false) {
 			return $this->put($key, $data, $ttl);
@@ -63,7 +88,7 @@ abstract class Store implements StoreInterface
 	/**
 	 * Fetch data from the cache and replace it. Null will be returned if the item does not exist.
 	 */
-	public function getAndPut(string $key, mixed $data, int $ttl = 0): mixed
+	public function getAndPut(string $key, mixed $data, Duration|int $ttl = 0): mixed
 	{
 		$storedValue = $this->get($key);
 
@@ -90,7 +115,7 @@ abstract class Store implements StoreInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function getOrElse(string $key, callable $data, int $ttl = 0): mixed
+	public function getOrElse(string $key, callable $data, Duration|int $ttl = 0): mixed
 	{
 		$cached = $this->get($key);
 

@@ -13,6 +13,7 @@ use mako\tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
+use Time\Duration;
 
 #[Group('unit')]
 class RedisTest extends TestCase
@@ -67,6 +68,22 @@ class RedisTest extends TestCase
 		$redis = new Redis($client);
 
 		$redis->put('foo', 'foo', 3600);
+
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', 123, 'EX', 123)->andReturn(true);
+
+		//
+
+		$redis = new Redis($client);
+
+		$redis->put('foo', 123, Duration::fromSeconds(123));
+
+		//
+
+		$client->shouldReceive('set')->once()->with('mako:cache:foo', 123, 'EX', 124)->andReturn(true);
+
+		$redis = new Redis($client);
+
+		$redis->put('foo', 123, Duration::fromSeconds(123, 300)); // Fractional seconds are rounded up
 	}
 
 	/**

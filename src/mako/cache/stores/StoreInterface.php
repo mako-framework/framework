@@ -7,6 +7,8 @@
 
 namespace mako\cache\stores;
 
+use Time\Duration;
+
 /**
  * Store interface.
  */
@@ -14,13 +16,17 @@ interface StoreInterface
 {
 	/**
 	 * Store data in the cache.
+	 *
+	 * @param Duration|int<0, max> $ttl
 	 */
-	public function put(string $key, mixed $data, int $ttl = 0): bool;
+	public function put(string $key, mixed $data, Duration|int $ttl = 0): bool;
 
 	/**
 	 * Store data in the cache if it doesn't already exist.
+	 *
+	 * @param Duration|int<0, max> $ttl
 	 */
-	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool;
+	public function putIfNotExists(string $key, mixed $data, Duration|int $ttl = 0): bool;
 
 	/**
 	 * Returns true if the cache key exists and false if not.
@@ -34,8 +40,10 @@ interface StoreInterface
 
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
+	 *
+	 * @param Duration|int<0, max> $ttl
 	 */
-	public function getOrElse(string $key, callable $callable, int $ttl = 0): mixed;
+	public function getOrElse(string $key, callable $callable, Duration|int $ttl = 0): mixed;
 
 	/**
 	 * Delete data from the cache.

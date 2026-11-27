@@ -3,7 +3,9 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-return (new Config)->setRules
+return (new Config)
+->setUnsupportedPhpVersionAllowed(true)
+->setRules
 ([
 	'align_multiline_comment' => true,
 	'array_syntax' => ['syntax' => 'short'],

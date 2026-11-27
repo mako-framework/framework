@@ -8,6 +8,7 @@
 namespace mako\cache\stores;
 
 use Override;
+use Time\Duration;
 
 /**
  * Null store.
@@ -18,7 +19,7 @@ class NullStore extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function put(string $key, mixed $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
 		return true;
 	}

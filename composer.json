@@ -32,7 +32,7 @@
         }
     },
     "require": {
-        "php": ">=8.5.0",
+        "php": ">=8.6.0",
         "ext-json": "*",
         "ext-mbstring": "*",
         "doctrine/sql-formatter": "^1.5",

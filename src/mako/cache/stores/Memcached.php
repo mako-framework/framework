@@ -9,6 +9,7 @@ namespace mako\cache\stores;
 
 use Memcached as PHPMemcached;
 use Override;
+use Time\Duration;
 
 use function time;
 
@@ -50,8 +51,10 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function put(string $key, mixed $data, int $ttl = 0): bool
+	public function put(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
+		$ttl = $this->normalizeTtl($ttl);
+
 		if ($ttl !== 0) {
 			$ttl += time();
 		}
@@ -69,8 +72,10 @@ class Memcached extends Store implements IncrementDecrementInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function putIfNotExists(string $key, mixed $data, int $ttl = 0): bool
+	public function putIfNotExists(string $key, mixed $data, Duration|int $ttl = 0): bool
 	{
+		$ttl = $this->normalizeTtl($ttl);
+
 		if ($ttl !== 0) {
 			$ttl += time();
 		}

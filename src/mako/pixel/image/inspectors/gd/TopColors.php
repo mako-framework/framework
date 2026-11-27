@@ -31,6 +31,12 @@ class TopColors extends TopColorsInspector
 	use GdTrait;
 
 	/**
+	 * Lower bound on the sampling step, ensuring that small images
+	 * are sampled at full density with every pixel being inspected.
+	 */
+	protected const int MIN_SAMPLE_STEP = 1;
+
+	/**
 	 * Upper bound on the sampling step, so that very large images don't get
 	 * sampled too sparsely and risk missing small but visually significant colors.
 	 */
@@ -49,7 +55,7 @@ class TopColors extends TopColorsInspector
 
 		$step = (int) ceil(1 + log(max(1, $megapixels), 2));
 
-		return max(1, min(static::MAX_SAMPLE_STEP, $step));
+		return max(static::MIN_SAMPLE_STEP, min(static::MAX_SAMPLE_STEP, $step));
 	}
 
 	/**

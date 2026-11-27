@@ -17,7 +17,7 @@ class SQLServer extends Connection
 	/**
 	 * {@inheritDoc}
 	 */
-	//#[Override]
+	#[Override]
 	protected const bool SUPPORTS_TRANSACTIONAL_DDL = true;
 
 	/**
