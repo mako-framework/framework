@@ -16,6 +16,8 @@ interface StoreInterface
 {
 	/**
 	 * Writes session data.
+	 *
+	 * @param int<1, max> $dataTTL
 	 */
 	public function write(#[SensitiveParameter] string $sessionId, array $sessionData, int $dataTTL): void;
 
@@ -31,6 +33,8 @@ interface StoreInterface
 
 	/**
 	 * Garbage collector that deletes expired session data.
+	 *
+	 * @param int<1, max> $dataTTL
 	 */
 	public function gc(int $dataTTL): void;
 }
