@@ -17,14 +17,14 @@ interface StoreInterface
 	/**
 	 * Store data in the cache.
 	 *
-	 * @param Duration|non-negative-int $ttl
+	 * @param Duration|int<0, max> $ttl
 	 */
 	public function put(string $key, mixed $data, Duration|int $ttl = 0): bool;
 
 	/**
 	 * Store data in the cache if it doesn't already exist.
 	 *
-	 * @param Duration|non-negative-int $ttl
+	 * @param Duration|int<0, max> $ttl
 	 */
 	public function putIfNotExists(string $key, mixed $data, Duration|int $ttl = 0): bool;
 
@@ -41,7 +41,7 @@ interface StoreInterface
 	/**
 	 * Fetch data from the cache or store it if it doesn't already exist.
 	 *
-	 * @param Duration|non-negative-int $ttl
+	 * @param Duration|int<0, max> $ttl
 	 */
 	public function getOrElse(string $key, callable $callable, Duration|int $ttl = 0): mixed;
 
